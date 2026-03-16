@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Primary Meta Tags -->
+  <title>Online CAGR Calculator - Compound Annual Growth Rate Calculator</title>
+<meta name="description" content="Use our free online CAGR calculator to calculate the Compound Annual Growth Rate (CAGR) of your investments. Accurately measure the annual growth rate with this powerful CAGR calculation calculator." />
+  <meta name="keywords" content="online CAGR calculator, compound annual growth rate calculator, CAGR calculation calculator, CAGR annual growth rate, investment calculator, CAGR formula, financial growth calculator" />
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <link rel="canonical" href="https://instacalc.in/cagrcalculator.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/cagrcalculator.html">
+   <meta property="og:title" content="Online CAGR Calculator - Compound Annual Growth Rate Calculator" />
+  <meta property="og:description" content="Free and easy-to-use online CAGR calculator to find the compound annual growth rate of any investment. Get quick and accurate CAGR results today." />
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://instacalc.in/cagrcalculator.html">
+  <meta name="twitter:title" content="Online CAGR Calculator - Accurate Compound Annual Growth Rate" />
+  <meta name="twitter:description" content="Calculate your compound annual growth rate (CAGR) instantly using our online CAGR calculator. Get clear and accurate investment growth results." />
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#007BFF">
+  <meta name="language" content="English">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <!-- Critical CSS -->
+  <style>
+    /* Minimum layout stability styles */
+    body { 
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .calculator-container {
+      min-height: 600px; /* Reserve space for calculator */
+    }
+    .result-section {
+      height: 200px; /* Fixed height for results area */
+      visibility: hidden; /* Hidden until calculated */
+    }
+    /* Prevent layout shifts in main content */
+    .main-content {
+      position: relative;
+      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
+    }
+    /* Fixed dimensions for key elements */
+    input {
+      width: 100%;
+      max-width: 400px;
+      height: 40px;
+    }
+       /* Fixed dimensions for key elements */
+    .chart-container {
+      width: 100%;
+      max-width: 400px;
+      height: 300px;
+    }
+  </style>
+
+  <!-- Preloads -->
+  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
+  <link rel="preload" href="style.css" as="style">
+  
+  <!-- Non-critical CSS -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </noscript>
+
+  <!-- Script optimization -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
+  <!-- Only load Popper and Bootstrap JS if needed -->
+  <?php if (needs_bootstrap_js): ?>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
+  
+     <script src="bootstrap/js/bootstrap.min.js" defer></script>
+  <?php endif; ?>
+
+  <!-- Load Chart.js only when needed -->
+  <script>
+    function loadChartJS() {
+      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
+        window.Chart = module.default;
+        initializeCharts();
+      });
+    }
+  </script>
+
+  <script src="script.js" defer></script>
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg navbar-dark ">
+  <div class="d-flex align-items-center navbar-brand">
+    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
+    <h6 class="text-white mb-0">InstaCalc.in</h6>
+  </div>   
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>     
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item px-2">
+        <a class="nav-link" href="index.html">Home</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="aboutus.html">About Us</a>
+      </li>
+         <li class="nav-item px-2">
+        <a class="nav-link " href="contactus.html">Contact Us</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    
+
+
+  <!-- //first row first column -->
+  <div  class="row">
+  <!--   //first row first column -->
+    <div class="col-md-6" style="background-colorf:yellow;">
+      <div class="container mt-5 table1">
+
+       <h2>CARG Calculator</h2>
+
+
+       <div class="input-group m">
+           <label for="amount">Total Investment (₹)</label>
+           <div class="slider-container">
+               <input type="range" id="amount-slider" min="1000" max="10000000" step="500" value="1000" oninput="syncInputs('amount')">
+               <input   type="number" id="amount" min="30000" max="1000" step="500" value="1000" oninput="syncInputs('amount', true)">
+           </div>
+       </div>
+       <div class="input-group" >
+           <label for="rate">Future Value(₹)</label>
+           <div class="slider-container" >
+               <input   type="range" id="rate-slider" min="1" max="10000000" step="0.1" value="20000" oninput="syncInputs('rate')">
+               <input  type="number" id="rate" min="1" max="20" step="0.1" value="20000" oninput="syncInputs('rate', true)">
+           </div>
+       </div>
+       <div class="input-group">
+           <label for="years">Time Period (Years)</label>
+           <div class="slider-container">
+               <input   type="range" id="years-slider" min="1" max="30" step="1" value="5" oninput="syncInputs('years')">
+               <input type="number" id="years" min="1" max="30" step="1" value="5" oninput="syncInputs('years', true)">
+           </div>
+       </div>
+       <div class="result-box">
+           <p class="invisible">Invested Amount: <strong>₹<span id="invested">0</span></strong></p>
+           <p>CARG Is  <strong><span id="returns"></span>%</strong></p>
+           <p class="invisible">Expected Return(₹): <strong>₹<span id="total">0</span></strong></p>
+       </div>
+       <div class="chart-container">
+           <canvas id="sipChart"></canvas>
+       </div>
+    
+     </div>
+  </div>
+  <!--   //first row second column -->
+  <div class="col-md-6 d-none d-md-block">
+  <div class="container mt-5">
+    <div class="container-fluid mt-sm-5 mb-sm-5">
+      <a href="sipcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="mutualfundreturncalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="gratuitycalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="epfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="fdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="rdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="cargcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="coumpoundinterest.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="retirementcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="ppfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="emicalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="simpleinterestcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+      </div>
+
+  <!--  /second row -->
+   <div  class="row mb-05 ">
+  <!--    //second row first column -->
+       <div class="col-md-6 mt-5" >
+    <div class="container mt-05">
+      <div class="cagr-calculator-content">
+        <div class="title">
+          <h1>Online CAGR Calculator – Compound Annual Growth Rate Calculator</h1>
+        </div>
+        <div class="introduction">
+          <p>Looking for an easy way to calculate your investment growth? Use our <strong>online CAGR calculator</strong> to find the <strong>compound annual growth rate</strong> of your investment. It's a reliable metric that helps you evaluate long-term returns by factoring in compounding.</p>
+          <p>Our <strong>CAGR calculation calculator</strong> helps you measure how much your investment has grown each year, on average. Forget manual calculations—get instant, accurate results with just a few inputs.</p>
+        </div>
+
+        <div class="what-is-cagr-calculator">
+          <h2>What is a CAGR Calculation Calculator?</h2>
+          <p>A <strong>compound annual growth rate calculator</strong> computes the annualized return of an investment over a certain period. Unlike simple returns, CAGR includes the impact of compounding, giving a clearer picture of performance.</p>
+          <ul>
+            <li>✔️ What is my average annual growth rate?</li>
+            <li>✔️ How has my portfolio performed over time?</li>
+            <li>✔️ How does this investment compare with others?</li>
+          </ul>
+        </div>
+
+        <div class="how-cagr-calculator-works">
+          <h2>How the Online CAGR Calculator Works</h2>
+          <p>The formula used by our <strong>online CAGR calculator</strong> is:</p>
+          <p><code>CAGR = (EV / BV)<sup>(1/t)</sup> - 1</code></p>
+          <p>Where:</p>
+          <ul>
+            <li><strong>EV</strong> – Ending Value</li>
+            <li><strong>BV</strong> – Beginning Value</li>
+            <li><strong>t</strong> – Number of years</li>
+          </ul>
+        </div>
+
+        <div class="how-to-use-cagr-calculator">
+          <h2>How to Use This CAGR Annual Growth Rate Calculator</h2>
+          <p>To use our <strong>CAGR annual growth rate calculator</strong>, just follow these simple steps:</p>
+          <ol>
+            <li>1️⃣ Enter your Initial Investment (BV)</li>
+            <li>2️⃣ Enter your Final Investment Value (EV)</li>
+            <li>3️⃣ Input the Duration (Years)</li>
+            <li>4️⃣ Click on ‘Calculate’</li>
+          </ol>
+        </div>
+
+        <div class="example-calculation">
+          <h2>Example of CAGR Calculation</h2>
+          <p>Imagine you invested ₹1,00,000 and it grew to ₹1,80,000 over 5 years. Here's the math:</p>
+          <p><code>CAGR = (1,80,000 / 1,00,000)<sup>(1/5)</sup> - 1 = 12.57%</code></p>
+        </div>
+
+        <div class="why-use-cagr-calculator">
+          <h2>Why Use Our Online CAGR Calculator?</h2>
+          <ul>
+            <li>✅ Accurate annual growth measurement</li>
+            <li>✅ Compare various investment options</li>
+            <li>✅ Forecast returns and set goals</li>
+            <li>✅ Make smarter investment decisions</li>
+          </ul>
+        </div>
+
+        <div class="limitations">
+          <h2>Limitations of CAGR</h2>
+          <p>CAGR has some limitations:</p>
+          <ul>
+            <li>🔹 It assumes steady growth</li>
+            <li>🔹 It does not show volatility or risk</li>
+            <li>🔹 Past CAGR does not guarantee future results</li>
+          </ul>
+        </div>
+
+        <div class="final-thoughts">
+          <h2>Final Thoughts</h2>
+          <p>Use this <strong>compound annual growth rate calculator</strong> to assess and compare your investments with ease. Whether it’s stocks, mutual funds, or real estate, this tool provides quick insights for better financial decisions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--   //second row second column -->
+<div class="col-md-6" >
+    <div class="container mt-5 mb-5">
+        <h2 class="mb-4">FAQs</h2>
+        <div id="faqAccordion" class="accordion">
+
+            <!-- FAQ 1 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            What is CAGR (Compound Annual Growth Rate)?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        CAGR (Compound Annual Growth Rate) is a measure of the annual growth rate of an investment over a specified period, assuming the profits are reinvested at the end of each year. It provides a smoothed annual rate of return.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            How does the CAGR Calculator work?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        The CAGR Calculator calculates the annual growth rate of an investment using the formula:
+                        <br>
+                        <code>CAGR = (Ending Value / Beginning Value)^(1 / Number of Years) - 1</code>
+                        <br>
+                        You need to input the beginning value, ending value, and the number of years to calculate the CAGR.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            What inputs are required for the CAGR Calculator?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        You need to provide:
+                        <ul>
+                            <li><strong>Beginning Value:</strong> The initial value of the investment.</li>
+                            <li><strong>Ending Value:</strong> The final value of the investment.</li>
+                            <li><strong>Number of Years:</strong> The duration of the investment in years.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Why is CAGR important?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        CAGR is important because it provides a single growth rate that smooths out the volatility of returns over time. It helps investors compare the performance of different investments over the same period.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFive">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            Can CAGR be used for any type of investment?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        Yes, CAGR can be used for any type of investment, including stocks, mutual funds, real estate, and business projects. It is a versatile tool for measuring growth over time.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 6 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSix">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            What are the limitations of CAGR?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        CAGR does not account for volatility or the risk of an investment. It assumes a smooth growth rate, which may not reflect the actual ups and downs of the investment.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 7 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSeven">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                            How is CAGR different from absolute return?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        Absolute return measures the total return on an investment without considering the time period. CAGR, on the other hand, provides an annualized growth rate, making it easier to compare investments over different time periods.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 8 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingEight">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                            Can CAGR be negative?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        Yes, CAGR can be negative if the ending value of the investment is less than the beginning value. This indicates a loss over the investment period.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+   </div>
+  <!--   //third row -->
+     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
+  <!--        //third row first column -->
+       <div class="col-sm-12 " >
+         <div class=" text-center" style="margin-bottom:0">
+         <p id="backToTopBtn" style="color:white;">
+
+              Back To Home
+
+             </p>
+       </div>
+
+         </div>
+  <!--      //third row second column -->
+       <div class="col-sm-0 " style="background-color:pink;">    </div>
+      </div>
+        <script> 
+    // Get the button
+const backToTopBtn = document.getElementById("backToTopBtn");
+
+// When the user scrolls down 20px from the top, show the button
+window.onscroll = function () {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    backToTopBtn.style.display = "block";
+  } else {
+    backToTopBtn.style.display = "none";
+  }
+};
+
+// When the user clicks the button, scroll to the top of the page
+backToTopBtn.addEventListener("click", function () {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+});
+    
+    </script>
+      <script>
+              function syncInputs(id, isManual = false) {
+                  const slider = document.getElementById(`${id}-slider`);
+                  const numberInput = document.getElementById(id);
+                  if (isManual) {
+                      slider.value = numberInput.value;
+                  } else {
+                      numberInput.value = slider.value;
+                  }
+                  calculateSIP();
+              }
+          //CAGR = (FV / PV) 1 / n – 1
+
+
+             function calculateSIP() {
+    // Get input values
+    let PV = parseFloat(document.getElementById("amount").value); // Present Value (Initial Investment)
+    let FV = parseFloat(document.getElementById("rate").value);   // Future Value
+    let n = parseInt(document.getElementById("years").value);      // Number of years
+
+    // Calculate CAGR
+    let CAGR = Math.pow(FV / PV, 1 / n) - 1;
+
+    // Calculate Invested Amount and Estimated Returns
+    let investedAmount = PV;
+    let estReturns = CAGR * 100; // Convert CAGR to percentage
+
+    // Display results
+    document.getElementById("invested").textContent = investedAmount.toFixed(2);
+    document.getElementById("returns").textContent = estReturns.toFixed(2);
+
+    // Update chart (if needed)
+    updateChart(investedAmount, estReturns);
+}
+              let sipChart;
+              function updateChart(invested, returns) {
+                    let PV = parseFloat(document.getElementById("amount").value); // Present Value (Initial Investment)
+                    let FV = parseFloat(document.getElementById("rate").value);   // Future Value
+                    let n = parseInt(document.getElementById("years").value);      // Number of years
+                  let ctx = document.getElementById("sipChart").getContext("2d");
+                  if (sipChart) sipChart.destroy();
+                  sipChart = new Chart(ctx, {
+                      type: "doughnut",
+                      data: {
+                          labels: ["Invested Amount", "Expected Returns "],
+                          datasets: [{
+                              data: [PV, FV],
+                              backgroundColor: ["#4CAF50", "#2196F3"]
+                          }]
+                      }
+                  });
+              }
+              calculateSIP();
+
+
+          
+          </script>
+    
+
+          
+
+      <style>
+              bodyss {
+                  font-family: Arial, sans-serif;
+                  margin: 20px;
+                  padding: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  flex-direction: column;
+                  background-color: #f4f4f4;
+              }
+              img {
+  border-radius: 50%;
+}
+              .container {
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                  max-width: 500px;
+                  width: 100%;
+              }
+              .input-group {
+                  margin-bottom: 15px;
+              }
+              .input-group label {
+                  display: block;
+                  margin-bottom: 5px;
+              }
+
+              .footer1 {
+                  display: block;
+                  margin-top: 10px;
+                  height: 50px;
+              }
+              .slider-container {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+              }
+              .slider-container input[type="number"] {
+                  width: 80px;
+                  text-align: center;
+              }
+              .result-box {
+                  background: #eef;
+                  padding: 10px;
+                  border-radius: 5px;
+                  margin-top: 20px;
+              }
+              .chart-container {
+                  width: 300px;
+                  margin: 20px auto;
+              }
+
+              // for faq
+              .faq-header {
+              cursor: pointer;
+              transition: background-color 0.3s;
+            }
+            .faq-header:hover {
+              background-color: #f8f9fa;
+            }
+            .card {
+              margin-bottom: 8px;
+              border: 1px solid rgba(0,0,0,.125);
+            }
+            .bi-chevron-down {
+              transition: transform 0.3s;
+            }
+            .collapsed .bi-chevron-down {
+              transform: rotate(0deg); /* Down arrow */
+            }
+            .bi-chevron-down:not(.collapsed) {
+              transform: rotate(180deg); /* Up arrow */
+
+
+          </style>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+</html>

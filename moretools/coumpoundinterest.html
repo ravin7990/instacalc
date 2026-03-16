@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>Compound Interest Calculator – Estimate Your Wealth Growth</title>
+<meta name="description" content="Use our free compound interest calculator to calculate yearly growth on your savings or investment. Compare compounding options like monthly, quarterly or yearly.">
+<meta name="keywords" content="compound interest calculator, cumulative interest calculator, compound interest formula, estimate compound interest, compound interest rate calculator, compound interest loan calculator, compound and interest calculator, compute compound interest calculator, calculate yearly compound interest">
+<link rel="icon" type="image/x-icon" href="https://instacalc.in/instatheme.webp">
+<link rel="canonical" href="https://instacalc.in/compound-interest-calculator.html" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Compound Interest Calculator – Grow Your Savings Smartly">
+<meta property="og:description" content="Quickly estimate compound interest on your investments. Try our compound interest calculator and see your money grow with time.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://instacalc.in/compound-interest-calculator.html">
+<meta property="og:image" content="https://instacalc.in/instatheme.webp">
+<meta property="og:site_name" content="InstaCalc">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Compound Interest Calculator – Calculate Cumulative Returns">
+<meta name="twitter:description" content="Calculate compound interest online using our free calculator. Ideal for savings, loans, and investment planning. Try now!">
+<meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+    
+<!-- Additional SEO Meta Tags -->
+<meta name="author" content="Instacalc">
+<meta name="robots" content="index, follow">
+<meta name="revisit-after" content="7 days">
+<meta name="language" content="English">
+<meta name="theme-color" content="#1a2a3a">    
+    
+
+
+  <!-- Critical CSS -->
+  <style>
+    /* Minimum layout stability styles */
+    body { 
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .calculator-container {
+      min-height: 600px; /* Reserve space for calculator */
+    }
+    .result-section {
+      height: 200px; /* Fixed height for results area */
+      visibility: hidden; /* Hidden until calculated */
+    }
+    /* Prevent layout shifts in main content */
+    .main-content {
+      position: relative;
+      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
+    }
+    /* Fixed dimensions for key elements */
+    input {
+      width: 100%;
+      max-width: 400px;
+      height: 40px;
+    }
+       /* Fixed dimensions for key elements */
+    .chart-container {
+      width: 100%;
+      max-width: 400px;
+      height: 300px;
+    }
+  </style>
+
+  <!-- Preloads -->
+  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
+  <link rel="preload" href="style.css" as="style">
+  
+  <!-- Non-critical CSS -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </noscript>
+
+  <!-- Script optimization -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
+  <!-- Only load Popper and Bootstrap JS if needed -->
+  <?php if (needs_bootstrap_js): ?>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
+  
+     <script src="bootstrap/js/bootstrap.min.js" defer></script>
+  <?php endif; ?>
+
+  <!-- Load Chart.js only when needed -->
+  <script>
+    function loadChartJS() {
+      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
+        window.Chart = module.default;
+        initializeCharts();
+      });
+    }
+  </script>
+
+  <script src="script.js" defer></script> 
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg navbar-dark ">
+  <div class="d-flex align-items-center navbar-brand">
+    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
+    <h6 class="text-white mb-0">InstaCalc.in
+</h6>
+  </div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item px-2">
+        <a class="nav-link" href="index.html">Home</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="aboutus.html">About Us</a>
+      </li>
+         <li class="nav-item px-2">
+        <a class="nav-link " href="contactus.html">Contact Us</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+
+  <!-- //first row first column -->
+  <div  class="row">
+  <!--   //first row first column -->
+    <div class="col-md-6" style="background-colorf:yellow;">
+      <div class="container mt-5 table1">
+
+       <h2>Compound Interest Calculator</h2>
+
+        
+       <div class="input-group m">
+           <label for="amount">Total Investment (₹)</label>
+           <div class="slider-container">
+               <input type="range" id="amount-slider" min="1000" max="100000" step="500" value="25000" oninput="syncInputs('amount')">
+               <input type="number" id="amount" min="1000" max="100000" step="500" value="25000" oninput="syncInputs('amount', true)">
+           </div>
+       </div>
+       <div class="input-group">
+           <label for="rate">Expected Return Rate (p.a.) (%)</label>
+           <div class="slider-container">
+               <input type="range" id="rate-slider" min="1" max="20" step="0.1" value="12" oninput="syncInputs('rate')">
+               <input type="number" id="rate" min="1" max="20" step="0.1" value="12" oninput="syncInputs('rate', true)">
+           </div>
+       </div>
+       <div class="input-group">
+           <label for="years">Time Period (Years)</label>
+           <div class="slider-container">
+               <input type="range" id="years-slider" min="1" max="30" step="1" value="10" oninput="syncInputs('years')">
+               <input type="number" id="years" min="1" max="30" step="1" value="10" oninput="syncInputs('years', true)">
+           </div>
+       </div>
+       <div class="result-box">
+    <div class="result-item">
+        <span class="label">Invested Amount:</span>
+        <span class="value"><strong>₹<span id="invested">0</span></strong></span>
+    </div>
+    <div class="result-item">
+        <span class="label">Est. Returns:</span>
+        <span class="value"><strong>₹<span id="returns">0</span></strong></span>
+    </div>
+    <div class="result-item">
+        <span class="label">Total Value:</span>
+        <span class="value"><strong>₹<span id="total">0</span></strong></span>
+    </div>
+</div>
+       <div class="chart-container">
+           <canvas id="sipChart"></canvas>
+       </div>
+      
+     </div>
+  </div>
+  <!--   //first row second column -->
+   <div class="col-md-6 d-none d-md-block">
+  <div class="container mt-5">
+    <div class="container-fluid mt-sm-5 mb-sm-5">
+      <a href="sipcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="mutualfundreturncalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="gratuitycalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="epfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="fdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="rdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="cargcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="coumpoundinterest.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="retirementcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="ppfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="emicalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="simpleinterestcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+      </div>
+
+  <!--  /second row -->
+   <div  class="row mb-05">
+  <!--    //second row first column -->
+     <div class="col-md-6 mt-5 " style="background-colorf:red;">
+
+      <div class="container">
+  <div class="compound-interest-calculator-content">
+    <div class="title">
+      <h1>Compound Interest Calculator: Grow Your Wealth Smarter 💹</h1>
+    </div>
+
+    <div class="introduction">
+      <p>Want to see how your money multiplies over time? That’s the magic of <strong>compound interest</strong>—where you earn interest not just on the initial investment but also on the accumulated interest. 📈</p>
+      <p>With our Compound Interest Calculator, you can estimate compound interest growth over months or years. Whether you're saving, investing, or comparing financial options, this tool gives instant, accurate results.</p>
+    </div>
+
+    <div class="what-is-compound-interest">
+      <h2>What is Compound Interest?</h2>
+      <p>Compound interest is interest calculated on the principal amount and also on the interest already earned. Over time, this leads to exponential growth—your money grows faster than simple interest!</p>
+      <p>Think of it like a snowball rolling downhill—small at first, but quickly growing bigger and faster.</p>
+    </div>
+
+    <div class="how-compound-interest-calculator-works">
+      <h2>How Does a Compound Interest Calculator Work?</h2>
+      <p>Our compute compound interest calculator uses the standard formula:</p>
+      <p><code>A = P × (1 + r/n)<sup>nt</sup></code></p>
+      <p>Where:</p>
+      <ul>
+        <li><strong>A</strong> = Final Amount (Maturity Value)</li>
+        <li><strong>P</strong> = Principal Amount</li>
+        <li><strong>r</strong> = Annual Interest Rate (decimal)</li>
+        <li><strong>n</strong> = Compounding Frequency (per year)</li>
+        <li><strong>t</strong> = Investment Duration (in years)</li>
+      </ul>
+      <p>Don’t worry about solving this manually—our compound interest rate calculator does it instantly!</p>
+    </div>
+
+    <div class="how-to-use-compound-interest-calculator">
+      <h2>How to Use the Compound Interest Calculator?</h2>
+      <p>Using our calculator is simple:</p>
+      <ol>
+        <li>1️⃣ Enter the Principal Amount (P)</li>
+        <li>2️⃣ Enter the Interest Rate (r)</li>
+        <li>3️⃣ Select the Compounding Frequency (n) – Monthly, Quarterly, Yearly, etc.</li>
+        <li>4️⃣ Enter the Investment Duration (t)</li>
+        <li>5️⃣ Click on 'Calculate' to get the result</li>
+      </ol>
+    </div>
+
+    <div class="example-calculation">
+      <h2>Example: Calculate Yearly Compound Interest</h2>
+      <p>Suppose you invest ₹50,000 at an 8% annual interest rate, compounded monthly, for 5 years.</p>
+      <p><code>A = 50,000 × (1 + 0.08/12)<sup>12×5</sup> = ₹74,490</code></p>
+      <p>That’s ₹24,490 in interest earned—thanks to the power of compounding!</p>
+    </div>
+
+    <div class="why-use-compound-interest-calculator">
+      <h2>Why Use a Compound and Interest Calculator?</h2>
+      <ul>
+        <li>✅ Quick Results – No more manual formulas.</li>
+        <li>✅ Compare Investment Options – See how compounding affects your returns.</li>
+        <li>✅ Goal Planning – Estimate how long it takes to reach your financial targets.</li>
+        <li>✅ Ideal for Loans – Also works as a compound interest loan calculator.</li>
+      </ul>
+    </div>
+
+    <div class="real-life-uses">
+      <h2>Real-Life Uses of a Cumulative Interest Calculator</h2>
+      <ul>
+        <li>📌 <strong>Savings Accounts</strong> – Monthly or quarterly compounding increases your returns.</li>
+        <li>📌 <strong>Fixed Deposits</strong> – Know your maturity amount before investing.</li>
+        <li>📌 <strong>Loans & Debts</strong> – Understand how compound interest affects EMIs.</li>
+        <li>📌 <strong>Investments</strong> – Stocks, mutual funds, SIPs all grow faster with compounding!</li>
+      </ul>
+    </div>
+
+    <div class="final-thoughts">
+      <h2>Final Thoughts</h2>
+      <p>Understanding and using compound interest is key to smart financial planning. With our compound interest calculator, you can forecast your growth, plan investments, and reach goals faster.</p>
+      <p>Try the calculator now and start making smarter money decisions! 💰🚀</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+       </div>
+  <!--   //second row second column -->
+ <div class="col-md-6">
+    <div class="container mt-5 mb-5">
+        <h2 class="mb-4">FAQs</h2>
+        <div id="faqAccordion" class="accordion">
+
+            <!-- FAQ 1 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            What is Compound Interest?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                    <div class="card-body" data-toggle="collapse" data-target="#collapseOne" style="cursor: pointer;">
+                        Compound interest is the interest calculated on the initial principal and also on the accumulated interest of previous periods. It allows your investment to grow faster compared to simple interest.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            How does the Compound Interest Calculator work?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                    <div class="card-body" data-toggle="collapse" data-target="#collapseTwo" style="cursor: pointer;">
+                        The Compound Interest Calculator estimates the future value of your investment based on the principal amount, interest rate, compounding frequency, and investment period. It uses the formula:
+                        <br>
+                        <code>A = P (1 + r/n)^(nt)</code>
+                        <br>
+                        Where:
+                        <ul>
+                            <li><strong>A:</strong> Future value of the investment</li>
+                            <li><strong>P:</strong> Principal amount</li>
+                            <li><strong>r:</strong> Annual interest rate (in decimal)</li>
+                            <li><strong>n:</strong> Number of times interest is compounded per year</li>
+                            <li><strong>t:</strong> Investment period in years</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            What inputs are required for the Compound Interest Calculator?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                    <div class="card-body" data-toggle="collapse" data-target="#collapseThree" style="cursor: pointer;">
+                        You need to provide:
+                        <ul>
+                            <li><strong>Principal Amount:</strong> The initial amount you invest.</li>
+                            <li><strong>Annual Interest Rate:</strong> The rate of return expected on the investment.</li>
+                            <li><strong>Compounding Frequency:</strong> How often the interest is compounded (e.g., annually, semi-annually, quarterly, monthly).</li>
+                            <li><strong>Investment Period:</strong> The duration of the investment in years.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            What is the difference between simple interest and compound interest?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+                    <div class="card-body" data-toggle="collapse" data-target="#collapseFour" style="cursor: pointer;">
+                        <strong>Simple Interest</strong> is calculated only on the principal amount, while <strong>Compound Interest</strong> is calculated on the principal amount and the accumulated interest over previous periods. Compound interest grows faster than simple interest.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFive">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            How does compounding frequency affect returns?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
+                    <div class="card-body" data-toggle="collapse" data-target="#collapseFive" style="cursor: pointer;">
+                        The more frequently interest is compounded, the higher the returns. For example, monthly compounding will yield higher returns than annual compounding for the same interest rate and investment period.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 6 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSix">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            Can I calculate compound interest for irregular deposits?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
+                    <div class="card-body" data-toggle="collapse" data-target="#collapseSix" style="cursor: pointer;">
+                        No, the Compound Interest Calculator assumes a fixed principal amount. For irregular deposits, you would need a <strong>Future Value of a Series</strong> calculator, which accounts for varying contributions over time.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 7 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSeven">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                            Are compound interest returns taxable?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
+                    <div class="card-body" data-toggle="collapse" data-target="#collapseSeven" style="cursor: pointer;">
+                        Yes, the interest earned through compound interest is taxable as per your income tax slab. The tax treatment depends on the type of investment and applicable tax laws.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 8 -->
+            <div class="card">
+                <div class="card-header" id="headingEight">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                            What is the Rule of 72 in compound interest?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
+                    <div class="card-body" data-toggle="collapse" data-target="#collapseEight" style="cursor: pointer;">
+                        The <strong>Rule of 72</strong> is a simple formula to estimate how long it will take for your investment to double at a given annual interest rate. You divide 72 by the annual interest rate to get the approximate number of years. For example, at an 8% interest rate, it will take about 9 years (72 ÷ 8) to double your investment.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+   </div>
+  <!--   //third row -->
+     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
+  <!--        //third row first column -->
+       <div class="col-sm-12 " >
+         <div class=" text-center" style="margin-bottom:0">
+         <p id="backToTopBtn" style="color:white;">
+
+              Back To Home
+
+             </p>
+       </div>
+
+         </div>
+  <!--      //third row second column -->
+       <div class="col-sm-0 " style="background-color:pink;">    </div>
+      </div>
+    
+    <script>
+    // Get the button
+const backToTopBtn = document.getElementById("backToTopBtn");
+
+// When the user scrolls down 20px from the top, show the button
+window.onscroll = function () {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    backToTopBtn.style.display = "block";
+  } else {
+    backToTopBtn.style.display = "none";
+  }
+};
+
+// When the user clicks the button, scroll to the top of the page
+backToTopBtn.addEventListener("click", function () {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+});
+    
+    
+    
+    
+    </script>
+      <script>
+              function syncInputs(id, isManual = false) {
+                  const slider = document.getElementById(`${id}-slider`);
+                  const numberInput = document.getElementById(id);
+                  if (isManual) {
+                      slider.value = numberInput.value;
+                  } else {
+                      numberInput.value = slider.value;
+                  }
+                  calculateSIP();
+              }
+          
+    function formatNumberInIndianFormat(num) {
+    // Convert the number to a string and split into whole and decimal parts
+    let parts = num.toString().split(".");
+    let wholePart = parts[0];
+    let decimalPart = parts.length > 1 ? "." + parts[1] : "";
+
+    // Add commas in Indian numbering system format
+    let lastThree = wholePart.slice(-3);
+    let otherNumbers = wholePart.slice(0, -3);
+    if (otherNumbers !== "") {
+        lastThree = "," + lastThree;
+    }
+    let result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + decimalPart;
+
+    return result;
+}
+          
+          
+          
+        function calculateSIP() {
+    // Get input values
+    let P = parseFloat(document.getElementById("amount").value); // Principal (initial investment)
+    let r = parseFloat(document.getElementById("rate").value) / 100; // Annual interest rate (converted to decimal)
+    let t = parseInt(document.getElementById("years").value); // Time in years
+    let n = 1; // Number of times interest is compounded per year (monthly compounding)
+
+    // Calculate future value using the formula A = P * (1 + r/n)^(nt)
+    let A = P * Math.pow(1 + r / n, n * t);
+
+    // Calculate invested amount and estimated returns
+    let investedAmount = P; // Total invested amount
+    let estReturns = A - P; // Estimated returns (future value - principal)
+
+    // Format the numbers in Indian format
+    let formattedInvestedAmount = formatNumberInIndianFormat(investedAmount.toFixed(2));
+    let formattedEstReturns = formatNumberInIndianFormat(estReturns.toFixed(2));
+    let formattedTotal = formatNumberInIndianFormat(A.toFixed(2));
+
+    // Display results
+    document.getElementById("invested").textContent = formattedInvestedAmount;
+    document.getElementById("returns").textContent = formattedEstReturns;
+    document.getElementById("total").textContent = formattedTotal;
+
+    // Update chart (if needed)
+    updateChart(investedAmount, estReturns);
+}
+          
+          
+              let sipChart;
+              function updateChart(invested, returns) {
+                  let ctx = document.getElementById("sipChart").getContext("2d");
+                  if (sipChart) sipChart.destroy();
+                  sipChart = new Chart(ctx, {
+                      type: "doughnut",
+                      data: {
+                          labels: ["Invested Amount", "Est. Returns"],
+                          datasets: [{
+                              data: [invested, returns],
+                              backgroundColor: ["#4CAF50", "#2196F3"]
+                          }]
+                      }
+                  });
+              }
+              calculateSIP();
+
+
+          
+          </script>
+          
+        
+
+      <style>
+              bodyss {
+                  font-family: Arial, sans-serif;
+                  margin: 20px;
+                  padding: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  flex-direction: column;
+                  background-color: #f4f4f4;
+              }
+              img {
+  border-radius: 50%;
+}
+              .container {
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                  max-width: 500px;
+                  width: 100%;
+              }
+              .input-group {
+                  margin-bottom: 15px;
+              }
+              .input-group label {
+                  display: block;
+                  margin-bottom: 5px;
+              }
+
+              .footer1 {
+                  display: block;
+                  margin-top: 10px;
+                  height: 50px;
+              }
+              .slider-container {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+              }
+              .slider-container input[type="number"] {
+                  width: 80px;
+                  text-align: center;
+              }
+              .result-box {
+                  background: #eef;
+                  padding: 10px;
+                  border-radius: 5px;
+                  margin-top: 20px;
+              }
+              .chart-container {
+                  width: 300px;
+                  margin: 20px auto;
+              }
+
+              // for faq
+              .faq-header {
+              cursor: pointer;
+              transition: background-color 0.3s;
+            }
+            .faq-header:hover {
+              background-color: #f8f9fa;
+            }
+            .card {
+              margin-bottom: 8px;
+              border: 1px solid rgba(0,0,0,.125);
+            }
+            .bi-chevron-down {
+              transition: transform 0.3s;
+            }
+            .collapsed .bi-chevron-down {
+              transform: rotate(0deg); /* Down arrow */
+            }
+            .bi-chevron-down:not(.collapsed) {
+              transform: rotate(180deg); /* Up arrow */
+
+
+          </style>
+       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

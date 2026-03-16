@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>GST Calculator - Calculate Tax with Different GST Rates</title>
+  <meta name="description" content="Calculate GST online in India with our user-friendly and simple GST Calculator. Determine the applicable tax amount for your goods and services effortlessly.">
+  
+     <!-- Basic Favicons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+   
+ <link rel="canonical" href="https://instacalc.in/gstcalculator.html" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+    
+  <style>
+       /* Minimum layout stability styles */
+    body { 
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .calculator-container {
+      min-height: 600px; /* Reserve space for calculator */
+    }
+    .result-section {
+      height: 200px; /* Fixed height for results area */
+      visibility: hidden; /* Hidden until calculated */
+    }
+    /* Prevent layout shifts in main content */
+    .main-content {
+      position: relative;
+      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
+    }
+    /* Fixed dimensions for key elements */
+   
+       /* Fixed dimensions for key elements */
+    .chart-container {
+      width: 100%;
+      max-width: 400px;
+      height: 300px;
+    }
+    </style>
+  <!-- Preloads -->
+  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
+  <link rel="preload" href="style.css" as="style">
+  
+  <!-- Non-critical CSS -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </noscript>
+
+  <!-- Script optimization -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
+  <!-- Only load Popper and Bootstrap JS if needed -->
+  <?php if (needs_bootstrap_js): ?>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
+  
+     <script src="bootstrap/js/bootstrap.min.js" defer></script>
+  <?php endif; ?>
+
+  <!-- Load Chart.js only when needed -->
+  <script>
+    function loadChartJS() {
+      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
+        window.Chart = module.default;
+        initializeCharts();
+      });
+    }
+  </script>
+
+  <script src="script.js" defer></script>
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg navbar-dark ">
+  <div class="d-flex align-items-center navbar-brand">
+    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
+    <h6 class="text-white mb-0">InstaCalc.in</h6>
+  </div>   
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>     
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item px-2">
+        <a class="nav-link" href="index.html">Home</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="aboutus.html">About Us</a>
+      </li>
+         <li class="nav-item px-2">
+        <a class="nav-link " href="contactus.html">Contact Us</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    
+
+
+  <!-- //first row first column -->
+  <div  class="row">
+  <!--   //first row first column -->
+    <div class="col-md-6" style="background-colorf:yellow;">
+    <div class="container mt-5 table1">
+    <h2>GST Calculator</h2>
+
+    <!-- Toggle for Excluding GST or Including GST -->
+    <div class="mb-3">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gstOption" id="excludingGST" value="excluding" checked>
+            <label class="form-check-label" for="excludingGST">Excluding GST</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gstOption" id="includingGST" value="including">
+            <label class="form-check-label" for="includingGST">Including GST</label>
+        </div>
+    </div>
+
+    <!-- Total amount (₹) -->
+    <div class="input-group slider-container">
+        <label for="amount">Total amount (₹)</label>
+        <div class="slider-container">
+            <input
+                type="range"
+                id="amount-slider"
+                min="1"
+                max="100000"
+                step="100"
+                value="25000"
+                oninput="syncInputs('amount')"
+            />
+            <input
+               
+                type="number"
+                id="amount"
+                min="1"
+                max="100000"
+                step="100"
+                value="25000"
+                oninput="syncInputs('amount', true)"
+            />
+        </div>
+    </div>
+
+    <!-- Tax slab (%) -->
+    <div class="input-group m">
+        <label for="taxSlab">Tax slab (%)</label>
+        <div class="slider-container">
+            <select id="taxSlab" class="form-control">
+                <option value="5" selected >5%</option>
+                <option value="12">12%</option>
+                <option value="18">18%</option>
+                <option value="28">28%</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Results -->
+<div class="result-box">
+    <div class="result-item">
+        <span class="label">Total GST:</span>
+        <span class="value"><strong>₹<span id="totalGST">0</span></strong></span>
+    </div>
+    <div class="result-item total-item">
+        <span class="label">Post-GST Amount:</span>
+        <span class="value"><strong>₹<span id="postGST">0</span></strong></span>
+    </div>
+</div>
+  
+</div>
+
+  </div>
+  <!--   //first row second column -->
+  <div class="col-md-6 ">
+  <div class="container mt-5">
+    <div class="container-fluid mt-sm-5 mb-sm-5">
+      <a href="sipcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="mutualfundreturncalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="gratuitycalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="epfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="fdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="rdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="cargcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="coumpoundinterest.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="retirementcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="ppfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="emicalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="simpleinterestcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+      </div>
+
+  <!--  /second row -->
+   <div  class="row mb-10">
+  <!--    //second row first column -->
+     <div class="col-md-6 " style="background-colorf:red;">
+
+       <div class="container mt-5 mb-5">
+        <div class="gst-calculator-content">
+    <div class="title">
+        <h1>GST Calculator: Quickly Find Your Tax Amount</h1>
+    </div>
+
+    <div class="introduction">
+        <p>GST (Goods and Services Tax) is something we all deal with—whether we’re buying a product, paying for a service, or running a business. But calculating GST manually can be confusing. That’s where a GST Calculator comes in!</p>
+        <p>This simple tool helps you quickly find out how much GST you need to pay or charge, saving time and avoiding errors.</p>
+    </div>
+
+    <div class="how-gst-works">
+        <h2>How Does GST Work?</h2>
+        <p>GST is a value-added tax applied to goods and services in India. It has different tax slabs:</p>
+        <ul>
+            <li>✔ 5% – Essential goods (groceries, medicines, etc.)</li>
+            <li>✔ 12% & 18% – Standard tax rates for most products and services</li>
+            <li>✔ 28% – Luxury items (cars, high-end appliances, etc.)</li>
+        </ul>
+    </div>
+
+    <div class="how-to-calculate-gst">
+        <h2>How to Calculate GST?</h2>
+        <p>There are two main cases:</p>
+        <div class="adding-gst">
+            <h3>1️⃣ Adding GST to a Price</h3>
+            <p>If you want to find the final price after adding GST, use this formula:</p>
+            <p><code>Final Price = Original Price + (Original Price × GST% / 100)</code></p>
+        </div>
+        <div class="removing-gst">
+            <h3>2️⃣ Removing GST from a Price</h3>
+            <p>If you already have a GST-included price and want to find the original amount:</p>
+            <p><code>Original Price = GST-Inclusive Price / (1 + (GST% / 100))</code></p>
+        </div>
+    </div>
+
+    <div class="example-calculation">
+        <h2>Example: See It in Action</h2>
+        <p>Let’s say you’re buying a product worth ₹1,000 with 18% GST.</p>
+        <p><code>GST Amount = 1,000 × 18 / 100 = ₹180</code></p>
+        <p><code>Final Price = 1,000 + 180 = ₹1,180</code></p>
+        <p>If ₹1,180 is the GST-included price and you want to find the original amount:</p>
+        <p><code>Original Price = 1,180 / 1.18 = ₹1,000</code></p>
+    </div>
+
+    <div class="why-use-gst-calculator">
+        <h2>Why Use a GST Calculator?</h2>
+        <ul>
+            <li>✔ Saves Time: No manual calculations. Just enter values and get instant results.</li>
+            <li>✔ Avoids Errors: No risk of miscalculations when dealing with taxes.</li>
+            <li>✔ Helps Businesses: Useful for pricing products correctly and filing tax returns.</li>
+        </ul>
+    </div>
+
+    <div class="final-thoughts">
+        <h2>Final Thoughts</h2>
+        <p>Whether you're a consumer, a business owner, or an accountant, a GST Calculator makes tax calculations quick and easy. Instead of struggling with formulas, just input your numbers and get accurate results instantly.</p>
+        <p>Next time you need to calculate GST, use a calculator and save time! 🚀</p>
+    </div>
+</div>
+           </div>
+
+
+
+       </div>
+  <!--   //second row second column -->
+   <div class="col-md-6">
+    <div class="container mt-5 mb-5">
+        <h2 class="mb-4 text-left">GST Calculator FAQs</h2>
+        <div id="faqAccordion" class="accordion">
+
+            <!-- FAQ 1 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            What is GST (Goods and Services Tax)?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        GST is a value-added tax levied on the supply of goods and services in India. It replaced multiple indirect taxes like VAT, service tax, and excise duty, simplifying the tax structure and creating a unified market.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            How does the GST Calculator work?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        The GST Calculator estimates the GST amount and the total price of a product or service based on the following inputs:
+                        <ul class="text-left">
+                            <li><strong>Net Price:</strong> The price of the product or service before GST.</li>
+                            <li><strong>GST Rate:</strong> The applicable GST rate (e.g., 5%, 12%, 18%, or 28%).</li>
+                        </ul>
+                        It calculates the GST amount and the total price using the formula:
+                        <br>
+                        <code>GST Amount = (Net Price × GST Rate) / 100</code>
+                        <br>
+                        <code>Total Price = Net Price + GST Amount</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            What inputs are required for the GST Calculator?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        You need to provide:
+                        <ul class="text-left">
+                            <li><strong>Net Price:</strong> The price of the product or service before GST.</li>
+                            <li><strong>GST Rate:</strong> The applicable GST rate (e.g., 5%, 12%, 18%, or 28%).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            What are the different GST rates in India?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        The GST rates in India are divided into four slabs:
+                        <ul class="text-left">
+                            <li><strong>5%:</strong> Essential items like packaged food, medicines, and transport services.</li>
+                            <li><strong>12%:</strong> Processed foods, computers, and business-class air tickets.</li>
+                            <li><strong>18%:</strong> Most goods and services, including electronics, restaurants, and financial services.</li>
+                            <li><strong>28%:</strong> Luxury items like cars, tobacco, and aerated drinks.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFive">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            Can I calculate GST for multiple items at once?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        Yes, you can calculate GST for multiple items by entering the net price and GST rate for each item separately. The calculator will provide the GST amount and total price for each item.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 6 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSix">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            How is GST calculated for reverse charge transactions?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        In reverse charge transactions, the recipient of the goods or services is liable to pay GST instead of the supplier. The GST Calculator can still be used by entering the net price and applicable GST rate.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 7 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSeven">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                            What is the difference between CGST, SGST, and IGST?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        <ul class="text-left">
+                            <li><strong>CGST (Central GST):</strong> Collected by the Central Government on intra-state supplies.</li>
+                            <li><strong>SGST (State GST):</strong> Collected by the State Government on intra-state supplies.</li>
+                            <li><strong>IGST (Integrated GST):</strong> Collected by the Central Government on inter-state supplies and imports.</li>
+                        </ul>
+                        The GST Calculator can handle all three types of taxes based on the nature of the transaction.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 8 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingEight">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                            Can I use the GST Calculator for exports and imports?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        Yes, the GST Calculator can be used for exports and imports. For exports, GST is typically 0% (zero-rated), while for imports, IGST is applicable along with customs duty.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+   </div>
+    
+  <!--   //third row -->
+     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
+  <!--        //third row first column -->
+       <div class="col-sm-12 " >
+         <div class=" text-center" style="margin-bottom:0">
+         <p id="backToTopBtn" style="color:white;">
+
+              Back To Home
+
+             </p>
+       </div>
+
+         </div>
+  <!--      //third row second column -->
+       <div class="col-sm-0 " style="background-color:pink;">    </div>
+      </div>
+      <script>
+function formatNumberInIndianFormat(num) {
+    let parts = num.toString().split(".");
+    let wholePart = parts[0];
+    let decimalPart = parts.length > 1 ? "." + parts[1] : "";
+
+    let lastThree = wholePart.slice(-3);
+    let otherNumbers = wholePart.slice(0, -3);
+    if (otherNumbers !== "") {
+        lastThree = "," + lastThree;
+    }
+    let result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + decimalPart;
+
+    return result;
+}
+
+function calculateGST() {
+    const gstOption = document.querySelector('input[name="gstOption"]:checked').value;
+    const amount = parseFloat(document.getElementById('amount').value);
+    const taxSlab = parseFloat(document.getElementById('taxSlab').value);
+
+    let gstAmount, otherAmount, labelText;
+
+    if (gstOption === 'excluding') {
+        gstAmount = amount * (taxSlab / 100);
+        otherAmount = amount + gstAmount;
+        labelText = 'Post-GST Amount:';
+    } else {
+        const originalAmount = amount / (1 + taxSlab / 100);
+        gstAmount = amount - originalAmount;
+        otherAmount = originalAmount;
+        labelText = 'Pre-GST Amount:';
+    }
+
+    let formattedGSTAmount = formatNumberInIndianFormat(gstAmount.toFixed(2));
+    let formattedOtherAmount = formatNumberInIndianFormat(otherAmount.toFixed(2));
+
+    document.getElementById('totalGST').textContent = formattedGSTAmount;
+    document.getElementById('postGST').textContent = formattedOtherAmount;
+
+    const resultLabel = document.getElementById('resultLabel');
+    resultLabel.childNodes[0].nodeValue = labelText + ' ';
+}
+
+function syncInputs(id, fromInput = false) {
+    const slider = document.getElementById(`${id}-slider`);
+    const input = document.getElementById(id);
+
+    if (fromInput) {
+        slider.value = input.value;
+    } else {
+        input.value = slider.value;
+    }
+
+    calculateGST();
+}
+
+document.querySelectorAll('input[name="gstOption"]').forEach(radio => {
+    radio.addEventListener('change', calculateGST);
+});
+
+document.getElementById('taxSlab').addEventListener('change', calculateGST);
+document.getElementById('amount').addEventListener('input', () => syncInputs('amount', true));
+document.getElementById('amount-slider').addEventListener('input', () => syncInputs('amount'));
+
+// Initial calculation
+calculateGST();
+          </script>
+          
+     <script> 
+   // Get the button
+const backToTopBtn = document.getElementById("backToTopBtn");
+
+// When the user scrolls down 20px from the top, show the button
+window.onscroll = function () {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    backToTopBtn.style.display = "block";
+  } else {
+    backToTopBtn.style.display = "none";
+  }
+};
+
+// When the user clicks the button, scroll to the top of the page
+backToTopBtn.addEventListener("click", function () {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+}); 
+    
+    
+    </script>
+
+      <style>
+              bodyss {
+                  font-family: Arial, sans-serif;
+                  margin: 20px;
+                  padding: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  flex-direction: column;
+                  background-color: #f4f4f4;
+              }
+              img {
+  border-radius: 50%;
+}
+              .container {
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                  max-width: 500px;
+                  width: 100%;
+              }
+              .input-group {
+                  margin-bottom: 15px;
+              }
+              .input-group label {
+                  display: block;
+                  margin-bottom: 5px;
+              }
+
+              .footer1 {
+                  display: block;
+                  margin-top: 10px;
+                  height: 50px;
+              }
+              .slider-container {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+              }
+              .slider-container input[type="number"] {
+                  width: 80px;
+                  text-align: center;
+              }
+              .result-box {
+                  background: #eef;
+                  padding: 10px;
+                  border-radius: 5px;
+                  margin-top: 20px;
+              }
+              .chart-container {
+                  width: 300px;
+                  margin: 20px auto;
+              }
+
+              // for faq
+              .faq-header {
+              cursor: pointer;
+              transition: background-color 0.3s;
+            }
+            .faq-header:hover {
+              background-color: #f8f9fa;
+            }
+            .card {
+              margin-bottom: 8px;
+              border: 1px solid rgba(0,0,0,.125);
+            }
+            .bi-chevron-down {
+              transition: transform 0.3s;
+            }
+            .collapsed .bi-chevron-down {
+              transform: rotate(0deg); /* Down arrow */
+            }
+            .bi-chevron-down:not(.collapsed) {
+              transform: rotate(180deg); /* Up arrow */
+
+
+          </style>
+</body>
+</html>

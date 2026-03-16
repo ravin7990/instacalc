@@ -1,0 +1,610 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Gratuity Calculator India (April 2025) - Calculate Your Benefit</title>
+  <meta name="description" content="Calculate the estimated gratuity amount you are eligible for in India for April 2025 using our online calculator. Understand your gratuity benefit based on salary and years of service.">
+    <!-- Basic Favicons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link rel="canonical" href="https://instacalc.in/gratuitycalculator.html" />
+   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <!-- Critical CSS -->
+  <style>
+    /* Minimum layout stability styles */
+    body { 
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .calculator-container {
+      min-height: 600px; /* Reserve space for calculator */
+    }
+    .result-section {
+      height: 200px; /* Fixed height for results area */
+      visibility: hidden; /* Hidden until calculated */
+    }
+    /* Prevent layout shifts in main content */
+    .main-content {
+      position: relative;
+      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
+    }
+    /* Fixed dimensions for key elements */
+    input {
+      width: 100%;
+      max-width: 400px;
+      height: 40px;
+    }
+       /* Fixed dimensions for key elements */
+    .chart-container {
+      width: 100%;
+      max-width: 400px;
+      height: 300px;
+    }
+  </style>
+
+  <!-- Preloads -->
+  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
+  <link rel="preload" href="style.css" as="style">
+  
+  <!-- Non-critical CSS -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </noscript>
+
+  <!-- Script optimization -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
+  <!-- Only load Popper and Bootstrap JS if needed -->
+  <?php if (needs_bootstrap_js): ?>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
+  
+     <script src="bootstrap/js/bootstrap.min.js" defer></script>
+  <?php endif; ?>
+
+  <!-- Load Chart.js only when needed -->
+  <script>
+    function loadChartJS() {
+      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
+        window.Chart = module.default;
+        initializeCharts();
+      });
+    }
+  </script>
+
+  <script src="script.js" defer></script>
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg navbar-dark ">
+  <div class="d-flex align-items-center navbar-brand">
+    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
+    <h6 class="text-white mb-0">InstaCalc.in</h6>
+  </div>   
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>     
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item px-2">
+        <a class="nav-link" href="index.html">Home</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="aboutus.html">About Us</a>
+      </li>
+         <li class="nav-item px-2">
+        <a class="nav-link " href="contactus.html">Contact Us</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    
+
+
+  <!-- //first row first column -->
+  <div  class="row">
+  <!--   //first row first column -->
+    <div class="col-md-6" style="background-color: yellowd;">
+  <div class="container mt-5 table1">
+    <h2>Gratuity Calculator</h2>
+    
+    <div class="input-group m">
+      <label for="amount">Monthly Salary (₹)</label>
+      <div class="slider-container">
+        <input type="range" id="amount-slider" min="1000" max="100000" step="500" value="1000" oninput="syncInputs('amount')">
+        <input type="number" id="amount" min="1000" max="100000" step="500" value="1000" oninput="syncInputs('amount', true)">
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="rate">Years Of Service (Y)</label>
+      <div class="slider-container">
+        <input type="range" id="rate-slider" min="0" max="50" step="0.1" value="5" oninput="syncInputs('rate')">
+        <input type="number" id="rate" min="0" max="50" step="0.1" value="5" oninput="syncInputs('rate', true)">
+      </div>
+    </div>
+
+    <div class="result mt-4">
+      <h3>Gratuity Amount: <span id="gratuity-result">₹0.00</span></h3>
+    </div>
+  </div>
+</div>
+  <!--   //first row second column -->
+      <div class="col-md-6 d-none d-md-block">
+  <div class="container mt-5">
+    <div class="container-fluid mt-sm-5 mb-sm-5">
+      <a href="sipcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="mutualfundreturncalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="gratuitycalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="epfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="fdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="rdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="cargcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="coumpoundinterest.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="retirementcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="ppfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="emicalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="simpleinterestcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+      </div>
+
+  <!--  /second row -->
+   <div  class="row mb-05">
+  <!--    //second row first column -->
+     <div class="col-md-6 mt-5" style="background-colorf:red;">
+
+       <div class="container">
+          <div class="gratuity-calculator-content">
+    <div class="title">
+        <h1>Gratuity Calculator: Know Your Retirement Benefits Instantly</h1>
+    </div>
+
+    <div class="introduction">
+        <p>Ever wondered how much gratuity you’ll receive when you retire or leave a job? If you’ve worked for five years or more in an organization, you’re entitled to gratuity under India’s Payment of Gratuity Act, 1972. But calculating the exact amount can be tricky. That’s where a Gratuity Calculator helps!</p>
+        <p>This tool gives you an instant estimate of your gratuity amount based on your salary and years of service. No complex math—just enter your details and get the results!</p>
+    </div>
+
+    <div class="how-gratuity-is-calculated">
+        <h2>How is Gratuity Calculated?</h2>
+        <p>The gratuity formula depends on whether your employer is covered under the Gratuity Act or not.</p>
+        <div class="under-gratuity-act">
+            <h3>1️⃣ For Employees Under the Gratuity Act</h3>
+            <p>If your company is covered under the Gratuity Act, the formula is:</p>
+            <p><code>Gratuity = (15 × Last Drawn Salary × Years of Service) / 26</code></p>
+            <ul>
+                <li>✔ Last Drawn Salary = Basic Salary + Dearness Allowance (DA)</li>
+                <li>✔ Years of Service = Number of completed years (if you worked 6 years, 7 months → count as 7 years)</li>
+                <li>✔ 26 = Fixed number of working days in a month</li>
+            </ul>
+        </div>
+        <div class="not-under-gratuity-act">
+            <h3>2️⃣ For Employees NOT Under the Gratuity Act</h3>
+            <p>If the employer is not covered under the Gratuity Act, the formula changes slightly:</p>
+            <p><code>Gratuity = (15 × Last Drawn Salary × Years of Service) / 30</code></p>
+            <p>Here, 30 is used instead of 26, which means the gratuity amount will be slightly lower.</p>
+        </div>
+    </div>
+
+    <div class="example-calculation">
+        <h2>Example: See It in Action</h2>
+        <p>Let’s say your last drawn salary (Basic + DA) is ₹50,000 and you’ve worked for 12 years in a company covered under the Gratuity Act.</p>
+        <p><code>Gratuity = (15 × 50,000 × 12) / 26 = ₹3,46,153</code></p>
+        <p>So, when you leave, you’ll receive ₹3,46,153 as gratuity. If the company is not covered under the Act, the amount will be slightly less.</p>
+    </div>
+
+    <div class="eligibility">
+        <h2>Who is Eligible for Gratuity?</h2>
+        <ul>
+            <li>✔ Minimum 5 years of continuous service in a company</li>
+            <li>✔ Retirement, resignation, or job change</li>
+            <li>✔ In case of death or disability, gratuity is paid even before 5 years</li>
+        </ul>
+    </div>
+
+    <div class="why-use-gratuity-calculator">
+        <h2>Why Use a Gratuity Calculator?</h2>
+        <ul>
+            <li>✔ Instant Results: No manual calculations required</li>
+            <li>✔ Accurate Estimates: Helps in financial planning</li>
+            <li>✔ Compare Different Scenarios: Adjust years of service & salary to see changes</li>
+            <li>✔ Retirement Planning: Know how much you’ll get when you leave</li>
+        </ul>
+    </div>
+
+    <div class="final-thoughts">
+        <h2>Final Thoughts</h2>
+        <p>Gratuity is your right and a valuable financial benefit after years of hard work. Instead of guessing how much you’ll get, use a Gratuity Calculator and plan ahead!</p>
+        <p>Start early, plan wisely, and secure your financial future. 💰🔥</p>
+    </div>
+</div>
+           </div>
+
+
+
+       </div>
+  <!--   //second row second column -->
+  <div class="col-md-6">
+    <div class="container mt-5 mb-5">
+        <h2 class="mb-4 text-left">FAQs</h2>
+        <div id="faqAccordion" class="accordion">
+
+            <!-- FAQ 1 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            What is Gratuity?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        Gratuity is a lump sum payment made by an employer to an employee as a token of appreciation for their long-term service. It is governed by the Payment of Gratuity Act, 1972, and is applicable to employees who have completed at least 5 years of continuous service.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            How does the Gratuity Calculator work?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        The Gratuity Calculator estimates the gratuity amount based on the following inputs:
+                        <ul class="text-left">
+                            <li><strong>Last Drawn Salary:</strong> The sum of your basic salary and dearness allowance.</li>
+                            <li><strong>Years of Service:</strong> The total number of years you have worked for the employer.</li>
+                        </ul>
+                        It uses the formula:
+                        <br>
+                        <code>Gratuity = (Last Drawn Salary × Years of Service × 15) / 26</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            What inputs are required for the Gratuity Calculator?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        You need to provide:
+                        <ul class="text-left">
+                            <li><strong>Last Drawn Salary:</strong> Your basic salary plus dearness allowance.</li>
+                            <li><strong>Years of Service:</strong> The total number of years you have worked for the employer.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Who is eligible for gratuity?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        Employees are eligible for gratuity if they:
+                        <ul class="text-left">
+                            <li>Have completed at least 5 years of continuous service with the same employer.</li>
+                            <li>Are retiring, resigning, or leaving the job after meeting the eligibility criteria.</li>
+                            <li>In case of death or disability, the 5-year rule is waived.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFive">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            Is gratuity taxable?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        Gratuity is partially taxable. For government employees, it is fully exempt from tax. For private sector employees, the least of the following is tax-free:
+                        <ul class="text-left">
+                            <li>₹20 lakh (as per the latest limit).</li>
+                            <li>Actual gratuity received.</li>
+                            <li>Eligible gratuity as per the formula.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 6 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSix">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            Can I receive gratuity before completing 5 years?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        Generally, gratuity is payable only after completing 5 years of continuous service. However, in case of death or disability, the 5-year rule is waived, and the gratuity is paid to the nominee or legal heir.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 7 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSeven">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                            What is the maximum gratuity amount payable?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        The maximum gratuity amount payable is ₹20 lakh (as per the latest limit). Any amount above this is taxable.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 8 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingEight">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                            Can I calculate gratuity for part-time employees?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        No, the Gratuity Act applies only to full-time employees who have completed at least 5 years of continuous service. Part-time employees are not eligible for gratuity under this Act.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+   </div>
+    
+  <!--   //third row -->
+     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
+  <!--        //third row first column -->
+       <div class="col-sm-12 " >
+         <div class=" text-center" style="margin-bottom:0">
+         <p id="backToTopBtn" style="color:white;">
+
+              Back To Home
+
+             </p>
+       </div>
+
+         </div>
+  <!--      //third row second column -->
+       <div class="col-sm-0 " style="background-color:pink;">    </div>
+      </div>
+      <script>
+             function syncInputs(field, isInput = false) {
+    const slider = document.getElementById(`${field}-slider`);
+    const input = document.getElementById(field);
+    
+    if (isInput) {
+        slider.value = Math.max(Math.min(input.value, slider.max), slider.min);
+    } else {
+        input.value = Math.max(Math.min(slider.value, input.max), input.min);
+    }
+    
+    calculateGratuity();
+}
+
+function calculateGratuity() {
+    // Get values from inputs
+    const monthlySalary = parseFloat(document.getElementById('amount').value);
+    const years = parseFloat(document.getElementById('rate').value);
+    
+    // Calculate gratuity (with rounding for partial years)
+    const roundedYears = Math.round(years); // Rounds to nearest integer (0.5+ rounds up)
+    const gratuity = (roundedYears * monthlySalary * 15) / 26;
+    
+    // Display result
+    document.getElementById('gratuity-result').textContent = 
+        `₹${gratuity.toLocaleString('en-IN', { maximumFractionDigits: 2 })}`;
+}
+
+// Initial calculation
+calculateGratuity();
+
+
+          
+          </script>
+    <script>
+    // Get the button
+const backToTopBtn = document.getElementById("backToTopBtn");
+
+// When the user scrolls down 20px from the top, show the button
+window.onscroll = function () {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    backToTopBtn.style.display = "block";
+  } else {
+    backToTopBtn.style.display = "none";
+  }
+};
+
+// When the user clicks the button, scroll to the top of the page
+backToTopBtn.addEventListener("click", function () {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+});
+    
+    
+    </script>
+     
+
+      <style>
+              bodyss {
+                  font-family: Arial, sans-serif;
+                  margin: 20px;
+                  padding: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  flex-direction: column;
+                  background-color: #f4f4f4;
+              }
+              img {
+  border-radius: 50%;
+}
+              .container {
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                  max-width: 500px;
+                  width: 100%;
+              }
+              .input-group {
+                  margin-bottom: 15px;
+              }
+              .input-group label {
+                  display: block;
+                  margin-bottom: 5px;
+              }
+
+              .footer1 {
+                  display: block;
+                  margin-top: 10px;
+                  height: 50px;
+              }
+              .slider-container {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+              }
+              .slider-container input[type="number"] {
+                  width: 80px;
+                  text-align: center;
+              }
+              .result-box {
+                  background: #eef;
+                  padding: 10px;
+                  border-radius: 5px;
+                  margin-top: 20px;
+              }
+              .chart-container {
+                  width: 300px;
+                  margin: 20px auto;
+              }
+
+              // for faq
+              .faq-header {
+              cursor: pointer;
+              transition: background-color 0.3s;
+            }
+            .faq-header:hover {
+              background-color: #f8f9fa;
+            }
+            .card {
+              margin-bottom: 8px;
+              border: 1px solid rgba(0,0,0,.125);
+            }
+            .bi-chevron-down {
+              transition: transform 0.3s;
+            }
+            .collapsed .bi-chevron-down {
+              transform: rotate(0deg); /* Down arrow */
+            }
+            .bi-chevron-down:not(.collapsed) {
+              transform: rotate(180deg); /* Up arrow */
+
+
+          </style>
+</body>
+</html>

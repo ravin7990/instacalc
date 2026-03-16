@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <title>Simple Interest Calculator – Accurate Loan & Investment Interest Tool</title>
+<meta name="description" content="Use our simple interest calculator to calculate returns on investments or interest on loans. Quick, easy, and ideal for students, investors, and loan planners.">
+<meta name="keywords" content="simple interest calculator, basic interest calculator, interest calculator simple interest, simple interest cal, simple interest compound interest formula, simple interest loan calculator, compound and simple interest formula">
+<link rel="icon" type="image/x-icon" href="favicon.webp">
+<link rel="canonical" href="https://instacalc.in/simpleinterestcalculator.html" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+<!-- Open Graph / Facebook Meta Tags -->
+<meta property="og:title" content="Simple Interest Calculator – Calculate Interest Instantly Online">
+<meta property="og:description" content="Free and easy-to-use simple interest calculator for loans and investments. Find interest earned or owed using just principal, rate, and time.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://instacalc.in/simpleinterestcalculator.html">
+<meta property="og:image" content="https://instacalc.in/instatheme.webp">
+<meta property="og:site_name" content="InstaCalc">
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Simple Interest Calculator – Free Loan & Investment Tool">
+<meta name="twitter:description" content="Instantly calculate loan interest or investment returns with our simple interest calculator. Compare with compound interest for smarter planning.">
+<meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+    
+    <!-- Additional SEO Meta Tags -->
+<meta name="author" content="Instacalc">
+<meta name="robots" content="index, follow">
+<meta name="revisit-after" content="7 days">
+<meta name="language" content="English">
+<meta name="theme-color" content="#1a2a3a"> 
+
+  <!-- Critical CSS -->
+  <style>
+    /* Minimum layout stability styles */
+    body { 
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .calculator-container {
+      min-height: 600px; /* Reserve space for calculator */
+    }
+    .result-section {
+      height: 200px; /* Fixed height for results area */
+      visibility: hidden; /* Hidden until calculated */
+    }
+    /* Prevent layout shifts in main content */
+    .main-content {
+      position: relative;
+      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
+    }
+    /* Fixed dimensions for key elements */
+    input {
+      width: 100%;
+      max-width: 400px;
+      height: 40px;
+    }
+       /* Fixed dimensions for key elements */
+    .chart-container {
+      width: 100%;
+      max-width: 400px;
+      height: 300px;
+    }
+  </style>
+
+  <!-- Preloads -->
+  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
+  <link rel="preload" href="style.css" as="style">
+  
+  <!-- Non-critical CSS -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </noscript>
+
+  <!-- Script optimization -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
+  <!-- Only load Popper and Bootstrap JS if needed -->
+  <?php if (needs_bootstrap_js): ?>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
+  
+     <script src="bootstrap/js/bootstrap.min.js" defer></script>
+  <?php endif; ?>
+
+  <!-- Load Chart.js only when needed -->
+  <script>
+    function loadChartJS() {
+      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
+        window.Chart = module.default;
+        initializeCharts();
+      });
+    }
+  </script>
+
+  <script src="script.js" defer></script>
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg navbar-dark ">
+  <div class="d-flex align-items-center navbar-brand">
+    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
+    <h6 class="text-white mb-0">InstaCalc.in</h6>
+  </div>   
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>     
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item px-2">
+        <a class="nav-link" href="index.html">Home</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="aboutus.html">About Us</a>
+      </li>
+         <li class="nav-item px-2">
+        <a class="nav-link " href="contactus.html">Contact Us</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    
+
+
+  <!-- //first row first column -->
+  <div  class="row">
+  <!--   //first row first column -->
+    <div class="col-md-6" style="background-colorf:yellow;">
+      <div class="container mt-5 table1">
+
+       <h2>Simple Interest Calculator</h2>
+
+        
+       <div class="input-group m">
+           <label for="amount">Principal Amount (₹)</label>
+           <div class="slider-container">
+               <input type="range" id="amount-slider" min="1000" max="100000" step="500" value="25000" oninput="syncInputs('amount')">
+               <input type="number" id="amount" min="1000" max="100000" step="500" value="25000" oninput="syncInputs('amount', true)">
+           </div>
+       </div>
+       <div class="input-group">
+           <label for="rate">Rate of Interest (p.a.) (%)</label>
+           <div class="slider-container">
+               <input type="range" id="rate-slider" min="1" max="20" step="0.1" value="12" oninput="syncInputs('rate')">
+               <input type="number" id="rate" min="1" max="20" step="0.1" value="12" oninput="syncInputs('rate', true)">
+           </div>
+       </div>
+       <div class="input-group">
+           <label for="years">Duration (Years)</label>
+           <div class="slider-container">
+               <input type="range" id="years-slider" min="1" max="30" step="1" value="10" oninput="syncInputs('years')">
+               <input type="number" id="years" min="1" max="30" step="1" value="10" oninput="syncInputs('years', true)">
+           </div>
+       </div>
+    
+          
+          
+         <div class="result-box">
+    <div class="result-item">
+        <span class="label">Principal Amount:</span>
+        <span class="value"><strong>₹<span id="invested">0</span></strong></span>
+    </div>
+    <div class="result-item">
+        <span class="label">Total Interest:</span>
+        <span class="value"><strong>₹<span id="returns">0</span></strong></span>
+    </div>
+    <div class="result-item">
+        <span class="label">Total Amount:</span>
+        <span class="value"><strong>₹<span id="total">0</span></strong></span>
+    </div>
+</div> 
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+       <div class="chart-container">
+           <canvas id="sipChart"></canvas>
+       </div>
+      
+     </div>
+  </div>
+  <!--   //first row second column -->
+  <div class="col-md-6 d-none d-md-block">
+  <div class="container mt-5">
+    <div class="container-fluid mt-sm-5 mb-sm-5">
+      <a href="sipcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="mutualfundreturncalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="gratuitycalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="epfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="fdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="rdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="cargcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="coumpoundinterest.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="retirementcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="ppfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="emicalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="simpleinterestcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+      </div>
+
+  <!--  /second row -->
+   <div  class="row mb-05">
+  <!--    //second row first column -->
+     <div class="col-md-6" style="background-colorf:red;">
+
+     <div class="container">
+    <div class="sip-calculator-content">
+        <div class="title">
+            <h1>Simple Interest Calculator – Calculate Your Earnings or Loan Costs Easily</h1>
+        </div>
+        <div class="introduction">
+            <p>Need to find out how much you’ll earn from an investment or pay on a loan? The <strong>Simple Interest Calculator</strong> is your go-to tool for quick and accurate results.</p>
+            <p>This basic interest calculator lets you determine the exact interest amount based on your principal, rate, and time—without any manual math.</p>
+            <p>Whether you're looking for a quick interest calculator (simple interest) or a comparison with compound interest, this tool makes financial planning simple and stress-free.</p>
+        </div>
+        <div class="what-is-sip-calculator">
+            <h2>What is a Simple Interest Calculator?</h2>
+            <p>A simple interest calculator is an online tool used to calculate the interest earned or paid on a fixed principal over a period of time.</p>
+            <p>All you need to input are:</p>
+            <ul>
+                <li>✅ Principal Amount (P)</li>
+                <li>✅ Annual Interest Rate (R%)</li>
+                <li>✅ Time Period in Years (T)</li>
+            </ul>
+            <p>The simple interest cal then instantly gives you the interest earned or owed, making it ideal for both investors and borrowers.</p>
+        </div>
+        <div class="why-use-sip-calculator">
+            <h2>Why Should You Use a Simple Interest Loan Calculator?</h2>
+            <p>Here’s why a simple interest loan calculator is essential:</p>
+            <ul>
+                <li>✔️ <strong>Instant Results</strong> – No need for manual calculations.</li>
+                <li>✔️ <strong>Compare Options</strong> – Quickly check how rate and time affect interest.</li>
+                <li>✔️ <strong>Smart Planning</strong> – Budget better for savings, EMIs, or business loans.</li>
+                <li>✔️ <strong>Simple Interface</strong> – Designed for anyone, from students to investors.</li>
+            </ul>
+        </div>
+        <div class="how-sip-calculator-works">
+            <h2>How Does the Simple Interest Formula Work?</h2>
+            <p>The standard formula used by every interest calculator (simple interest) is:</p>
+            <p><code>SI = (P × R × T) / 100</code></p>
+            <p>Where:</p>
+            <ul>
+                <li>P = Principal amount</li>
+                <li>R = Annual interest rate</li>
+                <li>T = Time (in years)</li>
+                <li>SI = Simple Interest</li>
+            </ul>
+            <p>This formula is often used alongside the simple interest compound interest formula for comparison purposes.</p>
+        </div>
+        <div class="example-calculation">
+            <h2>Example Calculation</h2>
+            <p>Let’s say you invest ₹10,000 at an annual interest rate of 6% for 3 years. Using the simple interest calculator:</p>
+            <ul>
+                <li><strong>SI = (10,000 × 6 × 3) / 100 = ₹1,800</strong></li>
+                <li>Total amount = ₹10,000 + ₹1,800 = ₹11,800</li>
+            </ul>
+            <p>Now, if this were a loan, the ₹1,800 would be the extra interest you’d pay over the principal.</p>
+        </div>
+        <div class="how-to-use-sip-calculator">
+            <h2>How to Use the Simple Interest Calculator?</h2>
+            <p>It’s easy to use:</p>
+            <ol>
+                <li>1️⃣ Enter the principal amount</li>
+                <li>2️⃣ Enter the annual interest rate</li>
+                <li>3️⃣ Enter the time in years</li>
+                <li>4️⃣ Hit “Calculate” – and get your interest instantly!</li>
+            </ol>
+            <p>You can also compare the results with a compound and simple interest formula to see the difference in returns or cost.</p>
+        </div>
+        <div class="final-thoughts">
+            <h2>Final Thoughts</h2>
+            <p>The simple interest calculator is a must-have for anyone dealing with loans, savings, or investments. It eliminates guesswork and speeds up financial decisions.</p>
+            <p>Whether you're using it as a basic interest calculator or a learning tool for students, it helps you understand the impact of rate and time on your finances.</p>
+            <p>💡 Try it today and take control of your money with confidence!</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+       </div>
+  <!--   //second row second column -->
+     <div class="col-md-6">
+    <div class="container mt-5 mb-5">
+        <h2 class="mb-4">FAQs</h2>
+        <div id="faqAccordion" class="accordion">
+
+            <!-- FAQ 1 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            What is Simple Interest?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        Simple interest is a method of calculating interest on a loan or investment based on the original principal amount. It does not take into account any interest earned or paid in previous periods.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            How does the Simple Interest Calculator work?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        The Simple Interest Calculator estimates the interest earned or paid on a loan or investment using the formula:
+                        <br>
+                        <code>Simple Interest = (P × r × t) / 100</code>
+                        <br>
+                        Where:
+                        <ul>
+                            <li><strong>P:</strong> Principal amount</li>
+                            <li><strong>r:</strong> Annual interest rate (in percentage)</li>
+                            <li><strong>t:</strong> Time period in years</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            What inputs are required for the Simple Interest Calculator?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        You need to provide:
+                        <ul>
+                            <li><strong>Principal Amount:</strong> The initial amount of the loan or investment.</li>
+                            <li><strong>Interest Rate:</strong> The annual interest rate (in percentage).</li>
+                            <li><strong>Time Period:</strong> The duration of the loan or investment in years.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            What is the difference between simple interest and compound interest?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        <strong>Simple Interest</strong> is calculated only on the principal amount, while <strong>Compound Interest</strong> is calculated on the principal amount and the accumulated interest over previous periods. Compound interest grows faster than simple interest.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFive">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            Can I calculate simple interest for a fraction of a year?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        Yes, you can calculate simple interest for a fraction of a year by converting the time period into years. For example, 6 months would be 0.5 years, and 3 months would be 0.25 years.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 6 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSix">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            Is simple interest used in real-life financial products?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        Simple interest is commonly used for short-term loans, car loans, and some personal loans. However, most long-term financial products like home loans and investments use compound interest.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 7 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSeven">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                            Can I calculate the total amount (principal + interest) using the Simple Interest Calculator?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        Yes, the total amount can be calculated by adding the simple interest to the principal amount:
+                        <br>
+                        <code>Total Amount = Principal + Simple Interest</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 8 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingEight">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                            What are the advantages of simple interest?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        The advantages of simple interest include:
+                        <ul>
+                            <li>Easy to calculate and understand.</li>
+                            <li>Predictable interest payments over time.</li>
+                            <li>Lower interest costs compared to compound interest for short-term loans.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+   </div>
+  <!--   //third row -->
+     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
+  <!--        //third row first column -->
+       <div class="col-sm-12 " >
+         <div class=" text-center" style="margin-bottom:0">
+         <p id="backToTopBtn" style="color:white;">
+
+              Back To Home
+
+             </p>
+       </div>
+
+         </div>
+  <!--      //third row second column -->
+       <div class="col-sm-0 " style="background-color:pink;">    </div>
+      </div>
+      <script>
+              function syncInputs(id, isManual = false) {
+                  const slider = document.getElementById(`${id}-slider`);
+                  const numberInput = document.getElementById(id);
+                  if (isManual) {
+                      slider.value = numberInput.value;
+                  } else {
+                      numberInput.value = slider.value;
+                  }
+                  calculateSIP();
+              }
+ function formatNumberInIndianFormat(num) {
+    // Convert the number to a string and split into whole and decimal parts
+    let parts = num.toString().split(".");
+    let wholePart = parts[0];
+    let decimalPart = parts.length > 1 ? "." + parts[1] : "";
+
+    // Add commas in Indian numbering system format
+    let lastThree = wholePart.slice(-3);
+    let otherNumbers = wholePart.slice(0, -3);
+    if (otherNumbers !== "") {
+        lastThree = "," + lastThree;
+    }
+    let result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + decimalPart;
+
+    return result;
+}
+          
+          
+          
+            function calculateSIP() {
+    // Get input values
+    let P = parseFloat(document.getElementById("amount").value); // Principal amount
+    let annualRate = parseFloat(document.getElementById("rate").value); // Annual interest rate
+    let t = parseInt(document.getElementById("years").value); // Time in years
+
+    // Convert rate to decimal
+    let r = annualRate / 100;
+
+    if (P > 0 && r > 0 && t > 0) {
+        // Calculate total amount (Principal + Interest)
+        let A = P * (1 + (r * t)); // Simple interest formula: A = P(1 + rt)
+        let interestAmount = A - P; // Total interest earned
+
+        // Format the numbers in Indian format
+        let formattedPrincipal = formatNumberInIndianFormat(P.toFixed(2));
+        let formattedInterest = formatNumberInIndianFormat(interestAmount.toFixed(2));
+        let formattedTotalAmount = formatNumberInIndianFormat(A.toFixed(2));
+
+        // Update values in HTML
+        document.getElementById("invested").textContent = formattedPrincipal; // Principal amount
+        document.getElementById("returns").textContent = formattedInterest; // Total interest
+        document.getElementById("total").textContent = formattedTotalAmount; // Total amount
+
+        // Update the SIP Chart
+        updateChart(P, interestAmount);
+    } else {
+        // Reset values if input is invalid
+        document.getElementById("invested").textContent = "0.00";
+        document.getElementById("returns").textContent = "0.00";
+        document.getElementById("total").textContent = "0.00";
+
+        // Reset the chart
+        updateChart(0, 0);
+    }
+}
+
+              let sipChart;
+              function updateChart(invested, returns) {
+                  let ctx = document.getElementById("sipChart").getContext("2d");
+                  if (sipChart) sipChart.destroy();
+                  sipChart = new Chart(ctx, {
+                      type: "doughnut",
+                      data: {
+                          labels: ["Principal Amount", "Total Interest"],
+                          datasets: [{
+                              data: [invested, returns],
+                              backgroundColor: ["#4CAF50", "#2196F3"]
+                          }]
+                      }
+                  });
+              }
+              calculateSIP();
+
+
+         
+          </script>
+          
+    <script> 
+     // Get the button
+const backToTopBtn = document.getElementById("backToTopBtn");
+
+// When the user scrolls down 20px from the top, show the button
+window.onscroll = function () {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    backToTopBtn.style.display = "block";
+  } else {
+    backToTopBtn.style.display = "none";
+  }
+};
+
+// When the user clicks the button, scroll to the top of the page
+backToTopBtn.addEventListener("click", function () {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+});
+    
+    
+    
+    </script>
+   
+      <style>
+              bodyss {
+                  font-family: Arial, sans-serif;
+                  margin: 20px;
+                  padding: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  flex-direction: column;
+                  background-color: #f4f4f4;
+              }
+              img {
+  border-radius: 50%;
+}
+              .container {
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                  max-width: 500px;
+                  width: 100%;
+              }
+              .input-group {
+                  margin-bottom: 15px;
+              }
+              .input-group label {
+                  display: block;
+                  margin-bottom: 5px;
+              }
+
+              .footer1 {
+                  display: block;
+                  margin-top: 10px;
+                  height: 50px;
+              }
+              .slider-container {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+              }
+              .slider-container input[type="number"] {
+                  width: 80px;
+                  text-align: center;
+              }
+              .result-box {
+                  background: #eef;
+                  padding: 10px;
+                  border-radius: 5px;
+                  margin-top: 20px;
+              }
+              .chart-container {
+                  width: 300px;
+                  margin: 20px auto;
+              }
+
+              // for faq
+              .faq-header {
+              cursor: pointer;
+              transition: background-color 0.3s;
+            }
+            .faq-header:hover {
+              background-color: #f8f9fa;
+            }
+            .card {
+              margin-bottom: 8px;
+              border: 1px solid rgba(0,0,0,.125);
+            }
+            .bi-chevron-down {
+              transition: transform 0.3s;
+            }
+            .collapsed .bi-chevron-down {
+              transform: rotate(0deg); /* Down arrow */
+            }
+            .bi-chevron-down:not(.collapsed) {
+              transform: rotate(180deg); /* Up arrow */
+
+
+          </style>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+</html>

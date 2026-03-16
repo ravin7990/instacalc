@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <!-- Primary Meta Tags -->
+<title>Days Calculator – Count Days Between Two Dates Instantly</title>
+<meta name="description" content="Use our free days calculator to calculate how many days between two dates. Great for tracking events, planning trips, or checking date differences quickly.">
+<meta name="keywords" content="days calculator, calculate days between two dates, days between calculator, count days calculator, born date calculator, calculate between two dates, count how many days, how many days are there between, days between dates">
+<link rel="icon" type="image/x-icon" href="https://instacalc.in/instatheme.webp">
+<link rel="canonical" href="https://instacalc.in/duration/dayscalculator.html" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:title" content="Days Calculator – Count Days Between Two Dates Instantly">
+<meta property="og:description" content="Easily calculate how many days between two dates using our free online days calculator. Perfect for planning vacations, tracking deadlines, or counting important milestones.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://instacalc.in/dayscalculator.html">
+<meta property="og:image" content="https://instacalc.in/instatheme.webp">
+<meta property="og:site_name" content="InstaCalc">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Days Calculator – Free & Easy Date Counter Tool">
+<meta name="twitter:description" content="Quickly count the days between two dates. Use our smart date calculator to plan events, measure durations, or check how long something lasted.">
+<meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+  
+  <!-- Additional SEO Meta Tags -->
+<meta name="author" content="Instacalc">
+<meta name="robots" content="index, follow">
+<meta name="revisit-after" content="7 days">
+<meta name="language" content="English">
+<meta name="theme-color" content="#1a2a3a">
+
+ <style>
+        /* Inline critical CSS - Replace with your actual critical styles */
+      
+        .navbar { /* Example critical navbar styles */ }
+        .container.table1 h2 { /* Example critical calculator heading style */ }
+        /* ... more critical styles ... */
+    </style>
+
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"></noscript>
+
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="style.css"></noscript>
+  
+
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"></noscript>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="script.js" defer></script>
+  
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+ 
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg navbar-dark ">
+  <div class="d-flex align-items-center navbar-brand">
+    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
+    <h6 class="text-white mb-0"> InstaCalc.in </h6>
+  </div>   
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>     
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item px-2">
+        <a class="nav-link" href="/index.html">Home</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="/aboutus.html">About Us</a>
+      </li>
+       <li class="nav-item px-2">
+        <a class="nav-link " href="/contactus.html">Contact Us</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="/privacypolicy.html">Privacy Policy</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    
+
+
+  <!-- //first row first column -->
+  <div class="row">
+  <!-- First row first column -->
+ <!-- First row first column -->
+  <div class="col-md-6" style="background-colorf:yellow;">
+    <div class="container mt-5 table1">
+      <h2>Days Calculator</h2>
+      
+      <div class="input-group m">
+        <label for="start-date" class="mr-1">Start Date</label>
+        <input type="date" id="start-date" class="form-control" onchange="calculateDays()">
+      </div>
+      
+      <div class="input-group">
+        <label for="end-date" class="mr-1">End Date</label>
+        <input type="date" id="end-date" class="form-control" onchange="calculateDays()">
+      </div>
+      
+      <div class="input-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="include-end-day" onchange="calculateDays()">
+          <label class="form-check-label" for="include-end-day">
+            Include end day in calculation
+          </label>
+        </div>
+      </div>
+      
+      <div class="result-box">
+        <div class="result-item">
+          <span class="label">Total Days:</span>
+          <span class="value"><strong><span id="total-days">0</span> days</strong></span>
+        </div>
+        <div class="result-item">
+          <span class="label">Breakdown:</span>
+          <span class="value"><strong><span id="breakdown">-</span></strong></span>
+        </div>
+        <div class="result-item">
+          <span class="label">Weekdays:</span>
+          <span class="value"><strong><span id="weekdays">0</span> days</strong></span>
+        </div>
+        <div class="result-item">
+          <span class="label">Weekends:</span>
+          <span class="value"><strong><span id="weekends">0</span> days</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- First row second column -->
+  <div class="col-md-6 d-none d-md-block">
+  <div class="container mt-5">
+    <div class="container-fluid mt-sm-5 mb-sm-5">
+      <!-- All cards follow the same structure with <a> wrapping the content -->
+      <div class="card">
+        <a class="sitetext" href="dayscalculator.html">
+          <div class="card-body labelbody">Days Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="hourcalculator.html">
+          <div class="card-body labelbody">Hour Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="timedurationcalculator.html">
+          <div class="card-body labelbody">Duration Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="agecalculator.html">
+          <div class="card-body labelbody">Age Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="timezonecalculator.html">
+          <div class="card-body labelbody">Timezone Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="birthdaycalculator.html">
+          <div class="card-body labelbody">Birthday Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="weekcalculator.html">
+          <div class="card-body labelbody">Week Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="minutes-hourscalculator.html">
+          <div class="card-body labelbody">Minutes to Hour Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="juliandatecalculator.html">
+          <div class="card-body labelbody">Julian Date Calculator</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+  <!--  /second row -->
+ <div class="row mb-05">
+  <!-- First Column -->
+  <div class="col-md-6" >
+    <div class="container mt-5">
+  <div class="days-calculator-content">
+    <div class="title">
+      <h1>Days Calculator: Calculate Days Between Two Dates Instantly 🗓️</h1>
+    </div>
+
+    <div class="introduction">
+      <p>Need to calculate how many days are left until your next vacation? Or wondering how long it's been since your last birthday? Whether it’s for tracking goals, planning events, or marking milestones, a <strong>Days Calculator</strong> is the perfect tool to help you count how many days between any two dates—past or future.</p>
+      <p>No more flipping through calendars or doing mental math. Just enter the dates and let the tool do the rest!</p>
+    </div>
+
+    <div class="what-is-days-calculator">
+      <h2>What Is a Days Calculator?</h2>
+      <p>A <strong>Days Calculator</strong> (also called days between calculator) helps you calculate days between two dates in seconds. Simply input a start date and an end date, and the calculator will show you:</p>
+      <ul>
+        <li>🔹 Total number of days</li>
+        <li>🔹 Duration in weeks, months, or years (in some tools)</li>
+        <li>🔹 Option to include/exclude the start or end date</li>
+      </ul>
+      <p>It’s fast, accurate, and saves you from human error—especially useful when leap years and varying month lengths are involved.</p>
+    </div>
+
+    <div class="why-use-days-calculator">
+      <h2>Why Use a Days Between Dates Calculator?</h2>
+      <p>There are tons of real-life reasons to use a calculate between two dates tool:</p>
+      <ul>
+        <li>📌 Planning vacations or holidays</li>
+        <li>📌 Tracking project timelines and deadlines</li>
+        <li>📌 Calculating how long you've been in a job or relationship</li>
+        <li>📌 Checking how many days until a birthday or anniversary</li>
+        <li>📌 Using as a born date calculator to find your exact age in days</li>
+      </ul>
+      <p>If you're working with dates, this tool is your personal time tracker.</p>
+    </div>
+
+    <div class="how-it-works">
+      <h2>How to Use the Days Calculator</h2>
+      <p>It's super simple to use:</p>
+      <ol>
+        <li>1️⃣ Select your <strong>start date</strong> (e.g., April 10, 2025)</li>
+        <li>2️⃣ Select your <strong>end date</strong> (e.g., October 25, 2025)</li>
+        <li>3️⃣ Click "Calculate"</li>
+      </ol>
+      <p>🎉 The result will tell you how many days are there betweenthe two dates—198 days in the above example!</p>
+      <p>You can also adjust settings to include or exclude start/end dates based on your use case.</p>
+    </div>
+
+    <div class="example-use-case">
+      <h2>Example: Count the Days Until Your Birthday 🎂</h2>
+      <p>Let’s say today is April 10, 2025, and your birthday is on October 25, 2025.</p>
+      <p>Enter both dates into the count days calculator and you’ll see:</p>
+      <p><strong>✅ 198 days left!</strong></p>
+      <p>Now you’ve got just the right countdown to plan something special!</p>
+    </div>
+
+    <div class="manual-vs-calculator">
+      <h2>Why Not Just Count Manually?</h2>
+      <p>You could try. But what about leap years? Or miscounting days between months with different lengths?</p>
+      <p>With a calculate days between two dates tool, everything’s accurate and automatic. No stress, no errors, and no wasted time.</p>
+    </div>
+
+    <div class="extra-features">
+      <h2>Bonus Features (Depending on the Tool)</h2>
+      <p>Some advanced days between two dates calculators also allow you to:</p>
+      <ul>
+        <li>✔ Add or subtract days from a selected date</li>
+        <li>✔ Calculate only business days (excluding weekends and holidays)</li>
+        <li>✔ Include time (hours and minutes) for precise countdowns</li>
+      </ul>
+      <p>It's more than just counting days—it's about tracking time smartly.</p>
+    </div>
+
+    <div class="conclusion">
+      <h2>Final Thoughts</h2>
+      <p>Whether you're managing a deadline, waiting for a big day, or simply curious, this <strong>days calculator</strong> is a powerful and easy-to-use tool. Forget manual date counting—get accurate results instantly with the days between calculator.</p>
+      <p>Try it today and take the guesswork out of your timeline! ⏳✨</p>
+    </div>
+  </div>
+</div>
+
+  </div>
+<!-- Second Column -->
+  <div class="col-md-6" >
+    <div class="container mt-5 mb-5">
+      <h2 class="mb-4">FAQs</h2>
+      <div id="faqAccordion" class="accordion">
+
+        <!-- FAQ 1 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                What exactly does a Days Calculator do?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
+            <div class="card-body">
+              A Days Calculator calculates the exact number of days between two dates. You provide a start date and end date, and it tells you how many days are in between, including or excluding the end date depending on the tool.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Does it count weekends and holidays?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+            <div class="card-body">
+              Basic days calculators count all days, including weekends. However, some advanced versions have a "business days" option that excludes weekends and sometimes even holidays.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Can I calculate days going backward in time?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+            <div class="card-body">
+              Absolutely! The calculator works the same whether you're counting forward to a future date or backward to see how many days have passed since a past event.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingFour">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                How accurate is a Days Calculator?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+            <div class="card-body">
+              Extremely accurate! It automatically accounts for leap years and varying month lengths, which are easy to miss when counting manually.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingFive">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                Can I calculate hours and minutes too?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
+            <div class="card-body">
+              Some advanced calculators do include time calculations, letting you count down to the exact hour or minute of an event.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 6 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingSix">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                Is there a limit to how far apart dates can be?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
+            <div class="card-body">
+              Most calculators can handle dates hundreds or even thousands of years apart, though practical limits depend on the specific tool's programming.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 7 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingSeven">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                Can I save my calculations?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
+            <div class="card-body">
+              This depends on the specific calculator. Web-based tools might not save automatically, but you can always screenshot or note down the results.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 8 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingEight">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                Is this calculator free to use?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
+            <div class="card-body">
+              Yes! Most days calculators are completely free online tools with no hidden costs.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>     
+  <!--   //third row -->
+     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
+  <!--        //third row first column -->
+       <div class="col-sm-12 " >
+         <div class=" text-center" style="margin-bottom:0">
+         <p id="backToTopBtn" style="color:white;">
+
+              Back To Home
+
+             </p>
+       </div>
+
+         </div>
+  <!--      //third row second column -->
+       <div class="col-sm-0 " style="background-color:pink;">    </div>
+      </div>
+  
+  <script> 
+   // Get the button
+const backToTopBtn = document.getElementById("backToTopBtn");
+
+// When the user scrolls down 20px from the top, show the button
+window.onscroll = function () {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    backToTopBtn.style.display = "block";
+  } else {
+    backToTopBtn.style.display = "none";
+  }
+};
+
+// When the user clicks the button, scroll to the top of the page
+backToTopBtn.addEventListener("click", function () {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+});
+  
+  </script>
+   
+  
+  <script> 
+          
+          // age calculator 
+          
+// Birthstone data
+  const birthstones = {
+    1: "Garnet",
+    2: "Amethyst",
+    3: "Aquamarine",
+    4: "Diamond",
+    5: "Emerald",
+    6: "Pearl",
+    7: "Ruby",
+    8: "Peridot",
+    9: "Sapphire",
+    10: "Opal",
+    11: "Topaz",
+    12: "Turquoise"
+  };
+
+  // Set default dates when page loads
+  // Set default dates when page loads
+  window.onload = function() {
+    const today = new Date();
+    const startDate = new Date();
+    startDate.setDate(today.getDate() - 7); // Default to 7 days ago
+    
+    // Format dates as YYYY-MM-DD
+    const formattedToday = today.toISOString().split('T')[0];
+    const formattedStartDate = startDate.toISOString().split('T')[0];
+    
+    document.getElementById('start-date').value = formattedStartDate;
+    document.getElementById('end-date').value = formattedToday;
+    
+    // Calculate days initially
+    calculateDays();
+  };
+  
+  function calculateDays() {
+    const startDate = new Date(document.getElementById('start-date').value);
+    const endDate = new Date(document.getElementById('end-date').value);
+    const includeEndDay = document.getElementById('include-end-day').checked;
+    
+    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+      return; // Invalid dates
+    }
+    
+    // Swap dates if end date is before start date
+    if (endDate < startDate) {
+      [startDate, endDate] = [endDate, startDate];
+      document.getElementById('start-date').valueAsDate = startDate;
+      document.getElementById('end-date').valueAsDate = endDate;
+    }
+    
+    // Calculate time difference in milliseconds
+    let timeDiff = endDate - startDate;
+    
+    // Convert to days
+    let totalDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    
+    // Include end day if checkbox is checked
+    if (includeEndDay) {
+      totalDays += 1;
+    }
+    
+    // Calculate weekdays and weekends
+    let weekdays = 0;
+    let weekends = 0;
+    let currentDate = new Date(startDate);
+    
+    // Loop through each day
+    for (let i = 0; i < totalDays; i++) {
+      const day = currentDate.getDay();
+      if (day === 0 || day === 6) { // Sunday or Saturday
+        weekends++;
+      } else {
+        weekdays++;
+      }
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    
+    // Calculate weeks and remaining days
+    const weeks = Math.floor(totalDays / 7);
+    const remainingDays = totalDays % 7;
+    
+    // Update the UI
+    document.getElementById('total-days').textContent = totalDays;
+    document.getElementById('weekdays').textContent = weekdays;
+    document.getElementById('weekends').textContent = weekends;
+    document.getElementById('weeks').textContent = weeks;
+    document.getElementById('remaining-days').textContent = remainingDays;
+  }     
+          
+          
+          
+        //age end  
+          
+          
+          
+          
+              function syncInputs(id, isManual = false) {
+                  const slider = document.getElementById(`${id}-slider`);
+                  const numberInput = document.getElementById(id);
+                  if (isManual) {
+                      slider.value = numberInput.value;
+                  } else {
+                      numberInput.value = slider.value;
+                  }
+                  calculateSIP();
+              }
+function formatNumberInIndianFormat(num) {
+    // Convert the number to a string and split into whole and decimal parts
+    let parts = num.toString().split(".");
+    let wholePart = parts[0];
+    let decimalPart = parts.length > 1 ? "." + parts[1] : "";
+
+    // Add commas in Indian numbering system format
+    let lastThree = wholePart.slice(-3);
+    let otherNumbers = wholePart.slice(0, -3);
+    if (otherNumbers !== "") {
+        lastThree = "," + lastThree;
+    }
+    let result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + decimalPart;
+
+    return result;
+}
+          
+          
+          
+       function calculateSIP() {
+    // Get input values
+    const P = parseFloat(document.getElementById("amount").value); // Principal
+    const annualRate = parseFloat(document.getElementById("rate").value); // Annual rate
+    const t = parseInt(document.getElementById("years").value); // Years
+
+    // FD Formula with quarterly compounding (common in India):
+    // M = P × (1 + r/(4×100))^(n×4)
+    // Where:
+    // r = annual interest rate
+    // n = number of years
+    // 4 = quarterly compounding
+
+    const quarterlyRate = annualRate / 4;
+    const totalQuarters = t * 4;
+    const maturityAmount = P * Math.pow(1 + quarterlyRate / 100, totalQuarters);
+    const interestEarned = maturityAmount - P;
+
+    // Format the numbers in Indian format
+    const formattedInvestedAmount = formatNumberInIndianFormat(P.toFixed(2));
+    const formattedInterestEarned = formatNumberInIndianFormat(interestEarned.toFixed(2));
+    const formattedMaturityAmount = formatNumberInIndianFormat(maturityAmount.toFixed(2));
+
+    // Update UI
+    document.getElementById("invested").textContent = formattedInvestedAmount;
+    document.getElementById("returns").textContent = formattedInterestEarned;
+    document.getElementById("total").textContent = formattedMaturityAmount;
+
+    // Update chart (if needed)
+    updateChart(P, interestEarned);
+}
+          
+          
+              let sipChart;
+              function updateChart(invested, returns) {
+                  let ctx = document.getElementById("sipChart").getContext("2d");
+                  if (sipChart) sipChart.destroy();
+                  sipChart = new Chart(ctx, {
+                      type: "doughnut",
+                      data: {
+                          labels: ["Invested Amount", "Est. Returns"],
+                          datasets: [{
+                              data: [invested, returns],
+                              backgroundColor: ["#4CAF50", "#2196F3"]
+                          }]
+                      }
+                  });
+              }
+              calculateSIP();
+
+
+         
+          
+
+          
+          </script>
+ 
+
+      <style>
+              bodyss {
+                  font-family: Arial, sans-serif;
+                  margin: 20px;
+                  padding: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  flex-direction: column;
+                  background-color: #f4f4f4;
+              }
+              img {
+  border-radius: 50%;
+}
+              .container {
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                  max-width: 500px;
+                  width: 100%;
+              }
+              .input-group {
+                  margin-bottom: 15px;
+              }
+              .input-group label {
+                  display: block;
+                  margin-bottom: 5px;
+              }
+
+              .footer1 {
+                  display: block;
+                  margin-top: 10px;
+                  height: 50px;
+              }
+              .slider-container {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+              }
+              .slider-container input[type="number"] {
+                  width: 80px;
+                  text-align: center;
+              }
+              .result-box {
+                  background: #eef;
+                  padding: 10px;
+                  border-radius: 5px;
+                  margin-top: 20px;
+              }
+              .chart-container {
+                  width: 300px;
+                  margin: 20px auto;
+              }
+
+              // for faq
+              .faq-header {
+              cursor: pointer;
+              transition: background-color 0.3s;
+            }
+            .faq-header:hover {
+              background-color: #f8f9fa;
+            }
+            .card {
+              margin-bottom: 8px;
+              border: 1px solid rgba(0,0,0,.125);
+            }
+            .bi-chevron-down {
+              transition: transform 0.3s;
+            }
+            .collapsed .bi-chevron-down {
+              transform: rotate(0deg); /* Down arrow */
+            }
+            .bi-chevron-down:not(.collapsed) {
+              transform: rotate(180deg); /* Up arrow */
+
+
+          </style>
+</body>
+</html>

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>RD Calculator – Recurring Deposit Interest Calculator Online</title>
+<meta name="description" content="Use our free RD calculator to estimate maturity amount and interest earned on your recurring deposits. Quick, accurate, and easy-to-use online tool.">
+<meta name="keywords" content="rd calculator, recurring calculator, recurring deposit calculator, recurring deposit interest rates, rd interest calculator, rd deposit interest rate, recurring deposit interest calculator, recurring deposit interest rate calculator, online rd calculator">
+<link rel="icon" type="image/x-icon" href="https://instacalc.in/instatheme.webp">
+<link rel="canonical" href="https://instacalc.in/rdcalculator.html" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+<!-- Open Graph / Facebook Meta Tags -->
+<meta property="og:title" content="RD Calculator – Estimate Recurring Deposit Returns Online">
+<meta property="og:description" content="Estimate your RD maturity and interest with our free recurring deposit calculator. Perfect for planning fixed monthly savings goals.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://instacalc.in/rdcalculator.html">
+<meta property="og:image" content="https://instacalc.in/instatheme.webp">
+<meta property="og:site_name" content="InstaCalc">
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RD Calculator – Recurring Deposit Interest Estimator">
+<meta name="twitter:description" content="Use our RD calculator to forecast savings growth, compare bank schemes, and plan your financial goals with confidence. Try now!">
+<meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+<!-- Additional SEO Meta Tags -->
+<meta name="author" content="Instacalc">
+<meta name="robots" content="index, follow">
+<meta name="revisit-after" content="7 days">
+<meta name="language" content="English">
+<meta name="theme-color" content="#1a2a3a"> 
+  <!-- Critical CSS -->
+  <style>
+    /* Minimum layout stability styles */
+    body { 
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .calculator-container {
+      min-height: 600px; /* Reserve space for calculator */
+    }
+    .result-section {
+      height: 200px; /* Fixed height for results area */
+      visibility: hidden; /* Hidden until calculated */
+    }
+    /* Prevent layout shifts in main content */
+    .main-content {
+      position: relative;
+      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
+    }
+    /* Fixed dimensions for key elements */
+    input {
+      width: 100%;
+      max-width: 400px;
+      height: 40px;
+    }
+       /* Fixed dimensions for key elements */
+    .chart-container {
+      width: 100%;
+      max-width: 400px;
+      height: 300px;
+    }
+  </style>
+
+  <!-- Preloads -->
+  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
+  <link rel="preload" href="style.css" as="style">
+  
+  <!-- Non-critical CSS -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </noscript>
+
+  <!-- Script optimization -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
+  <!-- Only load Popper and Bootstrap JS if needed -->
+  <?php if (needs_bootstrap_js): ?>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
+  
+     <script src="bootstrap/js/bootstrap.min.js" defer></script>
+  <?php endif; ?>
+
+  <!-- Load Chart.js only when needed -->
+  <script>
+    function loadChartJS() {
+      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
+        window.Chart = module.default;
+        initializeCharts();
+      });
+    }
+  </script>
+
+  <script src="script.js" defer></script>
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg navbar-dark ">
+  <div class="d-flex align-items-center navbar-brand">
+    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
+    <h6 class="text-white mb-0">InstaCalc.in</h6>
+  </div>   
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>     
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item px-2">
+        <a class="nav-link" href="index.html">Home</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="aboutus.html">About Us</a>
+      </li>
+         <li class="nav-item px-2">
+        <a class="nav-link " href="contactus.html">Contact Us</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    
+
+
+  <!-- //first row first column -->
+  <div  class="row">
+  <!--   //first row first column -->
+    <div class="col-md-6" style="background-colorf:yellow;">
+      <div class="container mt-5 table1">
+
+       <h2>RD Calculator</h2>
+
+
+       <div class="input-group m " >
+           <label for="amount">Monthly Investment (₹)</label>
+           <div class="slider-container">
+               <input type="range" id="amount-slider" min="1000" max="100000" step="500" value="1000" oninput="syncInputs('amount')">
+               <input type="number" id="amount" min="1000" max="100000" step="500" value="1000" oninput="syncInputs('amount', true)" >
+           </div>
+       </div>
+       <div class="input-group">
+           <label for="rate">Expected Return Rate (p.a.) (%)</label>
+           <div class="slider-container">
+               <input type="range" id="rate-slider" min="1" max="20" step="0.1" value="6.5" oninput="syncInputs('rate')">
+               <input type="number" id="rate" min="1" max="20" step="0.1" value="6.5" oninput="syncInputs('rate', true)">
+           </div>
+       </div>
+       <div class="input-group">
+           <label for="years">Time Period (Years)</label>
+           <div class="slider-container">
+               <input type="range" id="years-slider" min="1" max="30" step="1" value="1" oninput="syncInputs('years')">
+               <input type="number" id="years" min="1" max="30" step="1" value="1" oninput="syncInputs('years', true)">
+           </div>
+       </div>
+      <div class="result-box">
+    <div class="result-item">
+        <span class="label">Invested Amount:</span>
+        <span class="value"><strong>₹<span id="invested">0</span></strong></span>
+    </div>
+    <div class="result-item">
+        <span class="label">Est. Returns:</span>
+        <span class="value"><strong>₹<span id="returns">0</span></strong></span>
+    </div>
+    <div class="result-item">
+        <span class="label">Total Value:</span>
+        <span class="value"><strong>₹<span id="total">0</span></strong></span>
+    </div>
+</div>
+       <div class="chart-container">
+           <canvas id="sipChart"></canvas>
+       </div>
+    
+     </div>
+  </div>
+  <!--   //first row second column -->
+     <div class="col-md-6 d-none d-md-block">
+  <div class="container mt-5">
+    <div class="container-fluid mt-sm-5 mb-sm-5">
+      <a href="sipcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="mutualfundreturncalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="gratuitycalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="epfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="fdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="rdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="cargcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="coumpoundinterest.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="retirementcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="ppfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="emicalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="simpleinterestcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+      </div>
+
+  <!--  /second row -->
+   <div  class="row mb-05">
+  <!--    //second row first column -->
+     <div class="col-md-6" style="background-colorf:red;">
+
+     <div class="container">
+  <div class="rd-calculator-content">
+    <div class="title">
+      <h1>RD Calculator – Calculate Recurring Deposit Returns Instantly</h1>
+    </div>
+
+    <div class="introduction">
+      <p>Want to grow your monthly savings with guaranteed returns? A Recurring Deposit (RD) is a safe and disciplined way to do just that. But how do you know what your maturity amount will be?</p>
+      <p>That’s where an <strong>RD Calculator</strong> comes in! It helps you estimate the final amount you’ll receive, including the interest, with zero effort. No need for complex math—just enter a few details and get instant results.</p>
+    </div>
+
+    <div class="what-is-rd-calculator">
+      <h2>What is a Recurring Deposit Calculator?</h2>
+      <p>An online RD calculator is a smart tool that shows you how your monthly savings will grow over a chosen tenure, based on:</p>
+      <ul>
+        <li>✔️ Monthly deposit amount</li>
+        <li>✔️ Interest rate offered by the bank</li>
+        <li>✔️ Tenure (duration of investment)</li>
+        <li>✔️ Compounding frequency (usually quarterly)</li>
+      </ul>
+      <p>It helps you plan better, compare banks, and set achievable savings goals.</p>
+    </div>
+
+    <div class="how-rd-calculator-works">
+      <h2>How Does the RD Calculator Work?</h2>
+      <p>Recurring Deposits grow with compound interest, and the formula used is:</p>
+      <p><code>M = P × [(1 + r/n)<sup>n×t</sup> - 1] / [1 - (1 + r/n)<sup>-1</sup>]</code></p>
+      <ul>
+        <li><strong>M</strong> = Maturity amount</li>
+        <li><strong>P</strong> = Monthly investment</li>
+        <li><strong>r</strong> = Annual interest rate (in decimals)</li>
+        <li><strong>n</strong> = Compounding frequency (usually 4)</li>
+        <li><strong>t</strong> = Tenure in years</li>
+      </ul>
+      <p>The calculator performs this instantly and gives you clear, accurate numbers.</p>
+    </div>
+
+    <div class="how-to-use-rd-calculator">
+      <h2>How to Use the RD Calculator?</h2>
+      <ol>
+        <li>1️⃣ Enter the monthly deposit amount (e.g., ₹3,000)</li>
+        <li>2️⃣ Choose your desired tenure (e.g., 3 years)</li>
+        <li>3️⃣ Enter the annual interest rate (e.g., 6.8%)</li>
+        <li>4️⃣ Select the compounding frequency (Quarterly is standard)</li>
+        <li>5️⃣ Click “Calculate” to view your total maturity and interest earned!</li>
+      </ol>
+    </div>
+
+    <div class="example-calculation">
+      <h2>Example Calculation</h2>
+      <p>Let’s say you invest ₹3,000 per month in an RD for 3 years at 6.8% annual interest, compounded quarterly.</p>
+      <ul>
+        <li>🔹 Total Invested: ₹1,08,000</li>
+        <li>🔹 Maturity Amount: ₹1,15,676</li>
+        <li>🔹 Total Interest Earned: ₹7,676</li>
+      </ul>
+      <p>That’s solid growth with no risk at all!</p>
+    </div>
+
+    <div class="why-use-rd-calculator">
+      <h2>Why Use an RD Calculator?</h2>
+      <ul>
+        <li>✅ Get Accurate Results – Know how much you’ll earn before you invest.</li>
+        <li>✅ Compare Options – Try different amounts, tenures, and banks.</li>
+        <li>✅ Goal-Based Saving – Know how much to save monthly for vacations, gadgets, or emergencies.</li>
+        <li>✅ Save Time – Skip manual calculations and avoid errors.</li>
+      </ul>
+    </div>
+
+    <div class="factors-affecting-returns">
+      <h2>Factors That Affect RD Returns</h2>
+      <ul>
+        <li>📌 Monthly Deposit Amount – Higher deposits mean more returns.</li>
+        <li>📌 Interest Rate – A small change can impact your maturity amount.</li>
+        <li>📌 Tenure – Longer terms mean more interest.</li>
+        <li>📌 Compounding Frequency – Quarterly compounding grows money faster.</li>
+        <li>📌 Premature Withdrawal – Might reduce your final payout.</li>
+      </ul>
+      <p>Adjust these in the recurring deposit calculator to see their impact.</p>
+    </div>
+
+    <div class="final-thoughts">
+      <h2>Final Thoughts</h2>
+      <p>A Recurring Deposit is ideal for disciplined savers looking for secure growth. Using an RD interest calculator gives you clarity, control, and confidence in your savings journey.</p>
+      <p>Try the online RD calculator</strong> today and start planning your goals with ease! 🚀💸</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+       </div>
+  <!--   //second row second column -->
+    <div class="col-md-6" >
+    <div class="container mt-5 mb-5">
+        <h2 class="mb-4">FAQs</h2>
+        <div id="faqAccordion" class="accordion">
+
+            <!-- FAQ 1 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            What is a Recurring Deposit (RD)?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        A Recurring Deposit (RD) is a savings scheme offered by banks and financial institutions where you deposit a fixed amount every month for a predetermined tenure. The amount earns interest, and the total amount (principal + interest) is paid out at maturity.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            How does the RD Calculator work?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        The RD Calculator estimates the maturity amount of your recurring deposit based on the monthly deposit amount, interest rate, and tenure. It uses the formula for compound interest to calculate the returns.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            What inputs are required for the RD Calculator?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        You need to provide:
+                        <ul>
+                            <li><strong>Monthly Deposit Amount:</strong> The fixed amount you deposit every month.</li>
+                            <li><strong>Interest Rate:</strong> The annual interest rate offered by the bank.</li>
+                            <li><strong>Tenure:</strong> The duration of the RD (in months or years).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            What is the minimum deposit amount for an RD?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        The minimum deposit amount for an RD varies by bank but is typically as low as ₹100 per month. Some banks may have higher minimum deposit requirements.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFive">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            Can I withdraw my RD before maturity?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        Yes, you can withdraw your RD before maturity, but it may attract a penalty. The interest rate may also be reduced to the rate applicable for the period the RD was held.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 6 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSix">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            Are RD returns taxable?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        Yes, the interest earned on RDs is taxable as per your income tax slab. Additionally, TDS (Tax Deducted at Source) is deducted if the interest exceeds ₹40,000 (₹50,000 for senior citizens) in a financial year.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 7 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSeven">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                            Can I take a loan against my RD?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        Yes, most banks allow you to take a loan against your RD. The loan amount is usually up to 90% of the RD balance, and the interest rate is lower compared to personal loans.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 8 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingEight">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                            What happens if I miss a monthly deposit in an RD?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        If you miss a monthly deposit, the bank may charge a penalty or close the RD account. Some banks offer a grace period to make the deposit, but it’s best to check with your bank for specific rules.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+   </div>
+  <!--   //third row -->
+     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
+  <!--        //third row first column -->
+       <div class="col-sm-12 " >
+         <div class=" text-center" style="margin-bottom:0">
+         <p id="backToTopBtn" style="color:white;">
+
+              Back To Home
+
+             </p>
+       </div>
+
+         </div>
+  <!--      //third row second column -->
+       <div class="col-sm-0 " style="background-color:pink;">    </div>
+      </div>
+      <script>
+              function syncInputs(id, isManual = false) {
+                  const slider = document.getElementById(`${id}-slider`);
+                  const numberInput = document.getElementById(id);
+                  if (isManual) {
+                      slider.value = numberInput.value;
+                  } else {
+                      numberInput.value = slider.value;
+                  }
+                  calculateSIP();
+              }
+          
+  function formatNumberInIndianFormat(num) {
+    // Convert the number to a string and split into whole and decimal parts
+    let parts = num.toString().split(".");
+    let wholePart = parts[0];
+    let decimalPart = parts.length > 1 ? "." + parts[1] : "";
+
+    // Add commas in Indian numbering system format
+    let lastThree = wholePart.slice(-3);
+    let otherNumbers = wholePart.slice(0, -3);
+    if (otherNumbers !== "") {
+        lastThree = "," + lastThree;
+    }
+    let result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + decimalPart;
+
+    return result;
+}        
+          
+          
+           function calculateSIP() {
+    // Get input values
+    let P = parseFloat(document.getElementById("amount").value); // Monthly Deposit
+    let r = parseFloat(document.getElementById("rate").value) / 100; // Annual Interest Rate in decimal
+    let t = parseInt(document.getElementById("years").value); // Tenure in Years
+    let n = 12 * t; // Total number of monthly deposits
+    let totalInvested = P * n; // Total amount invested
+
+    // Calculate maturity amount
+    let maturityAmount = 0;
+    for (let k = 0; k < n; k++) {
+        let remainingYears = (n - k) / 12; // Remaining time in years for deposit k
+        maturityAmount += P * Math.pow(1 + r / 4, 4 * remainingYears);
+    }
+
+    // Calculate interest earned
+    let interestEarned = maturityAmount - totalInvested;
+
+    // Format the numbers in Indian format
+    let formattedTotalInvested = formatNumberInIndianFormat(totalInvested.toFixed(2));
+    let formattedInterestEarned = formatNumberInIndianFormat(interestEarned.toFixed(2));
+    let formattedMaturityAmount = formatNumberInIndianFormat(maturityAmount.toFixed(2));
+
+    // Update the UI with formatted values
+    document.getElementById("invested").textContent = formattedTotalInvested;
+    document.getElementById("returns").textContent = formattedInterestEarned;
+    document.getElementById("total").textContent = formattedMaturityAmount;
+
+    // Update chart (if needed)
+    updateChart(totalInvested, interestEarned);
+}
+              let sipChart;
+              function updateChart(invested, returns) {
+                  let ctx = document.getElementById("sipChart").getContext("2d");
+                  if (sipChart) sipChart.destroy();
+                  sipChart = new Chart(ctx, {
+                      type: "doughnut",
+                      data: {
+                          labels: ["Invested Amount", "Est. Returns"],
+                          datasets: [{
+                              data: [invested, returns],
+                              backgroundColor: ["#4CAF50", "#2196F3"]
+                          }]
+                      }
+                  });
+              }
+              calculateSIP();
+
+
+         
+          
+function formatNumber(number) {
+    let numStr = number.toString();
+    let lastThree = numStr.slice(-3);
+    let otherNumbers = numStr.slice(0, -3);
+    if (otherNumbers === "") {
+        return lastThree;
+    }
+    otherNumbers = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+    return otherNumbers + "," + lastThree;
+}
+          
+          
+          
+          
+          </script>
+          
+  <script>
+     // Get the button
+const backToTopBtn = document.getElementById("backToTopBtn");
+
+// When the user scrolls down 20px from the top, show the button
+window.onscroll = function () {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    backToTopBtn.style.display = "block";
+  } else {
+    backToTopBtn.style.display = "none";
+  }
+};
+
+// When the user clicks the button, scroll to the top of the page
+backToTopBtn.addEventListener("click", function () {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+});
+    
+    
+    </script>
+
+      <style>
+              bodyss {
+                  font-family: Arial, sans-serif;
+                  margin: 20px;
+                  padding: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  flex-direction: column;
+                  background-color: #f4f4f4;
+              }
+              img {
+  border-radius: 50%;
+}
+              .container {
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                  max-width: 500px;
+                  width: 100%;
+              }
+              .input-group {
+                  margin-bottom: 15px;
+              }
+              .input-group label {
+                  display: block;
+                  margin-bottom: 5px;
+              }
+
+              .footer1 {
+                  display: block;
+                  margin-top: 10px;
+                  height: 50px;
+              }
+              .slider-container {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+              }
+              .slider-container input[type="number"] {
+                  width: 80px;
+                  text-align: center;
+              }
+              .result-box {
+                  background: #eef;
+                  padding: 10px;
+                  border-radius: 5px;
+                  margin-top: 20px;
+              }
+              .chart-container {
+                  width: 300px;
+                  margin: 20px auto;
+              }
+
+              // for faq
+              .faq-header {
+              cursor: pointer;
+              transition: background-color 0.3s;
+            }
+            .faq-header:hover {
+              background-color: #f8f9fa;
+            }
+            .card {
+              margin-bottom: 8px;
+              border: 1px solid rgba(0,0,0,.125);
+            }
+            .bi-chevron-down {
+              transition: transform 0.3s;
+            }
+            .collapsed .bi-chevron-down {
+              transform: rotate(0deg); /* Down arrow */
+            }
+            .bi-chevron-down:not(.collapsed) {
+              transform: rotate(180deg); /* Up arrow */
+
+
+          </style>
+       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+</html>

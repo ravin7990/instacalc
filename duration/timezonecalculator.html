@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Time Zone Calculator | Find Current Time in Any Time Zone</title>
+  <meta name="description" content="Easily find the current time in different time zones around the world with our online time zone calculator. See the local time in any location instantly.">
+  <meta charset="utf-8">
+  <link rel="canonical" href="https://instacalc.in/duration/timezonecalculator.html" />
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+   <!-- Basic Favicons -->
+  <link rel="icon" type="image/x-icon" href="favicon.webp">
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+  
+   <style>
+        /* Inline critical CSS - Replace with your actual critical styles */
+     
+        .navbar { /* Example critical navbar styles */ }
+        .container.table1 h2 { /* Example critical calculator heading style */ }
+        /* ... more critical styles ... */
+    </style>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"></noscript>
+
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="style.css"></noscript>
+
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"></noscript>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" defer></script>
+  
+    <script src="script.js" defer></script>
+
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg navbar-dark ">
+  <div class="d-flex align-items-center navbar-brand">
+    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
+    <h6 class="text-white mb-0"> InstaCalc.in</h6>
+  </div>   
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>     
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item px-2">
+        <a class="nav-link" href="/index.html">Home</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="/aboutus.html">About Us</a>
+      </li>
+         <li class="nav-item px-2">
+        <a class="nav-link " href="/contactus.html">Contact Us</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="/privacypolicy.html">Privacy Policy</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    
+
+
+  <!-- //first row first column -->
+  <div class="row">
+<!-- First row first column -->
+  <div class="col-md-6" >
+    <div class="container mt-5 table1">
+      <h2>Time Zone Calculator</h2>
+      
+      <div class="input-group m">
+        <label for="date" class="mr-2">Date</label>
+        <input type="date" id="date" class="form-control" onchange="calculateTimeZone()">
+      </div>
+      
+      <div class="input-group">
+        <label for="time" class="mr-2">Time</label>
+        <input type="time" id="time" class="form-control" onchange="calculateTimeZone()">
+      </div>
+      
+      <div class="input-group">
+        <label for="from-timezone" class="mr-2">From Time Zone</label>
+        <select id="from-timezone" class="form-control" onchange="calculateTimeZone()">
+          <!-- Time zones will be populated by JavaScript -->
+        </select>
+      </div>
+      
+      <div class="input-group">
+        <label for="to-timezone" class="mr-2">To Time Zone</label>
+        <select id="to-timezone" class="form-control" onchange="calculateTimeZone()">
+          <!-- Time zones will be populated by JavaScript -->
+        </select>
+      </div>
+      
+      <div class="result-box">
+        <div class="result-item">
+          <span class="label">Converted Time:</span>
+          <span class="value"><strong><span id="converted-time">-</span></strong></span>
+        </div>
+        <div class="result-item">
+          <span class="label">Time Difference:</span>
+          <span class="value"><strong><span id="time-difference">-</span></strong></span>
+        </div>
+        <div class="result-item">
+          <span class="label">Current Time in From Zone:</span>
+          <span class="value"><strong><span id="current-from">-</span></strong></span>
+        </div>
+        <div class="result-item">
+          <span class="label">Current Time in To Zone:</span>
+          <span class="value"><strong><span id="current-to">-</span></strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- First row second column -->
+  <div class="col-md-6 d-none d-md-block">
+  <div class="container mt-5">
+    <div class="container-fluid mt-sm-5 mb-sm-5">
+      <!-- All cards follow the same structure with <a> wrapping the content -->
+      <div class="card">
+        <a class="sitetext" href="dayscalculator.html">
+          <div class="card-body labelbody">Days Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="hourcalculator.html">
+          <div class="card-body labelbody">Hour Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="timedurationcalculator.html">
+          <div class="card-body labelbody">Duration Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="agecalculator.html">
+          <div class="card-body labelbody">Age Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="timezonecalculator.html">
+          <div class="card-body labelbody">Timezone Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="birthdaycalculator.html">
+          <div class="card-body labelbody">Birthday Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="weekcalculator.html">
+          <div class="card-body labelbody">Week Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="minutes-hourscalculator.html">
+          <div class="card-body labelbody">Minutes to Hour Calculator</div>
+        </a>
+      </div>
+      <br>
+      
+      <div class="card">
+        <a class="sitetext" href="juliandatecalculator.html">
+          <div class="card-body labelbody">Julian Date Calculator</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+  <!--  /second row -->
+ <div class="row mb-05">
+  <!-- First Column -->
+  <div class="col-md-6" >
+    <div class="container mt-5">
+      <div class="fd-calculator-content">
+        <div class="title">
+          <h1>Time Zone Calculator: Making Global Time Differences Simple!</h1>
+        </div>
+        <div class="introduction">
+          <p>Ever tried setting up a Zoom call with someone in New York while you're in Delhi? Or figuring out what time your friend in London should call you? If you've ever dealt with different time zones, you know how quickly things can get confusing.</p>
+          <p>That's where a Time Zone Calculator comes to the rescue. It takes the guesswork out of international timing, so you can stay on schedule — wherever in the world you are.</p>
+        </div>
+
+        <div class="what-is-fd-calculator">
+          <h2>🕰️ What Exactly Is a Time Zone Calculator?</h2>
+          <p>In simple terms, a Time Zone Calculator tells you what time it is (or will be) in another part of the world based on your current time and location.</p>
+          <p>Let's say it's 6 PM in Mumbai — and you want to know what time that is in Tokyo or Los Angeles. The calculator instantly converts it for you.</p>
+          <p>No mental math. No daylight savings confusion. Just the right time, right away.</p>
+        </div>
+
+        <div class="how-fd-calculator-works">
+          <h2>🌐 Why Does Time Get So Complicated?</h2>
+          <p>The Earth is divided into 24 time zones, one for each hour of the day. That means when it's morning in one country, it could be night in another.</p>
+          <p>Add in Daylight Saving Time (DST) — where some countries move clocks forward or backward twice a year — and it gets even trickier. A time difference that's normally 5 hours might suddenly be 4!</p>
+          <p>A Time Zone Calculator helps you avoid that chaos.</p>
+        </div>
+
+        <div class="why-use-fd-calculator">
+          <h2>📱 How Does It Work?</h2>
+          <p>Using a Time Zone Calculator is super easy. Most tools follow this simple process:</p>
+          <ol>
+            <li>Choose Your Starting Location (City/Country/Time Zone)</li>
+            <li>Enter the Date and Time You Want to Convert</li>
+            <li>Select the Destination Time Zone or Location</li>
+            <li>Get Instant Results!</li>
+          </ol>
+          <p>It shows you the exact corresponding time in the second location — even accounting for DST automatically.</p>
+        </div>
+
+        <div class="example-calculation">
+          <h2>🧩 Real-Life Examples You'll Relate To</h2>
+          <div class="example-box p-3" style="background-color:#f8f9fa;border-radius:8px;">
+            <p><strong>Scenario 1:</strong> Freelancer in India working with New York client</p>
+            <ul>
+              <li>Your time: 10:00 AM IST</li>
+              <li>New York time: 12:30 AM EST</li>
+              <li><strong>Insight:</strong> Avoid scheduling morning meetings</li>
+            </ul>
+          </div>
+          <div class="example-box p-3 mt-3" style="background-color:#f8f9fa;border-radius:8px;">
+            <p><strong>Scenario 2:</strong> Birthday call to Sydney cousin</p>
+            <ul>
+              <li>Your date: March 15</li>
+              <li>Sydney date: March 16</li>
+              <li><strong>Insight:</strong> Celebrate a day early!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="factors-affecting-returns">
+          <h2>🧠 What Makes It So Useful?</h2>
+          <p>Here's why Time Zone Calculators are must-haves today:</p>
+          <ul>
+            <li>🕓 For Work Meetings: No more messing up international meeting times</li>
+            <li>📞 For Family Calls: Know when it's too late/early to call</li>
+            <li>✈️ For Travel Planning: Sync flights and local activities</li>
+            <li>🧳 For Global Business: Keep teams connected</li>
+            <li>🧘 For Peace of Mind: Avoid calculation headaches</li>
+          </ul>
+
+          <h3>🔍 Pro Tip: Look for These Features</h3>
+          <ul>
+            <li>✅ Automatic DST adjustments</li>
+            <li>✅ 24h/12h format support</li>
+            <li>✅ Multi-zone comparison</li>
+            <li>✅ Mobile compatibility</li>
+            <li>✅ Future date planning</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Column -->
+  <div class="col-md-6" >
+    <div class="container mt-5 mb-5">
+      <h2 class="mb-4">Time Zone FAQs</h2>
+      <div id="faqAccordion" class="accordion">
+
+        <!-- FAQ 1 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                How does daylight saving affect calculations?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
+            <div class="card-body">
+              Good calculators automatically adjust for DST changes. They track which countries/states observe DST and update time differences accordingly.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Can I compare multiple time zones?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+            <div class="card-body">
+              Yes! Advanced tools let you view 3-5 time zones side-by-side. Perfect for global team coordination.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                How accurate are the results?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+            <div class="card-body">
+              100% accurate when using updated tools. They follow official time zone databases updated every 3-6 months.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingFour">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                What about places with 30-minute offsets?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+            <div class="card-body">
+              The calculator handles all offsets - including India (UTC+5:30), Nepal (UTC+5:45), and Australia's 30-minute zones.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingFive">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                Can I use it for future dates?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
+            <div class="card-body">
+              Absolutely! Plan meetings months ahead - the calculator accounts for known future DST changes.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 6 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingSix">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                Is there a mobile app version?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
+            <div class="card-body">
+              Many web versions work perfectly on mobile. Some offer apps with extra features like world clocks.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 7 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingSeven">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                How many time zones are there?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
+            <div class="card-body">
+              Officially 24, but there are actually 38 due to 30-45 minute offsets and political decisions.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 8 -->
+        <div class="card labelbody">
+          <div class="card-header" id="headingEight">
+            <h5 class="mb-0">
+              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                What's the most complex time zone?
+              </button>
+            </h5>
+          </div>
+          <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
+            <div class="card-body">
+              China (single zone despite size) and Nepal (UTC+5:45) are tricky. French Polynesia spans 3 zones in small area!
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="fun-facts mt-5 p-4" style="background-color:#e6f3ff;border-radius:8px;">
+        <h4>🌍 Fun Time Zone Facts</h4>
+        <ul>
+          <li>France has 12 time zones (including territories)</li>
+          <li>Samoa skipped a day in 2011 to align with Australia</li>
+          <li>Norway has the northernmost time zone (UTC+1)</li>
+          <li>90% of Alaska is in one zone despite huge size</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+  <!--   //third row -->
+     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
+  <!--        //third row first column -->
+       <div class="col-sm-12 " >
+         <div class=" text-center" style="margin-bottom:0">
+         <p id="backToTopBtn" style="color:white;">
+
+              Back To Home
+
+             </p>
+       </div>
+
+         </div>
+  <!--      //third row second column -->
+       <div class="col-sm-0 " style="background-color:pink;">    </div>
+      </div>
+  
+  <script>
+    // Get the button
+const backToTopBtn = document.getElementById("backToTopBtn");
+
+// When the user scrolls down 20px from the top, show the button
+window.onscroll = function () {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    backToTopBtn.style.display = "block";
+  } else {
+    backToTopBtn.style.display = "none";
+  }
+};
+
+// When the user clicks the button, scroll to the top of the page
+backToTopBtn.addEventListener("click", function () {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+});</script>
+      <script>
+         
+// Comprehensive list of time zones with their UTC offsets
+  const timeZones = [
+    { id: 'UTC', name: 'Coordinated Universal Time (UTC)', offset: 0 },
+    { id: 'GMT', name: 'Greenwich Mean Time (GMT)', offset: 0 },
+    { id: 'ECT', name: 'European Central Time (ECT) UTC+1', offset: 1 },
+    { id: 'EET', name: 'Eastern European Time (EET) UTC+2', offset: 2 },
+    { id: 'ART', name: 'Eastern European Time (EET) UTC+2', offset: 2 },
+    { id: 'EAT', name: 'Eastern African Time (EAT) UTC+3', offset: 3 },
+    { id: 'MET', name: 'Middle East Time (MET) UTC+3:30', offset: 3.5 },
+    { id: 'NET', name: 'Near East Time (NET) UTC+4', offset: 4 },
+    { id: 'PLT', name: 'Pakistan Lahore Time (PLT) UTC+5', offset: 5 },
+    { id: 'IST', name: 'Indian Standard Time (IST) UTC+5:30', offset: 5.5 },
+    { id: 'BST', name: 'Bangladesh Standard Time (BST) UTC+6', offset: 6 },
+    { id: 'VST', name: 'Vietnam Standard Time (VST) UTC+7', offset: 7 },
+    { id: 'CTT', name: 'China Taiwan Time (CTT) UTC+8', offset: 8 },
+    { id: 'JST', name: 'Japan Standard Time (JST) UTC+9', offset: 9 },
+    { id: 'ACT', name: 'Australia Central Time (ACT) UTC+9:30', offset: 9.5 },
+    { id: 'AET', name: 'Australia Eastern Time (AET) UTC+10', offset: 10 },
+    { id: 'SST', name: 'Solomon Standard Time (SST) UTC+11', offset: 11 },
+    { id: 'NST', name: 'New Zealand Standard Time (NST) UTC+12', offset: 12 },
+    { id: 'MIT', name: 'Midway Islands Time (MIT) UTC-11', offset: -11 },
+    { id: 'HST', name: 'Hawaii Standard Time (HST) UTC-10', offset: -10 },
+    { id: 'AST', name: 'Alaska Standard Time (AST) UTC-9', offset: -9 },
+    { id: 'PST', name: 'Pacific Standard Time (PST) UTC-8', offset: -8 },
+    { id: 'PNT', name: 'Phoenix Standard Time (PNT) UTC-7', offset: -7 },
+    { id: 'MST', name: 'Mountain Standard Time (MST) UTC-7', offset: -7 },
+    { id: 'CST', name: 'Central Standard Time (CST) UTC-6', offset: -6 },
+    { id: 'EST', name: 'Eastern Standard Time (EST) UTC-5', offset: -5 },
+    { id: 'IET', name: 'Indiana Eastern Standard Time (IET) UTC-5', offset: -5 },
+    { id: 'PRT', name: 'Puerto Rico Time (PRT) UTC-4', offset: -4 },
+    { id: 'CNT', name: 'Canada Newfoundland Time (CNT) UTC-3:30', offset: -3.5 },
+    { id: 'AGT', name: 'Argentina Standard Time (AGT) UTC-3', offset: -3 },
+    { id: 'BET', name: 'Brazil Eastern Time (BET) UTC-3', offset: -3 },
+    { id: 'CAT', name: 'Central African Time (CAT) UTC+2', offset: 2 },
+    // Adding DST variations for major time zones
+    { id: 'EDT', name: 'Eastern Daylight Time (EDT) UTC-4', offset: -4, dst: true },
+    { id: 'CDT', name: 'Central Daylight Time (CDT) UTC-5', offset: -5, dst: true },
+    { id: 'MDT', name: 'Mountain Daylight Time (MDT) UTC-6', offset: -6, dst: true },
+    { id: 'PDT', name: 'Pacific Daylight Time (PDT) UTC-7', offset: -7, dst: true },
+    { id: 'CEST', name: 'Central European Summer Time (CEST) UTC+2', offset: 2, dst: true },
+    { id: 'EEST', name: 'Eastern European Summer Time (EEST) UTC+3', offset: 3, dst: true },
+    { id: 'WEST', name: 'Western European Summer Time (WEST) UTC+1', offset: 1, dst: true },
+    { id: 'BST-UK', name: 'British Summer Time (BST) UTC+1', offset: 1, dst: true },
+    // Adding more specific regional time zones
+    { id: 'ACST', name: 'Australian Central Standard Time (ACST) UTC+9:30', offset: 9.5 },
+    { id: 'AEST', name: 'Australian Eastern Standard Time (AEST) UTC+10', offset: 10 },
+    { id: 'AWST', name: 'Australian Western Standard Time (AWST) UTC+8', offset: 8 },
+    { id: 'ACDT', name: 'Australian Central Daylight Time (ACDT) UTC+10:30', offset: 10.5, dst: true },
+    { id: 'AEDT', name: 'Australian Eastern Daylight Time (AEDT) UTC+11', offset: 11, dst: true },
+    // Adding military time zones
+    { id: 'A', name: 'Alpha Time Zone (A) UTC+1', offset: 1 },
+    { id: 'B', name: 'Bravo Time Zone (B) UTC+2', offset: 2 },
+    { id: 'C', name: 'Charlie Time Zone (C) UTC+3', offset: 3 },
+    { id: 'D', name: 'Delta Time Zone (D) UTC+4', offset: 4 },
+    { id: 'E', name: 'Echo Time Zone (E) UTC+5', offset: 5 },
+    { id: 'F', name: 'Foxtrot Time Zone (F) UTC+6', offset: 6 },
+    { id: 'G', name: 'Golf Time Zone (G) UTC+7', offset: 7 },
+    { id: 'H', name: 'Hotel Time Zone (H) UTC+8', offset: 8 },
+    { id: 'I', name: 'India Time Zone (I) UTC+9', offset: 9 },
+    { id: 'K', name: 'Kilo Time Zone (K) UTC+10', offset: 10 },
+    { id: 'L', name: 'Lima Time Zone (L) UTC+11', offset: 11 },
+    { id: 'M', name: 'Mike Time Zone (M) UTC+12', offset: 12 },
+    { id: 'N', name: 'November Time Zone (N) UTC-1', offset: -1 },
+    { id: 'O', name: 'Oscar Time Zone (O) UTC-2', offset: -2 },
+    { id: 'P', name: 'Papa Time Zone (P) UTC-3', offset: -3 },
+    { id: 'Q', name: 'Quebec Time Zone (Q) UTC-4', offset: -4 },
+    { id: 'R', name: 'Romeo Time Zone (R) UTC-5', offset: -5 },
+    { id: 'S', name: 'Sierra Time Zone (S) UTC-6', offset: -6 },
+    { id: 'T', name: 'Tango Time Zone (T) UTC-7', offset: -7 },
+    { id: 'U', name: 'Uniform Time Zone (U) UTC-8', offset: -8 },
+    { id: 'V', name: 'Victor Time Zone (V) UTC-9', offset: -9 },
+    { id: 'W', name: 'Whiskey Time Zone (W) UTC-10', offset: -10 },
+    { id: 'X', name: 'X-ray Time Zone (X) UTC-11', offset: -11 },
+    { id: 'Y', name: 'Yankee Time Zone (Y) UTC-12', offset: -12 },
+    { id: 'Z', name: 'Zulu Time Zone (Z) UTC±0', offset: 0 },
+    // Adding more specific time zones
+    { id: 'CHAST', name: 'Chatham Standard Time (CHAST) UTC+12:45', offset: 12.75 },
+    { id: 'CHADT', name: 'Chatham Daylight Time (CHADT) UTC+13:45', offset: 13.75, dst: true },
+    { id: 'NPT', name: 'Nepal Time (NPT) UTC+5:45', offset: 5.75 },
+    { id: 'MMT', name: 'Myanmar Time (MMT) UTC+6:30', offset: 6.5 },
+    { id: 'CCT', name: 'Cocos Islands Time (CCT) UTC+6:30', offset: 6.5 },
+    { id: 'MART', name: 'Marquesas Time (MART) UTC-9:30', offset: -9.5 },
+    { id: 'NFT', name: 'Norfolk Time (NFT) UTC+11', offset: 11 },
+    { id: 'SBT', name: 'Solomon Islands Time (SBT) UTC+11', offset: 11 },
+    { id: 'VUT', name: 'Vanuatu Time (VUT) UTC+11', offset: 11 },
+    { id: 'FJT', name: 'Fiji Time (FJT) UTC+12', offset: 12 },
+    { id: 'TVT', name: 'Tuvalu Time (TVT) UTC+12', offset: 12 },
+    { id: 'GILT', name: 'Gilbert Island Time (GILT) UTC+12', offset: 12 },
+    { id: 'WAKT', name: 'Wake Time (WAKT) UTC+12', offset: 12 },
+    { id: 'PHOT', name: 'Phoenix Island Time (PHOT) UTC+13', offset: 13 },
+    { id: 'TOT', name: 'Tonga Time (TOT) UTC+13', offset: 13 },
+    { id: 'LINT', name: 'Line Islands Time (LINT) UTC+14', offset: 14 },
+    // Adding more time zones as needed...
+  ];
+
+  // Set default dates when page loads
+  window.onload = function() {
+    // Populate time zone dropdowns
+    const fromSelect = document.getElementById('from-timezone');
+    const toSelect = document.getElementById('to-timezone');
+    
+    timeZones.forEach(tz => {
+      const option1 = document.createElement('option');
+      option1.value = tz.id;
+      option1.textContent = tz.name;
+      fromSelect.appendChild(option1);
+      
+      const option2 = document.createElement('option');
+      option2.value = tz.id;
+      option2.textContent = tz.name;
+      toSelect.appendChild(option2);
+    });
+    
+    // Set default selections
+    fromSelect.value = 'IST';
+    toSelect.value = 'UTC';
+    
+    const now = new Date();
+    document.getElementById('date').valueAsDate = now;
+    document.getElementById('time').value = now.toTimeString().substring(0, 5);
+    
+    // Calculate time zones initially
+    calculateTimeZone();
+    
+    // Update current times every second
+    setInterval(updateCurrentTimes, 1000);
+  };
+  
+  function calculateTimeZone() {
+    const date = document.getElementById('date').value;
+    const time = document.getElementById('time').value;
+    const fromZoneId = document.getElementById('from-timezone').value;
+    const toZoneId = document.getElementById('to-timezone').value;
+    
+    if (!date || !time) return;
+    
+    // Find the time zone objects
+    const fromZone = timeZones.find(tz => tz.id === fromZoneId);
+    const toZone = timeZones.find(tz => tz.id === toZoneId);
+    if (!fromZone || !toZone) return;
+    
+    // Create date object from inputs
+    const localDate = new Date(`${date}T${time}:00`);
+    if (isNaN(localDate.getTime())) return;
+    
+    // Calculate offset difference (in minutes)
+    const fromOffset = fromZone.offset * 60;
+    const toOffset = toZone.offset * 60;
+    const offsetDiff = toOffset - fromOffset;
+    
+    // Calculate converted time
+    const convertedDate = new Date(localDate.getTime() + offsetDiff * 60000);
+    
+    // Format results
+    const options = { 
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZoneName: 'short'
+    };
+    
+    document.getElementById('converted-time').textContent = 
+      convertedDate.toLocaleString('en-US', options);
+      
+    // Calculate time difference
+    const diffHours = Math.abs(toZone.offset - fromZone.offset);
+    const diffMinutes = Math.abs((toZone.offset % 1 - fromZone.offset % 1) * 60);
+    
+    let diffString = '';
+    if (toZone.offset > fromZone.offset) {
+      diffString = `${Math.floor(diffHours)} hours ${diffMinutes} minutes ahead`;
+    } else if (toZone.offset < fromZone.offset) {
+      diffString = `${Math.floor(diffHours)} hours ${diffMinutes} minutes behind`;
+    } else {
+      diffString = 'Same time zone';
+    }
+    
+    document.getElementById('time-difference').textContent = diffString;
+    
+    // Update current times
+    updateCurrentTimes();
+  }
+  
+  function updateCurrentTimes() {
+    const fromZoneId = document.getElementById('from-timezone').value;
+    const toZoneId = document.getElementById('to-timezone').value;
+    
+    const fromZone = timeZones.find(tz => tz.id === fromZoneId);
+    const toZone = timeZones.find(tz => tz.id === toZoneId);
+    if (!fromZone || !toZone) return;
+    
+    const now = new Date();
+    const fromOffset = fromZone.offset * 60;
+    const toOffset = toZone.offset * 60;
+    
+    const fromDate = new Date(now.getTime() + fromOffset * 60000);
+    const toDate = new Date(now.getTime() + toOffset * 60000);
+    
+    const options = { 
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      timeZoneName: 'short'
+    };
+    
+    document.getElementById('current-from').textContent = 
+      fromDate.toLocaleString('en-US', options);
+    document.getElementById('current-to').textContent = 
+      toDate.toLocaleString('en-US', options);
+  }
+
+
+          
+          
+
+          
+          </script>
+          
+    
+
+      <style>
+              bodyss {
+                  font-family: Arial, sans-serif;
+                  margin: 20px;
+                  padding: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  flex-direction: column;
+                  background-color: #f4f4f4;
+              }
+          
+          .breakdown-header {
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+          
+          
+              img {
+  border-radius: 50%;
+}
+              .container {
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                  max-width: 500px;
+                  width: 100%;
+              }
+              .input-group {
+                  margin-bottom: 15px;
+              }
+              .input-group label {
+                  display: block;
+                  margin-bottom: 5px;
+              }
+
+              .footer1 {
+                  display: block;
+                  margin-top: 10px;
+                  height: 50px;
+              }
+              .slider-container {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+              }
+              .slider-container input[type="number"] {
+                  width: 80px;
+                  text-align: center;
+              }
+              .result-box {
+                  background: #eef;
+                  padding: 10px;
+                  border-radius: 5px;
+                  margin-top: 20px;
+              }
+              .chart-container {
+                  width: 300px;
+                  margin: 20px auto;
+              }
+
+              // for faq
+              .faq-header {
+              cursor: pointer;
+              transition: background-color 0.3s;
+            }
+            .faq-header:hover {
+              background-color: #f8f9fa;
+            }
+            .card {
+              margin-bottom: 8px;
+              border: 1px solid rgba(0,0,0,.125);
+            }
+            .bi-chevron-down {
+              transition: transform 0.3s;
+            }
+            .collapsed .bi-chevron-down {
+              transform: rotate(0deg); /* Down arrow */
+            }
+            .bi-chevron-down:not(.collapsed) {
+              transform: rotate(180deg); /* Up arrow */
+
+
+          </style>
+</body>
+</html>

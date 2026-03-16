@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Retirement Calculator - Plan Your Financial Future</title>
+  <meta name="description" content="Plan your retirement with our comprehensive Retirement Calculator. Estimate your required savings, project your future income, and secure your financial independence.">
+    <!-- Basic Favicons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+     <link rel="canonical" href="https://instacalc.in/retirementcalculator.html" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <!-- Critical CSS -->
+  <style>
+    /* Minimum layout stability styles */
+    body { 
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .calculator-container {
+      min-height: 600px; /* Reserve space for calculator */
+    }
+    .result-section {
+      height: 200px; /* Fixed height for results area */
+      visibility: hidden; /* Hidden until calculated */
+    }
+    /* Prevent layout shifts in main content */
+    .main-content {
+      position: relative;
+      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
+    }
+    /* Fixed dimensions for key elements */
+    input {
+      width: 100%;
+      max-width: 400px;
+      height: 40px;
+    }
+       /* Fixed dimensions for key elements */
+    .chart-container {
+      width: 100%;
+      max-width: 400px;
+      height: 300px;
+    }
+  </style>
+
+  <!-- Preloads -->
+  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
+  <link rel="preload" href="style.css" as="style">
+  
+  <!-- Non-critical CSS -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </noscript>
+
+  <!-- Script optimization -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
+  <!-- Only load Popper and Bootstrap JS if needed -->
+  <?php if (needs_bootstrap_js): ?>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
+  
+     <script src="bootstrap/js/bootstrap.min.js" defer></script>
+  <?php endif; ?>
+
+  <!-- Load Chart.js only when needed -->
+  <script>
+    function loadChartJS() {
+      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
+        window.Chart = module.default;
+        initializeCharts();
+      });
+    }
+  </script>
+
+  <script src="script.js" defer></script>
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg navbar-dark ">
+  <div class="d-flex align-items-center navbar-brand">
+    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
+    <h6 class="text-white mb-0">InstaCalc.in</h6>
+  </div>   
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>     
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item px-2">
+        <a class="nav-link" href="index.html">Home</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="aboutus.html">About Us</a>
+      </li>
+         <li class="nav-item px-2">
+        <a class="nav-link " href="contactus.html">Contact Us</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    
+
+
+  <!-- //first row first column -->
+  <div class="row">
+  <!-- First row, first column -->
+  <div class="col-md-6 " style="background-color:yellowg;">
+    <div class="container mt-5 table1">
+      <div class="container">
+        <h2 class="text-center mb-4">Retirement Calculator (India)</h2>
+        <form id="retirementForm">
+          <div class="form-group">
+            <label>Your Current Age:</label>
+            <input type="number" class="form-control" id="currentAge" value="30" required>
+          </div>
+          <div class="form-group">
+            <label>Your Retirement Age:</label>
+            <input type="number" class="form-control" id="retirementAge" value="60" required>
+          </div>
+          <div class="form-group">
+            <label>Life Expectancy (India Avg: 70):</label>
+            <input type="number" class="form-control" id="lifeExpectancy" value="70" required>
+          </div>
+          <div class="form-group">
+            <label>Your Monthly Expenses (₹):</label>
+            <input type="number" class="form-control" id="monthlyExpense" value="40000" required>
+          </div>
+          <div class="form-group">
+            <label>Average Inflation Rate (%):</label>
+            <input type="number" class="form-control" id="inflationRate" value="3" required>
+          </div>
+          <div class="form-group">
+            <label>Expected ROI (%):</label>
+            <input type="number" class="form-control" id="investmentReturn" value="7" required>
+          </div>
+          <div class="form-group">
+            <label>Existing Savings for Retirement (₹):</label>
+            <input type="number" class="form-control" id="existingSavings" value="200000" required>
+          </div>
+          <button type="button" class="btn btn-success btn-block" onclick="calculateRetirement()">Calculate Retirement Plan</button>
+        </form>
+        <div id="result" class="result-box"></div>
+      </div>
+    </div>
+  </div>
+
+       <div class="col-md-6 d-none d-md-block">
+ 
+  <div class="container mt-5">
+    <div class="container-fluid mt-sm-5 mb-sm-5">
+      <a href="sipcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="mutualfundreturncalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="gratuitycalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="epfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="fdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="rdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="cargcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="coumpoundinterest.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="retirementcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="ppfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="emicalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="simpleinterestcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+</div>
+  <!--  /second row -->
+      
+ 
+   <div  class="row mb-05">
+  <!--    //second row first column -->
+     <div class="col-md-6" style="background-colorf:red;">
+
+       <div class="container mt-5 mb-5">
+            <div class="retirement-calculator-content">
+    <div class="title">
+        <h1>Retirement Calculator: Secure Your Future with Smart Planning</h1>
+    </div>
+
+    <div class="introduction">
+        <p>Retirement might seem far away, but the truth is, the earlier you start planning, the easier it is to build a secure financial future. No one wants to worry about money when they stop working, and that’s where a Retirement Calculator can help.</p>
+        <p>This simple yet powerful tool helps you figure out how much money you’ll need when you retire and how much you should start saving today to get there comfortably. Whether you dream of traveling the world, buying a home in the hills, or just living stress-free, a retirement calculator gives you a clear financial roadmap.</p>
+    </div>
+
+    <div class="what-is-retirement-calculator">
+        <h2>What is a Retirement Calculator?</h2>
+        <p>A retirement calculator is an online tool that estimates how much money you need to maintain your lifestyle after retirement. It calculates:</p>
+        <ul>
+            <li>✔️ The total amount you’ll need to retire comfortably</li>
+            <li>✔️ How much you should save each month</li>
+            <li>✔️ How inflation will impact your future expenses</li>
+            <li>✔️ The potential growth of your investments</li>
+        </ul>
+        <p>Instead of guessing how much money you’ll need, a retirement calculator gives you precise numbers based on your current savings, expected expenses, and investment returns.</p>
+    </div>
+
+    <div class="why-use-retirement-calculator">
+        <h2>Why Do You Need a Retirement Calculator?</h2>
+        <p>Many people assume that their savings will be enough without actually doing the math. But have you considered inflation, medical expenses, and longer life expectancy?</p>
+        <p>Let’s say you spend ₹50,000 per month today. In 25 years, that amount won’t be the same due to inflation. If inflation is 6% per year, your monthly expenses will be ₹2.14 lakh per month by the time you retire.</p>
+        <p>A retirement calculator helps you prepare for these rising costs so that you don’t run out of money when you need it the most.</p>
+    </div>
+
+    <div class="how-retirement-calculator-works">
+        <h2>How Does a Retirement Calculator Work?</h2>
+        <p>A retirement calculator uses the following details to estimate your future savings:</p>
+        <ul>
+            <li>🔹 Your current age</li>
+            <li>🔹 Retirement age (when you plan to stop working)</li>
+            <li>🔹 Monthly expenses (how much you’ll need after retirement)</li>
+            <li>🔹 Current savings (if any)</li>
+            <li>🔹 Expected rate of return on investments</li>
+            <li>🔹 Inflation rate</li>
+        </ul>
+        <p>Based on these inputs, the calculator estimates:</p>
+        <ul>
+            <li>✔️ The total savings you’ll need at retirement</li>
+            <li>✔️ How much you should save every month from today</li>
+        </ul>
+    </div>
+
+    <div class="example-calculation">
+        <h2>Example: How Much Should You Save for Retirement?</h2>
+        <p>Let’s assume:</p>
+        <ul>
+            <li>You’re 35 years old and want to retire at 60</li>
+            <li>Your current monthly expenses are ₹50,000</li>
+            <li>You expect to need ₹1.5 lakh per month after retirement (considering inflation)</li>
+            <li>You have ₹5 lakh in savings</li>
+            <li>Your investments give an 8% annual return</li>
+        </ul>
+        <p>Using a retirement calculator, you’ll find that you need around ₹4 crore by the time you retire. To reach this goal, you should start investing ₹25,000 per month now.</p>
+        <p>If you delay saving until you’re 45, this amount will increase significantly, making it harder to reach your goal. That’s why starting early makes retirement planning easier.</p>
+    </div>
+
+    <div class="benefits-of-retirement-calculator">
+        <h2>Benefits of Using a Retirement Calculator</h2>
+        <ul>
+            <li>✔️ Clarity on Savings Goals – You’ll know exactly how much you need for a stress-free retirement.</li>
+            <li>✔️ Inflation Adjustment – Ensures your savings grow in line with rising costs.</li>
+            <li>✔️ Avoids Financial Stress – Helps prevent a situation where you run out of money in old age.</li>
+            <li>✔️ Better Investment Planning – Shows you how different savings options can grow your wealth over time.</li>
+        </ul>
+    </div>
+
+    <div class="final-thoughts">
+        <h2>Final Thoughts</h2>
+        <p>A Retirement Calculator is an essential tool for anyone who wants to take control of their financial future. The sooner you start, the easier it will be to build a retirement fund without stress.</p>
+        <p>Instead of worrying about money later in life, start planning today. Use a retirement calculator now, adjust your savings plan, and enjoy a worry-free future! 🎯💰</p>
+    </div>
+</div>
+           </div>
+
+
+
+       </div>
+  <!--   //second row second column -->
+   <div class="col-md-6">
+    <div class="container mt-5 mb-5">
+        <h2 class="mb-4 text-left">FAQs</h2>
+        <div id="faqAccordion" class="accordion">
+
+            <!-- FAQ 1 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            What is a Retirement Calculator?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        A Retirement Calculator is a tool that helps you estimate how much money you need to save for retirement based on your current age, retirement age, monthly expenses, expected returns, and other factors. It helps you plan your savings to ensure a comfortable retirement.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            How does the Retirement Calculator work?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        The Retirement Calculator estimates the amount you need to save for retirement by considering factors such as:
+                        <ul class="text-left">
+                            <li><strong>Current Age:</strong> Your current age.</li>
+                            <li><strong>Retirement Age:</strong> The age at which you plan to retire.</li>
+                            <li><strong>Monthly Expenses:</strong> Your expected monthly expenses during retirement.</li>
+                            <li><strong>Expected Returns:</strong> The rate of return on your investments.</li>
+                            <li><strong>Inflation Rate:</strong> The expected inflation rate to adjust for rising costs.</li>
+                        </ul>
+                        It calculates the corpus required to sustain your lifestyle after retirement.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            What inputs are required for the Retirement Calculator?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        You need to provide:
+                        <ul class="text-left">
+                            <li><strong>Current Age:</strong> Your current age.</li>
+                            <li><strong>Retirement Age:</strong> The age at which you plan to retire.</li>
+                            <li><strong>Monthly Expenses:</strong> Your expected monthly expenses during retirement.</li>
+                            <li><strong>Expected Returns:</strong> The annual rate of return on your investments.</li>
+                            <li><strong>Inflation Rate:</strong> The expected inflation rate to adjust for rising costs.</li>
+                            <li><strong>Current Savings:</strong> The amount you have already saved for retirement.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            How does inflation affect retirement planning?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        Inflation reduces the purchasing power of money over time. For example, if the inflation rate is 6%, the cost of living will double in approximately 12 years. The Retirement Calculator accounts for inflation to ensure your savings will be sufficient to cover future expenses.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFive">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            Can I adjust my retirement age in the calculator?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        Yes, you can adjust your retirement age in the calculator to see how it affects the amount you need to save. Retiring earlier will require a larger corpus, while retiring later may reduce the required savings.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 6 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSix">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            What if I have existing retirement savings?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        If you have existing retirement savings, you can input the amount in the calculator. It will deduct this amount from the total corpus required, reducing the amount you need to save further.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 7 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSeven">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                            How can I increase my retirement savings?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        You can increase your retirement savings by:
+                        <ul class="text-left">
+                            <li>Starting to save early to benefit from compound interest.</li>
+                            <li>Increasing your monthly contributions.</li>
+                            <li>Investing in high-return instruments like equity mutual funds.</li>
+                            <li>Reducing unnecessary expenses and saving more.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 8 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingEight">
+                    <h5 class="mb-0 text-left">
+                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                            What is the 4% rule in retirement planning?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
+                    <div class="card-body text-left">
+                        The <strong>4% rule</strong> suggests that you can withdraw 4% of your retirement savings annually without running out of money for at least 30 years. It is a guideline to help you plan your withdrawals during retirement.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+   </div>
+  <!--   //third row -->
+     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
+  <!--        //third row first column -->
+       <div class="col-sm-12 " >
+         <div class=" text-center" style="margin-bottom:0">
+         <p id="backToTopBtn" style="color:white;">
+
+              Back To Home
+
+             </p>
+       </div>
+
+         </div>
+  <!--      //third row second column -->
+       <div class="col-sm-0 " style="background-color:pink;">    </div>
+      </div>
+      <script>
+          
+         function calculateRetirement() {
+    // Get input values
+    const currentAge = parseFloat(document.getElementById('currentAge').value);
+    const retirementAge = parseFloat(document.getElementById('retirementAge').value);
+    const lifeExpectancy = parseFloat(document.getElementById('lifeExpectancy').value);
+    const monthlyExpense = parseFloat(document.getElementById('monthlyExpense').value);
+    const inflationRate = parseFloat(document.getElementById('inflationRate').value)/100;
+    const investmentReturn = parseFloat(document.getElementById('investmentReturn').value)/100;
+    const existingSavings = parseFloat(document.getElementById('existingSavings').value);
+
+    // Calculate basic values
+    const yearsToRetirement = retirementAge - currentAge;
+    const yearsInRetirement = lifeExpectancy - retirementAge;
+
+    // Validate inputs
+    if (yearsToRetirement <= 0 || yearsInRetirement <= 0) {
+        document.getElementById('result').innerHTML = "Please enter valid ages";
+        return;
+    }
+
+    // Calculate annual expenses at retirement (future value)
+    const annualExpenseAtRetirement = monthlyExpense * 12 * 
+        Math.pow(1 + inflationRate, yearsToRetirement);
+
+    // Calculate real rate of return
+    const realRateOfReturn = (investmentReturn - inflationRate) / (1 + inflationRate);
+
+    // Calculate required corpus using present value of growing annuity
+    let corpus = 0;
+    if (realRateOfReturn <= 0) {
+        corpus = annualExpenseAtRetirement * yearsInRetirement;
+    } else {
+        corpus = annualExpenseAtRetirement * 
+            (1 - Math.pow(1 + inflationRate, yearsInRetirement) / 
+            Math.pow(1 + investmentReturn, yearsInRetirement)) / 
+            realRateOfReturn;
+    }
+
+    // Calculate future value of existing savings
+    const futureValueExisting = existingSavings * 
+        Math.pow(1 + investmentReturn, yearsToRetirement);
+
+    // Calculate required savings
+    let required = corpus - futureValueExisting;
+
+    // Handle results
+    let resultHTML;
+    if (required <= 0) {
+        resultHTML = `<p class="text-success">Your existing savings are sufficient!<br>
+            Projected Retirement Corpus: ₹${corpus.toLocaleString('en-IN', {maximumFractionDigits: 2})}</p>`;
+    } else {
+        // Calculate monthly savings required (future value of annuity)
+        const monthlyRate = investmentReturn / 12;
+        const months = yearsToRetirement * 12;
+        const monthlySavings = required / 
+            ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+
+        resultHTML = `
+            <h4 class="mb-3">Retirement Plan Results:</h4>
+            <p>Required Retirement Corpus: <b>₹${corpus.toLocaleString('en-IN', {maximumFractionDigits: 2})}</b></p>
+            <p>Future Value of Existing Savings: <b>₹${futureValueExisting.toLocaleString('en-IN', {maximumFractionDigits: 2})}</b></p>
+            <p class="text-danger">Monthly Savings Needed: <b>₹${monthlySavings.toLocaleString('en-IN', {maximumFractionDigits: 2})}</b></p>
+            <p class="text-muted">Note: Calculations assume constant returns and inflation rates.</p>
+        `;
+    }
+
+    document.getElementById('result').innerHTML = resultHTML;
+}
+
+
+          // Get the button
+const backToTopBtn = document.getElementById("backToTopBtn");
+
+// When the user scrolls down 20px from the top, show the button
+window.onscroll = function () {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    backToTopBtn.style.display = "block";
+  } else {
+    backToTopBtn.style.display = "none";
+  }
+};
+
+// When the user clicks the button, scroll to the top of the page
+backToTopBtn.addEventListener("click", function () {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+});
+          
+     
+          </script>
+          
+          <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+    authDomain: "instacalc-40640.firebaseapp.com",
+    projectId: "instacalc-40640",
+    storageBucket: "instacalc-40640.firebasestorage.app",
+    messagingSenderId: "720029503645",
+    appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+    measurementId: "G-J0ZWXR3T5P"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+
+      <style>
+              bodyss {
+                  font-family: Arial, sans-serif;
+                  margin: 20px;
+                  padding: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  flex-direction: column;
+                  background-color: #f4f4f4;
+              }
+              img {
+  border-radius: 50%;
+}
+              .container {
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                  max-width: 500px;
+                  width: 100%;
+              }
+              .input-group {
+                  margin-bottom: 15px;
+              }
+              .input-group label {
+                  display: block;
+                  margin-bottom: 5px;
+              }
+
+              .footer1 {
+                  display: block;
+                  margin-top: 10px;
+                  height: 50px;
+              }
+              .slider-container {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+              }
+              .slider-container input[type="number"] {
+                  width: 80px;
+                  text-align: center;
+              }
+              .result-box {
+                  background: #eef;
+                  padding: 10px;
+                  border-radius: 5px;
+                  margin-top: 20px;
+              }
+              .chart-container {
+                  width: 300px;
+                  margin: 20px auto;
+              }
+
+              // for faq
+              .faq-header {
+              cursor: pointer;
+              transition: background-color 0.3s;
+            }
+            .faq-header:hover {
+              background-color: #f8f9fa;
+            }
+            .card {
+              margin-bottom: 8px;
+              border: 1px solid rgba(0,0,0,.125);
+            }
+            .bi-chevron-down {
+              transition: transform 0.3s;
+            }
+            .collapsed .bi-chevron-down {
+              transform: rotate(0deg); /* Down arrow */
+            }
+            .bi-chevron-down:not(.collapsed) {
+              transform: rotate(180deg); /* Up arrow */
+
+
+          </style>
+</body>
+</html>

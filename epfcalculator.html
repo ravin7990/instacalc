@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>EPF Maturity Calculator Online - Estimate Your Provident Fund</title>
+  <meta name="description" content="Calculate EPF Online - Simple Tool: Find out your potential EPF final amount and track your retirement savings effortlessly with our user-friendly EPF Calculator for India.">    
+    <!-- Basic Favicons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="canonical" href="https://instacalc.in/epfcalculator.html" />
+   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <!-- Critical CSS -->
+  <style>
+    /* Minimum layout stability styles */
+    body { 
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .calculator-container {
+      min-height: 600px; /* Reserve space for calculator */
+    }
+    .result-section {
+      height: 200px; /* Fixed height for results area */
+      visibility: hidden; /* Hidden until calculated */
+    }
+    /* Prevent layout shifts in main content */
+    .main-content {
+      position: relative;
+      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
+    }
+    /* Fixed dimensions for key elements */
+    input {
+      width: 100%;
+      max-width: 400px;
+      height: 40px;
+    }
+       /* Fixed dimensions for key elements */
+    .chart-container {
+      width: 100%;
+      max-width: 400px;
+      height: 300px;
+    }
+  </style>
+
+  <!-- Preloads -->
+  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
+  <link rel="preload" href="style.css" as="style">
+  
+  <!-- Non-critical CSS -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </noscript>
+
+  <!-- Script optimization -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
+  <!-- Only load Popper and Bootstrap JS if needed -->
+  <?php if (needs_bootstrap_js): ?>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
+  
+     <script src="bootstrap/js/bootstrap.min.js" defer></script>
+  <?php endif; ?>
+
+  <!-- Load Chart.js only when needed -->
+  <script>
+    function loadChartJS() {
+      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
+        window.Chart = module.default;
+        initializeCharts();
+      });
+    }
+  </script>
+
+  <script src="script.js" defer></script>
+</head>
+<body>
+ <nav class="navbar navbar-expand-lg navbar-dark ">
+  <div class="d-flex align-items-center navbar-brand">
+    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
+    <h6 class="text-white mb-0">InstaCalc.in</h6>
+  </div>   
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>     
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item px-2">
+        <a class="nav-link" href="index.html">Home</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="aboutus.html">About Us</a>
+      </li>
+         <li class="nav-item px-2">
+        <a class="nav-link " href="contactus.html">Contact Us</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    
+
+
+  <!-- //first row first column -->
+  <div  class="row">
+  <!--   //first row first column -->
+    <div class="col-md-6" style="background-colorf:yellow;">
+     <div class="container mt-5 table1">
+    <h2>EPF Calculator</h2>
+
+    <div class="input-group m">
+        <label for="salary">Monthly Salary (Basic + DA) (₹)</label>
+        <div class="slider-container">
+            <input type="range" id="salary-slider" min="10000" max="200000" step="500" value="50000" oninput="syncInputs('salary')">
+            <input type="number" id="salary" min="10000" max="200000" step="500" value="50000" oninput="syncInputs('salary', true)">
+        </div>
+    </div>
+    <div class="input-group">
+        <label for="age">Your Age (Years)</label>
+        <div class="slider-container">
+            <input type="range" id="age-slider" min="18" max="60" step="1" value="30" oninput="syncInputs('age')">
+            <input type="number" id="age" min="18" max="60" step="1" value="30" oninput="syncInputs('age', true)">
+        </div>
+    </div>
+    <div class="input-group">
+        <label for="contribution">Your Contribution to EPF (%)</label>
+        <div class="slider-container">
+            <input type="range" id="contribution-slider" min="8" max="20" step="0.1" value="12" oninput="syncInputs('contribution')">
+            <input type="number" id="contribution" min="8" max="20" step="0.1" value="12" oninput="syncInputs('contribution', true)">
+        </div>
+    </div>
+    <div class="input-group">
+        <label for="increment">Annual Increase in Salary (%)</label>
+        <div class="slider-container">
+            <input type="range" id="increment-slider" min="0" max="20" step="0.1" value="5" oninput="syncInputs('increment')">
+            <input type="number" id="increment" min="0" max="20" step="0.1" value="5" oninput="syncInputs('increment', true)">
+        </div>
+    </div>
+    <div class="input-group">
+        <label for="rate">Rate of Interest (p.a.) (%)</label>
+        <div class="slider-container">
+            <input type="range" id="rate-slider" min="5" max="10" step="0.1" value="8.1" oninput="syncInputs('rate')">
+            <input type="number" id="rate" min="5" max="10" step="0.1" value="8.1" oninput="syncInputs('rate', true)">
+        </div>
+    </div>
+
+    <div class="result-box">
+    <div class="result-main">
+        <span class="result-label">You will have accumulated:</span>
+        <span class="result-value"><strong>₹<span id="total">0</span></strong></span>
+    </div>
+    <div class="result-subtext">By the time you retire</div>
+</div>
+
+  
+</div>
+
+  </div>
+  <!--   //first row second column -->
+     <div class="col-md-6 d-none d-md-block">
+  <div class="container mt-5">
+    <div class="container-fluid mt-sm-5 mb-sm-5">
+      <a href="sipcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="mutualfundreturncalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="gratuitycalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="epfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="fdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="rdcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="cargcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="coumpoundinterest.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="retirementcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="ppfcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="emicalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
+        </div>
+      </a>
+      <br>
+      <a href="simpleinterestcalculator.html" class="card-link">
+        <div class="card">
+          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+      </div>
+
+  <!--  /second row -->
+   <div  class="row mb-05">
+  <!--    //second row first column -->
+     <div class="col-md-6 mt-5" style="background-colorf:red;">
+
+       <div class="container">
+               <div class="epf-calculator-content">
+    <div class="title">
+        <h1>EPF Calculator: Know Your Retirement Savings! 💰📊</h1>
+    </div>
+    <div class="introduction">
+        <p>If you’re a salaried employee in India, your Employees’ Provident Fund (EPF) is one of the most secure ways to save for retirement. But do you know how much wealth you’re actually building over the years? That’s where an EPF Calculator helps!</p>
+        <p>This simple tool gives you a clear picture of how much money you’ll accumulate in your EPF account based on your monthly contributions and interest. Let’s break it down!</p>
+    </div>
+    <div class="what-is-epf-calculator">
+        <h2>What is an EPF Calculator?</h2>
+        <p>An EPF Calculator helps employees estimate their total EPF balance at the time of retirement. It considers:</p>
+        <ul>
+            <li>✔️ Your monthly EPF contributions</li>
+            <li>✔️ Your employer’s contribution</li>
+            <li>✔️ The current interest rate</li>
+            <li>✔️ The number of years you’ll be investing</li>
+        </ul>
+        <p>With just a few inputs, you can see how much you’ll have in your EPF account when you retire!</p>
+    </div>
+    <div class="how-epf-calculator-works">
+        <h2>How Does an EPF Calculator Work?</h2>
+        <p>When you and your employer contribute a portion of your salary every month to EPF, that amount earns interest and keeps growing. The EPF Calculator shows you the exact amount you’ll have when you retire.</p>
+        <h3>How to Use It?</h3>
+        <ol>
+            <li>1️⃣ Enter your basic monthly salary + DA (e.g., ₹30,000).</li>
+            <li>2️⃣ Enter your employee contribution (typically 12% of salary).</li>
+            <li>3️⃣ Enter your employer contribution (usually 8.33% to EPS & the rest to EPF).</li>
+            <li>4️⃣ Choose the current EPF interest rate (e.g., 8.15% per year).</li>
+            <li>5️⃣ Select the number of years till retirement (e.g., 30 years).</li>
+            <li>6️⃣ Click Calculate and see your final retirement fund!</li>
+        </ol>
+        <p>💡 Example:</p>
+        <p>If your basic salary + DA is ₹30,000 and you contribute 12% of it every month, along with your employer’s contribution, and the interest rate remains 8.15%, you could have over ₹1 crore in your EPF account by the time you retire! 🚀</p>
+    </div>
+    <div class="why-use-epf-calculator">
+        <h2>Why Use an EPF Calculator?</h2>
+        <ul>
+            <li>🔹 Get a Clear Retirement Estimate – Know how much you’ll have in your EPF account.</li>
+            <li>🔹 Plan Your Future Better – Adjust your savings if needed.</li>
+            <li>🔹 See the Power of Compounding – Watch how your savings grow over time.</li>
+            <li>🔹 Helps in Financial Decisions – Plan for home buying, education, or early retirement.</li>
+        </ul>
+    </div>
+    <div class="call-to-action">
+        <h2>Start Planning for a Secure Future!</h2>
+        <p>Your EPF savings are a big part of your retirement plan. Using an EPF Calculator, you can estimate your final savings and plan accordingly.</p>
+        <p>Take charge of your financial future today and see how much wealth you’re building! 💸🔢</p>
+    </div>
+</div>
+           </div>
+
+
+
+       </div>
+  <!--   //second row second column -->
+   <div class="col-md-6" style="background-color:blueg;">
+    <div class="container mt-5 mb-5">
+        <h2 class="mb-4">FAQs</h2>
+        <div id="faqAccordion" class="accordion">
+
+            <!-- FAQ 1 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            What is an EPF (Employee Provident Fund)?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        The Employee Provident Fund (EPF) is a retirement savings scheme for salaried employees, where both the employee and employer contribute a portion of the salary every month. The accumulated amount, along with interest, is paid out at retirement.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            How does the EPF Calculator work?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        The EPF Calculator estimates the future value of your EPF balance based on your monthly salary, employee and employer contribution rates, and the expected interest rate. It helps you plan your retirement savings.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            What inputs are required for the EPF Calculator?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        You need to provide:
+                        <ul>
+                            <li><strong>Monthly Salary:</strong> Your basic salary plus dearness allowance.</li>
+                            <li><strong>Employee Contribution:</strong> Typically 12% of your salary.</li>
+                            <li><strong>Employer Contribution:</strong> Typically 12% of your salary (3.67% to EPF and 8.33% to EPS).</li>
+                            <li><strong>Interest Rate:</strong> The current EPF interest rate (e.g., 8.1%).</li>
+                            <li><strong>Investment Period:</strong> The number of years until retirement.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            What is the current EPF interest rate?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        The EPF interest rate is declared by the government each year. For example, the rate for FY 2022-23 is 8.1%. However, this rate may change annually.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingFive">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            Can I withdraw my EPF before retirement?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        Yes, partial withdrawals from the EPF are allowed for specific purposes such as medical emergencies, home loan repayment, or marriage. However, full withdrawal is permitted only after retirement or if you are unemployed for more than 2 months.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 6 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSix">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            Is the EPF amount taxable?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        The EPF amount is tax-free if the withdrawal is made after 5 years of continuous service. If withdrawn earlier, it may be subject to tax.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 7 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingSeven">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                            What is the difference between EPF and EPS?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        EPF (Employee Provident Fund) is a savings scheme where both employee and employer contribute, while EPS (Employee Pension Scheme) is a pension scheme funded by the employer's contribution (8.33% of salary). EPS provides a pension after retirement.
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ 8 -->
+            <div class="card labelbody">
+                <div class="card-header" id="headingEight">
+                    <h5 class="mb-0">
+                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                            Can I increase my EPF contribution?
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
+                    <div class="card-body">
+                        Yes, you can voluntarily increase your EPF contribution beyond the standard 12%. This is known as Voluntary Provident Fund (VPF), and it earns the same interest rate as EPF.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+   </div>
+  <!--   //third row -->
+     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
+  <!--        //third row first column -->
+       <div class="col-sm-12 " >
+         <div class=" text-center" style="margin-bottom:0">
+         <p id="backToTopBtn" style="color:white;">
+
+              Back To Home
+
+             </p>
+       </div>
+
+         </div>
+  <!--      //third row second column -->
+       <div class="col-sm-0 " style="background-color:pink;">    </div>
+      </div>
+      <script>
+              function syncInputs(id, isManual = false) {
+                  const slider = document.getElementById(`${id}-slider`);
+                  const numberInput = document.getElementById(id);
+                  if (isManual) {
+                      slider.value = numberInput.value;
+                  } else {
+                      numberInput.value = slider.value;
+                  }
+                  calculateSIP();
+              }
+function calculateSIP() {
+    // Retrieve input values from HTML
+    let salary = parseFloat(document.getElementById("salary").value); // Monthly Salary (Basic + DA)
+    let age = parseInt(document.getElementById("age").value); // Current Age
+    let contributionRate = parseFloat(document.getElementById("contribution").value) / 100; // Employee's EPF Contribution %
+    let incrementRate = parseFloat(document.getElementById("increment").value) / 100; // Annual Salary Increase %
+    let annualInterestRate = parseFloat(document.getElementById("rate").value) / 100; // Annual Interest Rate
+
+    // Fixed parameters
+    let retirementAge = 60;
+    let yearsRemaining = retirementAge - age;
+    let totalEPF = 0;
+    let currentSalary = salary;
+    let monthlyInterestRate = annualInterestRate / 12; // e.g., 8.25% / 12 = 0.006875
+
+    // Flag to skip interest for the first month
+    let isFirstMonth = true;
+
+    // Loop through each year until retirement
+    for (let year = 1; year <= yearsRemaining; year++) {
+        // Apply salary increment at the start of each new year (after year 1)
+        if (year > 1) {
+            currentSalary *= (1 + incrementRate);
+        }
+
+        // Loop through each month in the year
+        for (let month = 1; month <= 12; month++) {
+            // Calculate contributions
+            let employeeContribution = currentSalary * contributionRate; // Employee’s variable contribution
+            let employerEPFContribution = currentSalary * 0.0367; // Employer’s fixed 3.67% to EPF
+            let totalContribution = employeeContribution + employerEPFContribution;
+
+            // Add contribution to total EPF
+            totalEPF += totalContribution;
+
+            // Apply interest monthly, except for the first month
+            if (!isFirstMonth) {
+                totalEPF *= (1 + monthlyInterestRate);
+            }
+            // After the first month, interest applies normally
+            isFirstMonth = false;
+        }
+    }
+
+    // Round the final amount and format for display
+    let finalAmount = Math.round(totalEPF);
+    document.getElementById("total").textContent = finalAmount.toLocaleString('en-IN');
+}
+
+
+
+
+
+
+
+
+
+
+
+              let sipChart;
+              function updateChart(invested, returns) {
+                  let ctx = document.getElementById("sipChart").getContext("2d");
+                  if (sipChart) sipChart.destroy();
+                  sipChart = new Chart(ctx, {
+                      type: "doughnut",
+                      data: {
+                          labels: ["Total Invested", "Total Interest"],
+                          datasets: [{
+                              data: [invested, returns],
+                              backgroundColor: ["#4CAF50", "#2196F3"]
+                          }]
+                      }
+                  });
+              }
+              calculateSIP();
+
+
+          // Get the button
+const backToTopBtn = document.getElementById("backToTopBtn");
+
+// When the user scrolls down 20px from the top, show the button
+window.onscroll = function () {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    backToTopBtn.style.display = "block";
+  } else {
+    backToTopBtn.style.display = "none";
+  }
+};
+
+// When the user clicks the button, scroll to the top of the page
+backToTopBtn.addEventListener("click", function () {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+});
+          </script>
+          
+          <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+    authDomain: "instacalc-40640.firebaseapp.com",
+    projectId: "instacalc-40640",
+    storageBucket: "instacalc-40640.firebasestorage.app",
+    messagingSenderId: "720029503645",
+    appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+    measurementId: "G-J0ZWXR3T5P"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+
+      <style>
+              bodyss {
+                  font-family: Arial, sans-serif;
+                  margin: 20px;
+                  padding: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  flex-direction: column;
+                  background-color: #f4f4f4;
+              }
+              img {
+  border-radius: 50%;
+}
+              .container {
+                  background: white;
+                  padding: 20px;
+                  border-radius: 10px;
+                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                  max-width: 500px;
+                  width: 100%;
+              }
+              .input-group {
+                  margin-bottom: 15px;
+              }
+              .input-group label {
+                  display: block;
+                  margin-bottom: 5px;
+              }
+
+              .footer1 {
+                  display: block;
+                  margin-top: 10px;
+                  height: 50px;
+              }
+              .slider-container {
+                  display: flex;
+                  align-items: center;
+                  gap: 10px;
+              }
+              .slider-container input[type="number"] {
+                  width: 80px;
+                  text-align: center;
+              }
+              .result-box {
+                  background: #eef;
+                  padding: 10px;
+                  border-radius: 5px;
+                  margin-top: 20px;
+              }
+              .chart-container {
+                  width: 300px;
+                  margin: 20px auto;
+              }
+
+              // for faq
+              .faq-header {
+              cursor: pointer;
+              transition: background-color 0.3s;
+            }
+            .faq-header:hover {
+              background-color: #f8f9fa;
+            }
+            .card {
+              margin-bottom: 8px;
+              border: 1px solid rgba(0,0,0,.125);
+            }
+            .bi-chevron-down {
+              transition: transform 0.3s;
+            }
+            .collapsed .bi-chevron-down {
+              transform: rotate(0deg); /* Down arrow */
+            }
+            .bi-chevron-down:not(.collapsed) {
+              transform: rotate(180deg); /* Up arrow */
+
+
+          </style>
+</body>
+</html>

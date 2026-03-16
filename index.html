@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Primary Meta Tags -->
+    <title>InstaCalc.in – All-in-One Online Calculators & Unit Converters</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="description" content="InstaCalc.in offers 40+ free tools including financial calculators, unit converters, time calculators, and construction tools. Perfect for students, traders, and professionals.">
+ <meta name="keywords" content="InstaCalc, online calculator, unit converter, SIP calculator, mutual fund calculator, time calculator, EMI calculator, GST calculator, retirement calculator, age calculator, duration calculator, concrete calculator, financial tools India">
+  
+   <!-- Basic Favicons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+   <link rel="canonical" href="https://instacalc.in" />
+  
+<!-- Open Graph / Facebook Meta Tags -->
+<meta property="og:title" content="InstaCalc.in – 40+ Free Calculators and Unit Converters">
+<meta property="og:description" content="Explore financial calculators, unit converters, and time tools at InstaCalc.in. From SIP to GST, age to concrete calculation—get quick, accurate results.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://instacalc.in">
+<meta property="og:image" content="https://instacalc.in/instatheme.webp">
+<meta property="og:site_name" content="Instacalc">
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="InstaCalc.in – Smart Calculators & Fast Conversions">
+<meta name="twitter:description" content="InstaCalc.in is your online hub for SIP, EMI, Age, GST, and other financial and unit calculators. Accurate, easy, and free.">
+<meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+<!-- Additional SEO Meta Tags -->
+<meta name="author" content="Instacalc">
+<meta name="robots" content="index, follow">
+<meta name="revisit-after" content="7 days">
+<meta name="language" content="English">
+<meta name="theme-color" content="#1a2a3a">  
+  
+  
+  
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+  
+  
+  
+  
+  
+  
+  <!-- Critical CSS -->
+  <style>
+    /* Minimum layout stability styles */
+    body { 
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .calculator-container {
+      min-height: 600px; /* Reserve space for calculator */
+    }
+    .result-section {
+      height: 200px; /* Fixed height for results area */
+      visibility: hidden; /* Hidden until calculated */
+    }
+    /* Prevent layout shifts in main content */
+    .main-content {
+      position: relative;
+      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
+    }
+    /* Fixed dimensions for key elements */
+    input {
+      width: 100%;
+      max-width: 400px;
+      height: 40px;
+    }
+       /* Fixed dimensions for key elements */
+    .chart-container {
+      width: 100%;
+      max-width: 400px;
+      height: 300px;
+    }
+  </style>
+  
+  
+  <style>
+        .suggestions-container {
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 50;
+        }
+        .suggestion-item:hover {
+            background-color: #e9eef6;
+        }
+        .suggestion-item.active {
+            background-color: #e9eef6;
+        }
+        .result-card {
+            transition: all 0.3s ease;
+        }
+        .pulse {
+            animation: pulse 1.5s;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(66, 153, 225, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(66, 153, 225, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(66, 153, 225, 0); }
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        #categories-grid-container.hidden {
+            display: none;
+        }
+        .category-item {
+            display: flex;
+            align-items: center;
+        }
+        .category-item i {
+            width: 1.25rem;
+            text-align: center;
+            margin-right: 0.5rem;
+        }
+        /* Style for clear button if needed, Tailwind usually handles focus well */
+        #clear-input-btn:focus {
+            /* outline: 1px solid #3B82F6; /* Example focus style */
+        }
+    </style>
+
+  <!-- Preloads -->
+  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
+  <link rel="preload" href="style.css" as="style">
+  
+  <!-- Non-critical CSS -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+  </noscript>
+
+  <!-- Script optimization -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
+  <!-- Only load Popper and Bootstrap JS if needed -->
+  <?php if (needs_bootstrap_js): ?>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
+  
+     <script src="bootstrap/js/bootstrap.min.js" defer></script>
+  <?php endif; ?>
+
+  <!-- Load Chart.js only when needed -->
+  <script>
+    function loadChartJS() {
+      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
+        window.Chart = module.default;
+        initializeCharts();
+      });
+    }
+  </script>
+
+  <script src="script.js" defer></script>
+
+  
+  <style>
+        /* Minimal bootstrap-critical.css */
+        .navbar{position:relative;display:flex;flex-wrap:wrap;align-items:center}
+        .container{width:100%;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}
+        /* Add other critical rules you need */
+    </style>
+    
+    <noscript>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/styles.css">
+    </noscript>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark ">
+  <div class="d-flex align-items-center navbar-brand">
+    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
+    <h6 class="text-white mb-0">InstaCalc.in</h6>
+  </div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item px-2">
+        <a class="nav-link active" href="index.html">Home</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="aboutus.html">About Us</a>
+      </li>
+       <li class="nav-item px-2">
+        <a class="nav-link " href="contactus.html">Contact Us</a>
+      </li>
+      <li class="nav-item px-2">
+        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+  
+
+<div class="container ">
+  <!-- Quote Section -->
+  <div class="row">
+    <div class="col-md-9 "> 
+    <div class="container max-w-3xl ">
+        <div class="text-center mb-2 mt-2">
+            <h1 class="text-3xl font-bold 0 mb-2">Smart Unit Converter</h1>
+        </div>
+          <div class="bg-white rounded-lg shadow-md p-6 labelbody">
+            <div class="relative mb-6">
+                <div class="flex items-center border-2 border-gray-300 rounded-lg focus-within:border-blue-500 transition-colors bg-white">
+                    <div class="pl-4 pr-2 text-gray-400">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <input
+                        type="text"
+                        id="conversion-input"
+                        class="w-full px-2 py-3 outline-none text-lg"
+                        placeholder="e.g., 5 km to miles or 100 C to F"
+                        autocomplete="on"
+                    >
+                    <button id="clear-input-btn" title="Clear input" class="p-2 text-gray-400 hover:text-gray-600 focus:outline-none hidden mr-2">
+                        <i class="fas fa-times-circle fa-lg"></i>
+                    </button>
+                </div>
+                <div id="suggestions-container" class="absolute w-full bg-white rounded-lg shadow-lg mt-1 border border-gray-200 hidden suggestions-container hide-scrollbar">
+                    <!-- Suggestions will be inserted here -->
+                </div>
+            </div>
+
+            <div id="results-container" class="space-y-4">
+                <div class="text-center text-gray-500 py-6" id="helper-text">
+                    <i class="fas fa-keyboard text-2xl mb-2"></i>
+                    <p>Start typing to see conversions</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3 bg-white rounded-lg shadow-md p-6 labelbody">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold ">Supported Categories</h2>
+                <button id="toggle-categories-btn" class="text-blue-500 hover:text-blue-700 focus:outline-none">
+                    <i class="fas fa-chevron-down mr-1"></i><span id="toggle-categories-text">Show All</span>
+                </button>
+            </div>
+            <div id="categories-grid-container" class="hidden">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-sm">
+                    <!-- Categories will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-2  text-sm">
+            <h3>Featured Tools.</h3>
+        </div>
+  
+</div>
+    </div>
+  </div>
+
+  <!-- Financial Tools Dropdown -->
+  <div class="row mr-0 ml-0">
+    <div class="col-md-9 mb-3 ">
+      <div class="labelbody p-3   border  w3-hover-grey" onclick="toggleFinancialTools()" style="cursor: pointer;">
+        Financial Tools ▼
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  <div id="financialToolsMenu">
+    <div class="row mr-0 ml-0">
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="sipcalculator.html">SIP Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="mutualfundreturncalculator.html">Mutual Fund Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="swpcalculator.html">SWP Calculator</a></div></div>
+    </div>
+    <div class="row mr-0 ml-0">
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="epfcalculator.html">EPF Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="fdcalculator.html">FD Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="rdcalculator.html">RD Calculator</a></div></div>
+    </div>
+    <div class="row mr-0 ml-0">
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="cargcalculator.html">CAGR Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="coumpoundinterest.html">Compound Interest </a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="retirementcalculator.html">Retirement Calculator</a></div></div>
+    </div>
+    <div class="row mr-0 ml-0">
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="ppfcalculator.html">PPF Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="emicalculator.html">EMI Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="simpleinterestcalculator.html">Simple Interest Calculator</a></div></div>
+    </div>
+    <div class="row mr-0 ml-0">
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="gstcalculator.html">GST Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="npscalculator.html">NPS Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="gratuitycalculator.html">Gratuity Calculator</a></div></div>
+    </div>
+  </div>
+
+  <!-- Duration Tools Dropdown -->
+  <div class="row mr-0 ml-0">
+    <div class="col-md-9 mb-3">
+      <div class="labelbody p-3 border  w3-hover-grey" onclick="toggleDurationTools()" style="cursor: pointer; background-color: ">
+        Duration Tools ▼
+      </div>
+    </div>
+  </div>
+  
+  <div id="durationToolsMenu">
+    <div class="row mr-0 ml-0">
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="duration/dayscalculator.html">Days Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="duration/hourcalculator.html">Hour Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="duration/timedurationcalculator.html">Duration Calculator</a></div></div>
+    </div>
+    <div class="row mr-0 ml-0">
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="duration/agecalculator.html">Age Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="duration/timezonecalculator.html">Timezone Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="duration/birthdaycalculator.html">Birthday Calculator</a></div></div>
+    </div>
+    <div class="row mr-0 ml-0">
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="duration/weekcalculator.html">Week Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="duration/minutes-hourscalculator.html">Minutes To Hour Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="duration/juliandatecalculator.html">Julian Date Calculator</a></div></div>
+    </div>
+  </div>
+  
+    <!-- More Tools Dropdown -->
+  <div class="row mr-0 ml-0">
+    <div class="col-md-9 mb-3">
+      <div class="labelbody p-3 border  w3-hover-grey" onclick="toggleMoreTools()" style="cursor: pointer; background-color: ">
+        More Tools ▼
+      </div>
+    </div>
+  </div>
+  
+  <div id="moreToolsMenu">
+    <div class="row mr-0 ml-0">
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="moretools/diagonalcalculator.html">Diagonal Calculator</a></div></div>
+      <div class="col-md-3 mb-3"><div class="labelbody p-3 border  w3-hover-grey"><a href="moretools/concretecalculator.html">Concrete Calculator</a></div></div>
+    </div>
+  </div>
+
+  
+
+   <!-- Duration Tools Dropdown -->
+  <div class="row mr-0 ml-0 mb-10">
+    <div class="col-md-9 mb-3">
+      <div class="labelbody p-3 border  w3-hover-grey" >
+    <div class="row mb-05">
+  <!-- Main content column (expanded to col-md-9) -->
+  <div class="col-md-9" style="background-colorf:red;">
+    <div class="container">
+      <div class="rd-calculator-content">
+        <div class="title">
+          <h1>InstaCalc.in: Your Ultimate Online Calculator & Conversion Toolkit</h1>
+        </div>
+        <div class="introduction">
+          <p>In today's fast-paced digital world, quick and accurate calculations are essential for everyone - from students and professionals to homemakers and retirees. InstaCalc.in is your comprehensive solution for all calculation needs, offering a wide range of converters and calculators at your fingertips.</p>
+          <p>Whether you're planning investments, converting units, calculating time durations, or working on engineering projects, our tools provide instant results without complex manual computations. No downloads, no installations - just pure calculation power available anytime, anywhere.</p>
+          <p>Let's explore what makes InstaCalc.in your perfect calculation companion.</p>
+        </div>
+
+        <div class="what-is-rd-calculator">
+          <h2>Why Choose InstaCalc.in?</h2>
+          <p>InstaCalc.in stands out from other online calculation tools because of its:</p>
+          <ul>
+            <li>✔️ Comprehensive collection of financial, conversion, and utility calculators</li>
+            <li>✔️ User-friendly interface that works on all devices</li>
+            <li>✔️ Instant, accurate results without any waiting time</li>
+            <li>✔️ No registration or personal data required</li>
+            <li>✔️ Completely free to use with no hidden charges</li>
+          </ul>
+          <p>Our tools are designed to simplify your daily calculations while maintaining mathematical precision.</p>
+        </div>
+
+        <div class="how-rd-calculator-works">
+          <h2>Financial Calculators for Smart Money Management</h2>
+          <p>InstaCalc.in offers a complete suite of financial tools to help you make informed decisions about your money:</p>
+          <ul>
+            <li><strong>SIP Calculator:</strong> Plan your systematic investment plan returns</li>
+            <li><strong>Mutual Fund Calculator:</strong> Estimate potential mutual fund growth</li>
+            <li><strong>SWP Calculator:</strong> Plan systematic withdrawal strategies</li>
+            <li><strong>EPF Calculator:</strong> Track your Employee Provident Fund growth</li>
+            <li><strong>FD Calculator:</strong> Calculate fixed deposit maturity amounts</li>
+            <li><strong>RD Calculator:</strong> Plan recurring deposit investments</li>
+            <li><strong>CAGR Calculator:</strong> Measure compound annual growth rate</li>
+            <li><strong>Retirement Calculator:</strong> Plan your retirement corpus</li>
+            <li><strong>EMI Calculator:</strong> Calculate loan equated monthly installments</li>
+          </ul>
+          <p>Each calculator is designed with simplicity in mind while providing professional-grade results.</p>
+        </div>
+
+        <div class="how-to-use-rd-calculator">
+          <h2>Unit Converters for Everyday Needs</h2>
+          <p>Our conversion tools make unit transformations effortless across multiple categories:</p>
+          <ol>
+            <li>1️⃣ <strong>Angle:</strong> Convert between degrees, radians, and gradians</li>
+            <li>2️⃣ <strong>Area:</strong> Transform square units across measurement systems</li>
+            <li>3️⃣ <strong>Energy:</strong> Convert between joules, calories, watt-hours, etc.</li>
+            <li>4️⃣ <strong>Length:</strong> Switch between metric and imperial length units</li>
+            <li>5️⃣ <strong>Temperature:</strong> Convert Celsius, Fahrenheit, and Kelvin</li>
+            <li>6️⃣ <strong>Volume:</strong> Transform liquid and dry volume measurements</li>
+          </ol>
+          <p>Perfect for students, engineers, scientists, and anyone working with different unit systems.</p>
+        </div>
+
+        <div class="example-calculation">
+          <h2>Time and Date Calculators</h2>
+          <p>Our time-related tools help you manage schedules and durations effectively:</p>
+          <ul>
+            <li>✔️ <strong>Age Calculator:</strong> Determine exact age in years/months/days</li>
+            <li>✔️ <strong>Duration Calculator:</strong> Calculate time between two dates/times</li>
+            <li>✔️ <strong>Timezone Converter:</strong> Compare times across world timezones</li>
+            <li>✔️ <strong>Week Calculator:</strong> Find week numbers and weekdays</li>
+            <li>✔️ <strong>Minutes to Hours:</strong> Convert time units effortlessly</li>
+          </ul>
+          <p>Essential tools for project planning, event management, and personal scheduling.</p>
+        </div>
+
+        <div class="why-use-rd-calculator">
+          <h2>Specialty Calculators</h2>
+          <ul>
+            <li>✅ <strong>Diagonal Calculator:</strong> Calculate screen and rectangle diagonals</li>
+            <li>✅ <strong>Concrete Calculator:</strong> Estimate concrete volume for construction</li>
+            <li>✅ <strong>GST Calculator:</strong> Compute Goods and Services Tax amounts</li>
+            <li>✅ <strong>Gratuity Calculator:</strong> Estimate employee gratuity payments</li>
+            <li>✅ <strong>NPS Calculator:</strong> Plan National Pension Scheme contributions</li>
+          </ul>
+        </div>
+
+        <div class="final-thoughts">
+          <h2>Final Thoughts</h2>
+          <p>InstaCalc.in is more than just a calculator website - it's your complete calculation toolkit for personal, professional, and educational needs. With our constantly expanding collection of tools, we aim to be the one-stop solution for all your calculation requirements.</p>
+          <p>Bookmark InstaCalc.in today and never struggle with calculations again! Whether you're balancing your budget, converting recipe measurements, or planning complex projects, we've got you covered. Calculate with confidence, calculate with InstaCalc.in! 🚀</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+  
+  
+  </div >
+
+  
+<!--   //third row -->
+   <div  class="row navbar-dark bg-dark footer1 container-fluid" >
+<!--        //third row first column -->
+     <div class="col-sm-12 " >
+       <div class=" text-center">
+       <p id="backToTopBtn" style="color:white;">
+
+            Back To Home
+
+           </p>
+     </div>
+
+       </div>
+
+
+
+       <script>
+           
+           
+         
+            // Function to toggle More Tools dropdown
+  function toggleMoreTools() {
+    const menu = document.getElementById('moreToolsMenu');
+    const header = document.querySelector('.labelbody.bg-primary[onclick="toggleMoreTools()"]');
+    
+    if (menu.style.display === 'none') {
+      menu.style.display = 'block';
+      header.innerHTML = 'More Tools ▼';
+    } else {
+      menu.style.display = 'none';
+      header.innerHTML = 'More Tools ▶';
+    }
+  }
+         
+         
+   // Function to toggle Financial Tools dropdown
+  function toggleFinancialTools() {
+    const menu = document.getElementById('financialToolsMenu');
+    const header = document.querySelector('.labelbody.bg-primary[onclick="toggleFinancialTools()"]');
+    
+    if (menu.style.display === 'none') {
+      menu.style.display = 'block';
+      header.innerHTML = 'Financial Tools ▼';
+    } else {
+      menu.style.display = 'none';
+      header.innerHTML = 'Financial Tools ▶';
+    }
+  }
+
+  // Function to toggle Duration Tools dropdown
+  function toggleDurationTools() {
+    const menu = document.getElementById('durationToolsMenu');
+    const header = document.querySelector('.labelbody.bg-primary[onclick="toggleDurationTools()"]');
+    
+    if (menu.style.display === 'none') {
+      menu.style.display = 'block';
+      header.innerHTML = 'Duration Tools ▼';
+    } else {
+      menu.style.display = 'none';
+      header.innerHTML = 'Duration Tools ▶';
+    }
+  }
+
+  // Initialize dropdowns as visible on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const financialMenu = document.getElementById('financialToolsMenu');
+    const durationMenu = document.getElementById('durationToolsMenu');
+     const moreToolsMenu = document.getElementById('civilToolsMenu');
+    
+    if (financialMenu) financialMenu.style.display = 'block';
+    if (durationMenu) durationMenu.style.display = 'block';
+        if (moreToolsMenu) moreToolsMenu.style.display = 'block';
+  });   
+         
+         
+         
+         
+         
+         
+         
+       // Get the button
+const backToTopBtn = document.getElementById("backToTopBtn");
+
+// When the user scrolls down 20px from the top, show the button
+window.onscroll = function () {
+if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+ backToTopBtn.style.display = "block";
+} else {
+ backToTopBtn.style.display = "none";
+}
+};
+
+// When the user clicks the button, scroll to the top of the page
+backToTopBtn.addEventListener("click", function () {
+document.body.scrollTop = 0; // For Safari
+document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+});
+       </script>
+
+
+
+     <!-- Facebook Pixel Code -->
+<script>
+
+
+// Load when user scrolls or after 5 seconds
+window.addEventListener('scroll', loadFacebookPixel, {once: true});
+window.addEventListener('mousemove', loadFacebookPixel, {once: true});
+setTimeout(loadFacebookPixel, 5000);
+</script>
+     
+ <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const conversionInput = document.getElementById('conversion-input');
+            const suggestionsContainer = document.getElementById('suggestions-container');
+            const resultsContainer = document.getElementById('results-container');
+            const helperText = document.getElementById('helper-text');
+            const toggleCategoriesBtn = document.getElementById('toggle-categories-btn');
+            const categoriesGridContainerEl = document.getElementById('categories-grid-container');
+            const categoriesGrid = categoriesGridContainerEl.querySelector('.grid');
+            const toggleCategoriesIcon = toggleCategoriesBtn.querySelector('i');
+            const toggleCategoriesText = document.getElementById('toggle-categories-text');
+            const clearInputBtn = document.getElementById('clear-input-btn'); // Get the clear button
+
+            const unitCategories = {
+    length: { meter: 1, centimeter: 0.01, millimeter: 0.001, kilometer: 1000, inch: 0.0254, foot: 0.3048, yard: 0.9144, mile: 1609.344, 'nautical mile': 1852 },
+    mass: { gram: 1, kilogram: 1000, milligram: 0.001, pound: 453.59237, ounce: 28.349523125, ton_us: 907184.74, 'metric ton': 1000000, stone: 6350.29318 },
+    speed: { 'meter per second': 1, 'kilometer per hour': 1 / 3.6, 'mile per hour': 0.44704, knot: 0.514444444, 'foot per second': 0.3048 },
+    area: { 'square meter': 1, 'square kilometer': 1e6, 'square centimeter': 1e-4, 'square millimeter': 1e-6, 'square inch': 0.00064516, 'square foot': 0.09290304, 'square yard': 0.83612736, 'square mile': 2589988.110336, acre: 4046.8564224, hectare: 10000 },
+    volume: { liter: 1, milliliter: 0.001, 'cubic meter': 1000, 'cubic centimeter': 0.001, gallon_us_liquid: 3.785411784, quart_us_liquid: 0.946352946, pint_us_liquid: 0.473176473, cup_us_customary: 0.24, 'fluid ounce_us': 0.0295735295625, tablespoon_us: 0.01478676478125, teaspoon_us: 0.00492892159375 },
+    temperature: { celsius: 0, fahrenheit: 0, kelvin: 0, rankine: 0, reaumur: 0 },
+    angle: { radian: 1, degree: Math.PI / 180, gradian: Math.PI / 200, arcminute: Math.PI / (180 * 60), arcsecond: Math.PI / (180 * 3600), revolution: 2 * Math.PI },
+    pressure: { pascal: 1, kilopascal: 1000, hectopascal: 100, megapascal: 1e6, bar: 1e5, millibar: 100, atmosphere_std: 101325, 'pound per square inch': 6894.7572931783, torr: 133.32236842105, 'millimeter of mercury': 133.322387415, 'inch of mercury_32f': 3386.38815789 },
+    force: { newton: 1, kilonewton: 1000, dyne: 1e-5, 'kilogram-force': 9.80665, 'pound-force': 4.44822162 },
+    power: { watt: 1, kilowatt: 1000, megawatt: 1e6, horsepower: 745.699872, 'metric horsepower': 735.49875, 'foot-pound per second': 1.35581795, 'btu_th per hour': 0.292875 },
+    energy: { joule: 1, kilojoule: 1000, megajoule: 1e6, 'kilowatt-hour': 3.6e6, watt_hour: 3600, calorie_th: 4.184, kilocalorie_th: 4184, 'british thermal unit_th': 1054.35, electronvolt: 1.602176634e-19, 'foot-pound': 1.3558179483314004 },
+    time: { second: 1, millisecond: 0.001, microsecond: 1e-6, nanosecond: 1e-9, minute: 60, hour: 3600, day: 86400, week: 604800, month_avg_gregorian: 2629746, year_gregorian: 31556952, decade: 315569520, century: 3155695200 },
+};
+
+const unitAliases = {
+    // Length
+    m: 'meter', cm: 'centimeter', mm: 'millimeter', km: 'kilometer', in: 'inch', ft: 'foot', yd: 'yard', mi: 'mile', nmi: 'nautical mile',
+    // Mass
+    g: 'gram', kg: 'kilogram', mg: 'milligram', lb: 'pound', oz: 'ounce', 'us ton': 'ton_us', 'metric ton': 'metric ton', st: 'stone',
+    // Speed
+    'm/s': 'meter per second', 'km/h': 'kilometer per hour', kph: 'kilometer per hour', mph: 'mile per hour', 'mi/h': 'mile per hour', kn: 'knot', kt: 'knot', 'ft/s': 'foot per second',
+    // Area
+    'sq m': 'square meter', 'km2': 'square kilometer', 'cm2': 'square centimeter', 'mm2': 'square miliimeter', 'in2': 'square inch', 'ft2': 'square foot', 'sqy2': 'square yard','mi2': 'square mile', ac: 'acre', ha: 'hectare',
+    // Volume
+    l: 'liter', ml: 'milliliter', 'm3': 'cubic meter', cc: 'cubic centimeter', 'cm3': 'cubic centimeter', gal: 'gallon_us_liquid', 'us gal': 'gallon_us_liquid', qt: 'quart_us_liquid', pt: 'pint_us_liquid', cup: 'cup_us_customary', 'fl oz': 'fluid ounce_us', tbsp: 'tablespoon_us', tsp: 'teaspoon_us',
+    // Temperature
+    '°c': 'celsius', c: 'celsius', cel: 'celsius', centigrade: 'celsius', '°f': 'fahrenheit', f: 'fahrenheit', fah: 'fahrenheit', '°k': 'kelvin', kel: 'kelvin', '°r': 'rankine', '°re': 'reaumur',
+    // Angle
+    rad: 'radian', deg: 'degree', '°': 'degree', grad: 'gradian', arcmin: 'arcminute', arcsec: 'arcsecond', rev: 'revolution',
+    // Pressure
+    pa: 'pascal', kpa: 'kilopascal', hpa: 'hectopascal', mpa: 'megapascal', mbar: 'millibar', atm: 'atmosphere_std', psi: 'pound per square inch', mmhg: 'millimeter of mercury', inhg: 'inch of mercury_32f',
+    // Force
+    n: 'newton', kn: 'kilonewton', dyn: 'dyne', kgf: 'kilogram-force', lbf: 'pound-force',
+    // Power
+    w: 'watt', kw: 'kilowatt', mw: 'megawatt', hp: 'horsepower', ps: 'metric horsepower', 'ftlb/s': 'foot-pound per second', 'btu/hr': 'btu_th per hour',
+    // Energy
+    j: 'joule', kj: 'kilojoule', mj: 'megajoule', kwh: 'kilowatt-hour', 'kw-hr': 'kilowatt-hour', wh: 'watt_hour', 'cal': 'calorie_th', kcal: 'kilocalorie_th', btu: 'british thermal unit_th', ev: 'electronvolt', 'ft-lb': 'foot-pound', 'ftlb': 'foot-pound',
+    // Time
+    s: 'second', sec: 'second', ms: 'millisecond', µs: 'microsecond', ns: 'nanosecond', min: 'minute', hr: 'hour', h: 'hour', d: 'day', wk: 'week', mo: 'month_avg_gregorian', yr: 'year_gregorian'
+};
+
+const unitDisplayNames = {
+    // Length
+    meter: 'Meter (m)', centimeter: 'Centimeter (cm)', millimeter: 'Millimeter (mm)', kilometer: 'Kilometer (km)', inch: 'Inch (in)', foot: 'Foot (ft)', yard: 'Yard (yd)', mile: 'Mile (mi)', 'nautical mile': 'Nautical Mile (nmi)',
+    
+    // Mass
+    gram: 'Gram (g)', kilogram: 'Kilogram (kg)', milligram: 'Milligram (mg)', pound: 'Pound (lb)', ounce: 'Ounce (oz)', ton_us: 'US Ton', 'metric ton': 'Metric Ton', stone: 'Stone (st)',
+    
+    // Speed
+    'meter per second': 'Meter/sec (m/s)', 'kilometer per hour': 'Kilometer/hr (km/h)', 'mile per hour': 'Mile/hr (mph)', knot: 'Knot (kt)', 'foot per second': 'Foot/sec (ft/s)',
+    
+    // Area
+    'square meter': 'Square Meter (m²)', 'square kilometer': 'Square Kilometer (km²)', 'square centimeter': 'Square Centimeter (cm²)', 'square millimeter': 'Square Millimeter (mm²)', 'square inch': 'Square Inch (in²)', 'square foot': 'Square Foot (ft²)', 'square yard': 'Square Yard (yd²)', 'square mile': 'Square Mile (mi²)', acre: 'Acre (ac)', hectare: 'Hectare (ha)',
+    
+    // Volume
+    liter: 'Liter (L)', milliliter: 'Milliliter (mL)', 'cubic meter': 'Cubic Meter (m³)', 'cubic centimeter': 'Cubic Cm (cc)', gallon_us_liquid: 'US Gallon (gal)', quart_us_liquid: 'US Quart (qt)', pint_us_liquid: 'US Pint (pt)', cup_us_customary: 'US Customary Cup (c)', 'fluid ounce_us': 'US Fluid Ounce (fl oz)', tablespoon_us: 'US Tablespoon (tbsp)', teaspoon_us: 'US Teaspoon (tsp)',
+    
+    // Temperature
+    celsius: 'Celsius (°C)', fahrenheit: 'Fahrenheit (°F)', kelvin: 'Kelvin (K)', rankine: 'Rankine (°R)', reaumur: 'Reaumur (°Re)',
+    
+    // Angle
+    radian: 'Radian (rad)', degree: 'Degree (°)', gradian: 'Gradian (grad)', arcminute: 'Arcminute (arcmin)', arcsecond: 'Arcsecond (arcsec)', revolution: 'Revolution (rev)',
+    
+    // Pressure
+    pascal: 'Pascal (Pa)', kilopascal: 'Kilopascal (kPa)', hectopascal: 'Hectopascal (hPa)', megapascal: 'Megapascal (MPa)', bar: 'Bar', millibar: 'Millibar (mbar)', atmosphere_std: 'Atmosphere (atm)', 'pound per square inch': 'Pound/sq inch (psi)', torr: 'Torr', 'millimeter of mercury': 'Millimeter of Mercury (mmHg)', 'inch of mercury_32f': 'Inch of Mercury (inHg @32°F)',
+    
+    // Force
+    newton: 'Newton (N)', kilonewton: 'Kilonewton (kN)', dyne: 'Dyne (dyn)', 'kilogram-force': 'Kilogram-force (kgf)', 'pound-force': 'Pound-force (lbf)',
+    
+    // Power
+    watt: 'Watt (W)', kilowatt: 'Kilowatt (kW)', megawatt: 'Megawatt (MW)', horsepower: 'Horsepower (hp)', 'metric horsepower': 'Metric Horsepower (PS)', 'foot-pound per second': 'Foot-pound/sec (ft·lb/s)', 'btu_th per hour': 'BTU (th)/hr',
+    
+    // Energy
+    joule: 'Joule (J)', kilojoule: 'Kilojoule (kJ)', megajoule: 'Megajoule (MJ)', 'kilowatt-hour': 'Kilowatt-hour (kWh)', watt_hour: 'Watt-hour (Wh)', calorie_th: 'Calorie (thermochem.)', kilocalorie_th: 'Kilocalorie (thermochem., Cal)', 'british thermal unit_th': 'BTU (thermochem.)', electronvolt: 'Electronvolt (eV)', 'foot-pound': 'Foot-pound (ft·lb)',
+    
+    // Time
+    second: 'Second (s)', millisecond: 'Millisecond (ms)', microsecond: 'Microsecond (µs)', nanosecond: 'Nanosecond (ns)', minute: 'Minute (min)', hour: 'Hour (hr)', day: 'Day (d)', week: 'Week (wk)', month_avg_gregorian: 'Month (avg)', year_gregorian: 'Year (avg)', decade: 'Decade', century: 'Century',
+};
+            const categoryIcons = { length: 'fas fa-ruler', mass: 'fas fa-weight-hanging', speed: 'fas fa-tachometer-alt', area: 'fas fa-vector-square', volume: 'fas fa-flask', temperature: 'fas fa-thermometer-half', angle: 'fas fa-drafting-compass', pressure: 'fas fa-compress-arrows-alt', force: 'fas fa-hand-fist', power: 'fas fa-industry', energy: 'fas fa-bolt', time: 'fas fa-clock', };
+            const finalUnitAliases = {};
+            for (const key in unitAliases) finalUnitAliases[key.toLowerCase()] = unitAliases[key];
+            const unitToCategory = {};
+            if (categoriesGrid && Object.keys(unitCategories).length > 0) {
+                Object.keys(unitCategories).forEach(category => {
+                    const catDiv = document.createElement('div'); catDiv.className = 'bg-blue-50 p-3 rounded-lg category-item';
+                    const iconClass = categoryIcons[category] || 'fas fa-shapes';
+                    const displayName = category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    catDiv.innerHTML = `<i class="${iconClass} text-blue-500"></i><span>${displayName}</span>`;
+                    categoriesGrid.appendChild(catDiv);
+                    Object.keys(unitCategories[category]).forEach(unit => unitToCategory[unit] = category);
+                });
+                Array.from(categoriesGrid.children).sort((a, b) => a.textContent.localeCompare(b.textContent)).forEach(node => categoriesGrid.appendChild(node));
+            }
+            Object.keys(finalUnitAliases).forEach(alias => { const fullName = finalUnitAliases[alias], category = unitToCategory[fullName]; if (category && !unitToCategory[alias]) unitToCategory[alias] = category; });
+            function getCategoryForUnit(unit) { return unitToCategory[unit] || null; }
+            function normalizeUnit(unitInput) { if (typeof unitInput !== 'string') return unitInput; const lowerUnit = unitInput.toLowerCase().trim(); if (finalUnitAliases.hasOwnProperty(lowerUnit)) return finalUnitAliases[lowerUnit]; if (unitToCategory.hasOwnProperty(lowerUnit)) return lowerUnit; return lowerUnit; }
+            function convert(value, fromUnitInput, toUnitInput) {
+                const fromUnit = normalizeUnit(fromUnitInput), toUnit = normalizeUnit(toUnitInput);
+                const fromCategory = getCategoryForUnit(fromUnit), toCategory = getCategoryForUnit(toUnit);
+                if (!fromCategory || !toCategory || fromCategory !== toCategory) { console.warn(`Category mismatch/unknown: ${fromUnit}(${fromCategory}) to ${toUnit}(${toCategory})`); return null; }
+                if (fromCategory === 'temperature') return convertTemperature(value, fromUnit, toUnit);
+                const fromFactor = unitCategories[fromCategory]?.[fromUnit], toFactor = unitCategories[toCategory]?.[toUnit];
+                if (typeof fromFactor !== 'number' || typeof toFactor !== 'number') { console.warn(`Factors not found: ${fromUnit} or ${toUnit}`); return null; }
+                return (value * fromFactor) / toFactor;
+            }
+            function convertTemperature(value, fromUnit, toUnit) {
+                let celsius;
+                switch (fromUnit) { case 'celsius': celsius = value; break; case 'fahrenheit': celsius = (value - 32) * (5 / 9); break; case 'kelvin': celsius = value - 273.15; break; case 'rankine': celsius = (value - 491.67) * (5 / 9); break; case 'reaumur': celsius = value * (5 / 4); break; default: return null; }
+                switch (toUnit) { case 'celsius': return celsius; case 'fahrenheit': return celsius * (9 / 5) + 32; case 'kelvin': return celsius + 273.15; case 'rankine': return (celsius + 273.15) * (9 / 5); case 'reaumur': return celsius * (4 / 5); default: return null; }
+            }
+            function formatNumber(num) { if (num === null || typeof num === 'undefined') return 'N/A'; if (!isFinite(num)) return num.toString(); if (Math.abs(num) < 1e-9 && num !== 0) return num.toExponential(6); if (Math.abs(num) > 1e12) return num.toExponential(6); let p = 8; if (Math.abs(num) > 0 && Math.abs(num) < 1) p = Math.min(15, 8 - Math.floor(Math.log10(Math.abs(num)))); else if (Math.abs(num) >= 1) p = Math.min(15, 8 + Math.floor(Math.log10(Math.abs(num)))); const r = parseFloat(num.toPrecision(p)); let s = r.toString(); if (s.includes('e')) return num.toExponential(6); if (s.includes('.')) s = s.replace(/0+$/, '').replace(/\.$/, ''); return s; }
+            function getUnitSuggestions(text) {
+                const parts = text.toLowerCase().split(' to '); let queryText = "", isSecondUnit = false, sourceUnitCategory = null, isNumericOnlyForFirstUnit = false;
+                if (parts.length > 1) { queryText = parts[1].trim(); isSecondUnit = true; const m = parts[0].trim().match(/^([\d.eE+-]+)\s*(.+)$/); if (m && m[2].trim()) sourceUnitCategory = getCategoryForUnit(normalizeUnit(m[2].trim())); }
+                else { const m = text.match(/^([\d.eE+-]+)\s*(.*)$/); if (m) { queryText = m[2].trim().toLowerCase(); if (queryText === "" && m[1].trim() !== "") isNumericOnlyForFirstUnit = true; } else queryText = text.toLowerCase().trim(); }
+                if (queryText === "" && !isSecondUnit && !isNumericOnlyForFirstUnit) return [];
+                const suggestions = new Map(), queryLower = queryText.toLowerCase();
+                Object.keys(unitCategories).forEach(cat => { if (isSecondUnit && sourceUnitCategory && cat !== sourceUnitCategory) return; Object.keys(unitCategories[cat]).forEach(uCanon => { const dName = unitDisplayNames[uCanon] || uCanon; if (isNumericOnlyForFirstUnit || uCanon.toLowerCase().includes(queryLower) || dName.toLowerCase().includes(queryLower)) if (!suggestions.has(dName)) suggestions.set(dName, { value: uCanon, display: dName, category: cat }); }); });
+                if (queryLower !== "" || isNumericOnlyForFirstUnit) Object.keys(finalUnitAliases).forEach(aliasL => { const uCanon = finalUnitAliases[aliasL], catAlias = getCategoryForUnit(uCanon); if (!catAlias || (isSecondUnit && sourceUnitCategory && catAlias !== sourceUnitCategory)) return; const dName = unitDisplayNames[uCanon] || uCanon; if (isNumericOnlyForFirstUnit || aliasL.startsWith(queryLower)) if (!suggestions.has(dName)) suggestions.set(dName, { value: uCanon, display: dName, category: catAlias }); });
+                return Array.from(suggestions.values()).sort((a,b) => { if (!isNumericOnlyForFirstUnit || queryLower !== "") { const dA=finalUnitAliases[queryLower]===a.value,dB=finalUnitAliases[queryLower]===b.value; if(dA&&!dB)return -1;if(!dA&&dB)return 1; const sDA=a.display.toLowerCase().startsWith(queryLower),sDB=b.display.toLowerCase().startsWith(queryLower); if(sDA&&!sDB)return -1;if(!sDA&&sDB)return 1;} return a.display.localeCompare(b.display);}).slice(0,isNumericOnlyForFirstUnit?50:15);
+            }
+            function updateSuggestions(text) { const sugg = getUnitSuggestions(text); suggestionsContainer.innerHTML = ''; if (sugg.length > 0) { sugg.forEach(s => { const i = document.createElement('div'); i.className = 'suggestion-item p-3 cursor-pointer text-gray-700'; i.dataset.value = s.value; i.innerHTML = `${s.display} <span class="text-xs text-gray-400 ml-1">(${s.category.replace(/_/g, ' ')})</span>`; i.addEventListener('click', () => selectSuggestion(s.value)); suggestionsContainer.appendChild(i); }); suggestionsContainer.classList.remove('hidden'); } else suggestionsContainer.classList.add('hidden'); }
+            function selectSuggestion(sVal) { const txt = conversionInput.value, pts = txt.split(' to '); let nTxt = "", uBox = unitDisplayNames[sVal] || sVal; for (const al in finalUnitAliases) if (finalUnitAliases[al] === sVal && al.length < uBox.length && (!uBox.includes('(') || al.length < uBox.split('(')[0].trim().length)) uBox = al; if (pts.length > 1) { let sPt = pts[0].trim(); const sM = sPt.match(/^([\d.eE+-]+)\s*(.+)$/); if (sM) { const nS = normalizeUnit(sM[2].trim()); let dS = unitDisplayNames[nS] || sM[2].trim(); for (const al in finalUnitAliases) if (finalUnitAliases[al] === nS && al.length < dS.length && (!dS.includes('(') || al.length < dS.split('(')[0].trim().length)) dS = al; sPt = `${sM[1]} ${dS}`; } nTxt = `${sPt} to ${uBox} `; } else { const m = txt.match(/^([\d.eE+-]+)\s*(.*)$/); nTxt = (m && m[1].trim() !== "") ? `${m[1]} ${uBox} ` : `${uBox} `; } conversionInput.value = nTxt; conversionInput.focus(); setTimeout(() => { conversionInput.selectionStart = conversionInput.selectionEnd = nTxt.length; }, 0); suggestionsContainer.classList.add('hidden'); performConversion(nTxt.trim()); }
+            function parseConversionExpression(text) { const r = /^([\d.eE+-]+)\s*([a-zA-Z°µ'][\w\s\/²³°µ.'()-]*(?:\s*\([\w\s-]+\))?)\s+to\s+([a-zA-Z°µ'][\w\s\/²³°µ.'()-]*(?:\s*\([\w\s-]+\))?)$/i; const m = text.match(r); if (m) return { value: parseFloat(m[1]), fromUnit: m[2].trim(), toUnit: m[3].trim() }; return null; }
+            
+            function performConversion(text) {
+                const trimmedText = text.trim();
+                const parsed = parseConversionExpression(trimmedText);
+                const primaryResultCard = document.getElementById('primary-result');
+                const relatedConversionsCard = document.getElementById('related-conversions');
+
+                // Always manage clear button visibility based on current input text
+                if (trimmedText.length > 0) {
+                    clearInputBtn.classList.remove('hidden');
+                } else {
+                    clearInputBtn.classList.add('hidden');
+                }
+
+                if (!parsed) {
+                    if (trimmedText === "") {
+                        resultsContainer.innerHTML = '';
+                        helperText.classList.remove('hidden');
+                    } else {
+                        if (primaryResultCard) primaryResultCard.remove();
+                        if (relatedConversionsCard) relatedConversionsCard.remove();
+                        helperText.classList.add('hidden');
+                    }
+                    return;
+                }
+
+                const { value, fromUnit: fromUnitInput, toUnit: toUnitInput } = parsed;
+                if (isNaN(value)) {
+                     if (primaryResultCard) primaryResultCard.remove();
+                     if (relatedConversionsCard) relatedConversionsCard.remove();
+                     helperText.classList.add('hidden'); // Or show an error about invalid number
+                    return;
+                }
+
+                const normalizedFromUnit = normalizeUnit(fromUnitInput);
+                const normalizedToUnit = normalizeUnit(toUnitInput);
+                const result = convert(value, fromUnitInput, toUnitInput);
+                const fromUnitDisplay = unitDisplayNames[normalizedFromUnit] || fromUnitInput;
+                const toUnitDisplay = unitDisplayNames[normalizedToUnit] || toUnitInput;
+
+                helperText.classList.add('hidden');
+                let card = primaryResultCard;
+                if (!card) {
+                    resultsContainer.innerHTML = '';
+                    card = document.createElement('div');
+                    card.id = 'primary-result';
+                    resultsContainer.appendChild(card);
+                }
+                card.className = 'result-card p-4 rounded-lg shadow-sm';
+
+                if (result !== null && isFinite(result)) {
+                    card.classList.add('bg-white', 'border', 'border-gray-200');
+                    card.innerHTML = `<div class="flex justify-between items-center"><div><p class="text-lg font-semibold">${formatNumber(value)} ${fromUnitDisplay}</p><p class="text-3xl font-bold text-blue-600">${formatNumber(result)} ${toUnitDisplay}</p></div><div class="text-blue-500"><i class="fas fa-exchange-alt text-xl"></i></div></div>`;
+                    card.classList.add('pulse');
+                    setTimeout(() => { if(card) card.classList.remove('pulse'); }, 1000);
+                    addRelatedConversions(value, normalizedFromUnit);
+                } else {
+                    card.classList.add('bg-red-50', 'border', 'border-red-200');
+                    card.innerHTML = `<p class="text-red-600 text-center">Cannot convert <span class="font-semibold">"${fromUnitDisplay}"</span> to <span class="font-semibold">"${toUnitDisplay}"</span>.</p>`;
+                    if (relatedConversionsCard) relatedConversionsCard.remove();
+                }
+            }
+
+            function addRelatedConversions(value, sourceUnitCanonical) { const cat = getCategoryForUnit(sourceUnitCanonical); if (!cat) return; const others = Object.keys(unitCategories[cat] || {}).filter(u => u !== sourceUnitCanonical).slice(0, 5); let exRel = document.getElementById('related-conversions'); if (exRel) exRel.remove(); if (others.length === 0) return; const relCont = document.createElement('div'); relCont.id = 'related-conversions'; relCont.className = 'mt-4'; relCont.innerHTML = `<h3 class="text-sm text-gray-500 mb-2">Other conversions:</h3>`; const relGrid = document.createElement('div'); relGrid.className = 'grid grid-cols-1 md:grid-cols-2 gap-3'; others.forEach(uTarget => { const res = convert(value, sourceUnitCanonical, uTarget); if (res !== null && isFinite(res)) relGrid.innerHTML += `<div class="bg-gray-50 rounded p-2 text-sm"><span class="text-gray-700">${formatNumber(res)}</span> <span class="text-gray-500">${unitDisplayNames[uTarget] || uTarget}</span></div>`; }); if (relGrid.childElementCount > 0) { relCont.appendChild(relGrid); resultsContainer.appendChild(relCont); } }
+            function handleArrowKeys(e) { const i = Array.from(suggestionsContainer.querySelectorAll('.suggestion-item')); if (i.length === 0 || suggestionsContainer.classList.contains('hidden')) return; let activeIdx = i.findIndex(item => item.classList.contains('active')); if (e.key === 'ArrowDown') { e.preventDefault(); activeIdx = (activeIdx === -1 || activeIdx === i.length - 1) ? 0 : activeIdx + 1; } else if (e.key === 'ArrowUp') { e.preventDefault(); activeIdx = (activeIdx === -1 || activeIdx === 0) ? i.length - 1 : activeIdx - 1; } else if ((e.key === 'Enter' || e.key === 'Tab') && activeIdx !== -1) { if (i[activeIdx]) { e.preventDefault(); selectSuggestion(i[activeIdx].dataset.value); } return; } else return; i.forEach(item => item.classList.remove('active')); if (i[activeIdx]) { i[activeIdx].classList.add('active'); i[activeIdx].scrollIntoView({ block: 'nearest' }); } }
+
+            conversionInput.addEventListener('input', function() {
+                updateSuggestions(this.value);
+                performConversion(this.value); // This will handle clearing results if input becomes invalid
+                // Show/hide clear button based on input
+                if (this.value.trim().length > 0) {
+                    clearInputBtn.classList.remove('hidden');
+                } else {
+                    clearInputBtn.classList.add('hidden');
+                }
+            });
+
+            clearInputBtn.addEventListener('click', function() {
+                conversionInput.value = '';
+                clearInputBtn.classList.add('hidden'); // Hide button itself
+                updateSuggestions(''); // Clear suggestions
+                performConversion(''); // Clear results and show helper text
+                conversionInput.focus(); // Re-focus the input field
+            });
+
+            conversionInput.addEventListener('keydown', handleArrowKeys);
+            document.addEventListener('click', e => { if (!conversionInput.contains(e.target) && !suggestionsContainer.contains(e.target) && e.target !== clearInputBtn && !clearInputBtn.contains(e.target)) suggestionsContainer.classList.add('hidden'); });
+            conversionInput.addEventListener('focus', () => updateSuggestions(conversionInput.value || " "));
+            toggleCategoriesBtn.addEventListener('click', () => { const isHidden = categoriesGridContainerEl.classList.toggle('hidden'); toggleCategoriesIcon.className = `fas ${isHidden ? 'fa-chevron-down' : 'fa-chevron-up'} mr-1`; toggleCategoriesText.textContent = isHidden ? 'Show All' : 'Hide All'; });
+            conversionInput.focus();
+        });
+    </script>
+     
+  </div>
+  <!-- At bottom of body -->
+<script defer src="/js/jquery.slim.min.js"></script>
+<script defer src="/js/popper.min.js"></script>
+<script defer src="/js/bootstrap.bundle.min.js"></script>
+
+     </body>
+  
+</html>
