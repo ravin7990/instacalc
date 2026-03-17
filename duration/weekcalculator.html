@@ -1,617 +1,1131 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
- <title>Week Calculator | Find Week Numbers & Calculate Weeks Between Dates</title>
-  <meta name="description" content="Calculate the number of weeks between two dates with our online week calculator. Easily find the duration in weeks for projects, planning, or analysis.">
-  <meta charset="utf-8">
-   <!-- Basic Favicons -->
-  <link rel="icon" type="image/x-icon" href="favicon.webp">
-  <link rel="canonical" href="https://instacalc.in/duration/weekcalculator.html" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+  <title>Week Calculator - Weeks Between Dates and Week Number Finder</title>
+  <meta name="description" content="Calculate weeks between dates, find ISO week number, and add or subtract weeks from any date.">
+  <meta name="keywords" content="week calculator, weeks between dates, week number finder, iso week calculator">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
-<style>
-        /* Inline critical CSS - Replace with your actual critical styles */
-     
-        .navbar { /* Example critical navbar styles */ }
-        .container.table1 h2 { /* Example critical calculator heading style */ }
-        /* ... more critical styles ... */
-    </style>
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"></noscript>
 
-    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="style.css"></noscript>
+  <link rel="icon" type="image/x-icon" href="/favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/duration/weekcalculator.html">
 
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"></noscript>
+  <meta property="og:title" content="Week Calculator - Weeks Between Dates">
+  <meta property="og:description" content="Find total weeks, weekdays, weekends, week numbers, and future week dates instantly.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/duration/weekcalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" defer></script>
-  
-    <script src="script.js" defer></script>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Week Calculator - Weeks Between Dates">
+  <meta name="twitter:description" content="Use this week calculator for date range weeks, ISO week numbers, and week offset planning.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --line: #d3e1ea;
+      --card: #ffffff;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.3rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.3rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 17ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 60ch;
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.1rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.56rem;
+      align-content: start;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.6rem 0.7rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .tool-card,
+    .sidebar-card,
+    .content-card,
+    .faq-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .tool-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .tool-card h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.2rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+
+    .field {
+      display: grid;
+      gap: 0.3rem;
+    }
+
+    .field label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input[type="date"],
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="date"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .checkbox-field {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.92rem;
+      color: var(--text-soft);
+      font-weight: 600;
+    }
+
+    .checkbox-field input {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--accent);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.58rem;
+    }
+
+    .result-item {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .result-item h3 {
+      color: var(--text-soft);
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1rem, 2.4vw, 1.28rem);
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .status-note {
+      border: 1px dashed rgba(0, 95, 115, 0.25);
+      border-radius: 11px;
+      background: rgba(0, 127, 139, 0.06);
+      color: var(--text-soft);
+      padding: 0.62rem 0.72rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3,
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.06rem;
+    }
+
+    .link-list,
+    .feature-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .content-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.58rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 680px) {
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .form-grid.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 <body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class="text-white mb-0">InstaCalc.in</h6>
-  </div>   
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>     
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/aboutus.html">About Us</a>
-      </li>
-         <li class="nav-item px-2">
-        <a class="nav-link " href="/contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/index.html" class="brand" aria-label="InstaCalc home">
+        <img src="/logo.png" alt="InstaCalc logo">
+        <span>InstaCalc.in</span>
+      </a>
 
-    
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
 
-
-  <!-- //first row first column -->
-  <div class="row">
- <!-- First row first column -->
-  <div class="col-md-6" style="background-colorf:yellow;">
-    <div class="container mt-5 table1">
-      <h2>Week Calculator</h2>
-      
-      <div class="input-group m">
-        <label for="start-date" class="mr-2">Start Date</label>
-        <input type="date" id="start-date" class="form-control" onchange="calculateWeeks()">
-      </div>
-      
-      <div class="input-group">
-        <label for="end-date" class="mr-2">End Date</label>
-        <input type="date" id="end-date" class="form-control" onchange="calculateWeeks()">
-      </div>
-      
-      <div class="input-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="include-end" onchange="calculateWeeks()">
-          <label class="form-check-label" for="include-end">
-            Include end date in calculation
-          </label>
-        </div>
-      </div>
-      
-      <div class="result-box">
-        <div class="result-item">
-          <span class="label">Total Weeks:</span>
-          <span class="value"><strong><span id="total-weeks">0</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Total Days:</span>
-          <span class="value"><strong><span id="total-days">0</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Weekdays:</span>
-          <span class="value"><strong><span id="weekdays">0</span> (Mon-Fri)</strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Weekends:</span>
-          <span class="value"><strong><span id="weekends">0</span> (Sat-Sun)</strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Complete Weeks:</span>
-          <span class="value"><strong><span id="complete-weeks">0</span> weeks + <span id="remaining-days">0</span> days</strong></span>
-        </div>
-      </div>
+      <nav class="site-nav" id="mainNav">
+        <a href="/index.html">Home</a>
+        <a href="/aboutus.html">About Us</a>
+        <a href="/contactus.html">Contact Us</a>
+        <a href="/privacypolicy.html">Privacy Policy</a>
+      </nav>
     </div>
-  </div>
-  
-  <!-- First row second column -->
-   <div class="col-md-6 d-none d-md-block">
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <!-- All cards follow the same structure with <a> wrapping the content -->
-      <div class="card">
-        <a class="sitetext" href="dayscalculator.html">
-          <div class="card-body labelbody">Days Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="hourcalculator.html">
-          <div class="card-body labelbody">Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="timedurationcalculator.html">
-          <div class="card-body labelbody">Duration Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="agecalculator.html">
-          <div class="card-body labelbody">Age Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="timezonecalculator.html">
-          <div class="card-body labelbody">Timezone Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="birthdaycalculator.html">
-          <div class="card-body labelbody">Birthday Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="weekcalculator.html">
-          <div class="card-body labelbody">Week Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="minutes-hourscalculator.html">
-          <div class="card-body labelbody">Minutes to Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="juliandatecalculator.html">
-          <div class="card-body labelbody">Julian Date Calculator</div>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+  </header>
 
-  <!--  /second row -->
-  <div class="row mb-05">
-  <!-- First Column -->
-  <div class="col-md-6" >
-    <div class="container mt-5">
-      <div class="fd-calculator-content">
-        <div class="title">
-          <h1>Week Calculator: Know How Many Weeks Between Dates!</h1>
-        </div>
-        <div class="introduction">
-          <p>Okay, let's be honest — calculating weeks between two dates in your head? Not fun. Is it 6 weeks or 7? Do we count this Monday? What about leap years or partial weeks?</p>
-          <p>That's where a Week Calculator comes in handy. It does the work for you — no counting on fingers, no calendar scrolling, no mental math.</p>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-calendar-week"></i>
+            Date Planning
+          </span>
+          <h1>Week Calculator with Week Number Tools</h1>
+          <p>Calculate weeks between two dates, check ISO week numbers, and add or subtract weeks to plan project timelines faster.</p>
         </div>
 
-        <div class="what-is-fd-calculator">
-          <h2>🔍 What Is a Week Calculator?</h2>
-          <p>A Week Calculator is a simple tool that tells you the number of weeks (and days, if needed) between two dates.</p>
-          <p>You plug in a start date and an end date, and in just a second or two, it shows you:</p>
-          <ul>
-            <li>Total number of full weeks</li>
-            <li>Extra days (if dates don't align perfectly)</li>
-            <li>Sometimes months and weekdays too</li>
-          </ul>
-          <p>And that's it. Easy, right?</p>
+        <aside class="hero-panel">
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Week and day difference between dates</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Weekdays and weekends split</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> ISO week number finder (extra feature)</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Add or subtract weeks from any date (extra feature)</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container layout">
+        <div style="display:grid;gap:0.85rem;">
+          <article class="tool-card" id="week-diff-tool">
+            <h2>Weeks Between Dates</h2>
+            <div class="form-grid two">
+              <div class="field">
+                <label for="startDate">Start Date</label>
+                <input type="date" id="startDate">
+              </div>
+              <div class="field">
+                <label for="endDate">End Date</label>
+                <input type="date" id="endDate">
+              </div>
+            </div>
+            <div class="form-grid two">
+              <label class="checkbox-field" for="includeEnd">
+                <input type="checkbox" id="includeEnd">
+                Include end date in range
+              </label>
+              <div class="field">
+                <label for="weekStartMode">Week Starts On</label>
+                <select id="weekStartMode">
+                  <option value="monday">Monday</option>
+                  <option value="sunday">Sunday</option>
+                </select>
+              </div>
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-primary" id="calculateBtn" type="button">
+                <i class="fas fa-calculator"></i>
+                Calculate
+              </button>
+              <button class="btn btn-ghost" id="resetBtn" type="button">
+                <i class="fas fa-rotate-left"></i>
+                Reset
+              </button>
+              <button class="btn btn-ghost" id="copyBtn" type="button">
+                <i class="fas fa-copy"></i>
+                Copy Result
+              </button>
+            </div>
+
+            <div class="result-grid">
+              <div class="result-item"><h3>Total Weeks</h3><div class="result-value" id="totalWeeks">0.00</div></div>
+              <div class="result-item"><h3>Total Days</h3><div class="result-value" id="totalDays">0</div></div>
+              <div class="result-item"><h3>Complete Weeks</h3><div class="result-value" id="completeWeeks">0 weeks + 0 days</div></div>
+              <div class="result-item"><h3>Weekdays</h3><div class="result-value" id="weekdays">0</div></div>
+              <div class="result-item"><h3>Weekends</h3><div class="result-value" id="weekends">0</div></div>
+              <div class="result-item"><h3>Business Weeks</h3><div class="result-value" id="businessWeeks">0.00</div></div>
+            </div>
+            <div class="status-note" id="rangeStatus">Pick start and end dates to begin.</div>
+          </article>
+
+          <article class="tool-card" id="week-number-tool">
+            <h2>Week Number Finder</h2>
+            <div class="form-grid two">
+              <div class="field">
+                <label for="lookupDate">Select Date</label>
+                <input type="date" id="lookupDate">
+              </div>
+              <div class="field">
+                <label for="lookupWeekStart">Week Starts On</label>
+                <select id="lookupWeekStart">
+                  <option value="monday">Monday</option>
+                  <option value="sunday">Sunday</option>
+                </select>
+              </div>
+            </div>
+            <div class="result-grid">
+              <div class="result-item"><h3>ISO Week</h3><div class="result-value" id="isoWeekOutput">-</div></div>
+              <div class="result-item"><h3>Day of Year</h3><div class="result-value" id="dayOfYearOutput">-</div></div>
+              <div class="result-item"><h3>Week Start</h3><div class="result-value" id="weekStartOutput">-</div></div>
+              <div class="result-item"><h3>Week End</h3><div class="result-value" id="weekEndOutput">-</div></div>
+            </div>
+          </article>
+
+          <article class="tool-card" id="offset-tool">
+            <h2>Add or Subtract Weeks (New)</h2>
+            <div class="form-grid two">
+              <div class="field">
+                <label for="baseDate">Base Date</label>
+                <input type="date" id="baseDate">
+              </div>
+              <div class="field">
+                <label for="weekOffset">Weeks Offset (negative allowed)</label>
+                <input type="number" id="weekOffset" step="1" value="4">
+              </div>
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-primary" id="offsetBtn" type="button">
+                <i class="fas fa-arrows-left-right-to-line"></i>
+                Calculate Offset Date
+              </button>
+            </div>
+            <div class="result-grid">
+              <div class="result-item"><h3>Result Date</h3><div class="result-value" id="offsetDateOutput">-</div></div>
+              <div class="result-item"><h3>Result ISO Week</h3><div class="result-value" id="offsetWeekOutput">-</div></div>
+            </div>
+          </article>
         </div>
 
-        <div class="how-fd-calculator-works">
-          <h2>📅 When Would You Use It?</h2>
-          <p>You might be surprised how useful this is:</p>
-          <ul>
-            <li>🤰 Pregnancy Tracking – Doctors track by weeks</li>
-            <li>🏋️ Fitness Goals – "8-week challenge!"</li>
-            <li>🗓️ Project Planning – Weeks till deadline</li>
-            <li>📚 Course Duration – Academic schedules</li>
-            <li>🎉 Event Countdown – Weddings, trips, parties</li>
-            <li>🕰️ Payroll Cycles – Weekly/biweekly payments</li>
-          </ul>
-        </div>
-
-        <div class="why-use-fd-calculator">
-          <h2>🛠️ How Does It Work?</h2>
-          <ol>
-            <li>Enter Start Date – e.g. January 1, 2024</li>
-            <li>Enter End Date – e.g. April 15, 2024</li>
-            <li>Hit Calculate – Result: 15 weeks 1 day</li>
-          </ol>
-          <p>Advanced tools also show:</p>
-          <ul>
-            <li>Day of week for both dates</li>
-            <li>Total days count</li>
-            <li>Future/past date calculations</li>
-          </ul>
-        </div>
-
-        <div class="example-calculation">
-          <h2>✨ Real-Life Example</h2>
-          <div class="example-box p-3" style="background-color:#f8f9fa;border-radius:8px;">
-            <p><strong>Fitness Challenge:</strong> March 1 to May 15</p>
-            <ul>
-              <li>Start: March 1, 2024 (Friday)</li>
-              <li>End: May 15, 2024 (Wednesday)</li>
-              <li><strong>Result:</strong> 10 weeks 3 days</li>
+        <aside style="display:grid;gap:0.8rem;align-content:start;">
+          <article class="sidebar-card">
+            <h3>Duration Tools</h3>
+            <ul class="link-list">
+              <li><a href="dayscalculator.html"><span>Days Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="hourcalculator.html"><span>Hour Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="timedurationcalculator.html"><span>Duration Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="agecalculator.html"><span>Age Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="timezonecalculator.html"><span>Timezone Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="birthdaycalculator.html"><span>Birthday Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="minutes-hourscalculator.html"><span>Minutes to Hour</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="juliandatecalculator.html"><span>Julian Date Calculator</span><i class="fas fa-arrow-right"></i></a></li>
             </ul>
-          </div>
-        </div>
+          </article>
 
-        <div class="factors-affecting-returns">
-          <h2>🔍 What to Look For</h2>
-          <p>Best week calculators offer:</p>
-          <ul>
-            <li>✅ Include/exclude start/end dates</li>
-            <li>✅ Leap year handling</li>
-            <li>✅ Week + days display</li>
-            <li>✅ Mobile-friendly design</li>
-            <li>✅ Future date finder</li>
-          </ul>
+          <article class="sidebar-card">
+            <h3>Tips</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i> Toggle "Include end date" when your project counts both start and finish day.</li>
+              <li><i class="fas fa-circle-info"></i> Use Monday week start for ISO style reporting.</li>
+              <li><i class="fas fa-circle-info"></i> Use week offset feature for sprint planning and release timelines.</li>
+            </ul>
+          </article>
+        </aside>
+      </div>
+    </section>
 
-          <h3>🧠 Bonus: Week Numbers</h3>
-          <p>Some show week-of-year numbers. Example: "April 1, 2024 is Week 14". Perfect for business reports and academic planning!</p>
+    <section class="section">
+      <div class="container layout">
+        <article class="content-card">
+          <h3>How Week Calculations Work</h3>
+          <p>The week difference tool calculates total days between selected dates and converts it into weeks and remaining days. It also counts weekdays and weekend days so you can estimate business working periods.</p>
+          <p>ISO week numbers follow a standard where Week 1 is the week containing the first Thursday of the year. This is commonly used in business reporting and planning.</p>
+          <p>The new week offset tool helps you jump forward or backward by any number of weeks from a base date, useful for release planning, payroll cycles, and schedules.</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>
+              How are partial weeks shown?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>The result includes decimal weeks and also full weeks plus remaining days for clearer interpretation.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              Does this include leap years?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Yes. JavaScript date calculations include leap years automatically, including February 29 when applicable.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              Can I calculate business-only duration?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Yes. The calculator outputs weekdays separately so you can estimate business week length directly.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              What is the additional feature in this redesign?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>You now get a built-in ISO week number finder and a date offset calculator to add or subtract weeks from any base date.</p>
+          </details>
         </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in - smart calculators and converters for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="/index.html">Home</a>
+        <a href="/aboutus.html">About Us</a>
+        <a href="/contactus.html">Contact Us</a>
+        <a href="/privacypolicy.html">Privacy Policy</a>
       </div>
     </div>
-  </div>
+  </footer>
 
-  <!-- Second Column -->
-  <div class="col-md-6" >
-    <div class="container mt-5 mb-5">
-      <h2 class="mb-4">Week Calculator FAQs</h2>
-      <div id="faqAccordion" class="accordion">
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
-        <!-- FAQ 1 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                How are partial weeks handled?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
-            <div class="card-body">
-              Calculators show full weeks + extra days. Example: 15 weeks 3 days means 15 full weeks plus 3 additional days.
-            </div>
-          </div>
-        </div>
+  <script>
+    (function () {
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        startDate: document.getElementById("startDate"),
+        endDate: document.getElementById("endDate"),
+        includeEnd: document.getElementById("includeEnd"),
+        weekStartMode: document.getElementById("weekStartMode"),
+        calculateBtn: document.getElementById("calculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copyBtn: document.getElementById("copyBtn"),
+        totalWeeks: document.getElementById("totalWeeks"),
+        totalDays: document.getElementById("totalDays"),
+        completeWeeks: document.getElementById("completeWeeks"),
+        weekdays: document.getElementById("weekdays"),
+        weekends: document.getElementById("weekends"),
+        businessWeeks: document.getElementById("businessWeeks"),
+        rangeStatus: document.getElementById("rangeStatus"),
+        lookupDate: document.getElementById("lookupDate"),
+        lookupWeekStart: document.getElementById("lookupWeekStart"),
+        isoWeekOutput: document.getElementById("isoWeekOutput"),
+        dayOfYearOutput: document.getElementById("dayOfYearOutput"),
+        weekStartOutput: document.getElementById("weekStartOutput"),
+        weekEndOutput: document.getElementById("weekEndOutput"),
+        baseDate: document.getElementById("baseDate"),
+        weekOffset: document.getElementById("weekOffset"),
+        offsetBtn: document.getElementById("offsetBtn"),
+        offsetDateOutput: document.getElementById("offsetDateOutput"),
+        offsetWeekOutput: document.getElementById("offsetWeekOutput")
+      };
 
-        <!-- FAQ 2 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingTwo">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Does it count the start date as Week 1?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-            <div class="card-body">
-              Depends on the tool. Good calculators let you choose whether to include/exclude the start date in the count.
-            </div>
-          </div>
-        </div>
+      let lastSummary = "";
 
-        <!-- FAQ 3 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingThree">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                How does it handle leap years?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-            <div class="card-body">
-              Automatically accounts for February 29th. The total days (and thus weeks) adjust accordingly.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 4 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFour">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                Can I calculate weeks into the future?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes! Enter any future end date or use "weeks from today" features. Great for long-term planning.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 5 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFive">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                What's the week numbering system?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-            <div class="card-body">
-              Most use ISO 8601 standard: Week 1 has year's first Thursday. Some offer alternative systems.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 6 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSix">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                Can I calculate business weeks only?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-            <div class="card-body">
-              Advanced calculators let you exclude weekends. Standard tools count calendar weeks.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 7 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSeven">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                How precise is week counting?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-            <div class="card-body">
-              100% accurate. Calculators use exact day counts divided by 7. No rounding errors.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 8 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingEight">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                Can I share my results?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-            <div class="card-body">
-              Most tools offer share buttons or PDF exports. Perfect for project plans and reports.
-            </div>
-          </div>
-        </div>
-
-      </div>
-      
-      <div class="fun-facts mt-5 p-4" style="background-color:#e6f3ff;border-radius:8px;">
-        <h4>📆 Fun Week Facts</h4>
-        <ul>
-          <li>Average year has 52.14 weeks</li>
-          <li>ISO week numbers used globally by businesses</li>
-          <li>Ancient Babylonians created the 7-day week</li>
-          <li>Some cultures use 10-day "weeks"</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
-
-              Back To Home
-
-             </p>
-       </div>
-
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
-      </div>
-      <script>
-          
-          // Set default dates when page loads
-  window.onload = function() {
-    const today = new Date();
-    const startDate = new Date();
-    startDate.setDate(today.getDate() - 28); // Default to 4 weeks ago
-    
-    document.getElementById('start-date').valueAsDate = startDate;
-    document.getElementById('end-date').valueAsDate = today;
-    
-    calculateWeeks();
-  };
-  
-  function calculateWeeks() {
-    const startDate = new Date(document.getElementById('start-date').value);
-    const endDate = new Date(document.getElementById('end-date').value);
-    const includeEnd = document.getElementById('include-end').checked;
-    
-    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-      return; // Invalid dates
-    }
-    
-    // Swap dates if end date is before start date
-    if (endDate < startDate) {
-      [startDate, endDate] = [endDate, startDate];
-      document.getElementById('start-date').valueAsDate = startDate;
-      document.getElementById('end-date').valueAsDate = endDate;
-    }
-    
-    // Calculate time difference in milliseconds
-    let timeDiff = endDate - startDate;
-    
-    // Include end day if checkbox is checked
-    if (includeEnd) {
-      timeDiff += 86400000; // Add 1 day in milliseconds
-    }
-    
-    // Convert to days
-    const totalDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    const totalWeeks = totalDays / 7;
-    
-    // Calculate complete weeks and remaining days
-    const completeWeeks = Math.floor(totalDays / 7);
-    const remainingDays = totalDays % 7;
-    
-    // Calculate weekdays and weekends
-    let weekdays = 0;
-    let weekends = 0;
-    let currentDate = new Date(startDate);
-    
-    // Loop through each day
-    for (let i = 0; i < totalDays; i++) {
-      const day = currentDate.getDay();
-      if (day === 0 || day === 6) { // Sunday or Saturday
-        weekends++;
-      } else {
-        weekdays++;
+      function parseInputDate(value) {
+        if (!value) {
+          return null;
+        }
+        const parsed = new Date(value + "T00:00:00");
+        return Number.isNaN(parsed.getTime()) ? null : parsed;
       }
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-    
-    // Update the UI
-    document.getElementById('total-weeks').textContent = totalWeeks.toFixed(2);
-    document.getElementById('total-days').textContent = totalDays;
-    document.getElementById('weekdays').textContent = weekdays;
-    document.getElementById('weekends').textContent = weekends;
-    document.getElementById('complete-weeks').textContent = completeWeeks;
-    document.getElementById('remaining-days').textContent = remainingDays;
-  }
 
+      function formatDate(date) {
+        return date.toLocaleDateString("en-IN", {
+          weekday: "short",
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        });
+      }
 
-          // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
+      function getDayOfYear(date) {
+        const start = new Date(date.getFullYear(), 0, 1);
+        const diff = date - start;
+        return Math.floor(diff / 86400000) + 1;
+      }
 
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
+      function getIsoWeek(date) {
+        const tempDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        const dayNum = tempDate.getUTCDay() || 7;
+        tempDate.setUTCDate(tempDate.getUTCDate() + 4 - dayNum);
+        const yearStart = new Date(Date.UTC(tempDate.getUTCFullYear(), 0, 1));
+        const weekNo = Math.ceil((((tempDate - yearStart) / 86400000) + 1) / 7);
+        return { year: tempDate.getUTCFullYear(), week: weekNo };
+      }
 
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-          
+      function getWeekBounds(date, weekStartsMonday) {
+        const d = new Date(date);
+        const day = d.getDay();
+        const shift = weekStartsMonday ? ((day + 6) % 7) : day;
+        const start = new Date(d);
+        start.setDate(d.getDate() - shift);
+        const end = new Date(start);
+        end.setDate(start.getDate() + 6);
+        return { start: start, end: end };
+      }
 
-          
-          </script>
-          
+      function countWeekdayWeekend(start, totalDays) {
+        let weekdays = 0;
+        let weekends = 0;
+        const cursor = new Date(start);
+        for (let i = 0; i < totalDays; i += 1) {
+          const day = cursor.getDay();
+          if (day === 0 || day === 6) {
+            weekends += 1;
+          } else {
+            weekdays += 1;
+          }
+          cursor.setDate(cursor.getDate() + 1);
+        }
+        return { weekdays: weekdays, weekends: weekends };
+      }
 
+      function calculateRange() {
+        let start = parseInputDate(elements.startDate.value);
+        let end = parseInputDate(elements.endDate.value);
 
-      <style>
-          
-              b  .result-item {
-    margin-bottom: 8px;
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
-  }
-  .label {
-    display: inline-block;
-    width: 150px;
-    font-weight: bold;
-  }
-  .form-check {
-    margin-top: 10px;
-  }
-  .form-check-label {
-    margin-left: 5px;
-  }
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
+        if (!start || !end) {
+          elements.rangeStatus.textContent = "Select both start and end dates.";
+          return;
+        }
 
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
+        if (end < start) {
+          const tmp = start;
+          start = end;
+          end = tmp;
+          elements.startDate.valueAsDate = start;
+          elements.endDate.valueAsDate = end;
+        }
 
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
+        const includeEnd = elements.includeEnd.checked;
+        let totalDays = Math.floor((end - start) / 86400000);
+        if (includeEnd) {
+          totalDays += 1;
+        }
+        totalDays = Math.max(totalDays, 0);
+
+        const totalWeeks = totalDays / 7;
+        const fullWeeks = Math.floor(totalDays / 7);
+        const remDays = totalDays % 7;
+        const split = countWeekdayWeekend(start, totalDays);
+
+        elements.totalWeeks.textContent = totalWeeks.toFixed(2);
+        elements.totalDays.textContent = String(totalDays);
+        elements.completeWeeks.textContent = fullWeeks + " weeks + " + remDays + " days";
+        elements.weekdays.textContent = String(split.weekdays);
+        elements.weekends.textContent = String(split.weekends);
+        elements.businessWeeks.textContent = (split.weekdays / 5).toFixed(2);
+
+        const startText = formatDate(start);
+        const endText = formatDate(end);
+        elements.rangeStatus.textContent = "From " + startText + " to " + endText + ".";
+
+        lastSummary = [
+          "Week Calculator Summary",
+          "Start: " + startText,
+          "End: " + endText,
+          "Include end date: " + (includeEnd ? "Yes" : "No"),
+          "Total days: " + totalDays,
+          "Total weeks: " + totalWeeks.toFixed(2),
+          "Complete weeks: " + fullWeeks + " + " + remDays + " days",
+          "Weekdays: " + split.weekdays,
+          "Weekends: " + split.weekends
+        ].join("\n");
+      }
+
+      function updateWeekLookup() {
+        const date = parseInputDate(elements.lookupDate.value);
+        if (!date) {
+          return;
+        }
+        const iso = getIsoWeek(date);
+        const weekStartsMonday = elements.lookupWeekStart.value === "monday";
+        const bounds = getWeekBounds(date, weekStartsMonday);
+
+        elements.isoWeekOutput.textContent = "Week " + iso.week + ", " + iso.year;
+        elements.dayOfYearOutput.textContent = String(getDayOfYear(date));
+        elements.weekStartOutput.textContent = formatDate(bounds.start);
+        elements.weekEndOutput.textContent = formatDate(bounds.end);
+      }
+
+      function calculateOffset() {
+        const baseDate = parseInputDate(elements.baseDate.value);
+        const offsetWeeks = Number(elements.weekOffset.value);
+        if (!baseDate || !Number.isFinite(offsetWeeks)) {
+          return;
+        }
+
+        const outputDate = new Date(baseDate);
+        outputDate.setDate(outputDate.getDate() + (offsetWeeks * 7));
+        const iso = getIsoWeek(outputDate);
+
+        elements.offsetDateOutput.textContent = formatDate(outputDate);
+        elements.offsetWeekOutput.textContent = "Week " + iso.week + ", " + iso.year;
+      }
+
+      function resetDefaults() {
+        const today = new Date();
+        const start = new Date(today);
+        start.setDate(today.getDate() - 28);
+
+        elements.startDate.valueAsDate = start;
+        elements.endDate.valueAsDate = today;
+        elements.lookupDate.valueAsDate = today;
+        elements.baseDate.valueAsDate = today;
+        elements.includeEnd.checked = false;
+        elements.weekStartMode.value = "monday";
+        elements.lookupWeekStart.value = "monday";
+        elements.weekOffset.value = "4";
+
+        calculateRange();
+        updateWeekLookup();
+        calculateOffset();
+      }
+
+      function setupNav() {
+        if (!elements.menuToggle || !elements.mainNav) {
+          return;
+        }
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 940) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
             }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
+          });
+        });
+      }
 
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) {
+          return;
+        }
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
 
-          </style>
+      function wireEvents() {
+        elements.calculateBtn.addEventListener("click", calculateRange);
+        elements.resetBtn.addEventListener("click", resetDefaults);
+        elements.startDate.addEventListener("input", calculateRange);
+        elements.endDate.addEventListener("input", calculateRange);
+        elements.includeEnd.addEventListener("change", calculateRange);
+        elements.weekStartMode.addEventListener("change", calculateRange);
+
+        elements.lookupDate.addEventListener("input", updateWeekLookup);
+        elements.lookupWeekStart.addEventListener("change", updateWeekLookup);
+
+        elements.offsetBtn.addEventListener("click", calculateOffset);
+        elements.baseDate.addEventListener("input", calculateOffset);
+        elements.weekOffset.addEventListener("input", calculateOffset);
+
+        elements.copyBtn.addEventListener("click", function () {
+          if (!navigator.clipboard || !lastSummary) {
+            return;
+          }
+          navigator.clipboard.writeText(lastSummary).then(function () {
+            elements.copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied';
+            window.setTimeout(function () {
+              elements.copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Result';
+            }, 1200);
+          });
+        });
+      }
+
+      setupNav();
+      setupBackToTop();
+      wireEvents();
+      resetDefaults();
+    })();
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+      authDomain: "instacalc-40640.firebaseapp.com",
+      projectId: "instacalc-40640",
+      storageBucket: "instacalc-40640.firebasestorage.app",
+      messagingSenderId: "720029503645",
+      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+      measurementId: "G-J0ZWXR3T5P"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+  </script>
 </body>
 </html>
+
+
