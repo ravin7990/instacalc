@@ -1,229 +1,887 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Contact Us - InstaCalc.in</title>
-  <!-- Basic Favicons -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-      <link rel="canonical" href="https://instacalc.in/contactus.html" />
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Contact InstaCalc.in for support, suggestions, or partnership inquiries. Reach us via email or WhatsApp.">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <title>Contact Us - InstaCalc.in</title>
+  <meta name="description" content="Contact InstaCalc.in for support, suggestions, and partnership inquiries via email, WhatsApp, or our contact form.">
+  <meta name="keywords" content="contact instacalc, calculator support, instacalc whatsapp, calculator feedback">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="canonical" href="https://instacalc.in/contactus.html">
+
+  <meta property="og:title" content="Contact InstaCalc.in">
+  <meta property="og:description" content="Reach InstaCalc.in for support, feedback, and business collaboration.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/contactus.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact InstaCalc.in">
+  <meta name="twitter:description" content="Get support and connect with the InstaCalc team.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --bg-soft: #f8fcff;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-green: #1f9f67;
+      --line: #d3e1ea;
+      --card: #ffffff;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .container {
+      width: min(1120px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 730px;
+      margin-bottom: 1.28rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.1rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.3rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      transition: transform 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.2rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.22rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .hero-panel p {
+      color: rgba(248, 252, 255, 0.93);
+      font-size: 0.97rem;
+    }
+
+    .hero-points {
+      margin-top: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.64rem 0.72rem;
+      font-size: 0.94rem;
+      color: #f8fcff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+    }
+
+    .stack {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .contact-card,
+    .form-card,
+    .sidebar-card,
+    .info-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .contact-card {
+      padding: 1rem;
+    }
+
+    .contact-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .contact-card p {
+      color: var(--text-soft);
+      margin-bottom: 0.7rem;
+    }
+
+    .contact-pill {
+      min-height: 42px;
+      padding: 0.54rem 0.82rem;
+      border-radius: 11px;
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      background: #ffffff;
+      color: var(--accent-strong);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .contact-pill:hover {
+      transform: translateY(-1px);
+      border-color: rgba(0, 127, 139, 0.45);
+    }
+
+    .contact-pill.whatsapp {
+      color: #0d7a4d;
+      border-color: rgba(31, 159, 103, 0.35);
+      background: rgba(31, 159, 103, 0.08);
+    }
+
+    .form-card {
+      padding: 1rem;
+    }
+
+    .form-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.15rem;
+      margin-bottom: 0.28rem;
+    }
+
+    .form-card p {
+      color: var(--text-soft);
+      margin-bottom: 0.82rem;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 0.68rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field {
+      display: grid;
+      gap: 0.34rem;
+    }
+
+    .field label {
+      font-size: 0.93rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 0.58rem 0.72rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field textarea {
+      min-height: 132px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .submit-btn {
+      border: none;
+      cursor: pointer;
+    }
+
+    .alert {
+      margin-top: 0.5rem;
+      padding: 0.64rem 0.72rem;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .alert-success {
+      background: rgba(31, 159, 103, 0.12);
+      border: 1px solid rgba(31, 159, 103, 0.4);
+      color: #0d6f46;
+    }
+
+    .alert-error {
+      background: rgba(183, 65, 51, 0.11);
+      border: 1px solid rgba(183, 65, 51, 0.36);
+      color: #9b2f24;
+    }
+
+    .info-card,
+    .sidebar-card {
+      padding: 1rem;
+    }
+
+    .info-card h3,
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.06rem;
+      margin-bottom: 0.52rem;
+    }
+
+    .info-card p,
+    .sidebar-card p {
+      color: var(--text-soft);
+    }
+
+    .check-list,
+    .tool-links {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      color: var(--text-soft);
+      font-weight: 600;
+    }
+
+    .check-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .tool-links a {
+      min-height: 42px;
+      border-radius: 11px;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      background: #ffffff;
+      padding: 0.52rem 0.7rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text);
+      font-weight: 600;
+      transition: border-color 0.22s ease, transform 0.22s ease;
+    }
+
+    .tool-links a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 700px) {
+      .contact-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .field-full {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (min-width: 960px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .contact-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .contact-pill,
+      .tool-links a,
+      .back-to-top {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc home">
+        <img src="logo.png" alt="InstaCalc logo">
+        <span>InstaCalc.in</span>
+      </a>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="InstaCalc Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class="text-white mb-0">InstaCalc.in</h6>
-  </div>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html" class="active">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-message"></i>
+            Contact Team
+          </span>
+          <h1>We would love to hear from you</h1>
+          <p>Have a calculator suggestion, found an issue, or want to collaborate? Reach out through email, WhatsApp, or the form below.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#send-message">
+              <i class="fas fa-paper-plane"></i>
+              Send a Message
+            </a>
+            <a class="btn btn-ghost" href="mailto:developerravin@gmail.com">
+              <i class="fas fa-envelope"></i>
+              Email Directly
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h2>Fast support channels</h2>
+          <p>Use the option that works best for your situation. We typically respond within 24 to 48 hours.</p>
+          <div class="hero-points">
+            <div class="hero-point"><i class="fas fa-envelope"></i> Email for detailed requests</div>
+            <div class="hero-point"><i class="fab fa-whatsapp"></i> WhatsApp for quick questions</div>
+            <div class="hero-point"><i class="fas fa-clock"></i> 24-48 hour average response</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container contact-layout">
+        <div class="stack">
+          <div class="section-head">
+            <span class="eyebrow">
+              <i class="fas fa-address-book"></i>
+              Get In Touch
+            </span>
+            <h2>Choose your preferred contact method</h2>
+            <p>For technical support, feedback, and partnerships, send us a message any time.</p>
+          </div>
+
+          <div class="contact-grid">
+            <article class="contact-card">
+              <h3><i class="fas fa-envelope"></i> Email</h3>
+              <p>Best for detailed suggestions, feature requests, and support tickets.</p>
+              <a class="contact-pill" href="mailto:developerravin@gmail.com">
+                <i class="fas fa-paper-plane"></i>
+                developerravin@gmail.com
+              </a>
+            </article>
+
+            <article class="contact-card">
+              <h3><i class="fab fa-whatsapp"></i> WhatsApp</h3>
+              <p>Best for quick queries and business conversations.</p>
+              <a class="contact-pill whatsapp" href="https://wa.me/917259472334" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i>
+                +91 7259472334
+              </a>
+            </article>
+          </div>
+
+          <article id="send-message" class="form-card">
+            <h3>Send Us a Message</h3>
+            <p>Fill out this form and we will get back to you soon.</p>
+
+            <form action="https://formspree.io/f/moveyzod" method="POST">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="name">Your Name</label>
+                  <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+
+                <div class="field">
+                  <label for="email">Email Address</label>
+                  <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="field field-full">
+                  <label for="subject">Subject</label>
+                  <select id="subject" name="subject">
+                    <option>General Inquiry</option>
+                    <option>Calculator Suggestion</option>
+                    <option>Business Partnership</option>
+                    <option>Technical Support</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+
+                <div class="field field-full">
+                  <label for="message">Your Message</label>
+                  <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
+                </div>
+              </div>
+
+              <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off">
+
+              <button type="submit" class="btn btn-primary submit-btn">
+                <i class="fas fa-paper-plane"></i>
+                Send Message
+              </button>
+
+              <div class="alert alert-success hidden" id="successMessage">
+                <i class="fas fa-circle-check"></i> Message sent successfully.
+              </div>
+              <div class="alert alert-error hidden" id="errorMessage">
+                <i class="fas fa-circle-exclamation"></i> Something went wrong. Please try again.
+              </div>
+            </form>
+          </article>
+
+          <article class="info-card">
+            <h3><i class="fas fa-clock"></i> Response Time</h3>
+            <p>We usually respond to all messages within 24 to 48 hours. For urgent topics, WhatsApp is usually the fastest channel.</p>
+          </article>
+        </div>
+
+        <aside class="stack">
+          <article class="sidebar-card">
+            <h3>Popular Calculators</h3>
+            <ul class="tool-links">
+              <li><a href="duration/agecalculator.html"><span>Age Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="emicalculator.html"><span>EMI Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="sipcalculator.html"><span>SIP Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="duration/birthdaycalculator.html"><span>Birthday Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="duration/timedurationcalculator.html"><span>Time Duration Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </article>
+
+          <article class="sidebar-card">
+            <h3>Why Contact Us?</h3>
+            <ul class="check-list">
+              <li><i class="fas fa-check-circle"></i> Suggest new calculators</li>
+              <li><i class="fas fa-check-circle"></i> Report technical issues</li>
+              <li><i class="fas fa-check-circle"></i> Ask partnership questions</li>
+              <li><i class="fas fa-check-circle"></i> Share product feedback</li>
+            </ul>
+          </article>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in - smart calculators and converters for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="aboutus.html">About Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link active" href="contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
 
-<div class="container mt-4 mb-5">
-  <div class="row">
-    <div class="col-md-8 mb-3">
-      <div class="card p-3 border bg-light">
-        <!-- Hero Section -->
-        <section class="text-white text-center py-5" style="background-color: #3F72AF">
-          <div class="container">
-            <h1 class="display-4 mb-4">Contact InstaCalc.in</h1>
-            <p class="lead">We'd love to hear from you!</p>
-          </div>
-        </section>
+  <script>
+    (function () {
+      const menuToggle = document.getElementById("menuToggle");
+      const mainNav = document.getElementById("mainNav");
+      const backToTopBtn = document.getElementById("backToTopBtn");
 
-        <!-- Main Content -->
-        <div class="container my-5">
-          <!-- Contact Methods -->
-          <section class="mb-5">
-            <h2 class="mb-4">Get In Touch</h2>
-            <div class="row">
-              <div class="col-lg-6 mb-4">
-                <div class="card h-100 shadow">
-                  <div class="card-body text-center">
-                    <i class="fas fa-envelope fa-3x mb-3" style="color: #3F72AF;"></i>
-                    <h3 class="card-title">Email Us</h3>
-                    <p class="card-text">For general inquiries, suggestions, or support</p>
-                    <a href="mailto:developerravin@gmail.com" class="btn btn-primary mt-2">
-                      developerravin@gmail.com
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 mb-4">
-                <div class="card h-100 shadow">
-                  <div class="card-body text-center">
-                    <i class="fab fa-whatsapp fa-3x mb-3" style="color: #25D366;"></i>
-                    <h3 class="card-title">WhatsApp</h3>
-                    <p class="card-text">For quick queries or business inquiries</p>
-                    <a href="https://wa.me/917259472334" class="btn btn-success mt-2" style="background-color: #25D366;">
-                      +91 7259472334
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+      if (menuToggle && mainNav) {
+        menuToggle.addEventListener("click", function () {
+          const isOpen = mainNav.classList.toggle("open");
+          menuToggle.setAttribute("aria-expanded", String(isOpen));
+          menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
 
-          <!-- Contact Form -->
-          <!-- Modified Form Section -->
-<section class="mb-5">
-  <h2 class="mb-4">Send Us a Message</h2>
-  <form action="https://formspree.io/f/moveyzod" method="POST">
-    <div class="form-group">
-      <label for="name">Your Name</label>
-      <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
-    </div>
-    <div class="form-group">
-      <label for="email">Email Address</label>
-      <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
-    </div>
-    <div class="form-group">
-      <label for="subject">Subject</label>
-      <select class="form-control" id="subject" name="subject">
-        <option>General Inquiry</option>
-        <option>Calculator Suggestion</option>
-        <option>Business Partnership</option>
-        <option>Technical Support</option>
-        <option>Other</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="message">Your Message</label>
-      <textarea class="form-control" id="message" name="message" rows="5" placeholder="Enter your message" required></textarea>
-    </div>
-    
-    <!-- Honeypot Field for Spam Prevention -->
-    <input type="text" name="_gotcha" style="display:none">
-    
-    <!-- Success Message -->
-    <div class="alert alert-success mt-3" style="display: none;">
-      <i class="fas fa-check-circle"></i> Message sent successfully!
-    </div>
-    
-    <!-- Error Message -->
-    <div class="alert alert-danger mt-3" style="display: none;">
-      <i class="fas fa-exclamation-circle"></i> Error sending message. Please try again.
-    </div>
+        mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 960) {
+              mainNav.classList.remove("open");
+              menuToggle.setAttribute("aria-expanded", "false");
+              menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+      }
 
-    <button type="submit" class="btn btn-primary">
-      <i class="fas fa-paper-plane mr-2"></i>Send Message
-    </button>
-  </form>
-</section>
+      function syncBackToTop() {
+        if (!backToTopBtn) {
+          return;
+        }
+        backToTopBtn.classList.toggle("show", window.scrollY > 260);
+      }
 
-          <!-- Response Time -->
-          <section class="bg-light p-4 mb-5 rounded">
-            <h4><i class="fas fa-clock mr-2"></i>Our Response Time</h4>
-            <p>We typically respond to all inquiries within 24-48 hours. For urgent matters, please use WhatsApp for faster response.</p>
-          </section>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mb-3">
-      <div class="p-3 border bg-light">
-        <h4>Popular Calculators</h4>
-        <ul class="list-group">
-          <li class="list-group-item"><a href="duration/agecalculator.html">Age Calculator</a></li>
-          <li class="list-group-item"><a href="emicalculator.html">EMI Calculator</a></li>
-          <li class="list-group-item"><a href="sipcalculator.html">SIP Calculator</a></li>
-          <li class="list-group-item"><a href="duration/birthdaycalculator.html">Birthday Calculator</a></li>
-          <li class="list-group-item"><a href="duration/timedurationcalculator.html">Time Duration Calculator</a></li>
-        </ul>
-        
-        <div class="mt-4">
-          <h4>Why Contact Us?</h4>
-          <div class="card mb-3">
-            <div class="card-body">
-              <ul class="list-unstyled">
-                <li class="mb-2"><i class="fas fa-check-circle text-primary mr-2"></i>Suggest new calculators</li>
-                <li class="mb-2"><i class="fas fa-check-circle text-primary mr-2"></i>Report technical issues</li>
-                <li class="mb-2"><i class="fas fa-check-circle text-primary mr-2"></i>Business partnerships</li>
-                <li><i class="fas fa-check-circle text-primary mr-2"></i>Provide feedback</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+      if (backToTopBtn) {
+        window.addEventListener("scroll", syncBackToTop);
+        backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
 
-<div  class="row navbar-dark bg-dark footer1 container-fluid" >
-<!--        //third row first column -->
-     <div class="col-sm-12 " >
-       <div class=" text-center">
-       <p id="backToTopBtn" style="color:white;">
+      syncBackToTop();
+    })();
+  </script>
 
-            Back To Home
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
 
-           </p>
-     </div>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+      authDomain: "instacalc-40640.firebaseapp.com",
+      projectId: "instacalc-40640",
+      storageBucket: "instacalc-40640.firebasestorage.app",
+      messagingSenderId: "720029503645",
+      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+      measurementId: "G-J0ZWXR3T5P"
+    };
 
-       </div>
-
-<script>
-  const backToTopBtn = document.getElementById("backToTopBtn");
-
-  window.onscroll = function() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      backToTopBtn.style.display = "block";
-    } else {
-      backToTopBtn.style.display = "none";
-    }
-  };
-
-  backToTopBtn.addEventListener("click", function() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  });
-</script>
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
-    authDomain: "instacalc-40640.firebaseapp.com",
-    projectId: "instacalc-40640",
-    storageBucket: "instacalc-40640.firebasestorage.app",
-    messagingSenderId: "720029503645",
-    appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
-    measurementId: "G-J0ZWXR3T5P"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
-
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+  </script>
 </body>
 </html>
+
+
