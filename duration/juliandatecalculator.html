@@ -85,6 +85,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"></noscript>
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -155,6 +156,8 @@
 
     .section {
       padding: 3.2rem 0;
+      content-visibility: auto;
+      contain-intrinsic-size: 900px;
     }
 
     .eyebrow {
@@ -351,6 +354,7 @@
       display: grid;
       gap: 0.6rem;
       align-content: start;
+      min-height: 250px;
     }
 
     .hero-panel h2 {
@@ -367,6 +371,13 @@
       display: flex;
       align-items: flex-start;
       gap: 0.46rem;
+    }
+
+    .hero-point i {
+      width: 0.95rem;
+      flex: 0 0 0.95rem;
+      text-align: center;
+      margin-top: 0.1rem;
     }
 
     .calc-layout {
@@ -630,7 +641,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 640px;
+      min-width: 560px;
     }
 
     th,
@@ -842,6 +853,132 @@
 
     }
 
+    @media (max-width: 639px) {
+      .container {
+        width: min(1180px, 94vw);
+      }
+
+      .section {
+        padding: 2.4rem 0;
+      }
+
+      .hero {
+        padding: 2.35rem 0 1.6rem;
+      }
+
+      .hero-copy,
+      .hero-panel,
+      .calculator-shell,
+      .feature-card,
+      .content-card,
+      .faq-card,
+      .sidebar-card {
+        border-radius: 16px;
+      }
+
+      .hero-copy {
+        padding: 1.05rem;
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(1.6rem, 8vw, 2.05rem);
+        line-height: 1.16;
+        max-width: none;
+      }
+
+      .hero-copy p {
+        font-size: 0.96rem;
+      }
+
+      .hero-panel {
+        min-height: auto;
+        padding: 1rem;
+      }
+
+      .result-line {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .result-line strong {
+        text-align: left;
+      }
+
+      .mode-switch {
+        width: 100%;
+      }
+
+      .mode-switch a {
+        flex: 1 1 0;
+      }
+
+      .calculator-actions .btn,
+      .table-tools .btn {
+        width: 100%;
+      }
+
+      .table-shell {
+        margin: 0 -0.2rem;
+      }
+
+      table {
+        min-width: 0;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tbody {
+        display: grid;
+        gap: 0.62rem;
+        padding: 0.62rem;
+      }
+
+      tbody tr {
+        display: block;
+        border: 1px solid rgba(0, 95, 115, 0.14);
+        border-radius: 10px;
+        background: #ffffff;
+        overflow: hidden;
+      }
+
+      tbody td {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 0.65rem;
+        border-bottom: 1px solid rgba(0, 95, 115, 0.09);
+        padding: 0.52rem 0.62rem;
+        font-size: 0.84rem;
+      }
+
+      tbody td::before {
+        content: attr(data-label);
+        color: var(--text-soft);
+        font-weight: 700;
+        flex: 0 0 42%;
+      }
+
+      tbody td:last-child {
+        border-bottom: none;
+      }
+
+      tbody td[colspan] {
+        display: block;
+        text-align: center;
+        border-bottom: none;
+      }
+
+      tbody td[colspan]::before {
+        content: none;
+      }
+
+      .site-footer {
+        padding-bottom: 5rem;
+      }
+    }
+
     @media (min-width: 940px) {
       .menu-toggle {
         display: none;
@@ -892,7 +1029,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="../index.html" class="brand" aria-label="InstaCalc home">
-        <img src="logo.png" alt="InstaCalc logo">
+        <img src="logo-42.png" alt="InstaCalc logo" width="42" height="42" decoding="async" fetchpriority="high">
         <span>InstaCalc.in</span>
       </a>
 
@@ -1068,7 +1205,11 @@
                   <th>YYDDD Code</th>
                 </tr>
               </thead>
-              <tbody id="chartTableBody"></tbody>
+              <tbody id="chartTableBody">
+                <tr>
+                  <td colspan="5">Generate the Julian date chart to view year-wise rows.</td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </article>
@@ -1144,6 +1285,7 @@
       const MS_PER_DAY = 86400000;
       const JD_UNIX_EPOCH = 2440587.5;
       let chartRows = [];
+      let chartGenerated = false;
 
       const elements = {
         menuToggle: document.getElementById("menuToggle"),
@@ -1214,10 +1356,19 @@
         if (!elements.backToTopBtn) {
           return;
         }
+        let ticking = false;
         function syncButton() {
           elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+          ticking = false;
         }
-        window.addEventListener("scroll", syncButton);
+        function onScroll() {
+          if (ticking) {
+            return;
+          }
+          ticking = true;
+          window.requestAnimationFrame(syncButton);
+        }
+        window.addEventListener("scroll", onScroll, { passive: true });
         elements.backToTopBtn.addEventListener("click", function () {
           window.scrollTo({ top: 0, behavior: "smooth" });
         });
@@ -1456,20 +1607,26 @@
           rows.push(row);
           htmlRows.push(
             "<tr>" +
-              "<td>" + row.dateLabel + "</td>" +
-              "<td>" + row.dayOfYear + "</td>" +
-              "<td>" + row.jdn + "</td>" +
-              "<td>" + row.jd + "</td>" +
-              "<td>" + row.yyddd + "</td>" +
+              '<td data-label="Date (UTC)">' + row.dateLabel + "</td>" +
+              '<td data-label="Day of Year">' + row.dayOfYear + "</td>" +
+              '<td data-label="Julian Day Number">' + row.jdn + "</td>" +
+              '<td data-label="Julian Date">' + row.jd + "</td>" +
+              '<td data-label="YYDDD Code">' + row.yyddd + "</td>" +
             "</tr>"
           );
         }
 
         chartRows = rows;
-        elements.chartTableBody.innerHTML = htmlRows.join("");
+        chartGenerated = true;
+        elements.chartTableBody.innerHTML = htmlRows.length > 0
+          ? htmlRows.join("")
+          : '<tr><td colspan="5">No rows match this filter.</td></tr>';
       }
 
       function downloadChartCsv() {
+        if (!chartGenerated) {
+          generateChartRows();
+        }
         if (!chartRows || chartRows.length === 0) {
           return;
         }
@@ -1510,6 +1667,9 @@
         elements.generateChartBtn.addEventListener("click", generateChartRows);
         elements.downloadChartBtn.addEventListener("click", downloadChartCsv);
         elements.printChartBtn.addEventListener("click", function () {
+          if (!chartGenerated) {
+            generateChartRows();
+          }
           window.print();
         });
         elements.calendarDateInput.addEventListener("change", convertCalendarToJulian);
@@ -1517,6 +1677,48 @@
         elements.jdInput.addEventListener("change", convertJulianToCalendar);
         elements.mjdInput.addEventListener("change", convertJulianToCalendar);
         elements.decoderType.addEventListener("change", decodeJulianCode);
+        elements.chartFilterInput.addEventListener("input", function () {
+          if (chartGenerated) {
+            generateChartRows();
+          }
+        });
+        elements.chartYearInput.addEventListener("change", function () {
+          if (chartGenerated) {
+            generateChartRows();
+          }
+        });
+      }
+
+      function initAnalyticsDeferred() {
+        const firebaseConfig = {
+          apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+          authDomain: "instacalc-40640.firebaseapp.com",
+          projectId: "instacalc-40640",
+          storageBucket: "instacalc-40640.firebasestorage.app",
+          messagingSenderId: "720029503645",
+          appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+          measurementId: "G-J0ZWXR3T5P"
+        };
+
+        function loadAnalytics() {
+          Promise.all([
+            import("https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js"),
+            import("https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js")
+          ]).then(function (modules) {
+            const initializeApp = modules[0].initializeApp;
+            const getAnalytics = modules[1].getAnalytics;
+            const app = initializeApp(firebaseConfig);
+            getAnalytics(app);
+          }).catch(function () {
+            // Silently ignore analytics load failures.
+          });
+        }
+
+        if ("requestIdleCallback" in window) {
+          window.requestIdleCallback(loadAnalytics, { timeout: 5000 });
+          return;
+        }
+        window.setTimeout(loadAnalytics, 3500);
       }
 
       toggleNav();
@@ -1525,25 +1727,9 @@
       wireEvents();
       updateTodaySnapshot();
       convertCalendarToJulian();
-      generateChartRows();
+      initAnalyticsDeferred();
       window.setInterval(updateTodaySnapshot, 30000);
     })();
-  </script><script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
-      authDomain: "instacalc-40640.firebaseapp.com",
-      projectId: "instacalc-40640",
-      storageBucket: "instacalc-40640.firebasestorage.app",
-      messagingSenderId: "720029503645",
-      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
-      measurementId: "G-J0ZWXR3T5P"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    getAnalytics(app);
   </script>
 </body>
 </html>
