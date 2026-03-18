@@ -1,648 +1,1714 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
- <title>SIP & Lumpsum Calculator - Estimate Investment Returns</title>
-  <meta name="description" content="Calculate potential returns for SIP (Systematic Investment Plan) and lumpsum investments using our online calculator. Plan your mutual fund investments based on amount, tenure, and expected returns.">
-        <!-- Basic Favicons -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-     <link rel="canonical" href="https://instacalc.in/sipcalculatorlumpsump.html" />
-   <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lumpsum Calculator India | Lump Sum Investment Return & SIP Comparison</title>
+  <meta name="description" content="Use this lumpsum calculator online in India to estimate lump sum investment returns, one time investment growth, mutual fund lumpsum maturity, and lumpsum vs SIP outcomes.">
+  <meta name="keywords" content="lumpsum calculator, lump sum calculator, lumpsum investment, lumpsum return, lumpsum sip, one time investment, lumpsum mutual fund, lumpsum calculator india, lumpsum calculator online, mutual fund lumpsum, lumpsum return calculator, lumpsum calculator 2026">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
 
-  <!-- Critical CSS -->
-  <style>
-    /* Minimum layout stability styles */
-    body { 
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .calculator-container {
-      min-height: 600px; /* Reserve space for calculator */
-    }
-    .result-section {
-      height: 200px; /* Fixed height for results area */
-      visibility: hidden; /* Hidden until calculated */
-    }
-    /* Prevent layout shifts in main content */
-    .main-content {
-      position: relative;
-      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
-    }
-    /* Fixed dimensions for key elements */
-    input {
-      width: 100%;
-      max-width: 400px;
-      height: 40px;
-    }
-       /* Fixed dimensions for key elements */
-    .chart-container {
-      width: 100%;
-      max-width: 400px;
-      height: 300px;
-    }
-  </style>
+  <link rel="icon" type="image/x-icon" href="favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/sipcalculatorlumpsump.html">
 
-  <!-- Preloads -->
-  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
-  <link rel="preload" href="style.css" as="style">
-  
-  <!-- Non-critical CSS -->
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
-  <noscript>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-  </noscript>
+  <meta property="og:title" content="Lumpsum Calculator India - Lump Sum Investment Return Planner">
+  <meta property="og:description" content="Calculate lumpsum maturity amount, one-time investment returns, CAGR-style growth, and lumpsum vs SIP comparison scenarios.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/sipcalculatorlumpsump.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
 
-  <!-- Script optimization -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-  <!-- Only load Popper and Bootstrap JS if needed -->
-  <?php if (needs_bootstrap_js): ?>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-  
-     <script src="bootstrap/js/bootstrap.min.js" defer></script>
-  <?php endif; ?>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lumpsum Calculator India - Lump Sum Investment Return Planner">
+  <meta name="twitter:description" content="Free lump sum calculator for one-time mutual fund investment returns, inflation-adjusted corpus, and target-based planning.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
 
-  <!-- Load Chart.js only when needed -->
-  <script>
-    function loadChartJS() {
-      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
-        window.Chart = module.default;
-        initializeCharts();
-      });
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Lumpsum Calculator",
+      "url": "https://instacalc.in/sipcalculatorlumpsump.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "Lumpsum investment calculator for one-time mutual fund planning, maturity amount estimation, and SIP comparison scenarios.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is lumpsum investment in mutual fund?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lumpsum investment means investing one-time amount in a mutual fund instead of monthly SIP installments."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How to calculate lumpsum returns in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Enter one-time investment amount, expected return rate, tenure, and compounding frequency. The calculator estimates maturity amount and gains."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Lumpsum vs SIP: which is better in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on risk tolerance, market conditions, and cash flow. SIP spreads timing risk, while lumpsum can benefit more from early compounding."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can NRI do lumpsum investment in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, NRIs can invest lumpsum in eligible mutual funds in India, subject to KYC and AMC-specific rules."
+          }
+        }
+      ]
     }
   </script>
 
-  <script src="script.js" defer></script>  
-    
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 <body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class="text-white mb-0">InstaCalc.in</h6>
-  </div>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc home">
+        <img src="logo.png" alt="InstaCalc logo">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-chart-line"></i>
+            Investment Planner
+          </span>
+          <h1>Lumpsum Calculator India (Lump Sum Investment Return Planner)</h1>
+          <p>Estimate one time investment growth, mutual fund lumpsum maturity, and long-term return potential with compounding, inflation adjustment, and target corpus planning.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#lumpsum-planner">
+              <i class="fas fa-calculator"></i>
+              Start Planning
+            </a>
+            <a class="btn btn-ghost" href="sipcalculator.html">
+              <i class="fas fa-arrow-right-arrow-left"></i>
+              Switch to SIP
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h2>Extra Features Added</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> One-time lumpsum projection</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Compounding frequency control</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Lumpsum vs SIP comparison ready output</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Required lumpsum for target corpus</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Year-wise projection and CSV download</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="lumpsum-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="mode-switch" aria-label="Calculator mode">
+            <a href="sipcalculator.html">Monthly SIP</a>
+            <a href="sipcalculatorlumpsump.html" class="active">Lumpsum</a>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="lumpsumAmount">Lumpsum Amount (INR)</label>
+                <span id="lumpsumAmountPreview">500000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="lumpsumAmountRange" min="1000" max="50000000" step="1000" value="500000">
+                <input type="number" id="lumpsumAmount" min="1000" max="50000000" step="1000" value="500000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="returnRate">Expected Return (percent p.a.)</label>
+                <span id="returnRatePreview">12.0%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="returnRateRange" min="1" max="25" step="0.1" value="12">
+                <input type="number" id="returnRate" min="1" max="25" step="0.1" value="12">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="years">Time Period (years)</label>
+                <span id="yearsPreview">10</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="yearsRange" min="1" max="40" step="1" value="10">
+                <input type="number" id="years" min="1" max="40" step="1" value="10">
+              </div>
+            </div>
+
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="compounding">Compounding Frequency</label>
+                </div>
+                <select id="compounding">
+                  <option value="1">Yearly</option>
+                  <option value="2">Half-Yearly</option>
+                  <option value="4" selected>Quarterly</option>
+                  <option value="12">Monthly</option>
+                </select>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="inflation">Inflation (percent p.a.)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="inflationRange" min="0" max="12" step="0.1" value="6">
+                  <input type="number" id="inflation" min="0" max="12" step="0.1" value="6">
+                </div>
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="targetCorpus">Target Corpus (optional, INR)</label>
+              </div>
+              <input type="number" id="targetCorpus" min="0" step="100000" value="5000000" placeholder="Example: 5000000">
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i>
+              Recalculate
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i>
+              Reset Defaults
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i>
+              Copy Summary
+            </button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <h3>Total Invested</h3>
+              <div class="result-value" id="investedValue">-</div>
+            </div>
+            <div class="result-card positive">
+              <h3>Estimated Returns</h3>
+              <div class="result-value" id="returnsValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Estimated Corpus</h3>
+              <div class="result-value" id="corpusValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Inflation Adjusted Corpus</h3>
+              <div class="result-value" id="inflationAdjustedValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Required Lumpsum for Target</h3>
+              <div class="result-value" id="requiredLumpsumValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Maturity Month</h3>
+              <div class="result-value" id="maturityLabel">-</div>
+            </div>
+          </div>
+
+          <div class="goal-status">
+            <div class="goal-meta">
+              <span id="goalStatusText">Add target corpus to see progress.</span>
+              <strong id="goalPercentText">0%</strong>
+            </div>
+            <div class="goal-progress">
+              <div class="goal-progress-bar" id="goalProgressBar"></div>
+            </div>
+          </div>
+
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h3>Corpus Growth vs Invested Amount</h3>
+              <div class="chart-wrap">
+                <canvas id="growthChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card">
+              <h3>Invested vs Returns</h3>
+              <div class="chart-wrap small">
+                <canvas id="splitChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools">
+            <h3>Year-wise Projection</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
+              <i class="fas fa-file-csv"></i>
+              Download CSV
+            </button>
+          </div>
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Lumpsum Invested</th>
+                  <th>Estimated Returns</th>
+                  <th>Estimated Corpus</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Planning Notes</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i> Use this lumpsum return calculator India view for one-time investment planning across 1, 5, 10, and 20 year horizons.</li>
+              <li><i class="fas fa-circle-info"></i> Compounding settings help you test future value, wealth gain, and CAGR-style growth assumptions.</li>
+              <li><i class="fas fa-circle-info"></i> Inflation-adjusted corpus helps compare real purchasing power with your goal amount.</li>
+              <li><i class="fas fa-circle-info"></i> You can compare results with monthly SIP using the switch mode for lumpsum vs SIP decisions.</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Related Calculators</h3>
+            <ul class="link-list">
+              <li><a href="sipcalculator.html"><span>Monthly SIP</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mutualfundreturncalculator.html"><span>Mutual Fund Return</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="fdcalculator.html"><span>FD Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="rdcalculator.html"><span>RD Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="retirementcalculator.html"><span>Retirement Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="ppfcalculator.html"><span>PPF Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h3>How this lumpsum investment calculator works</h3>
+          <p>This lumpsum maturity amount calculator estimates how a one-time mutual fund investment may grow over time based on expected return, compounding frequency, and tenure. It works as a practical one time investment calculator in India for amount-based planning like 1 lakh, 5 lakh, or 10 lakh scenarios over long horizons.</p>
+          <br>
+          <p>Formula reference: <code>FV = P * (1 + r/n)^(n*t)</code>, where <code>P</code> is lumpsum amount, <code>r</code> is annual return, <code>n</code> is compounding frequency, and <code>t</code> is years.</p>
+          <br>
+          <p>For practical decisions, review this output together with SIP alternatives, tax impact, and risk tolerance. During volatile markets, many investors compare lumpsum vs SIP returns before committing fresh capital.</p>
+          <br>
+          <p>Related concepts used naturally in this page include one time investment returns, compound annual growth rate, lumpsum future value, inflation-adjusted investment returns, net asset value context, and long-term capital gains tax impact.</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>
+              What is lumpsum investment in mutual fund?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Lumpsum investment means putting a one-time amount into a mutual fund instead of investing monthly through SIP.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              How to calculate lumpsum returns in India?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Enter your one-time amount, expected annual return, tenure, and compounding frequency. The calculator then estimates maturity value, gains, and inflation-adjusted corpus.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              Lumpsum vs SIP: which is better in India?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>It depends on your cash flow, risk comfort, and market timing preference. SIP reduces timing risk, while lumpsum can outperform if invested before sustained market growth.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              Is lumpsum investment risky during market volatility?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Lumpsum investing carries market-timing risk, especially in volatile phases. Many investors reduce this risk by combining lumpsum with phased SIP contributions.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              What about tax and exit load on lumpsum mutual funds?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Tax treatment depends on holding period and fund type, and some funds may apply exit load on early redemption. Always check scheme details before finalizing returns expectations.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              Can NRI do lumpsum investment in India?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Yes, NRIs can invest in eligible Indian mutual funds through compliant accounts and KYC, subject to AMC and regulatory rules.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h3>Popular Lumpsum Planning Scenarios in India</h3>
+          <p>Many investors use this tool for amount-based checks such as 1 lakh for 5 or 10 years, 5 lakh for 10 years, and 10 lakh for 20 years. It is also helpful when estimating how much lumpsum may be required to target a 1 crore corpus.</p>
+          <br>
+          <p>For goal-based planning, you can test child education, retirement, and long-term wealth creation assumptions, then compare outcomes with SIP mode in the same template. This makes lumpsum vs SIP comparison practical instead of theoretical.</p>
+          <br>
+          <p>During market corrections, questions like best time to invest lumpsum, lumpsum investment during market crash, and risk vs SIP become more common. Use conservative return assumptions, and always review tax, exit load, and liquidity needs before investing.</p>
+        </article>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Useful Next Reads</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i> Lumpsum vs SIP returns comparison for 10 years and 20 years.</li>
+              <li><i class="fas fa-circle-info"></i> Lumpsum investment tax implications, including long-term capital gains treatment.</li>
+              <li><i class="fas fa-circle-info"></i> Index-fund lumpsum examples such as Nifty 50 and Sensex historical return scenarios.</li>
+              <li><i class="fas fa-circle-info"></i> ELSS-focused lumpsum planning and one-time tax-saving investment ideas.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in - smart calculators and converters for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="aboutus.html">About Us</a>
-      </li>
-         <li class="nav-item px-2">
-        <a class="nav-link " href="contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        lumpsumAmount: 500000,
+        returnRate: 12,
+        years: 10,
+        inflation: 6,
+        targetCorpus: 5000000,
+        compounding: 4
+      };
 
+      const nfCurrency = new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 0
+      });
+      const nfNumber = new Intl.NumberFormat("en-IN", {
+        maximumFractionDigits: 2
+      });
 
-  <!-- //first row first column -->
-  <div  class="row">
-  <!--   //first row first column -->
-    <div class="col-md-6" style="background-colorf:yellow;">
-      <div class="container mt-5 table1">
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+        lumpsumAmount: document.getElementById("lumpsumAmount"),
+        lumpsumAmountRange: document.getElementById("lumpsumAmountRange"),
+        returnRate: document.getElementById("returnRate"),
+        returnRateRange: document.getElementById("returnRateRange"),
+        years: document.getElementById("years"),
+        yearsRange: document.getElementById("yearsRange"),
+        inflation: document.getElementById("inflation"),
+        inflationRange: document.getElementById("inflationRange"),
+        compounding: document.getElementById("compounding"),
+        targetCorpus: document.getElementById("targetCorpus"),
+        lumpsumAmountPreview: document.getElementById("lumpsumAmountPreview"),
+        returnRatePreview: document.getElementById("returnRatePreview"),
+        yearsPreview: document.getElementById("yearsPreview"),
+        investedValue: document.getElementById("investedValue"),
+        returnsValue: document.getElementById("returnsValue"),
+        corpusValue: document.getElementById("corpusValue"),
+        inflationAdjustedValue: document.getElementById("inflationAdjustedValue"),
+        requiredLumpsumValue: document.getElementById("requiredLumpsumValue"),
+        maturityLabel: document.getElementById("maturityLabel"),
+        goalStatusText: document.getElementById("goalStatusText"),
+        goalPercentText: document.getElementById("goalPercentText"),
+        goalProgressBar: document.getElementById("goalProgressBar"),
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        growthChart: document.getElementById("growthChart"),
+        splitChart: document.getElementById("splitChart")
+      };
 
-       <h2>SIP Calculator LumpSump</h2>
+      let growthChartInstance = null;
+      let splitChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
 
-         <div class="container">
-           <div  class="row">
-                           <a href="sipcalculator.html" class="btn  btn-outline-secondary col-sm-6 ">
-  Monthly SIP
-</a>
-               
-             
-             
-           
-                <a href="sipcalculatorlumpsump.html" class="btn btn-primary col-sm-6">
-  Lumpsump
-</a>
-           </div>
-           </div>
-       <div class="input-group m">
-           <label for="amount">Total Investment (₹)</label>
-           <div class="slider-container">
-               <input type="range" id="amount-slider" min="1000" max="100000" step="500" value="25000" oninput="syncInputs('amount')">
-               <input type="number" id="amount" min="1000" max="100000" step="500" value="25000" oninput="syncInputs('amount', true)">
-           </div>
-       </div>
-       <div class="input-group">
-           <label for="rate">Expected Return Rate (p.a.) (%)</label>
-           <div class="slider-container">
-               <input type="range" id="rate-slider" min="1" max="20" step="0.1" value="12" oninput="syncInputs('rate')">
-               <input type="number" id="rate" min="1" max="20" step="0.1" value="12" oninput="syncInputs('rate', true)">
-           </div>
-       </div>
-       <div class="input-group">
-           <label for="years">Time Period (Years)</label>
-           <div class="slider-container">
-               <input type="range" id="years-slider" min="1" max="30" step="1" value="10" oninput="syncInputs('years')">
-               <input type="number" id="years" min="1" max="30" step="1" value="10" oninput="syncInputs('years', true)">
-           </div>
-       </div>
-       <div class="result-box">
-    <div class="result-item">
-        <span class="label">Invested Amount:</span>
-        <span class="value"><strong>₹<span id="invested">0</span></strong></span>
-    </div>
-    <div class="result-item">
-        <span class="label">Est. Returns:</span>
-        <span class="value"><strong>₹<span id="returns">0</span></strong></span>
-    </div>
-    <div class="result-item">
-        <span class="label">Total Value:</span>
-        <span class="value"><strong>₹<span id="total">0</span></strong></span>
-    </div>
-</div>
-       <div class="chart-container">
-           <canvas id="sipChart"></canvas>
-       </div>
-      
-     </div>
-  </div>
-      
-  <!--   //first row second column -->
- <div class="col-md-6 d-none d-md-block">
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <a href="sipcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="mutualfundreturncalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="gratuitycalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="epfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="fdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="rdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="cargcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="coumpoundinterest.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="retirementcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="ppfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="emicalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="simpleinterestcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) {
+          return;
+        }
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
 
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 940) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+      }
 
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) {
+          return;
+        }
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
 
-      </div>
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
 
-  <!--  /second row -->
-   <div  class="row mb-05">
-  <!--    //second row first column -->
-     <div class="col-md-6" style="background-colorf:red;">
+      function roundToStep(value, step) {
+        if (!step || step <= 0) {
+          return value;
+        }
+        return Math.round(value / step) * step;
+      }
 
-       <div class="container">
-              <div class="sip-lumpsum-calculator-content">
-    <div class="title">
-        <h1>SIP & Lumpsum Calculator: Your Investment Growth Estimator</h1>
-    </div>
-    <div class="introduction">
-        <p>Ever wondered how much your investments can grow over time? Whether you’re investing small amounts regularly through SIP or making a one-time investment with a lumpsum, a SIP & Lumpsum Calculator helps you estimate your future wealth in just a few clicks! 📊💰</p>
-        <p>Let’s break it down in simple terms so you can make the most of your money.</p>
-    </div>
-    <div class="what-is-sip-lumpsum-calculator">
-        <h2>What is a SIP & Lumpsum Calculator?</h2>
-        <p>A SIP & Lumpsum Calculator is a tool that helps investors estimate the returns on their mutual fund investments. By entering a few details like investment amount, duration, and expected rate of return, you can instantly see how much your money could grow over time.</p>
-        <p>No complex math, no guesswork—just clear, easy-to-understand numbers!</p>
-    </div>
-    <div class="how-sip-calculator-works">
-        <h2>How Does the SIP Calculator Work?</h2>
-        <p>If you invest a fixed amount every month, the SIP Calculator helps you see how that money compounds over time.</p>
-        <h3>How to Use It?</h3>
-        <ol>
-            <li>1️⃣ Enter your monthly investment amount (e.g., ₹5,000).</li>
-            <li>2️⃣ Select the investment duration (e.g., 10 years).</li>
-            <li>3️⃣ Choose an expected return rate (e.g., 12% per year).</li>
-            <li>4️⃣ Click Calculate, and see your potential future wealth!</li>
-        </ol>
-        <p>💡 Example:</p>
-        <p>If you invest ₹5,000 every month for 10 years at an estimated return of 12% per year, your total investment will be ₹6,00,000. But thanks to compounding, your final amount could be ₹17,61,695!</p>
-    </div>
-    <div class="how-lumpsum-calculator-works">
-        <h2>How Does the Lumpsum Calculator Work?</h2>
-        <p>A Lumpsum Calculator helps when you invest a one-time amount and want to know how much it can grow over time.</p>
-        <h3>How to Use It?</h3>
-        <ol>
-            <li>1️⃣ Enter the lumpsum investment amount (e.g., ₹5,00,000).</li>
-            <li>2️⃣ Select the investment duration (e.g., 10 years).</li>
-            <li>3️⃣ Choose an expected return rate (e.g., 12% per year).</li>
-            <li>4️⃣ Click Calculate, and check your estimated future wealth!</li>
-        </ol>
-        <p>💡 Example:</p>
-        <p>If you invest ₹5,00,000 in a mutual fund for 10 years at a 12% return, your investment could grow to ₹15,50,000 over time!</p>
-    </div>
-    <div class="why-use-sip-lumpsum-calculator">
-        <h2>Why Use a SIP & Lumpsum Calculator?</h2>
-        <ul>
-            <li>🔹 Saves Time – No need for manual calculations.</li>
-            <li>🔹 Provides Clarity – See exactly how your money can grow.</li>
-            <li>🔹 Helps in Planning – Set realistic financial goals.</li>
-            <li>🔹 Encourages Early Investing – The sooner you start, the more you gain!</li>
-        </ul>
-    </div>
-    <div class="call-to-action">
-        <h2>Start Investing Smartly!</h2>
-        <p>Whether you prefer investing monthly or making a one-time investment, a SIP & Lumpsum Calculator is your best friend when it comes to financial planning. Try it today and see how your money can work for you! 🚀💸</p>
-    </div>
-</div>
-           </div>
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
 
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) {
+          return;
+        }
+        const min = parseFloat(rangeEl.min || "0");
+        const max = parseFloat(rangeEl.max || "100");
+        const step = parseFloat(rangeEl.step || "1");
 
+        function normalize(value) {
+          const numeric = parseNumeric(value, parseFloat(rangeEl.value));
+          const stepped = roundToStep(numeric, step);
+          return clamp(stepped, min, max);
+        }
 
-       </div>
-  <!--   //second row second column -->
-     <div class="col-md-6" style="background-color:blueg;">
- <div class="container mt-5 mb-5 ">
+        rangeEl.addEventListener("input", function () {
+          numberEl.value = rangeEl.value;
+          calculateAndRender();
+        });
 
-   <h2 class="mb-4">FAQs</h2>
-   <div id="faqAccordion" class="accordion ">
+        numberEl.addEventListener("input", function () {
+          if (numberEl.value === "") {
+            return;
+          }
+          const normalized = normalize(numberEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingOne">
-               <h5 class="mb-0 ">
-                   <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                       How much can I invest in a SIP?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
-               <div class="card-body">
-                   You can start investing in a SIP with as little as ₹500 per month, depending on the mutual fund scheme.
-               </div>
-           </div>
-       </div>
+        numberEl.addEventListener("blur", function () {
+          const normalized = normalize(numberEl.value || rangeEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+      }
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingTwo">
-               <h5 class="mb-0">
-                   <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                       What is the maximum tenure of a SIP?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-               <div class="card-body">
-                   SIPs can be continued indefinitely or for a fixed period chosen by the investor, usually ranging from 1 year to several decades.
-               </div>
-           </div>
-       </div>
+      function formatCurrencyWithUnits(value) {
+        const abs = Math.abs(value);
+        const sign = value < 0 ? "-" : "";
+        let unitLabel = "";
+        if (abs >= 10000000) {
+          unitLabel = " (" + (abs / 10000000).toFixed(2) + " Cr)";
+        } else if (abs >= 100000) {
+          unitLabel = " (" + (abs / 100000).toFixed(2) + " Lakh)";
+        }
+        return sign + nfCurrency.format(abs) + unitLabel;
+      }
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingThree">
-               <h5 class="mb-0">
-                   <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                       Are SIPs similar to mutual funds?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-               <div class="card-body">
-                   SIP is a method of investing in mutual funds in a disciplined manner rather than a separate financial product.
-               </div>
-           </div>
-       </div>
+      function compactCurrency(value) {
+        const abs = Math.abs(value);
+        const sign = value < 0 ? "-" : "";
+        if (abs >= 10000000) {
+          return sign + (abs / 10000000).toFixed(1) + "Cr";
+        }
+        if (abs >= 100000) {
+          return sign + (abs / 100000).toFixed(1) + "L";
+        }
+        if (abs >= 1000) {
+          return sign + (abs / 1000).toFixed(1) + "K";
+        }
+        return sign + Math.round(abs).toString();
+      }
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingFour">
-               <h5 class="mb-0">
-                   <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                       Can I modify my SIP amount?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-               <div class="card-body">
-                   Yes, you can increase or decrease your SIP amount through a step-up SIP or by modifying your mandate.
-               </div>
-           </div>
-       </div>
+      function getInputs() {
+        return {
+          lumpsumAmount: parseNumeric(elements.lumpsumAmount.value, defaults.lumpsumAmount),
+          returnRate: parseNumeric(elements.returnRate.value, defaults.returnRate),
+          years: parseNumeric(elements.years.value, defaults.years),
+          inflation: parseNumeric(elements.inflation.value, defaults.inflation),
+          targetCorpus: parseNumeric(elements.targetCorpus.value, 0),
+          compounding: parseNumeric(elements.compounding.value, defaults.compounding)
+        };
+      }
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingFive">
-               <h5 class="mb-0">
-                   <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                       Do SIPs allow only equity mutual fund investments?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-               <div class="card-body">
-                   No, SIPs are available for equity, debt, hybrid, and other mutual fund categories.
-               </div>
-           </div>
-       </div>
+      function simulateLumpsum(lumpsumAmount, params) {
+        const years = Math.max(1, Math.round(params.years));
+        const compounds = clamp(Math.round(params.compounding), 1, 12);
+        const periodicRate = params.returnRate / 100 / compounds;
+        const totalPeriods = years * compounds;
+        const corpus = lumpsumAmount * Math.pow(1 + periodicRate, totalPeriods);
+        const projection = [];
+        const annualEffectiveRate = Math.pow(1 + periodicRate, compounds) - 1;
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingSix">
-               <h5 class="mb-0">
-                   <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                       What are the types of SIPs available?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-               <div class="card-body">
-                   Types of SIPs include Regular SIP, Step-up SIP, Perpetual SIP, and Trigger SIP.
-               </div>
-           </div>
-       </div>
+        for (let year = 1; year <= years; year += 1) {
+          const yearCorpus = lumpsumAmount * Math.pow(1 + annualEffectiveRate, year);
+          projection.push({
+            year: year,
+            invested: lumpsumAmount,
+            corpus: yearCorpus,
+            gains: yearCorpus - lumpsumAmount
+          });
+        }
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingSeven">
-               <h5 class="mb-0">
-                   <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                       Can I renew a SIP?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-               <div class="card-body">
-                   Yes, SIPs can be renewed by extending the investment period before it expires.
-               </div>
-           </div>
-       </div>
+        return {
+          months: years * 12,
+          invested: lumpsumAmount,
+          corpus: corpus,
+          gains: corpus - lumpsumAmount,
+          projection: projection
+        };
+      }
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingEight">
-               <h5 class="mb-0">
-                   <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                       Can I pause my investments in a SIP?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-               <div class="card-body " >
-                   Yes, many mutual fund houses offer a SIP pause facility, allowing investors to temporarily stop contributions.
-               </div>
-           </div>
-       </div>
+      function estimateRequiredLumpsum(targetCorpus, params) {
+        if (!Number.isFinite(targetCorpus) || targetCorpus <= 0) {
+          return null;
+        }
+        const years = Math.max(1, Math.round(params.years));
+        const compounds = clamp(Math.round(params.compounding), 1, 12);
+        const periodicRate = params.returnRate / 100 / compounds;
+        const totalPeriods = years * compounds;
+        return targetCorpus / Math.pow(1 + periodicRate, totalPeriods);
+      }
 
-   </div>
- </div>
-     </div>
-   </div>
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
+      function renderProjectionTable(projection) {
+        if (!elements.projectionTableBody) {
+          return;
+        }
+        elements.projectionTableBody.innerHTML = projection.map(function (row) {
+          return (
+            "<tr>" +
+              "<td>Year " + row.year + "</td>" +
+              "<td>" + formatCurrencyWithUnits(row.invested) + "</td>" +
+              "<td>" + formatCurrencyWithUnits(row.gains) + "</td>" +
+              "<td>" + formatCurrencyWithUnits(row.corpus) + "</td>" +
+            "</tr>"
+          );
+        }).join("");
+      }
 
-              Back To Home
+      function renderCharts(projection, invested, gains) {
+        if (!window.Chart || !elements.growthChart || !elements.splitChart) {
+          return;
+        }
 
-             </p>
-       </div>
+        const labels = projection.map(function (row) {
+          return "Year " + row.year;
+        });
+        const corpusData = projection.map(function (row) { return row.corpus; });
+        const investedData = projection.map(function () { return invested; });
 
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
-      </div>
-      <script>
-              function syncInputs(id, isManual = false) {
-                  const slider = document.getElementById(`${id}-slider`);
-                  const numberInput = document.getElementById(id);
-                  if (isManual) {
-                      slider.value = numberInput.value;
-                  } else {
-                      numberInput.value = slider.value;
+        if (growthChartInstance) {
+          growthChartInstance.destroy();
+        }
+        growthChartInstance = new Chart(elements.growthChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Corpus",
+                data: corpusData,
+                borderColor: "#007f8b",
+                backgroundColor: "rgba(0, 127, 139, 0.16)",
+                fill: true,
+                tension: 0.18,
+                pointRadius: 2
+              },
+              {
+                label: "Invested",
+                data: investedData,
+                borderColor: "#ee9f2e",
+                backgroundColor: "rgba(238, 159, 46, 0.16)",
+                fill: false,
+                tension: 0.12,
+                pointRadius: 2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "top" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.dataset.label + ": " + formatCurrencyWithUnits(context.parsed.y);
                   }
-                  calculateSIP();
+                }
               }
-          
-function formatNumberInIndianFormat(num) {
-    // Convert the number to a string and split into whole and decimal parts
-    let parts = num.toString().split(".");
-    let wholePart = parts[0];
-    let decimalPart = parts.length > 1 ? "." + parts[1] : "";
-
-    // Add commas in Indian numbering system format
-    let lastThree = wholePart.slice(-3);
-    let otherNumbers = wholePart.slice(0, -3);
-    if (otherNumbers !== "") {
-        lastThree = "," + lastThree;
-    }
-    let result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + decimalPart;
-
-    return result;
-}
-          
-          
-         function calculateSIP() {
-    // Get input values
-    let P = parseFloat(document.getElementById("amount").value); // Principal (initial investment)
-    let r = parseFloat(document.getElementById("rate").value) / 100; // Annual interest rate (converted to decimal)
-    let t = parseInt(document.getElementById("years").value); // Time in years
-    let n = 1; // Number of times interest is compounded per year (monthly compounding)
-
-    // Calculate future value using the formula A = P * (1 + r/n)^(nt)
-    let A = P * Math.pow(1 + r / n, n * t);
-
-    // Calculate invested amount and estimated returns
-    let investedAmount = P; // Total invested amount
-    let estReturns = A - P; // Estimated returns (future value - principal)
-
-    // Format the numbers in Indian format with 2 decimal places
-    let formattedInvestedAmount = formatNumberInIndianFormat(investedAmount.toFixed(2));
-    let formattedEstReturns = formatNumberInIndianFormat(estReturns.toFixed(2));
-    let formattedTotal = formatNumberInIndianFormat(A.toFixed(2));
-
-    // Display results
-    document.getElementById("invested").textContent = formattedInvestedAmount;
-    document.getElementById("returns").textContent = formattedEstReturns;
-    document.getElementById("total").textContent = formattedTotal;
-
-    // Update chart (if needed)
-    updateChart(investedAmount, estReturns);
-}
-          
-          
-              let sipChart;
-              function updateChart(invested, returns) {
-                  let ctx = document.getElementById("sipChart").getContext("2d");
-                  if (sipChart) sipChart.destroy();
-                  sipChart = new Chart(ctx, {
-                      type: "doughnut",
-                      data: {
-                          labels: ["Invested Amount", "Est. Returns"],
-                          datasets: [{
-                              data: [invested, returns],
-                              backgroundColor: ["#4CAF50", "#2196F3"]
-                          }]
-                      }
-                  });
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function (value) {
+                    return compactCurrency(value);
+                  }
+                }
               }
-              calculateSIP();
-
-
-         
-          </script>
-          
-
-      <style>
-              bodyss {
-                  font-family: Arial, sans-serif;
-                  margin: 20px;
-                  padding: 0;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  flex-direction: column;
-                  background-color: #f4f4f4;
-              }
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
-
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
-
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
             }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
+          }
+        });
 
+        if (splitChartInstance) {
+          splitChartInstance.destroy();
+        }
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Invested", "Returns"],
+            datasets: [
+              {
+                data: [Math.max(invested, 0), Math.max(gains, 0)],
+                backgroundColor: ["#007f8b", "#1f9f67"],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.label + ": " + formatCurrencyWithUnits(context.parsed);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
 
-          </style>
-      <script>   
-     // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
+      function updatePreviewLabels(inputs) {
+        elements.lumpsumAmountPreview.textContent = nfNumber.format(inputs.lumpsumAmount);
+        elements.returnRatePreview.textContent = inputs.returnRate.toFixed(1) + "%";
+        elements.yearsPreview.textContent = String(Math.round(inputs.years));
+      }
 
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
+      function calculateAndRender() {
+        const inputs = getInputs();
+        updatePreviewLabels(inputs);
 
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-    
-    </script>
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        const result = simulateLumpsum(inputs.lumpsumAmount, inputs);
+        const inflationFactor = Math.pow(1 + (inputs.inflation / 100), inputs.years);
+        const inflationAdjusted = inflationFactor > 0 ? result.corpus / inflationFactor : result.corpus;
+        const requiredLumpsum = estimateRequiredLumpsum(inputs.targetCorpus, inputs);
+
+        const now = new Date();
+        const maturityDate = new Date(now.getFullYear(), now.getMonth() + result.months, 1);
+        const maturityText = maturityDate.toLocaleDateString("en-IN", { month: "short", year: "numeric" });
+
+        elements.investedValue.textContent = formatCurrencyWithUnits(result.invested);
+        elements.returnsValue.textContent = formatCurrencyWithUnits(result.gains);
+        elements.corpusValue.textContent = formatCurrencyWithUnits(result.corpus);
+        elements.inflationAdjustedValue.textContent = formatCurrencyWithUnits(inflationAdjusted);
+        elements.requiredLumpsumValue.textContent = requiredLumpsum ? formatCurrencyWithUnits(requiredLumpsum) : "Add valid target";
+        elements.maturityLabel.textContent = maturityText;
+
+        const hasGoal = inputs.targetCorpus > 0;
+        const progressPercent = hasGoal ? (result.corpus / inputs.targetCorpus) * 100 : 0;
+        const clampedProgress = Math.max(0, Math.min(progressPercent, 100));
+
+        if (hasGoal) {
+          elements.goalStatusText.textContent = progressPercent >= 100
+            ? "Target reached with current assumptions."
+            : "Current plan reaches " + progressPercent.toFixed(1) + "% of target.";
+          elements.goalPercentText.textContent = progressPercent.toFixed(1) + "%";
+          elements.goalProgressBar.style.width = clampedProgress.toFixed(2) + "%";
+          elements.goalProgressBar.style.background = progressPercent >= 100
+            ? "linear-gradient(110deg, #1f9f67, #1cb67a)"
+            : "linear-gradient(110deg, var(--accent), #00a1b2)";
+        } else {
+          elements.goalStatusText.textContent = "Add target corpus to see progress.";
+          elements.goalPercentText.textContent = "0%";
+          elements.goalProgressBar.style.width = "0%";
+          elements.goalProgressBar.style.background = "linear-gradient(110deg, var(--accent), #00a1b2)";
+        }
+
+        lastProjection = result.projection.slice();
+        renderProjectionTable(result.projection);
+        renderCharts(result.projection, result.invested, result.gains);
+
+        lastSummaryText =
+          "Lumpsum Summary" + "\n" +
+          "Lumpsum Amount: " + formatCurrencyWithUnits(inputs.lumpsumAmount) + "\n" +
+          "Return Rate: " + inputs.returnRate.toFixed(2) + "% p.a." + "\n" +
+          "Duration: " + Math.round(inputs.years) + " years" + "\n" +
+          "Compounding: " + Math.round(inputs.compounding) + " times/year" + "\n" +
+          "Total Invested: " + formatCurrencyWithUnits(result.invested) + "\n" +
+          "Estimated Returns: " + formatCurrencyWithUnits(result.gains) + "\n" +
+          "Estimated Corpus: " + formatCurrencyWithUnits(result.corpus) + "\n" +
+          "Inflation Adjusted Corpus: " + formatCurrencyWithUnits(inflationAdjusted) + "\n" +
+          "Required Lumpsum For Target: " + (requiredLumpsum ? formatCurrencyWithUnits(requiredLumpsum) : "N/A");
+      }
+
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) {
+          return;
+        }
+        const headers = ["Year", "Lumpsum Invested", "Estimated Returns", "Estimated Corpus"];
+        const rows = lastProjection.map(function (row) {
+          return [
+            "Year " + row.year,
+            Math.round(row.invested),
+            Math.round(row.gains),
+            Math.round(row.corpus)
+          ].join(",");
+        });
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "lumpsum-projection.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function resetToDefaults() {
+        elements.lumpsumAmount.value = defaults.lumpsumAmount;
+        elements.lumpsumAmountRange.value = defaults.lumpsumAmount;
+        elements.returnRate.value = defaults.returnRate;
+        elements.returnRateRange.value = defaults.returnRate;
+        elements.years.value = defaults.years;
+        elements.yearsRange.value = defaults.years;
+        elements.inflation.value = defaults.inflation;
+        elements.inflationRange.value = defaults.inflation;
+        elements.compounding.value = defaults.compounding;
+        elements.targetCorpus.value = defaults.targetCorpus;
+        calculateAndRender();
+      }
+
+      function wireEvents() {
+        syncPair(elements.lumpsumAmountRange, elements.lumpsumAmount);
+        syncPair(elements.returnRateRange, elements.returnRate);
+        syncPair(elements.yearsRange, elements.years);
+        syncPair(elements.inflationRange, elements.inflation);
+
+        elements.targetCorpus.addEventListener("input", calculateAndRender);
+        elements.compounding.addEventListener("change", calculateAndRender);
+        elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        elements.resetBtn.addEventListener("click", resetToDefaults);
+        elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        elements.copySummaryBtn.addEventListener("click", function () {
+          if (!navigator.clipboard || !lastSummaryText) {
+            return;
+          }
+          navigator.clipboard.writeText(lastSummaryText).then(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary';
+            }, 1300);
+          }).catch(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Copy failed';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary';
+            }, 1300);
+          });
+        });
+      }
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      calculateAndRender();
+    })();
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+      authDomain: "instacalc-40640.firebaseapp.com",
+      projectId: "instacalc-40640",
+      storageBucket: "instacalc-40640.firebasestorage.app",
+      messagingSenderId: "720029503645",
+      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+      measurementId: "G-J0ZWXR3T5P"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+  </script>
 </body>
 </html>
+
+
+
+

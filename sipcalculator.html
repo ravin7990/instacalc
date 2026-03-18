@@ -1,704 +1,1784 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
- <title>SIP Calculator – Monthly, Yearly & Return Estimator Online</title>
-<meta name="description" content="Use our free SIP calculator to estimate your investment returns. Try monthly, daily, or yearly SIP calculators and plan your wealth smartly.">
-<meta name="keywords" content="monthly sip calculator, daily sip calculator, monthly sip investment calculator, sip calculator months, yearly sip calculator, sip return calculator, sip return rate calculator, sip plan calculator, systematic investment plan calculator">
-<link rel="icon" type="image/x-icon" href="favicon.webp">
-<link rel="canonical" href="https://instacalc.in/sipcalculator.html" />
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="google-adsense-account" content="ca-pub-4943063856769784">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SIP Calculator India | Mutual Fund SIP Return & Investment Calculator</title>
+  <meta name="description" content="SIP calculator India for sip return, sip investment, mutual fund sip planning, step-up SIP, inflation-adjusted corpus, and goal-based maturity estimates in 2026.">
+  <meta name="keywords" content="sip calculator, sip return, sip investment, mutual fund sip, sip interest, sip planner, sip returns, sip calculator india, sip calculator online, mutual fund calculator, sip amount calculator, sip calculator 2026">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
 
-<!-- Open Graph / Facebook Meta Tags -->
-<meta property="og:title" content="SIP Calculator – Estimate Your SIP Returns Online">
-<meta property="og:description" content="Use our smart SIP calculator to plan monthly, daily, or yearly SIPs. Get accurate return estimates and set long-term financial goals with confidence.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://instacalc.in/sipcalculator.html">
-<meta property="og:image" content="https://instacalc.in/instatheme.webp">
-<meta property="og:site_name" content="InstaCalc">
+  <link rel="icon" type="image/x-icon" href="favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/sipcalculator.html">
 
-<!-- Twitter Card Meta Tags -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SIP Calculator: Monthly & Yearly Return Estimator – Free & Online">
-<meta name="twitter:description" content="Find out how much wealth your SIP can generate with our free SIP calculator. Supports daily, monthly, and yearly calculations. Try now!">
-<meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:title" content="SIP Calculator India - Mutual Fund SIP Return & Maturity Estimator">
+  <meta property="og:description" content="Calculate SIP maturity amount, monthly SIP returns, step-up SIP growth, inflation-adjusted corpus, and goal-based SIP planning.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/sipcalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
 
-<!-- Additional SEO Meta Tags -->
-<meta name="author" content="Instacalc">
-<meta name="robots" content="index, follow">
-<meta name="revisit-after" content="7 days">
-<meta name="language" content="English">
-<meta name="theme-color" content="#1a2a3a">
-  <!-- Critical CSS -->
-  <style>
-    /* Minimum layout stability styles */
-    body { 
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .calculator-container {
-      min-height: 600px; /* Reserve space for calculator */
-    }
-    .result-section {
-      height: 200px; /* Fixed height for results area */
-      visibility: hidden; /* Hidden until calculated */
-    }
-    /* Prevent layout shifts in main content */
-    .main-content {
-      position: relative;
-      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
-    }
-    /* Fixed dimensions for key elements */
-    input {
-      width: 100%;
-      max-width: 400px;
-      height: 40px;
-    }
-       /* Fixed dimensions for key elements */
-    .chart-container {
-      width: 100%;
-      max-width: 400px;
-      height: 300px;
-    }
-  </style>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SIP Calculator India - Mutual Fund SIP Return & Maturity Estimator">
+  <meta name="twitter:description" content="Free SIP calculator with goal planning, step-up SIP, inflation adjustment, and required SIP to reach 50 lakh or 1 crore targets.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
 
-  <!-- Preloads -->
-  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
-  <link rel="preload" href="style.css" as="style">
-  
-  <!-- Non-critical CSS -->
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
-  <noscript>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-  </noscript>
-
-  <!-- Script optimization -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-  <!-- Only load Popper and Bootstrap JS if needed -->
-  <?php if (needs_bootstrap_js): ?>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-  
-     <script src="bootstrap/js/bootstrap.min.js" defer></script>
-  <?php endif; ?>
-
-  <!-- Load Chart.js only when needed -->
-  <script>
-    function loadChartJS() {
-      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
-        window.Chart = module.default;
-        initializeCharts();
-      });
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SIP Calculator",
+      "url": "https://instacalc.in/sipcalculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "Mutual fund SIP calculator for monthly investment, step-up SIP, maturity amount, inflation-adjusted corpus, and goal-based planning.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How to calculate SIP returns in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Enter monthly SIP amount, expected return, and tenure. The SIP calculator compounds contributions monthly and estimates invested amount, returns, and maturity corpus."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is step up SIP?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Step-up SIP increases your monthly SIP contribution every year by a fixed percentage, helping improve long-term wealth creation and goal achievement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is SIP return guaranteed in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. SIP returns depend on mutual fund market performance. Calculator outputs are estimates, not guaranteed returns."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can NRI invest in SIP in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, NRIs can invest in SIP through eligible KYC-compliant accounts, subject to fund house and regulatory rules."
+          }
+        }
+      ]
     }
   </script>
 
-  <script src="script.js" defer></script> 
-  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 <body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class="text-white mb-0">InstaCalc.in</h6>
-  </div>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc home">
+        <img src="logo.png" alt="InstaCalc logo">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-chart-line"></i>
+            Investment Planner
+          </span>
+          <h1>SIP Calculator India (Mutual Fund SIP Return & Investment Planner)</h1>
+          <p>Use this SIP calculator online to estimate sip return, sip investment growth, monthly sip maturity amount, and target corpus outcomes with advanced goal planning controls.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#sip-planner">
+              <i class="fas fa-calculator"></i>
+              Start Planning
+            </a>
+            <a class="btn btn-ghost" href="sipcalculatorlumpsump.html">
+              <i class="fas fa-arrow-right-arrow-left"></i>
+              Switch to Lumpsum
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h2>Extra Features Added</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Annual step-up SIP mode</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Inflation adjusted corpus</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Goal-based SIP planning for 50 lakh and 1 crore targets</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Required SIP for target corpus</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Year-wise projection and CSV download</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="sip-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="mode-switch" aria-label="Calculator mode">
+            <a href="sipcalculator.html" class="active">Monthly SIP</a>
+            <a href="sipcalculatorlumpsump.html">Lumpsum</a>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="sipAmount">Monthly SIP Amount (INR)</label>
+                <span id="sipAmountPreview">25000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="sipAmountRange" min="500" max="500000" step="500" value="25000">
+                <input type="number" id="sipAmount" min="500" max="500000" step="500" value="25000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="returnRate">Expected Return (percent p.a.)</label>
+                <span id="returnRatePreview">12.0%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="returnRateRange" min="1" max="25" step="0.1" value="12">
+                <input type="number" id="returnRate" min="1" max="25" step="0.1" value="12">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="years">Time Period (years)</label>
+                <span id="yearsPreview">10</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="yearsRange" min="1" max="40" step="1" value="10">
+                <input type="number" id="years" min="1" max="40" step="1" value="10">
+              </div>
+            </div>
+
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="stepUp">Annual Step-up (percent)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="stepUpRange" min="0" max="25" step="0.5" value="5">
+                  <input type="number" id="stepUp" min="0" max="25" step="0.5" value="5">
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="inflation">Inflation (percent p.a.)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="inflationRange" min="0" max="12" step="0.1" value="6">
+                  <input type="number" id="inflation" min="0" max="12" step="0.1" value="6">
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="sipTiming">Contribution Timing</label>
+                </div>
+                <select id="sipTiming">
+                  <option value="start">Beginning of month</option>
+                  <option value="end">End of month</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="targetCorpus">Target Corpus (optional, INR)</label>
+              </div>
+              <input type="number" id="targetCorpus" min="0" step="100000" value="5000000" placeholder="Example: 5000000">
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i>
+              Recalculate
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i>
+              Reset Defaults
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i>
+              Copy Summary
+            </button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <h3>Total Invested</h3>
+              <div class="result-value" id="investedValue">-</div>
+            </div>
+            <div class="result-card positive">
+              <h3>Estimated Returns</h3>
+              <div class="result-value" id="returnsValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Estimated Corpus</h3>
+              <div class="result-value" id="corpusValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Inflation Adjusted Corpus</h3>
+              <div class="result-value" id="inflationAdjustedValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Required Starting SIP for Target</h3>
+              <div class="result-value" id="requiredSipValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Maturity Month</h3>
+              <div class="result-value" id="maturityLabel">-</div>
+            </div>
+          </div>
+
+          <div class="goal-status">
+            <div class="goal-meta">
+              <span id="goalStatusText">Add target corpus to see progress.</span>
+              <strong id="goalPercentText">0%</strong>
+            </div>
+            <div class="goal-progress">
+              <div class="goal-progress-bar" id="goalProgressBar"></div>
+            </div>
+          </div>
+
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h3>Corpus Growth vs Invested Amount</h3>
+              <div class="chart-wrap">
+                <canvas id="growthChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card">
+              <h3>Invested vs Returns</h3>
+              <div class="chart-wrap small">
+                <canvas id="splitChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools">
+            <h3>Year-wise Projection</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
+              <i class="fas fa-file-csv"></i>
+              Download CSV
+            </button>
+          </div>
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Monthly SIP (year-end)</th>
+                  <th>Total Invested</th>
+                  <th>Estimated Returns</th>
+                  <th>Estimated Corpus</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Planning Notes</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i> Step up SIP calculator mode helps model annual contribution growth scenarios.</li>
+              <li><i class="fas fa-circle-info"></i> Goal modes support high-intent use cases like 50 lakh and 1 crore SIP planning.</li>
+              <li><i class="fas fa-circle-info"></i> Inflation-adjusted output helps estimate real purchasing power of future corpus.</li>
+              <li><i class="fas fa-circle-info"></i> This SIP calculator can be used for retirement, education, and monthly income goals.</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Related Calculators</h3>
+            <ul class="link-list">
+              <li><a href="sipcalculatorlumpsump.html"><span>SIP Lumpsum</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mutualfundreturncalculator.html"><span>Mutual Fund Return</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="fdcalculator.html"><span>FD Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="rdcalculator.html"><span>RD Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="retirementcalculator.html"><span>Retirement Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="ppfcalculator.html"><span>PPF Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h3>How this SIP return calculator works</h3>
+          <p>This sip investment calculator online computes corpus month by month. It applies contribution timing, monthly compounding, annual step-up, and target planning to produce SIP maturity amount and wealth gain projections year by year.</p>
+          <br>
+          <p>Formula reference (without step-up): <code>FV = P * (((1 + r)^n - 1) / r) * (1 + r)</code>, where <code>P</code> is monthly SIP, <code>r</code> is monthly rate, and <code>n</code> is total months.</p>
+          <br>
+          <p><strong>Core intents covered:</strong> sip return calculator india, sip maturity amount calculator, monthly sip return calculator, sip future value calculator, sip wealth gain calculator, and sip calculator for goal planning.</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>
+              Is SIP return guaranteed in India?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>No. SIP returns depend on market-linked mutual fund performance. This tool gives projections based on your expected annual return assumptions.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              What is step up SIP and why is it important?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Step-up SIP increases your monthly investment yearly by a selected percentage. It is one of the most effective ways to reach 50 lakh or 1 crore corpus targets faster.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              How to calculate SIP returns in India for long-term goals?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Enter monthly SIP amount, expected return, and tenure. You can then test scenarios like sip calculator 5000 per month returns, 10-year SIP plans, and retirement goal planning.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              What does inflation adjusted SIP corpus mean?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Inflation adjusted corpus estimates what your future SIP maturity may be worth in present-day purchasing power.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              Can NRI invest in SIP in India?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Yes, NRIs can invest in SIP subject to KYC and fund house rules. This tool can be used as a sip calculator for nri india planning scenarios.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              How is required SIP for target calculated?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>The calculator uses iterative estimation to find a starting SIP amount that can reach your selected goal under current assumptions.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h3>SIP Maturity and Monthly Return Planning</h3>
+          <p>Use this SIP return calculator in India to estimate your monthly investment growth, expected maturity amount, and long-term wealth creation. You can adjust return rate, step-up percentage, and tenure to match your savings plan.</p>
+          <br>
+          <h3>Goal-Based SIP Scenarios</h3>
+          <p>This calculator works well for practical goals like building a 50 lakh or 1 crore corpus, planning for child education, or preparing retirement income. Inflation-adjusted results help you understand the real value of future corpus.</p>
+          <br>
+          <h3>SIP Comparisons and Tax-Saving Context</h3>
+          <p>If you are deciding between SIP and lumpsum, or comparing SIP vs RD and SIP vs PPF, the projection table makes side-by-side review easier. For tax-focused investors, ELSS SIP and long-term capital gains impact should also be part of planning.</p>
+          <br>
+          <h3>How to Read SIP Results Better</h3>
+          <p>Along with projected returns, track core concepts like CAGR, XIRR, and NAV when evaluating mutual funds. This gives a clearer view of risk, consistency, and suitability for your financial goals.</p>
+          <br>
+          <p>In simple terms, a systematic investment plan supports disciplined investing through rupee cost averaging, while a mutual fund returns calculator helps you set realistic expectations before you start.</p>
+        </article>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>SIP Content Ideas</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i> Create dedicated pages for step-up SIP, retirement SIP, and child education SIP journeys.</li>
+              <li><i class="fas fa-circle-info"></i> Add platform comparison pages for Groww, Zerodha, and Paytm Money users who want neutral estimates.</li>
+              <li><i class="fas fa-circle-info"></i> Publish explainers on how SIP works, how to start SIP, and when to increase SIP amount.</li>
+              <li><i class="fas fa-circle-info"></i> Add ELSS-focused content during tax season for Section 80C planning queries.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in - smart calculators and converters for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="aboutus.html">About Us</a>
-      </li>
-         <li class="nav-item px-2">
-        <a class="nav-link " href="contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        sipAmount: 25000,
+        returnRate: 12,
+        years: 10,
+        stepUp: 5,
+        inflation: 6,
+        targetCorpus: 5000000,
+        sipTiming: "start"
+      };
 
+      const nfCurrency = new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 0
+      });
+      const nfNumber = new Intl.NumberFormat("en-IN", {
+        maximumFractionDigits: 2
+      });
 
-  <!-- //first row first column -->
-  <div  class="row ">
-  <!--   //first row first column -->
-    <div class="col-md-6 " >
-      <div class="labelbody container mt-5 table1 " >
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+        sipAmount: document.getElementById("sipAmount"),
+        sipAmountRange: document.getElementById("sipAmountRange"),
+        returnRate: document.getElementById("returnRate"),
+        returnRateRange: document.getElementById("returnRateRange"),
+        years: document.getElementById("years"),
+        yearsRange: document.getElementById("yearsRange"),
+        stepUp: document.getElementById("stepUp"),
+        stepUpRange: document.getElementById("stepUpRange"),
+        inflation: document.getElementById("inflation"),
+        inflationRange: document.getElementById("inflationRange"),
+        targetCorpus: document.getElementById("targetCorpus"),
+        sipTiming: document.getElementById("sipTiming"),
+        sipAmountPreview: document.getElementById("sipAmountPreview"),
+        returnRatePreview: document.getElementById("returnRatePreview"),
+        yearsPreview: document.getElementById("yearsPreview"),
+        investedValue: document.getElementById("investedValue"),
+        returnsValue: document.getElementById("returnsValue"),
+        corpusValue: document.getElementById("corpusValue"),
+        inflationAdjustedValue: document.getElementById("inflationAdjustedValue"),
+        requiredSipValue: document.getElementById("requiredSipValue"),
+        maturityLabel: document.getElementById("maturityLabel"),
+        goalStatusText: document.getElementById("goalStatusText"),
+        goalPercentText: document.getElementById("goalPercentText"),
+        goalProgressBar: document.getElementById("goalProgressBar"),
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        growthChart: document.getElementById("growthChart"),
+        splitChart: document.getElementById("splitChart")
+      };
 
-       <h2>SIP Calculator</h2>
+      let growthChartInstance = null;
+      let splitChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
 
-         <div class="container">
-           <div  class="row">
-          
-               
-               <a href="sipcalculator.html" class="btn btn-primary   col-sm-6">
-  Monthly SIP
-</a>
-               
-             
-           
-                <a href="sipcalculatorlumpsump.html" class="btn  col-sm-6">
-  Lumpsump
-</a>
-        
-                
-           </div>
-           </div>
-       <div class="input-group m">
-           <label for="amount">Monthly Investment (₹)</label>
-           <div class="slider-container">
-               <input type="range" id="amount-slider" min="1000" max="100000" step="500" value="25000" oninput="syncInputs('amount')">
-               <input class="float-right" type="number" id="amount" min="1000" max="100000" step="500" value="25000" oninput="syncInputs('amount', true)">
-           </div>
-       </div>
-       <div class="input-group">
-           <label for="rate">Expected Return Rate (p.a.) (%)</label>
-           <div class="slider-container">
-               <input type="range" id="rate-slider" min="1" max="20" step="0.1" value="12" oninput="syncInputs('rate')">
-               <input class="float-right" type="number" id="rate" min="1" max="20" step="0.1" value="12" oninput="syncInputs('rate', true)">
-           </div>
-       </div>
-       <div class="input-group">
-           <label for="years">Time Period (Years)</label>
-           <div class="slider-container">
-               <input type="range" id="years-slider" min="1" max="30" step="1" value="10" oninput="syncInputs('years')">
-               <input type="number" id="years" min="1" max="30" step="1" value="10" oninput="syncInputs('years', true)">
-           </div>
-       </div>
-          
-     <div class="result-box">
-    <div class="result-item">
-        <span class="label">Invested Amount:</span>
-        <span class="value"><strong><span id="invested">0</span></strong></span>
-    </div>
-    <div class="result-item">
-        <span class="label">Est. Returns:</span>
-        <span class="value"><strong><span id="returns">0</span></strong></span>
-    </div>
-    <div class="result-item">
-        <span class="label">Total Value:</span>
-        <span class="value"><strong><span id="total">0</span></strong></span>
-    </div>
-</div>
-          
-          
-       <div class="chart-container">
-           <canvas id="sipChart"></canvas>
-       </div>
-      
-     </div>
-  </div>
-  <!--   //first row second column -->
-    <div class="col-md-6 d-none d-md-block">
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <a href="sipcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="mutualfundreturncalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="gratuitycalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="epfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="fdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="rdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="cargcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="coumpoundinterest.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="retirementcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="ppfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="emicalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="simpleinterestcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) {
+          return;
+        }
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
 
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 940) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+      }
 
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) {
+          return;
+        }
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
 
-      </div>
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
 
-  <!--  /second row -->
-   <div  class="row mb-05">
-  <!--    //second row first column -->
-     <div class="col-md-6" style="background-colorf:red;">
+      function roundToStep(value, step) {
+        if (!step || step <= 0) {
+          return value;
+        }
+        return Math.round(value / step) * step;
+      }
 
-    <div class="container">
-    <div class="sip-calculator-content">
-        <div class="title">
-            <h1>SIP Calculator – Your Smart Investment Companion</h1>
-        </div>
-        <div class="introduction">
-            <p>Planning your future investments? A Systematic Investment Plan Calculator helps you understand how your money can grow over time. Whether you're using a monthly SIP calculator or exploring a daily SIP calculator, this tool simplifies your financial planning.</p>
-            <p>It shows how much wealth you can create through regular investments. If you're unsure about how much to invest or the returns you might earn, this tool offers instant clarity.</p>
-            <p>Let’s explore how a monthly SIP investment calculator works and how it can benefit your financial journey!</p>
-        </div>
-        <div class="what-is-sip-calculator">
-            <h2>What is an SIP Calculator?</h2>
-            <p>A SIP Calculator – also known as a Systematic Investment Plan Calculator – is an online tool designed to help investors forecast the value of their investments over time.</p>
-            <p>To use the calculator, simply input the following:</p>
-            <ul>
-                <li>✅ Monthly investment amount (e.g., ₹5,000)</li>
-                <li>✅ Investment duration in months or years (e.g., 10 years)</li>
-                <li>✅ Expected annual return rate (e.g., 12%)</li>
-            </ul>
-            <p>The calculator then reveals your total estimated returns—making it easier to plan ahead using a sip return rate calculator.</p>
-        </div>
-        <div class="why-use-sip-calculator">
-            <h2>Why Should You Use an SIP Return Calculator?</h2>
-            <p>Here are some compelling reasons to use a sip return calculator before starting your investment:</p>
-            <ul>
-                <li>✔️ <strong>No Guesswork</strong> – Know exactly what your investments can yield.</li>
-                <li>✔️ <strong>Saves Time</strong> – Instantly get results without manual calculations.</li>
-                <li>✔️ <strong>Financial Planning</strong> – Align your SIPs with goals like a home, education, or retirement.</li>
-                <li>✔️ <strong>Flexible Comparisons</strong> – Test different values with a sip plan calculator to find what suits you best.</li>
-            </ul>
-        </div>
-        <div class="how-sip-calculator-works">
-            <h2>How Does an SIP Calculator Work?</h2>
-            <p>If you're curious about the math behind it, here’s the formula used by most SIP calculators:</p>
-            <p><code>FV = P × ((1 + r)^n - 1) / r × (1 + r)</code></p>
-            <p>Where:</p>
-            <ul>
-                <li>P = Monthly SIP amount</li>
-                <li>r = Monthly interest rate (annual rate ÷ 12)</li>
-                <li>n = Total number of months (sip calculator months)</li>
-                <li>FV = Future Value of your investment</li>
-            </ul>
-        </div>
-        <div class="example-calculation">
-            <h2>Example Calculation</h2>
-            <p>Suppose you start a SIP with the following details:</p>
-            <ul>
-                <li>Monthly Investment: ₹5,000</li>
-                <li>Expected Annual Return: 12%</li>
-                <li>Investment Tenure: 10 years</li>
-            </ul>
-            <p>Using the yearly SIP calculator, the results are:</p>
-            <ul>
-                <li>💰 Total Investment: ₹6,00,000</li>
-                <li>📈 Estimated Returns: ₹11,61,695</li>
-                <li>🎉 Final Value: ₹17,61,695</li>
-            </ul>
-            <p>That’s almost ₹12 lakh in gains—just by investing ₹5,000 per month. This highlights the compounding power of SIPs!</p>
-        </div>
-        <div class="how-to-use-sip-calculator">
-            <h2>How to Use an SIP Calculator?</h2>
-            <p>Follow these steps to use oursip return rate calculator effectively:</p>
-            <ol>
-                <li>1️⃣ Enter your monthly SIP amount (e.g., ₹5,000)</li>
-                <li>2️⃣ Select the duration in months or years (e.g., 10 years)</li>
-                <li>3️⃣ Input your expected annual return rate (e.g., 12%)</li>
-                <li>4️⃣ Click “Calculate” – and get your projected future value instantly!</li>
-            </ol>
-        </div>
-        <div class="final-thoughts">
-            <h2>Final Thoughts</h2>
-            <p>Whether you’re investing for a dream home, a new car, or your child’s future, using a simple and accurate SIP calculator is the first step toward smart planning.</p>
-            <p>With tools like the monthly SIP calculator, daily SIP calculator, and yearly SIP calculator, you can compare outcomes and stay ahead financially.</p>
-            <p>💡 Have a financial goal? Try our systematic investment plan calculator and see how close you are! 👇</p>
-        </div>
-    </div>
-</div>
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
 
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) {
+          return;
+        }
+        const min = parseFloat(rangeEl.min || "0");
+        const max = parseFloat(rangeEl.max || "100");
+        const step = parseFloat(rangeEl.step || "1");
 
+        function normalize(value) {
+          const numeric = parseNumeric(value, parseFloat(rangeEl.value));
+          const stepped = roundToStep(numeric, step);
+          return clamp(stepped, min, max);
+        }
 
+        rangeEl.addEventListener("input", function () {
+          numberEl.value = rangeEl.value;
+          calculateAndRender();
+        });
 
+        numberEl.addEventListener("input", function () {
+          if (numberEl.value === "") {
+            return;
+          }
+          const normalized = normalize(numberEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
 
-       </div>
-  <!--   //second row second column -->
-     <div class="col-md-6" style="background-color:blueg;">
- <div class="container mt-5 mb-5 ">
+        numberEl.addEventListener("blur", function () {
+          const normalized = normalize(numberEl.value || rangeEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+      }
 
-   <h2 class="mb-4">FAQs</h2>
-   <div id="faqAccordion" class="accordion ">
+      function formatCurrencyWithUnits(value) {
+        const abs = Math.abs(value);
+        const sign = value < 0 ? "-" : "";
+        let unitLabel = "";
+        if (abs >= 10000000) {
+          unitLabel = " (" + (abs / 10000000).toFixed(2) + " Cr)";
+        } else if (abs >= 100000) {
+          unitLabel = " (" + (abs / 100000).toFixed(2) + " Lakh)";
+        }
+        return sign + nfCurrency.format(abs) + unitLabel;
+      }
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingOne">
-               <h5 class="mb-0 ">
-                   <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                       How much can I invest in a SIP?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
-               <div class="card-body">
-                   You can start investing in a SIP with as little as ₹500 per month, depending on the mutual fund scheme.
-               </div>
-           </div>
-       </div>
+      function compactCurrency(value) {
+        const abs = Math.abs(value);
+        const sign = value < 0 ? "-" : "";
+        if (abs >= 10000000) {
+          return sign + (abs / 10000000).toFixed(1) + "Cr";
+        }
+        if (abs >= 100000) {
+          return sign + (abs / 100000).toFixed(1) + "L";
+        }
+        if (abs >= 1000) {
+          return sign + (abs / 1000).toFixed(1) + "K";
+        }
+        return sign + Math.round(abs).toString();
+      }
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingTwo">
-               <h5 class="mb-0">
-                   <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                       What is the maximum tenure of a SIP?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-               <div class="card-body">
-                   SIPs can be continued indefinitely or for a fixed period chosen by the investor, usually ranging from 1 year to several decades.
-               </div>
-           </div>
-       </div>
+      function getInputs() {
+        return {
+          sipAmount: parseNumeric(elements.sipAmount.value, defaults.sipAmount),
+          returnRate: parseNumeric(elements.returnRate.value, defaults.returnRate),
+          years: parseNumeric(elements.years.value, defaults.years),
+          stepUp: parseNumeric(elements.stepUp.value, defaults.stepUp),
+          inflation: parseNumeric(elements.inflation.value, defaults.inflation),
+          targetCorpus: parseNumeric(elements.targetCorpus.value, 0),
+          sipTiming: elements.sipTiming.value === "end" ? "end" : "start"
+        };
+      }
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingThree">
-               <h5 class="mb-0">
-                   <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                       Are SIPs similar to mutual funds?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-               <div class="card-body">
-                   SIP is a method of investing in mutual funds in a disciplined manner rather than a separate financial product.
-               </div>
-           </div>
-       </div>
+      function simulateSIP(initialMonthlySip, params) {
+        const months = Math.round(params.years * 12);
+        const monthlyRate = params.returnRate / 1200;
+        let currentMonthlySip = initialMonthlySip;
+        let invested = 0;
+        let corpus = 0;
+        const projection = [];
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingFour">
-               <h5 class="mb-0">
-                   <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                       Can I modify my SIP amount?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-               <div class="card-body">
-                   Yes, you can increase or decrease your SIP amount through a step-up SIP or by modifying your mandate.
-               </div>
-           </div>
-       </div>
+        for (let month = 1; month <= months; month += 1) {
+          if (params.stepUp > 0 && month > 1 && (month - 1) % 12 === 0) {
+            currentMonthlySip *= (1 + params.stepUp / 100);
+          }
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingFive">
-               <h5 class="mb-0">
-                   <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                       Do SIPs allow only equity mutual fund investments?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-               <div class="card-body">
-                   No, SIPs are available for equity, debt, hybrid, and other mutual fund categories.
-               </div>
-           </div>
-       </div>
+          if (params.sipTiming === "start") {
+            corpus += currentMonthlySip;
+            invested += currentMonthlySip;
+            corpus *= (1 + monthlyRate);
+          } else {
+            corpus *= (1 + monthlyRate);
+            corpus += currentMonthlySip;
+            invested += currentMonthlySip;
+          }
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingSix">
-               <h5 class="mb-0">
-                   <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                       What are the types of SIPs available?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-               <div class="card-body">
-                   Types of SIPs include Regular SIP, Step-up SIP, Perpetual SIP, and Trigger SIP.
-               </div>
-           </div>
-       </div>
+          if (month % 12 === 0) {
+            projection.push({
+              year: month / 12,
+              monthlySipAtYearEnd: currentMonthlySip,
+              invested: invested,
+              corpus: corpus,
+              gains: corpus - invested
+            });
+          }
+        }
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingSeven">
-               <h5 class="mb-0">
-                   <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                       Can I renew a SIP?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-               <div class="card-body">
-                   Yes, SIPs can be renewed by extending the investment period before it expires.
-               </div>
-           </div>
-       </div>
+        return {
+          months: months,
+          invested: invested,
+          corpus: corpus,
+          gains: corpus - invested,
+          projection: projection
+        };
+      }
 
-       <div class="card labelbody">
-           <div class="card-header" id="headingEight">
-               <h5 class="mb-0">
-                   <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                       Can I pause my investments in a SIP?
-                   </button>
-               </h5>
-           </div>
-           <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-               <div class="card-body " >
-                   Yes, many mutual fund houses offer a SIP pause facility, allowing investors to temporarily stop contributions.
-               </div>
-           </div>
-       </div>
+      function estimateRequiredSip(targetCorpus, params) {
+        if (!Number.isFinite(targetCorpus) || targetCorpus <= 0) {
+          return null;
+        }
 
-   </div>
- </div>
-     </div>
-   </div>
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
+        const simulationParams = {
+          returnRate: params.returnRate,
+          years: params.years,
+          stepUp: params.stepUp,
+          sipTiming: params.sipTiming
+        };
 
-              Back To Home
+        function corpusForSip(sip) {
+          return simulateSIP(sip, simulationParams).corpus;
+        }
 
-             </p>
-       </div>
+        let low = 0;
+        let high = Math.max(1000, params.sipAmount);
+        let guard = 0;
 
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
-      </div>
-      <script>
-              function syncInputs(id, isManual = false) {
-                  const slider = document.getElementById(`${id}-slider`);
-                  const numberInput = document.getElementById(id);
-                  if (isManual) {
-                      slider.value = numberInput.value;
-                  } else {
-                      numberInput.value = slider.value;
+        while (corpusForSip(high) < targetCorpus && high < 10000000) {
+          high *= 2;
+          guard += 1;
+          if (guard > 32) {
+            break;
+          }
+        }
+
+        if (corpusForSip(high) < targetCorpus) {
+          return null;
+        }
+
+        for (let i = 0; i < 60; i += 1) {
+          const mid = (low + high) / 2;
+          if (corpusForSip(mid) >= targetCorpus) {
+            high = mid;
+          } else {
+            low = mid;
+          }
+        }
+        return high;
+      }
+
+      function renderProjectionTable(projection) {
+        if (!elements.projectionTableBody) {
+          return;
+        }
+        elements.projectionTableBody.innerHTML = projection.map(function (row) {
+          return (
+            "<tr>" +
+              "<td>Year " + row.year + "</td>" +
+              "<td>" + formatCurrencyWithUnits(row.monthlySipAtYearEnd) + "</td>" +
+              "<td>" + formatCurrencyWithUnits(row.invested) + "</td>" +
+              "<td>" + formatCurrencyWithUnits(row.gains) + "</td>" +
+              "<td>" + formatCurrencyWithUnits(row.corpus) + "</td>" +
+            "</tr>"
+          );
+        }).join("");
+      }
+
+      function renderCharts(projection, invested, gains) {
+        if (!window.Chart || !elements.growthChart || !elements.splitChart) {
+          return;
+        }
+
+        const labels = projection.map(function (row) {
+          return "Year " + row.year;
+        });
+        const corpusData = projection.map(function (row) { return row.corpus; });
+        const investedData = projection.map(function (row) { return row.invested; });
+
+        if (growthChartInstance) {
+          growthChartInstance.destroy();
+        }
+        growthChartInstance = new Chart(elements.growthChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Corpus",
+                data: corpusData,
+                borderColor: "#007f8b",
+                backgroundColor: "rgba(0, 127, 139, 0.16)",
+                fill: true,
+                tension: 0.18,
+                pointRadius: 2
+              },
+              {
+                label: "Invested",
+                data: investedData,
+                borderColor: "#ee9f2e",
+                backgroundColor: "rgba(238, 159, 46, 0.16)",
+                fill: false,
+                tension: 0.12,
+                pointRadius: 2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "top" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.dataset.label + ": " + formatCurrencyWithUnits(context.parsed.y);
                   }
-                  calculateSIP();
-              }   
-
-       
-    function calculateSIP() {
-  const monthlyInvestment = parseFloat(document.getElementById("amount").value); // 25000
-  const annualInterestRate = parseFloat(document.getElementById("rate").value); // 12
-  const investmentYears = parseInt(document.getElementById("years").value); // 10
-
-  // Input validation (unchanged)
-  if (isNaN(monthlyInvestment) || monthlyInvestment <= 0) {
-    alert("Please enter a valid monthly investment amount greater than zero.");
-    return;
-  }
-  if (isNaN(annualInterestRate) || annualInterestRate < 0) {
-    alert("Please enter a valid annual interest rate.");
-    return;
-  }
-  if (isNaN(investmentYears) || investmentYears <= 0) {
-    alert("Please enter a valid investment period in years.");
-    return;
-  }
-
-  const totalMonths = investmentYears * 12; // 120
-  const monthlyInterestRate = annualInterestRate / 100 / 12; // 0.01 (12% case)
-
-  // Adjusted formula to match ₹5,600,897 (using effective rate ~11.13%)
-  let futureValue;
-  const effectiveMonthlyRate = 0.009275; // Approx 11.13% annual / 12
-  if (effectiveMonthlyRate === 0) {
-    futureValue = monthlyInvestment * totalMonths;
-  } else {
-    const growthFactor = Math.pow(1 + effectiveMonthlyRate, totalMonths); // 1.009275^120
-    futureValue = monthlyInvestment * ((growthFactor - 1) / effectiveMonthlyRate) * (1 + effectiveMonthlyRate);
-  }
-
-  const totalInvested = monthlyInvestment * totalMonths; // ₹3,000,000
-  const estimatedReturns = futureValue - totalInvested; // ₹2,600,897
-
-  const formatAmount = (amount) => {
-    const rupees = Math.round(amount).toLocaleString('en-IN');
-    const lakhs = (amount / 100000).toFixed(2);
-    return `₹${rupees} (${lakhs} Lakhs)`;
-  };
-
-  document.getElementById("total").textContent = formatAmount(futureValue); // ₹5,600,897
-  document.getElementById("invested").textContent = formatAmount(totalInvested); // ₹3,000,000
-  document.getElementById("returns").textContent = formatAmount(estimatedReturns); // ₹2,600,897
-
-  updateChart(totalInvested, estimatedReturns);
-}
-        
-          
-          
-              let sipChart;
-              function updateChart(invested, returns) {
-                  let ctx = document.getElementById("sipChart").getContext("2d");
-                  if (sipChart) sipChart.destroy();
-                  sipChart = new Chart(ctx, {
-                      type: "doughnut",
-                      data: {
-                          labels: ["Invested Amount", "Est. Returns"],
-                          datasets: [{
-                              data: [invested, returns],
-                              backgroundColor: ["#4CAF50", "#2196F3"]
-                          }]
-                      }
-                  });
+                }
               }
-              calculateSIP();
-
-
-          
-          </script>
-          
-    <script> 
-    
-    // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
-
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
-
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-    
-    
-    
-    </script>
-
-      <style>
-              bodyss {
-                  font-family: Arial, sans-serif;
-                  margin: 20px;
-                  padding: 0;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  flex-direction: column;
-                  background-color: #f4f4f4;
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function (value) {
+                    return compactCurrency(value);
+                  }
+                }
               }
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
-
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
-
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
             }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
+          }
+        });
 
+        if (splitChartInstance) {
+          splitChartInstance.destroy();
+        }
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Invested", "Returns"],
+            datasets: [
+              {
+                data: [Math.max(invested, 0), Math.max(gains, 0)],
+                backgroundColor: ["#007f8b", "#1f9f67"],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.label + ": " + formatCurrencyWithUnits(context.parsed);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
 
-          </style>
-     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      function updatePreviewLabels(inputs) {
+        elements.sipAmountPreview.textContent = nfNumber.format(inputs.sipAmount);
+        elements.returnRatePreview.textContent = inputs.returnRate.toFixed(1) + "%";
+        elements.yearsPreview.textContent = String(Math.round(inputs.years));
+      }
+
+      function calculateAndRender() {
+        const inputs = getInputs();
+        updatePreviewLabels(inputs);
+
+        const result = simulateSIP(inputs.sipAmount, inputs);
+        const inflationFactor = Math.pow(1 + (inputs.inflation / 100), inputs.years);
+        const inflationAdjusted = inflationFactor > 0 ? result.corpus / inflationFactor : result.corpus;
+        const requiredSip = estimateRequiredSip(inputs.targetCorpus, inputs);
+
+        const now = new Date();
+        const maturityDate = new Date(now.getFullYear(), now.getMonth() + result.months, 1);
+        const maturityText = maturityDate.toLocaleDateString("en-IN", { month: "short", year: "numeric" });
+
+        elements.investedValue.textContent = formatCurrencyWithUnits(result.invested);
+        elements.returnsValue.textContent = formatCurrencyWithUnits(result.gains);
+        elements.corpusValue.textContent = formatCurrencyWithUnits(result.corpus);
+        elements.inflationAdjustedValue.textContent = formatCurrencyWithUnits(inflationAdjusted);
+        elements.requiredSipValue.textContent = requiredSip ? formatCurrencyWithUnits(requiredSip) : "Add valid target";
+        elements.maturityLabel.textContent = maturityText;
+
+        const hasGoal = inputs.targetCorpus > 0;
+        const progressPercent = hasGoal ? (result.corpus / inputs.targetCorpus) * 100 : 0;
+        const clampedProgress = Math.max(0, Math.min(progressPercent, 100));
+
+        if (hasGoal) {
+          elements.goalStatusText.textContent = progressPercent >= 100
+            ? "Target reached with current assumptions."
+            : "Current plan reaches " + progressPercent.toFixed(1) + "% of target.";
+          elements.goalPercentText.textContent = progressPercent.toFixed(1) + "%";
+          elements.goalProgressBar.style.width = clampedProgress.toFixed(2) + "%";
+          elements.goalProgressBar.style.background = progressPercent >= 100
+            ? "linear-gradient(110deg, #1f9f67, #1cb67a)"
+            : "linear-gradient(110deg, var(--accent), #00a1b2)";
+        } else {
+          elements.goalStatusText.textContent = "Add target corpus to see progress.";
+          elements.goalPercentText.textContent = "0%";
+          elements.goalProgressBar.style.width = "0%";
+          elements.goalProgressBar.style.background = "linear-gradient(110deg, var(--accent), #00a1b2)";
+        }
+
+        lastProjection = result.projection.slice();
+        renderProjectionTable(result.projection);
+        renderCharts(result.projection, result.invested, result.gains);
+
+        lastSummaryText =
+          "SIP Summary" + "\n" +
+          "Monthly SIP: " + formatCurrencyWithUnits(inputs.sipAmount) + "\n" +
+          "Return Rate: " + inputs.returnRate.toFixed(2) + "% p.a." + "\n" +
+          "Duration: " + Math.round(inputs.years) + " years" + "\n" +
+          "Step-up: " + inputs.stepUp.toFixed(2) + "% yearly" + "\n" +
+          "Total Invested: " + formatCurrencyWithUnits(result.invested) + "\n" +
+          "Estimated Returns: " + formatCurrencyWithUnits(result.gains) + "\n" +
+          "Estimated Corpus: " + formatCurrencyWithUnits(result.corpus) + "\n" +
+          "Inflation Adjusted Corpus: " + formatCurrencyWithUnits(inflationAdjusted) + "\n" +
+          "Required SIP For Target: " + (requiredSip ? formatCurrencyWithUnits(requiredSip) : "N/A");
+      }
+
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) {
+          return;
+        }
+        const headers = ["Year", "Monthly SIP (year-end)", "Total Invested", "Estimated Returns", "Estimated Corpus"];
+        const rows = lastProjection.map(function (row) {
+          return [
+            "Year " + row.year,
+            Math.round(row.monthlySipAtYearEnd),
+            Math.round(row.invested),
+            Math.round(row.gains),
+            Math.round(row.corpus)
+          ].join(",");
+        });
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "sip-projection.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function resetToDefaults() {
+        elements.sipAmount.value = defaults.sipAmount;
+        elements.sipAmountRange.value = defaults.sipAmount;
+        elements.returnRate.value = defaults.returnRate;
+        elements.returnRateRange.value = defaults.returnRate;
+        elements.years.value = defaults.years;
+        elements.yearsRange.value = defaults.years;
+        elements.stepUp.value = defaults.stepUp;
+        elements.stepUpRange.value = defaults.stepUp;
+        elements.inflation.value = defaults.inflation;
+        elements.inflationRange.value = defaults.inflation;
+        elements.targetCorpus.value = defaults.targetCorpus;
+        elements.sipTiming.value = defaults.sipTiming;
+        calculateAndRender();
+      }
+
+      function wireEvents() {
+        syncPair(elements.sipAmountRange, elements.sipAmount);
+        syncPair(elements.returnRateRange, elements.returnRate);
+        syncPair(elements.yearsRange, elements.years);
+        syncPair(elements.stepUpRange, elements.stepUp);
+        syncPair(elements.inflationRange, elements.inflation);
+
+        elements.targetCorpus.addEventListener("input", calculateAndRender);
+        elements.sipTiming.addEventListener("change", calculateAndRender);
+        elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        elements.resetBtn.addEventListener("click", resetToDefaults);
+        elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        elements.copySummaryBtn.addEventListener("click", function () {
+          if (!navigator.clipboard || !lastSummaryText) {
+            return;
+          }
+          navigator.clipboard.writeText(lastSummaryText).then(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary';
+            }, 1300);
+          }).catch(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Copy failed';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary';
+            }, 1300);
+          });
+        });
+      }
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      calculateAndRender();
+    })();
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+      authDomain: "instacalc-40640.firebaseapp.com",
+      projectId: "instacalc-40640",
+      storageBucket: "instacalc-40640.firebasestorage.app",
+      messagingSenderId: "720029503645",
+      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+      measurementId: "G-J0ZWXR3T5P"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+  </script>
 </body>
 </html>
+
+
