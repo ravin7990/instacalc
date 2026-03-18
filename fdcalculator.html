@@ -1,705 +1,1734 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-   <title>FD Calculator – Fixed Deposit Interest & Returns Estimator</title>
-<meta name="description" content="Use our FD calculator to calculate fixed deposit maturity amount and interest. Try the FD interest rates calculator for monthly, quarterly or yearly compounding.">
-<meta name="keywords" content="fixed deposit calculator, fd rate calculator, fixed deposit rates calculator, fd interest calculator, fixed deposit interest calculator, fd return calculator, fd interest rates calculator, fd monthly interest calculator, fixed deposit return calculator">
-<link rel="icon" type="image/x-icon" href="favicon.webp">
-<link rel="canonical" href="https://instacalc.in/fdcalculator.html" />
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="google-adsense-account" content="ca-pub-4943063856769784">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FD Calculator India | Fixed Deposit Interest & Maturity Calculator</title>
+  <meta name="description" content="Use this FD calculator to estimate fixed deposit maturity amount, interest earned, cumulative or monthly payout impact, senior citizen rate boost, and post-tax returns.">
+  <meta name="keywords" content="fd calculator, fixed deposit calculator, fd calculator india, fd calculator online, fd rate calculator, fd maturity calculator, fd interest calculator india, fd maturity amount calculator, fd return calculator online, fd interest rate calculator, fd compound interest calculator, fixed deposit maturity calculator, fixed deposit return calculator, fd calculator monthly payout, fd calculator quarterly interest, fd calculator cumulative, fd calculator non cumulative, fd maturity value calculator, fd interest income calculator, fd principal and interest calculator, best fd rates india 2026">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
 
-<!-- Open Graph / Facebook Meta Tags -->
-<meta property="og:title" content="FD Calculator – Estimate Your Fixed Deposit Returns Online">
-<meta property="og:description" content="Quickly calculate your fixed deposit maturity value using our FD calculator. Includes monthly, quarterly, and annual compounding options.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://instacalc.in/fdcalculator.html">
-<meta property="og:image" content="https://instacalc.in/instatheme.webp">
-<meta property="og:site_name" content="InstaCalc">
+  <link rel="icon" type="image/x-icon" href="favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/fdcalculator.html">
 
-<!-- Twitter Card Meta Tags -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="FD Calculator – Calculate Interest & Maturity Amount Instantly">
-<meta name="twitter:description" content="Free fixed deposit calculator to estimate your FD returns. Compare interest rates and tenures with compounding options.">
-<meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
-    
-<!-- Additional SEO Meta Tags -->
-<meta name="author" content="Instacalc">
-<meta name="robots" content="index, follow">
-<meta name="revisit-after" content="7 days">
-<meta name="language" content="English">
-<meta name="theme-color" content="#1a2a3a"> 
+  <meta property="og:title" content="FD Calculator - Fixed Deposit Interest & Maturity Estimator">
+  <meta property="og:description" content="Calculate FD maturity amount, interest earned, cumulative vs non-cumulative payout impact, and post-tax returns.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/fdcalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
 
-  <!-- Critical CSS -->
-  <style>
-    /* Minimum layout stability styles */
-    body { 
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .calculator-container {
-      min-height: 600px; /* Reserve space for calculator */
-    }
-    .result-section {
-      height: 200px; /* Fixed height for results area */
-      visibility: hidden; /* Hidden until calculated */
-    }
-    /* Prevent layout shifts in main content */
-    .main-content {
-      position: relative;
-      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
-    }
-    /* Fixed dimensions for key elements */
-    input {
-      width: 100%;
-      max-width: 400px;
-      height: 40px;
-    }
-       /* Fixed dimensions for key elements */
-    .chart-container {
-      width: 100%;
-      max-width: 400px;
-      height: 300px;
-    }
-  </style>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FD Calculator - Fixed Deposit Interest & Maturity Estimator">
+  <meta name="twitter:description" content="Free fixed deposit calculator for maturity amount, interest, monthly payout mode, senior citizen rate boost, and tax-adjusted FD returns.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
 
-  <!-- Preloads -->
-  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
-  <link rel="preload" href="style.css" as="style">
-  
-  <!-- Non-critical CSS -->
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
-  <noscript>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-  </noscript>
-
-  <!-- Script optimization -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-  <!-- Only load Popper and Bootstrap JS if needed -->
-  <?php if (needs_bootstrap_js): ?>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-  
-     <script src="bootstrap/js/bootstrap.min.js" defer></script>
-  <?php endif; ?>
-
-  <!-- Load Chart.js only when needed -->
-  <script>
-    function loadChartJS() {
-      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
-        window.Chart = module.default;
-        initializeCharts();
-      });
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "FD Calculator",
+      "url": "https://instacalc.in/fdcalculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "Fixed deposit calculator for maturity amount, interest earned, payout mode, senior citizen rate boost, and post-tax FD returns.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How to calculate FD maturity amount?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Enter deposit amount, FD interest rate, tenure, and compounding frequency. The calculator uses the fixed deposit maturity formula to estimate final value and interest earned."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this as a monthly interest FD calculator?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Switch payout type to non-cumulative to approximate periodic interest payout behavior and compare it against cumulative compounding."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the senior citizen FD option work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Senior citizen mode adds a rate boost to the selected FD interest rate and recalculates maturity, interest, and target-based required principal."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is FD interest taxable?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "FD interest is taxable as per your slab. This calculator applies a tax percentage on interest to show an estimated post-tax maturity value."
+          }
+        }
+      ]
     }
   </script>
 
-  <script src="script.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 <body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class=" mb-0">InstaCalc.in</h6>
-  </div>   
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>     
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="aboutus.html">About Us</a>
-      </li>
-         <li class="nav-item px-2">
-        <a class="nav-link " href="contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc home">
+        <img src="logo.png" alt="InstaCalc logo">
+        <span>InstaCalc.in</span>
+      </a>
 
-    
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
 
-
-  <!-- //first row first column -->
-  <div  class="row ">
-  <!--   //first row first column -->
-    <div class="col-12 col-lg-6 custom-xl-width" >
-      <div class="container mt-5 table1 labelbody">
-
-       <h2>FD Calculator</h2>
-
-        
-       <div class="input-group m " >
-           <label for="amount">Total Investment (₹)</label>
-           <div class="slider-container">
-               <input type="range" id="amount-slider" min="1000" max="100000" step="500" value="25000" oninput="syncInputs('amount')">
-               <input type="number" id="amount" min="1000" max="100000" step="500" value="25000" oninput="syncInputs('amount', true)" >
-           </div>
-       </div>
-       <div class="input-group">
-           <label for="rate">Expected Return Rate (p.a.) (%)</label>
-           <div class="slider-container">
-               <input type="range" id="rate-slider" min="1" max="20" step="0.1" value="6.5" oninput="syncInputs('rate')">
-               <input type="number" id="rate" min="1" max="20" step="0.1" value="6.5" oninput="syncInputs('rate', true)">
-           </div>
-       </div>
-       <div class="input-group">
-           <label for="years">Time Period (Years)</label>
-           <div class="slider-container">
-               <input type="range" id="years-slider" min="1" max="30" step="1" value="5" oninput="syncInputs('years')">
-               <input type="number" id="years" min="1" max="30" step="1" value="5" oninput="syncInputs('years', true)">
-           </div>
-       </div>
-      <div class="result-box">
-    <div class="result-item">
-        <span class="label">Invested Amount:</span>
-        <span class="value"><strong>₹<span id="invested">0</span></strong></span>
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </nav>
     </div>
-    <div class="result-item">
-        <span class="label">Est. Returns:</span>
-        <span class="value"><strong>₹<span id="returns">0</span></strong></span>
-    </div>
-    <div class="result-item">
-        <span class="label">Total Value:</span>
-        <span class="value"><strong>₹<span id="total">0</span></strong></span>
-    </div>
-</div>
-        <div class="chart-container">
-            <canvas id="sipChart" width="300" height="200"></canvas>
-        </div>
-    
-     </div>
-  </div>
-  <!--   //first row second column -->
-   <div class="col-12 col-lg-6 custom-xl-width d-none d-md-block ">
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <a href="sipcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="mutualfundreturncalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="gratuitycalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="epfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="fdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="rdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="cargcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="coumpoundinterest.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="retirementcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="ppfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="emicalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="simpleinterestcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
+  </header>
 
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-building-columns"></i>
+            Fixed Deposit Planner
+          </span>
+          <h1>FD Calculator (Fixed Deposit Interest & Maturity Calculator)</h1>
+          <p>Use this fixed deposit calculator to estimate FD maturity amount, interest earned, monthly or cumulative payout impact, senior citizen rates, and post-tax FD returns.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#fd-planner">
+              <i class="fas fa-calculator"></i>
+              Start Planning
+            </a>
+            <a class="btn btn-ghost" href="rdcalculator.html">
+              <i class="fas fa-arrow-right-arrow-left"></i>
+              Switch to RD
+            </a>
+          </div>
+        </div>
 
-
+        <aside class="hero-panel">
+          <h2>Extra Features Added</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Cumulative and non-cumulative payout mode</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Post-tax maturity value</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Senior citizen rate boost option</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Required principal for target amount</div>
+        </aside>
       </div>
+    </section>
 
-  <!--  /second row -->
-   <div  class="row mb-05 ">
-  <!--    //second row first column -->
-     <div class="col-12 col-lg-6 custom-xl-width " style="background-colorf:red;">
+    <section id="fd-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="mode-switch" aria-label="Calculator mode">
+            <a href="fdcalculator.html" class="active">FD</a>
+            <a href="rdcalculator.html">RD</a>
+          </div>
 
-     <div class="container mt-5">
-    <div class="fd-calculator-content">
-        <div class="title">
-            <h1>FD Calculator: Easily Estimate Your Fixed Deposit Returns</h1>
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="principalAmount">Deposit Amount (INR)</label>
+                <span id="principalAmountPreview">500000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="principalAmountRange" min="1000" max="50000000" step="1000" value="500000">
+                <input type="number" id="principalAmount" min="1000" max="50000000" step="1000" value="500000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="returnRate">Interest Rate (percent p.a.)</label>
+                <span id="returnRatePreview">7.1%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="returnRateRange" min="1" max="12" step="0.1" value="7.1">
+                <input type="number" id="returnRate" min="1" max="12" step="0.1" value="7.1">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="years">Time Period (years)</label>
+                <span id="yearsPreview">5</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="yearsRange" min="1" max="20" step="1" value="5">
+                <input type="number" id="years" min="1" max="20" step="1" value="5">
+              </div>
+            </div>
+
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="compounding">Compounding Frequency</label>
+                </div>
+                <select id="compounding">
+                  <option value="1">Yearly</option>
+                  <option value="2">Half-Yearly</option>
+                  <option value="4" selected>Quarterly</option>
+                  <option value="12">Monthly</option>
+                </select>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="payoutType">Payout Type</label>
+                </div>
+                <select id="payoutType">
+                  <option value="cumulative" selected>Cumulative (reinvested)</option>
+                  <option value="noncumulative">Non-cumulative (interest payout)</option>
+                </select>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="seniorCitizen">Senior Citizen Rate Boost</label>
+                </div>
+                <select id="seniorCitizen">
+                  <option value="no" selected>No</option>
+                  <option value="yes">Yes (+0.5%)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="taxRate">Tax Slab (percent)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="taxRateRange" min="0" max="35" step="1" value="10">
+                  <input type="number" id="taxRate" min="0" max="35" step="1" value="10">
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="targetCorpus">Target Maturity Amount (optional, INR)</label>
+                </div>
+                <input type="number" id="targetCorpus" min="0" step="100000" value="1000000" placeholder="Example: 1000000">
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i>
+              Recalculate
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i>
+              Reset Defaults
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i>
+              Copy Summary
+            </button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <h3>Total Invested</h3>
+              <div class="result-value" id="investedValue">-</div>
+            </div>
+            <div class="result-card positive">
+              <h3>Gross Interest</h3>
+              <div class="result-value" id="returnsValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Maturity Value</h3>
+              <div class="result-value" id="corpusValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Post-tax Maturity</h3>
+              <div class="result-value" id="inflationAdjustedValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Required Principal for Target</h3>
+              <div class="result-value" id="requiredSipValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Effective Annual Yield (Post-tax)</h3>
+              <div class="result-value" id="maturityLabel">-</div>
+            </div>
+          </div>
+
+          <div class="goal-status">
+            <div class="goal-meta">
+              <span id="goalStatusText">Add target amount to see progress.</span>
+              <strong id="goalPercentText">0%</strong>
+            </div>
+            <div class="goal-progress">
+              <div class="goal-progress-bar" id="goalProgressBar"></div>
+            </div>
+          </div>
+
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h3>Maturity Growth vs Principal</h3>
+              <div class="chart-wrap">
+                <canvas id="growthChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card">
+              <h3>Principal vs Interest</h3>
+              <div class="chart-wrap small">
+                <canvas id="splitChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools">
+            <h3>Year-wise Projection</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
+              <i class="fas fa-file-csv"></i>
+              Download CSV
+            </button>
+          </div>
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Principal</th>
+                  <th>Interest Earned</th>
+                  <th>Maturity Value</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
+          </div>
         </div>
 
-        <div class="introduction">
-            <p>Saving is smart, but earning more on your savings is even better. A Fixed Deposit Calculator lets you know in advance how much you’ll earn and receive at maturity when you invest in an FD.</p>
-            <p>This easy-to-use FD interest calculator eliminates complex math and shows your total returns instantly. Whether you're comparing different banks or planning your savings, this tool ensures clarity and confidence.</p>
-        </div>
-
-        <div class="what-is-fd-calculator">
-            <h2>What is a Fixed Deposit Calculator?</h2>
-            <p>A fixed deposit calculator is an online tool that helps you determine:</p>
-            <ul>
-                <li>✅ The maturity amount of your FD</li>
-                <li>✅ Total interest earned during the tenure</li>
-                <li>✅ Impact of FD interest rates and tenure on returns</li>
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Planning Notes</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i> Cumulative mode compounds interest and pays at maturity.</li>
+              <li><i class="fas fa-circle-info"></i> Non-cumulative mode uses simple payout style and does not reinvest earnings.</li>
+              <li><i class="fas fa-circle-info"></i> Post-tax maturity applies tax slab only on earned interest.</li>
+              <li><i class="fas fa-circle-info"></i> Senior citizen mode adds 0.5% to the selected rate.</li>
             </ul>
-            <p>Just input the deposit amount, interest rate, and duration, and the FD return calculator does the rest.</p>
-        </div>
+          </div>
 
-        <div class="how-fd-calculator-works">
-            <h2>How Does the FD Interest Calculator Work?</h2>
-            <p>The <strong>FD rate calculator</strong> uses this compound interest formula:</p>
-            <p><code><strong>A = P × (1 + r/n)<sup>n×t</sup></strong></code></p>
-            <p>Where:</p>
-            <ul>
-                <li><strong>A</strong> = Maturity amount (total return)</li>
-                <li><strong>P</strong> = Principal (your initial deposit)</li>
-                <li><strong>r</strong> = Annual interest rate (decimal)</li>
-                <li><strong>n</strong> = Compounding frequency per year</li>
-                <li><strong>t</strong> = Tenure (in years)</li>
+          <div class="sidebar-card">
+            <h3>Related Calculators</h3>
+            <ul class="link-list">
+              <li><a href="rdcalculator.html"><span>RD Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="sipcalculator.html"><span>SIP Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="sipcalculatorlumpsump.html"><span>Lumpsum Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="ppfcalculator.html"><span>PPF Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="retirementcalculator.html"><span>Retirement Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mutualfundreturncalculator.html"><span>Mutual Fund Return</span><i class="fas fa-arrow-right"></i></a></li>
             </ul>
-            <p>No manual calculation needed—the FD interest rates calculator does it for you.</p>
-        </div>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-        <div class="how-to-use-fd-calculator">
-            <h2>How to Use the FD Return Calculator?</h2>
-            <p>It’s quick and simple:</p>
-            <ol>
-                <li>1️⃣ Enter the fixed deposit amount (e.g., ₹1,00,000)</li>
-                <li>2️⃣ Choose the investment duration (e.g., 5 years)</li>
-                <li>3️⃣ Input the FD interest rate (e.g., 7%)</li>
-                <li>4️⃣ Select compounding frequency: monthly, quarterly, or annually</li>
-                <li>5️⃣ Click ‘Calculate’ to see your total maturity value and earned interest</li>
-            </ol>
-        </div>
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h3>How this FD interest calculator works</h3>
+          <p>This FD maturity amount calculator estimates your fixed deposit returns based on deposit amount, annual interest rate, tenure, payout mode, and compounding frequency. In cumulative mode, interest is reinvested. In non-cumulative mode, interest is treated as periodic payout.</p>
+          <br>
+          <p>Formula reference (cumulative): <code>FV = P * (1 + r/n)^(n*t)</code>. For non-cumulative view: <code>FV = P + (P * r * t)</code>.</p>
+          <br>
+          <p>This fixed deposit return calculator supports common search needs like quarterly interest estimation, cumulative and non-cumulative FD comparison, and principal-plus-interest planning for India users.</p>
+        </article>
 
-        <div class="example-calculation">
-            <h2>Example Calculation</h2>
-            <p>Suppose you invest ₹1,00,000 in an FD for 5 years at a 7% interest rate, compounded quarterly. Using our fixed deposit interest calculator, here's what you get:</p>
-            <ul>
-                <li>🔹 Maturity Amount: ₹1,41,478</li>
-                <li>🔹 Total Interest Earned: ₹41,478</li>
-            </ul>
-            <p>That’s a safe and guaranteed growth on your savings!</p>
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>
+              How to calculate FD maturity amount?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Enter principal amount, FD interest rate, tenure, and compounding frequency. The calculator then applies the maturity formula to estimate total value and interest earned.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              Can I use this as a monthly interest FD calculator?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Yes. Select non-cumulative payout mode to estimate periodic interest payout behavior and compare it with cumulative compounding.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              How does the senior citizen FD option work?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Enable senior citizen mode to add a rate boost to the selected FD interest rate. The calculator updates maturity, interest, and target-principal estimates automatically.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              Is FD interest taxable and can this calculator estimate post-tax return?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>FD interest is taxable as per your slab. This page applies your selected tax rate on total interest and shows an estimated post-tax maturity amount.</p>
+          </details>
         </div>
+      </div>
+    </section>
 
-        <div class="why-use-fd-calculator">
-            <h2>Why Use an FD Calculator Online?</h2>
-            <ul>
-                <li>🔹 <strong>Plan Smarter</strong> – Get accurate maturity and interest projections</li>
-                <li>🔹 <strong>Compare Options</strong> – Test various tenures, amounts, and rates</li>
-                <li>🔹 <strong>Goal-Based Savings</strong> – Know how much to invest for your goals</li>
-                <li>🔹 <strong>FD Monthly Interest Calculator</strong> – See how much you can earn monthly from large deposits</li>
-            </ul>
-            <p>The <strong>fixed deposit return calculator</strong> is like having your own financial advisor—available 24/7.</p>
-        </div>
+  </main>
 
-        <div class="factors-affecting-returns">
-            <h2>Factors That Affect Your FD Returns</h2>
-            <p>These elements play a major role in determining your FD earnings:</p>
-            <ul>
-                <li>✔️ <strong>Deposit Amount</strong> – More capital, more interest</li>
-                <li>✔️ <strong>Interest Rate</strong> – Even 0.5% can make a big difference</li>
-                <li>✔️ <strong>Tenure</strong> – Longer duration typically yields higher returns</li>
-                <li>✔️ <strong>Compounding Frequency</strong> – Quarterly or monthly compounding grows your money faster</li>
-                <li>✔️ <strong>Premature Withdrawal</strong> – Can result in lower returns or penalties</li>
-            </ul>
-            <p>Experiment with these variables using the FD calculator and plan better.</p>
-        </div>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in - smart calculators and converters for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </div>
     </div>
-</div>
+  </footer>
 
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        principalAmount: 500000,
+        returnRate: 7.1,
+        years: 5,
+        taxRate: 10,
+        targetCorpus: 1000000,
+        compounding: 4,
+        payoutType: "cumulative",
+        seniorCitizen: "no"
+      };
 
+      const nfCurrency = new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 0
+      });
+      const nfNumber = new Intl.NumberFormat("en-IN", {
+        maximumFractionDigits: 2
+      });
 
-       </div>
-  <!--   //second row second column -->
-   <div class="col-12 col-lg-6 custom-xl-width" style="background-color:lighCtblue;">
-    <div class="container mt-5 mb-5">
-        <h2 class="mb-4">FAQs</h2>
-        <div id="faqAccordion" class="accordion">
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+        principalAmount: document.getElementById("principalAmount"),
+        principalAmountRange: document.getElementById("principalAmountRange"),
+        returnRate: document.getElementById("returnRate"),
+        returnRateRange: document.getElementById("returnRateRange"),
+        years: document.getElementById("years"),
+        yearsRange: document.getElementById("yearsRange"),
+        taxRate: document.getElementById("taxRate"),
+        taxRateRange: document.getElementById("taxRateRange"),
+        compounding: document.getElementById("compounding"),
+        payoutType: document.getElementById("payoutType"),
+        seniorCitizen: document.getElementById("seniorCitizen"),
+        targetCorpus: document.getElementById("targetCorpus"),
+        principalAmountPreview: document.getElementById("principalAmountPreview"),
+        returnRatePreview: document.getElementById("returnRatePreview"),
+        yearsPreview: document.getElementById("yearsPreview"),
+        investedValue: document.getElementById("investedValue"),
+        returnsValue: document.getElementById("returnsValue"),
+        corpusValue: document.getElementById("corpusValue"),
+        inflationAdjustedValue: document.getElementById("inflationAdjustedValue"),
+        requiredSipValue: document.getElementById("requiredSipValue"),
+        maturityLabel: document.getElementById("maturityLabel"),
+        goalStatusText: document.getElementById("goalStatusText"),
+        goalPercentText: document.getElementById("goalPercentText"),
+        goalProgressBar: document.getElementById("goalProgressBar"),
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        growthChart: document.getElementById("growthChart"),
+        splitChart: document.getElementById("splitChart")
+      };
 
-            <!-- FAQ 1 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            What is a Fixed Deposit (FD)?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        A Fixed Deposit (FD) is a financial instrument offered by banks and NBFCs where you deposit a lump sum amount for a fixed tenure at a predetermined interest rate. The amount grows over time, and you receive the principal and interest at maturity.
-                    </div>
-                </div>
-            </div>
+      let growthChartInstance = null;
+      let splitChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
 
-            <!-- FAQ 2 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            How does the FD Calculator work?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        The FD Calculator estimates the maturity amount of your fixed deposit based on the principal amount, interest rate, and tenure. It helps you plan your investments by showing how much your money will grow over time.
-                    </div>
-                </div>
-            </div>
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) {
+          return;
+        }
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
 
-            <!-- FAQ 3 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingThree">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            What inputs are required for the FD Calculator?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        You need to provide:
-                        <ul>
-                            <li><strong>Principal Amount:</strong> The lump sum amount you want to invest.</li>
-                            <li><strong>Interest Rate:</strong> The annual interest rate offered by the bank or NBFC.</li>
-                            <li><strong>Tenure:</strong> The duration of the FD (in months or years).</li>
-                            <li><strong>Interest Payout Frequency:</strong> Whether the interest is compounded quarterly, monthly, or at maturity.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 940) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+      }
 
-            <!-- FAQ 4 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingFour">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            What is the difference between cumulative and non-cumulative FDs?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        In a <strong>cumulative FD</strong>, the interest is compounded and paid at maturity along with the principal. In a <strong>non-cumulative FD</strong>, the interest is paid out at regular intervals (monthly, quarterly, etc.), and the principal is returned at maturity.
-                    </div>
-                </div>
-            </div>
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) {
+          return;
+        }
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
 
-            <!-- FAQ 5 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingFive">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                            Can I withdraw my FD before maturity?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        Yes, you can withdraw your FD before maturity, but it may attract a penalty. The interest rate may also be reduced to the rate applicable for the period the FD was held.
-                    </div>
-                </div>
-            </div>
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
 
-            <!-- FAQ 6 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingSix">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                            Are FD returns taxable?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        Yes, the interest earned on FDs is taxable as per your income tax slab. Additionally, TDS (Tax Deducted at Source) is deducted if the interest exceeds ₹40,000 (₹50,000 for senior citizens) in a financial year.
-                    </div>
-                </div>
-            </div>
+      function roundToStep(value, step) {
+        if (!step || step <= 0) {
+          return value;
+        }
+        return Math.round(value / step) * step;
+      }
 
-            <!-- FAQ 7 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingSeven">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                            What is the minimum tenure for an FD?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        The minimum tenure for an FD varies by bank or NBFC but is typically 7 days. However, longer tenures usually offer higher interest rates.
-                    </div>
-                </div>
-            </div>
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
 
-            <!-- FAQ 8 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingEight">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                            Can I take a loan against my FD?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        Yes, most banks allow you to take a loan against your FD. The loan amount is usually up to 90% of the FD value, and the interest rate is lower compared to personal loans.
-                    </div>
-                </div>
-            </div>
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) {
+          return;
+        }
+        const min = parseFloat(rangeEl.min || "0");
+        const max = parseFloat(rangeEl.max || "100");
+        const step = parseFloat(rangeEl.step || "1");
 
-        </div>
-    </div>
-</div>
-   </div>
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-12 col-lg-12 custom-xl-width " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
+        function normalize(value) {
+          const numeric = parseNumeric(value, parseFloat(rangeEl.value));
+          const stepped = roundToStep(numeric, step);
+          return clamp(stepped, min, max);
+        }
 
-              Back To Home
+        rangeEl.addEventListener("input", function () {
+          numberEl.value = rangeEl.value;
+          calculateAndRender();
+        });
 
-             </p>
-       </div>
+        numberEl.addEventListener("input", function () {
+          if (numberEl.value === "") {
+            return;
+          }
+          const normalized = normalize(numberEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
 
-         </div>
-  <!--      //third row second column -->
-     
-    </div>
-    <script>
-    // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
+        numberEl.addEventListener("blur", function () {
+          const normalized = normalize(numberEl.value || rangeEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+      }
 
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
+      function formatCurrencyWithUnits(value) {
+        const abs = Math.abs(value);
+        const sign = value < 0 ? "-" : "";
+        let unitLabel = "";
+        if (abs >= 10000000) {
+          unitLabel = " (" + (abs / 10000000).toFixed(2) + " Cr)";
+        } else if (abs >= 100000) {
+          unitLabel = " (" + (abs / 100000).toFixed(2) + " Lakh)";
+        }
+        return sign + nfCurrency.format(abs) + unitLabel;
+      }
 
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-    </script>
-      <script>
-              function syncInputs(id, isManual = false) {
-                  const slider = document.getElementById(`${id}-slider`);
-                  const numberInput = document.getElementById(id);
-                  if (isManual) {
-                      slider.value = numberInput.value;
-                  } else {
-                      numberInput.value = slider.value;
+      function compactCurrency(value) {
+        const abs = Math.abs(value);
+        const sign = value < 0 ? "-" : "";
+        if (abs >= 10000000) {
+          return sign + (abs / 10000000).toFixed(1) + "Cr";
+        }
+        if (abs >= 100000) {
+          return sign + (abs / 100000).toFixed(1) + "L";
+        }
+        if (abs >= 1000) {
+          return sign + (abs / 1000).toFixed(1) + "K";
+        }
+        return sign + Math.round(abs).toString();
+      }
+
+      function getInputs() {
+        return {
+          principalAmount: parseNumeric(elements.principalAmount.value, defaults.principalAmount),
+          returnRate: parseNumeric(elements.returnRate.value, defaults.returnRate),
+          years: parseNumeric(elements.years.value, defaults.years),
+          taxRate: parseNumeric(elements.taxRate.value, defaults.taxRate),
+          targetCorpus: parseNumeric(elements.targetCorpus.value, 0),
+          compounding: parseNumeric(elements.compounding.value, defaults.compounding),
+          payoutType: elements.payoutType.value === "noncumulative" ? "noncumulative" : "cumulative",
+          seniorCitizen: elements.seniorCitizen.value === "yes" ? "yes" : "no"
+        };
+      }
+
+      function simulateFD(principalAmount, params) {
+        const years = Math.max(1, Math.round(params.years));
+        const compounds = clamp(Math.round(params.compounding), 1, 12);
+        const adjustedRate = params.returnRate + (params.seniorCitizen === "yes" ? 0.5 : 0);
+        const rateDecimal = adjustedRate / 100;
+        const projection = [];
+        let corpus = principalAmount;
+
+        if (params.payoutType === "noncumulative") {
+          const yearlyInterest = principalAmount * rateDecimal;
+          for (let year = 1; year <= years; year += 1) {
+            const gains = yearlyInterest * year;
+            const yearCorpus = principalAmount + gains;
+            projection.push({
+              year: year,
+              invested: principalAmount,
+              gains: gains,
+              corpus: yearCorpus
+            });
+          }
+          corpus = principalAmount + yearlyInterest * years;
+        } else {
+          const periodicRate = rateDecimal / compounds;
+          for (let year = 1; year <= years; year += 1) {
+            const yearCorpus = principalAmount * Math.pow(1 + periodicRate, compounds * year);
+            projection.push({
+              year: year,
+              invested: principalAmount,
+              gains: yearCorpus - principalAmount,
+              corpus: yearCorpus
+            });
+          }
+          corpus = principalAmount * Math.pow(1 + periodicRate, compounds * years);
+        }
+
+        return {
+          years: years,
+          adjustedRate: adjustedRate,
+          invested: principalAmount,
+          corpus: corpus,
+          gains: corpus - principalAmount,
+          projection: projection
+        };
+      }
+
+      function estimateRequiredPrincipal(targetCorpus, params) {
+        if (!Number.isFinite(targetCorpus) || targetCorpus <= 0) {
+          return null;
+        }
+        const years = Math.max(1, Math.round(params.years));
+        const compounds = clamp(Math.round(params.compounding), 1, 12);
+        const adjustedRate = params.returnRate + (params.seniorCitizen === "yes" ? 0.5 : 0);
+        const rateDecimal = adjustedRate / 100;
+
+        if (params.payoutType === "noncumulative") {
+          const factor = 1 + (rateDecimal * years);
+          return factor > 0 ? (targetCorpus / factor) : null;
+        }
+
+        const periodicRate = rateDecimal / compounds;
+        const factor = Math.pow(1 + periodicRate, compounds * years);
+        return factor > 0 ? (targetCorpus / factor) : null;
+      }
+
+      function renderProjectionTable(projection) {
+        if (!elements.projectionTableBody) {
+          return;
+        }
+        elements.projectionTableBody.innerHTML = projection.map(function (row) {
+          return (
+            "<tr>" +
+              "<td>Year " + row.year + "</td>" +
+              "<td>" + formatCurrencyWithUnits(row.invested) + "</td>" +
+              "<td>" + formatCurrencyWithUnits(row.gains) + "</td>" +
+              "<td>" + formatCurrencyWithUnits(row.corpus) + "</td>" +
+            "</tr>"
+          );
+        }).join("");
+      }
+
+      function renderCharts(projection, invested, gains) {
+        if (!window.Chart || !elements.growthChart || !elements.splitChart) {
+          return;
+        }
+
+        const labels = projection.map(function (row) {
+          return "Year " + row.year;
+        });
+        const corpusData = projection.map(function (row) { return row.corpus; });
+        const investedData = projection.map(function () { return invested; });
+
+        if (growthChartInstance) {
+          growthChartInstance.destroy();
+        }
+        growthChartInstance = new Chart(elements.growthChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Maturity Value",
+                data: corpusData,
+                borderColor: "#007f8b",
+                backgroundColor: "rgba(0, 127, 139, 0.16)",
+                fill: true,
+                tension: 0.18,
+                pointRadius: 2
+              },
+              {
+                label: "Principal",
+                data: investedData,
+                borderColor: "#ee9f2e",
+                backgroundColor: "rgba(238, 159, 46, 0.16)",
+                fill: false,
+                tension: 0.12,
+                pointRadius: 2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "top" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.dataset.label + ": " + formatCurrencyWithUnits(context.parsed.y);
                   }
-                  calculateSIP();
+                }
               }
-function formatNumberInIndianFormat(num) {
-    // Convert the number to a string and split into whole and decimal parts
-    let parts = num.toString().split(".");
-    let wholePart = parts[0];
-    let decimalPart = parts.length > 1 ? "." + parts[1] : "";
-
-    // Add commas in Indian numbering system format
-    let lastThree = wholePart.slice(-3);
-    let otherNumbers = wholePart.slice(0, -3);
-    if (otherNumbers !== "") {
-        lastThree = "," + lastThree;
-    }
-    let result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + decimalPart;
-
-    return result;
-}
-          
-          
-           function calculateSIP() {
-    // Get input values
-    const P = parseFloat(document.getElementById("amount").value); // Principal
-    const annualRate = parseFloat(document.getElementById("rate").value); // Annual rate
-    const t = parseInt(document.getElementById("years").value); // Years
-
-    // FD Formula with quarterly compounding (common in India):
-    // M = P × (1 + r/(4×100))^(n×4)
-    // Where:
-    // r = annual interest rate
-    // n = number of years
-    // 4 = quarterly compounding
-
-    const quarterlyRate = annualRate / 4;
-    const totalQuarters = t * 4;
-    const maturityAmount = P * Math.pow(1 + quarterlyRate / 100, totalQuarters);
-    const interestEarned = maturityAmount - P;
-
-    // Format the numbers in Indian format
-    const formattedInvestedAmount = formatNumberInIndianFormat(P.toFixed(2));
-    const formattedInterestEarned = formatNumberInIndianFormat(interestEarned.toFixed(2));
-    const formattedMaturityAmount = formatNumberInIndianFormat(maturityAmount.toFixed(2));
-
-    // Update UI
-    document.getElementById("invested").textContent = formattedInvestedAmount;
-    document.getElementById("returns").textContent = formattedInterestEarned;
-    document.getElementById("total").textContent = formattedMaturityAmount;
-
-    // Update chart (if needed)
-    updateChart(P, interestEarned);
-}
-      
-          
-          
-              let sipChart;
-              function updateChart(invested, returns) {
-                  let ctx = document.getElementById("sipChart").getContext("2d");
-                  if (sipChart) sipChart.destroy();
-                  sipChart = new Chart(ctx, {
-                      type: "doughnut",
-                      data: {
-                          labels: ["Invested Amount", "Est. Returns"],
-                          datasets: [{
-                              data: [invested, returns],
-                              backgroundColor: ["#4CAF50", "#2196F3"]
-                          }]
-                      }
-                  });
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function (value) {
+                    return compactCurrency(value);
+                  }
+                }
               }
-              calculateSIP();
-
-
-          
-          </script>
-       
-
-      <style>
-              bodyss {
-                  font-family: Arial, sans-serif;
-                  margin: 20px;
-                  padding: 0;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  flex-direction: column;
-                  background-color: #f4f4f4;
-              }
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
-
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
-
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
             }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
+          }
+        });
 
+        if (splitChartInstance) {
+          splitChartInstance.destroy();
+        }
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Principal", "Interest"],
+            datasets: [
+              {
+                data: [Math.max(invested, 0), Math.max(gains, 0)],
+                backgroundColor: ["#007f8b", "#1f9f67"],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.label + ": " + formatCurrencyWithUnits(context.parsed);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
 
-          </style>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- At bottom of body -->
+      function updatePreviewLabels(inputs) {
+        elements.principalAmountPreview.textContent = nfNumber.format(inputs.principalAmount);
+        const adjustedRate = inputs.returnRate + (inputs.seniorCitizen === "yes" ? 0.5 : 0);
+        elements.returnRatePreview.textContent = adjustedRate.toFixed(1) + "%";
+        elements.yearsPreview.textContent = String(Math.round(inputs.years));
+      }
 
+      function calculateAndRender() {
+        const inputs = getInputs();
+        updatePreviewLabels(inputs);
 
+        const result = simulateFD(inputs.principalAmount, inputs);
+        const taxRate = clamp(inputs.taxRate, 0, 35);
+        const postTaxCorpus = result.invested + (result.gains * (1 - taxRate / 100));
+        const requiredPrincipal = estimateRequiredPrincipal(inputs.targetCorpus, inputs);
+        const postTaxYield = result.invested > 0 && result.years > 0
+          ? (Math.pow(postTaxCorpus / result.invested, 1 / result.years) - 1) * 100
+          : 0;
+
+        elements.investedValue.textContent = formatCurrencyWithUnits(result.invested);
+        elements.returnsValue.textContent = formatCurrencyWithUnits(result.gains);
+        elements.corpusValue.textContent = formatCurrencyWithUnits(result.corpus);
+        elements.inflationAdjustedValue.textContent = formatCurrencyWithUnits(postTaxCorpus);
+        elements.requiredSipValue.textContent = requiredPrincipal ? formatCurrencyWithUnits(requiredPrincipal) : "Add valid target";
+        elements.maturityLabel.textContent = postTaxYield.toFixed(2) + "%";
+
+        const hasGoal = inputs.targetCorpus > 0;
+        const progressPercent = hasGoal ? (result.corpus / inputs.targetCorpus) * 100 : 0;
+        const clampedProgress = Math.max(0, Math.min(progressPercent, 100));
+
+        if (hasGoal) {
+          elements.goalStatusText.textContent = progressPercent >= 100
+            ? "Target reached with current assumptions."
+            : "Current plan reaches " + progressPercent.toFixed(1) + "% of target.";
+          elements.goalPercentText.textContent = progressPercent.toFixed(1) + "%";
+          elements.goalProgressBar.style.width = clampedProgress.toFixed(2) + "%";
+          elements.goalProgressBar.style.background = progressPercent >= 100
+            ? "linear-gradient(110deg, #1f9f67, #1cb67a)"
+            : "linear-gradient(110deg, var(--accent), #00a1b2)";
+        } else {
+          elements.goalStatusText.textContent = "Add target amount to see progress.";
+          elements.goalPercentText.textContent = "0%";
+          elements.goalProgressBar.style.width = "0%";
+          elements.goalProgressBar.style.background = "linear-gradient(110deg, var(--accent), #00a1b2)";
+        }
+
+        lastProjection = result.projection.slice();
+        renderProjectionTable(result.projection);
+        renderCharts(result.projection, result.invested, result.gains);
+
+        lastSummaryText =
+          "FD Summary" + "\n" +
+          "Principal: " + formatCurrencyWithUnits(inputs.principalAmount) + "\n" +
+          "Rate (effective): " + result.adjustedRate.toFixed(2) + "% p.a." + "\n" +
+          "Duration: " + Math.round(inputs.years) + " years" + "\n" +
+          "Compounding: " + Math.round(inputs.compounding) + " times/year" + "\n" +
+          "Payout Type: " + inputs.payoutType + "\n" +
+          "Tax Rate: " + taxRate.toFixed(1) + "%" + "\n" +
+          "Gross Interest: " + formatCurrencyWithUnits(result.gains) + "\n" +
+          "Maturity Value: " + formatCurrencyWithUnits(result.corpus) + "\n" +
+          "Post-tax Maturity: " + formatCurrencyWithUnits(postTaxCorpus) + "\n" +
+          "Required Principal For Target: " + (requiredPrincipal ? formatCurrencyWithUnits(requiredPrincipal) : "N/A");
+      }
+
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) {
+          return;
+        }
+        const headers = ["Year", "Principal", "Interest Earned", "Maturity Value"];
+        const rows = lastProjection.map(function (row) {
+          return [
+            "Year " + row.year,
+            Math.round(row.invested),
+            Math.round(row.gains),
+            Math.round(row.corpus)
+          ].join(",");
+        });
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "fd-projection.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function resetToDefaults() {
+        elements.principalAmount.value = defaults.principalAmount;
+        elements.principalAmountRange.value = defaults.principalAmount;
+        elements.returnRate.value = defaults.returnRate;
+        elements.returnRateRange.value = defaults.returnRate;
+        elements.years.value = defaults.years;
+        elements.yearsRange.value = defaults.years;
+        elements.taxRate.value = defaults.taxRate;
+        elements.taxRateRange.value = defaults.taxRate;
+        elements.compounding.value = defaults.compounding;
+        elements.payoutType.value = defaults.payoutType;
+        elements.seniorCitizen.value = defaults.seniorCitizen;
+        elements.targetCorpus.value = defaults.targetCorpus;
+        calculateAndRender();
+      }
+
+      function wireEvents() {
+        syncPair(elements.principalAmountRange, elements.principalAmount);
+        syncPair(elements.returnRateRange, elements.returnRate);
+        syncPair(elements.yearsRange, elements.years);
+        syncPair(elements.taxRateRange, elements.taxRate);
+
+        elements.targetCorpus.addEventListener("input", calculateAndRender);
+        elements.compounding.addEventListener("change", calculateAndRender);
+        elements.payoutType.addEventListener("change", calculateAndRender);
+        elements.seniorCitizen.addEventListener("change", calculateAndRender);
+        elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        elements.resetBtn.addEventListener("click", resetToDefaults);
+        elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        elements.copySummaryBtn.addEventListener("click", function () {
+          if (!navigator.clipboard || !lastSummaryText) {
+            return;
+          }
+          navigator.clipboard.writeText(lastSummaryText).then(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary';
+            }, 1300);
+          }).catch(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Copy failed';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary';
+            }, 1300);
+          });
+        });
+      }
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      calculateAndRender();
+    })();
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+      authDomain: "instacalc-40640.firebaseapp.com",
+      projectId: "instacalc-40640",
+      storageBucket: "instacalc-40640.firebasestorage.app",
+      messagingSenderId: "720029503645",
+      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+      measurementId: "G-J0ZWXR3T5P"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+  </script>
 </body>
 </html>
+
+
+
+
+
+
+
