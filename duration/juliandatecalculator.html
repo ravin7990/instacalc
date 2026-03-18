@@ -1,724 +1,1552 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Concrete Calculator - (Cubic Feet, Meters, Yards) - Get Accurate Estimates</title>
-<meta name="description" content="Calculate the exact volume of concrete needed for your construction project. Use our Concrete Calculator to estimate cubic feet, cubic meters, or yards for slabs, footings, and more.">
-   <!-- Basic Favicons -->
-    <link rel="icon" type="image/x-icon" href="favicon.webp">
-
-  <link rel="canonical" href="https://instacalc.in/duration/concretecalculator.html" />
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Julian Date Converter | Julian Date Calculator, Julian Day Number Tool</title>
+  <meta name="description" content="Use this Julian date converter online to switch between Julian date and calendar date, calculate Julian day number, check Julian date today, and decode 3-digit or 5-digit date codes.">
+  <meta name="keywords" content="julian date, julian calendar, julian date converter, julian date calculator, julian day, julian date today, julian day number, julian date 2026, date converter, calendar converter, julian date online, julian date lookup">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
-  
+
+  <link rel="icon" type="image/x-icon" href="favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/duration/juliandatecalculator.html">
+
+  <meta property="og:title" content="Julian Date Converter Online - Julian Day Number & Calendar Converter">
+  <meta property="og:description" content="Convert Julian date to calendar date, calendar date to Julian date, decode 3-digit/5-digit codes, and generate a Julian date chart for 2026.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/duration/juliandatecalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Julian Date Converter Online - Julian Day Number Calculator">
+  <meta name="twitter:description" content="Free Julian date calculator online for Gregorian conversion, modified Julian date, date code decoding, and year reference chart export.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Julian Date Converter",
+      "url": "https://instacalc.in/duration/juliandatecalculator.html",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "description": "Julian date converter tool for calendar date to Julian date, Julian date to Gregorian date, 3-digit and 5-digit code decoding, and modified Julian date conversion.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Julian date?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Julian date is a continuous day count used for consistent date calculations across science, manufacturing, and data systems."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How to convert calendar date to Julian date?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Enter a calendar date and time in the converter. It calculates Julian day number, full Julian date, and modified Julian date instantly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does a 5 digit Julian date mean?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A 5 digit code is usually YYDDD format where YY is year and DDD is day number of year. For example, 26120 means the 120th day of 2026."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is modified Julian date?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Modified Julian date (MJD) is Julian date shifted by 2400000.5 to keep numbers smaller for technical systems."
+          }
+        }
+      ]
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript>
+
   <style>
-        /* Inline critical CSS - Replace with your actual critical styles */
-      
-        .navbar { /* Example critical navbar styles */ }
-        .container.table1 h2 { /* Example critical calculator heading style */ }
-        /* ... more critical styles ... */
-    </style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
 
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"></noscript>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <link rel="preload" href="style2s.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="style2s.css"></noscript>
-  
+    html {
+      scroll-behavior: smooth;
+    }
 
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"></noscript>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" defer></script>
-    <script src="script.js" defer></script>
-  <!-- Add to <head> -->
-   <link rel="preload" href="https://fonts.googleapis.com/css?family=Trirong" as="font" type="font/woff2" crossorigin>
-  
-  
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-line {
+      border: 1px solid rgba(0, 95, 115, 0.11);
+      border-radius: 10px;
+      background: #f6fafc;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .result-line strong {
+      color: var(--accent-strong);
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 <body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class="text-white mb-0"> InstaCalc.in</h6>
-  </div>   
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>     
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/aboutus.html">About Us</a>
-      </li>
-         <li class="nav-item px-2">
-        <a class="nav-link " href="/contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand" aria-label="InstaCalc home">
+        <img src="logo.png" alt="InstaCalc logo">
+        <span>InstaCalc.in</span>
+      </a>
 
-    
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
 
+      <nav class="site-nav" id="mainNav">
+        <a href="../index.html">Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
 
-  <!-- //first row first column -->
-  <div class="row">
- <!-- First column - Julian Date Converter -->
-  <div class="col-md-6" >
-    <div class="container mt-5">
-      <h2>Julian Date Converter</h2>
-      
-      <div class="card mb-4">
-        <div class="card-header ">
-          Calendar Date to Julian Date
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-calendar-day"></i>
+            Date Conversion Tool
+          </span>
+          <h1>Julian Date Converter Online (Julian Date Calculator and Julian Day Number Tool)</h1>
+          <p>This Julian date converter online helps you convert Julian date to calendar date, convert calendar date to Julian date, check current Julian date today, and decode packaging date formats quickly.</p>
         </div>
-        <div class="card-body">
-          <div class="mb-3">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="era" id="ad-era" value="AD" checked onchange="dateToJulian()">
-              <label class="form-check-label" for="ad-era">AD</label>
+
+        <aside class="hero-panel">
+          <h2>Additional Features</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Built-in 3-digit and 5-digit Julian date converter for food and manufacturing codes.</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Modified Julian date converter and reverse conversion to Gregorian date.</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Unix timestamp and Julian date conversion for developer workflows.</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Downloadable Julian date chart for 2026 and any selected year.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="converter">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="result-grid">
+            <div class="result-card">
+              <h3>Current Julian Date Today</h3>
+              <div class="result-value" id="todayJulianValue">-</div>
             </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="era" id="bc-era" value="BC" onchange="dateToJulian()">
-              <label class="form-check-label" for="bc-era">BC</label>
+            <div class="result-card">
+              <h3>Today Julian Day Number</h3>
+              <div class="result-value" id="todayJdnValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Today Modified Julian Date</h3>
+              <div class="result-value" id="todayMjdValue">-</div>
             </div>
           </div>
-          
-          <div class="input-group mb-3">
-            <label for="calendar-date" class="input-group-text">Calendar Date</label>
-            <input type="date" id="calendar-date" class="form-control" onchange="dateToJulian()">
-          </div>
-          <div class="result-box">
-            <div class="result-item">
-              <span class="label">Julian Date:</span>
-              <span class="value"><strong><span id="julian-date-result">0</span></strong></span>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="calendarDateInput">Calendar Date to Julian Date Converter Tool</label>
+              </div>
+              <div class="range-row">
+                <input type="date" id="calendarDateInput">
+                <input type="time" id="calendarTimeInput" value="00:00">
+              </div>
+              <div class="result-line"><span>Julian Date:</span><strong id="jdFromCalendarResult">-</strong></div>
+              <div class="result-line"><span>Julian Day Number:</span><strong id="jdnFromCalendarResult">-</strong></div>
+              <div class="result-line"><span>Modified Julian Date:</span><strong id="mjdFromCalendarResult">-</strong></div>
+              <div class="result-line"><span>Day Number of Year:</span><strong id="doyFromCalendarResult">-</strong></div>
+              <div class="result-line"><span>5 Digit Julian Code (YYDDD):</span><strong id="codeFromCalendarResult">-</strong></div>
             </div>
-            <div class="result-item">
-              <span class="label">Modified Julian Date:</span>
-              <span class="value"><strong><span id="modified-julian-result">0</span></strong></span>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="jdInput">Julian Date to Gregorian Date Converter</label>
+              </div>
+              <div class="range-row">
+                <input type="number" id="jdInput" step="0.000001" placeholder="Julian Date">
+                <input type="number" id="mjdInput" step="0.000001" placeholder="Modified Julian Date">
+              </div>
+              <div class="result-line"><span>Calendar Date (UTC):</span><strong id="calendarFromJulianResult">-</strong></div>
+              <div class="result-line"><span>UTC Time:</span><strong id="timeFromJulianResult">-</strong></div>
+              <div class="result-line"><span>Day of Year:</span><strong id="doyFromJulianResult">-</strong></div>
+              <div class="result-line"><span>Unix Timestamp (seconds):</span><strong id="unixFromJulianResult">-</strong></div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="decoderCodeInput">3 Digit and 5 Digit Julian Date Decoder</label>
+              </div>
+              <div class="inline-grid">
+                <select id="decoderType">
+                  <option value="yyddd" selected>5 digit code (YYDDD)</option>
+                  <option value="ddd">3 digit code (DDD)</option>
+                </select>
+                <input type="text" id="decoderCodeInput" placeholder="Code value">
+                <select id="decoderCenturyInput">
+                  <option value="2000" selected>2000-2099</option>
+                  <option value="1900">1900-1999</option>
+                  <option value="2100">2100-2199</option>
+                </select>
+              </div>
+              <input type="number" id="decoderYearInput" min="1" step="1" placeholder="Year for 3 digit code">
+              <div class="result-line"><span>Decoded Calendar Date:</span><strong id="decodedDateResult">-</strong></div>
+              <div class="result-line"><span>Day Number / Ordinal Date:</span><strong id="decodedDoyResult">-</strong></div>
+              <div class="result-line"><span>Julian Date at 00:00 UTC:</span><strong id="decodedJdResult">-</strong></div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="unixInput">Unix Timestamp and Julian Date Format Converter</label>
+              </div>
+              <div class="range-row">
+                <input type="number" id="unixInput" placeholder="Unix timestamp">
+                <select id="unixMode">
+                  <option value="auto" selected>Auto detect</option>
+                  <option value="seconds">Seconds</option>
+                  <option value="milliseconds">Milliseconds</option>
+                </select>
+              </div>
+              <div class="result-line"><span>Calendar Date (UTC):</span><strong id="dateFromUnixResult">-</strong></div>
+              <div class="result-line"><span>Julian Date:</span><strong id="jdFromUnixResult">-</strong></div>
+              <div class="result-line"><span>Modified Julian Date:</span><strong id="mjdFromUnixResult">-</strong></div>
             </div>
           </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="convertCalendarBtn" type="button"><i class="fas fa-rotate"></i>Convert Date</button>
+            <button class="btn btn-primary" id="convertJulianBtn" type="button"><i class="fas fa-rotate"></i>Convert Julian</button>
+            <button class="btn btn-primary" id="decodeCodeBtn" type="button"><i class="fas fa-barcode"></i>Decode Code</button>
+            <button class="btn btn-primary" id="convertUnixBtn" type="button"><i class="fas fa-clock"></i>Convert Unix</button>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Related Date Tools</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i><a href="dayscalculator.html">Days Calculator</a></li>
+              <li><i class="fas fa-circle-info"></i><a href="timedurationcalculator.html">Time Duration Calculator</a></li>
+              <li><i class="fas fa-circle-info"></i><a href="timezonecalculator.html">Time Zone Calculator</a></li>
+              <li><i class="fas fa-circle-info"></i><a href="weekcalculator.html">Week Calculator</a></li>
+              <li><i class="fas fa-circle-info"></i><a href="agecalculator.html">Age Calculator</a></li>
+              <li><i class="fas fa-circle-info"></i><a href="../fdcalculator.html">FD Calculator</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h3>Julian Date Chart 2026 and Reference Table</h3>
+          <p>Generate a Julian date chart for 2026 or any selected year. This works as a julian date number lookup and day of year calculator for operations, packaging, and technical workflows.</p>
+          <div class="inline-grid">
+            <input type="number" id="chartYearInput" min="1" step="1" value="2026" placeholder="Reference year">
+            <input type="text" id="chartFilterInput" placeholder="Filter by month (optional)">
+            <button class="btn btn-primary" id="generateChartBtn" type="button"><i class="fas fa-table"></i>Generate Table</button>
+          </div>
+          <div class="table-tools">
+            <button class="btn btn-ghost" id="downloadChartBtn" type="button"><i class="fas fa-file-csv"></i>Download CSV</button>
+            <button class="btn btn-ghost" id="printChartBtn" type="button"><i class="fas fa-print"></i>Print</button>
+          </div>
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date (UTC)</th>
+                  <th>Day of Year</th>
+                  <th>Julian Day Number</th>
+                  <th>Julian Date</th>
+                  <th>YYDDD Code</th>
+                </tr>
+              </thead>
+              <tbody id="chartTableBody"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Audience-Specific Uses</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i>Food and packaging users can decode expiry and manufacturing code values in 3-digit or 5-digit formats.</li>
+              <li><i class="fas fa-circle-info"></i>Developers can convert Julian date for SQL, Oracle, Excel, Python, and JavaScript workflows.</li>
+              <li><i class="fas fa-circle-info"></i>Astronomy and science users can work with astronomical julian date and modified julian date formats.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h3>Julian Date to Calendar Date and Calendar Date to Julian Date Guide</h3>
+          <p>This tool supports julian date to date converter, date to julian date converter, and julian date reverse converter needs. It also works like a gregorian calendar converter with ordinal date output.</p>
+          <h3>Practical Scenarios: 5 Digit and 3 Digit Julian Date Converter</h3>
+          <p>If you need to convert 5 digit julian date to regular date or decode a 3 digit day code, use the decoder section above. This is useful for food expiry date decoding, pharmaceutical batch code lookup, and manufacturing date code reader use cases.</p>
+          <h3>Developer and Database Conversion Notes</h3>
+          <p>For data teams, this page helps when converting julian date in excel, oracle, python, and javascript projects. You can cross-check results with unix timestamp and modified julian date values.</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>What is julian date and what is julian day number?<i class="fas fa-chevron-down"></i></summary>
+            <p>Julian date is a continuous day count, while julian day number is the integer day value used for date arithmetic and conversion.</p>
+          </details>
+          <details class="faq-card">
+            <summary>How does julian date work compared with gregorian date?<i class="fas fa-chevron-down"></i></summary>
+            <p>Gregorian dates use year-month-day format. Julian date uses a continuous numeric count, which is easier for calculations across long date ranges.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What does a 5 digit julian date mean on products?<i class="fas fa-chevron-down"></i></summary>
+            <p>Usually it means YYDDD where YY is year and DDD is day number in that year. For example, 26120 maps to the 120th day of 2026.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What is modified julian date and why is it used?<i class="fas fa-chevron-down"></i></summary>
+            <p>Modified julian date is julian date minus 2400000.5, which keeps numbers smaller for technical and astronomical systems.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can this tool decode food expiry and manufacturing codes?<i class="fas fa-chevron-down"></i></summary>
+            <p>Yes. The built-in decoder is designed for food can codes, manufacturing lot numbers, and expiration date format checks.</p>
+          </details>
         </div>
       </div>
+    </section>
+  </main>
 
-      <div class="card">
-        <div class="card-header ">
-          Julian Date to Calendar Date
-        </div>
-        <div class="card-body">
-          <div class="input-group mb-3">
-            <label for="julian-date" class="input-group-text">Julian Date</label>
-            <input type="number" id="julian-date" class="form-control" placeholder="Enter Julian Date" step="0.0001" onchange="julianToDate()">
-          </div>
-          <div class="input-group mb-3">
-            <label for="modified-julian" class="input-group-text">Modified Julian Date</label>
-            <input type="number" id="modified-julian" class="form-control" placeholder="Enter MJD" step="0.0001" onchange="modifiedJulianToDate()">
-          </div>
-          <div class="result-box">
-            <div class="result-item">
-              <span class="label">Calendar Date:</span>
-              <span class="value"><strong><span id="calendar-date-result">-</span></strong></span>
-            </div>
-            <div class="result-item">
-              <span class="label">Era:</span>
-              <span class="value"><strong><span id="era-result">AD</span></strong></span>
-            </div>
-            <div class="result-item">
-              <span class="label">UTC Time:</span>
-              <span class="value"><strong><span id="utc-time-result">-</span></strong></span>
-            </div>
-          </div>
-        </div>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in - smart calculators and converters for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="../index.html">Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
       </div>
     </div>
-  </div>
-  
-  <!-- First row second column -->
-  <div class="col-md-6 d-none d-md-block">
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <!-- All cards follow the same structure with <a> wrapping the content -->
-      <div class="card">
-        <a class="sitetext" href="dayscalculator.html">
-          <div class="card-body labelbody">Days Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="hourcalculator.html">
-          <div class="card-body labelbody">Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="timedurationcalculator.html">
-          <div class="card-body labelbody">Duration Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="agecalculator.html">
-          <div class="card-body labelbody">Age Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="timezonecalculator.html">
-          <div class="card-body labelbody">Timezone Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="birthdaycalculator.html">
-          <div class="card-body labelbody">Birthday Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="weekcalculator.html">
-          <div class="card-body labelbody">Week Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="minutes-hourscalculator.html">
-          <div class="card-body labelbody">Minutes to Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="juliandatecalculator.html">
-          <div class="card-body labelbody">Julian Date Calculator</div>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+  </footer>
 
-  <!--  /second row -->
-   <div class="row mb-05">
-  <!-- First Column -->
-  <div class="col-md-6" >
-    <div class="container mt-5">
-    <div class="fd-calculator-content">
-  <div class="title">
-    <h1>Julian Date Calculator & Converter | Convert Julian and Gregorian Dates</h1>
-  </div>
-  
-  <div class="introduction">
-    <p>Ever seen a strange number like "2460473" in a file and thought, “What date is that?” That’s a Julian Date. With a <strong>Julian Date Calculator</strong>, you can easily convert it to a normal calendar date.</p>
-    <p>Julian Dates are still widely used in astronomy, scientific research, data systems, and packaging labels. A <strong>Julian Date Converter</strong> translates these numbers into human-readable calendar dates—and vice versa.</p>
-  </div>
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
-  <div class="what-is-fd-calculator">
-    <h2>🕰️ What Is a Julian Date?</h2>
-    <p>A Julian Date is a continuous count of days since January 1, 4713 BC. For example, the Julian Date for April 10, 2025, is 2460473.</p>
-    <p>It’s essential for fields that require accurate time tracking, like space exploration or data logging. That’s why a <strong>Julian Day Converter</strong> is still valuable today.</p>
-  </div>
-
-  <div class="how-fd-calculator-works">
-    <h2>🔄 How a Julian Date Converter Works</h2>
-    <p>Using a <strong>Julian Day Calculator</strong>, you can quickly:</p>
-    <ul>
-      <li>Convert calendar date to Julian Date</li>
-      <li>Convert Julian Date to standard Gregorian date</li>
-    </ul>
-    <p>This is where tools like a <strong>Julian Code Date Converter</strong> or <strong>Julian Date to Date Converter</strong> become very handy.</p>
-  </div>
-
-  <div class="why-use-fd-calculator">
-    <h2>🎯 Who Uses Julian Date Converters?</h2>
-    <ul>
-      <li><strong>🔬 Scientists & Astronomers:</strong> They use the <strong>Julian Calendar Converter</strong> for precise time tracking across years.</li>
-      <li><strong>💻 Programmers & Analysts:</strong> Julian formats simplify calculations in data systems.</li>
-      <li><strong>🏭 Manufacturers:</strong> Food and product packaging often include Julian codes like “2025120”—use a <strong>Julian Date Calendar Converter</strong> to decode them.</li>
-    </ul>
-  </div>
-
-  <div class="example-calculation">
-    <h2>🔧 Example: Julian Day to Calendar Date Converter</h2>
-    <p>Got a Julian day like 2460473? Enter it into a <strong>Julian Day to Calendar Date Converter</strong> and get April 10, 2025 instantly.</p>
-    <p>Or convert March 1, 2023, and get 2460000—instantly using a <strong>Julian Date to Date Converter</strong>.</p>
-  </div>
-
-  <div class="factors-affecting-returns">
-    <h2>🛠️ Features of a Julian Date Calculator</h2>
-    <ul>
-      <li>Convert Gregorian to Julian and vice versa</li>
-      <li>Support for Julian Calendar vs. Gregorian Calendar differences</li>
-      <li>Shows Day of Year and Modified Julian Date (MJD)</li>
-      <li>Useful for astronomy, data logging, manufacturing, and more</li>
-    </ul>
-    <h3>🤔 Why Use Julian Date Converters in 2025?</h3>
-    <p>Julian Date Converters remain relevant due to their simplicity, accuracy, and long-term tracking capabilities. They’re crucial for scientific, historical, and legacy systems.</p>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-  <!-- Second Column -->
-  <div class="col-md-6" >
-    <div class="container mt-5 mb-5">
-      <h2 class="mb-4">FAQs</h2>
-      <div id="faqAccordion" class="accordion">
-
-        <!-- FAQ 1 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button class="btn textleft hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                What's the difference between Julian Date and Julian Calendar?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
-            <div class="card-body">
-              The Julian Date is a continuous count of days since 4713 BCE, used mainly in astronomy. The Julian Calendar is an ancient calendar system introduced by Julius Caesar, different from today's Gregorian calendar.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 2 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingTwo">
-            <h5 class="mb-0">
-              <button class="btn textleft hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Why does the Julian Date start in 4713 BCE?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-            <div class="card-body">
-              This starting point was chosen because it's when three major chronological cycles (solar, lunar, and Roman tax) aligned, making it convenient for astronomical calculations.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 3 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingThree">
-            <h5 class="mb-0">
-              <button class="btn textleft hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                What's a Modified Julian Date (MJD)?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-            <div class="card-body">
-              MJD is a simpler version starting from November 17, 1858 (JD 2400000.5). It's commonly used in satellite systems and GPS because it's shorter and easier to work with.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 4 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFour">
-            <h5 class="mb-0">
-              <button class="btn textleft hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                How do I read a Julian Date on food packaging?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-            <div class="card-body">
-              Food packaging often uses a shortened version (like 2025120). The first digit(s) are the year (2025), and the rest are the day of that year (120th day = April 30). Our converter handles these formats automatically.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 5 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFive">
-            <h5 class="mb-0">
-              <button class="btn textleft hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                Can I convert times as well as dates?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes! Julian Dates can include decimal fractions representing time. For example, 2460473.5 would be noon on April 10, 2025 (UTC time).
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 6 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSix">
-            <h5 class="mb-0">
-              <button class="btn textleft hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                Why do astronomers use Julian Dates?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-            <div class="card-body">
-              Julian Dates provide a continuous count unaffected by calendar changes, time zones, or daylight saving time. This makes calculating time intervals between astronomical events much simpler.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 7 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSeven">
-            <h5 class="mb-0">
-              <button class="btn textleft hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                What's the maximum Julian Date this converter supports?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-            <div class="card-body">
-              Our converter handles dates from 4713 BCE to at least 9999 CE, covering all practical needs for historical research and future projections.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 8 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingEight">
-            <h5 class="mb-0">
-              <button class="btn textleft hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                Can I use this for historical dates before 1582?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes, but note that dates before October 1582 follow the Julian calendar (not Gregorian). The converter automatically accounts for this difference when needed.
-            </div>
-          </div>
-        </div>
-
-      </div>
-      
-      <div class="fun-facts mt-5 p-4" style="background-color:#e6f3ff;border-radius:8px;">
-        <h4>🌌 Fun Julian Date Facts</h4>
-        <ul>
-          <li>The Julian Date system was proposed by Joseph Scaliger in 1583</li>
-          <li>NASA uses Julian Dates for all space mission planning</li>
-          <li>The Julian Date hit 2,400,000 on November 17, 1858 (MJD 0)</li>
-          <li>Julian Dates are always in UTC time zone (no DST adjustments)</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
-
-              Back To Home
-
-             </p>
-       </div>
-
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
-      </div>
-  
-  <script>  
-  // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
-
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
-
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-  
-  </script>
     <script>
-  document.addEventListener('DOMContentLoaded', function() {
-  // Load Bootstrap collapse JS only when needed
-  if (window.innerWidth < 768) {
-    const collapseScript = document.createElement('script');
-    collapseScript.src = 'bootstrap-collapse.js';
-    document.head.appendChild(collapseScript);
-  }
-});
-  
-  
+    (function () {
+      const MS_PER_DAY = 86400000;
+      const JD_UNIX_EPOCH = 2440587.5;
+      let chartRows = [];
+
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        todayJulianValue: document.getElementById("todayJulianValue"),
+        todayJdnValue: document.getElementById("todayJdnValue"),
+        todayMjdValue: document.getElementById("todayMjdValue"),
+        calendarDateInput: document.getElementById("calendarDateInput"),
+        calendarTimeInput: document.getElementById("calendarTimeInput"),
+        convertCalendarBtn: document.getElementById("convertCalendarBtn"),
+        jdFromCalendarResult: document.getElementById("jdFromCalendarResult"),
+        jdnFromCalendarResult: document.getElementById("jdnFromCalendarResult"),
+        mjdFromCalendarResult: document.getElementById("mjdFromCalendarResult"),
+        doyFromCalendarResult: document.getElementById("doyFromCalendarResult"),
+        codeFromCalendarResult: document.getElementById("codeFromCalendarResult"),
+        jdInput: document.getElementById("jdInput"),
+        mjdInput: document.getElementById("mjdInput"),
+        convertJulianBtn: document.getElementById("convertJulianBtn"),
+        calendarFromJulianResult: document.getElementById("calendarFromJulianResult"),
+        timeFromJulianResult: document.getElementById("timeFromJulianResult"),
+        doyFromJulianResult: document.getElementById("doyFromJulianResult"),
+        unixFromJulianResult: document.getElementById("unixFromJulianResult"),
+        decoderType: document.getElementById("decoderType"),
+        decoderCodeInput: document.getElementById("decoderCodeInput"),
+        decoderCenturyInput: document.getElementById("decoderCenturyInput"),
+        decoderYearInput: document.getElementById("decoderYearInput"),
+        decodeCodeBtn: document.getElementById("decodeCodeBtn"),
+        decodedDateResult: document.getElementById("decodedDateResult"),
+        decodedDoyResult: document.getElementById("decodedDoyResult"),
+        decodedJdResult: document.getElementById("decodedJdResult"),
+        unixInput: document.getElementById("unixInput"),
+        unixMode: document.getElementById("unixMode"),
+        convertUnixBtn: document.getElementById("convertUnixBtn"),
+        dateFromUnixResult: document.getElementById("dateFromUnixResult"),
+        jdFromUnixResult: document.getElementById("jdFromUnixResult"),
+        mjdFromUnixResult: document.getElementById("mjdFromUnixResult"),
+        chartYearInput: document.getElementById("chartYearInput"),
+        chartFilterInput: document.getElementById("chartFilterInput"),
+        generateChartBtn: document.getElementById("generateChartBtn"),
+        downloadChartBtn: document.getElementById("downloadChartBtn"),
+        printChartBtn: document.getElementById("printChartBtn"),
+        chartTableBody: document.getElementById("chartTableBody")
+      };
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) {
+          return;
+        }
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 940) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+      }
+
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) {
+          return;
+        }
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
+
+      function pad2(value) {
+        return String(value).padStart(2, "0");
+      }
+
+      function pad3(value) {
+        return String(value).padStart(3, "0");
+      }
+
+      function isLeapYear(year) {
+        return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+      }
+
+      function daysInYear(year) {
+        return isLeapYear(year) ? 366 : 365;
+      }
+
+      function jdFromDate(date) {
+        return date.getTime() / MS_PER_DAY + JD_UNIX_EPOCH;
+      }
+
+      function dateFromJd(jd) {
+        return new Date((jd - JD_UNIX_EPOCH) * MS_PER_DAY);
+      }
+
+      function dayOfYearUTC(date) {
+        const year = date.getUTCFullYear();
+        const start = Date.UTC(year, 0, 1);
+        const current = Date.UTC(year, date.getUTCMonth(), date.getUTCDate());
+        return Math.floor((current - start) / MS_PER_DAY) + 1;
+      }
+
+      function toYyddd(date) {
+        const year = date.getUTCFullYear();
+        return pad2(year % 100) + pad3(dayOfYearUTC(date));
+      }
+
+      function parseDateAndTime(dateStr, timeStr) {
+        if (!dateStr) {
+          return null;
+        }
+        const parts = dateStr.split("-").map(Number);
+        if (parts.length !== 3 || parts.some(function (value) { return !Number.isFinite(value); })) {
+          return null;
+        }
+        let hours = 0;
+        let minutes = 0;
+        if (timeStr) {
+          const timeParts = timeStr.split(":").map(Number);
+          if (timeParts.length >= 2) {
+            hours = Number.isFinite(timeParts[0]) ? timeParts[0] : 0;
+            minutes = Number.isFinite(timeParts[1]) ? timeParts[1] : 0;
+          }
+        }
+        const date = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2], hours, minutes, 0));
+        return Number.isNaN(date.getTime()) ? null : date;
+      }
+
+      function formatDateUTC(date) {
+        return date.toLocaleDateString("en-US", {
+          timeZone: "UTC",
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        });
+      }
+
+      function formatTimeUTC(date) {
+        return date.toLocaleTimeString("en-US", {
+          timeZone: "UTC",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false
+        }) + " UTC";
+      }
+
+      function dateFromYearDay(year, dayNumber) {
+        if (!Number.isInteger(year) || !Number.isInteger(dayNumber)) {
+          return null;
+        }
+        if (year < 1 || dayNumber < 1 || dayNumber > daysInYear(year)) {
+          return null;
+        }
+        return new Date(Date.UTC(year, 0, dayNumber));
+      }
+
+      function updateTodaySnapshot() {
+        const now = new Date();
+        const jd = jdFromDate(now);
+        elements.todayJulianValue.textContent = jd.toFixed(6);
+        elements.todayJdnValue.textContent = String(Math.floor(jd + 0.5));
+        elements.todayMjdValue.textContent = (jd - 2400000.5).toFixed(6);
+      }
+
+      function convertCalendarToJulian() {
+        const inputDate = parseDateAndTime(elements.calendarDateInput.value, elements.calendarTimeInput.value);
+        if (!inputDate) {
+          return;
+        }
+        const jd = jdFromDate(inputDate);
+        elements.jdFromCalendarResult.textContent = jd.toFixed(6);
+        elements.jdnFromCalendarResult.textContent = String(Math.floor(jd + 0.5));
+        elements.mjdFromCalendarResult.textContent = (jd - 2400000.5).toFixed(6);
+        elements.doyFromCalendarResult.textContent = String(dayOfYearUTC(inputDate));
+        elements.codeFromCalendarResult.textContent = toYyddd(inputDate);
+      }
+
+      function convertJulianToCalendar() {
+        const jdText = (elements.jdInput.value || "").trim();
+        const mjdText = (elements.mjdInput.value || "").trim();
+        let jd = Number.NaN;
+
+        if (jdText !== "") {
+          jd = Number(jdText);
+        } else if (mjdText !== "") {
+          jd = Number(mjdText) + 2400000.5;
+          elements.jdInput.value = jd.toFixed(6);
+        }
+        if (!Number.isFinite(jd)) {
+          return;
+        }
+        const date = dateFromJd(jd);
+        if (Number.isNaN(date.getTime())) {
+          return;
+        }
+
+        elements.mjdInput.value = (jd - 2400000.5).toFixed(6);
+        elements.calendarFromJulianResult.textContent = formatDateUTC(date);
+        elements.timeFromJulianResult.textContent = formatTimeUTC(date);
+        elements.doyFromJulianResult.textContent = String(dayOfYearUTC(date));
+        elements.unixFromJulianResult.textContent = String(Math.round(date.getTime() / 1000));
+      }
+
+      function decodeJulianCode() {
+        const type = elements.decoderType.value;
+        const rawCode = (elements.decoderCodeInput.value || "").trim();
+        if (!rawCode) {
+          return;
+        }
+
+        const numericCode = rawCode.replace(/\D/g, "");
+        let year;
+        let dayNumber;
+
+        if (type === "yyddd") {
+          if (numericCode.length !== 5) {
+            elements.decodedDateResult.textContent = "Invalid 5 digit code";
+            elements.decodedDoyResult.textContent = "-";
+            elements.decodedJdResult.textContent = "-";
+            return;
+          }
+          year = Number(elements.decoderCenturyInput.value) + Number(numericCode.slice(0, 2));
+          dayNumber = Number(numericCode.slice(2));
+        } else {
+          if (numericCode.length < 1 || numericCode.length > 3) {
+            elements.decodedDateResult.textContent = "Invalid 3 digit code";
+            elements.decodedDoyResult.textContent = "-";
+            elements.decodedJdResult.textContent = "-";
+            return;
+          }
+          year = Number(elements.decoderYearInput.value);
+          dayNumber = Number(numericCode);
+        }
+
+        const decodedDate = dateFromYearDay(year, dayNumber);
+        if (!decodedDate) {
+          elements.decodedDateResult.textContent = "Invalid year/day combination";
+          elements.decodedDoyResult.textContent = "-";
+          elements.decodedJdResult.textContent = "-";
+          return;
+        }
+
+        elements.decodedDateResult.textContent = formatDateUTC(decodedDate);
+        elements.decodedDoyResult.textContent = year + " / Day " + dayNumber;
+        elements.decodedJdResult.textContent = jdFromDate(decodedDate).toFixed(6);
+      }
+
+      function convertUnixToJulian() {
+        const unixText = (elements.unixInput.value || "").trim();
+        if (unixText === "") {
+          return;
+        }
+        const raw = Number(unixText);
+        if (!Number.isFinite(raw)) {
+          return;
+        }
+        const mode = elements.unixMode.value;
+        const milliseconds = mode === "seconds" ? raw * 1000 : (mode === "milliseconds" ? raw : (Math.abs(raw) > 1000000000000 ? raw : raw * 1000));
+        const date = new Date(milliseconds);
+        if (Number.isNaN(date.getTime())) {
+          return;
+        }
+        const jd = jdFromDate(date);
+        elements.dateFromUnixResult.textContent = formatDateUTC(date) + ", " + formatTimeUTC(date);
+        elements.jdFromUnixResult.textContent = jd.toFixed(6);
+        elements.mjdFromUnixResult.textContent = (jd - 2400000.5).toFixed(6);
+      }
+
+      function generateChartRows() {
+        const year = Math.round(Number(elements.chartYearInput.value));
+        if (!Number.isFinite(year) || year < 1) {
+          return;
+        }
+        const filter = (elements.chartFilterInput.value || "").trim().toLowerCase();
+        const totalDays = daysInYear(year);
+        const rows = [];
+        const htmlRows = [];
+
+        for (let day = 1; day <= totalDays; day += 1) {
+          const date = dateFromYearDay(year, day);
+          const dateLabel = date.toLocaleDateString("en-US", {
+            timeZone: "UTC",
+            year: "numeric",
+            month: "short",
+            day: "2-digit"
+          });
+
+          if (filter && dateLabel.toLowerCase().indexOf(filter) === -1) {
+            continue;
+          }
+
+          const jd = jdFromDate(date);
+          const row = {
+            dateLabel: dateLabel,
+            dayOfYear: day,
+            jdn: Math.floor(jd + 0.5),
+            jd: jd.toFixed(6),
+            yyddd: toYyddd(date)
+          };
+          rows.push(row);
+          htmlRows.push(
+            "<tr>" +
+              "<td>" + row.dateLabel + "</td>" +
+              "<td>" + row.dayOfYear + "</td>" +
+              "<td>" + row.jdn + "</td>" +
+              "<td>" + row.jd + "</td>" +
+              "<td>" + row.yyddd + "</td>" +
+            "</tr>"
+          );
+        }
+
+        chartRows = rows;
+        elements.chartTableBody.innerHTML = htmlRows.join("");
+      }
+
+      function downloadChartCsv() {
+        if (!chartRows || chartRows.length === 0) {
+          return;
+        }
+        const headers = ["Date (UTC)", "Day of Year", "Julian Day Number", "Julian Date", "YYDDD Code"];
+        const rows = chartRows.map(function (row) {
+          return [row.dateLabel, row.dayOfYear, row.jdn, row.jd, row.yyddd].join(",");
+        });
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "julian-date-chart-" + elements.chartYearInput.value + ".csv";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }
+
+      function setDefaults() {
+        const now = new Date();
+        const yyyy = now.getUTCFullYear();
+        const mm = pad2(now.getUTCMonth() + 1);
+        const dd = pad2(now.getUTCDate());
+        const hh = pad2(now.getUTCHours());
+        const min = pad2(now.getUTCMinutes());
+        elements.calendarDateInput.value = yyyy + "-" + mm + "-" + dd;
+        elements.calendarTimeInput.value = hh + ":" + min;
+        elements.chartYearInput.value = "2026";
+        elements.decoderYearInput.value = String(yyyy);
+      }
+
+      function wireEvents() {
+        elements.convertCalendarBtn.addEventListener("click", convertCalendarToJulian);
+        elements.convertJulianBtn.addEventListener("click", convertJulianToCalendar);
+        elements.decodeCodeBtn.addEventListener("click", decodeJulianCode);
+        elements.convertUnixBtn.addEventListener("click", convertUnixToJulian);
+        elements.generateChartBtn.addEventListener("click", generateChartRows);
+        elements.downloadChartBtn.addEventListener("click", downloadChartCsv);
+        elements.printChartBtn.addEventListener("click", function () {
+          window.print();
+        });
+        elements.calendarDateInput.addEventListener("change", convertCalendarToJulian);
+        elements.calendarTimeInput.addEventListener("change", convertCalendarToJulian);
+        elements.jdInput.addEventListener("change", convertJulianToCalendar);
+        elements.mjdInput.addEventListener("change", convertJulianToCalendar);
+        elements.decoderType.addEventListener("change", decodeJulianCode);
+      }
+
+      toggleNav();
+      setupBackToTop();
+      setDefaults();
+      wireEvents();
+      updateTodaySnapshot();
+      convertCalendarToJulian();
+      generateChartRows();
+      window.setInterval(updateTodaySnapshot, 30000);
+    })();
+  </script><script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+      authDomain: "instacalc-40640.firebaseapp.com",
+      projectId: "instacalc-40640",
+      storageBucket: "instacalc-40640.firebasestorage.app",
+      messagingSenderId: "720029503645",
+      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+      measurementId: "G-J0ZWXR3T5P"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
   </script>
-      <script>
-          
-        // Set default date to today
-  window.onload = function() {
-    const today = new Date();
-    document.getElementById('calendar-date').valueAsDate = today;
-    dateToJulian();
-  };
-
-  // Convert Calendar Date to Julian Date
-  function dateToJulian() {
-    const dateInput = document.getElementById('calendar-date');
-    const date = new Date(dateInput.value);
-    const isBC = document.getElementById('bc-era').checked;
-    
-    if (isNaN(date.getTime())) return;
-    
-    // Calculate Julian Date
-    let year = date.getFullYear();
-    if (isBC) {
-      year = 1 - year; // Convert BC to astronomical year (1 BC = 0, 2 BC = -1, etc.)
-    }
-    
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
-    
-    // Algorithm for Julian Date conversion
-    const a = Math.floor((14 - month) / 12);
-    const y = year + 4800 - a;
-    const m = month + 12 * a - 3;
-    
-    let jd = day + Math.floor((153 * m + 2) / 5) + 
-             365 * y + Math.floor(y / 4) - 
-             Math.floor(y / 100) + Math.floor(y / 400) - 
-             32045;
-    
-    // Add fractional day
-    const dayFraction = (hours + (minutes + seconds/60)/60)/24;
-    jd += dayFraction;
-    
-    // Modified Julian Date (JD - 2400000.5)
-    const mjd = jd - 2400000.5;
-    
-    document.getElementById('julian-date-result').textContent = jd.toFixed(6);
-    document.getElementById('modified-julian-result').textContent = mjd.toFixed(6);
-  }
-
-  // Convert Julian Date to Calendar Date
-  function julianToDate() {
-    const jd = parseFloat(document.getElementById('julian-date').value);
-    if (isNaN(jd)) return;
-    
-    const date = julianToCalendar(jd);
-    updateDateResults(date);
-  }
-
-  // Convert Modified Julian Date to Calendar Date
-  function modifiedJulianToDate() {
-    const mjd = parseFloat(document.getElementById('modified-julian').value);
-    if (isNaN(mjd)) return;
-    
-    // Convert MJD to JD (MJD = JD - 2400000.5)
-    const jd = mjd + 2400000.5;
-    document.getElementById('julian-date').value = jd.toFixed(6);
-    
-    const date = julianToCalendar(jd);
-    updateDateResults(date);
-  }
-
-  // Common function to convert Julian Date to Calendar Date
-  function julianToCalendar(jd) {
-    // Algorithm from Astronomical Algorithms by Jean Meeus
-    jd += 0.5;
-    const Z = Math.floor(jd);
-    const F = jd - Z;
-    
-    let A = Z;
-    if (Z >= 2299161) {
-      const alpha = Math.floor((Z - 1867216.25) / 36524.25);
-      A = Z + 1 + alpha - Math.floor(alpha / 4);
-    }
-    
-    const B = A + 1524;
-    const C = Math.floor((B - 122.1) / 365.25);
-    const D = Math.floor(365.25 * C);
-    const E = Math.floor((B - D) / 30.6001);
-    
-    const day = B - D - Math.floor(30.6001 * E) + F;
-    const month = (E < 14) ? E - 1 : E - 13;
-    let year = (month > 2) ? C - 4716 : C - 4715;
-    
-    // Determine if BC
-    let isBC = false;
-    if (year <= 0) {
-      isBC = true;
-      year = 1 - year;
-    }
-    
-    // Update the era radio buttons
-    document.getElementById('ad-era').checked = !isBC;
-    document.getElementById('bc-era').checked = isBC;
-    
-    // Calculate time components
-    const dayFraction = day - Math.floor(day);
-    const hours = dayFraction * 24;
-    const minutes = (hours - Math.floor(hours)) * 60;
-    const seconds = (minutes - Math.floor(minutes)) * 60;
-    
-    return {
-      date: new Date(
-        year,
-        month - 1,
-        Math.floor(day),
-        Math.floor(hours),
-        Math.floor(minutes),
-        Math.floor(seconds)
-      ),
-      isBC: isBC
-    };
-  }
-
-  // Update the date result displays
-  function updateDateResults(result) {
-    if (isNaN(result.date.getTime())) return;
-    
-    const options = { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      timeZone: 'UTC'
-    };
-    
-    document.getElementById('calendar-date-result').textContent = 
-      result.date.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}) +
-      (result.isBC ? " BC" : " AD");
-    
-    document.getElementById('era-result').textContent = result.isBC ? "BC" : "AD";
-    document.getElementById('utc-time-result').textContent = 
-      result.date.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'UTC'}) + " UTC";
-    
-    // Update the calendar date input
-    const dateInput = document.getElementById('calendar-date');
-    dateInput.valueAsDate = result.date;
-    document.getElementById(result.isBC ? 'bc-era' : 'ad-era').checked = true;
-  }
-
-
-          
-          
-
-          
-          </script>    
-          
-         
-
-      <style>
-          
- .result-item {
-    margin-bottom: 8px;
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
-  }
-  .label {
-    display: inline-block;
-    width: 180px;
-    font-weight: bold;
-  }
-  .card-header {
-    font-weight: bold;
-  }
-  .input-group-text {
-    min-width: 150px;
-  }
-  .form-check-inline {
-    margin-right: 1rem;
-  }
-          
-             
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
-
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
-
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
-            }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
-
-
-          </style>
 </body>
 </html>
+
+
+
