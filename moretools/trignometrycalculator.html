@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Triangle Calculator Online | Sides, Angles, Area, Perimeter & Trigonometry</title>
+<meta name="description" content="Advanced triangle calculator to solve for sides, angles, area, and perimeter using SSS, SAS, ASA, and Right Triangle theorems. Includes sin, cos, and tan trigonometry calculations.">
+<meta name="keywords" content="triangle calculator, right triangle calculator, hypotenuse calculator, trigonometry calculator, sss triangle calculator, sas triangle solver, area of a triangle, sine cosine tangent calculator, pythagorean theorem calculator">
+<meta name="author" content="InstaCalc">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0f6f6b">
+<link rel="icon" type="image/webp" href="../favicon.webp">
+<link rel="canonical" href="https://instacalc.in/moretools/trianglecalculator.html">
+<meta property="og:title" content="Triangle Calculator Online - Solve Sides, Angles & Trig Ratios">
+<meta property="og:description" content="Solve any triangle using SSS, SAS, ASA, or Right Angle methods. Automatically calculates hypotenuse, area, perimeter, sin, cos, and tan.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://instacalc.in/moretools/trianglecalculator.html">
+<meta property="og:image" content="https://instacalc.in/instatheme.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"></noscript>
+<style>
+:root{--bg:#eef6f5;--text:#183335;--soft:#4b6768;--line:#d3e3e1;--card:#fff;--acc:#0f7d78;--acc2:#0c5f5b;--radius:14px;--shadow:0 14px 32px rgba(20,44,46,.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Public Sans",sans-serif;color:var(--text);background:radial-gradient(circle at 10% 8%,#d9ecea 0,transparent 32%),radial-gradient(circle at 88% 15%,#fbe8cb 0,transparent 34%),linear-gradient(180deg,#f8fdfd 0,var(--bg) 42%,#e8f1f0 100%);line-height:1.55;min-height:100vh}
+a{text-decoration:none;color:inherit}
+.container{width:min(1150px,92vw);margin:0 auto}
+.site-header{position:sticky;top:0;z-index:20;background:rgba(238,246,245,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(15,95,93,.18)}
+.header-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:.8rem}
+.brand{display:inline-flex;align-items:center;gap:.6rem;font-family:"Sora",sans-serif;font-weight:700;color:var(--acc2)}
+.brand img{width:42px;height:42px;border-radius:10px;border:2px solid rgba(15,95,93,.16);background:#fff}
+.menu-toggle{width:42px;height:42px;border:1px solid rgba(15,95,93,.22);border-radius:11px;background:#fff;color:var(--acc2);font-size:1.05rem;cursor:pointer}
+.site-nav{position:absolute;top:calc(100% + 8px);left:4vw;right:4vw;display:none;flex-direction:column;gap:.4rem;padding:.7rem;border:1px solid rgba(15,95,93,.2);border-radius:12px;background:#fff;box-shadow:0 15px 30px rgba(0,0,0,.11)}
+.site-nav.open{display:flex}
+.site-nav a{min-height:40px;display:flex;align-items:center;padding:.45rem .7rem;border-radius:10px;font-weight:600;color:var(--soft)}
+.site-nav a:hover{background:rgba(15,125,120,.12);color:var(--acc2)}
+.hero{padding:3rem 0 2rem}
+.hero-grid{display:grid;gap:1rem}
+.hero-copy,.hero-panel{border-radius:20px;box-shadow:var(--shadow)}
+.hero-copy{background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(255,255,255,.72));border:1px solid rgba(15,95,93,.14);padding:1.25rem}
+.eyebrow{display:inline-flex;padding:.26rem .68rem;border-radius:999px;border:1px solid rgba(15,95,93,.25);background:rgba(255,255,255,.78);font-size:.77rem;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--acc2)}
+.hero-copy h1{margin-top:.8rem;font-family:"Sora",sans-serif;font-size:clamp(1.8rem,4.8vw,2.9rem);line-height:1.12;letter-spacing:-.03em;max-width:18ch}
+.hero-copy p{margin-top:.8rem;color:var(--soft);max-width:60ch}
+.hero-panel{padding:1rem;background:linear-gradient(160deg,rgba(12,95,91,.96),rgba(15,125,120,.93));color:#f7fcfc;display:grid;gap:.5rem}
+.hero-panel h2{font-size:1.06rem;font-family:"Sora",sans-serif}
+.hero-point{border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.11);border-radius:10px;padding:.55rem .66rem;font-size:.9rem}
+.section{padding:2.4rem 0;content-visibility:auto;contain-intrinsic-size:860px}
+.calc-wrap{display:grid;gap:1rem}
+.shell,.card{background:rgba(255,255,255,.9);border:1px solid rgba(15,95,93,.14);border-radius:var(--radius);box-shadow:0 12px 28px rgba(15,35,37,.08);padding:1rem}
+.summary{border:1px solid rgba(15,95,93,.15);border-radius:11px;padding:.68rem;background:linear-gradient(115deg,rgba(15,125,120,.13),rgba(250,194,95,.14));display:grid;gap:.2rem}
+.summary small{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+.summary strong{font-family:"Sora",sans-serif;font-size:clamp(1.18rem,2.7vw,1.58rem);color:var(--acc2);word-break:break-word}
+.summary span{font-size:.9rem;color:var(--soft)}
+.mode-switch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem;margin-top:.8rem}
+.mode-btn{min-height:40px;border:1px solid rgba(15,95,93,.22);border-radius:10px;background:#fff;color:var(--soft);font:inherit;font-size:.87rem;font-weight:700;cursor:pointer;padding:.4rem .55rem}
+.mode-btn.active{color:#fff;background:linear-gradient(115deg,var(--acc),#0f9590);border-color:transparent;box-shadow:0 9px 18px rgba(15,125,120,.23)}
+.panel{display:none;margin-top:.8rem;border:1px solid rgba(15,95,93,.11);border-radius:11px;padding:.78rem;background:#fff}
+.panel.active{display:grid;gap:.65rem}
+.panel h3{font-family:"Sora",sans-serif;font-size:1rem}
+.panel p{color:var(--soft);font-size:.9rem}
+.method-toggle{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:.4rem;padding:.55rem .7rem;background:#f7fbfb;border:1px solid rgba(15,95,93,.1);border-radius:10px}
+.method-toggle label{display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.88rem;font-weight:600;color:var(--acc2)}
+.method-toggle input[type="radio"]{accent-color:var(--acc);width:16px;height:16px;cursor:pointer;margin:0}
+.input-grid{display:grid;grid-template-columns:1fr;gap:.6rem}
+.field{display:grid;gap:.32rem}
+.field label{font-size:.82rem;font-weight:700;color:var(--soft)}
+input[type="number"],select{width:100%;min-height:42px;border:1px solid var(--line);border-radius:10px;padding:.48rem .62rem;font:inherit;color:var(--text);background:#fff;outline:none;transition:.2s border-color,.2s box-shadow}
+input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-shadow:0 0 0 3px rgba(15,125,120,.12)}
+.results{display:grid;gap:.45rem}
+.result{border:1px solid rgba(15,95,93,.11);border-radius:10px;background:#f7fbfb;padding:.48rem .6rem;display:flex;justify-content:space-between;align-items:flex-start;gap:.4rem;font-size:.9rem;color:var(--soft)}
+.result strong{color:var(--acc2);text-align:right;word-break:break-word}
+.result.highlight{background:linear-gradient(115deg,rgba(15,125,120,.08),rgba(250,194,95,.1));border-color:rgba(15,125,120,.25)}
+.actions{display:flex;flex-wrap:wrap;gap:.48rem;margin-top:.75rem}
+.btn{min-height:40px;border-radius:10px;padding:.46rem .8rem;border:none;font:inherit;font-weight:700;cursor:pointer}
+.btn-primary{background:linear-gradient(115deg,var(--acc),#0f9690);color:#fff}
+.btn-ghost{border:1px solid rgba(15,95,93,.25);background:rgba(255,255,255,.8);color:var(--acc2)}
+.history{margin-top:.72rem;max-height:220px;overflow:auto;display:grid;gap:.4rem}
+.history-item{border:1px solid rgba(15,95,93,.12);border-radius:10px;background:#fbfdfd;padding:.46rem .56rem;display:grid;gap:.15rem;font-size:.86rem;color:var(--soft)}
+.history-item strong{color:var(--text)}
+.empty{font-size:.9rem;color:var(--soft)}
+.diagram{margin-top:.8rem;border:1px solid rgba(15,95,93,.12);border-radius:12px;background:#fff;padding:.62rem}
+.diagram svg{display:block;width:100%;height:260px;border-radius:10px;background:linear-gradient(180deg,#f8fbfb 0,#eef6f5 100%);border:1px solid rgba(15,95,93,.1)}
+.side-list{list-style:none;display:grid;gap:.42rem;margin-top:.3rem}
+.side-list li{border:1px solid rgba(15,95,93,.12);border-radius:10px;background:#fff;padding:.5rem .6rem;font-size:.9rem;color:var(--soft)}
+.head{max-width:760px;margin-bottom:.9rem}
+.head h2{font-family:"Sora",sans-serif;font-size:clamp(1.4rem,2.1vw,1.95rem);line-height:1.22;letter-spacing:-.02em;margin-bottom:.45rem}
+.head p{color:var(--soft)}
+.grid{display:grid;grid-template-columns:1fr;gap:.8rem}
+.card h3{font-family:"Sora",sans-serif;font-size:1rem;margin-bottom:.35rem}
+.card p{font-size:.93rem;color:var(--soft)}
+.formula{display:inline-block;margin-top:.45rem;padding:.5rem .56rem;border-radius:10px;border:1px solid rgba(15,95,93,.14);background:rgba(15,125,120,.1);font-family:"Sora",sans-serif;color:var(--acc2)}
+.faqs{display:grid;gap:.6rem}
+.faq summary{list-style:none;cursor:pointer;padding:.82rem .9rem;font-weight:700}
+.faq p{padding:0 .9rem .86rem;color:var(--soft);font-size:.92rem}
+.site-footer{margin-top:1rem;border-top:1px solid rgba(15,95,93,.15);background:rgba(233,243,242,.85);padding:1.2rem 0 2.2rem}
+.footer-inner{display:flex;flex-direction:column;gap:.7rem;color:var(--soft)}
+.footer-links{display:flex;flex-wrap:wrap;gap:.45rem .9rem;font-weight:600}
+.top-btn{position:fixed;right:1rem;bottom:1rem;width:42px;height:42px;border:none;border-radius:12px;background:linear-gradient(130deg,var(--acc),#0f9690);color:#fff;font-size:1.03rem;box-shadow:0 13px 24px rgba(15,95,93,.3);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(8px);transition:.24s opacity,.24s transform,.24s visibility;z-index:15}
+.top-btn.show{opacity:1;visibility:visible;transform:translateY(0)}
+.cost-section{border:1px solid rgba(15,95,93,.12);border-radius:10px;padding:.6rem;background:#fbfdfd; margin-top: .8rem;}
+.cost-section h4{font-family:"Sora",sans-serif;font-size:.92rem;margin-bottom:.4rem;color:var(--acc2)}
+@media(min-width:700px){.input-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.mode-switch{grid-template-columns:repeat(4,minmax(0,1fr))}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:980px){.menu-toggle{display:none}.site-nav{position:static;display:flex;flex-direction:row;align-items:center;gap:.25rem;padding:0;border:none;background:transparent;box-shadow:none}.hero-grid{grid-template-columns:1.42fr 1fr}.calc-wrap{grid-template-columns:1.68fr 1fr}}
+@media(max-width:699px){.container{width:min(1150px,94vw)}.hero{padding:2.2rem 0 1.5rem}.hero-copy h1{max-width:none;font-size:clamp(1.52rem,8vw,2.02rem)}.result{flex-direction:column}.result strong{text-align:left}.actions .btn{width:100%}.site-footer{padding-bottom:4.8rem}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand" aria-label="InstaCalc home">
+      <img src="../logo.png" alt="InstaCalc logo" width="42" height="42" decoding="async" fetchpriority="high">
+      <span>InstaCalc.in</span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Toggle navigation">☰</button>
+    <nav class="site-nav" id="mainNav">
+      <a href="../index.html">Home</a>
+      <a href="../aboutus.html">About Us</a>
+      <a href="../contactus.html">Contact Us</a>
+      <a href="../privacypolicy.html">Privacy Policy</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Advanced Geometry Estimator</span>
+        <h1>Triangle Calculator Online: Sides, Angles, Area & Trigonometry</h1>
+        <p>A powerful <strong>triangle calculator</strong> to instantly solve for unknown side lengths, angles, perimeter, and area. Utilize our right triangle calculator mode to automatically find the hypotenuse alongside <strong>sin, cos, and tan</strong> trigonometry ratios.</p>
+      </div>
+      <aside class="hero-panel">
+        <h2>Calculator Capabilities</h2>
+        <div class="hero-point"><strong>Right Triangle:</strong> Solve using Pythagoras and SOH CAH TOA</div>
+        <div class="hero-point"><strong>SSS Method:</strong> Calculate angles given all three side lengths</div>
+        <div class="hero-point"><strong>SAS Method:</strong> Solve given two sides and the included angle</div>
+        <div class="hero-point"><strong>ASA Method:</strong> Solve given two angles and the included side</div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="calculator">
+    <div class="container calc-wrap">
+      <article class="shell">
+        <div class="summary" aria-live="polite">
+          <small>Primary Result: Triangle Area</small>
+          <strong id="primaryValue">-</strong>
+          <span id="primaryContext">Enter values to calculate triangle properties.</span>
+        </div>
+
+        <div class="mode-switch" role="tablist" aria-label="Calculation Methods">
+          <button class="mode-btn active" data-mode="right" role="tab" aria-selected="true">Right Triangle</button>
+          <button class="mode-btn" data-mode="sss" role="tab" aria-selected="false">SSS (Sides)</button>
+          <button class="mode-btn" data-mode="sas" role="tab" aria-selected="false">SAS</button>
+          <button class="mode-btn" data-mode="asa" role="tab" aria-selected="false">ASA</button>
+        </div>
+
+        <section class="panel active" data-panel="right">
+          <h3>Right Triangle Calculator (90°)</h3>
+          <p>Solve for the hypotenuse, angles, and trigonometry ratios.</p>
+          <div class="method-toggle">
+            <label><input type="radio" name="rtMode" value="ab" checked> Two Legs (a, b)</label>
+            <label><input type="radio" name="rtMode" value="ac"> Leg & Hypotenuse (a, c)</label>
+            <label><input type="radio" name="rtMode" value="aA"> Leg & Angle A (a, A°)</label>
+          </div>
+          
+          <div class="input-grid" id="rt-ab-inputs">
+            <div class="field"><label>Leg a (Opposite to A)</label><input type="number" id="rt-a-ab" value="3" min="0" step="0.1"></div>
+            <div class="field"><label>Leg b (Adjacent to A)</label><input type="number" id="rt-b-ab" value="4" min="0" step="0.1"></div>
+          </div>
+          
+          <div class="input-grid" id="rt-ac-inputs" style="display:none;">
+            <div class="field"><label>Leg a (Opposite to A)</label><input type="number" id="rt-a-ac" value="3" min="0" step="0.1"></div>
+            <div class="field"><label>Hypotenuse c</label><input type="number" id="rt-c-ac" value="5" min="0" step="0.1"></div>
+          </div>
+
+          <div class="input-grid" id="rt-aA-inputs" style="display:none;">
+            <div class="field"><label>Leg a (Opposite to A)</label><input type="number" id="rt-a-aA" value="3" min="0" step="0.1"></div>
+            <div class="field"><label>Angle A (Degrees)</label><input type="number" id="rt-A-aA" value="36.87" min="0" max="89.9" step="0.1"></div>
+          </div>
+
+          <div class="results">
+            <div class="result highlight"><span>Hypotenuse c</span><strong id="rt-res-c">-</strong></div>
+            <div class="result"><span>Leg a / Leg b</span><strong id="rt-res-ab">-</strong></div>
+            <div class="result highlight"><span>Angle A / Angle B</span><strong id="rt-res-angles">-</strong></div>
+            <div class="result"><span>Perimeter</span><strong id="rt-res-perim">-</strong></div>
+            <div class="result highlight"><span>sin(A) / cos(A) / tan(A)</span><strong id="rt-res-trig">-</strong></div>
+          </div>
+        </section>
+
+        <section class="panel" data-panel="sss">
+          <h3>Side-Side-Side (SSS) Calculator</h3>
+          <p>Calculate angles and area when all three side lengths are known.</p>
+          <div class="input-grid">
+            <div class="field"><label>Side a</label><input type="number" id="sss-a" value="5" min="0" step="0.1"></div>
+            <div class="field"><label>Side b</label><input type="number" id="sss-b" value="6" min="0" step="0.1"></div>
+            <div class="field"><label>Side c</label><input type="number" id="sss-c" value="7" min="0" step="0.1"></div>
+          </div>
+          <div class="results">
+            <div class="result highlight"><span>Angle A</span><strong id="sss-res-A">-</strong></div>
+            <div class="result"><span>Angle B</span><strong id="sss-res-B">-</strong></div>
+            <div class="result"><span>Angle C</span><strong id="sss-res-C">-</strong></div>
+            <div class="result highlight"><span>Perimeter</span><strong id="sss-res-perim">-</strong></div>
+            <div class="result"><span>Semi-perimeter (s)</span><strong id="sss-res-s">-</strong></div>
+          </div>
+        </section>
+
+        <section class="panel" data-panel="sas">
+          <h3>Side-Angle-Side (SAS) Calculator</h3>
+          <p>Calculate missing values given two sides and the included angle.</p>
+          <div class="input-grid">
+            <div class="field"><label>Side a</label><input type="number" id="sas-a" value="5" min="0" step="0.1"></div>
+            <div class="field"><label>Angle C (Degrees)</label><input type="number" id="sas-C" value="45" min="0" max="179" step="0.1"></div>
+            <div class="field"><label>Side b</label><input type="number" id="sas-b" value="7" min="0" step="0.1"></div>
+          </div>
+          <div class="results">
+            <div class="result highlight"><span>Side c</span><strong id="sas-res-c">-</strong></div>
+            <div class="result"><span>Angle A</span><strong id="sas-res-A">-</strong></div>
+            <div class="result"><span>Angle B</span><strong id="sas-res-B">-</strong></div>
+            <div class="result highlight"><span>Perimeter</span><strong id="sas-res-perim">-</strong></div>
+          </div>
+        </section>
+
+        <section class="panel" data-panel="asa">
+          <h3>Angle-Side-Angle (ASA) Calculator</h3>
+          <p>Calculate missing values given two angles and the included side.</p>
+          <div class="input-grid">
+            <div class="field"><label>Angle A (Degrees)</label><input type="number" id="asa-A" value="40" min="0" max="179" step="0.1"></div>
+            <div class="field"><label>Side c (Between A & B)</label><input type="number" id="asa-c" value="10" min="0" step="0.1"></div>
+            <div class="field"><label>Angle B (Degrees)</label><input type="number" id="asa-B" value="60" min="0" max="179" step="0.1"></div>
+          </div>
+          <div class="results">
+            <div class="result highlight"><span>Angle C</span><strong id="asa-res-C">-</strong></div>
+            <div class="result"><span>Side a</span><strong id="asa-res-a">-</strong></div>
+            <div class="result"><span>Side b</span><strong id="asa-res-b">-</strong></div>
+            <div class="result highlight"><span>Perimeter</span><strong id="asa-res-perim">-</strong></div>
+          </div>
+        </section>
+        
+        <div class="diagram" aria-live="polite">
+          <svg id="liveDiagram" viewBox="0 0 320 260" role="img" aria-label="Live triangle diagram"></svg>
+        </div>
+
+        <div class="cost-section">
+          <h4>Calculation Settings</h4>
+          <div class="input-grid">
+            <div class="field">
+              <label for="decimalPlaces">Decimal Places</label>
+              <select id="decimalPlaces">
+                <option value="1">1</option>
+                <option value="2" selected>2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" id="copyBtn" type="button">Copy Main Result</button>
+          <button class="btn btn-ghost" id="addLogBtn" type="button">Add to Log</button>
+          <button class="btn btn-ghost" id="clearLogBtn" type="button">Clear Log</button>
+        </div>
+        <div class="history" id="history"></div>
+      </article>
+
+      <aside class="shell">
+        <h3>Common Geometry Queries</h3>
+        <ul class="side-list">
+          <li>right triangle hypotenuse calculator</li>
+          <li>pythagorean theorem calculator online</li>
+          <li>how to find the area of a triangle</li>
+          <li>sine cosine tangent calculator</li>
+          <li>sss triangle calculator steps</li>
+          <li>sas triangle solver formulas</li>
+          <li>how to calculate angles of a right triangle</li>
+          <li>law of sines and cosines calculator</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="head">
+        <h2>Triangle Formulas & Trigonometry Mathematics</h2>
+        <p>Understanding the backend geometry formulas helps verify your manual calculations against our triangle calculator.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>Pythagorean Theorem (Right Triangle)</h3>
+          <p>Used to find the hypotenuse (c) or missing leg of a right triangle when two sides are known.</p>
+          <div class="formula">a² + b² = c²</div>
+        </article>
+        <article class="card">
+          <h3>Basic Trigonometry (SOH CAH TOA)</h3>
+          <p>Relates the angles of a right triangle to the ratios of its side lengths.</p>
+          <div class="formula">sin(A) = opp/hyp | cos(A) = adj/hyp</div>
+        </article>
+        <article class="card">
+          <h3>Law of Cosines (SAS & SSS)</h3>
+          <p>Used to find a missing side when two sides and the included angle are known, or to find angles when all sides are known.</p>
+          <div class="formula">c² = a² + b² - 2ab · cos(C)</div>
+        </article>
+        <article class="card">
+          <h3>Heron's Formula (Area from SSS)</h3>
+          <p>Calculates the area of any triangle given all three side lengths. 's' is the semi-perimeter.</p>
+          <div class="formula">Area = √(s(s-a)(s-b)(s-c))</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="head"><h2>Geometry & Trigonometry FAQ</h2></div>
+      <div class="faqs">
+        <details class="faq card"><summary>How do I calculate the hypotenuse of a right triangle?</summary><p>Using the Pythagorean theorem (a² + b² = c²), square the lengths of the two smaller sides (legs), add them together, and then find the square root of that sum to get the hypotenuse length (c).</p></details>
+        <details class="faq card"><summary>What do SSS, SAS, and ASA mean?</summary><p>These are congruency postulates determining what information is known about a triangle. <strong>SSS</strong> (Side-Side-Side) means you know all three lengths. <strong>SAS</strong> (Side-Angle-Side) means you know two sides and the angle between them. <strong>ASA</strong> (Angle-Side-Angle) means you know two angles and the side connecting them.</p></details>
+        <details class="faq card"><summary>How does the sine cosine tangent calculator work?</summary><p>In a right triangle, Trigonometric ratios compare the lengths of specific sides. <strong>Sine (sin)</strong> is the Opposite side divided by the Hypotenuse. <strong>Cosine (cos)</strong> is the Adjacent side divided by the Hypotenuse. <strong>Tangent (tan)</strong> is Opposite divided by Adjacent.</p></details>
+        <details class="faq card"><summary>Can any three lengths form a valid triangle?</summary><p>No. According to the Triangle Inequality Theorem, the sum of the lengths of any two sides must be strictly greater than the length of the remaining third side (a + b > c). Our SSS calculator automatically checks this rule.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>InstaCalc.in - Smart calculators for geometry, math, and everyday decisions.</p>
+    <div class="footer-links">
+      <a href="../index.html">Home</a>
+      <a href="../aboutus.html">About Us</a>
+      <a href="../contactus.html">Contact Us</a>
+      <a href="../privacypolicy.html">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<button class="top-btn" id="topBtn" type="button" aria-label="Back to top">↑</button>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const els={
+    menuToggle:$("menuToggle"), mainNav:$("mainNav"),
+    modeBtns:[...document.querySelectorAll('.mode-btn')],
+    panels:[...document.querySelectorAll('.panel')],
+    primaryValue:$("primaryValue"), primaryContext:$("primaryContext"),
+    copyBtn:$("copyBtn"), addLogBtn:$("addLogBtn"), clearLogBtn:$("clearLogBtn"),
+    history:$("history"), topBtn:$("topBtn"), liveDiagram:$("liveDiagram")
+  };
+  
+  let mode='right', primary={mode:'right',label:'Area',value:NaN,unit:'',context:''}, log=[];
+
+  // Math Helpers
+  const toRad = deg => deg * (Math.PI / 180);
+  const toDeg = rad => rad * (180 / Math.PI);
+  const num = e => { const v = Number(e.value); return Number.isFinite(v) ? v : NaN; };
+  
+  function getDecimals() {
+    return parseInt($('decimalPlaces').value) || 2;
+  }
+
+  function fmt(v, d=null) {
+    if(!Number.isFinite(v)) return '-';
+    let dec = d !== null ? d : getDecimals();
+    return v.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: dec});
+  }
+
+  function setPrimary(m, label, val, unit, ctx) {
+    primary = {mode:m, label:label, value:val, unit:unit||'', context:ctx||''};
+    els.primaryValue.textContent = Number.isFinite(val) ? fmt(val) + (unit ? ' ' + unit : '') : '-';
+    els.primaryContext.textContent = ctx || 'Enter valid values to calculate.';
+  }
+
+  function resetResults(panelId) {
+    document.querySelectorAll(`#${panelId} .result strong`).forEach(el => el.textContent = '-');
+  }
+
+  // Unified Live Diagram Rendering
+  function drawLiveTriangle(drawMode, a, b, c, angA, angB, angC) {
+    if(!els.liveDiagram) return;
+    if(!(a>0 && b>0 && c>0 && a+b>c && a+c>b && b+c>a)) {
+        els.liveDiagram.innerHTML = '<rect x="14" y="14" width="292" height="232" rx="12" fill="#f4fbfa" stroke="#c7dedc"/><text x="160" y="130" text-anchor="middle" fill="#4b6768" font-size="13">Enter valid values to view diagram.</text>';
+        return;
+    }
+
+    const W = 320, H = 260, P = 45; 
+    let path = "", labels = "", sqPath = "";
+
+    if(drawMode === 'right') {
+        // Explicitly align Right Triangle to the axes
+        // Leg 'b' is horizontal base, Leg 'a' is vertical height
+        let width = b;
+        let height = a;
+        let scale = Math.min((W - 2*P) / width, (H - 2*P) / height);
+        
+        let offsetX = (W - (width * scale)) / 2;
+        let offsetY = (H + (height * scale)) / 2;
+
+        // Angle C is 90 deg at bottom-right
+        let pxA = offsetX;
+        let pyA = offsetY; // bottom-left (Angle A)
+        let pxC = offsetX + b * scale;
+        let pyC = offsetY; // bottom-right (Angle C, 90 deg)
+        let pxB = offsetX + b * scale;
+        let pyB = offsetY - a * scale; // top-right (Angle B)
+
+        path = `<polygon points="${pxA},${pyA} ${pxC},${pyC} ${pxB},${pyB}" fill="#d9f1ef" stroke="#0f7d78" stroke-width="2" stroke-linejoin="round"/>`;
+        
+        // Add 90-degree square marker
+        let sqSize = 15;
+        sqPath = `<polyline points="${pxC-sqSize},${pyC} ${pxC-sqSize},${pyC-sqSize} ${pxC},${pyC-sqSize}" fill="none" stroke="#0f7d78" stroke-width="1.5"/>`;
+
+        labels = `
+            <text x="${(pxA + pxC)/2}" y="${pyA + 20}" text-anchor="middle" fill="#0c5f5b" font-size="12" font-weight="bold">b = ${fmt(b)}</text>
+            <text x="${pxC + 10}" y="${(pyC + pyB)/2}" text-anchor="start" fill="#0c5f5b" font-size="12" font-weight="bold">a = ${fmt(a)}</text>
+            <text x="${(pxA + pxB)/2 - 10}" y="${(pyA + pyB)/2 - 10}" text-anchor="end" fill="#0c5f5b" font-size="12" font-weight="bold">c = ${fmt(c)}</text>
+            <text x="${pxA - 15}" y="${pyA + 5}" text-anchor="end" fill="#0f7d78" font-size="11">A (${fmt(angA)}°)</text>
+            <text x="${pxB + 5}" y="${pyB - 10}" text-anchor="start" fill="#0f7d78" font-size="11">B (${fmt(angB)}°)</text>
+        `;
+    } else {
+        // General Triangle (SSS, SAS, ASA)
+        // Draw with side 'c' as the horizontal base
+        let x = (c*c + b*b - a*a) / (2*c);
+        let y = Math.sqrt(Math.max(0, b*b - x*x));
+
+        let minX = Math.min(0, c, x);
+        let maxX = Math.max(0, c, x);
+        let width = maxX - minX;
+        let height = y;
+
+        let scale = Math.min((W - 2*P) / width, (H - 2*P) / height);
+
+        let offsetX = (W - (width * scale)) / 2 - (minX * scale);
+        let offsetY = (H + (height * scale)) / 2;
+
+        let pxA = 0 * scale + offsetX;
+        let pyA = offsetY;
+        
+        let pxB = c * scale + offsetX;
+        let pyB = offsetY;
+
+        let pxC = x * scale + offsetX;
+        let pyC = offsetY - y * scale;
+
+        path = `<polygon points="${pxA},${pyA} ${pxB},${pyB} ${pxC},${pyC}" fill="#d9f1ef" stroke="#0f7d78" stroke-width="2" stroke-linejoin="round"/>`;
+
+        labels = `
+            <text x="${(pxA + pxB)/2}" y="${(pyA + pyB)/2 + 20}" text-anchor="middle" fill="#0c5f5b" font-size="12" font-weight="bold">c = ${fmt(c)}</text>
+            <text x="${(pxB + pxC)/2 + 10}" y="${(pyB + pyC)/2}" text-anchor="start" fill="#0c5f5b" font-size="12" font-weight="bold">a = ${fmt(a)}</text>
+            <text x="${(pxA + pxC)/2 - 10}" y="${(pyA + pyC)/2}" text-anchor="end" fill="#0c5f5b" font-size="12" font-weight="bold">b = ${fmt(b)}</text>
+            <text x="${pxA - 12}" y="${pyA + 8}" text-anchor="end" fill="#0f7d78" font-size="11">A (${fmt(angA)}°)</text>
+            <text x="${pxB + 12}" y="${pyB + 8}" text-anchor="start" fill="#0f7d78" font-size="11">B (${fmt(angB)}°)</text>
+            <text x="${pxC}" y="${pyC - 10}" text-anchor="middle" fill="#0f7d78" font-size="11">C (${fmt(angC)}°)</text>
+        `;
+    }
+
+    els.liveDiagram.innerHTML = path + sqPath + labels;
+  }
+
+  // Calculators
+  function updateRight() {
+    const inputMode = document.querySelector('input[name="rtMode"]:checked').value;
+    let a, b, c, A, B, area, perim;
+    
+    if(inputMode === 'ab') {
+      a = num($('rt-a-ab')); b = num($('rt-b-ab'));
+      if(!(a>0 && b>0)) { resetResults('right'); drawLiveTriangle('right'); return setPrimary('right','Area',NaN,'','Enter positive leg lengths.'); }
+      c = Math.hypot(a, b);
+      A = toDeg(Math.atan(a/b));
+    } 
+    else if(inputMode === 'ac') {
+      a = num($('rt-a-ac')); c = num($('rt-c-ac'));
+      if(!(a>0 && c>0)) { resetResults('right'); drawLiveTriangle('right'); return setPrimary('right','Area',NaN,'','Enter positive lengths.'); }
+      if(a >= c) { resetResults('right'); drawLiveTriangle('right'); return setPrimary('right','Area',NaN,'','Error: Hypotenuse must be longer than leg.'); }
+      b = Math.sqrt(c*c - a*a);
+      A = toDeg(Math.asin(a/c));
+    } 
+    else if(inputMode === 'aA') {
+      a = num($('rt-a-aA')); A = num($('rt-A-aA'));
+      if(!(a>0 && A>0 && A<90)) { resetResults('right'); drawLiveTriangle('right'); return setPrimary('right','Area',NaN,'','Angle A must be between 0 and 90.'); }
+      b = a / Math.tan(toRad(A));
+      c = a / Math.sin(toRad(A));
+    }
+
+    B = 90 - A;
+    area = 0.5 * a * b;
+    perim = a + b + c;
+
+    $('rt-res-c').textContent = fmt(c);
+    $('rt-res-ab').textContent = `a: ${fmt(a)} | b: ${fmt(b)}`;
+    $('rt-res-angles').textContent = `${fmt(A)}° / ${fmt(B)}°`;
+    $('rt-res-perim').textContent = fmt(perim);
+    
+    let sinA = Math.sin(toRad(A));
+    let cosA = Math.cos(toRad(A));
+    let tanA = Math.tan(toRad(A));
+    $('rt-res-trig').textContent = `${fmt(sinA, 3)} / ${fmt(cosA, 3)} / ${fmt(tanA, 3)}`;
+
+    setPrimary('right', 'Area', area, 'sq units', `Right Triangle: a=${fmt(a)}, b=${fmt(b)}, c=${fmt(c)}`);
+    drawLiveTriangle('right', a, b, c, A, B, 90);
+  }
+
+  function updateSSS() {
+    let a = num($('sss-a')), b = num($('sss-b')), c = num($('sss-c'));
+    if(!(a>0 && b>0 && c>0)) { resetResults('sss'); drawLiveTriangle('general'); return setPrimary('sss','Area',NaN,'','Enter all three sides.'); }
+    
+    if(a+b<=c || a+c<=b || b+c<=a) { 
+        resetResults('sss'); drawLiveTriangle('general'); 
+        return setPrimary('sss','Area',NaN,'','Invalid: Sum of 2 sides must be > 3rd side.'); 
+    }
+
+    let A = toDeg(Math.acos((b*b + c*c - a*a)/(2*b*c)));
+    let B = toDeg(Math.acos((a*a + c*c - b*b)/(2*a*c)));
+    let C = 180 - A - B;
+    
+    let perim = a + b + c;
+    let s = perim / 2;
+    let area = Math.sqrt(s * (s-a) * (s-b) * (s-c));
+
+    $('sss-res-A').textContent = fmt(A) + '°';
+    $('sss-res-B').textContent = fmt(B) + '°';
+    $('sss-res-C').textContent = fmt(C) + '°';
+    $('sss-res-perim').textContent = fmt(perim);
+    $('sss-res-s').textContent = fmt(s);
+
+    setPrimary('sss', 'Area', area, 'sq units', `Angles: ${fmt(A)}°, ${fmt(B)}°, ${fmt(C)}°`);
+    drawLiveTriangle('general', a, b, c, A, B, C);
+  }
+
+  function updateSAS() {
+    let a = num($('sas-a')), C = num($('sas-C')), b = num($('sas-b'));
+    if(!(a>0 && b>0 && C>0 && C<180)) { resetResults('sas'); drawLiveTriangle('general'); return setPrimary('sas','Area',NaN,'','Enter valid sides and an angle < 180°.'); }
+
+    let C_rad = toRad(C);
+    let c = Math.sqrt(a*a + b*b - 2*a*b*Math.cos(C_rad));
+    
+    let A = toDeg(Math.asin((a * Math.sin(C_rad)) / c));
+    let B = 180 - A - C;
+    
+    let perim = a + b + c;
+    let area = 0.5 * a * b * Math.sin(C_rad);
+
+    $('sas-res-c').textContent = fmt(c);
+    $('sas-res-A').textContent = fmt(A) + '°';
+    $('sas-res-B').textContent = fmt(B) + '°';
+    $('sas-res-perim').textContent = fmt(perim);
+
+    setPrimary('sas', 'Area', area, 'sq units', `Side c: ${fmt(c)}, Angles A & B calculated.`);
+    drawLiveTriangle('general', a, b, c, A, B, C);
+  }
+
+  function updateASA() {
+    let A = num($('asa-A')), c = num($('asa-c')), B = num($('asa-B'));
+    if(!(A>0 && B>0 && c>0)) { resetResults('asa'); drawLiveTriangle('general'); return setPrimary('asa','Area',NaN,'','Enter positive values.'); }
+    if(A + B >= 180) { resetResults('asa'); drawLiveTriangle('general'); return setPrimary('asa','Area',NaN,'','Error: Sum of angles A + B must be < 180°.'); }
+
+    let C = 180 - A - B;
+    let a = (c * Math.sin(toRad(A))) / Math.sin(toRad(C));
+    let b = (c * Math.sin(toRad(B))) / Math.sin(toRad(C));
+
+    let perim = a + b + c;
+    let area = (c*c * Math.sin(toRad(A)) * Math.sin(toRad(B))) / (2 * Math.sin(toRad(C)));
+
+    $('asa-res-C').textContent = fmt(C) + '°';
+    $('asa-res-a').textContent = fmt(a);
+    $('asa-res-b').textContent = fmt(b);
+    $('asa-res-perim').textContent = fmt(perim);
+
+    setPrimary('asa', 'Area', area, 'sq units', `Sides a: ${fmt(a)}, b: ${fmt(b)}`);
+    drawLiveTriangle('general', a, b, c, A, B, C);
+  }
+
+  function updateActive() {
+    if(mode === 'right') updateRight();
+    else if(mode === 'sss') updateSSS();
+    else if(mode === 'sas') updateSAS();
+    else if(mode === 'asa') updateASA();
+  }
+
+  function switchMode(m) {
+    mode = m;
+    els.modeBtns.forEach(b => {
+      const on = b.dataset.mode === m;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', String(on));
+    });
+    els.panels.forEach(p => p.classList.toggle('active', p.dataset.panel === m));
+    updateActive();
+  }
+
+  // History & Base UI
+  function saveLog(){ try{ localStorage.setItem('triLog',JSON.stringify(log)); }catch(e){} }
+  function loadLog(){ try{ const raw = localStorage.getItem('triLog'); log = raw?JSON.parse(raw):[]; if(!Array.isArray(log))log=[]; }catch(e){log=[];} }
+  function renderLog(){
+    if(!log.length){ els.history.innerHTML='<div class="empty">No log entries yet. Use "Add to Log".</div>'; return; }
+    els.history.innerHTML = log.slice(-10).reverse().map(e => `<div class="history-item"><small>${e.time}</small><strong>${e.mode}: ${e.value}</strong><span>${e.context}</span></div>`).join('');
+  }
+  function addLog(){
+    if(!Number.isFinite(primary.value)) return;
+    const v = fmt(primary.value) + (primary.unit ? ' ' + primary.unit : '');
+    const rec = {time: new Date().toLocaleString('en-US'), mode: primary.mode, value: v, context: primary.context};
+    const last = log[log.length-1];
+    if(last && last.mode === rec.mode && last.value === rec.value) return;
+    log.push(rec); if(log.length > 40) log = log.slice(-40);
+    saveLog(); renderLog();
+  }
+  function clearLog(){ log=[]; saveLog(); renderLog(); }
+  function copyPrimary(){
+    if(!Number.isFinite(primary.value)) return;
+    const t = `${primary.label}: ${fmt(primary.value)}${primary.unit ? ' ' + primary.unit : ''} | ${primary.context}`;
+    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).catch(()=>{});
+  }
+
+  function setupNav(){
+    els.menuToggle.addEventListener('click', () => {
+      const open = els.mainNav.classList.toggle('open');
+      els.menuToggle.setAttribute('aria-expanded', String(open));
+      els.menuToggle.textContent = open ? '✕' : '☰';
+    });
+    els.mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      if(window.innerWidth < 980){
+        els.mainNav.classList.remove('open');
+        els.menuToggle.setAttribute('aria-expanded', 'false');
+        els.menuToggle.textContent = '☰';
+      }
+    }));
+  }
+  
+  function setupTop(){
+    let ticking = false;
+    const sync = () => { els.topBtn.classList.toggle('show', window.scrollY > 260); ticking = false; };
+    window.addEventListener('scroll', () => { if(ticking) return; ticking = true; window.requestAnimationFrame(sync); }, {passive:true});
+    els.topBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+    sync();
+  }
+
+  function wireInputs(){
+    // Standard inputs & Settings
+    document.querySelectorAll('input[type="number"], select').forEach(e => {
+      e.addEventListener('input', updateActive);
+      e.addEventListener('change', updateActive);
+    });
+    
+    // Right Triangle Toggle
+    document.querySelectorAll('input[type="radio"][name="rtMode"]').forEach(r => {
+      r.addEventListener('change', (e) => {
+         const mode = e.target.value;
+         $('rt-ab-inputs').style.display = mode === 'ab' ? 'grid' : 'none';
+         $('rt-ac-inputs').style.display = mode === 'ac' ? 'grid' : 'none';
+         $('rt-aA-inputs').style.display = mode === 'aA' ? 'grid' : 'none';
+         updateActive();
+      });
+    });
+  }
+
+  setupNav(); setupTop();
+  els.modeBtns.forEach(b => b.addEventListener('click', () => switchMode(b.dataset.mode)));
+  els.copyBtn.addEventListener('click', copyPrimary);
+  els.addLogBtn.addEventListener('click', addLog);
+  els.clearLogBtn.addEventListener('click', clearLog);
+  wireInputs(); loadLog(); renderLog(); switchMode('right');
+})();
+</script>
+</body>
+</html>
