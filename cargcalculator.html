@@ -9,6 +9,7 @@
 <meta name="author" content="InstaCalc">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0f6f6b">
+<meta name="google-adsense-account" content="ca-pub-4943063856769784">
 <link rel="icon" type="image/webp" href="../favicon.webp">
 <link rel="canonical" href="https://instacalc.in/moretools/cagrcalculator.html">
 <meta property="og:title" content="CAGR Calculator Online India - Compound Annual Growth Rate">
@@ -16,11 +17,12 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://instacalc.in/moretools/cagrcalculator.html">
 <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"CAGR Calculator Online India","url":"https://instacalc.in/moretools/cagrcalculator.html","applicationCategory":"FinanceApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"}}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"></noscript>
 
 <style>
 :root{--bg:#eef6f5;--text:#183335;--soft:#4b6768;--line:#d3e3e1;--card:#fff;--acc:#0f7d78;--acc2:#0c5f5b;--radius:14px;--shadow:0 14px 32px rgba(20,44,46,.12)}
@@ -38,13 +40,15 @@ a{text-decoration:none;color:inherit}
 .site-nav a{min-height:40px;display:flex;align-items:center;padding:.45rem .7rem;border-radius:10px;font-weight:600;color:var(--soft)}
 .site-nav a:hover{background:rgba(15,125,120,.12);color:var(--acc2)}
 .hero{padding:3rem 0 2rem}
-.hero-grid{display:grid;gap:1rem}
+.hero-grid{display:grid;gap:1rem;align-items:stretch}
 .hero-copy,.hero-panel{border-radius:20px;box-shadow:var(--shadow)}
-.hero-copy{background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(255,255,255,.72));border:1px solid rgba(15,95,93,.14);padding:1.25rem}
+/* CLS Fix: Min-height locks container sizes before web fonts load */
+.hero-copy{background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(255,255,255,.72));border:1px solid rgba(15,95,93,.14);padding:1.25rem;min-height:280px}
 .eyebrow{display:inline-flex;padding:.26rem .68rem;border-radius:999px;border:1px solid rgba(15,95,93,.25);background:rgba(255,255,255,.78);font-size:.77rem;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--acc2)}
 .hero-copy h1{margin-top:.8rem;font-family:"Sora",sans-serif;font-size:clamp(1.8rem,4.8vw,2.9rem);line-height:1.12;letter-spacing:-.03em;max-width:18ch}
 .hero-copy p{margin-top:.8rem;color:var(--soft);max-width:60ch}
-.hero-panel{padding:1rem;background:linear-gradient(160deg,rgba(12,95,91,.96),rgba(15,125,120,.93));color:#f7fcfc;display:grid;gap:.5rem}
+/* CLS Fix */
+.hero-panel{padding:1rem;background:linear-gradient(160deg,rgba(12,95,91,.96),rgba(15,125,120,.93));color:#f7fcfc;display:grid;gap:.5rem;min-height:280px}
 .hero-panel h2{font-size:1.06rem;font-family:"Sora",sans-serif}
 .hero-point{border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.11);border-radius:10px;padding:.55rem .66rem;font-size:.9rem}
 .section{padding:2.4rem 0;content-visibility:auto;contain-intrinsic-size:860px}
@@ -78,7 +82,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
 .history-item{border:1px solid rgba(15,95,93,.12);border-radius:10px;background:#fbfdfd;padding:.46rem .56rem;display:grid;gap:.15rem;font-size:.86rem;color:var(--soft)}
 .history-item strong{color:var(--text)}
 .diagram{margin-top:.8rem;border:1px solid rgba(15,95,93,.12);border-radius:12px;background:#fff;padding:.62rem}
-.diagram svg{display:block;width:100%;height:260px;border-radius:10px;background:linear-gradient(180deg,#f8fbfb 0,#eef6f5 100%);border:1px solid rgba(15,95,93,.1)}
+.diagram svg{display:block;width:100%;height:200px;border-radius:10px;background:linear-gradient(180deg,#f8fbfb 0,#eef6f5 100%);border:1px solid rgba(15,95,93,.1)}
 .diagram-cap{margin-top:.45rem;font-size:.88rem;color:var(--soft)}
 .empty{font-size:.9rem;color:var(--soft)}
 .side-list{list-style:none;display:grid;gap:.42rem;margin-top:.3rem}
@@ -102,11 +106,15 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
 .cost-section h4{font-family:"Sora",sans-serif;font-size:.92rem;margin-bottom:.4rem;color:var(--acc2)}
 @media(min-width:700px){.input-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.mode-switch{grid-template-columns:repeat(4,minmax(0,1fr))}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(min-width:980px){.menu-toggle{display:none}.site-nav{position:static;display:flex;flex-direction:row;align-items:center;gap:.25rem;padding:0;border:none;background:transparent;box-shadow:none}.hero-grid{grid-template-columns:1.42fr 1fr}.calc-wrap{grid-template-columns:1.68fr 1fr}}
-@media(max-width:699px){.container{width:min(1150px,94vw)}.hero{padding:2.2rem 0 1.5rem}.hero-copy h1{max-width:none;font-size:clamp(1.52rem,8vw,2.02rem)}.result{flex-direction:column}.result strong{text-align:left}.actions .btn{width:100%}.diagram svg{height:210px}.site-footer{padding-bottom:4.8rem}}
+/* CLS Fix: Mobile specific heights */
+@media(max-width:699px){
+  .container{width:min(1150px,94vw)}.hero{padding:2.2rem 0 1.5rem}.hero-copy h1{max-width:none;font-size:clamp(1.52rem,8vw,2.02rem)}.result{flex-direction:column}.result strong{text-align:left}.actions .btn{width:100%}.site-footer{padding-bottom:4.8rem}
+  .hero-copy{min-height:330px} .hero-panel{min-height:350px}
+}
 </style>
 </head>
 <body>
-<header class="site-header">
+<header class="site-header" id="siteHeader">
   <div class="container header-inner">
     <a href="../index.html" class="brand" aria-label="InstaCalc home">
       <img src="../logo.png" alt="InstaCalc logo" width="42" height="42" decoding="async" fetchpriority="high">
@@ -387,28 +395,23 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
     const innerW = W - 2*P;
     const innerH = H - 2*P;
 
-    // Define scales
     const minVal = Math.min(pv, fv);
     const maxVal = Math.max(pv, fv);
     const valRange = maxVal > 0 ? maxVal : 1; 
 
-    // Generate curve points
     const steps = 30;
     let pathD = `M ${P} ${H - P - (pv/valRange)*innerH}`;
     
     for(let i=1; i<=steps; i++) {
         let t = (i/steps) * years;
         let currentVal = pv * Math.pow(1 + rateDecimal, t);
-        
         let x = P + (i/steps) * innerW;
         let y = H - P - (currentVal/valRange) * innerH;
         pathD += ` L ${x.toFixed(2)} ${y.toFixed(2)}`;
     }
 
-    // End points for labels
     const endY = H - P - (fv/valRange) * innerH;
     const startY = H - P - (pv/valRange) * innerH;
-
     const fillPath = `${pathD} L ${W-P} ${H-P} L ${P} ${H-P} Z`;
 
     let svg = `
@@ -420,17 +423,12 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
         </defs>
         <line x1="${P}" y1="${H-P}" x2="${W-P}" y2="${H-P}" stroke="#c7dedc" stroke-width="2"/>
         <line x1="${P}" y1="${P}" x2="${P}" y2="${H-P}" stroke="#c7dedc" stroke-width="2"/>
-        
         <path d="${fillPath}" fill="url(#curveGrad)"/>
-        
         <path d="${pathD}" fill="none" stroke="#0f7d78" stroke-width="3" stroke-linecap="round"/>
-        
         <circle cx="${P}" cy="${startY}" r="4" fill="#0f7d78"/>
         <text x="${P+5}" y="${startY - 8}" fill="#0c5f5b" font-size="10" font-weight="bold">Start</text>
-        
         <circle cx="${W-P}" cy="${endY}" r="4" fill="#0f7d78"/>
         <text x="${W-P}" y="${endY - 8}" text-anchor="end" fill="#0c5f5b" font-size="10" font-weight="bold">${fmtCur(fv,0)}</text>
-        
         <text x="${P}" y="${H-P + 15}" fill="#4b6768" font-size="10">Year 0</text>
         <text x="${W-P}" y="${H-P + 15}" text-anchor="end" fill="#4b6768" font-size="10">Year ${years.toFixed(1)}</text>
     `;
@@ -564,12 +562,17 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
     }));
   }
   
+  // Reflow Fix: Pure passive observer instead of scroll listener
   function setupTop(){
-    let ticking = false;
-    const sync = () => { els.topBtn.classList.toggle('show', window.scrollY > 260); ticking = false; };
-    window.addEventListener('scroll', () => { if(ticking) return; ticking = true; window.requestAnimationFrame(sync); }, {passive:true});
+    if('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        els.topBtn.classList.toggle('show', !entries[0].isIntersecting);
+      }, { threshold: 0 });
+      obs.observe(document.getElementById('siteHeader'));
+    } else {
+      els.topBtn.style.display = 'none'; // fallback for old browsers
+    }
     els.topBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
-    sync();
   }
 
   function wireInputs(){
