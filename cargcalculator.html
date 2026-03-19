@@ -9,7 +9,6 @@
 <meta name="author" content="InstaCalc">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0f6f6b">
-<meta name="google-adsense-account" content="ca-pub-4943063856769784">
 <link rel="icon" type="image/webp" href="../favicon.webp">
 <link rel="canonical" href="https://instacalc.in/moretools/cagrcalculator.html">
 <meta property="og:title" content="CAGR Calculator Online India - Compound Annual Growth Rate">
@@ -21,8 +20,11 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+</noscript>
 
 <style>
 :root{--bg:#eef6f5;--text:#183335;--soft:#4b6768;--line:#d3e3e1;--card:#fff;--acc:#0f7d78;--acc2:#0c5f5b;--radius:14px;--shadow:0 14px 32px rgba(20,44,46,.12)}
@@ -42,22 +44,23 @@ a{text-decoration:none;color:inherit}
 .hero{padding:3rem 0 2rem}
 .hero-grid{display:grid;gap:1rem;align-items:stretch}
 .hero-copy,.hero-panel{border-radius:20px;box-shadow:var(--shadow)}
-/* CLS Fix: Min-height locks container sizes before web fonts load */
-.hero-copy{background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(255,255,255,.72));border:1px solid rgba(15,95,93,.14);padding:1.25rem;min-height:280px}
+.hero-copy{background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(255,255,255,.72));border:1px solid rgba(15,95,93,.14);padding:1.25rem}
 .eyebrow{display:inline-flex;padding:.26rem .68rem;border-radius:999px;border:1px solid rgba(15,95,93,.25);background:rgba(255,255,255,.78);font-size:.77rem;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--acc2)}
 .hero-copy h1{margin-top:.8rem;font-family:"Sora",sans-serif;font-size:clamp(1.8rem,4.8vw,2.9rem);line-height:1.12;letter-spacing:-.03em;max-width:18ch}
 .hero-copy p{margin-top:.8rem;color:var(--soft);max-width:60ch}
-/* CLS Fix */
-.hero-panel{padding:1rem;background:linear-gradient(160deg,rgba(12,95,91,.96),rgba(15,125,120,.93));color:#f7fcfc;display:grid;gap:.5rem;min-height:280px}
+.hero-panel{padding:1rem;background:linear-gradient(160deg,rgba(12,95,91,.96),rgba(15,125,120,.93));color:#f7fcfc;display:grid;gap:.5rem}
 .hero-panel h2{font-size:1.06rem;font-family:"Sora",sans-serif}
 .hero-point{border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.11);border-radius:10px;padding:.55rem .66rem;font-size:.9rem}
 .section{padding:2.4rem 0;content-visibility:auto;contain-intrinsic-size:860px}
 .calc-wrap{display:grid;gap:1rem}
 .shell,.card{background:rgba(255,255,255,.9);border:1px solid rgba(15,95,93,.14);border-radius:var(--radius);box-shadow:0 12px 28px rgba(15,35,37,.08);padding:1rem}
-.summary{border:1px solid rgba(15,95,93,.15);border-radius:11px;padding:.68rem;background:linear-gradient(115deg,rgba(15,125,120,.13),rgba(250,194,95,.14));display:grid;gap:.2rem}
-.summary small{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
-.summary strong{font-family:"Sora",sans-serif;font-size:clamp(1.18rem,2.7vw,1.58rem);color:var(--acc2);word-break:break-word}
+
+/* CLS FIX: Hard lock the summary height so JS text insertion does not shift the page down */
+.summary{border:1px solid rgba(15,95,93,.15);border-radius:11px;padding:1.2rem;background:linear-gradient(115deg,rgba(15,125,120,.13),rgba(250,194,95,.14));display:flex;flex-direction:column;justify-content:center;min-height:140px}
+.summary small{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin-bottom:.2rem}
+.summary strong{font-family:"Sora",sans-serif;font-size:clamp(1.18rem,2.7vw,1.58rem);color:var(--acc2);word-break:break-word;margin-bottom:.2rem}
 .summary span{font-size:.9rem;color:var(--soft)}
+
 .mode-switch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem;margin-top:.8rem}
 .mode-btn{min-height:40px;border:1px solid rgba(15,95,93,.22);border-radius:10px;background:#fff;color:var(--soft);font:inherit;font-size:.87rem;font-weight:700;cursor:pointer;padding:.4rem .55rem}
 .mode-btn.active{color:#fff;background:linear-gradient(115deg,var(--acc),#0f9590);border-color:transparent;box-shadow:0 9px 18px rgba(15,125,120,.23)}
@@ -104,12 +107,33 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
 .top-btn.show{opacity:1;visibility:visible;transform:translateY(0)}
 .cost-section{border:1px solid rgba(15,95,93,.12);border-radius:10px;padding:.6rem;background:#fbfdfd; margin-top: .8rem;}
 .cost-section h4{font-family:"Sora",sans-serif;font-size:.92rem;margin-bottom:.4rem;color:var(--acc2)}
-@media(min-width:700px){.input-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.mode-switch{grid-template-columns:repeat(4,minmax(0,1fr))}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(min-width:980px){.menu-toggle{display:none}.site-nav{position:static;display:flex;flex-direction:row;align-items:center;gap:.25rem;padding:0;border:none;background:transparent;box-shadow:none}.hero-grid{grid-template-columns:1.42fr 1fr}.calc-wrap{grid-template-columns:1.68fr 1fr}}
-/* CLS Fix: Mobile specific heights */
+
+/* DESKTOP LAYOUT */
+@media(min-width:700px){
+  .input-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .mode-switch{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(min-width:980px){
+  .menu-toggle{display:none}
+  .site-nav{position:static;display:flex;flex-direction:row;align-items:center;gap:.25rem;padding:0;border:none;background:transparent;box-shadow:none}
+  .hero-grid{grid-template-columns:1.42fr 1fr; min-height: 330px;} /* CLS FIX: Desktop height lock */
+  .calc-wrap{grid-template-columns:1.68fr 1fr}
+}
+/* MOBILE CLS LOCKS */
+@media(max-width:979px){
+  .container{width:min(1150px,94vw)}
+  .hero{padding:2.2rem 0 1.5rem}
+  .hero-copy h1{max-width:none;font-size:clamp(1.52rem,8vw,2.02rem)}
+  /* CLS FIX: Physically lock heights on mobile so Font-Swap does not trigger shifts */
+  .hero-copy { min-height: 360px; } 
+  .hero-panel { min-height: 400px; }
+}
 @media(max-width:699px){
-  .container{width:min(1150px,94vw)}.hero{padding:2.2rem 0 1.5rem}.hero-copy h1{max-width:none;font-size:clamp(1.52rem,8vw,2.02rem)}.result{flex-direction:column}.result strong{text-align:left}.actions .btn{width:100%}.site-footer{padding-bottom:4.8rem}
-  .hero-copy{min-height:330px} .hero-panel{min-height:350px}
+  .result{flex-direction:column}
+  .result strong{text-align:left}
+  .actions .btn{width:100%}
+  .site-footer{padding-bottom:4.8rem}
 }
 </style>
 </head>
@@ -505,12 +529,10 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
   }
 
   function updateActive() {
-    window.requestAnimationFrame(() => {
-        if(mode === 'cagr') updateCAGR();
-        else if(mode === 'fv') updateFV();
-        else if(mode === 'pv') updatePV();
-        else if(mode === 'time') updateTime();
-    });
+    if(mode === 'cagr') updateCAGR();
+    else if(mode === 'fv') updateFV();
+    else if(mode === 'pv') updatePV();
+    else if(mode === 'time') updateTime();
   }
 
   function switchMode(m) {
@@ -562,7 +584,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
     }));
   }
   
-  // Reflow Fix: Pure passive observer instead of scroll listener
+  // TBT Reflow Fix: Pure passive observer instead of window.onScroll
   function setupTop(){
     if('IntersectionObserver' in window) {
       const obs = new IntersectionObserver(entries => {
@@ -570,7 +592,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
       }, { threshold: 0 });
       obs.observe(document.getElementById('siteHeader'));
     } else {
-      els.topBtn.style.display = 'none'; // fallback for old browsers
+      els.topBtn.style.display = 'none';
     }
     els.topBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
   }
