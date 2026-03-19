@@ -44,7 +44,7 @@ a{text-decoration:none;color:inherit}
 .eyebrow{display:inline-flex;padding:.26rem .68rem;border-radius:999px;border:1px solid rgba(15,95,93,.25);background:rgba(255,255,255,.78);font-size:.77rem;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--acc2)}
 .hero-copy h1{margin-top:.8rem;font-family:"Sora",sans-serif;font-size:clamp(1.8rem,4.8vw,2.9rem);line-height:1.12;letter-spacing:-.03em;max-width:18ch}
 .hero-copy p{margin-top:.8rem;color:var(--soft);max-width:60ch}
-.hero-panel{padding:1rem;background:linear-gradient(160deg,rgba(12,95,91,.96),rgba(15,125,120,.93));color:#f7fcfc;display:grid;gap:.5rem}
+.hero-panel{padding:1rem;background:linear-gradient(160deg,rgba(12,95,91,.96),rgba(15,125,120,.93));color:#f7fcfc;display:grid;gap:.5rem;min-height:280px}
 .hero-panel h2{font-size:1.06rem;font-family:"Sora",sans-serif}
 .hero-point{border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.11);border-radius:10px;padding:.55rem .66rem;font-size:.9rem}
 .section{padding:2.4rem 0;content-visibility:auto;contain-intrinsic-size:860px}
@@ -132,11 +132,11 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
       </div>
       <aside class="hero-panel">
         <h2>Advanced Features</h2>
-        <div class="hero-point"><strong>CAGR Calculator for Mutual Fund & Stocks:</strong> Find the average annualised return rate</div>
-        <div class="hero-point"><strong>Future Value Calculator India:</strong> Project final wealth based on expected CAGR</div>
-        <div class="hero-point"><strong>Reverse CAGR Calculator:</strong> Find the initial investment needed for a specific goal</div>
-        <div class="hero-point"><strong>CAGR vs Absolute Return:</strong> View both metrics simultaneously</div>
-        <div class="hero-point"><strong>Live Growth Chart:</strong> Real-time exponential wealth projection curve</div>
+        <div class="hero-point"><strong>Find CAGR:</strong> Calculate average annual growth rate</div>
+        <div class="hero-point"><strong>Future Value:</strong> Project final wealth based on expected CAGR</div>
+        <div class="hero-point"><strong>Reverse CAGR:</strong> Find initial investment needed for a goal</div>
+        <div class="hero-point"><strong>Time Period:</strong> Find years required to hit target value</div>
+        <div class="hero-point"><strong>Live Growth Chart:</strong> Real-time exponential projection curve</div>
       </aside>
     </div>
   </section>
@@ -228,7 +228,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
             <div class="field">
               <label for="currencySymbol">Currency</label>
               <select id="currencySymbol">
-                <option value="₹">₹ (INR)</option>
+                <option value="₹" selected>₹ (INR)</option>
                 <option value="$">$ (USD)</option>
                 <option value="€">€ (EUR)</option>
                 <option value="£">£ (GBP)</option>
@@ -238,7 +238,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
             <div class="field">
               <label for="numberFormat">Number System</label>
               <select id="numberFormat">
-                <option value="en-IN">Indian (Lakhs/Crores)</option>
+                <option value="en-IN" selected>Indian (Lakhs/Crores)</option>
                 <option value="en-US">Western (Millions/Billions)</option>
               </select>
             </div>
@@ -432,7 +432,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
         <text x="${W-P}" y="${endY - 8}" text-anchor="end" fill="#0c5f5b" font-size="10" font-weight="bold">${fmtCur(fv,0)}</text>
         
         <text x="${P}" y="${H-P + 15}" fill="#4b6768" font-size="10">Year 0</text>
-        <text x="${W-P}" y="${H-P + 15}" text-anchor="end" fill="#4b6768" font-size="10">Year ${years}</text>
+        <text x="${W-P}" y="${H-P + 15}" text-anchor="end" fill="#4b6768" font-size="10">Year ${years.toFixed(1)}</text>
     `;
     
     els.liveDiagram.innerHTML = svg;
@@ -507,10 +507,12 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
   }
 
   function updateActive() {
-    if(mode === 'cagr') updateCAGR();
-    else if(mode === 'fv') updateFV();
-    else if(mode === 'pv') updatePV();
-    else if(mode === 'time') updateTime();
+    window.requestAnimationFrame(() => {
+        if(mode === 'cagr') updateCAGR();
+        else if(mode === 'fv') updateFV();
+        else if(mode === 'pv') updatePV();
+        else if(mode === 'time') updateTime();
+    });
   }
 
   function switchMode(m) {
