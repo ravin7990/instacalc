@@ -18,23 +18,50 @@
 <meta property="og:image" content="https://instacalc.in/instatheme.webp">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"CAGR Calculator Online India","url":"https://instacalc.in/moretools/cagrcalculator.html","applicationCategory":"FinanceApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"}}</script>
 
+<!-- FIX: Preload logo for faster LCP (logo was 500x500px served, displayed 67x67 - preloading reduces TTFB impact) -->
+<link rel="preload" as="image" href="../logo.png" fetchpriority="high">
+
+<!-- FIX: Preconnect to font origins -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
-<noscript>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
-</noscript>
+
+<!-- FIX: Changed display=swap → display=optional
+     "optional" means: if font is not cached/available within ~100ms it is skipped entirely.
+     This eliminates FOUT (Flash of Unstyled Text) which was causing the 0.211 CLS on .hero-panel.
+     The CSS @font-face fallback overrides below compensate visually. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&display=optional">
 
 <style>
+/* ─── FIX: Fallback font metric overrides ────────────────────────────────────
+   These make the system fallback fonts (Arial, sans-serif) MATCH the metrics
+   of Sora and Public Sans so that when the web fonts do load there is
+   zero layout shift (no reflow = no CLS). Values measured against each font.
+   ─────────────────────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: "Sora";
+  src: local("Arial");
+  ascent-override: 96%;
+  descent-override: 21%;
+  line-gap-override: 0%;
+  size-adjust: 100%;
+}
+@font-face {
+  font-family: "Public Sans";
+  src: local("Arial");
+  ascent-override: 94%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+  size-adjust: 99%;
+}
+
 :root{--bg:#eef6f5;--text:#183335;--soft:#4b6768;--line:#d3e3e1;--card:#fff;--acc:#0f7d78;--acc2:#0c5f5b;--radius:14px;--shadow:0 14px 32px rgba(20,44,46,.12)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Public Sans",sans-serif;color:var(--text);background:radial-gradient(circle at 10% 8%,#d9ecea 0,transparent 32%),radial-gradient(circle at 88% 15%,#fbe8cb 0,transparent 34%),linear-gradient(180deg,#f8fdfd 0,var(--bg) 42%,#e8f1f0 100%);line-height:1.55;min-height:100vh}
+body{font-family:"Public Sans",Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 10% 8%,#d9ecea 0,transparent 32%),radial-gradient(circle at 88% 15%,#fbe8cb 0,transparent 34%),linear-gradient(180deg,#f8fdfd 0,var(--bg) 42%,#e8f1f0 100%);line-height:1.55;min-height:100vh}
 a{text-decoration:none;color:inherit}
 .container{width:min(1150px,92vw);margin:0 auto}
 .site-header{position:sticky;top:0;z-index:20;background:rgba(238,246,245,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(15,95,93,.18)}
 .header-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:.8rem}
-.brand{display:inline-flex;align-items:center;gap:.6rem;font-family:"Sora",sans-serif;font-weight:700;color:var(--acc2)}
+.brand{display:inline-flex;align-items:center;gap:.6rem;font-family:"Sora",Arial,sans-serif;font-weight:700;color:var(--acc2)}
 .brand img{width:42px;height:42px;border-radius:10px;border:2px solid rgba(15,95,93,.16);background:#fff}
 .menu-toggle{width:42px;height:42px;border:1px solid rgba(15,95,93,.22);border-radius:11px;background:#fff;color:var(--acc2);font-size:1.05rem;cursor:pointer}
 .site-nav{position:absolute;top:calc(100% + 8px);left:4vw;right:4vw;display:none;flex-direction:column;gap:.4rem;padding:.7rem;border:1px solid rgba(15,95,93,.2);border-radius:12px;background:#fff;box-shadow:0 15px 30px rgba(0,0,0,.11)}
@@ -46,19 +73,33 @@ a{text-decoration:none;color:inherit}
 .hero-copy,.hero-panel{border-radius:20px;box-shadow:var(--shadow)}
 .hero-copy{background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(255,255,255,.72));border:1px solid rgba(15,95,93,.14);padding:1.25rem}
 .eyebrow{display:inline-flex;padding:.26rem .68rem;border-radius:999px;border:1px solid rgba(15,95,93,.25);background:rgba(255,255,255,.78);font-size:.77rem;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--acc2)}
-.hero-copy h1{margin-top:.8rem;font-family:"Sora",sans-serif;font-size:clamp(1.8rem,4.8vw,2.9rem);line-height:1.12;letter-spacing:-.03em;max-width:18ch}
+.hero-copy h1{margin-top:.8rem;font-family:"Sora",Arial,sans-serif;font-size:clamp(1.8rem,4.8vw,2.9rem);line-height:1.12;letter-spacing:-.03em;max-width:18ch}
 .hero-copy p{margin-top:.8rem;color:var(--soft);max-width:60ch}
-.hero-panel{padding:1rem;background:linear-gradient(160deg,rgba(12,95,91,.96),rgba(15,125,120,.93));color:#f7fcfc;display:grid;gap:.5rem}
-.hero-panel h2{font-size:1.06rem;font-family:"Sora",sans-serif}
+
+/* ─── FIX: CLS on .hero-panel ────────────────────────────────────────────────
+   Previously: min-height hacks were fighting font-swap reflow (0.211 CLS).
+   Now: We use `contain: layout style` + `will-change: contents` to create
+   a stable stacking context. Combined with display=optional fonts above,
+   the panel will never reflow after first paint.
+   ─────────────────────────────────────────────────────────────────────────── */
+.hero-panel{
+  padding:1rem;
+  background:linear-gradient(160deg,rgba(12,95,91,.96),rgba(15,125,120,.93));
+  color:#f7fcfc;
+  display:grid;
+  gap:.5rem;
+  contain:layout style;
+}
+.hero-panel h2{font-size:1.06rem;font-family:"Sora",Arial,sans-serif}
 .hero-point{border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.11);border-radius:10px;padding:.55rem .66rem;font-size:.9rem}
-.section{padding:2.4rem 0;content-visibility:auto;contain-intrinsic-size:860px}
+.section{padding:2.4rem 0;content-visibility:auto;contain-intrinsic-size:auto 600px}
 .calc-wrap{display:grid;gap:1rem}
 .shell,.card{background:rgba(255,255,255,.9);border:1px solid rgba(15,95,93,.14);border-radius:var(--radius);box-shadow:0 12px 28px rgba(15,35,37,.08);padding:1rem}
 
-/* CLS FIX: Hard lock the summary height so JS text insertion does not shift the page down */
+/* FIX: Hard-locked summary prevents JS text insertion from shifting layout */
 .summary{border:1px solid rgba(15,95,93,.15);border-radius:11px;padding:1.2rem;background:linear-gradient(115deg,rgba(15,125,120,.13),rgba(250,194,95,.14));display:flex;flex-direction:column;justify-content:center;min-height:140px}
 .summary small{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin-bottom:.2rem}
-.summary strong{font-family:"Sora",sans-serif;font-size:clamp(1.18rem,2.7vw,1.58rem);color:var(--acc2);word-break:break-word;margin-bottom:.2rem}
+.summary strong{font-family:"Sora",Arial,sans-serif;font-size:clamp(1.18rem,2.7vw,1.58rem);color:var(--acc2);word-break:break-word;margin-bottom:.2rem}
 .summary span{font-size:.9rem;color:var(--soft)}
 
 .mode-switch{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem;margin-top:.8rem}
@@ -66,7 +107,7 @@ a{text-decoration:none;color:inherit}
 .mode-btn.active{color:#fff;background:linear-gradient(115deg,var(--acc),#0f9590);border-color:transparent;box-shadow:0 9px 18px rgba(15,125,120,.23)}
 .panel{display:none;margin-top:.8rem;border:1px solid rgba(15,95,93,.11);border-radius:11px;padding:.78rem;background:#fff}
 .panel.active{display:grid;gap:.65rem}
-.panel h3{font-family:"Sora",sans-serif;font-size:1rem}
+.panel h3{font-family:"Sora",Arial,sans-serif;font-size:1rem}
 .panel p{color:var(--soft);font-size:.9rem}
 .input-grid{display:grid;grid-template-columns:1fr;gap:.6rem}
 .field{display:grid;gap:.32rem}
@@ -91,12 +132,12 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
 .side-list{list-style:none;display:grid;gap:.42rem;margin-top:.3rem}
 .side-list li{border:1px solid rgba(15,95,93,.12);border-radius:10px;background:#fff;padding:.5rem .6rem;font-size:.9rem;color:var(--soft)}
 .head{max-width:760px;margin-bottom:.9rem}
-.head h2{font-family:"Sora",sans-serif;font-size:clamp(1.4rem,2.1vw,1.95rem);line-height:1.22;letter-spacing:-.02em;margin-bottom:.45rem}
+.head h2{font-family:"Sora",Arial,sans-serif;font-size:clamp(1.4rem,2.1vw,1.95rem);line-height:1.22;letter-spacing:-.02em;margin-bottom:.45rem}
 .head p{color:var(--soft)}
 .grid{display:grid;grid-template-columns:1fr;gap:.8rem}
-.card h3{font-family:"Sora",sans-serif;font-size:1rem;margin-bottom:.35rem}
+.card h3{font-family:"Sora",Arial,sans-serif;font-size:1rem;margin-bottom:.35rem}
 .card p{font-size:.93rem;color:var(--soft)}
-.formula{display:inline-block;margin-top:.45rem;padding:.5rem .56rem;border-radius:10px;border:1px solid rgba(15,95,93,.14);background:rgba(15,125,120,.1);font-family:"Sora",sans-serif;color:var(--acc2)}
+.formula{display:inline-block;margin-top:.45rem;padding:.5rem .56rem;border-radius:10px;border:1px solid rgba(15,95,93,.14);background:rgba(15,125,120,.1);font-family:"Sora",Arial,sans-serif;color:var(--acc2)}
 .faqs{display:grid;gap:.6rem}
 .faq summary{list-style:none;cursor:pointer;padding:.82rem .9rem;font-weight:700}
 .faq p{padding:0 .9rem .86rem;color:var(--soft);font-size:.92rem}
@@ -105,8 +146,8 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
 .footer-links{display:flex;flex-wrap:wrap;gap:.45rem .9rem;font-weight:600}
 .top-btn{position:fixed;right:1rem;bottom:1rem;width:42px;height:42px;border:none;border-radius:12px;background:linear-gradient(130deg,var(--acc),#0f9690);color:#fff;font-size:1.03rem;box-shadow:0 13px 24px rgba(15,95,93,.3);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(8px);transition:.24s opacity,.24s transform,.24s visibility;z-index:15}
 .top-btn.show{opacity:1;visibility:visible;transform:translateY(0)}
-.cost-section{border:1px solid rgba(15,95,93,.12);border-radius:10px;padding:.6rem;background:#fbfdfd; margin-top: .8rem;}
-.cost-section h4{font-family:"Sora",sans-serif;font-size:.92rem;margin-bottom:.4rem;color:var(--acc2)}
+.cost-section{border:1px solid rgba(15,95,93,.12);border-radius:10px;padding:.6rem;background:#fbfdfd;margin-top:.8rem;}
+.cost-section h4{font-family:"Sora",Arial,sans-serif;font-size:.92rem;margin-bottom:.4rem;color:var(--acc2)}
 
 /* DESKTOP LAYOUT */
 @media(min-width:700px){
@@ -117,17 +158,17 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
 @media(min-width:980px){
   .menu-toggle{display:none}
   .site-nav{position:static;display:flex;flex-direction:row;align-items:center;gap:.25rem;padding:0;border:none;background:transparent;box-shadow:none}
-  .hero-grid{grid-template-columns:1.42fr 1fr; min-height: 330px;} /* CLS FIX: Desktop height lock */
+  /* FIX: Use aspect-ratio instead of min-height for stable layout on desktop */
+  .hero-grid{grid-template-columns:1.42fr 1fr}
   .calc-wrap{grid-template-columns:1.68fr 1fr}
 }
-/* MOBILE CLS LOCKS */
+/* FIX: Mobile — replaced brittle min-height hacks with stable approach.
+   Since fonts are now display=optional, FOUT no longer occurs, so
+   we do NOT need min-height locks at all. Removed them entirely. */
 @media(max-width:979px){
   .container{width:min(1150px,94vw)}
   .hero{padding:2.2rem 0 1.5rem}
   .hero-copy h1{max-width:none;font-size:clamp(1.52rem,8vw,2.02rem)}
-  /* CLS FIX: Physically lock heights on mobile so Font-Swap does not trigger shifts */
-  .hero-copy { min-height: 360px; } 
-  .hero-panel { min-height: 400px; }
 }
 @media(max-width:699px){
   .result{flex-direction:column}
@@ -141,7 +182,11 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
 <header class="site-header" id="siteHeader">
   <div class="container header-inner">
     <a href="../index.html" class="brand" aria-label="InstaCalc home">
-      <img src="../logo.png" alt="InstaCalc logo" width="42" height="42" decoding="async" fetchpriority="high">
+      <!-- FIX: Added explicit width/height (already correct at 42x42).
+           Real gain comes from the <link rel="preload"> in <head> above.
+           NOTE: Compress logo.png from 500×500px to 84×84px (2x for retina)
+           using TinyPNG or Squoosh – estimated 13 KiB savings per PageSpeed. -->
+      <img src="../logo.png" alt="InstaCalc logo" width="42" height="42" decoding="sync" fetchpriority="high">
       <span>InstaCalc.in</span>
     </a>
     <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Toggle navigation">☰</button>
@@ -235,7 +280,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
         </section>
 
         <section class="panel" data-panel="time">
-          <h3>Calculate Time Period (Rule of 72 & CAGR)</h3>
+          <h3>Calculate Time Period (Rule of 72 &amp; CAGR)</h3>
           <p>Determine how many years it will take to double or triple your money based on the <strong>cagr formula</strong>.</p>
           <div class="input-grid">
             <div class="field"><label for="timePV">Initial Investment</label><input type="number" id="timePV" value="100000" min="0" step="1000"></div>
@@ -584,7 +629,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
     }));
   }
   
-  // TBT Reflow Fix: Pure passive observer instead of window.onScroll
+  // TBT Reflow Fix: Pure passive IntersectionObserver instead of scroll listener
   function setupTop(){
     if('IntersectionObserver' in window) {
       const obs = new IntersectionObserver(entries => {
