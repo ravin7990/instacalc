@@ -1,0 +1,1527 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cat Age Calculator - Cat Years to Human Years Converter</title>
+  <meta name="description"
+    content="Use this free Cat Age Calculator to convert cat years to human years instantly with a clear age-stage breakdown and year-wise chart.">
+  <meta name="keywords"
+    content="cat age calculator, cat years to human years, cat age in human years, pet age calculator, kitten age converter">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <link rel="icon" type="image/x-icon" href="favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/catagecalculator.html">
+
+  <meta property="og:title" content="Cat Age Calculator - Cat Years to Human Years Converter">
+  <meta property="og:description"
+    content="Use this free Cat Age Calculator to convert cat years to human years instantly with a clear age-stage breakdown and year-wise chart.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/catagecalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cat Age Calculator - Cat Years to Human Years Converter">
+  <meta name="twitter:description"
+    content="Use this free Cat Age Calculator to convert cat years to human years instantly with a clear age-stage breakdown and year-wise chart.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Cat Age Calculator",
+      "url": "https://instacalc.in/catagecalculator.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "description": "Convert cat years to human years with a practical age-stage guide and year-wise progression.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do you convert cat years to human years?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A common method is: first cat year equals 15 human years, second year adds 9, and every year after adds about 4 human years."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is 1 cat year not equal to 7 human years?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cats mature very quickly in the first two years. Their early growth is faster than a simple 1-to-7 ratio."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can indoor and outdoor cats age differently?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Lifestyle, nutrition, and healthcare affect biological aging, so conversions are approximations and not medical diagnoses."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What cat age is considered senior?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Many vets consider cats around 11 years and above as senior, though individual health differs by breed and care."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this calculator suitable for kittens?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. For kittens under 1 year, the calculator proportionally maps rapid early development for a useful estimate."
+          }
+        }
+      ]
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+
+    /* Simple vs Advanced Toggle Styles */
+    .calculator-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .advanced-only-section {
+      display: none;
+      border-top: 1px dashed var(--line);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      gap: 0.7rem;
+    }
+
+    .advanced-only {
+      display: none;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only-section {
+      display: grid;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only {
+      display: block;
+    }
+
+    .calculator-shell.advanced-mode .result-card.advanced-only {
+      display: block;
+    }
+
+    #toggleViewBtn.active {
+      background: var(--accent-strong);
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc home">
+        <img src="logo.png" alt="InstaCalc logo">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-cat"></i>
+            Pet Age Tool
+          </span>
+          <h1>Cat Age Calculator - Cat Years to Human Years</h1>
+          <p>Convert cat years to human years instantly using a realistic age model. Get human-age equivalent, life stage,
+            and a simple year-wise conversion table in one view.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#cat-age-planner">
+              <i class="fas fa-calculator"></i>
+              Calculate Cat Age
+            </a>
+            <a class="btn btn-ghost" href="duration/agecalculator.html">
+              <i class="fas fa-user-clock"></i>
+              Human Age Calculator
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h2>What You Get</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Cat years to human years conversion</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Life stage classification</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Year-wise age mapping table</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Visual conversion chart</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Copy summary and CSV download</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="cat-age-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="Calculator mode">
+              <a href="catagecalculator.html" class="active">Cat to Human Years</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>Advanced Mode: Off</span>
+            </button>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="catAge">Cat Age (years)</label>
+                <span id="catAgePreview">5.0</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="catAgeRange" min="0.1" max="30" step="0.1" value="5">
+                <input type="number" id="catAge" min="0.1" max="30" step="0.1" value="5">
+              </div>
+            </div>
+
+            <div class="advanced-only-section" id="advancedFields">
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="roundingMode">Result Rounding</label>
+                  </div>
+                  <select id="roundingMode">
+                    <option value="one">1 decimal</option>
+                    <option value="whole">Whole number</option>
+                  </select>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="lifeExpectancy">Expected Cat Lifespan (years)</label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="lifeExpectancyRange" min="12" max="25" step="1" value="15">
+                    <input type="number" id="lifeExpectancy" min="12" max="25" step="1" value="15">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i>
+              Recalculate
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i>
+              Reset Defaults
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i>
+              Copy Summary
+            </button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card positive">
+              <h3>Human Age Equivalent</h3>
+              <div class="result-value" id="humanEquivalentValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Cat Life Stage</h3>
+              <div class="result-value" id="lifeStageValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Next Milestone</h3>
+              <div class="result-value" id="nextMilestoneValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Lifespan Progress</h3>
+              <div class="result-value" id="lifeProgressValue">-</div>
+            </div>
+          </div>
+
+          <div class="goal-status advanced-only">
+            <div class="goal-meta">
+              <span id="goalStatusText">Progress toward expected lifespan.</span>
+              <strong id="goalPercentText">0%</strong>
+            </div>
+            <div class="goal-progress">
+              <div class="goal-progress-bar" id="goalProgressBar"></div>
+            </div>
+          </div>
+
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h3>Cat Age to Human Age Chart</h3>
+              <div class="chart-wrap">
+                <canvas id="growthChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools">
+            <h3>Year-wise Conversion</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
+              <i class="fas fa-file-csv"></i>
+              Download CSV
+            </button>
+          </div>
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>Cat Age (years)</th>
+                  <th>Human Age Equivalent</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>How Conversion Works</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i> First cat year is treated as about 15 human years.</li>
+              <li><i class="fas fa-circle-info"></i> Second cat year adds roughly 9 human years.</li>
+              <li><i class="fas fa-circle-info"></i> Each additional cat year adds about 4 human years.</li>
+              <li><i class="fas fa-circle-info"></i> Final values are estimates and not a veterinary diagnosis.</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Related Calculators</h3>
+            <ul class="link-list">
+              <li><a href="duration/agecalculator.html"><span>Age Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="duration/birthdaycalculator.html"><span>Birthday Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="duration/weekcalculator.html"><span>Week Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="duration/timedurationcalculator.html"><span>Duration Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="index.html"><span>All Calculators</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>Cat Years to Human Years Formula</h2>
+          <p>This calculator uses a common age-conversion model: first year = 15 human years, second year adds 9, and each
+            year after that adds 4. It gives a practical estimate for understanding your cat's life stage.</p>
+          <br>
+          <p>Formula used:<br><code>Human age = 15 (first year) + 9 (second year) + 4 × (cat years - 2)</code> for cats
+            older than 2 years.</p>
+          <br>
+          <p>Use this tool for quick awareness and planning. For medical decisions, always rely on your veterinarian's
+            health assessment.</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>How do you convert cat years to human years? <i class="fas fa-chevron-down"></i></summary>
+            <p>A common method is: first year = 15 human years, second year adds 9, then each additional year adds about 4.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Is one cat year equal to seven human years? <i class="fas fa-chevron-down"></i></summary>
+            <p>No. Cats age much faster in the first two years, so the 1:7 rule is not accurate for early life.</p>
+          </details>
+          <details class="faq-card">
+            <summary>At what age is a cat considered senior? <i class="fas fa-chevron-down"></i></summary>
+            <p>Many cats are considered senior around age 11 and above, though real aging varies by breed and health.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can lifestyle affect cat aging? <i class="fas fa-chevron-down"></i></summary>
+            <p>Yes. Indoor safety, nutrition, preventive care, and genetics all influence how a cat ages.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can I use this for kittens? <i class="fas fa-chevron-down"></i></summary>
+            <p>Yes. The calculator supports fractional cat ages for kittens to estimate early-life human-age equivalent.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in - smart calculators and converters for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </div>
+      <p
+        style="font-size: 0.75rem; color: var(--text-soft); max-width: 800px; line-height: 1.4; opacity: 0.8; margin-top: 0.5rem;">
+        <strong>Disclaimer:</strong> Cat-to-human age values are approximate educational estimates. They do not replace
+        veterinary diagnosis or treatment guidance. For your cat's health concerns, consult a licensed veterinarian.
+      </p>
+    </div>
+  </footer>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script>
+    (function () {
+      const defaults = {
+        catAge: 5,
+        lifeExpectancy: 15,
+        roundingMode: "one"
+      };
+
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        catAge: document.getElementById("catAge"),
+        catAgeRange: document.getElementById("catAgeRange"),
+        lifeExpectancy: document.getElementById("lifeExpectancy"),
+        lifeExpectancyRange: document.getElementById("lifeExpectancyRange"),
+        roundingMode: document.getElementById("roundingMode"),
+        catAgePreview: document.getElementById("catAgePreview"),
+        humanEquivalentValue: document.getElementById("humanEquivalentValue"),
+        lifeStageValue: document.getElementById("lifeStageValue"),
+        nextMilestoneValue: document.getElementById("nextMilestoneValue"),
+        lifeProgressValue: document.getElementById("lifeProgressValue"),
+        goalStatusText: document.getElementById("goalStatusText"),
+        goalPercentText: document.getElementById("goalPercentText"),
+        goalProgressBar: document.getElementById("goalProgressBar"),
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        growthChart: document.getElementById("growthChart")
+      };
+
+      let growthChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) {
+          return;
+        }
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+      }
+
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) {
+          return;
+        }
+        window.addEventListener("scroll", function () {
+          if (window.scrollY > 420) {
+            elements.backToTopBtn.classList.add("show");
+          } else {
+            elements.backToTopBtn.classList.remove("show");
+          }
+        });
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) {
+          return;
+        }
+        const push = function (value) {
+          rangeEl.value = value;
+          numberEl.value = value;
+          calculateAndRender();
+        };
+        rangeEl.addEventListener("input", function () {
+          push(rangeEl.value);
+        });
+        numberEl.addEventListener("input", function () {
+          push(numberEl.value);
+        });
+      }
+
+      function catToHuman(catYears) {
+        if (catYears <= 0) {
+          return 0;
+        }
+        if (catYears <= 1) {
+          return catYears * 15;
+        }
+        if (catYears <= 2) {
+          return 15 + ((catYears - 1) * 9);
+        }
+        return 24 + ((catYears - 2) * 4);
+      }
+
+      function getLifeStage(catYears) {
+        if (catYears < 1) return "Kitten";
+        if (catYears < 2) return "Junior";
+        if (catYears < 7) return "Prime Adult";
+        if (catYears < 11) return "Mature";
+        if (catYears < 15) return "Senior";
+        return "Super Senior";
+      }
+
+      function formatHumanAge(value, mode) {
+        if (mode === "whole") {
+          return String(Math.round(value));
+        }
+        return value.toFixed(1);
+      }
+
+      function getInputs() {
+        const catAge = Number(elements.catAge.value);
+        const lifeExpectancy = Number(elements.lifeExpectancy.value);
+        const roundingMode = elements.roundingMode.value;
+        return {
+          catAge: Number.isFinite(catAge) ? Math.min(Math.max(catAge, 0.1), 30) : defaults.catAge,
+          lifeExpectancy: Number.isFinite(lifeExpectancy) ? Math.min(Math.max(lifeExpectancy, 12), 25) : defaults.lifeExpectancy,
+          roundingMode: roundingMode === "whole" ? "whole" : "one"
+        };
+      }
+
+      function buildProjection(catAge) {
+        const maxYear = Math.max(1, Math.ceil(catAge));
+        const list = [];
+        for (let year = 1; year <= maxYear; year += 1) {
+          list.push({
+            catAge: year,
+            humanAge: catToHuman(year)
+          });
+        }
+        return list;
+      }
+
+      function renderProjectionTable(projection, roundingMode) {
+        if (!elements.projectionTableBody) {
+          return;
+        }
+        elements.projectionTableBody.innerHTML = projection.map(function (row) {
+          return (
+            "<tr>" +
+            "<td>" + row.catAge + "</td>" +
+            "<td>" + formatHumanAge(row.humanAge, roundingMode) + " years</td>" +
+            "</tr>"
+          );
+        }).join("");
+      }
+
+      function renderChart(projection) {
+        if (!window.Chart || !elements.growthChart) {
+          return;
+        }
+
+        const labels = projection.map(function (row) {
+          return "Year " + row.catAge;
+        });
+
+        const humanAges = projection.map(function (row) {
+          return Number(row.humanAge.toFixed(2));
+        });
+
+        if (growthChartInstance) {
+          growthChartInstance.destroy();
+        }
+
+        growthChartInstance = new Chart(elements.growthChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Human age equivalent",
+                data: humanAges,
+                borderColor: "#007f8b",
+                backgroundColor: "rgba(0, 127, 139, 0.18)",
+                fill: true,
+                tension: 0.25,
+                pointRadius: 2.5
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false }
+            }
+          }
+        });
+      }
+
+      function calculateAndRender() {
+        const inputs = getInputs();
+
+        elements.catAge.value = inputs.catAge;
+        elements.catAgeRange.value = inputs.catAge;
+        elements.lifeExpectancy.value = inputs.lifeExpectancy;
+        elements.lifeExpectancyRange.value = inputs.lifeExpectancy;
+
+        const humanAge = catToHuman(inputs.catAge);
+        const lifeStage = getLifeStage(inputs.catAge);
+        const nextCatYear = Math.ceil(inputs.catAge);
+        const nextHumanAge = catToHuman(nextCatYear);
+        const progressPercent = (inputs.catAge / inputs.lifeExpectancy) * 100;
+        const clampedProgress = Math.max(0, Math.min(progressPercent, 100));
+
+        elements.catAgePreview.textContent = inputs.catAge.toFixed(1);
+        elements.humanEquivalentValue.textContent = formatHumanAge(humanAge, inputs.roundingMode) + " years";
+        elements.lifeStageValue.textContent = lifeStage;
+        elements.nextMilestoneValue.textContent = "At cat age " + nextCatYear + ": " + formatHumanAge(nextHumanAge, inputs.roundingMode) + " human years";
+        elements.lifeProgressValue.textContent = progressPercent.toFixed(1) + "%";
+
+        elements.goalStatusText.textContent = "Progress toward expected lifespan of " + inputs.lifeExpectancy + " years";
+        elements.goalPercentText.textContent = progressPercent.toFixed(1) + "%";
+        elements.goalProgressBar.style.width = clampedProgress.toFixed(2) + "%";
+        elements.goalProgressBar.style.background = progressPercent >= 100
+          ? "linear-gradient(110deg, #1f9f67, #1cb67a)"
+          : "linear-gradient(110deg, var(--accent), #00a1b2)";
+
+        const projection = buildProjection(inputs.catAge);
+        lastProjection = projection.slice();
+        renderProjectionTable(projection, inputs.roundingMode);
+        renderChart(projection);
+
+        lastSummaryText =
+          "Cat Age Summary\n" +
+          "Cat age: " + inputs.catAge.toFixed(1) + " years\n" +
+          "Human equivalent: " + formatHumanAge(humanAge, inputs.roundingMode) + " years\n" +
+          "Life stage: " + lifeStage + "\n" +
+          "Lifespan progress: " + progressPercent.toFixed(1) + "% of " + inputs.lifeExpectancy + " years";
+      }
+
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) {
+          return;
+        }
+        const headers = ["Cat Age (years)", "Human Age Equivalent"];
+        const rows = lastProjection.map(function (row) {
+          return [row.catAge, row.humanAge.toFixed(2)].join(",");
+        });
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "cat-age-conversion.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function resetToDefaults() {
+        elements.catAge.value = defaults.catAge;
+        elements.catAgeRange.value = defaults.catAge;
+        elements.lifeExpectancy.value = defaults.lifeExpectancy;
+        elements.lifeExpectancyRange.value = defaults.lifeExpectancy;
+        elements.roundingMode.value = defaults.roundingMode;
+        calculateAndRender();
+      }
+
+      function wireEvents() {
+        syncPair(elements.catAgeRange, elements.catAge);
+        syncPair(elements.lifeExpectancyRange, elements.lifeExpectancy);
+
+        elements.roundingMode.addEventListener("change", calculateAndRender);
+        elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        elements.resetBtn.addEventListener("click", resetToDefaults);
+        elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        elements.toggleViewBtn.addEventListener("click", function () {
+          const shell = document.querySelector(".calculator-shell");
+          const isAdvanced = shell.classList.toggle("advanced-mode");
+          elements.toggleViewBtn.classList.toggle("active", isAdvanced);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvanced ? "Advanced Mode: On" : "Advanced Mode: Off";
+        });
+
+        elements.copySummaryBtn.addEventListener("click", function () {
+          if (!navigator.clipboard || !lastSummaryText) {
+            return;
+          }
+          navigator.clipboard.writeText(lastSummaryText).then(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary';
+            }, 1300);
+          }).catch(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Copy failed';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary';
+            }, 1300);
+          });
+        });
+      }
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      calculateAndRender();
+    })();
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+      authDomain: "instacalc-40640.firebaseapp.com",
+      projectId: "instacalc-40640",
+      storageBucket: "instacalc-40640.firebasestorage.app",
+      messagingSenderId: "720029503645",
+      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+      measurementId: "G-J0ZWXR3T5P"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+  </script>
+</body>
+
+</html>
