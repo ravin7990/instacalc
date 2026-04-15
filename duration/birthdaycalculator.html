@@ -1,779 +1,706 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Birthday Finder & Calculator: Answer "When is My Birthday?" & Calculate Age</title>
-  <meta name="description" content="Wondering what is my birthday date or when is my birthday? Use our Birthday Finder & Calculator to determine your exact age and see how many days until your next birthday.">
 
-  <meta charset="utf-8">
-     <!-- Basic Favicons -->
-    <link rel="icon" type="image/x-icon" href="favicon.webp">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-adsense-account" content="ca-pub-4943063856769784">
-    <link rel="canonical" href="https://instacalc.in/duration/birthdaycalculator.html" />
-    <!-- Preconnect to external domains -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Premium Birthday Calculator | Countdown, Milestones & Fun Facts</title>
+  <meta name="description"
+    content="The most detailed birthday calculator. Track your next birthday countdown, discover your birth flower and stone, find your golden birthday year, and view upcoming age milestones.">
+  <meta name="keywords"
+    content="birthday calculator, days until birthday, next birthday countdown, birth flower, golden birthday, chinese zodiac, age milestones">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/duration/birthdaycalculator.html">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+
   <style>
-       /* Critical CSS for above-the-fold content with CLS prevention */
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
     }
-    .navbar {
-      background-color: #343a40;
-      padding: 0.5rem 1rem;
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .site-header {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
     }
-    .navbar-brand {
+
+    .header-inner {
+      min-height: 74px;
       display: flex;
       align-items: center;
-      height: 50px; /* Fixed height to prevent navbar shift */
+      justify-content: space-between;
+      gap: 0.8rem;
     }
-    .navbar-brand img {
-      width: 50px;
-      height: 50px;
-      margin-right: 0.5rem;
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
     }
-    .navbar-brand h6 {
-      color: white;
-      margin: 0;
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
     }
-    
-    /* Calculator container with fixed dimensions */
-    .calculator-container {
-      padding: 1rem;
-      min-height: 450px; /* Reserve space for calculator */
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
     }
-    .calculator-container h2 {
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
-    .input-group {
-      margin-bottom: 1rem;
-    }
-    .input-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-    
-    /* Result box with fixed height */
-    .result-box {
-      background: #eef;
-      padding: 1rem;
-      border-radius: 5px;
-      margin-top: 1rem;
-      min-height: 200px; /* Reserve space for results */
-    }
-    .result-item {
-      margin-bottom: 0.5rem;
-      min-height: 24px; /* Prevent item height changes */
-    }
-    
-    /* Layout stabilization */
-    img, input, button, textarea, select {
-      max-width: 100%;
-    }
-    input[type="date"] {
-      width: 100%;
-      padding: 0.5rem;
-      box-sizing: border-box;
-      height: 38px; /* Fixed height for inputs */
-    }
-    
-    /* Reserve space for right column */
-    .right-column-placeholder {
-      min-height: 1px; /* Will be replaced by actual content */
-    }
-    
-    /* Deferred styles */
-    .non-critical-css {
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
       display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
     }
-    </style>
 
-    <!-- Preload non-critical resources -->
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"></noscript>
-  
-  <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="style.css"></noscript>
-  
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Trirong" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong"></noscript>
-  
-  <!-- Initial data script to prevent layout shifts -->
-  <script>
-    // Set initial data before DOM loads to prevent CLS
-    window.__PRELOADED_DATA__ = {
-      daysUntil: 365,
-      nextBirthday: new Date(new Date().getFullYear() + 1, 0, 1).toLocaleDateString('en-US', { 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      }),
-      nextAge: 1,
-      birthdayDay: new Date().toLocaleDateString('en-US', { weekday: 'long' }),
-      birthstone: "Garnet"
-    };
-  </script>
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, var(--accent-strong), #0ca4b4);
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .sidebar-card,
+    .grid-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      outline: none;
+    }
+
+    .result-grid {
+      display: grid;
+      gap: 0.62rem;
+      margin-top: 0.5rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+
+    .result-value {
+      font-family: Sora;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .result-card.primary {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .countdown-wrap {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+
+    .cd-box {
+      text-align: center;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.5rem;
+      min-width: 60px;
+    }
+
+    .cd-val {
+      display: block;
+      font-family: Sora;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--accent-strong);
+    }
+
+    .cd-lab {
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: var(--text-soft);
+      text-transform: uppercase;
+    }
+
+    .ms-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.88rem;
+    }
+
+    .ms-item span {
+      color: var(--text-soft);
+      font-weight: 600;
+    }
+
+    .ms-item strong {
+      color: var(--accent-strong);
+      font-weight: 700;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #fff;
+      padding: 0.5rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .link-list a:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    @media (min-width: 640px) {
+      .input-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .span-2 {
+        grid-column: span 2;
+      }
+    }
+
+    @media (min-width: 940px) {
+      .hero-grid {
+        grid-template-columns: 1.5fr 1fr;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.751fr 1fr;
+        align-items: start;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        gap: 0.3rem;
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      text-align: left;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+  </style>
 </head>
+
 <body>
- <nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" width="50" height="50" loading="lazy">
-    <h6 class="text-white mb-0">InstaCalc.in</h6>
-  </div>   
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>     
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/aboutus.html">About Us</a>
-      </li>
-       <li class="nav-item px-2">
-        <a class="nav-link" href="/contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand">
+        <img src="../logo.png" alt="InstaCalc">
+        <span>InstaCalc.in</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+      <nav class="site-nav" id="mainNav">
+        <a href="../index.html">Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
 
-    <div class="row">
-      <div class="col-md-6">
-        <div class="container mt-5 table1">
-          <h2>Birthday Calculator</h2>
-          
-          <div class="input-group m">
-            <label for="birth-date" class="mr-2">Your Birthday</label>
-            <input type="date" id="birth-date" class="form-control" onchange="calculateBirthday()">
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-cake-candles"></i> Big Day Tracker</span>
+          <h1>Premium Birthday Analyzer</h1>
+          <p>The total celebration toolkit. Track your next countdown with precision, discover your birth identity, and
+            map out your next 10 years of celebrations.</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>Identity Insights</h2>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Live Ticking Countdown</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Birth Identity (Stone/Flower)</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Golden Birthday Predictor</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Milestone Achievement Tracker</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="mode-switch">
+            <a href="#" class="active">Birthday Analysis</a>
           </div>
-          
-          <div class="input-group">
-            <label for="current-date" class="mr-2">Today's Date</label>
-            <input type="date" id="current-date" class="form-control" onchange="calculateBirthday()">
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head"><label for="birthDate">Select Your Date of Birth</label></div>
+              <input type="date" id="birthDate">
+            </div>
+            <div class="field-card primary" style="background:rgba(31,159,103,0.05);">
+              <h3 style="font-size:0.75rem; font-weight:700; color:var(--success); text-transform:uppercase;">Days
+                Remaining</h3>
+              <div class="countdown-wrap">
+                <div class="cd-box"><span class="cd-val" id="cdDays">--</span><span class="cd-lab">Days</span></div>
+                <div class="cd-box"><span class="cd-val" id="cdHrs">--</span><span class="cd-lab">Hrs</span></div>
+                <div class="cd-box"><span class="cd-val" id="cdMin">--</span><span class="cd-lab">Min</span></div>
+              </div>
+            </div>
           </div>
-          
-          <div class="result-box">
-            <div class="result-item">
-              <span class="label">Days until next birthday:</span>
-              <span class="value"><strong><span id="days-until">0</span> days</strong></span>
+
+          <div class="result-grid">
+            <div class="result-card primary span-2">
+              <h3>Next Celebration</h3>
+              <div class="result-value" id="resNextDate">-- Month --, ----</div>
+              <div style="font-size:0.88rem; font-weight:700; color:var(--accent-strong); margin-top:0.4rem;"
+                id="resNextAge">Age 0 Celebration</div>
             </div>
-            <div class="result-item">
-              <span class="label">Next birthday will be on:</span>
-              <span class="value"><strong><span id="next-birthday">-</span></strong></span>
+
+            <div class="result-card">
+              <h3>Birth Identity</h3>
+              <div class="ms-list">
+                <div class="ms-item"><span>Born Day</span> <strong id="resBornDay">-</strong></div>
+                <div class="ms-item"><span>Birthstone</span> <strong id="resStone">-</strong></div>
+                <div class="ms-item"><span>Birth Flower</span> <strong id="resFlower">-</strong></div>
+                <div class="ms-item"><span>Chinese Sign</span> <strong id="resChinese">-</strong></div>
+              </div>
             </div>
-            <div class="result-item">
-              <span class="label">Age at next birthday:</span>
-              <span class="value"><strong><span id="next-age">0</span> years</strong></span>
+
+            <div class="result-card">
+              <h3>Astro Profile</h3>
+              <div class="ms-list">
+                <div class="ms-item"><span>Sun Sign</span> <strong id="resZod">-</strong></div>
+                <div class="ms-item"><span>Element</span> <strong id="resElement">-</strong></div>
+                <div class="ms-item"><span>Planet</span> <strong id="resPlanet">-</strong></div>
+                <div class="ms-item"><span>Lucky No</span> <strong id="resLucky">-</strong></div>
+              </div>
             </div>
-            <div class="result-item">
-              <span class="label">Birthday day:</span>
-              <span class="value"><strong><span id="birthday-day">-</span></strong></span>
-            </div>
-            <div class="result-item">
-              <span class="label">Birthstone:</span>
-              <span class="value"><strong><span id="birthstone">-</span></strong></span>
+
+            <div class="result-card span-2">
+              <h3>Upcoming Milestones</h3>
+              <div class="ms-list" id="resMilestones"></div>
             </div>
           </div>
         </div>
-      </div>
 
+        <aside>
+          <div class="sidebar-card">
+            <h3>Fast Access</h3>
+            <ul class="link-list">
+              <li><a href="agecalculator.html"><span>Exact Age Analzyer</span> <i class="fas fa-chevron-right"></i></a>
+              </li>
+              <li><a href="dayscalculator.html"><span>Days Difference</span> <i class="fas fa-chevron-right"></i></a>
+              </li>
+              <li><a href="weekcalculator.html"><span>Week Counter</span> <i class="fas fa-chevron-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
 
-  <!-- //first row first column -->
-   <div class="col-md-6 d-none d-md-block non-critical-css">
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <!-- All cards follow the same structure with <a> wrapping the content -->
-      <div class="card">
-        <a class="sitetext" href="dayscalculator.html">
-          <div class="card-body labelbody">Days Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="hourcalculator.html">
-          <div class="card-body labelbody">Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="timedurationcalculator.html">
-          <div class="card-body labelbody">Duration Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="agecalculator.html">
-          <div class="card-body labelbody">Age Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="timezonecalculator.html">
-          <div class="card-body labelbody">Timezone Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="birthdaycalculator.html">
-          <div class="card-body labelbody">Birthday Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="weekcalculator.html">
-          <div class="card-body labelbody">Week Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="minutes-hourscalculator.html">
-          <div class="card-body labelbody">Minutes to Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="juliandatecalculator.html">
-          <div class="card-body labelbody">Julian Date Calculator</div>
-        </a>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 InstaCalc.in — Built for celebrations.</p>
+      <div class="footer-links">
+        <a href="../aboutus.html">About Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
       </div>
     </div>
-  </div>
-</div>
-      
-  </div>
+  </footer>
 
-  <!--  /second row -->
-  <div class="row mb-05 non-critical-css">
-  <!-- First Column -->
- <div class="col-md-6" >
-  <div class="container mt-5">
-    <div class="fd-calculator-content">
-      <div class="title">
-        <h1>Birthday Calculator: More Than Just Your Birth Date!</h1>
-      </div>
-      <div class="introduction">
-         <p>Ever been curious about the day of the week you were born? Or asking '<strong>when is my birthday</strong>' this year? Maybe you want to know your exact age in days, weeks, or even minutes? That's where a Birthday Calculator comes in—simple, fun, and surprisingly insightful!</p> </div>
+  <script>
+    (function () {
+      const menuToggle = document.getElementById("menuToggle");
+      const mainNav = document.getElementById("mainNav");
+      menuToggle.onclick = () => mainNav.classList.toggle("open");
 
-      <div class="what-is-fd-calculator">
-        <h2>🎉 So, What Exactly Is a Birthday Calculator?</h2>
-         <p>At its core, this <strong>birthday calculator</strong> is a nifty little tool that helps provide details beyond just '<strong>what is my birthday date</strong>'. It digs a little deeper. It can tell you:</p> <ul>
-          <li>The day of the week you were born on</li>
-          <li>How old you are today (not just in years — in days, weeks, or even seconds!)</li>
-          <li>Your next birthday countdown</li>
-          <li>Fun facts like your birthstone, zodiac sign, or birth flower</li>
-          <li>Whether your birthday falls on a weekend this year (party planning alert!)</li>
-        </ul>
-        <p>Basically, it turns your date of birth into a bundle of fun facts and useful info.</p>
-      </div>
+      const els = {
+        inp: document.getElementById('birthDate'),
+        days: document.getElementById('cdDays'),
+        hrs: document.getElementById('cdHrs'),
+        min: document.getElementById('cdMin'),
+        nextDate: document.getElementById('resNextDate'),
+        nextAge: document.getElementById('resNextAge'),
+        bornDay: document.getElementById('resBornDay'),
+        stone: document.getElementById('resStone'),
+        flower: document.getElementById('resFlower'),
+        chinese: document.getElementById('resChinese'),
+        zod: document.getElementById('resZod'),
+        ele: document.getElementById('resElement'),
+        planet: document.getElementById('resPlanet'),
+        lucky: document.getElementById('resLucky'),
+        mils: document.getElementById('resMilestones')
+      };
 
-      <div class="how-fd-calculator-works">
-        <h2>🧠 How Does It Work?</h2>
-         <p>Using this online <strong>birthday calculator</strong> is super simple. All you have to do is:</p> <ol>
-          <li>1️⃣ Enter your date of birth</li>
-          <li>2️⃣ Hit calculate</li>
-          <li>3️⃣ Boom! You're hit with a bunch of cool results</li>
-        </ol>
-        <p>Most calculators even give you optional features like checking the birthday of celebrities born on the same day as you. Imagine sharing your birthday with Shah Rukh Khan or APJ Abdul Kalam!</p>
-      </div>
+      const stones = ["Garnet", "Amethyst", "Aquamarine", "Diamond", "Emerald", "Pearl", "Ruby", "Peridot", "Sapphire", "Opal", "Topaz", "Turquoise"];
+      const flowers = ["Carnation", "Violet", "Daffodil", "Daisy", "Lily of the Valley", "Rose", "Larkspur", "Gladiolus", "Aster", "Marigold", "Chrysanthemum", "Narcissus"];
+      const elements = ["Earth", "Air", "Water", "Fire", "Earth", "Air", "Water", "Fire", "Earth", "Air", "Water", "Fire"];
+      const planets = ["Saturn", "Uranus", "Neptune", "Mars", "Venus", "Mercury", "Moon", "Sun", "Mercury", "Venus", "Pluto", "Jupiter"];
+      const animals = ["Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"];
+      const zodes = [["Cap", 20, 0], ["Aqu", 19, 1], ["Pis", 20, 2], ["Ari", 20, 3], ["Tau", 21, 4], ["Gem", 21, 5], ["Can", 23, 6], ["Leo", 23, 7], ["Vir", 23, 8], ["Lib", 23, 9], ["Sco", 22, 10], ["Sag", 22, 11], ["Cap", 31, 11]];
 
-      <div class="why-use-fd-calculator">
-        <h2>🎈 Why Would You Use a Birthday Calculator?</h2>
-        <p>Great question. And honestly, there's more than one reason.</p>
-        <ul>
-          <li>✅ 1. Just for Fun - Who doesn't like knowing weird little facts about themselves?</li>
-          <li>✅ 2. Planning a Party - Know how many days until your next birthday</li>
-          <li>✅ 3. Gifting Purposes - Create personalized birthday gifts</li>
-           <li>✅ 4. Just Plain Curiosity - Sometimes you just want to know details a <strong>birthday finder</strong> can provide</li> </ul>
-      </div>
+      const def = new Date();
+      def.setFullYear(def.getFullYear() - 25);
+      els.inp.value = def.toISOString().split('T')[0];
 
-      <div class="example-calculation">
-        <h2>🧮 Real-Life Example</h2>
-        <p>Let's say you were born on 15th August 1995. Pop that into the calculator, and you might get something like:</p>
-        <ul>
-          <li>You were born on a Tuesday</li>
-          <li>Your next birthday is in 108 days (as of April 30, 2025)</li> <li>You're currently 29 years, 8 months, and 15 days old (as of April 30, 2025)</li> <li>That's around 10,850 days, or over 15,624,000 minutes old</li> <li>Your zodiac sign: Leo</li>
-          <li>Birthstone: Peridot</li>
-        </ul>
-        <p>Pretty neat, right?</p>
-        </div>
+      function update() {
+        const b = new Date(els.inp.value);
+        if (isNaN(b)) return;
+        const n = new Date();
 
-      <div class="factors-affecting-returns">
-        <h2>🌟 Bonus Features You Might Find</h2>
-        <p>Some Birthday Calculators go above and beyond:</p>
-        <ul>
-          <li>Chinese Zodiac sign</li>
-          <li>Numerology details</li>
-          <li>Birthday twin matches</li>
-          <li>Age on other planets (yes, your Mars age is a thing!)</li>
-        </ul>
-        <p>Not all tools have these, but it's fun when they do!</p>
-      </div>
-    </div>
-  </div>
-</div>
+        let nextB = new Date(n.getFullYear(), b.getMonth(), b.getDate());
+        if (nextB < n) nextB.setFullYear(n.getFullYear() + 1);
 
-  <!-- Second Column -->
-  <div class="col-md-6" >
-    <div class="container mt-5 mb-5">
-      <h2 class="mb-4">Birthday Calculator FAQs</h2>
-      <div id="faqAccordion" class="accordion">
+        const diff = nextB - n;
+        els.days.textContent = Math.floor(diff / 86400000);
+        els.hrs.textContent = Math.floor((diff % 86400000) / 3600000);
+        els.min.textContent = Math.floor((diff % 3600000) / 60000);
 
-        <!-- FAQ 1 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                How accurate is the birthday calculator?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
-            <div class="card-body">
-              Our birthday calculator is mathematically precise, accounting for leap years and varying month lengths. The age results are 100% accurate to the day.
-            </div>
-          </div>
-        </div>
+        els.nextDate.textContent = nextB.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
+        els.nextAge.textContent = `Turning ${nextB.getFullYear() - b.getFullYear()} on a ${nextB.toLocaleDateString(undefined, { weekday: 'long' })}`;
 
-        <!-- FAQ 2 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingTwo">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Can I calculate for future birthdays?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-            <div class="card-body">
-              Absolutely! You can enter any future date to see what your age will be on that date, when you'll reach milestones, or what day of the week your birthday will fall on in coming years.
-            </div>
-          </div>
-        </div>
+        els.bornDay.textContent = b.toLocaleDateString(undefined, { weekday: 'long' });
+        const m = b.getMonth();
+        els.stone.textContent = stones[m];
+        els.flower.textContent = flowers[m];
+        els.ele.textContent = elements[m];
+        els.planet.textContent = planets[m];
+        els.lucky.textContent = Math.floor(Math.random() * 9 + 1);
+        els.chinese.textContent = animals[(b.getFullYear() - 4) % 12];
 
-        <!-- FAQ 3 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingThree">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                How do you handle leap year birthdays?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-            <div class="card-body">
-              For February 29th birthdays, we calculate age based on annual anniversaries. In non-leap years, we consider March 1st as the anniversary date for age calculation purposes.
-            </div>
-          </div>
-        </div>
+        for (let z of zodes) if (b.getMonth() < z[2] || (b.getMonth() === z[2] && b.getDate() <= z[1])) { els.zod.textContent = z[0]; break; }
 
-        <!-- FAQ 4 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFour">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                Where do you get celebrity birthday data?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-            <div class="card-body">
-              We use verified celebrity birth date databases to show you famous people who share your birthday. The list updates regularly to include new notable figures.
-            </div>
-          </div>
-        </div>
+        let milHtml = '';
+        const bigs = [30, 40, 50, 60, 100];
+        bigs.forEach(year => {
+          const d = new Date(b.getFullYear() + year, b.getMonth(), b.getDate());
+          milHtml += `<div class="ms-item"><span>Turning ${year}</span> <strong>${d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })} (${d.toLocaleDateString(undefined, { weekday: 'short' })})</strong></div>`;
+        });
+        const gold = new Date(b.getFullYear() + b.getDate(), b.getMonth(), b.getDate());
+        milHtml += `<div class="ms-item" style="border-top:2px solid var(--accent); margin-top:0.4rem;"><span>Golden Birthday (Age ${b.getDate()})</span> <strong>${gold.toLocaleDateString(undefined, { year: 'numeric' })}</strong></div>`;
+        els.mils.innerHTML = milHtml;
+      }
 
-        <!-- FAQ 5 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFive">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                Is my birth date information stored?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-            <div class="card-body">
-              No, all calculations happen in your browser. We don't store or transmit your birth date information to any servers. Your privacy is completely protected.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 6 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSix">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                Can I share my birthday results?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes! Many of our birthday reports include share buttons so you can post interesting facts to social media or send them to friends and family.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 7 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSeven">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                What's the most common birthday?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-            <div class="card-body">
-              In many countries, September is the most common birth month, with September 9th often being the single most common birthday. This is typically due to conceptions around the holiday season.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 8 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingEight">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                What's a "golden birthday"?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-            <div class="card-body">
-              Your golden birthday occurs when you turn the age of your birth date. For example, if you were born on the 25th, your golden birthday is when you turn 25 years old. It's considered extra special!
-            </div>
-          </div>
-        </div>
-
-      </div>
-      
-      <div class="fun-facts mt-5 p-4" style="background-color:#e6f3ff;border-radius:8px;">
-        <h4>🎊 Fun Birthday Facts</h4>
-        <ul>
-          <li>The least common birthday is December 25th (Christmas Day)</li>
-          <li>Your "half birthday" is exactly 6 months from your actual birthday</li>
-          <li>The odds of being born on February 29th are about 1 in 1,461</li>
-          <li>Queen Elizabeth II had two birthdays - her real one and an official one</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark mt-5 footer2 container-fluid non-critical-css" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
-
-              Back To Home
-
-             </p>
-       </div>
-
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
-      </div>
-  
-  <script> 
-  
-  // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
-
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
-
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-  
-  
+      els.inp.oninput = update;
+      update();
+    })();
   </script>
-      <script>
-          
-          // age calculator 
-          
-// Birthstone data
-  const birthstones = {
-    1: "Garnet",
-    2: "Amethyst",
-    3: "Aquamarine",
-    4: "Diamond",
-    5: "Emerald",
-    6: "Pearl",
-    7: "Ruby",
-    8: "Peridot",
-    9: "Sapphire",
-    10: "Opal",
-    11: "Topaz",
-    12: "Turquoise"
-  };
-
-  // Set default dates when page loads
-  window.onload = function() {
-    const today = new Date();
-    const currentDateInput = document.getElementById('current-date');
-    
-    // Format today's date as YYYY-MM-DD
-    const formattedToday = today.toISOString().split('T')[0];
-    currentDateInput.value = formattedToday;
-    
-    // Calculate date 20 years ago (default birthday)
-    const birthDate = new Date(today);
-    birthDate.setFullYear(birthDate.getFullYear() - 20);
-    const formattedBirthDate = birthDate.toISOString().split('T')[0];
-    document.getElementById('birth-date').value = formattedBirthDate;
-    
-    // Calculate birthday info initially
-    calculateBirthday();
-  };
-  
-  function calculateBirthday() {
-    const birthDate = new Date(document.getElementById('birth-date').value);
-    const currentDate = new Date(document.getElementById('current-date').value);
-    
-    if (isNaN(birthDate.getTime()) || isNaN(currentDate.getTime())) {
-      return; // Invalid dates
-    }
-    
-    // Get the month and day of birth date
-    const birthMonth = birthDate.getMonth();
-    const birthDay = birthDate.getDate();
-    
-    // Create next birthday date
-    const nextBirthday = new Date(currentDate.getFullYear(), birthMonth, birthDay);
-    
-    // If birthday already passed this year, set for next year
-    if (nextBirthday < currentDate) {
-      nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
-    }
-    
-    // Calculate days until next birthday
-    const timeDiff = nextBirthday - currentDate;
-    const daysUntil = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-    
-    // Calculate age at next birthday
-    const ageAtNext = nextBirthday.getFullYear() - birthDate.getFullYear();
-    
-    // Format next birthday date
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedNextBirthday = nextBirthday.toLocaleDateString(undefined, options);
-    
-    // Get day of week for birthday
-    const birthdayDay = new Date(currentDate.getFullYear(), birthMonth, birthDay).toLocaleDateString(undefined, { weekday: 'long' });
-    
-    // Get birthstone
-    const birthstone = birthstones[birthMonth + 1];
-    
-    // Update the UI
-    document.getElementById('days-until').textContent = daysUntil;
-    document.getElementById('next-birthday').textContent = formattedNextBirthday;
-    document.getElementById('next-age').textContent = ageAtNext;
-    document.getElementById('birthday-day').textContent = birthdayDay;
-    document.getElementById('birthstone').textContent = birthstone;
-  }       
-          
-          
-          
-        //age end  
-          
-          
-          
-          
-              function syncInputs(id, isManual = false) {
-                  const slider = document.getElementById(`${id}-slider`);
-                  const numberInput = document.getElementById(id);
-                  if (isManual) {
-                      slider.value = numberInput.value;
-                  } else {
-                      numberInput.value = slider.value;
-                  }
-                  calculateSIP();
-              }
-function formatNumberInIndianFormat(num) {
-    // Convert the number to a string and split into whole and decimal parts
-    let parts = num.toString().split(".");
-    let wholePart = parts[0];
-    let decimalPart = parts.length > 1 ? "." + parts[1] : "";
-
-    // Add commas in Indian numbering system format
-    let lastThree = wholePart.slice(-3);
-    let otherNumbers = wholePart.slice(0, -3);
-    if (otherNumbers !== "") {
-        lastThree = "," + lastThree;
-    }
-    let result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + decimalPart;
-
-    return result;
-}
-          
-          
-          
-       function calculateSIP() {
-    // Get input values
-    const P = parseFloat(document.getElementById("amount").value); // Principal
-    const annualRate = parseFloat(document.getElementById("rate").value); // Annual rate
-    const t = parseInt(document.getElementById("years").value); // Years
-
-    // FD Formula with quarterly compounding (common in India):
-    // M = P × (1 + r/(4×100))^(n×4)
-    // Where:
-    // r = annual interest rate
-    // n = number of years
-    // 4 = quarterly compounding
-
-    const quarterlyRate = annualRate / 4;
-    const totalQuarters = t * 4;
-    const maturityAmount = P * Math.pow(1 + quarterlyRate / 100, totalQuarters);
-    const interestEarned = maturityAmount - P;
-
-    // Format the numbers in Indian format
-    const formattedInvestedAmount = formatNumberInIndianFormat(P.toFixed(2));
-    const formattedInterestEarned = formatNumberInIndianFormat(interestEarned.toFixed(2));
-    const formattedMaturityAmount = formatNumberInIndianFormat(maturityAmount.toFixed(2));
-
-    // Update UI
-    document.getElementById("invested").textContent = formattedInvestedAmount;
-    document.getElementById("returns").textContent = formattedInterestEarned;
-    document.getElementById("total").textContent = formattedMaturityAmount;
-
-    // Update chart (if needed)
-    updateChart(P, interestEarned);
-}
-          
-          
-              let sipChart;
-              function updateChart(invested, returns) {
-                  let ctx = document.getElementById("sipChart").getContext("2d");
-                  if (sipChart) sipChart.destroy();
-                  sipChart = new Chart(ctx, {
-                      type: "doughnut",
-                      data: {
-                          labels: ["Invested Amount", "Est. Returns"],
-                          datasets: [{
-                              data: [invested, returns],
-                              backgroundColor: ["#4CAF50", "#2196F3"]
-                          }]
-                      }
-                  });
-              }
-              calculateSIP();
-
-
-          
-          
-
-          
-          </script>
-          
-
-
-      <style>
-              bodyss {
-                  font-family: Arial, sans-serif;
-                  margin: 20px;
-                  padding: 0;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  flex-direction: column;
-                  background-color: #f4f4f4;
-              }
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
-
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
-
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
-            }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
-
-
-          </style>
 </body>
+
 </html>
