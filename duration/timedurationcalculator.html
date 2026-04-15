@@ -1,727 +1,724 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Time Duration Calculator | Find the Time Difference Between Two Dates & Times</title>
-  <meta name="description" content="Calculate the exact time duration between two dates and times with our online calculator. Find out the hours, minutes, and seconds that have passed.">
-   <!-- Basic Favicons -->
-    
-  <link rel="canonical" href="https://instacalc.in/duration/timedurationcalculator.html" />
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Time Duration Calculator | Date & Time Difference Tool</title>
+  <meta name="description"
+    content="Calculate the exact time duration between two points in time. Get results in years, months, days, hours, and minutes. Includes advanced date arithmetic to add or subtract time units.">
+  <meta name="keywords"
+    content="time duration calculator, duration between dates, time difference calculator, add time to date, subtract time from date, duration counter">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
-  <link rel="icon" type="image/x-icon" href="favicon.webp">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
-  
-   <style>
-        /* Inline critical CSS - Replace with your actual critical styles */
-     
-        .navbar { /* Example critical navbar styles */ }
-        .container.table1 h2 { /* Example critical calculator heading style */ }
-        /* ... more critical styles ... */
-    </style>
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"></noscript>
 
-    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="style.css"></noscript>
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/duration/timedurationcalculator.html">
 
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"></noscript>
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #2196F3;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" defer></script>
-  
-    <script src="script.js" defer></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js" defer></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js" defer></script>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      margin-top: 0.9rem;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+      padding: 1rem;
+    }
+
+    .calculator-shell {
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-tabs {
+      display: inline-flex;
+      border: 1px solid rgba(0, 127, 139, 0.22);
+      border-radius: 14px;
+      padding: 0.3rem;
+      background: #ffffff;
+      width: 100%;
+      max-width: 420px;
+      gap: 0.25rem;
+    }
+
+    .mode-tabs a {
+      flex: 1;
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      font-weight: 700;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+    }
+
+    .mode-tabs a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #1E88E5);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.85rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input[type="datetime-local"],
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.55rem 0.75rem;
+      font: inherit;
+    }
+
+    .result-grid {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.85rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      color: var(--text);
+    }
+
+    .result-card.highlight {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .breakdown-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .breakdown-item {
+      padding: 0.25rem 0.6rem;
+      background: var(--bg);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-strong);
+    }
+
+    .sidebar-card {
+      align-content: start;
+    }
+
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .link-list a {
+      min-height: 44px;
+      padding: 0.48rem 0.72rem;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    @media (min-width: 640px) {
+      .input-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .span-2 {
+        grid-column: span 2;
+      }
+    }
+
+    @media (min-width: 940px) {
+      .hero-grid {
+        grid-template-columns: 1.5fr 1fr;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.751fr 1fr;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+    }
+
+    .arithmetic-mode-content {
+      display: none;
+    }
+
+    .calculator-shell.arithmetic-mode .diff-mode-content {
+      display: none;
+    }
+
+    .calculator-shell.arithmetic-mode .arithmetic-mode-content {
+      display: grid;
+    }
+
+    .unit-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+      gap: 0.7rem;
+    }
+  </style>
 </head>
+
 <body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class=" mb-0"> InstaCalc.in</h6>
-  </div>   
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>     
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/aboutus.html">About Us</a>
-      </li>
-         <li class="nav-item px-2">
-        <a class="nav-link " href="/contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-    
-    
-
-
-  <!-- //first row first column -->
-  <div class="row ">
-<!-- First row first column -->
-  <div class="col-md-6 " >
-    <div class="container mt-5  ">
-      <h2>Time Duration Calculator</h2>
-      
-      <div class="input-group m">
-        <label for="start-datetime" class="mr-2">Start Date & Time</label>
-        <input type="datetime-local" id="start-datetime" class="form-control" onchange="calculateDuration()">
-      </div>
-      
-      <div class="input-group">
-        <label for="end-datetime" class="mr-2">End Date & Time</label>
-        <input type="datetime-local" id="end-datetime" class="form-control" onchange="calculateDuration()">
-      </div>
-      
-      <div class="result-box">
-        <div class="result-item">
-          <span class="label">Total Duration:</span>
-          <span class="value"><strong><span id="duration-ymwdhms">-</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Or:</span>
-          <span class="value"><strong><span id="duration-dhms">-</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Or:</span>
-          <span class="value"><strong><span id="duration-hms">-</span></strong></span>
-        </div>
-        
-        <div class="breakdown-header">Exact Breakdown:</div>
-        
-        <div class="result-item">
-          <span class="label">Years:</span>
-          <span class="value"><strong><span id="years">0</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Months:</span>
-          <span class="value"><strong><span id="months">0</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Weeks:</span>
-          <span class="value"><strong><span id="weeks">0</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Days:</span>
-          <span class="value"><strong><span id="days">0</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Hours:</span>
-          <span class="value"><strong><span id="hours">0</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Minutes:</span>
-          <span class="value"><strong><span id="minutes">0</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Seconds:</span>
-          <span class="value"><strong><span id="seconds">0</span></strong></span>
-        </div>
-        
-        <div class="result-item">
-          <span class="label">Total Days:</span>
-          <span class="value"><strong><span id="total-days">0</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Total Hours:</span>
-          <span class="value"><strong><span id="total-hours">0</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Total Minutes:</span>
-          <span class="value"><strong><span id="total-minutes">0</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Total Seconds:</span>
-          <span class="value"><strong><span id="total-seconds">0</span></strong></span>
-        </div>
-      </div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand">
+        <img src="../logo.png" alt="InstaCalc">
+        <span>InstaCalc.in</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+      <nav class="site-nav" id="mainNav">
+        <a href="../index.html">Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </nav>
     </div>
-  </div>
-  
-  <!-- First row second column -->
-   <div class="col-md-6 d-none d-md-block">
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <!-- All cards follow the same structure with <a> wrapping the content -->
-      <div class="card">
-        <a class="sitetext" href="dayscalculator.html">
-          <div class="card-body labelbody">Days Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="hourcalculator.html">
-          <div class="card-body labelbody">Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="timedurationcalculator.html">
-          <div class="card-body labelbody">Duration Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="agecalculator.html">
-          <div class="card-body labelbody">Age Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="timezonecalculator.html">
-          <div class="card-body labelbody">Timezone Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="birthdaycalculator.html">
-          <div class="card-body labelbody">Birthday Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="weekcalculator.html">
-          <div class="card-body labelbody">Week Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="minutes-hourscalculator.html">
-          <div class="card-body labelbody">Minutes to Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="juliandatecalculator.html">
-          <div class="card-body labelbody">Julian Date Calculator</div>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+  </header>
 
-  <!--  /second row -->
-  <div class="row mb-05">
-  <!-- First Column -->
-  <div class="col-md-6" >
-    <div class="container mt-5">
-      <div class="fd-calculator-content">
-        <div class="title">
-          <h1>Time Duration Calculator: Know Exactly How Much Time Has Passed!</h1>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-hourglass-half"></i> Full Span</span>
+          <h1>Time Duration Calculator</h1>
+          <p>The most comprehensive tool to measure the distance between two points in time. Get granular breakdowns
+            down to the second spanning years, months, and days.</p>
+          <div class="hero-actions">
+            <a href="#calcArea" class="btn btn-primary"><i class="fas fa-play"></i> Start Calculating</a>
+          </div>
         </div>
-        <div class="introduction">
-          <p>Have you ever looked at the clock and wondered, "How long has it actually been since I started this?" Or maybe you need to calculate the total hours worked, the duration between two meetings, or just how long it's been since your favorite show aired its last season.</p>
-          <p>That's exactly what a Time Duration Calculator helps with.</p>
+        <aside class="hero-panel">
+          <h2>Why Use This Tool?</h2>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Spans Years, Months, Days & Time</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Add/Subtract granular time units</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Precision for projects & milestones</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Real-time result streaming</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="calcArea">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcShell">
+          <div class="mode-tabs">
+            <a href="#" class="active" id="tabDiff">Find Duration</a>
+            <a href="#" id="tabMath">Arithmetic</a>
+          </div>
+
+          <div class="input-grid diff-mode-content">
+            <div class="field-card">
+              <div class="field-head"><label for="startTime">Start Date & Time</label></div>
+              <input type="datetime-local" id="startTime">
+            </div>
+            <div class="field-card">
+              <div class="field-head"><label for="endTime">End Date & Time</label></div>
+              <input type="datetime-local" id="endTime">
+            </div>
+          </div>
+
+          <div class="input-grid arithmetic-mode-content">
+            <div class="field-card span-2">
+              <div class="field-head"><label for="baseTime">Starting Date & Time</label></div>
+              <input type="datetime-local" id="baseTime">
+            </div>
+            <div class="field-card span-2">
+              <div class="unit-controls">
+                <div><label style="font-size:0.75rem; font-weight:700;">Years</label><input type="number" id="mY"
+                    value="0"></div>
+                <div><label style="font-size:0.75rem; font-weight:700;">Months</label><input type="number" id="mM"
+                    value="0"></div>
+                <div><label style="font-size:0.75rem; font-weight:700;">Days</label><input type="number" id="mD"
+                    value="0"></div>
+                <div><label style="font-size:0.75rem; font-weight:700;">Hours</label><input type="number" id="mH"
+                    value="0"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card highlight span-2">
+              <h3 id="resTitle">Total Duration</h3>
+              <div class="result-value" id="resPrimary">-</div>
+              <div class="breakdown-row" id="resBreakdown"></div>
+            </div>
+            <div class="result-card">
+              <h3>Alternative Breakdown</h3>
+              <div id="resAlt" style="font-size: 0.85rem; color: var(--text-soft);"></div>
+            </div>
+            <div class="result-card">
+              <h3>Total In Days</h3>
+              <div class="result-value" id="resDays" style="font-size: 1.2rem; color: var(--accent);">0 Days</div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-ghost" id="btnReset"><i class="fas fa-undo"></i> Reset Fields</button>
+          </div>
         </div>
 
-        <div class="what-is-fd-calculator">
-          <h2>🕰️ What Is a Time Duration Calculator?</h2>
-          <p>Simply put, it's a tool that helps you calculate the time difference between two points in time. You put in the start time and the end time, and boom — it tells you the duration in hours, minutes, and sometimes even seconds.</p>
-          <p>Sounds simple, right? That's because it is!</p>
-        </div>
-
-        <div class="how-fd-calculator-works">
-          <h2>💼 When Would You Need It?</h2>
-          <p>You'd be surprised how often you might need this:</p>
-          <ul>
-            <li>Office hours: Logging how long you worked on a task</li>
-            <li>Freelancing: Tracking billable hours for a project</li>
-            <li>Events: Knowing the length of a meeting or event</li>
-            <li>Travel: Figuring out how long your train or flight took</li>
-            <li>Daily life: Timing a workout, cooking, or even a power nap!</li>
-          </ul>
-        </div>
-
-        <div class="why-use-fd-calculator">
-          <h2>🧮 How Does It Work?</h2>
-          <p>Most time duration calculators are super easy to use. Here's what you typically do:</p>
-          <ol>
-            <li>Enter the Start Time – Say, 9:15 AM</li>
-            <li>Enter the End Time – Maybe 1:45 PM</li>
-            <li>Click Calculate – And you'll see the result: 4 hours 30 minutes</li>
-          </ol>
-          <p>That's it. No math, no confusion. Some calculators even let you add dates, so you can calculate across days — like from 5 PM on Monday to 8 AM on Wednesday.</p>
-        </div>
-
-        <div class="example-calculation">
-          <h2>👀 A Quick Real-Life Example</h2>
-          <div class="example-box p-3" style="background-color:#f8f9fa;border-radius:8px;">
-            <p><strong>Scenario:</strong> Tracking online exam duration</p>
-            <ul>
-              <li>Start Time: 10:00 AM</li>
-              <li>End Time: 12:45 PM</li>
-              <li><strong>Result:</strong> 2 hours and 45 minutes</li>
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3 style="font-family: Sora; font-size: 1.1rem; margin-bottom: 0.5rem;">Quick Navigation</h3>
+            <ul class="link-list">
+              <li><a href="dayscalculator.html"><span>Days Only</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="hourcalculator.html"><span>Hours Only</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="agecalculator.html"><span>Age Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
             </ul>
           </div>
-          <p class="mt-3">Super helpful if you're writing a report or checking if your schedule is on track.</p>
-        </div>
+        </aside>
+      </div>
+    </section>
 
-        <div class="factors-affecting-returns">
-          <h2>🧠 Cool Features to Look Out For</h2>
-          <p>While basic calculators just show hours and minutes, some advanced ones do even more:</p>
-          <ul>
-            <li>Include Dates – For long durations (think weeks or months)</li>
-            <li>Include Seconds – For super-precise tracking</li>
-            <li>24-hour or 12-hour Format – Choose what you're comfortable with</li>
-            <li>Mobile-friendly – Great if you're using it on the go</li>
-            <li>Export or Copy Results – Perfect for reports or time tracking sheets</li>
-          </ul>
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>Precision Time Durations</h2>
+          <p>Traditional date subtraction fails when you need to know exactly how many months and days have passed
+            alongside hours and minutes. This tool uses a sophisticated calendar engine to give you the most accurate
+            "Natural Language" duration.</p>
+          <h3>How we calculate months</h3>
+          <p>Since months have different lengths (28, 29, 30, or 31 days), we calculate the duration by incrementing the
+            years and months sequentially, then filling in the remaining days and time units for maximum accuracy.</p>
+        </article>
+      </div>
+    </section>
+  </main>
 
-          <h3>🎯 Why Use a Time Duration Calculator?</h3>
-          <p>Let's be honest — doing time math in your head is not fun. Especially if the times cross over noon, midnight, or even different days.</p>
-          <p>This tool:</p>
-          <ul>
-            <li>Saves you time</li>
-            <li>Prevents mistakes</li>
-            <li>Makes you more productive</li>
-            <li>Keeps your records accurate</li>
-          </ul>
-          <p>Whether you're logging hours for pay, planning your day, or tracking your productivity — this calculator helps you stay on top of things.</p>
-        </div>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 InstaCalc.in — Fast, accurate time and duration tools.</p>
+      <div class="footer-links">
+        <a href="../index.html">Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
       </div>
     </div>
-  </div>
+  </footer>
 
-  <!-- Second Column -->
-  <div class="col-md-6">
-    <div class="container mt-5 mb-5">
-      <h2 class="mb-4">FAQs</h2>
-      <div id="faqAccordion" class="accordion">
+  <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/js/all.min.js"></script>
+  <script>
+    (function () {
+      const els = {
+        menuToggle: document.getElementById('menuToggle'),
+        mainNav: document.getElementById('mainNav'),
+        calcShell: document.getElementById('calcShell'),
+        tabDiff: document.getElementById('tabDiff'),
+        tabMath: document.getElementById('tabMath'),
+        startTime: document.getElementById('startTime'),
+        endTime: document.getElementById('endTime'),
+        baseTime: document.getElementById('baseTime'),
+        mY: document.getElementById('mY'),
+        mM: document.getElementById('mM'),
+        mD: document.getElementById('mD'),
+        mH: document.getElementById('mH'),
+        resTitle: document.getElementById('resTitle'),
+        resPrimary: document.getElementById('resPrimary'),
+        resBreakdown: document.getElementById('resBreakdown'),
+        resAlt: document.getElementById('resAlt'),
+        resDays: document.getElementById('resDays'),
+        btnReset: document.getElementById('btnReset')
+      };
 
-        <!-- FAQ 1 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                How do I calculate overnight durations?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
-            <div class="card-body">
-              Simply enter the full date and time. The calculator automatically handles durations crossing midnight. Example: 8:00 PM to 6:00 AM = 10 hours.
-            </div>
-          </div>
-        </div>
+      const now = new Date();
+      els.startTime.value = now.toISOString().slice(0, 16);
+      els.baseTime.value = now.toISOString().slice(0, 16);
+      const later = new Date(now.getTime() + (2 * 24 * 60 * 60 * 1000) + (5 * 3600000));
+      els.endTime.value = later.toISOString().slice(0, 16);
 
-        <!-- FAQ 2 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingTwo">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Can I use 24-hour format?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes! Most calculators let you switch between 12-hour (AM/PM) and 24-hour formats. Choose whichever you're comfortable with.
-            </div>
-          </div>
-        </div>
+      els.menuToggle.addEventListener('click', () => els.mainNav.classList.toggle('open'));
 
-        <!-- FAQ 3 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingThree">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                How precise can the calculations be?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-            <div class="card-body">
-              Advanced calculators can show seconds and even milliseconds. Basic versions typically show hours and minutes.
-            </div>
-          </div>
-        </div>
+      els.tabDiff.addEventListener('click', (e) => {
+        e.preventDefault();
+        els.tabDiff.classList.add('active'); els.tabMath.classList.remove('active');
+        els.calcShell.classList.remove('arithmetic-mode'); update();
+      });
 
-        <!-- FAQ 4 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFour">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                Can I add multiple time periods?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes! Many calculators let you sum multiple durations. Great for tracking weekly work hours or total project time.
-            </div>
-          </div>
-        </div>
+      els.tabMath.addEventListener('click', (e) => {
+        e.preventDefault();
+        els.tabMath.classList.add('active'); els.tabDiff.classList.remove('active');
+        els.calcShell.classList.add('arithmetic-mode'); update();
+      });
 
-        <!-- FAQ 5 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFive">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                Does it handle different time zones?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-            <div class="card-body">
-              Some advanced versions do! They'll automatically adjust for time zone differences when calculating durations between locations.
-            </div>
-          </div>
-        </div>
+      function update() {
+        if (els.calcShell.classList.contains('arithmetic-mode')) calculateArithmetic();
+        else calculateDifference();
+      }
 
-        <!-- FAQ 6 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSix">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                Can I calculate future durations?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-            <div class="card-body">
-              Absolutely! Enter future start/end times to see how long until an event or between scheduled activities.
-            </div>
-          </div>
-        </div>
+      function calculateDifference() {
+        const start = new Date(els.startTime.value);
+        const end = new Date(els.endTime.value);
+        if (isNaN(start) || isNaN(end)) return;
 
-        <!-- FAQ 7 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSeven">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                Is there a mobile app version?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-            <div class="card-body">
-              Many web versions work perfectly on mobile browsers. Some platforms offer dedicated apps with extra features like timers.
-            </div>
-          </div>
-        </div>
+        els.resTitle.textContent = "Time Distance Between Points";
 
-        <!-- FAQ 8 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingEight">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                How accurate are the results?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-            <div class="card-body">
-              100% accurate when inputs are correct. The calculator uses precise time math, eliminating human calculation errors.
-            </div>
-          </div>
-        </div>
+        let diffMs = end - start;
+        let isFuture = diffMs >= 0;
+        let t1 = isFuture ? start : end;
+        let t2 = isFuture ? end : start;
 
-      </div>
-      
-      <div class="fun-facts mt-5 p-4" style="background-color:#e6f3ff;border-radius:8px;">
-        <h4>⏳ Fun Time Facts</h4>
-        <ul>
-          <li>Humans spend ~6 months of life waiting at red lights</li>
-          <li>The average person blinks 15-20 times per minute</li>
-          <li>Sunday is the most common sick day worldwide</li>
-          <li>1% of your year = ~87.6 hours</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
+        // Calendar Difference
+        let y = t2.getFullYear() - t1.getFullYear();
+        let m = t2.getMonth() - t1.getMonth();
+        let d = t2.getDate() - t1.getDate();
+        let h = t2.getHours() - t1.getHours();
+        let min = t2.getMinutes() - t1.getMinutes();
 
-              Back To Home
+        if (min < 0) { h--; min += 60; }
+        if (h < 0) { d--; h += 24; }
+        if (d < 0) {
+          m--;
+          let prevMonth = new Date(t2.getFullYear(), t2.getMonth(), 0).getDate();
+          d += prevMonth;
+        }
+        if (m < 0) { y--; m += 12; }
 
-             </p>
-       </div>
+        let primary = "";
+        if (y > 0) primary += y + "y ";
+        if (m > 0) primary += m + "m ";
+        if (d > 0) primary += d + "d ";
+        primary += h + "h " + min + "m";
+        els.resPrimary.textContent = primary;
 
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
-      </div>
-      <script>
-    // Set default dates when page loads
-  window.onload = function() {
-    const now = new Date();
-    const startTime = new Date(now);
-    startTime.setHours(now.getHours() - 24); // Default to 24 hours ago
-    
-    // Format datetime for input fields (YYYY-MM-DDTHH:MM)
-    const formatDateTime = (date) => {
-      const pad = (num) => num.toString().padStart(2, '0');
-      return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
-    };
-    
-    document.getElementById('start-datetime').value = formatDateTime(startTime);
-    document.getElementById('end-datetime').value = formatDateTime(now);
-    
-    // Calculate duration initially
-    calculateDuration();
-  };
-  
-  function calculateDuration() {
-    const startInput = document.getElementById('start-datetime').value;
-    const endInput = document.getElementById('end-datetime').value;
-    
-    if (!startInput || !endInput) return;
-    
-    // Parse dates from inputs
-    const startDateTime = new Date(startInput);
-    const endDateTime = new Date(endInput);
-    
-    if (isNaN(startDateTime.getTime()) || isNaN(endDateTime.getTime())) {
-      return; // Invalid dates
-    }
-    
-    // Swap dates if end time is before start time
-    if (endDateTime < startDateTime) {
-      [startDateTime, endDateTime] = [endDateTime, startDateTime];
-      document.getElementById('start-datetime').value = formatDateTime(startDateTime);
-      document.getElementById('end-datetime').value = formatDateTime(endDateTime);
-    }
-    
-    // Calculate total difference in milliseconds
-    const timeDiff = endDateTime - startDateTime;
-    
-    // Calculate total time units
-    const totalSeconds = Math.floor(timeDiff / 1000);
-    const totalMinutes = Math.floor(totalSeconds / 60);
-    const totalHours = Math.floor(totalMinutes / 60);
-    const totalDays = Math.floor(totalHours / 24);
-    
-    // Calculate years, months, days between dates (calendar difference)
-    let years = endDateTime.getFullYear() - startDateTime.getFullYear();
-    let months = endDateTime.getMonth() - startDateTime.getMonth();
-    let days = endDateTime.getDate() - startDateTime.getDate();
-    
-    if (days < 0) {
-      months--;
-      // Get days in previous month
-      const prevMonthLastDay = new Date(
-        endDateTime.getFullYear(),
-        endDateTime.getMonth(),
-        0
-      ).getDate();
-      days += prevMonthLastDay;
-    }
-    
-    if (months < 0) {
-      years--;
-      months += 12;
-    }
-    
-    // Calculate remaining time after full days
-    const remainingHours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const remainingMinutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-    const remainingSeconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-    
-    // Format duration strings
-    const formatUnit = (value, unit) => {
-      if (value <= 0) return '';
-      return `${value} ${unit}${value !== 1 ? 's' : ''}`;
-    };
-    
-    const yearsStr = formatUnit(years, 'year');
-    const monthsStr = formatUnit(months, 'month');
-    const daysStr = formatUnit(days, 'day');
-    const hoursStr = formatUnit(remainingHours, 'hour');
-    const minsStr = formatUnit(remainingMinutes, 'minute');
-    const secsStr = formatUnit(remainingSeconds, 'second');
-    
-    const durationYMWHMS = [yearsStr, monthsStr, daysStr, hoursStr, minsStr, secsStr].filter(Boolean).join(' ') || '0 seconds';
-    const durationDHMS = [
-      formatUnit(totalDays, 'day'),
-      formatUnit(remainingHours, 'hour'),
-      formatUnit(remainingMinutes, 'minute'),
-      formatUnit(remainingSeconds, 'second')
-    ].filter(Boolean).join(' ') || '0 seconds';
-    const durationHMS = [
-      formatUnit(totalHours, 'hour'),
-      formatUnit(remainingMinutes, 'minute'),
-      formatUnit(remainingSeconds, 'second')
-    ].filter(Boolean).join(' ') || '0 seconds';
-    
-    // Update the UI
-    document.getElementById('duration-ymwdhms').textContent = durationYMWHMS;
-    document.getElementById('duration-dhms').textContent = durationDHMS;
-    document.getElementById('duration-hms').textContent = durationHMS;
-    
-    document.getElementById('years').textContent = years;
-    document.getElementById('months').textContent = months;
-    document.getElementById('days').textContent = days;
-    document.getElementById('hours').textContent = remainingHours;
-    document.getElementById('minutes').textContent = remainingMinutes;
-    document.getElementById('seconds').textContent = remainingSeconds;
-    
-    document.getElementById('total-days').textContent = totalDays;
-    document.getElementById('total-hours').textContent = totalHours;
-    document.getElementById('total-minutes').textContent = totalMinutes;
-    document.getElementById('total-seconds').textContent = totalSeconds;
-  }
-  
-  function formatDateTime(date) {
-    const pad = (num) => num.toString().padStart(2, '0');
-    return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
-  }   
+        let totalDays = Math.floor(Math.abs(diffMs) / (1000 * 3600 * 24));
+        els.resDays.textContent = totalDays.toLocaleString() + " Days";
 
+        els.resAlt.innerHTML = `
+           <div>~ ${Math.floor(Math.abs(diffMs) / 3600000).toLocaleString()} Total Hours</div>
+           <div>~ ${Math.floor(Math.abs(diffMs) / 1000).toLocaleString()} Total Seconds</div>
+        `;
 
+        els.resBreakdown.innerHTML = `
+           <div class="breakdown-item">${y} Years</div>
+           <div class="breakdown-item">${m} Months</div>
+           <div class="breakdown-item">${d} Days</div>
+        `;
+      }
 
-          // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
+      function calculateArithmetic() {
+        const base = new Date(els.baseTime.value);
+        if (isNaN(base)) return;
 
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
+        els.resTitle.textContent = "Calculated Milestone Date";
+        const target = new Date(base);
+        target.setFullYear(target.getFullYear() + (parseInt(els.mY.value) || 0));
+        target.setMonth(target.getMonth() + (parseInt(els.mM.value) || 0));
+        target.setDate(target.getDate() + (parseInt(els.mD.value) || 0));
+        target.setHours(target.getHours() + (parseInt(els.mH.value) || 0));
 
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-          
+        els.resPrimary.textContent = target.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        els.resDays.textContent = target.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+        els.resAlt.innerHTML = `<div>Full Date: ${target.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>`;
+        els.resBreakdown.innerHTML = `<div class="breakdown-item">Arithmetic Shift Applied</div>`;
+      }
 
-          
-          </script>
-          
-       
+      [els.startTime, els.endTime, els.baseTime, els.mY, els.mM, els.mD, els.mH]
+        .forEach(el => el.addEventListener('input', update));
 
-      <style>
-              bodyss {
-                  font-family: Arial, sans-serif;
-                  margin: 20px;
-                  padding: 0;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  flex-direction: column;
-                  background-color: #f4f4f4;
-              }
-          
-            .breakdown-header {
-    font-weight: bold;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-  }
-         .breakdown-header {
-    font-weight: bold;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-  }
-  .result-item {
-    margin-bottom: 8px;
-  }
-  .label {
-    display: inline-block;
-    width: 120px;
-    font-weight: bold;
-  }   
-          
-          
+      els.btnReset.addEventListener('click', () => {
+        els.mY.value = 0; els.mM.value = 0; els.mD.value = 0; els.mH.value = 0;
+        els.startTime.value = now.toISOString().slice(0, 16);
+        els.baseTime.value = now.toISOString().slice(0, 16);
+        update();
+      });
 
-          
-          
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
-
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
-
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
-            }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
-
-
-          </style>
+      update();
+    })();
+  </script>
 </body>
+
 </html>

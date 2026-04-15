@@ -1,655 +1,734 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <!-- Primary Meta Tags -->
-<title>Age Calculator Online – Calculate Age from Date of Birth Instantly</title>
-<meta name="description" content="Use our free age calculator online to find your exact age in years, months, and days. Instantly calculate age from date of birth with 100% accuracy.">
-<meta name="keywords" content="age calculator, calculate your age, age finder, born date calculator, age calculator by birth date, age and date calculator, calculate my age online, calculate age using date of birth, age calculator online by date of birth, calculator net age">
-
-    <link rel="icon" type="image/x-icon" href="favicon.webp">
-
-  <link rel="canonical" href="https://instacalc.in/duration/agecalculator.html" />
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Premium Age & Lifecycle Analyzer | Exact Age & Milestones</title>
+  <meta name="description"
+    content="The most advanced age calculator. Calculate exact age down to the second, discover your age on other planets, and view biological life stats.">
+  <meta name="keywords"
+    content="age calculator, exact age, next birthday, zodiac sign, birthstone, life milestones, interplanetary age">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
-  
-  <!-- Facebook & LinkedIn -->
-<meta property="og:type" content="website" />
-<meta property="og:title" content="Age Calculator – Instantly Calculate Your Age Online" />
-<meta property="og:description" content="Quick and easy online age calculator. Know your exact age in years, months, and days. Free, fast, and accurate." />
-<meta property="og:url" content="https://instacalc.in/agecalculator.html" />
-<meta property="og:image" content="https://instacalc.in/instatheme.webp" />
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Age Calculator – Know Your Exact Age Today!" />
-<meta name="twitter:description" content="Calculate your age from date of birth in seconds. Get results in years, months, and days – no manual work needed!" />
-<meta name="twitter:image" content="https://instacalc.in/instatheme.webp" />
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/duration/agecalculator.html">
 
- <!-- Additional SEO Meta Tags -->
-<meta name="author" content="Instacalc">
-<meta name="robots" content="index, follow">
-<meta name="revisit-after" content="7 days">
-<meta name="language" content="English">
-<meta name="theme-color" content="#1a2a3a">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+
   <style>
-        /* Inline critical CSS - Replace with your actual critical styles */
-      
-        .navbar { /* Example critical navbar styles */ }
-        .container.table1 h2 { /* Example critical calculator heading style */ }
-        /* ... more critical styles ... */
-    </style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
 
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"></noscript>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="style.css"></noscript>
-  
+    html {
+      scroll-behavior: smooth;
+    }
 
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"></noscript>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" defer></script>
-    <script src="script.js" defer></script>
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .planet-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .planet-box {
+      text-align: center;
+      border: 1px solid var(--line);
+      padding: 0.5rem;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .planet-box .pn {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .planet-box .pv {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .ms-list {
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .ms-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.85rem;
+    }
+
+    .ms-item span {
+      font-weight: 600;
+      color: var(--text-soft);
+    }
+
+    .ms-item strong {
+      font-weight: 700;
+      color: var(--accent-strong);
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    @media (min-width: 640px) {
+      .input-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .span-2 {
+        grid-column: span 2;
+      }
+    }
+
+    @media (min-width: 940px) {
+      .hero-grid {
+        grid-template-columns: 1.5fr 1fr;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.751fr 1fr;
+        align-items: start;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+  </style>
 </head>
+
 <body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class=" mb-0">InstaCalc.in</h6>
-  </div>   
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>     
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/aboutus.html">About Us</a>
-      </li>
-       <li class="nav-item px-2">
-        <a class="nav-link " href="/contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand">
+        <img src="../logo.png" alt="InstaCalc">
+        <span>InstaCalc.in</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+      <nav class="site-nav" id="mainNav">
+        <a href="../index.html">Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
 
-    
-
-
-  <!-- //first row first column -->
-  <div class="row">
-  <!-- First row first column -->
-  <div class="col-md-6" style="background-colorf:yellow;">
-    <div class="container mt-5 table1">
-      <h2>Age Calculator</h2>
-      
-      <div class="input-group m">
-        <label for="birth-date" class="mr-1">Date of Birth</label>
-        <input type="date" id="birth-date" class="form-control" onchange="calculateAge()">
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-history"></i> Life Analysis</span>
+          <h1>Advanced Age & Lifecycle Tracker</h1>
+          <p>Discover your exact age down to the second, track biological lifecycle stats, and see your maturity
+            progress across the solar system.</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>Precision Insights</h2>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Exact Age & Birthday Count</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Interplanetary Maturity Index</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Bio-Life Metrics (Heart/Blinks)</div>
+        </aside>
       </div>
-      
-      <div class="input-group">
-        <label for="current-date" class="mr-1">Current Date</label>
-        <input type="date" id="current-date" class="form-control" onchange="calculateAge()">
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="mode-switch">
+            <a href="#" class="active">Age Analysis</a>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head"><label for="dob">Date of Birth</label></div>
+              <input type="datetime-local" id="dob">
+            </div>
+            <div class="field-card">
+              <div class="field-head"><label for="now">Age as of Date</label></div>
+              <input type="datetime-local" id="now">
+            </div>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card positive span-2">
+              <h3>Calculated Natural Age</h3>
+              <div class="result-value" id="resAge">-- Years, -- Months</div>
+              <div style="font-size: 0.82rem; font-weight:700; color:var(--accent-strong); margin-top:0.4rem;"
+                id="resSubAge"></div>
+            </div>
+
+            <div class="result-card">
+              <h3>Journey Profile</h3>
+              <div class="ms-list">
+                <div class="ms-item"><span>Born Day</span> <strong id="resDay">-</strong></div>
+                <div class="ms-item"><span>Next B-Day</span> <strong id="resNext">-</strong></div>
+                <div class="ms-item"><span>Zodiac</span> <strong id="resZod">-</strong></div>
+                <div class="ms-item"><span>Birthstone</span> <strong id="resStone">-</strong></div>
+              </div>
+            </div>
+
+            <div class="result-card">
+              <h3>Biological Stats</h3>
+              <div class="ms-list">
+                <div class="ms-item"><span>Heartbeats</span> <strong id="resHeart"
+                    style="color:var(--success);">-</strong></div>
+                <div class="ms-item"><span>Breaths</span> <strong id="resBreaths"
+                    style="color:var(--success);">-</strong></div>
+                <div class="ms-item"><span>Sleep Hours</span> <strong id="resSleep"
+                    style="color:var(--success);">-</strong></div>
+              </div>
+            </div>
+
+            <div class="result-card span-2">
+              <h3>Interplanetary Maturity</h3>
+              <div class="planet-grid">
+                <div class="planet-box"><span class="pn">Mercury</span>
+                  <div class="pv" id="pMerc">--</div>
+                </div>
+                <div class="planet-box"><span class="pn">Venus</span>
+                  <div class="pv" id="pVen">--</div>
+                </div>
+                <div class="planet-box"><span class="pn">Mars</span>
+                  <div class="pv" id="pMars">--</div>
+                </div>
+                <div class="planet-box"><span class="pn">Jupiter</span>
+                  <div class="pv" id="pJup">--</div>
+                </div>
+                <div class="planet-box"><span class="pn">Saturn</span>
+                  <div class="pv" id="pSat">--</div>
+                </div>
+                <div class="planet-box"><span class="pn">Neptune</span>
+                  <div class="pv" id="pNep">--</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="sidebar-card">
+            <h3>Related Tools</h3>
+            <ul class="link-list">
+              <li><a href="dayscalculator.html"><span>Days Calculator</span> <i class="fas fa-chevron-right"></i></a>
+              </li>
+              <li><a href="hourcalculator.html"><span>Hour Tracker</span> <i class="fas fa-chevron-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
       </div>
-      
-      <div class="result-box">
-        <div class="result-item">
-          <span class="label">Age:</span>
-          <span class="value"><strong><span id="age-years">0</span> years</strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Months:</span>
-          <span class="value"><strong><span id="age-months">0</span> months</strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Days:</span>
-          <span class="value"><strong><span id="age-days">0</span> days</strong></span>
-        </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 InstaCalc.in — Precision Time Utilities.</p>
+      <div class="footer-links">
+        <a href="../aboutus.html">About Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
       </div>
     </div>
-  </div>
-  
-  <!-- First row second column -->
-  <div class="col-md-6 d-none d-md-block">
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <!-- All cards follow the same structure with <a> wrapping the content -->
-      <div class="card">
-        <a class="sitetext" href="dayscalculator.html">
-          <div class="card-body labelbody">Days Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="hourcalculator.html">
-          <div class="card-body labelbody">Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="timedurationcalculator.html">
-          <div class="card-body labelbody">Duration Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="agecalculator.html">
-          <div class="card-body labelbody">Age Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="timezonecalculator.html">
-          <div class="card-body labelbody">Timezone Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="birthdaycalculator.html">
-          <div class="card-body labelbody">Birthday Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="weekcalculator.html">
-          <div class="card-body labelbody">Week Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="minutes-hourscalculator.html">
-          <div class="card-body labelbody">Minutes to Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="juliandatecalculator.html">
-          <div class="card-body labelbody">Julian Date Calculator</div>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+  </footer>
 
-  <!--  /second row -->
-   <div class="row  mb-05">
-  <!-- First Column -->
-  <div class="col-md-6 mt-5 mb-5" >
-    <div class="container">
-    <div class="calculator-content">
-  <div class="title">
-    <h1>Age Calculator: Instantly Calculate Your Age from Date of Birth</h1>
-  </div>
+  <script>
+    (function () {
+      const menuToggle = document.getElementById("menuToggle");
+      const mainNav = document.getElementById("mainNav");
+      menuToggle.onclick = () => mainNav.classList.toggle("open");
 
-  <div class="introduction">
-    <p>Want to know your exact age in years, months, and days? Whether you're filling out a form, planning a birthday surprise, or just curious, our online age calculator does it all instantly and accurately.</p>
-    <p>No calendars, no manual counting—just smart, fast results.</p>
-  </div>
+      const inputs = { dob: document.getElementById('dob'), now: document.getElementById('now') };
+      const res = {
+        age: document.getElementById('resAge'),
+        sub: document.getElementById('resSubAge'),
+        day: document.getElementById('resDay'),
+        next: document.getElementById('resNext'),
+        zod: document.getElementById('resZod'),
+        stone: document.getElementById('resStone'),
+        heart: document.getElementById('resHeart'),
+        breaths: document.getElementById('resBreaths'),
+        sleep: document.getElementById('resSleep'),
+        pm: document.getElementById('pMerc'),
+        pv: document.getElementById('pVen'),
+        pa: document.getElementById('pMars'),
+        pj: document.getElementById('pJup'),
+        ps: document.getElementById('pSat'),
+        pn: document.getElementById('pNep')
+      };
 
-  <div class="what-is-calculator">
-    <h2>What is an Age Calculator?</h2>
-    <p>The Age Calculator is a free tool that lets you calculate your age using date of birth. You simply enter your birth date, and it shows:</p>
-    <ul>
-      <li>✅ Your age in years, months, and days</li>
-      <li>✅ Days left until your next birthday</li>
-      <li>✅ Age on a past or future date</li>
-      <li>✅ Day of the week you were born</li>
-    </ul>
-    <p>It’s one of the easiest ways to calculate age online by date of birth perfect for all age-related calculations.</p>
-  </div>
+      const nowD = new Date();
+      inputs.now.value = nowD.toISOString().slice(0, 16);
+      const defB = new Date(nowD.getFullYear() - 25, nowD.getMonth(), nowD.getDate(), 9, 0);
+      inputs.dob.value = defB.toISOString().slice(0, 16);
 
-  <div class="how-calculator-works">
-    <h2>How Does the Age Calculator Work?</h2>
-    <p>Our calculator net age tool works by calculating the difference between two dates:</p>
-    <ol>
-      <li>1️⃣ Enter your date of birth (DD/MM/YYYY)</li>
-      <li>2️⃣ Select the "as on" date (default is today)</li>
-      <li>3️⃣ Hit "Calculate" and see your full age breakdown</li>
-    </ol>
-    <p>It accurately handles leap years, month lengths, and future/past age lookups.</p>
-  </div>
+      const stones = ["Garnet", "Amethyst", "Aquamarine", "Diamond", "Emerald", "Pearl", "Ruby", "Peridot", "Sapphire", "Opal", "Topaz", "Turquoise"];
+      const zodes = [["Cap", 20, 0], ["Aqu", 19, 1], ["Pis", 20, 2], ["Ari", 20, 3], ["Tau", 21, 4], ["Gem", 21, 5], ["Can", 23, 6], ["Leo", 23, 7], ["Vir", 23, 8], ["Lib", 23, 9], ["Sco", 22, 10], ["Sag", 22, 11], ["Cap", 31, 11]];
 
-  <div class="why-use-calculator">
-    <h2>Why Use an Online Age Calculator?</h2>
-    <ul>
-      <li>🔹 <strong>Quick & Accurate:</strong> Instantly calculate age from date of birth</li>
-      <li>🔹 <strong>No Math Required:</strong> Auto-handles tricky date logic and leap years</li>
-      <li>🔹 <strong>Useful for Everyone:</strong> From school admissions to legal forms</li>
-      <li>🔹 <strong>Mobile Friendly:</strong> Use on any device with internet access</li>
-    </ul>
-  </div>
+      function update() {
+        const b = new Date(inputs.dob.value);
+        const n = new Date(inputs.now.value);
+        if (isNaN(b) || isNaN(n)) return;
 
-  <div class="example-calculation">
-    <h2>Example: Calculate My Age</h2>
-    <p><strong>Born on:</strong> June 15, 1990<br>
-       <strong>Today's Date:</strong> April 10, 2025</p>
-    <ul>
-      <li>🎂 Age: 34 years, 9 months, 26 days</li>
-      <li>📅 Days until next birthday: 66 days</li>
-      <li>🗓 Day of Birth: Friday</li>
-      <li>♊ Zodiac Sign: Gemini</li>
-    </ul>
-  </div>
+        const diffMs = n - b;
+        const totalSecs = Math.floor(diffMs / 1000);
+        const totalMins = Math.floor(totalSecs / 60);
+        const totalHrs = Math.floor(totalMins / 60);
+        const totalDays = Math.floor(totalHrs / 24);
 
-  <div class="special-features">
-    <h2>Additional Features</h2>
-    <p>Beyond simple age and date calculations, this tool also offers:</p>
-    <ul>
-      <li>✔ Day of the week born on</li>
-      <li>✔ Birthstone and zodiac sign</li>
-      <li>✔ Ability to calculate age on any future or past date</li>
-      <li>✔ Shareable results for fun or documentation</li>
-    </ul>
-  </div>
+        let y = n.getFullYear() - b.getFullYear();
+        let mon = n.getMonth() - b.getMonth();
+        let d = n.getDate() - b.getDate();
+        if (d < 0) { mon--; d += new Date(n.getFullYear(), n.getMonth(), 0).getDate(); }
+        if (mon < 0) { y--; mon += 12; }
 
-  <div class="final-thoughts">
-    <h2>Who Can Use This Age & Date Calculator?</h2>
-    <ul>
-      <li>👶 Parents tracking baby milestones</li>
-      <li>📚 Schools checking eligibility by age</li>
-      <li>💼 Employers verifying applicant ages</li>
-      <li>📅 Individuals curious to find or verify their age</li>
-      <li>🎯 Anyone needing an accurate age finder online</li>
-    </ul>
-    <p>So, whether you're looking to calculate your age online or want to find out someone’s age for official or fun reasons—this is the fastest and most accurate way to do it!</p>
-  </div>
-</div>
+        res.age.textContent = `${y} Years, ${mon} Months, ${d} Days`;
+        res.sub.textContent = `${totalSecs.toLocaleString()} total seconds alive`;
 
-    </div>
-  </div>
+        res.day.textContent = b.toLocaleDateString(undefined, { weekday: 'short' });
+        let next = new Date(n.getFullYear(), b.getMonth(), b.getDate());
+        if (next < n) next.setFullYear(n.getFullYear() + 1);
+        res.next.textContent = Math.ceil((next - n) / 86400000) + "d";
+        res.stone.textContent = stones[b.getMonth()];
+        for (let z of zodes) { if (b.getMonth() < z[2] || (b.getMonth() === z[2] && b.getDate() <= z[1])) { res.zod.textContent = z[0]; break; } }
 
-  <!-- Second Column - FAQs -->
-  <div class="col-md-6" >
-    <div class="container mt-5 mb-5">
-      <h2 class="mb-4">Age Calculator FAQs</h2>
-      <div id="faqAccordion" class="accordion">
+        res.heart.textContent = (totalMins * 72).toLocaleString();
+        res.breaths.textContent = (totalMins * 12).toLocaleString();
+        res.sleep.textContent = (totalDays * 8).toLocaleString();
 
-        <!-- FAQ 1 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq " data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                How accurate is the age calculation?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqAccordion">
-            <div class="card-body">
-              Our calculator is 100% accurate as it performs exact date arithmetic, accounting for leap years and varying month lengths. It's more precise than manual counting.
-            </div>
-          </div>
-        </div>
+        res.pm.textContent = (totalDays / 88).toFixed(1);
+        res.pv.textContent = (totalDays / 225).toFixed(1);
+        res.pa.textContent = (totalDays / 687).toFixed(1);
+        res.pj.textContent = (totalDays / 4333).toFixed(1);
+        res.ps.textContent = (totalDays / 10759).toFixed(1);
+        res.pn.textContent = (totalDays / 60190).toFixed(2);
+      }
 
-        <!-- FAQ 2 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingTwo">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq  collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Can I calculate age at a specific future date?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes! Simply enter your birth date and the future date you're interested in. The calculator will show exactly how old you'll be on that date.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 3 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingThree">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Does it work for historical dates?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-            <div class="card-body">
-              Absolutely. The calculator works for any valid dates, whether in the past, present, or future. It can even calculate age differences between historical figures.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 4 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFour">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                How does it handle leap years?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-            <div class="card-body">
-              The calculator automatically accounts for leap years in all calculations. February 29th birthdays are handled precisely, showing correct age for leap year babies.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 5 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFive">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                Can I calculate age in months or weeks?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes, many calculators provide age breakdowns in different units including years, months, weeks, days, and sometimes even hours or minutes.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 6 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSix">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                Is my birth date information stored?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-            <div class="card-body">
-              No, our calculator performs all computations in your browser. Your date information never gets sent to or stored on any server.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 7 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSeven">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight" style="text-align: left">
-                Can I calculate the age difference between two people?
-              </button>
-             
-            </h5>
-          </div>
-          <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes, simply calculate each person's age separately and compare, or use our special age difference calculator that shows the exact gap in years, months, and days.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 8 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingEight">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                What's the oldest/newest date I can enter?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-            <div class="card-body">
-              Our calculator can handle dates from year 1 AD to 9999 AD, covering virtually all practical needs. Some calculators may have different limits based on their programming.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
-
-              Back To Home
-
-             </p>
-       </div>
-
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
-      </div>
-      <script>
-          
-          // age calculator 
-          
-// Set default dates when page loads
-  window.onload = function() {
-    const today = new Date();
-    const currentDateInput = document.getElementById('current-date');
-    
-    // Format today's date as YYYY-MM-DD
-    const formattedToday = today.toISOString().split('T')[0];
-    currentDateInput.value = formattedToday;
-    
-    // Calculate date 10 years ago
-    const birthDate = new Date(today);
-    birthDate.setFullYear(birthDate.getFullYear() - 10);
-    const formattedBirthDate = birthDate.toISOString().split('T')[0];
-    document.getElementById('birth-date').value = formattedBirthDate;
-    
-    // Calculate age initially
-    calculateAge();
-  };
-  
-  function calculateAge() {
-    const birthDate = new Date(document.getElementById('birth-date').value);
-    const currentDate = new Date(document.getElementById('current-date').value);
-    
-    if (isNaN(birthDate.getTime()) || isNaN(currentDate.getTime())) {
-      return; // Invalid dates
-    }
-    
-    let years = currentDate.getFullYear() - birthDate.getFullYear();
-    let months = currentDate.getMonth() - birthDate.getMonth();
-    let days = currentDate.getDate() - birthDate.getDate();
-    
-    if (days < 0) {
-      months--;
-      // Get the last day of the previous month
-      const lastDayOfMonth = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        0
-      ).getDate();
-      days += lastDayOfMonth;
-    }
-    
-    if (months < 0) {
-      years--;
-      months += 12;
-    }
-    
-    document.getElementById('age-years').textContent = years;
-    document.getElementById('age-months').textContent = months;
-    document.getElementById('age-days').textContent = days;
-  }          
-          
-          
-          
-        //age end  
-          
-          
-          
-          
-              function syncInputs(id, isManual = false) {
-                  const slider = document.getElementById(`${id}-slider`);
-                  const numberInput = document.getElementById(id);
-                  if (isManual) {
-                      slider.value = numberInput.value;
-                  } else {
-                      numberInput.value = slider.value;
-                  }
-                  calculateSIP();
-              }
-function formatNumberInIndianFormat(num) {
-    // Convert the number to a string and split into whole and decimal parts
-    let parts = num.toString().split(".");
-    let wholePart = parts[0];
-    let decimalPart = parts.length > 1 ? "." + parts[1] : "";
-
-    // Add commas in Indian numbering system format
-    let lastThree = wholePart.slice(-3);
-    let otherNumbers = wholePart.slice(0, -3);
-    if (otherNumbers !== "") {
-        lastThree = "," + lastThree;
-    }
-    let result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + decimalPart;
-
-    return result;
-}
-          
-          
-          
-       function calculateSIP() {
-    // Get input values
-    const P = parseFloat(document.getElementById("amount").value); // Principal
-    const annualRate = parseFloat(document.getElementById("rate").value); // Annual rate
-    const t = parseInt(document.getElementById("years").value); // Years
-
-    // FD Formula with quarterly compounding (common in India):
-    // M = P × (1 + r/(4×100))^(n×4)
-    // Where:
-    // r = annual interest rate
-    // n = number of years
-    // 4 = quarterly compounding
-
-    const quarterlyRate = annualRate / 4;
-    const totalQuarters = t * 4;
-    const maturityAmount = P * Math.pow(1 + quarterlyRate / 100, totalQuarters);
-    const interestEarned = maturityAmount - P;
-
-    // Format the numbers in Indian format
-    const formattedInvestedAmount = formatNumberInIndianFormat(P.toFixed(2));
-    const formattedInterestEarned = formatNumberInIndianFormat(interestEarned.toFixed(2));
-    const formattedMaturityAmount = formatNumberInIndianFormat(maturityAmount.toFixed(2));
-
-    // Update UI
-    document.getElementById("invested").textContent = formattedInvestedAmount;
-    document.getElementById("returns").textContent = formattedInterestEarned;
-    document.getElementById("total").textContent = formattedMaturityAmount;
-
-    // Update chart (if needed)
- //   updateChart(P, interestEarned);
-}
-          
-          
-          
-
-
-          // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
-
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
-
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-          
-
-          
-          </script>
-
-      <style>
-             
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
-
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
-
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
-            }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
-
-
-          </style>
+      inputs.dob.oninput = update;
+      inputs.now.oninput = update;
+      update();
+    })();
+  </script>
 </body>
+
 </html>

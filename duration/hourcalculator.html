@@ -1,647 +1,850 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
- <title>Hour Calculator | Add, Subtract & Calculate Time Differences Online</title>
-  <meta name="description" content="Easily add or subtract hours and minutes with our online hour calculator. Calculate total work hours, meeting durations, and time differences quickly.">
-     <!-- Basic Favicons -->
-  <link rel="icon" type="image/x-icon" href="favicon.webp">
-  <link rel="canonical" href="https://instacalc.in/duration/hourcalculator.html" />
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Premium Hours Calculator | Time Difference & Break Counter</title>
+  <meta name="description"
+    content="Calculate total hours between times, subtract breaks, and convert to decimal hours. Advanced time arithmetic to add or subtract hours and minutes from any point in time.">
+  <meta name="keywords"
+    content="hours calculator, time difference calculator, work hours counter, timesheet calculator, add hours to time, subtract hours from time, decimal hours converter">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
- <style>
-        /* Inline critical CSS - Replace with your actual critical styles */
-      
-        .navbar { /* Example critical navbar styles */ }
-        .container.table1 h2 { /* Example critical calculator heading style */ }
-        /* ... more critical styles ... */
-    </style>
 
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"></noscript>
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/duration/hourcalculator.html">
 
-    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="style.css"></noscript>
-  
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #0ca4b4;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
 
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"></noscript>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" defer></script>
-    <script src="script.js" defer></script>
-  
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
-  
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h1,
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-tabs {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 14px;
+      padding: 0.3rem;
+      background: #ffffff;
+      width: 100%;
+      max-width: 420px;
+      gap: 0.25rem;
+    }
+
+    .mode-tabs a {
+      flex: 1;
+      min-height: 40px;
+      padding: 0.42rem 0.6rem;
+      border-radius: 10px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.9rem;
+    }
+
+    .mode-tabs a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.85rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input[type="datetime-local"],
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.55rem 0.75rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="datetime-local"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.85rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      line-height: 1.3;
+      color: var(--text);
+    }
+
+    .result-card.highlight {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .breakdown-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .breakdown-item {
+      padding: 0.25rem 0.6rem;
+      background: var(--bg);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-strong);
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .link-list a {
+      min-height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.72rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 1);
+      padding: 2rem 0 3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      color: var(--text-soft);
+    }
+
+    @media (min-width: 640px) {
+      .input-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .span-2 {
+        grid-column: span 2;
+      }
+    }
+
+    @media (min-width: 940px) {
+      .hero-grid {
+        grid-template-columns: 1.5fr 1fr;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.751fr 1fr;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+    }
+
+    .add-subtract-mode {
+      display: none;
+    }
+
+    .calculator-shell.arithmetic-mode .diff-mode {
+      display: none;
+    }
+
+    .calculator-shell.arithmetic-mode .add-subtract-mode {
+      display: grid;
+    }
+
+    .unit-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.7rem;
+    }
+  </style>
 </head>
+
 <body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class="text-white mb-0">InstaCalc.in</h6>
-  </div>   
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>     
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/aboutus.html">About Us</a>
-      </li>
-         <li class="nav-item px-2">
-        <a class="nav-link " href="/contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand">
+        <img src="../logo.png" alt="InstaCalc">
+        <span>InstaCalc.in</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+      <nav class="site-nav" id="mainNav">
+        <a href="../index.html">Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
 
-    
-  <!-- //first row first column -->
-  <div class="row ">
- <!-- First row first column -->
-  <div class="col-md-6 " style="background-colorf:yellow;">
-    <div class="container mt-5 table1 ">
-      <h2>Hours Calculator</h2>
-      <div class="input-group m">
-        <label for="start-datetime" class="mr-2">Start Date & Time</label>
-        <input type="datetime-local" id="start-datetime" class="form-control" onchange="calculateHours()">
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-clock"></i> Precision Time</span>
+          <h1>Premium Hours Calculator</h1>
+          <p>The smartest way to track elapsed time. Calculate work hours, subtract lunch breaks, and convert to decimal
+            payroll format instantly.</p>
+          <div class="hero-actions">
+            <a href="#calcArea" class="btn btn-primary"><i class="fas fa-stopwatch"></i> Start Tracking</a>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h2>Advanced Capabilities</h2>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Subtract Breaks (Lunch/Rest)</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Decimal Format (e.g. 8.5 Hours)</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Spans across multiple days</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Add/Subtract Time Arithmetic</div>
+        </aside>
       </div>
-      <div class="input-group">
-        <label for="end-datetime" class="mr-2">End Date & Time</label>
-        <input type="datetime-local" id="end-datetime" class="form-control" onchange="calculateHours()">
+    </section>
+
+    <section class="section" id="calcArea">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcShell">
+          <div class="mode-tabs">
+            <a href="#" class="active" id="tabDiff">Time Difference</a>
+            <a href="#" id="tabMath">Add / Subtract</a>
+          </div>
+
+          <div class="input-grid diff-mode">
+            <div class="field-card">
+              <div class="field-head"><label for="startTime">Start Date & Time</label></div>
+              <input type="datetime-local" id="startTime">
+            </div>
+            <div class="field-card">
+              <div class="field-head"><label for="endTime">End Date & Time</label></div>
+              <input type="datetime-local" id="endTime">
+            </div>
+            <div class="field-card span-2">
+              <div class="field-head"><label for="breakMins">Subtract Break Time (Minutes)</label></div>
+              <input type="number" id="breakMins" value="0" min="0">
+            </div>
+          </div>
+
+          <div class="input-grid add-subtract-mode">
+            <div class="field-card span-2">
+              <div class="field-head"><label for="baseTime">Base Date & Time</label></div>
+              <input type="datetime-local" id="baseTime">
+            </div>
+            <div class="field-card span-2">
+              <div class="unit-controls">
+                <div>
+                  <label style="font-size: 0.75rem; font-weight:700;">Hours</label>
+                  <input type="number" id="mathHours" value="0">
+                </div>
+                <div>
+                  <label style="font-size: 0.75rem; font-weight:700;">Minutes</label>
+                  <input type="number" id="mathMins" value="0">
+                </div>
+                <div>
+                  <label style="font-size: 0.75rem; font-weight:700;">Seconds</label>
+                  <input type="number" id="mathSecs" value="0">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card highlight span-2">
+              <h3 id="resTitle">Elapsed Time</h3>
+              <div class="result-value" id="resPrimary">-</div>
+              <div class="breakdown-row" id="resBreakdown"></div>
+            </div>
+            <div class="result-card diff-mode">
+              <h3>Decimal Format</h3>
+              <div class="result-value" id="resDecimal" style="font-size: 1.2rem; color: var(--accent);">0.00 Hours
+              </div>
+            </div>
+            <div class="result-card diff-mode">
+              <h3>In Other Units</h3>
+              <div id="resAlt" style="font-size: 0.85rem; color: var(--text-soft);"></div>
+            </div>
+            <div class="result-card add-subtract-mode span-2">
+              <h3>Target Date</h3>
+              <div id="resTargetDate" style="font-weight: 700; color: var(--accent-strong);">--</div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="btnReset"><i class="fas fa-rotate"></i> Reset All</button>
+          </div>
+        </div>
+
+        <aside class="sidebar-head">
+          <div class="sidebar-card">
+            <h3 style="font-family: 'Sora', sans-serif; font-size: 1.1rem; margin-bottom: 0.5rem;">Related Tools</h3>
+            <ul class="link-list">
+              <li><a href="dayscalculator.html"><span>Days Calculator</span> <i class="fas fa-chevron-right"></i></a>
+              </li>
+              <li><a href="timedurationcalculator.html"><span>Duration Calculator</span> <i
+                    class="fas fa-chevron-right"></i></a></li>
+              <li><a href="minutes-hourscalculator.html"><span>Min to Hour</span> <i
+                    class="fas fa-chevron-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
       </div>
-      <div class="input-group" style="visibility: hidden;">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="include-end-time" onchange="calculateHours()">
-          <label class="form-check-label" for="include-end-time">
-            Include end time in calculation
-          </label>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>Professional Time Tracking</h2>
+          <p>Calculating the gap between two times isn't just about subtraction. When crossing midnights or accounting
+            for lunch breaks, precise tools are essential. Our calculator handles complex spans and converts them into
+            the formats you need most.</p>
+
+          <h3>For Payroll & Timesheets</h3>
+          <p>Most payroll systems require time in decimal format (e.g., 7.5 hours instead of 7 hours 30 mins). This tool
+            automatically performs that conversion so you don't have to.</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card">
+            <summary>Does it handle overnight shifts? <i class="fas fa-chevron-down"></i></summary>
+            <p>Yes. If your shift starts at 10:00 PM and ends at 6:00 AM the next day, the calculator uses the Date
+              metadata to correctly identify the 8-hour span.</p>
+          </details>
+          <details class="faq-card">
+            <summary>How is "Decimal Hours" calculated? <i class="fas fa-chevron-down"></i></summary>
+            <p>We divide the number of minutes by 60 and add it to the hours. 15 mins becomes 0.25, 30 mins becomes
+              0.50, and 45 mins becomes 0.75.</p>
+          </details>
         </div>
       </div>
-      
-      <div class="result-box">
-        <div class="result-item">
-          <span class="label">Total Duration:</span>
-          <span class="value"><strong><span id="duration-dhm">-</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Or:</span>
-          <span class="value"><strong><span id="duration-hms">-</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Or:</span>
-          <span class="value"><strong><span id="total-hours">0</span> total hours</strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Or:</span>
-          <span class="value"><strong><span id="total-minutes">0</span> total minutes</strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Or:</span>
-          <span class="value"><strong><span id="total-seconds">0</span> total seconds</strong></span>
-        </div>
-        <div class="breakdown-header">Breakdown:</div>
-        <div class="result-item">
-          <span class="label">Days:</span>
-          <span class="value"><strong><span id="days">0</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Hours:</span>
-          <span class="value"><strong><span id="hours">0</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Minutes:</span>
-          <span class="value"><strong><span id="minutes">0</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Seconds:</span>
-          <span class="value"><strong><span id="seconds">0</span></strong></span>
-        </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 InstaCalc.in — Fast, accurate time and duration tools.</p>
+      <div class="footer-links">
+        <a href="../index.html">Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
       </div>
     </div>
-  </div>
-  
-  <!-- First row second column -->
-   <div class="col-md-6 d-none d-md-block">
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <!-- All cards follow the same structure with <a> wrapping the content -->
-      <div class="card">
-        <a class="sitetext" href="dayscalculator.html">
-          <div class="card-body labelbody">Days Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="hourcalculator.html">
-          <div class="card-body labelbody">Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="timedurationcalculator.html">
-          <div class="card-body labelbody">Duration Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="agecalculator.html">
-          <div class="card-body labelbody">Age Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="timezonecalculator.html">
-          <div class="card-body labelbody">Timezone Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="birthdaycalculator.html">
-          <div class="card-body labelbody">Birthday Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="weekcalculator.html">
-          <div class="card-body labelbody">Week Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="minutes-hourscalculator.html">
-          <div class="card-body labelbody">Minutes to Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="juliandatecalculator.html">
-          <div class="card-body labelbody">Julian Date Calculator</div>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+  </footer>
 
-  <!--  /second row -->
-   <div class="row  mb-05">
-  <!-- First Column -->
-  <div class="col-md-6 " >
-    <div class="container mt-5">
-        
-      <div class="fd-calculator-content">
-        <div class="title">
-          <h1>Hours Calculator: Because Time Matters!</h1>
-        </div>
-        <div class="introduction">
-          <p>Time. It flies, it drags, and sometimes, it disappears before we even notice! Whether you're tracking work hours, planning your study sessions, or just curious how long that Netflix binge actually lasted... a Hours Calculator is a super handy tool to have by your side.</p>
-          <p>Let's talk about it.</p>
-        </div>
+  <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/js/all.min.js"></script>
+  <script>
+    (function () {
+      const els = {
+        menuToggle: document.getElementById('menuToggle'),
+        mainNav: document.getElementById('mainNav'),
+        calcShell: document.getElementById('calcShell'),
+        tabDiff: document.getElementById('tabDiff'),
+        tabMath: document.getElementById('tabMath'),
+        startTime: document.getElementById('startTime'),
+        endTime: document.getElementById('endTime'),
+        breakMins: document.getElementById('breakMins'),
+        baseTime: document.getElementById('baseTime'),
+        mathHours: document.getElementById('mathHours'),
+        mathMins: document.getElementById('mathMins'),
+        mathSecs: document.getElementById('mathSecs'),
+        resTitle: document.getElementById('resTitle'),
+        resPrimary: document.getElementById('resPrimary'),
+        resBreakdown: document.getElementById('resBreakdown'),
+        resDecimal: document.getElementById('resDecimal'),
+        resAlt: document.getElementById('resAlt'),
+        resTargetDate: document.getElementById('resTargetDate'),
+        btnReset: document.getElementById('btnReset')
+      };
 
-        <div class="what-is-fd-calculator">
-          <h2>⏱ What Is an Hours Calculator?</h2>
-          <p>An Hours Calculator helps you calculate the total time between two given points—typically in hours and minutes.</p>
-          <p>You just enter a start time and an end time, and it instantly shows you how much time has passed in between. Some tools even let you subtract break times, convert hours into decimal format, or total multiple time ranges.</p>
-          <p>Sounds simple? That's because it is. But don't let the simplicity fool you—it's very useful.</p>
-        </div>
+      // Defaults
+      const now = new Date();
+      els.startTime.value = now.toISOString().slice(0, 16);
+      els.baseTime.value = now.toISOString().slice(0, 16);
 
-        <div class="how-fd-calculator-works">
-          <h2>🛠️ How Does It Work?</h2>
-          <p>Most hours calculators ask for just two main inputs:</p>
-          <ul>
-            <li><strong>Start Time:</strong> (like 9:00 AM)</li>
-            <li><strong>End Time:</strong> (like 5:30 PM)</li>
-          </ul>
-          <p>Hit calculate... and voilà! You get something like:</p>
-          <p>🟢 Total Hours: 8 hours 30 minutes</p>
-          <p>Some tools go a step further and allow:</p>
-          <ul>
-            <li>24-hour format support</li>
-            <li>Exclusion of unpaid lunch breaks</li>
-            <li>Adding multiple time periods (like shifts or tasks)</li>
-          </ul>
-        </div>
+      const later = new Date(now.getTime() + (8 * 60 * 60 * 1000));
+      els.endTime.value = later.toISOString().slice(0, 16);
 
-        <div class="why-use-fd-calculator">
-          <h2>✅ Who Uses It and Why?</h2>
-          <p>Almost everyone at some point!</p>
-          <ul>
-            <li><strong>🧑‍💼 Professionals</strong><br>Freelancers, office workers, and remote employees use it to log billable hours, track productivity, or fill in timesheets.</li>
-            <li><strong>🧾 Business Owners</strong><br>Helps calculate employee work hours—especially for part-time or hourly wage staff.</li>
-            <li><strong>📚 Students</strong><br>Useful for planning or tracking study time. "Did I really study 4 hours today, or did I scroll Instagram for half of it?"</li>
-            <li><strong>🧘 Everyone Else</strong><br>Maybe you're tracking how long your morning run takes... or how much time you actually spend on social media. Spoiler: It's probably more than you think.</li>
-          </ul>
-        </div>
+      els.menuToggle.addEventListener('click', () => els.mainNav.classList.toggle('open'));
 
-        <div class="example-calculation">
-          <h2>📌 Real-Life Example</h2>
-          <p>Let's say you're working on a client project.</p>
-          <ul>
-            <li>Start: 10:15 AM</li>
-            <li>End: 2:45 PM</li>
-            <li>Took a break: 30 minutes</li>
-          </ul>
-          <p>You plug that into the calculator, subtract the break, and get:</p>
-          <p>⏰ 4 hours total</p>
-          <p>Now you can bill your client accurately. No guessing. No math headaches.</p>
-        </div>
+      els.tabDiff.addEventListener('click', (e) => {
+        e.preventDefault();
+        els.tabDiff.classList.add('active'); els.tabMath.classList.remove('active');
+        els.calcShell.classList.remove('arithmetic-mode'); update();
+      });
 
-        <div class="factors-affecting-returns">
-          <h2>🔁 Extra Features You Might See</h2>
-          <p>Some advanced hours calculators also include:</p>
-          <ul>
-            <li>Add multiple time intervals (Great for people with split shifts)</li>
-            <li>Convert hours to decimals (Essential for payroll!)</li>
-            <li>Export to Excel or PDF</li>
-            <li>Mobile-friendly layouts (Use it on the go!)</li>
-          </ul>
-          <h3>🤔 Why Not Use Mental Math?</h3>
-          <p>Well, you could. But why? Time math can get messy, especially when you're dealing with different time zones, break durations, or overnight shifts.</p>
-          <p>Instead of: "Okay, from 9:45 to 12:30 is... um... wait, is that 2 hours and 45 minutes? Or 3 hours?"</p>
-          <p>Use an hours calculator. One click. No errors. Less stress.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+      els.tabMath.addEventListener('click', (e) => {
+        e.preventDefault();
+        els.tabMath.classList.add('active'); els.tabDiff.classList.remove('active');
+        els.calcShell.classList.add('arithmetic-mode'); update();
+      });
 
-  <!-- Second Column -->
-  <div class="col-md-6" >
-    <div class="container mt-5 mb-5">
-      <h2 class="mb-4">FAQs</h2>
-      <div id="faqAccordion" class="accordion">
+      function update() {
+        if (els.calcShell.classList.contains('arithmetic-mode')) calculateArithmetic();
+        else calculateDifference();
+      }
 
-        <!-- FAQ 1 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Does the calculator account for AM/PM?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes! Our calculator automatically detects AM/PM times. You can also switch to 24-hour format if preferred.
-            </div>
-          </div>
-        </div>
+      function calculateDifference() {
+        const start = new Date(els.startTime.value);
+        const end = new Date(els.endTime.value);
+        const bMins = parseInt(els.breakMins.value) || 0;
 
-        <!-- FAQ 2 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingTwo">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Can I calculate overnight hours?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-            <div class="card-body">
-              Absolutely. The calculator correctly handles time periods that span midnight, like 11:00 PM to 7:00 AM.
-            </div>
-          </div>
-        </div>
+        if (isNaN(start) || isNaN(end)) return;
 
-        <!-- FAQ 3 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingThree">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                How do I subtract break times?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-            <div class="card-body">
-              Simply enter your break duration when prompted, and the calculator will automatically deduct it from your total hours.
-            </div>
-          </div>
-        </div>
+        els.resTitle.textContent = "Elapsed Work Time";
 
-        <!-- FAQ 4 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFour">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                Can I add multiple time periods together?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes! Our advanced calculator lets you enter multiple start/end times and sums them all up for a grand total.
-            </div>
-          </div>
-        </div>
+        let diffMs = (end - start) - (bMins * 60 * 1000);
+        let absMs = Math.abs(diffMs);
 
-        <!-- FAQ 5 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFive">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                How do I convert hours to decimal format?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-            <div class="card-body">
-              The calculator automatically provides decimal conversions (e.g., 1 hour 30 minutes = 1.5 hours) which is perfect for payroll calculations.
-            </div>
-          </div>
-        </div>
+        let totalSecs = Math.floor(absMs / 1000);
+        let totalMins = Math.floor(totalSecs / 60);
+        let totalHrs = Math.floor(totalMins / 60);
 
-        <!-- FAQ 6 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSix">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                Does it work for time tracking across multiple days?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes, you can calculate hours spanning multiple days. Just enter the full date and time for both start and end points.
-            </div>
-          </div>
-        </div>
+        let d = Math.floor(totalHrs / 24);
+        let h = totalHrs % 24;
+        let m = totalMins % 60;
+        let s = totalSecs % 60;
 
-        <!-- FAQ 7 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSeven">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                Can I save or print my time calculations?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-            <div class="card-body">
-              Many versions allow you to export results to PDF or print them directly for your records.
-            </div>
-          </div>
-        </div>
+        let display = "";
+        if (d > 0) display += d + "d ";
+        display += h + " Hours " + m + " Mins";
+        els.resPrimary.textContent = display;
 
-        <!-- FAQ 8 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingEight">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                Is there a mobile app version?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-            <div class="card-body">
-              Our web version works perfectly on mobile browsers. Some platforms also offer dedicated apps for even easier time tracking on the go.
-            </div>
-          </div>
-        </div>
+        els.resDecimal.textContent = (totalMins / 60).toFixed(2) + " Hours";
+        els.resAlt.innerHTML = `
+          <div>Total: ${totalMins.toLocaleString()} Minutes</div>
+          <div>Total: ${totalSecs.toLocaleString()} Seconds</div>
+        `;
 
-      </div>
-      
-      <div class="fun-facts mt-5 p-4" style="background-color:#e6f3ff;border-radius:8px;">
-        <h4>⏳ Fun Time Facts</h4>
-        <ul>
-          <li>The average person spends 6 months of their lifetime waiting at red lights</li>
-          <li>We blink about 15-20 times per minute - that's over 5 million times a year!</li>
-          <li>The concept of "weekend" didn't exist until the early 20th century</li>
-          <li>Sunday is the most common day of the week to call in sick</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-    
-    
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
+        let breakdown = `<div class="breakdown-item">${h}h ${m}m ${s}s</div>`;
+        if (bMins > 0) breakdown += `<div class="breakdown-item">Break: ${bMins}m</div>`;
+        els.resBreakdown.innerHTML = breakdown;
+      }
 
-              Back To Home
+      function calculateArithmetic() {
+        const base = new Date(els.baseTime.value);
+        if (isNaN(base)) return;
 
-             </p>
-       </div>
+        els.resTitle.textContent = "Target Time Result";
+        const h = parseInt(els.mathHours.value) || 0;
+        const m = parseInt(els.mathMins.value) || 0;
+        const s = parseInt(els.mathSecs.value) || 0;
 
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
-      </div>
-  
-  <script> // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
+        const target = new Date(base.getTime() + (h * 3600000) + (m * 60000) + (s * 1000));
 
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
+        els.resPrimary.textContent = target.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        els.resTargetDate.textContent = target.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        els.resBreakdown.innerHTML = `<div class="breakdown-item">${h}h shift applied</div>`;
+      }
 
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-}); </script>
-      <script>
-        
-        
-          
-    
-          
-          // Hour calculator 
-  // Set default dates when page loads
-  window.onload = function() {
-    const now = new Date();
-    const startTime = new Date();
-    startTime.setHours(now.getHours() - 8); // Default to 8 hours ago
-    
-    // Format datetime for input fields (YYYY-MM-DDTHH:MM)
-    const formatDateTime = (date) => {
-      return date.toISOString().slice(0, 16);
-    };
-    
-    document.getElementById('start-datetime').value = formatDateTime(startTime);
-    document.getElementById('end-datetime').value = formatDateTime(now);
-    
-    // Calculate hours initially
-    calculateHours();
-  };
-  
-  function calculateHours() {
-    const startDateTime = new Date(document.getElementById('start-datetime').value);
-    const endDateTime = new Date(document.getElementById('end-datetime').value);
-    const includeEndTime = document.getElementById('include-end-time').checked;
-    
-    if (isNaN(startDateTime.getTime()) || isNaN(endDateTime.getTime())) {
-      return; // Invalid dates
-    }
-    
-    // Swap dates if end time is before start time
-    if (endDateTime < startDateTime) {
-      [startDateTime, endDateTime] = [endDateTime, startDateTime];
-      document.getElementById('start-datetime').valueAsDate = startDateTime;
-      document.getElementById('end-datetime').valueAsDate = endDateTime;
-    }
-    
-    // Calculate time difference in milliseconds
-    let timeDiff = endDateTime - startDateTime;
-    
-    // Include end time if checkbox is checked
-    if (includeEndTime) {
-      timeDiff += 1000; // Add 1 second to include the end moment
-    }
-    
-    // Calculate total time units
-    const totalSeconds = Math.floor(timeDiff / 1000);
-    const totalMinutes = Math.floor(totalSeconds / 60);
-    const totalHours = Math.floor(totalMinutes / 60);
-    
-    // Calculate breakdown
-    const days = Math.floor(totalHours / 24);
-    const hours = totalHours % 24;
-    const minutes = totalMinutes % 60;
-    const seconds = totalSeconds % 60;
-    
-    // Format duration strings
-    const formatUnit = (value, unit) => value > 0 ? `${value} ${unit}${value !== 1 ? 's' : ''}` : '';
-    
-    const daysStr = formatUnit(days, 'day');
-    const hoursStr = formatUnit(hours, 'hour');
-    const minsStr = formatUnit(minutes, 'minute');
-    const secsStr = formatUnit(seconds, 'second');
-    
-    const durationDHM = [daysStr, hoursStr, minsStr].filter(Boolean).join(' ');
-    const durationHMS = [hoursStr, minsStr, secsStr].filter(Boolean).join(' ');
-    
-    // Update the UI
-    document.getElementById('duration-dhm').textContent = durationDHM || '0 seconds';
-    document.getElementById('duration-hms').textContent = durationHMS || '0 seconds';
-    document.getElementById('total-hours').textContent = totalHours;
-    document.getElementById('total-minutes').textContent = totalMinutes;
-    document.getElementById('total-seconds').textContent = totalSeconds;
-    document.getElementById('days').textContent = days;
-    document.getElementById('hours').textContent = hours;
-    document.getElementById('minutes').textContent = minutes;
-    document.getElementById('seconds').textContent = seconds;
-  }        
+      [els.startTime, els.endTime, els.breakMins, els.baseTime, els.mathHours, els.mathMins, els.mathSecs]
+        .forEach(el => el.addEventListener('input', update));
 
+      els.btnReset.addEventListener('click', () => {
+        els.startTime.value = now.toISOString().slice(0, 16);
+        els.endTime.value = later.toISOString().slice(0, 16);
+        els.breakMins.value = 0;
+        els.mathHours.value = 0;
+        els.mathMins.value = 0;
+        els.mathSecs.value = 0;
+        update();
+      });
 
-
-          
-          
-
-          
-          </script>
-
-      <style>
-              bodyss {
-                  font-family: Arial, sans-serif;
-                  margin: 20px;
-                  padding: 0;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  flex-direction: column;
-                  background-color: #f4f4f4;
-              }
-          
-          .breakdown-header {
-    font-weight: bold;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-  }
-          
-          
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
-
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
-
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
-            }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
-
-
-          </style>
+      update();
+    })();
+  </script>
 </body>
+
 </html>

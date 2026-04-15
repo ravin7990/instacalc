@@ -1,737 +1,1017 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
- <!-- Primary Meta Tags -->
-<title>Days Calculator – Count Days Between Two Dates Instantly</title>
-<meta name="description" content="Use our free days calculator to calculate how many days between two dates. Great for tracking events, planning trips, or checking date differences quickly.">
-<meta name="keywords" content="days calculator, calculate days between two dates, days between calculator, count days calculator, born date calculator, calculate between two dates, count how many days, how many days are there between, days between dates">
-<link rel="icon" type="image/x-icon" href="https://instacalc.in/instatheme.webp">
-<link rel="canonical" href="https://instacalc.in/duration/dayscalculator.html" />
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="google-adsense-account" content="ca-pub-4943063856769784">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Advanced Days Calculator | Date Difference & Business Day Counter</title>
+  <meta name="description"
+    content="Calculate exact days between dates, including or excluding weekends (business days). Advanced date arithmetic to add or subtract days, weeks, months, and years.">
+  <meta name="keywords"
+    content="days calculator, date difference calculator, business days counter, work days calculator, add days to date, subtract days from date, date duration">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
 
-<!-- Open Graph / Facebook -->
-<meta property="og:title" content="Days Calculator – Count Days Between Two Dates Instantly">
-<meta property="og:description" content="Easily calculate how many days between two dates using our free online days calculator. Perfect for planning vacations, tracking deadlines, or counting important milestones.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://instacalc.in/dayscalculator.html">
-<meta property="og:image" content="https://instacalc.in/instatheme.webp">
-<meta property="og:site_name" content="InstaCalc">
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/duration/dayscalculator.html">
 
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Days Calculator – Free & Easy Date Counter Tool">
-<meta name="twitter:description" content="Quickly count the days between two dates. Use our smart date calculator to plan events, measure durations, or check how long something lasted.">
-<meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
-  
-  <!-- Additional SEO Meta Tags -->
-<meta name="author" content="Instacalc">
-<meta name="robots" content="index, follow">
-<meta name="revisit-after" content="7 days">
-<meta name="language" content="English">
-<meta name="theme-color" content="#1a2a3a">
-
- <style>
-        /* Inline critical CSS - Replace with your actual critical styles */
-      
-        .navbar { /* Example critical navbar styles */ }
-        .container.table1 h2 { /* Example critical calculator heading style */ }
-        /* ... more critical styles ... */
-    </style>
-
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"></noscript>
-
-    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="style.css"></noscript>
-  
-
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"></noscript>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" defer></script>
-    <script src="script.js" defer></script>
-  
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
- 
-</head>
-<body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class="text-white mb-0"> InstaCalc.in </h6>
-  </div>   
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>     
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/aboutus.html">About Us</a>
-      </li>
-       <li class="nav-item px-2">
-        <a class="nav-link " href="/contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-    
-
-
-  <!-- //first row first column -->
-  <div class="row">
-  <!-- First row first column -->
- <!-- First row first column -->
-  <div class="col-md-6" style="background-colorf:yellow;">
-    <div class="container mt-5 table1">
-      <h2>Days Calculator</h2>
-      
-      <div class="input-group m">
-        <label for="start-date" class="mr-1">Start Date</label>
-        <input type="date" id="start-date" class="form-control" onchange="calculateDays()">
-      </div>
-      
-      <div class="input-group">
-        <label for="end-date" class="mr-1">End Date</label>
-        <input type="date" id="end-date" class="form-control" onchange="calculateDays()">
-      </div>
-      
-      <div class="input-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="include-end-day" onchange="calculateDays()">
-          <label class="form-check-label" for="include-end-day">
-            Include end day in calculation
-          </label>
-        </div>
-      </div>
-      
-      <div class="result-box">
-        <div class="result-item">
-          <span class="label">Total Days:</span>
-          <span class="value"><strong><span id="total-days">0</span> days</strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Breakdown:</span>
-          <span class="value"><strong><span id="breakdown">-</span></strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Weekdays:</span>
-          <span class="value"><strong><span id="weekdays">0</span> days</strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Weekends:</span>
-          <span class="value"><strong><span id="weekends">0</span> days</strong></span>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- First row second column -->
-  <div class="col-md-6 d-none d-md-block">
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <!-- All cards follow the same structure with <a> wrapping the content -->
-      <div class="card">
-        <a class="sitetext" href="dayscalculator.html">
-          <div class="card-body labelbody">Days Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="hourcalculator.html">
-          <div class="card-body labelbody">Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="timedurationcalculator.html">
-          <div class="card-body labelbody">Duration Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="agecalculator.html">
-          <div class="card-body labelbody">Age Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="timezonecalculator.html">
-          <div class="card-body labelbody">Timezone Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="birthdaycalculator.html">
-          <div class="card-body labelbody">Birthday Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="weekcalculator.html">
-          <div class="card-body labelbody">Week Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="minutes-hourscalculator.html">
-          <div class="card-body labelbody">Minutes to Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="juliandatecalculator.html">
-          <div class="card-body labelbody">Julian Date Calculator</div>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-  <!--  /second row -->
- <div class="row mb-05">
-  <!-- First Column -->
-  <div class="col-md-6" >
-    <div class="container mt-5">
-  <div class="days-calculator-content">
-    <div class="title">
-      <h1>Days Calculator: Calculate Days Between Two Dates Instantly 🗓️</h1>
-    </div>
-
-    <div class="introduction">
-      <p>Need to calculate how many days are left until your next vacation? Or wondering how long it's been since your last birthday? Whether it’s for tracking goals, planning events, or marking milestones, a <strong>Days Calculator</strong> is the perfect tool to help you count how many days between any two dates—past or future.</p>
-      <p>No more flipping through calendars or doing mental math. Just enter the dates and let the tool do the rest!</p>
-    </div>
-
-    <div class="what-is-days-calculator">
-      <h2>What Is a Days Calculator?</h2>
-      <p>A <strong>Days Calculator</strong> (also called days between calculator) helps you calculate days between two dates in seconds. Simply input a start date and an end date, and the calculator will show you:</p>
-      <ul>
-        <li>🔹 Total number of days</li>
-        <li>🔹 Duration in weeks, months, or years (in some tools)</li>
-        <li>🔹 Option to include/exclude the start or end date</li>
-      </ul>
-      <p>It’s fast, accurate, and saves you from human error—especially useful when leap years and varying month lengths are involved.</p>
-    </div>
-
-    <div class="why-use-days-calculator">
-      <h2>Why Use a Days Between Dates Calculator?</h2>
-      <p>There are tons of real-life reasons to use a calculate between two dates tool:</p>
-      <ul>
-        <li>📌 Planning vacations or holidays</li>
-        <li>📌 Tracking project timelines and deadlines</li>
-        <li>📌 Calculating how long you've been in a job or relationship</li>
-        <li>📌 Checking how many days until a birthday or anniversary</li>
-        <li>📌 Using as a born date calculator to find your exact age in days</li>
-      </ul>
-      <p>If you're working with dates, this tool is your personal time tracker.</p>
-    </div>
-
-    <div class="how-it-works">
-      <h2>How to Use the Days Calculator</h2>
-      <p>It's super simple to use:</p>
-      <ol>
-        <li>1️⃣ Select your <strong>start date</strong> (e.g., April 10, 2025)</li>
-        <li>2️⃣ Select your <strong>end date</strong> (e.g., October 25, 2025)</li>
-        <li>3️⃣ Click "Calculate"</li>
-      </ol>
-      <p>🎉 The result will tell you how many days are there betweenthe two dates—198 days in the above example!</p>
-      <p>You can also adjust settings to include or exclude start/end dates based on your use case.</p>
-    </div>
-
-    <div class="example-use-case">
-      <h2>Example: Count the Days Until Your Birthday 🎂</h2>
-      <p>Let’s say today is April 10, 2025, and your birthday is on October 25, 2025.</p>
-      <p>Enter both dates into the count days calculator and you’ll see:</p>
-      <p><strong>✅ 198 days left!</strong></p>
-      <p>Now you’ve got just the right countdown to plan something special!</p>
-    </div>
-
-    <div class="manual-vs-calculator">
-      <h2>Why Not Just Count Manually?</h2>
-      <p>You could try. But what about leap years? Or miscounting days between months with different lengths?</p>
-      <p>With a calculate days between two dates tool, everything’s accurate and automatic. No stress, no errors, and no wasted time.</p>
-    </div>
-
-    <div class="extra-features">
-      <h2>Bonus Features (Depending on the Tool)</h2>
-      <p>Some advanced days between two dates calculators also allow you to:</p>
-      <ul>
-        <li>✔ Add or subtract days from a selected date</li>
-        <li>✔ Calculate only business days (excluding weekends and holidays)</li>
-        <li>✔ Include time (hours and minutes) for precise countdowns</li>
-      </ul>
-      <p>It's more than just counting days—it's about tracking time smartly.</p>
-    </div>
-
-    <div class="conclusion">
-      <h2>Final Thoughts</h2>
-      <p>Whether you're managing a deadline, waiting for a big day, or simply curious, this <strong>days calculator</strong> is a powerful and easy-to-use tool. Forget manual date counting—get accurate results instantly with the days between calculator.</p>
-      <p>Try it today and take the guesswork out of your timeline! ⏳✨</p>
-    </div>
-  </div>
-</div>
-
-  </div>
-<!-- Second Column -->
-  <div class="col-md-6" >
-    <div class="container mt-5 mb-5">
-      <h2 class="mb-4">FAQs</h2>
-      <div id="faqAccordion" class="accordion">
-
-        <!-- FAQ 1 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                What exactly does a Days Calculator do?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
-            <div class="card-body">
-              A Days Calculator calculates the exact number of days between two dates. You provide a start date and end date, and it tells you how many days are in between, including or excluding the end date depending on the tool.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 2 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingTwo">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Does it count weekends and holidays?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-            <div class="card-body">
-              Basic days calculators count all days, including weekends. However, some advanced versions have a "business days" option that excludes weekends and sometimes even holidays.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 3 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingThree">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Can I calculate days going backward in time?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-            <div class="card-body">
-              Absolutely! The calculator works the same whether you're counting forward to a future date or backward to see how many days have passed since a past event.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 4 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFour">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                How accurate is a Days Calculator?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-            <div class="card-body">
-              Extremely accurate! It automatically accounts for leap years and varying month lengths, which are easy to miss when counting manually.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 5 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFive">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                Can I calculate hours and minutes too?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-            <div class="card-body">
-              Some advanced calculators do include time calculations, letting you count down to the exact hour or minute of an event.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 6 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSix">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                Is there a limit to how far apart dates can be?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-            <div class="card-body">
-              Most calculators can handle dates hundreds or even thousands of years apart, though practical limits depend on the specific tool's programming.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 7 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSeven">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                Can I save my calculations?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-            <div class="card-body">
-              This depends on the specific calculator. Web-based tools might not save automatically, but you can always screenshot or note down the results.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 8 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingEight">
-            <h5 class="mb-0">
-              <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                Is this calculator free to use?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes! Most days calculators are completely free online tools with no hidden costs.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>     
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
-
-              Back To Home
-
-             </p>
-       </div>
-
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
-      </div>
-  
-  <script> 
-   // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
-
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
-
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-  
-  </script>
-   
-  
-  <script> 
-          
-          // age calculator 
-          
-// Birthstone data
-  const birthstones = {
-    1: "Garnet",
-    2: "Amethyst",
-    3: "Aquamarine",
-    4: "Diamond",
-    5: "Emerald",
-    6: "Pearl",
-    7: "Ruby",
-    8: "Peridot",
-    9: "Sapphire",
-    10: "Opal",
-    11: "Topaz",
-    12: "Turquoise"
-  };
-
-  // Set default dates when page loads
-  // Set default dates when page loads
-  window.onload = function() {
-    const today = new Date();
-    const startDate = new Date();
-    startDate.setDate(today.getDate() - 7); // Default to 7 days ago
-    
-    // Format dates as YYYY-MM-DD
-    const formattedToday = today.toISOString().split('T')[0];
-    const formattedStartDate = startDate.toISOString().split('T')[0];
-    
-    document.getElementById('start-date').value = formattedStartDate;
-    document.getElementById('end-date').value = formattedToday;
-    
-    // Calculate days initially
-    calculateDays();
-  };
-  
-  function calculateDays() {
-    const startDate = new Date(document.getElementById('start-date').value);
-    const endDate = new Date(document.getElementById('end-date').value);
-    const includeEndDay = document.getElementById('include-end-day').checked;
-    
-    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-      return; // Invalid dates
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
     }
-    
-    // Swap dates if end date is before start date
-    if (endDate < startDate) {
-      [startDate, endDate] = [endDate, startDate];
-      document.getElementById('start-date').valueAsDate = startDate;
-      document.getElementById('end-date').valueAsDate = endDate;
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    
-    // Calculate time difference in milliseconds
-    let timeDiff = endDate - startDate;
-    
-    // Convert to days
-    let totalDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    
-    // Include end day if checkbox is checked
-    if (includeEndDay) {
-      totalDays += 1;
+
+    html {
+      scroll-behavior: smooth;
     }
-    
-    // Calculate weekdays and weekends
-    let weekdays = 0;
-    let weekends = 0;
-    let currentDate = new Date(startDate);
-    
-    // Loop through each day
-    for (let i = 0; i < totalDays; i++) {
-      const day = currentDate.getDay();
-      if (day === 0 || day === 6) { // Sunday or Saturday
-        weekends++;
-      } else {
-        weekdays++;
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h1,
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-tabs {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 14px;
+      padding: 0.3rem;
+      background: #ffffff;
+      width: 100%;
+      max-width: 420px;
+      gap: 0.25rem;
+    }
+
+    .mode-tabs a {
+      flex: 1;
+      min-height: 40px;
+      padding: 0.42rem 0.6rem;
+      border-radius: 10px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.9rem;
+    }
+
+    .mode-tabs a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.85rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input[type="date"],
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.55rem 0.75rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="date"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .checkbox-field {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-soft);
+    }
+
+    .checkbox-field input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.85rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      line-height: 1.3;
+      color: var(--text);
+    }
+
+    .result-card.highlight {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .breakdown-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .breakdown-item {
+      padding: 0.25rem 0.6rem;
+      background: var(--bg);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-strong);
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .link-list a {
+      min-height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.72rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1.25rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.15rem;
+      margin: 1.2rem 0 0.5rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+      margin-bottom: 0.8rem;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 1rem 1rem;
+      font-size: 0.95rem;
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 1);
+      padding: 2rem 0 3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      font-weight: 600;
+    }
+
+    @media (min-width: 640px) {
+      .input-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
-      currentDate.setDate(currentDate.getDate() + 1);
+
+      .result-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .span-2 {
+        grid-column: span 2;
+      }
     }
-    
-    // Calculate weeks and remaining days
-    const weeks = Math.floor(totalDays / 7);
-    const remainingDays = totalDays % 7;
-    
-    // Update the UI
-    document.getElementById('total-days').textContent = totalDays;
-    document.getElementById('weekdays').textContent = weekdays;
-    document.getElementById('weekends').textContent = weekends;
-    document.getElementById('weeks').textContent = weeks;
-    document.getElementById('remaining-days').textContent = remainingDays;
-  }     
-          
-          
-          
-        //age end  
-          
-          
-          
-          
-              function syncInputs(id, isManual = false) {
-                  const slider = document.getElementById(`${id}-slider`);
-                  const numberInput = document.getElementById(id);
-                  if (isManual) {
-                      slider.value = numberInput.value;
-                  } else {
-                      numberInput.value = slider.value;
-                  }
-                  calculateSIP();
-              }
-function formatNumberInIndianFormat(num) {
-    // Convert the number to a string and split into whole and decimal parts
-    let parts = num.toString().split(".");
-    let wholePart = parts[0];
-    let decimalPart = parts.length > 1 ? "." + parts[1] : "";
 
-    // Add commas in Indian numbering system format
-    let lastThree = wholePart.slice(-3);
-    let otherNumbers = wholePart.slice(0, -3);
-    if (otherNumbers !== "") {
-        lastThree = "," + lastThree;
+    @media (min-width: 940px) {
+      .hero-grid {
+        grid-template-columns: 1.5fr 1fr;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.751fr 1fr;
+        align-items: start;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
     }
-    let result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + decimalPart;
 
-    return result;
-}
-          
-          
-          
-       function calculateSIP() {
-    // Get input values
-    const P = parseFloat(document.getElementById("amount").value); // Principal
-    const annualRate = parseFloat(document.getElementById("rate").value); // Annual rate
-    const t = parseInt(document.getElementById("years").value); // Years
+    .add-subtract-mode {
+      display: none;
+    }
 
-    // FD Formula with quarterly compounding (common in India):
-    // M = P × (1 + r/(4×100))^(n×4)
-    // Where:
-    // r = annual interest rate
-    // n = number of years
-    // 4 = quarterly compounding
+    .calculator-shell.arithmetic-mode .diff-mode {
+      display: none;
+    }
 
-    const quarterlyRate = annualRate / 4;
-    const totalQuarters = t * 4;
-    const maturityAmount = P * Math.pow(1 + quarterlyRate / 100, totalQuarters);
-    const interestEarned = maturityAmount - P;
+    .calculator-shell.arithmetic-mode .add-subtract-mode {
+      display: grid;
+    }
 
-    // Format the numbers in Indian format
-    const formattedInvestedAmount = formatNumberInIndianFormat(P.toFixed(2));
-    const formattedInterestEarned = formatNumberInIndianFormat(interestEarned.toFixed(2));
-    const formattedMaturityAmount = formatNumberInIndianFormat(maturityAmount.toFixed(2));
+    .unit-controls {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.7rem;
+    }
 
-    // Update UI
-    document.getElementById("invested").textContent = formattedInvestedAmount;
-    document.getElementById("returns").textContent = formattedInterestEarned;
-    document.getElementById("total").textContent = formattedMaturityAmount;
+    @media (min-width: 480px) {
+      .unit-controls {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  </style>
+</head>
 
-    // Update chart (if needed)
-    updateChart(P, interestEarned);
-}
-          
-          
-              let sipChart;
-              function updateChart(invested, returns) {
-                  let ctx = document.getElementById("sipChart").getContext("2d");
-                  if (sipChart) sipChart.destroy();
-                  sipChart = new Chart(ctx, {
-                      type: "doughnut",
-                      data: {
-                          labels: ["Invested Amount", "Est. Returns"],
-                          datasets: [{
-                              data: [invested, returns],
-                              backgroundColor: ["#4CAF50", "#2196F3"]
-                          }]
-                      }
-                  });
-              }
-              calculateSIP();
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand">
+        <img src="../logo.png" alt="InstaCalc">
+        <span>InstaCalc.in</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav class="site-nav" id="mainNav">
+        <a href="../index.html">Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
 
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-calendar-alt"></i> Time & Duration</span>
+          <h1>Advanced Days Calculator</h1>
+          <p>The ultimate tool for date arithmetic. Calculate exact differences, skip weekends (business days), or
+            add/subtract time units from any date instantly.</p>
+          <div class="hero-actions">
+            <a href="#calcArea" class="btn btn-primary"><i class="fas fa-play"></i> Get Started</a>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h2>Why Professionals Use It</h2>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Business Day Counting (Ignore Weekends)</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Inclusive or Exclusive Date Ranges</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Breakdown: Yrs, Months, Weeks & Days</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> Add or Subtract any amount of time</div>
+        </aside>
+      </div>
+    </section>
 
-         
-          
+    <section class="section" id="calcArea">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcShell">
+          <div class="mode-tabs">
+            <a href="#" class="active" id="tabDiff">Date Difference</a>
+            <a href="#" id="tabMath">Add / Subtract</a>
+          </div>
 
-          
-          </script>
- 
+          <div class="input-grid diff-mode">
+            <div class="field-card">
+              <div class="field-head"><label for="startDate">Start Date</label></div>
+              <input type="date" id="startDate">
+            </div>
+            <div class="field-card">
+              <div class="field-head"><label for="endDate">End Date</label></div>
+              <input type="date" id="endDate">
+            </div>
+            <div class="field-card span-2">
+              <div class="inline-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                <label class="checkbox-field">
+                  <input type="checkbox" id="includeEndDay"> Include end day (+1 day)
+                </label>
+                <label class="checkbox-field">
+                  <input type="checkbox" id="businessDaysOnly"> Business days only (Mon-Fri)
+                </label>
+              </div>
+            </div>
+          </div>
 
-      <style>
-              bodyss {
-                  font-family: Arial, sans-serif;
-                  margin: 20px;
-                  padding: 0;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  flex-direction: column;
-                  background-color: #f4f4f4;
-              }
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
+          <div class="input-grid add-subtract-mode">
+            <div class="field-card span-2">
+              <div class="field-head"><label for="baseDate">Start Date</label></div>
+              <input type="date" id="baseDate">
+            </div>
+            <div class="field-card span-2">
+              <div class="field-head"><label>Operation</label></div>
+              <select id="mathOp">
+                <option value="add">Add Time Units</option>
+                <option value="sub">Subtract Time Units</option>
+              </select>
+            </div>
+            <div class="field-card span-2">
+              <div class="unit-controls">
+                <div>
+                  <label style="font-size: 0.75rem; font-weight:700;">Years</label>
+                  <input type="number" id="numYears" value="0" min="0">
+                </div>
+                <div>
+                  <label style="font-size: 0.75rem; font-weight:700;">Months</label>
+                  <input type="number" id="numMonths" value="0" min="0">
+                </div>
+                <div>
+                  <label style="font-size: 0.75rem; font-weight:700;">Weeks</label>
+                  <input type="number" id="numWeeks" value="0" min="0">
+                </div>
+                <div>
+                  <label style="font-size: 0.75rem; font-weight:700;">Days</label>
+                  <input type="number" id="numDays" value="0" min="0">
+                </div>
+              </div>
+            </div>
+          </div>
 
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
+          <div class="result-grid">
+            <div class="result-card highlight span-2" id="primaryResultCard">
+              <h3 id="resTitle">Total Duration</h3>
+              <div class="result-value" id="resPrimary">-</div>
+              <div class="breakdown-row" id="resBreakdown">
+                <!-- Dynamic breakdown tokens -->
+              </div>
+            </div>
+            <div class="result-card diff-mode">
+              <h3>Alternative Units</h3>
+              <div id="altUnits" style="font-size: 0.9rem; color: var(--text-soft);">
+                <!-- Minutes, Hours labels -->
+              </div>
+            </div>
+            <div class="result-card diff-mode">
+              <h3>Distribution</h3>
+              <div id="daySplit" style="font-size: 0.9rem; color: var(--text-soft);">
+                <!-- Weekdays/Weekends -->
+              </div>
+            </div>
+            <div class="result-card add-subtract-mode span-2">
+              <h3>Target Date Day</h3>
+              <div class="result-value" id="resTargetDay" style="color: var(--accent);">Monday</div>
+            </div>
+          </div>
 
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
-            }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="btnCalc"><i class="fas fa-rotate"></i> Recalculate</button>
+            <button class="btn btn-ghost" id="btnReset"><i class="fas fa-undo"></i> Reset</button>
+          </div>
+        </div>
 
+        <aside class="sidebar-head">
+          <div class="sidebar-card">
+            <h3 style="font-family: 'Sora', sans-serif; font-size: 1.1rem; margin-bottom: 0.5rem;">Quick Tools</h3>
+            <ul class="link-list">
+              <li><a href="agecalculator.html"><span>Age Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="hourcalculator.html"><span>Hour Calculator</span> <i class="fas fa-chevron-right"></i></a>
+              </li>
+              <li><a href="timedurationcalculator.html"><span>Duration Calculator</span> <i
+                    class="fas fa-chevron-right"></i></a></li>
+              <li><a href="timezonecalculator.html"><span>Timezone Tool</span> <i class="fas fa-chevron-right"></i></a>
+              </li>
+            </ul>
+          </div>
+          <div class="feature-card" style="margin-top: 1rem; padding: 1rem;">
+            <h3 style="font-family: 'Sora', sans-serif; font-size: 1.1rem; margin-bottom: 0.5rem;">Pro Tips</h3>
+            <p style="font-size: 0.88rem; color: var(--text-soft);">Enable <strong>Business Days Only</strong> to
+              calculate project deadlines excluding Saturdays and Sundays.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-          </style>
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>Mastering Date Calculations</h2>
+          <p>Counting days might seem simple, but when leap years, different month lengths, and business hours come into
+            play, errors are common. This advanced tool removes the guesswork.</p>
+
+          <h3>Business Days vs Calendar Days</h3>
+          <p>By default, calendar days count every single day from start to finish. Business days (Commonly Mon-Fri) are
+            essential for HR systems, logistics, and legal deadlines.</p>
+
+          <h3>Date Arithmetic Explained</h3>
+          <p>Want to know where you'll be in exactly 100 days? Or what 6 months ago was? Use the <strong>Add /
+              Subtract</strong> tab to find target dates by shifting time forward or backward.</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card">
+            <summary>How does "Include End Day" work? <i class="fas fa-chevron-down"></i></summary>
+            <p>Normally, calculators subtract one date from another. Feb 1 to Feb 2 is 1 day. If you check "Include End
+              Day", it counts both as active days, resulting in 2 days.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Are leap years supported? <i class="fas fa-chevron-down"></i></summary>
+            <p>Yes. Our logic uses the JavaScript Date object which fully supports Gregorian leap year rules (like 2024
+              or 2028).</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can I calculate work days? <i class="fas fa-chevron-down"></i></summary>
+            <p>Absolutely. Toggle "Business Days Only" to automatically filter out all Saturdays and Sundays from your
+              result.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 InstaCalc.in — Fast, accurate time and duration tools.</p>
+      <div class="footer-links">
+        <a href="../index.html">Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/js/all.min.js"></script>
+  <script>
+    (function () {
+      const els = {
+        menuToggle: document.getElementById('menuToggle'),
+        mainNav: document.getElementById('mainNav'),
+        calcShell: document.getElementById('calcShell'),
+        tabDiff: document.getElementById('tabDiff'),
+        tabMath: document.getElementById('tabMath'),
+        startDate: document.getElementById('startDate'),
+        endDate: document.getElementById('endDate'),
+        includeEndDay: document.getElementById('includeEndDay'),
+        businessDaysOnly: document.getElementById('businessDaysOnly'),
+        baseDate: document.getElementById('baseDate'),
+        mathOp: document.getElementById('mathOp'),
+        numYears: document.getElementById('numYears'),
+        numMonths: document.getElementById('numMonths'),
+        numWeeks: document.getElementById('numWeeks'),
+        numDays: document.getElementById('numDays'),
+        btnCalc: document.getElementById('btnCalc'),
+        btnReset: document.getElementById('btnReset'),
+        resTitle: document.getElementById('resTitle'),
+        resPrimary: document.getElementById('resPrimary'),
+        resBreakdown: document.getElementById('resBreakdown'),
+        altUnits: document.getElementById('altUnits'),
+        daySplit: document.getElementById('daySplit'),
+        resTargetDay: document.getElementById('resTargetDay')
+      };
+
+      // Set default dates
+      const now = new Date();
+      els.startDate.valueAsDate = now;
+      els.baseDate.valueAsDate = now;
+
+      const nextWeek = new Date();
+      nextWeek.setDate(now.getDate() + 7);
+      els.endDate.valueAsDate = nextWeek;
+
+      // Navigation
+      els.menuToggle.addEventListener('click', () => els.mainNav.classList.toggle('open'));
+
+      // Tab Switching
+      els.tabDiff.addEventListener('click', (e) => {
+        e.preventDefault();
+        els.tabDiff.classList.add('active');
+        els.tabMath.classList.remove('active');
+        els.calcShell.classList.remove('arithmetic-mode');
+        updateAll();
+      });
+
+      els.tabMath.addEventListener('click', (e) => {
+        e.preventDefault();
+        els.tabMath.classList.add('active');
+        els.tabDiff.classList.remove('active');
+        els.calcShell.classList.add('arithmetic-mode');
+        updateAll();
+      });
+
+      function updateAll() {
+        if (els.calcShell.classList.contains('arithmetic-mode')) {
+          calculateArithmetic();
+        } else {
+          calculateDifference();
+        }
+      }
+
+      function calculateDifference() {
+        const start = new Date(els.startDate.value);
+        const end = new Date(els.endDate.value);
+        if (isNaN(start) || isNaN(end)) return;
+
+        els.resTitle.textContent = "Duration Between Dates";
+
+        let diffMs = end - start;
+        let isFuture = diffMs >= 0;
+        let absMs = Math.abs(diffMs);
+        let totalDays = Math.floor(absMs / (1000 * 60 * 60 * 24));
+
+        if (els.includeEndDay.checked) totalDays += 1;
+
+        // Breakdown (Y, M, D)
+        let bY = 0, bM = 0, bD = 0;
+        let tempStart = new Date(isFuture ? start : end);
+        let tempEnd = new Date(isFuture ? end : start);
+
+        let d1 = tempStart.getDate();
+        let m1 = tempStart.getMonth();
+        let y1 = tempStart.getFullYear();
+        let d2 = tempEnd.getDate();
+        let m2 = tempEnd.getMonth();
+        let y2 = tempEnd.getFullYear();
+
+        bY = y2 - y1;
+        bM = m2 - m1;
+        bD = d2 - d1;
+
+        if (bD < 0) {
+          bM--;
+          let prevMonth = new Date(y2, m2, 0).getDate();
+          bD += prevMonth;
+        }
+        if (bM < 0) {
+          bY--;
+          bM += 12;
+        }
+
+        // Business Days Logic
+        let workDays = 0, weekendDays = 0;
+        let curr = new Date(tempStart);
+        let limit = new Date(tempEnd);
+        if (els.includeEndDay.checked) limit.setDate(limit.getDate() + 1);
+
+        while (curr < limit) {
+          let day = curr.getDay();
+          if (day === 0 || day === 6) weekendDays++;
+          else workDays++;
+          curr.setDate(curr.getDate() + 1);
+        }
+
+        const displayDays = els.businessDaysOnly.checked ? workDays : totalDays;
+
+        els.resPrimary.textContent = displayDays + " Days";
+
+        let breakdownHtml = `<div class="breakdown-item">${Math.floor(totalDays / 7)} Weeks</div>`;
+        if (bY > 0) breakdownHtml += `<div class="breakdown-item">${bY} Years</div>`;
+        if (bM > 0) breakdownHtml += `<div class="breakdown-item">${bM} Months</div>`;
+
+        els.resBreakdown.innerHTML = breakdownHtml;
+
+        els.altUnits.innerHTML = `
+          <div>~ ${totalDays * 24} Hours</div>
+          <div>~ ${(totalDays * 24 * 60).toLocaleString()} Minutes</div>
+        `;
+
+        els.daySplit.innerHTML = `
+          <div>Work Days: ${workDays}</div>
+          <div>Weekends: ${weekendDays}</div>
+        `;
+      }
+
+      function calculateArithmetic() {
+        const base = new Date(els.baseDate.value);
+        if (isNaN(base)) return;
+
+        els.resTitle.textContent = "Calculated Target Date";
+
+        const op = els.mathOp.value === 'add' ? 1 : -1;
+        const target = new Date(base);
+
+        target.setFullYear(target.getFullYear() + (parseInt(els.numYears.value) || 0) * op);
+        target.setMonth(target.getMonth() + (parseInt(els.numMonths.value) || 0) * op);
+
+        let extraDays = (parseInt(els.numWeeks.value) || 0) * 7 + (parseInt(els.numDays.value) || 0);
+        target.setDate(target.getDate() + extraDays * op);
+
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        els.resPrimary.textContent = target.toLocaleDateString(undefined, options);
+        els.resTargetDay.textContent = target.toLocaleDateString(undefined, { weekday: 'long' });
+        els.resBreakdown.innerHTML = `<div class="breakdown-item">${op > 0 ? 'Future' : 'Past'} Event</div>`;
+      }
+
+      // Event listeners for real-time feel
+      [els.startDate, els.endDate, els.includeEndDay, els.businessDaysOnly,
+      els.baseDate, els.numYears, els.numMonths, els.numWeeks, els.numDays, els.mathOp]
+        .forEach(el => el.addEventListener('input', updateAll));
+
+      els.btnReset.addEventListener('click', () => {
+        els.numYears.value = 0;
+        els.numMonths.value = 0;
+        els.numWeeks.value = 0;
+        els.numDays.value = 0;
+        els.startDate.valueAsDate = now;
+        els.baseDate.valueAsDate = now;
+        updateAll();
+      });
+
+      updateAll();
+    })();
+  </script>
 </body>
+
 </html>
