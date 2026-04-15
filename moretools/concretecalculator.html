@@ -1,745 +1,1426 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Concrete Calculator - (Cubic Feet, Meters, Yards) - Get Accurate Estimates</title>
-<meta name="description" content="Calculate the exact volume of concrete needed for your construction project. Use our Concrete Calculator to estimate cubic feet, cubic meters, or yards for slabs, footings, and more.">
-   <!-- Basic Favicons -->
-    <link rel="icon" type="image/x-icon" href="favicon.webp">
-
-  <link rel="canonical" href="https://instacalc.in/duration/concretecalculator.html" />
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Advanced Concrete Calculator | Cement, Sand, Aggregate & Cost Estimator</title>
+  <meta name="description"
+    content="Advanced concrete calculator to estimate concrete volume, cement bags, sand (CFT/m³), aggregate, and cost for slabs, footings, columns, beams, stairs, and retaining walls. Accurate RCC and construction material estimator in 2026.">
+  <meta name="keywords"
+    content="concrete calculator, cement calculator, concrete mix, concrete volume, building material estimator, cement sand aggregate calculator, rcc calculator, slab concrete calculator, concrete cost calculator, construction calculator india">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
-  
-  <style>
-        /* Inline critical CSS - Replace with your actual critical styles */
-      
-        .navbar { /* Example critical navbar styles */ }
-        .container.table1 h2 { /* Example critical calculator heading style */ }
-        /* ... more critical styles ... */
-    </style>
 
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"></noscript>
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/moretools/concretecalculator.html">
 
-    <link rel="preload" href="style2s.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="style2s.css"></noscript>
-  
+  <meta property="og:title" content="Advanced Concrete Calculator - Cement, Sand, Aggregate & Cost Estimator">
+  <meta property="og:description"
+    content="Calculate concrete quantity, material requirements, and total cost for various structures. Accurate building material estimates with dry volume conversion.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/moretools/concretecalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
 
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"></noscript>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" defer></script>
-    <script src="script.js" defer></script>
-  <!-- Add to <head> -->
-   <link rel="preload" href="https://fonts.googleapis.com/css?family=Trirong" as="font" type="font/woff2" crossorigin>
-  
-  
-</head>
-<body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;aspect-ratio: 1/1;">
-    <h6 class=" mb-0">InstaCalc.in</h6>
-  </div>   
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>     
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/aboutus.html">About Us</a>
-      </li>
-       <li class="nav-item px-2">
-        <a class="nav-link " href="/contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Advanced Concrete Calculator - Cement, Sand, Aggregate & Cost Estimator">
+  <meta name="twitter:description"
+    content="Free advanced concrete calculator for slabs, columns, and foundations. Get precise cement, sand, and aggregate lists with cost estimates.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
 
-    
-
-
-  <!-- //first row  -->
-  <div class="row">
- <!-- First row first column -->
- <!-- First column - Concrete Calculator -->
-  <div class="col-md-6" >
-    <div class="container mt-5">
-      <h2> Concrete Calculator</h2>
-     
-      
-      <div class="card mb-4">
-        <div class="card-header  ">
-        <strong>Dimensions</strong>  
-        </div>
-        <div class="card-body">
-          <!-- Dimension inputs with proper event handling -->
-          <div class="input-group mb-3">
-            <label for="length" class="input-group-text">Length</label>
-            <input type="number" id="length" class="form-control" value="3" min="0.1" step="0.1" 
-                   oninput="calculateConcrete()" onchange="calculateConcrete()">
-            <select id="length-unit" class="form-select" onchange="calculateConcrete()">
-              <option value="m" selected>meters</option>
-              <option value="ft">feet</option>
-              <option value="cm">cm</option>
-            </select>
-          </div>
-          
-          <div class="input-group mb-3">
-            <label for="width" class="input-group-text">Width</label>
-            <input type="number" id="width" class="form-control" value="3" min="0.1" step="0.1"
-                   oninput="calculateConcrete()" onchange="calculateConcrete()">
-            <select id="width-unit" class="form-select" onchange="calculateConcrete()">
-              <option value="m" selected>meters</option>
-              <option value="ft">feet</option>
-              <option value="cm">cm</option>
-            </select>
-          </div>
-          
-          <div class="input-group mb-3">
-            <label for="depth" class="input-group-text">Thickness</label>
-            <input type="number" id="depth" class="form-control" value="0.1" min="0.01" step="0.01"
-                   oninput="calculateConcrete()" onchange="calculateConcrete()">
-            <select id="depth-unit" class="form-select" onchange="calculateConcrete()">
-              <option value="m" selected>meters</option>
-              <option value="cm">cm</option>
-              <option value="in">inches</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="card mb-4">
-        <div class="card-header  ">
-         <strong>Concrete Specifications</strong> 
-        </div>
-        <div class="card-body">
-          <!-- All specification inputs with proper event handling -->
-          <div class="input-group mb-3">
-            <label for="concrete-grade" class="input-group-text">Grade</label>
-            <select id="concrete-grade" class="form-select" onchange="calculateConcrete()">
-              <option value="M5">M5 (1:5:10)</option>
-              <option value="M7.5">M7.5 (1:4:8)</option>
-              <option value="M10">M10 (1:3:6)</option>
-              <option value="M15">M15 (1:2:4)</option>
-              <option value="M20" selected>M20 (1:1.5:3)</option>
-              <option value="M25">M25 (1:1:2)</option>
-            </select>
-          </div>
-          
-          <div class="input-group mb-3">
-            <label class="input-group-text">Cement Bag</label>
-            <select id="cement-bag-size" class="form-select" onchange="calculateConcrete()">
-              <option value="50" selected>50 kg</option>
-              <option value="25">25 kg</option>
-            </select>
-          </div>
-          
-          <div class="form-check form-switch mb-3">
-            <input class="form-check-input" type="checkbox" id="include-wastage" checked 
-                   onchange="calculateConcrete()">
-            <label class="form-check-label" for="include-wastage">Include 10% wastage</label>
-          </div>
-          
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="rcc-structure" checked 
-                   onchange="calculateConcrete()">
-            <label class="form-check-label" for="rcc-structure">RCC Structure</label>
-          </div>
-        </div>
-      </div>
-      
-      <div class="card">
-        <div class="card-header ">
-        <strong> Results</strong> 
-        </div>
-        <div class="card-body">
-          <div class="result-box">
-            <!-- All result fields with proper updating -->
-            <div class="result-item">
-              <span class="label">Wet Volume:</span>
-              <span class="value"><strong><span id="wet-volume">0.90</span> m³</strong></span>
-            </div>
-            <div class="result-item">
-              <span class="label">Dry Volume:</span>
-              <span class="value"><strong><span id="dry-volume">1.38</span> m³</strong></span>
-            </div>
-            <div class="result-item bg-light">
-              <span class="label">Cement:</span>
-              <span class="value"><strong><span id="cement">8.06</span> bags</strong></span>
-            </div>
-            <div class="result-item">
-              <span class="label">Sand:</span>
-              <span class="value"><strong><span id="sand">0.417</span> m³</strong></span>
-            </div>
-            <div class="result-item">
-              <span class="label">Aggregate:</span>
-              <span class="value"><strong><span id="aggregate">0.834</span> m³</strong></span>
-            </div>
-            <div class="result-item">
-              <span class="label">Water:</span>
-              <span class="value"><strong><span id="water">101</span> L</strong></span>
-            </div>
-            <div class="result-item bg-light" id="steel-result">
-              <span class="label">Steel:</span>
-              <span class="value"><strong><span id="steel">126</span> kg</strong></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- First row second column -->
- <div class="col-md-6 d-none d-md-block">
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <!-- All cards follow the same structure with <a> wrapping the content -->
-      <div class="card">
-        <a class="sitetext" href="/duration/dayscalculator.html">
-          <div class="card-body labelbody">Days Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="/duration/hourcalculator.html">
-          <div class="card-body labelbody">Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="/duration/timedurationcalculator.html">
-          <div class="card-body labelbody">Duration Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="/duration/agecalculator.html">
-          <div class="card-body labelbody">Age Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="/duration/timezonecalculator.html">
-          <div class="card-body labelbody">Timezone Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="/duration/birthdaycalculator.html">
-          <div class="card-body labelbody">Birthday Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="/duration/weekcalculator.html">
-          <div class="card-body labelbody">Week Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="/duration/minutes-hourscalculator.html">
-          <div class="card-body labelbody">Minutes to Hour Calculator</div>
-        </a>
-      </div>
-      <br>
-      
-      <div class="card">
-        <a class="sitetext" href="/duration/juliandatecalculator.html">
-          <div class="card-body labelbody">Julian Date Calculator</div>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-  <!--  /second row -->
-   <div  class="row mb-05">
-  <!--    //second row first column -->
-    <div class="col-md-6 mt-5" >
-
-    <div class="container">
-        <div class="fd-calculator-content">
-            <div class="title">
-                <h1>Concrete Calculator: Estimate Cement, Sand & Aggregate Easily</h1>
-            </div>
-            <div class="introduction">
-                <p>Planning a construction project? Whether it’s a house, a patio, or a foundation slab, knowing how much concrete you need is essential. That’s where a Concrete Calculator comes in handy.</p>
-                <p>This tool helps you quickly estimate the quantity of cement, sand, and aggregate required for your job, based on your input dimensions. No complex math, no waste of materials—just fast and accurate results.</p>
-            </div>
-
-            <div class="what-is-fd-calculator">
-                <h2>What is a Concrete Calculator?</h2>
-                <p>A Concrete Calculator is a tool that helps you determine:</p>
-                <ul>
-                    <li>✅ Total volume of concrete required for your project</li>
-                    <li>✅ Approximate quantities of cement, sand, and aggregate</li>
-                    <li>✅ Help avoid over-ordering or under-ordering materials</li>
-                </ul>
-                <p>Simply enter the length, width, and thickness of your concrete slab or structure, and the calculator will do the rest.</p>
-            </div>
-
-            <div class="how-fd-calculator-works">
-                <h2>How Does a Concrete Calculator Work?</h2>
-                <p>The calculator uses a basic volume formula:</p>
-                <p><code>Volume = Length × Width × Thickness</code></p>
-                <p>Based on this volume, it then applies standard concrete mix ratios (e.g., 1:2:4) to give you an estimate of the materials needed.</p>
-            </div>
-
-            <div class="how-to-use-fd-calculator">
-                <h2>How to Use the Concrete Calculator?</h2>
-                <p>Just follow these simple steps:</p>
-                <ol>
-                    <li>1️⃣ Enter the length – in meters (e.g., 5 meters)</li>
-                    <li>2️⃣ Enter the width – in meters (e.g., 4 meters)</li>
-                    <li>3️⃣ Enter the thickness – in meters (e.g., 0.15 meters)</li>
-                    <li>4️⃣ Choose your concrete mix ratio (e.g., 1:2:4)</li>
-                    <li>5️⃣ Click ‘Calculate’ – and instantly see the required material quantities!</li>
-                </ol>
-            </div>
-
-            <div class="example-calculation">
-                <h2>Example Calculation</h2>
-                <p>Let’s say you need to pour a concrete slab that is 5 meters long, 4 meters wide, and 0.15 meters thick:</p>
-                <ul>
-                    <li>🔹 Total Volume: 3.0 m³</li>
-                    <li>🔹 Cement: ~12 bags (50 kg each)</li>
-                    <li>🔹 Sand: ~0.84 m³</li>
-                    <li>🔹 Aggregate: ~1.68 m³</li>
-                </ul>
-                <p>This gives you a good estimate to start purchasing materials efficiently.</p>
-            </div>
-
-            <div class="why-use-fd-calculator">
-                <h2>Why Use a Concrete Calculator?</h2>
-                <ul>
-                    <li>🔹 Avoid Material Wastage – Order only what you need</li>
-                    <li>🔹 Save Time – No manual calculations or guesswork</li>
-                    <li>🔹 Cost Planning – Get an idea of total expenses before starting</li>
-                    <li>🔹 Easy to Use – Just enter dimensions and get instant results</li>
-                </ul>
-                <p>Whether you’re a builder, contractor, or homeowner, this calculator makes your work easier and smarter!</p>
-            </div>
-
-            <div class="factors-affecting-returns">
-                <h2>Factors That Affect Concrete Requirements</h2>
-                <p>Here’s what can impact how much concrete you need:</p>
-                <ul>
-                    <li>✔️ Size of the structure – Larger dimensions mean more material</li>
-                    <li>✔️ Thickness of the slab – Thicker slabs need more concrete</li>
-                    <li>✔️ Type of mix – Different ratios affect total volume of materials</li>
-                    <li>✔️ Wastage factor – Always add 5–10% extra to account for spillage</li>
-                </ul>
-                <p>Use the calculator to make accurate decisions and avoid costly mistakes.</p>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-  <!--   //second row second column -->
-   <div class="col-md-6" style="background-color:lighCtblue;">
-  <div class="container mt-5 mb-5">
-    <h2 class="mb-4">FAQs</h2>
-    <div id="faqAccordion" class="accordion">
-
-        <!-- FAQ 1 -->
-        <div class="card labelbody">
-            <div class="card-header" id="headingOne">
-                <h5 class="mb-0">
-                    <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        What is a Concrete Calculator?
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
-                <div class="card-body">
-                    A Concrete Calculator helps you estimate the volume of concrete needed for construction projects like slabs, footings, columns, and beams based on dimensions provided.
-                </div>
-            </div>
-        </div>
-
-        <!-- FAQ 2 -->
-        <div class="card labelbody">
-            <div class="card-header" id="headingTwo">
-                <h5 class="mb-0">
-                    <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        How does the Concrete Calculator work?
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-                <div class="card-body">
-                    It calculates the volume of concrete required by using the formula: <strong>Length × Width × Depth</strong> and then converts it into cubic meters or cubic feet.
-                </div>
-            </div>
-        </div>
-
-        <!-- FAQ 3 -->
-        <div class="card labelbody">
-            <div class="card-header" id="headingThree">
-                <h5 class="mb-0">
-                    <button class="btn hoverfaq collapsed textleft" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        What inputs are needed for concrete volume calculation?
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-                <div class="card-body">
-                    You need to provide:
-                    <ul>
-                        <li><strong>Length:</strong> The total length of the area (in feet or meters).</li>
-                        <li><strong>Width:</strong> The width of the area to be concreted.</li>
-                        <li><strong>Depth or Thickness:</strong> The depth of the slab or footing.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- FAQ 4 -->
-        <div class="card labelbody">
-            <div class="card-header" id="headingFour">
-                <h5 class="mb-0">
-                    <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                        Can I use the calculator for different shapes?
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-                <div class="card-body">
-                    Most concrete calculators support basic shapes like rectangular slabs, footings, and columns. For irregular shapes, break them into smaller standard shapes for accurate estimation.
-                </div>
-            </div>
-        </div>
-
-        <!-- FAQ 5 -->
-        <div class="card labelbody">
-            <div class="card-header" id="headingFive">
-                <h5 class="mb-0">
-                    <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                        What units are used in the calculator?
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-                <div class="card-body">
-                    You can use metric units (meters, centimeters) or imperial units (feet, inches). The output is usually in cubic meters or cubic feet.
-                </div>
-            </div>
-        </div>
-
-        <!-- FAQ 6 -->
-        <div class="card labelbody">
-            <div class="card-header" id="headingSix">
-                <h5 class="mb-0">
-                    <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                        Should I consider wastage in the calculation?
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-                <div class="card-body">
-                    Yes, it is recommended to add 5-10% extra concrete for spillage, over-excavation, or variations in mixing.
-                </div>
-            </div>
-        </div>
-
-        <!-- FAQ 7 -->
-        <div class="card labelbody">
-            <div class="card-header" id="headingSeven">
-                <h5 class="mb-0">
-                    <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                        Can this calculator be used for ready-mix orders?
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-                <div class="card-body">
-                    Yes, the calculator helps you determine how much ready-mix concrete to order based on the total volume needed.
-                </div>
-            </div>
-        </div>
-
-        <!-- FAQ 8 -->
-        <div class="card labelbody">
-            <div class="card-header" id="headingEight">
-                <h5 class="mb-0">
-                    <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                        What if I enter dimensions in different units?
-                    </button>
-                </h5>
-            </div>
-            <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-                <div class="card-body">
-                    Make sure all dimensions use the same unit system (either all metric or all imperial). Mixing units may lead to incorrect results.
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-</div>
-   </div>
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
-
-              Back To Home
-
-             </p>
-       </div>
-
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
-      </div>
-  
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
-  // Load Bootstrap collapse JS only when needed
-  if (window.innerWidth < 768) {
-    const collapseScript = document.createElement('script');
-    collapseScript.src = 'bootstrap-collapse.js';
-    document.head.appendChild(collapseScript);
-  }
-});
-  
-  
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Advanced Concrete Calculator",
+      "url": "https://instacalc.in/moretools/concretecalculator.html",
+      "applicationCategory": "ConstructionApplication",
+      "operatingSystem": "All",
+      "description": "Concrete calculator for estimating materials and costs of slabs, columns, beams, and more.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
   </script>
-      <script>
-          
-    // Constants and configuration
-  const MIX_RATIOS = {
-    'M5': { ratio: [1, 5, 10], steel: 80 },
-    'M7.5': { ratio: [1, 4, 8], steel: 100 },
-    'M10': { ratio: [1, 3, 6], steel: 120 },
-    'M15': { ratio: [1, 2, 4], steel: 130 },
-    'M20': { ratio: [1, 1.5, 3], steel: 140 },
-    'M25': { ratio: [1, 1, 2], steel: 150 }
-  };
 
-  const DRY_VOLUME_FACTOR = 1.53;
-  const CEMENT_DENSITY = 1440; // kg/m³
-  const WATER_RATIO = 0.5;
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
 
-  // Initialize calculator
-  window.onload = calculateConcrete;
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
 
-  function calculateConcrete() {
-    // Get all input values
-    const inputs = {
-      length: getDimension('length'),
-      width: getDimension('width'),
-      depth: getDimension('depth'),
-      grade: document.getElementById('concrete-grade').value,
-      bagSize: parseInt(document.getElementById('cement-bag-size').value),
-      wastage: document.getElementById('include-wastage').checked,
-      isRCC: document.getElementById('rcc-structure').checked
-    };
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    // Calculate volumes
-    const wetVolume = inputs.length * inputs.width * inputs.depth;
-    const dryVolume = wetVolume * DRY_VOLUME_FACTOR;
-    
-    // Get mix ratio
-    const [c, s, a] = MIX_RATIOS[inputs.grade].ratio;
-    const totalParts = c + s + a;
+    html {
+      scroll-behavior: smooth;
+    }
 
-    // Calculate materials
-    const cementVolume = (c / totalParts) * dryVolume;
-    const cementKg = cementVolume * CEMENT_DENSITY;
-    const cementBags = cementKg / inputs.bagSize;
-    
-    const sandVolume = (s / totalParts) * dryVolume;
-    const aggregateVolume = (a / totalParts) * dryVolume;
-    const waterLitres = cementKg * WATER_RATIO;
-    
-    // Apply wastage
-    const factor = inputs.wastage ? 1.1 : 1;
-    
-    // Update UI
-    updateResult('wet-volume', wetVolume.toFixed(2));
-    updateResult('dry-volume', dryVolume.toFixed(2));
-    updateResult('cement', (cementBags * factor).toFixed(2));
-    updateResult('sand', (sandVolume * factor).toFixed(3));
-    updateResult('aggregate', (aggregateVolume * factor).toFixed(3));
-    updateResult('water', Math.round(waterLitres * factor));
-    
-    // Steel calculation
-    const steelKg = inputs.isRCC ? wetVolume * MIX_RATIOS[inputs.grade].steel * factor : 0;
-    updateResult('steel', Math.round(steelKg));
-    document.getElementById('steel-result').style.display = inputs.isRCC ? 'block' : 'none';
-  }
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-  function getDimension(id) {
-    const element = document.getElementById(id);
-    const unit = document.getElementById(`${id}-unit`).value;
-    const value = parseFloat(element.value) || 0;
-    return convertToMeters(value, unit);
-  }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
 
-  function convertToMeters(value, unit) {
-    const conversions = {
-      'ft': 0.3048,
-      'cm': 0.01,
-      'in': 0.0254,
-      'm': 1
-    };
-    return value * (conversions[unit] || 1);
-  }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-  function updateResult(id, value) {
-    document.getElementById(id).textContent = value;
-  }
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
 
+    .section {
+      padding: 3.2rem 0;
+    }
 
-          // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
 
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
 
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-          
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
 
-          
-          </script>
+    .section-head p {
+      color: var(--text-soft);
+    }
 
-      <style>
-          
-          
-              .result-item {
-    margin-bottom: 8px;
-  }
-  .label {
-    display: inline-block;
-    width: 180px;
-    font-weight: bold;
-  }
-  .input-with-unit {
-    display: flex;
-  }
-  .input-with-unit input {
-    flex: 1;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .unit-select {
-    width: 70px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left: none;
-  }
-           .unit-preference {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 5px;
-  }
-  input[type="number"] {
-    -moz-appearance: textfield;
-  }
-  input[type="number"]::-webkit-outer-spin-button,
-  input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
 
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
 
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(46, 125, 50, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(46, 125, 50, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 20ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 60ch;
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1.25rem;
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .shell-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .mode-switch {
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch button {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.88rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .mode-switch button.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.8rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.75rem;
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      font-weight: 600;
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.6rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .result-section {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.85rem;
+      transition: transform 0.2s ease;
+    }
+
+    .result-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(0, 95, 115, 0.3);
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.8rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      line-height: 1.3;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .result-card.highlight {
+      background: rgba(0, 127, 139, 0.06);
+      border-color: rgba(0, 127, 139, 0.25);
+    }
+
+    .result-card.accent {
+      background: rgba(239, 108, 0, 0.06);
+      border-color: rgba(239, 108, 0, 0.25);
+    }
+
+    .total-cost-card {
+      background: linear-gradient(135deg, var(--accent-strong), var(--accent));
+      color: #ffffff;
+      padding: 1.1rem;
+      border-radius: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 20px rgba(0, 95, 115, 0.2);
+    }
+
+    .total-cost-card h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .total-cost-value {
+      font-family: "Sora", sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 1.1rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 127, 139, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 1rem;
+    }
+
+    .chart-card h3 {
+      font-size: 1rem;
+      color: var(--text-soft);
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+      font-family: "Sora", sans-serif;
+    }
+
+    .chart-wrap {
+      height: 280px;
+      position: relative;
+    }
+
+    .calc-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn {
+      min-height: 44px;
+      padding: 0.6rem 1.1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font: inherit;
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 10px 20px rgba(0, 95, 115, 0.2);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      color: var(--accent-strong);
+      border: 1.5px solid rgba(0, 95, 115, 0.3);
+      background: #ffffff;
+    }
+
+    .btn-outline:hover {
+      background: rgba(0, 127, 139, 0.05);
+      border-color: var(--accent-strong);
+    }
+
+    .advanced-settings {
+      border-top: 1px dashed var(--line);
+      padding-top: 1.1rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .advanced-settings h3 {
+      font-size: 1rem;
+      font-family: "Sora", sans-serif;
+      color: var(--accent-strong);
+    }
+
+    .toggle-group {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+    }
+
+    .toggle-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+    }
+
+    .toggle-group label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-soft);
+      cursor: pointer;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .link-list a {
+      min-height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.12);
+      background: #ffffff;
+      padding: 0.6rem 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+    }
+
+    .link-list a:hover {
+      border-color: var(--accent);
+      background: rgba(0, 127, 139, 0.04);
+      padding-left: 0.9rem;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      margin-top: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 500px;
+    }
+
+    th,
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: #f4faf8;
+      font-weight: 800;
+      color: var(--accent-strong);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-weight: 700;
+      font-family: "Sora", sans-serif;
+    }
+
+    .faq-card p {
+      padding: 0 1.25rem 1.1rem;
+      color: var(--text-soft);
+      font-size: 0.93rem;
+    }
+
+    .faq-card i {
+      color: var(--accent);
+      transition: transform 0.2s ease;
+    }
+
+    address {
+      font-style: normal;
+    }
+
+    .site-footer {
+      margin-top: 2rem;
+      border-top: 1px solid var(--line);
+      background: #fbfdfd;
+      padding: 2rem 0 3rem;
+    }
+
+    .footer-inner {
+      display: grid;
+      gap: 1.2rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.2rem;
+      font-weight: 700;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--accent-strong);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 90;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (min-width: 768px) {
+      .hero-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1fr 340px;
+      }
+
+      .input-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .chart-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .input-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .calculator-shell {
+        padding: 1.7rem;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    @media (min-width: 981px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand">
+        <img src="../logo.png" alt="InstaCalc" width="42" height="42">
+        <span>InstaCalc.in</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav class="site-nav" id="siteNav">
+        <a href="../index.html">Home</a>
+        <a href="concretecalculator.html" class="active">Concrete Tool</a>
+        <a href="../sipcalculator.html">SIP Calculator</a>
+        <a href="../emicalculator.html">EMI Tool</a>
+        <a href="../contactus.html">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-hard-hat"></i> Professional Civil Tool</span>
+          <h1>Advanced Concrete & Building Material Quantity Estimator</h1>
+          <p>Get precise requirements for <strong>cement bags, sand (CFT/m³), aggregate, and water</strong> for any
+            structural element. Our advanced concrete mix calculator supports M15 to M25 grades with built-in
+            <strong>RCC reinforcement steel</strong> and <strong>cost estimation</strong>.
+          </p>
+          <div class="calc-actions">
+            <a href="#calculator" class="btn btn-primary">Start Calculation</a>
+            <a href="#guide" class="btn btn-outline">Mix Guide</a>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h2>Why Use Advanced Calculator?</h2>
+          <div class="hero-point">
+            <i class="fas fa-check-circle"></i>
+            <span>Accurate Dry Volume conversion (1.54 Factor)</span>
+          </div>
+          <div class="hero-point">
+            <i class="fas fa-check-circle"></i>
+            <span>Material breakdown by Weight & Volume</span>
+          </div>
+          <div class="hero-point">
+            <i class="fas fa-check-circle"></i>
+            <span>Real-time Cost Estimation for project planning</span>
+          </div>
+          <div class="hero-point">
+            <i class="fas fa-check-circle"></i>
+            <span>Supports Metric and Imperial unit systems</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="container" id="calculator">
+      <div class="calc-layout">
+        <article class="calculator-shell">
+          <div class="shell-header">
+            <div class="mode-switch">
+              <button class="active" data-shape="slab">Slab</button>
+              <button data-shape="column">Column</button>
+              <button data-shape="beam">Beam</button>
+              <button data-shape="footing">Footing</button>
+              <button data-shape="staircase">Stairs</button>
+              <button data-shape="circle">Circle</button>
+              <button data-shape="wall">Wall</button>
+            </div>
+            <div class="eyebrow" id="currentShapeLabel">Rectangular Slab</div>
+          </div>
+
+          <div class="input-section" id="shapeInputs">
+            <!-- Dynamic inputs generated by JS -->
+          </div>
+
+          <div class="advanced-settings">
+            <h3>Mix & Efficiency Settings</h3>
+            <div class="input-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="concreteGrade">Design Mix Grade</label>
+                </div>
+                <select id="concreteGrade">
+                  <option value="M5">M5 (1:5:10)</option>
+                  <option value="M7.5">M7.5 (1:4:8)</option>
+                  <option value="M10">M10 (1:3:6)</option>
+                  <option value="M15">M15 (1:2:4)</option>
+                  <option value="M20" selected>M20 (1:1.5:3)</option>
+                  <option value="M25">M25 (1:1:2)</option>
+                  <option value="custom">Custom Ratio</option>
+                </select>
+              </div>
+              <div id="customRatioFields" class="field-card" style="display:none; grid-column: span 2;">
+                <div class="field-head"><label>Custom Ratio (C:S:A)</label></div>
+                <div style="display:flex; gap:0.5rem;">
+                  <input type="number" id="ratioC" value="1" step="0.1" placeholder="C">
+                  <input type="number" id="ratioS" value="1.5" step="0.1" placeholder="S">
+                  <input type="number" id="ratioA" value="3" step="0.1" placeholder="A">
+                </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="wastage">Wastage (%)</label>
+                  <span id="wastageVal">5%</span>
+                </div>
+                <input type="range" id="wastage" min="0" max="20" step="1" value="5">
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="cementBagSize">Bag Size (kg)</label>
+                </div>
+                <select id="cementBagSize">
+                  <option value="50" selected>50 kg</option>
+                  <option value="40">40 kg</option>
+                  <option value="25">25 kg</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="toggle-group">
+              <input type="checkbox" id="includeSteel" checked>
+              <label for="includeSteel">Include Reinforcement Steel (RCC Est.)</label>
+            </div>
+          </div>
+
+          <div class="advanced-settings">
+            <h3>Cost Estimation (Optional)</h3>
+            <div class="input-grid">
+              <div class="field-card">
+                <div class="field-head"><label>Cement / Bag</label></div>
+                <input type="number" id="costCement" placeholder="Price">
+              </div>
+              <div class="field-card">
+                <div class="field-head"><label>Sand / Unit</label></div>
+                <input type="number" id="costSand" placeholder="Price">
+              </div>
+              <div class="field-card">
+                <div class="field-head"><label>Aggregate / Unit</label></div>
+                <input type="number" id="costAgg" placeholder="Price">
+              </div>
+              <div id="steelCostField" class="field-card">
+                <div class="field-head"><label>Steel / kg</label></div>
+                <input type="number" id="costSteel" placeholder="Price">
+              </div>
+            </div>
+          </div>
+
+          <div class="result-section">
+            <div class="total-cost-card" id="totalCostSection" style="display:none;">
+              <h3>Estimated Total Cost</h3>
+              <div class="total-cost-value" id="totalCostDisplay">₹ 0</div>
+            </div>
+
+            <div class="result-grid">
+              <div class="result-card highlight">
+                <h3>Total Wet Volume</h3>
+                <div class="result-value" id="resWetVol">- m³</div>
+              </div>
+              <div class="result-card">
+                <h3>Dry Volume Req.</h3>
+                <div class="result-value" id="resDryVol">- m³</div>
+              </div>
+              <div class="result-card highlight">
+                <h3>Cement Required</h3>
+                <div class="result-value" id="resCement">- Bags</div>
+              </div>
+              <div class="result-card">
+                <h3>Sand Required</h3>
+                <div class="result-value" id="resSand">- m³</div>
+              </div>
+              <div class="result-card highlight">
+                <h3>Aggregate Req.</h3>
+                <div class="result-value" id="resAgg">- m³</div>
+              </div>
+              <div class="result-card accent">
+                <h3>Steel Weight</h3>
+                <div class="result-value" id="resSteel">- kg</div>
+              </div>
+            </div>
+
+            <div class="chart-grid">
+              <div class="chart-card">
+                <h3>Material Distribution (%)</h3>
+                <div class="chart-wrap">
+                  <canvas id="materialChart"></canvas>
+                </div>
+              </div>
+              <div class="chart-card">
+                <h3>Detailed Breakdown</h3>
+                <div class="table-shell">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Material</th>
+                        <th>Quantity</th>
+                        <th>Unit</th>
+                      </tr>
+                    </thead>
+                    <tbody id="breakdownTable">
+                      <!-- JS Output -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="calc-actions">
+            <button class="btn btn-primary" id="copyResult"><i class="fas fa-copy"></i> Copy Materials List</button>
+            <button class="btn btn-outline" id="resetCalc"><i class="fas fa-undo"></i> Reset</button>
+          </div>
+        </article>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>Recent Estimates</h3>
+            <div id="calcLog" class="link-list">
+              <div style="font-size: 0.85rem; color: var(--text-soft); text-align: center; padding: 1rem;">No history
+                available.</div>
+            </div>
+            <button class="btn btn-outline" style="width:100%; font-size:0.8rem; min-height:36px; margin-top:0.5rem;"
+              id="clearLog">Clear History</button>
+          </div>
+
+          <div class="sidebar-card" style="margin-top: 1rem;">
+            <h3>Quick Links</h3>
+            <nav class="link-list">
+              <a href="../index.html">Main Dashboard <i class="fas fa-chevron-right"></i></a>
+              <a href="../agecalculator.html">Age Calculator <i class="fas fa-chevron-right"></i></a>
+              <a href="../gstcalculator.html">GST Calculator <i class="fas fa-chevron-right"></i></a>
+              <a href="../emicalculator.html">Loan EMI Tool <i class="fas fa-chevron-right"></i></a>
+            </nav>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <section class="section" id="guide">
+      <div class="container content-card">
+        <div class="section-head">
+          <h2>Comprehensive Guide to Concrete Calculation</h2>
+          <p>Learn the science behind material estimation and how to use our advanced concrete calculator for maximum
+            accuracy on your site.</p>
+        </div>
+        <div class="input-grid">
+          <article>
+            <h3 style="font-family: Sora; margin-bottom: 0.5rem;">The Dry Volume Rule</h3>
+            <p>When mixing concrete, the dry materials (cement, sand, aggregate) occupy more space than the final wet
+              mixture. We use a <strong>Dry Volume Factor of 1.54</strong>. This means 1m³ of wet concrete requires
+              1.54m³ of dry ingredients.</p>
+          </article>
+          <article>
+            <h3 style="font-family: Sora; margin-bottom: 0.5rem;">Grade Mix Ratios</h3>
+            <ul style="padding-left: 1.2rem; color: var(--text-soft); font-size: 0.95rem;">
+              <li><strong>M15:</strong> 1 : 2 : 4 (15 MPa)</li>
+              <li><strong>M20:</strong> 1 : 1.5 : 3 (20 MPa) - Standard for RCC</li>
+              <li><strong>M25:</strong> 1 : 1 : 2 (25 MPa) - High strength</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq-card">
+            <summary>How many bags of cement are in M20 per cubic meter? <i class="fas fa-chevron-down"></i></summary>
+            <p>For M20 grade concrete (1:1.5:3 ratio), you typically need about 8.2 to 8.5 bags of 50kg cement per cubic
+              meter of wet concrete, depending on the aggregate size and water-cement ratio.</p>
+          </details>
+          <details class="faq-card">
+            <summary>How much sand and aggregate is needed for 1m³? <i class="fas fa-chevron-down"></i></summary>
+            <p>For a standard M20 mix, you will need approximately 15.7 CFT (0.44 m³) of sand and 31.4 CFT (0.89 m³) of
+              aggregate per cubic meter of wet concrete.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What is the density of cement and steel? <i class="fas fa-chevron-down"></i></summary>
+            <p>The standard density of cement is 1440 kg/m³. For reinforcement steel, the density used is 7850 kg/m³,
+              though our calculator use percentage-based estimation for quick site checks.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="brand">
+        <img src="../logo.png" alt="InstaCalc" width="30" height="30">
+        <span>InstaCalc.in</span>
+      </div>
+      <p>Precision tools for engineers, architects, and homeowners. Calculate construction materials, financial goals,
+        and daily conversions with ease.</p>
+      <div class="footer-links">
+        <a href="../index.html">Home</a>
+        <a href="../aboutus.html">About</a>
+        <a href="../contactus.html">Contact</a>
+        <a href="../privacypolicy.html">Privacy</a>
+      </div>
+      <p style="font-size: 0.85rem; opacity: 0.8;">&copy; 2026 InstaCalc India. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="topBtn" title="Go to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    (function () {
+      const $ = id => document.getElementById(id);
+      const nf = { format: (v) => window.currencyManager ? window.currencyManager.formatNumber(v) : String(v) };
+      const nfc = { format: (v) => window.currencyManager ? window.currencyManager.formatCurrency(v) : String(v) };
+      const nft = { format: (v) => window.currencyManager ? window.currencyManager.formatWithUnits(v) : String(v) };
+
+      let currentShape = 'slab';
+      let chartInstance = null;
+      let log = [];
+
+      const MIX_DATA = {
+        'M5': [1, 5, 10],
+        'M7.5': [1, 4, 8],
+        'M10': [1, 3, 6],
+        'M15': [1, 2, 4],
+        'M20': [1, 1.5, 3],
+        'M25': [1, 1, 2]
+      };
+
+      const STEEL_FACTORS = {
+        'slab': 0.01,
+        'column': 0.025,
+        'beam': 0.02,
+        'footing': 0.008,
+        'staircase': 0.012,
+        'circle': 0.025,
+        'wall': 0.015
+      };
+
+      const SHAPES = {
+        slab: { label: 'Rectangular Slab', fields: [['Length (m)', 'l', 5], ['Width (m)', 'w', 4], ['Thickness (m)', 't', 0.15]] },
+        column: { label: 'Column / Pillar', fields: [['Side A (m)', 'l', 0.45], ['Side B (m)', 'w', 0.45], ['Height (m)', 'h', 3]] },
+        beam: { label: 'Structural Beam', fields: [['Length (m)', 'l', 4], ['Width (m)', 'w', 0.3], ['Depth (m)', 'd', 0.5]] },
+        footing: { label: 'Foundation Footing', fields: [['Length (m)', 'l', 2], ['Width (m)', 'w', 2], ['Depth (m)', 'd', 0.6]] },
+        staircase: { label: 'Staircase Steps', fields: [['Tread (m)', 'tr', 0.25], ['Riser (m)', 'rs', 0.15], ['Width (m)', 'w', 1.2], ['Steps Qty', 'qty', 15]] },
+        circle: { label: 'Circular Column', fields: [['Diameter (m)', 'dia', 0.45], ['Height (m)', 'h', 3.5]] },
+        wall: { label: 'Retaining Wall', fields: [['Length (m)', 'l', 10], ['Height (m)', 'h', 3], ['Avg. Thickness (m)', 't', 0.25]] }
+      };
+
+      function initInputs() {
+        const wrap = $('shapeInputs');
+        const shape = SHAPES[currentShape];
+        $('currentShapeLabel').innerHTML = `<i class="fas fa-cube"></i> ${shape.label}`;
+
+        let html = '<div class="input-grid">';
+        shape.fields.forEach(f => {
+          html += `
+            <div class="field-card">
+              <div class="field-head"><label for="inp_${f[1]}">${f[0]}</label></div>
+              <input type="number" id="inp_${f[1]}" value="${f[2]}" step="0.01" class="calc-trigger">
+            </div>`;
+        });
+        html += '</div>';
+        wrap.innerHTML = html;
+
+        document.querySelectorAll('.calc-trigger').forEach(el => {
+          el.addEventListener('input', calculate);
+        });
+      }
+
+      function calculate() {
+        let wetVol = 0;
+        const s = currentShape;
+
+        // Volume logic
+        if (s === 'slab' || s === 'column' || s === 'beam' || s === 'footing' || s === 'wall') {
+          const v1 = parseFloat($('inp_l')?.value || $('inp_dia')?.value || 0);
+          const v2 = parseFloat($('inp_w')?.value || $('inp_h')?.value || 0);
+          const v3 = parseFloat($('inp_t')?.value || $('inp_d')?.value || $('inp_h')?.value || 1);
+          if (s === 'circle') {
+            wetVol = Math.PI * Math.pow(v1 / 2, 2) * v2;
+          } else {
+            wetVol = v1 * v2 * v3;
+          }
+        } else if (s === 'staircase') {
+          const tr = parseFloat($('inp_tr').value);
+          const rs = parseFloat($('inp_rs').value);
+          const w = parseFloat($('inp_w').value);
+          const qty = parseFloat($('inp_qty').value);
+          // Steps volume + estimated waist slab (usually same as steps surface)
+          const stepsVol = (0.5 * tr * rs) * w * qty;
+          const waistVol = (tr * qty) * w * 0.15; // Assume 150mm waist slab
+          wetVol = stepsVol + waistVol;
+        }
+
+        const grade = $('concreteGrade').value;
+        let c, sa, ag;
+        if (grade === 'custom') {
+          c = parseFloat($('ratioC').value) || 1;
+          sa = parseFloat($('ratioS').value) || 1.5;
+          ag = parseFloat($('ratioA').value) || 3;
+          $('customRatioFields').style.display = 'grid';
+        } else {
+          [c, sa, ag] = MIX_DATA[grade];
+          $('customRatioFields').style.display = 'none';
+        }
+
+        const totalParts = c + sa + ag;
+        const dryVolFactor = 1.54;
+        const wastage = 1 + (parseFloat($('wastage').value) / 100);
+        const dryVol = wetVol * dryVolFactor * wastage;
+
+        const cementVol = (c / totalParts) * dryVol;
+        const sandVol = (sa / totalParts) * dryVol;
+        const aggVol = (ag / totalParts) * dryVol;
+
+        const cementDensity = 1440; // kg/m3
+        const bagSize = parseFloat($('cementBagSize').value);
+        const cementBags = (cementVol * cementDensity) / bagSize;
+        const water = (cementVol * cementDensity) * 0.5; // Avg 0.5 water-cement ratio
+
+        const steelFactor = STEEL_FACTORS[s];
+        const includeSteel = $('includeSteel').checked;
+        const steelWeight = includeSteel ? wetVol * steelFactor * 7850 * 0.1 : 0; // Simplified estimate (approx 60-150kg/m3)
+        // More standard civil approx:
+        const steelKg = includeSteel ? (wetVol * (s === 'column' ? 145 : s === 'beam' ? 120 : 80)) : 0;
+
+        // UI Update
+        $('resWetVol').innerText = nf.format(wetVol) + ' m³';
+        $('resDryVol').innerText = nf.format(dryVol) + ' m³';
+        $('resCement').innerText = nf.format(cementBags) + ' Bags';
+        $('resSand').innerText = nf.format(sandVol) + ' m³';
+        $('resAgg').innerText = nf.format(aggVol) + ' m³';
+        $('resSteel').innerText = nf.format(steelKg) + ' kg';
+        $('wastageVal').innerText = $('wastage').value + '%';
+
+        // Table Breakdown
+        const breakdown = [
+          ['Cement', nf.format(cementBags), 'Bags'],
+          ['Cement (Weight)', nf.format(cementVol * cementDensity), 'kg'],
+          ['Sand', nf.format(sandVol), 'm³'],
+          ['Sand (CFT)', nf.format(sandVol * 35.3147), 'ft³'],
+          ['Aggregate', nf.format(aggVol), 'm³'],
+          ['Aggregate (Tonnes)', nf.format(aggVol * 1.6), 'MT'],
+          ['Water', nf.format(water), 'Litres'],
+          ['Steel', nf.format(steelKg), 'kg']
+        ];
+        $('breakdownTable').innerHTML = breakdown.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+
+        // Cost Calc
+        calculateCost(cementBags, sandVol, aggVol, steelKg);
+        updateChart(c, sa, ag);
+      }
+
+      function calculateCost(cb, sv, av, sk) {
+        const costC = parseFloat($('costCement').value) || 0;
+        const costS = parseFloat($('costSand').value) || 0;
+        const costA = parseFloat($('costAgg').value) || 0;
+        const costSt = parseFloat($('costSteel').value) || 0;
+
+        const total = (cb * costC) + (sv * costS) + (av * costA) + (sk * costSt);
+        const card = $('totalCostSection');
+        if (total > 0) {
+          card.style.display = 'flex';
+          $('totalCostDisplay').innerText = nft.format(total);
+        } else {
+          card.style.display = 'none';
+        }
+      }
+
+      function updateChart(c, sa, ag) {
+        const ctx = $('materialChart').getContext('2d');
+        if (chartInstance) chartInstance.destroy();
+        chartInstance = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Cement', 'Sand', 'Aggregate'],
+            datasets: [{
+              data: [c, sa, ag],
+              backgroundColor: ['#007f8b', '#ee9f2e', '#546e7a'],
+              borderWidth: 2,
+              hoverOffset: 10
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom' }
             }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
+          }
+        });
+      }
 
+      function syncUI() {
+        document.querySelectorAll('.mode-switch button').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelector('.mode-switch button.active').classList.remove('active');
+            btn.classList.add('active');
+            currentShape = btn.dataset.shape;
+            initInputs();
+            calculate();
+          });
+        });
 
-          </style>
+        $('includeSteel').addEventListener('change', (e) => {
+          $('steelCostField').style.display = e.target.checked ? 'block' : 'none';
+          calculate();
+        });
+
+        $('concreteGrade').addEventListener('change', calculate);
+        $('cementBagSize').addEventListener('change', calculate);
+        $('wastage').addEventListener('input', calculate);
+
+        document.querySelectorAll('#costCement, #costSand, #costAgg, #costSteel, #ratioC, #ratioS, #ratioA').forEach(el => {
+          el.addEventListener('input', calculate);
+        });
+
+        if (window.currencyManager) {
+          window.currencyManager.onChange(calculate);
+        }
+
+        $('copyResult').addEventListener('click', () => {
+          const text = `Concrete Material List (${SHAPES[currentShape].label}):
+- Cement: ${$('resCement').innerText}
+- Sand: ${$('resSand').innerText}
+- Aggregate: ${$('resAgg').innerText}
+- Steel: ${$('resSteel').innerText}
+- Wet Volume: ${$('resWetVol').innerText}`;
+          navigator.clipboard.writeText(text).then(() => {
+            const original = $('copyResult').innerHTML;
+            $('copyResult').innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => $('copyResult').innerHTML = original, 2000);
+            saveToLog();
+          });
+        });
+
+        $('resetCalc').addEventListener('click', () => {
+          location.reload();
+        });
+
+        $('clearLog').addEventListener('click', () => {
+          log = [];
+          localStorage.removeItem('conc_log');
+          renderLog();
+        });
+      }
+
+      function saveToLog() {
+        const entry = {
+          shape: SHAPES[currentShape].label,
+          vol: $('resWetVol').innerText,
+          bags: $('resCement').innerText,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        log.unshift(entry);
+        if (log.length > 5) log.pop();
+        localStorage.setItem('conc_log', JSON.stringify(log));
+        renderLog();
+      }
+
+      function renderLog() {
+        const wrap = $('calcLog');
+        if (log.length === 0) {
+          wrap.innerHTML = '<div style="font-size: 0.85rem; color: var(--text-soft); text-align: center; padding: 1rem;">No history available.</div>';
+          return;
+        }
+        wrap.innerHTML = log.map(e => `
+            <div style="border: 1px solid var(--line); padding: 0.7rem; border-radius: 8px; background: #fff; display:grid; gap:0.2rem;">
+               <div style="display:flex; justify-content:space-between; font-weight:700; font-size:0.8rem; color:var(--accent-strong);">
+                  <span>${e.shape}</span>
+                  <span style="opacity:0.6;">${e.time}</span>
+               </div>
+               <div style="font-size: 0.85rem;">Volume: <strong>${e.vol}</strong></div>
+               <div style="font-size: 0.85rem;">Cement: <strong>${e.bags}</strong></div>
+            </div>
+         `).join('');
+      }
+
+      function setupGlobal() {
+        const menuBtn = $('menuToggle');
+        const nav = $('siteNav');
+        menuBtn.addEventListener('click', () => {
+          nav.classList.toggle('open');
+          menuBtn.innerHTML = nav.classList.contains('open') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        const topBtn = $('topBtn');
+        window.addEventListener('scroll', () => {
+          topBtn.classList.toggle('show', window.scrollY > 400);
+        });
+        topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        const saved = localStorage.getItem('conc_log');
+        if (saved) log = JSON.parse(saved);
+      }
+
+      // Start
+      setupGlobal();
+      initInputs();
+      syncUI();
+      renderLog();
+      calculate();
+    })();
+  </script>
 </body>
+
 </html>
