@@ -1,678 +1,2188 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>EPF Maturity Calculator Online - Estimate Your Provident Fund</title>
-  <meta name="description" content="Calculate EPF Online - Simple Tool: Find out your potential EPF final amount and track your retirement savings effortlessly with our user-friendly EPF Calculator for India.">    
-    <!-- Basic Favicons -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="canonical" href="https://instacalc.in/epfcalculator.html" />
-   <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EPF Calculator India - Advanced PF, EPS & VPF Retirement Planner</title>
+  <meta name="description"
+    content="Use our advanced EPF Calculator to accurately estimate your provident fund maturity, EPS pension, voluntary VPF impact, and post-tax retirement corpus in India.">
+  <meta name="keywords"
+    content="epf calculator, pf calculator india, calculate epf maturity, vpf calculator, eps pension calculator, online provident fund calculator, epf withdrawal calculator, inflation adjusted epf">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
 
-  <!-- Critical CSS -->
-  <style>
-    /* Minimum layout stability styles */
-    body { 
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .calculator-container {
-      min-height: 600px; /* Reserve space for calculator */
-    }
-    .result-section {
-      height: 200px; /* Fixed height for results area */
-      visibility: hidden; /* Hidden until calculated */
-    }
-    /* Prevent layout shifts in main content */
-    .main-content {
-      position: relative;
-      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
-    }
-    /* Fixed dimensions for key elements */
-    input {
-      width: 100%;
-      max-width: 400px;
-      height: 40px;
-    }
-       /* Fixed dimensions for key elements */
-    .chart-container {
-      width: 100%;
-      max-width: 400px;
-      height: 300px;
-    }
-  </style>
+  <link rel="icon" type="image/x-icon" href="favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/epfcalculator.html">
 
-  <!-- Preloads -->
-  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
-  <link rel="preload" href="style.css" as="style">
-  
-  <!-- Non-critical CSS -->
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
-  <noscript>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-  </noscript>
+  <meta property="og:title" content="EPF Calculator India - Advanced PF, EPS, VPF & Retirement Planner">
+  <meta property="og:description"
+    content="Calculate EPF maturity with employee/employer split, EPS, VPF, salary hike, withdrawals, inflation and target-based retirement planning.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/epfcalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
 
-  <!-- Script optimization -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-  <!-- Only load Popper and Bootstrap JS if needed -->
-  <?php if (needs_bootstrap_js): ?>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-  
-     <script src="bootstrap/js/bootstrap.min.js" defer></script>
-  <?php endif; ?>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="EPF Calculator India - Advanced PF, EPS, VPF & Retirement Planner">
+  <meta name="twitter:description"
+    content="Free EPF calculator with EPF+EPS split, VPF, salary growth, partial withdrawals, inflation-adjusted corpus and goal tracking.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
 
-  <!-- Load Chart.js only when needed -->
-  <script>
-    function loadChartJS() {
-      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
-        window.Chart = module.default;
-        initializeCharts();
-      });
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "EPF Calculator",
+      "url": "https://instacalc.in/epfcalculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "EPF calculator for employee and employer contributions, EPS, VPF, salary growth, withdrawal planning, and retirement corpus estimation.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "How is EPF maturity calculated in India?", "acceptedAnswer": { "@type": "Answer", "text": "EPF maturity is calculated by adding your monthly 12% employee contribution, the 3.67% employer share, and optionally your VPF contribution, then compounding the final balance annually using the latest EPFO declared interest rate (e.g., 8.25%)." } },
+        { "@type": "Question", "name": "What is the difference between EPF and EPS?", "acceptedAnswer": { "@type": "Answer", "text": "EPF (Employee Provident Fund) builds your compounding lump-sum retirement corpus. EPS (Employee Pension Scheme) takes 8.33% of the employer's share (capped at ₹1,250/month) to fund a fixed monthly pension paid to you after your retirement." } },
+        { "@type": "Question", "name": "Can I include VPF in EPF calculations?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Voluntary Provident Fund (VPF) allows you to voluntarily contribute more than the mandated 12% of your basic salary. Our advanced calculator lets you add a VPF percentage to accurately project a significantly higher tax-free retirement corpus." } },
+        { "@type": "Question", "name": "How does a salary hike impact my EPF corpus?", "acceptedAnswer": { "@type": "Answer", "text": "Since EPF is a strict percentage of your Basic Salary + DA, an annual salary hike mechanically increases your absolute monthly contribution. This continuous step-up effect radically boosts your final corpus via long-term geometric compounding." } },
+        { "@type": "Question", "name": "Can I model partial EPF withdrawal before retirement?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. EPF rules allow partial tax-free withdrawals for specific life events (marriage, home purchase, medical emergencies). You can input a one-time withdrawal year and amount to instantly see how early liquidity severely impacts your final retirement balance." } },
+        { "@type": "Question", "name": "Does this EPF calculator show inflation-adjusted corpus?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Viewing a massive nominal corpus value can be misleading. By setting an expected inflation rate, our tool mathematically discounts your final EPF maturity amount to show its exact true purchasing power in today's currency." } },
+        { "@type": "Question", "name": "What is the maximum EPF interest rate?", "acceptedAnswer": { "@type": "Answer", "text": "The EPF interest rate is not fixed; it is actively declared by the Central Board of Trustees (EPFO) every financial year. In recent years, it has fluctuated between 8.1% and 8.5%, making it one of the highest-yielding sovereign-backed debt instruments in India." } },
+        { "@type": "Question", "name": "Is my EPF corpus completely tax-free?", "acceptedAnswer": { "@type": "Answer", "text": "Generally, yes. EPF falls under the EEE (Exempt-Exempt-Exempt) tax regime. However, if your total employee contribution (EPF + VPF) exceeds ₹2.5 lakh in a single financial year, the interest actively earned on the excess amount becomes fully taxable according to your slab." } },
+        { "@type": "Question", "name": "How is the EPS pension amount estimated?", "acceptedAnswer": { "@type": "Answer", "text": "EPS pension is broadly estimated using the formula: (Pensionable Salary × Pensionable Service) ÷ 70. Our calculator utilizes this government statutory logic to project an indicative figure of your guaranteed monthly pension at retirement." } },
+        { "@type": "Question", "name": "Can I opt out of the EPS pension contribution?", "acceptedAnswer": { "@type": "Answer", "text": "No. If your Basic Pay at the time of joining was under ₹15,000, EPS deduction is strictly mandatory. If your joining Basic Pay was above ₹15,000, you and your employer can jointly opt to push the entire 12% into the EPF corpus without EPS allocation." } },
+        { "@type": "Question", "name": "Why do people use the Wage Cap mode for EPF?", "acceptedAnswer": { "@type": "Answer", "text": "The EPFO statutory wage cap is ₹15,000/month. The 'Wage Cap Mode' restricts the employer's 12% matching contribution specifically to this ₹15,000 limit (₹1,800 total). Switching this toggle lets you accurately see how statutory limits throttle corpus growth." } },
+        { "@type": "Question", "name": "What is EPF Target Planning?", "acceptedAnswer": { "@type": "Answer", "text": "If you have a fixed retirement corpus goal (e.g., ₹5 Crores), our advanced EPF Target Planner uses a mathematical binary search to exactly calculate the additional VPF percentage you must proactively deduct from your salary today to successfully close the gap." } },
+        { "@type": "Question", "name": "Can I transfer my EPF account when I change jobs?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, your Universal Account Number (UAN) remains permanent throughout your career. When switching employers, you seamlessly transfer your accumulated EPF balance online, ensuring uninterrupted compounding." } },
+        { "@type": "Question", "name": "What happens if I stop contributing to EPF?", "acceptedAnswer": { "@type": "Answer", "text": "If you quit your job or start a business, your existing EPF corpus continues to actively earn compound interest for up to 3 years. After 3 years of zero fresh contributions, the account becomes inoperative and ceases to accumulate interest." } }
+      ]
     }
   </script>
 
-  <script src="script.js" defer></script>
-</head>
-<body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class="text-white mb-0">InstaCalc.in</h6>
-  </div>   
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>     
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="aboutus.html">About Us</a>
-      </li>
-         <li class="nav-item px-2">
-        <a class="nav-link " href="contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
 
-    
-
-
-  <!-- //first row first column -->
-  <div  class="row">
-  <!--   //first row first column -->
-    <div class="col-md-6" style="background-colorf:yellow;">
-     <div class="container mt-5 table1">
-    <h2>EPF Calculator</h2>
-
-    <div class="input-group m">
-        <label for="salary">Monthly Salary (Basic + DA) (₹)</label>
-        <div class="slider-container">
-            <input type="range" id="salary-slider" min="10000" max="200000" step="500" value="50000" oninput="syncInputs('salary')">
-            <input type="number" id="salary" min="10000" max="200000" step="500" value="50000" oninput="syncInputs('salary', true)">
-        </div>
-    </div>
-    <div class="input-group">
-        <label for="age">Your Age (Years)</label>
-        <div class="slider-container">
-            <input type="range" id="age-slider" min="18" max="60" step="1" value="30" oninput="syncInputs('age')">
-            <input type="number" id="age" min="18" max="60" step="1" value="30" oninput="syncInputs('age', true)">
-        </div>
-    </div>
-    <div class="input-group">
-        <label for="contribution">Your Contribution to EPF (%)</label>
-        <div class="slider-container">
-            <input type="range" id="contribution-slider" min="8" max="20" step="0.1" value="12" oninput="syncInputs('contribution')">
-            <input type="number" id="contribution" min="8" max="20" step="0.1" value="12" oninput="syncInputs('contribution', true)">
-        </div>
-    </div>
-    <div class="input-group">
-        <label for="increment">Annual Increase in Salary (%)</label>
-        <div class="slider-container">
-            <input type="range" id="increment-slider" min="0" max="20" step="0.1" value="5" oninput="syncInputs('increment')">
-            <input type="number" id="increment" min="0" max="20" step="0.1" value="5" oninput="syncInputs('increment', true)">
-        </div>
-    </div>
-    <div class="input-group">
-        <label for="rate">Rate of Interest (p.a.) (%)</label>
-        <div class="slider-container">
-            <input type="range" id="rate-slider" min="5" max="10" step="0.1" value="8.1" oninput="syncInputs('rate')">
-            <input type="number" id="rate" min="5" max="10" step="0.1" value="8.1" oninput="syncInputs('rate', true)">
-        </div>
-    </div>
-
-    <div class="result-box">
-    <div class="result-main">
-        <span class="result-label">You will have accumulated:</span>
-        <span class="result-value"><strong>₹<span id="total">0</span></strong></span>
-    </div>
-    <div class="result-subtext">By the time you retire</div>
-</div>
-
-  
-</div>
-
-  </div>
-  <!--   //first row second column -->
-     <div class="col-md-6 d-none d-md-block">
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <a href="sipcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="mutualfundreturncalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="gratuitycalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="epfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="fdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="rdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="cargcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="coumpoundinterest.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="retirementcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="ppfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="emicalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="simpleinterestcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
-
-
-
-      </div>
-
-  <!--  /second row -->
-   <div  class="row mb-05">
-  <!--    //second row first column -->
-     <div class="col-md-6 mt-5" style="background-colorf:red;">
-
-       <div class="container">
-               <div class="epf-calculator-content">
-    <div class="title">
-        <h1>EPF Calculator: Know Your Retirement Savings! 💰📊</h1>
-    </div>
-    <div class="introduction">
-        <p>If you’re a salaried employee in India, your Employees’ Provident Fund (EPF) is one of the most secure ways to save for retirement. But do you know how much wealth you’re actually building over the years? That’s where an EPF Calculator helps!</p>
-        <p>This simple tool gives you a clear picture of how much money you’ll accumulate in your EPF account based on your monthly contributions and interest. Let’s break it down!</p>
-    </div>
-    <div class="what-is-epf-calculator">
-        <h2>What is an EPF Calculator?</h2>
-        <p>An EPF Calculator helps employees estimate their total EPF balance at the time of retirement. It considers:</p>
-        <ul>
-            <li>✔️ Your monthly EPF contributions</li>
-            <li>✔️ Your employer’s contribution</li>
-            <li>✔️ The current interest rate</li>
-            <li>✔️ The number of years you’ll be investing</li>
-        </ul>
-        <p>With just a few inputs, you can see how much you’ll have in your EPF account when you retire!</p>
-    </div>
-    <div class="how-epf-calculator-works">
-        <h2>How Does an EPF Calculator Work?</h2>
-        <p>When you and your employer contribute a portion of your salary every month to EPF, that amount earns interest and keeps growing. The EPF Calculator shows you the exact amount you’ll have when you retire.</p>
-        <h3>How to Use It?</h3>
-        <ol>
-            <li>1️⃣ Enter your basic monthly salary + DA (e.g., ₹30,000).</li>
-            <li>2️⃣ Enter your employee contribution (typically 12% of salary).</li>
-            <li>3️⃣ Enter your employer contribution (usually 8.33% to EPS & the rest to EPF).</li>
-            <li>4️⃣ Choose the current EPF interest rate (e.g., 8.15% per year).</li>
-            <li>5️⃣ Select the number of years till retirement (e.g., 30 years).</li>
-            <li>6️⃣ Click Calculate and see your final retirement fund!</li>
-        </ol>
-        <p>💡 Example:</p>
-        <p>If your basic salary + DA is ₹30,000 and you contribute 12% of it every month, along with your employer’s contribution, and the interest rate remains 8.15%, you could have over ₹1 crore in your EPF account by the time you retire! 🚀</p>
-    </div>
-    <div class="why-use-epf-calculator">
-        <h2>Why Use an EPF Calculator?</h2>
-        <ul>
-            <li>🔹 Get a Clear Retirement Estimate – Know how much you’ll have in your EPF account.</li>
-            <li>🔹 Plan Your Future Better – Adjust your savings if needed.</li>
-            <li>🔹 See the Power of Compounding – Watch how your savings grow over time.</li>
-            <li>🔹 Helps in Financial Decisions – Plan for home buying, education, or early retirement.</li>
-        </ul>
-    </div>
-    <div class="call-to-action">
-        <h2>Start Planning for a Secure Future!</h2>
-        <p>Your EPF savings are a big part of your retirement plan. Using an EPF Calculator, you can estimate your final savings and plan accordingly.</p>
-        <p>Take charge of your financial future today and see how much wealth you’re building! 💸🔢</p>
-    </div>
-</div>
-           </div>
-
-
-
-       </div>
-  <!--   //second row second column -->
-   <div class="col-md-6" style="background-color:blueg;">
-    <div class="container mt-5 mb-5">
-        <h2 class="mb-4">FAQs</h2>
-        <div id="faqAccordion" class="accordion">
-
-            <!-- FAQ 1 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            What is an EPF (Employee Provident Fund)?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        The Employee Provident Fund (EPF) is a retirement savings scheme for salaried employees, where both the employee and employer contribute a portion of the salary every month. The accumulated amount, along with interest, is paid out at retirement.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 2 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            How does the EPF Calculator work?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        The EPF Calculator estimates the future value of your EPF balance based on your monthly salary, employee and employer contribution rates, and the expected interest rate. It helps you plan your retirement savings.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 3 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingThree">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            What inputs are required for the EPF Calculator?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        You need to provide:
-                        <ul>
-                            <li><strong>Monthly Salary:</strong> Your basic salary plus dearness allowance.</li>
-                            <li><strong>Employee Contribution:</strong> Typically 12% of your salary.</li>
-                            <li><strong>Employer Contribution:</strong> Typically 12% of your salary (3.67% to EPF and 8.33% to EPS).</li>
-                            <li><strong>Interest Rate:</strong> The current EPF interest rate (e.g., 8.1%).</li>
-                            <li><strong>Investment Period:</strong> The number of years until retirement.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 4 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingFour">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            What is the current EPF interest rate?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        The EPF interest rate is declared by the government each year. For example, the rate for FY 2022-23 is 8.1%. However, this rate may change annually.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 5 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingFive">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                            Can I withdraw my EPF before retirement?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        Yes, partial withdrawals from the EPF are allowed for specific purposes such as medical emergencies, home loan repayment, or marriage. However, full withdrawal is permitted only after retirement or if you are unemployed for more than 2 months.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 6 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingSix">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                            Is the EPF amount taxable?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        The EPF amount is tax-free if the withdrawal is made after 5 years of continuous service. If withdrawn earlier, it may be subject to tax.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 7 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingSeven">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                            What is the difference between EPF and EPS?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        EPF (Employee Provident Fund) is a savings scheme where both employee and employer contribute, while EPS (Employee Pension Scheme) is a pension scheme funded by the employer's contribution (8.33% of salary). EPS provides a pension after retirement.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 8 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingEight">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                            Can I increase my EPF contribution?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        Yes, you can voluntarily increase your EPF contribution beyond the standard 12%. This is known as Voluntary Provident Fund (VPF), and it earns the same interest rate as EPF.
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-   </div>
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
-
-              Back To Home
-
-             </p>
-       </div>
-
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
-      </div>
-      <script>
-              function syncInputs(id, isManual = false) {
-                  const slider = document.getElementById(`${id}-slider`);
-                  const numberInput = document.getElementById(id);
-                  if (isManual) {
-                      slider.value = numberInput.value;
-                  } else {
-                      numberInput.value = slider.value;
-                  }
-                  calculateSIP();
-              }
-function calculateSIP() {
-    // Retrieve input values from HTML
-    let salary = parseFloat(document.getElementById("salary").value); // Monthly Salary (Basic + DA)
-    let age = parseInt(document.getElementById("age").value); // Current Age
-    let contributionRate = parseFloat(document.getElementById("contribution").value) / 100; // Employee's EPF Contribution %
-    let incrementRate = parseFloat(document.getElementById("increment").value) / 100; // Annual Salary Increase %
-    let annualInterestRate = parseFloat(document.getElementById("rate").value) / 100; // Annual Interest Rate
-
-    // Fixed parameters
-    let retirementAge = 60;
-    let yearsRemaining = retirementAge - age;
-    let totalEPF = 0;
-    let currentSalary = salary;
-    let monthlyInterestRate = annualInterestRate / 12; // e.g., 8.25% / 12 = 0.006875
-
-    // Flag to skip interest for the first month
-    let isFirstMonth = true;
-
-    // Loop through each year until retirement
-    for (let year = 1; year <= yearsRemaining; year++) {
-        // Apply salary increment at the start of each new year (after year 1)
-        if (year > 1) {
-            currentSalary *= (1 + incrementRate);
-        }
-
-        // Loop through each month in the year
-        for (let month = 1; month <= 12; month++) {
-            // Calculate contributions
-            let employeeContribution = currentSalary * contributionRate; // Employee’s variable contribution
-            let employerEPFContribution = currentSalary * 0.0367; // Employer’s fixed 3.67% to EPF
-            let totalContribution = employeeContribution + employerEPFContribution;
-
-            // Add contribution to total EPF
-            totalEPF += totalContribution;
-
-            // Apply interest monthly, except for the first month
-            if (!isFirstMonth) {
-                totalEPF *= (1 + monthlyInterestRate);
-            }
-            // After the first month, interest applies normally
-            isFirstMonth = false;
-        }
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
     }
 
-    // Round the final amount and format for display
-    let finalAmount = Math.round(totalEPF);
-    document.getElementById("total").textContent = finalAmount.toLocaleString('en-IN');
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
 
 
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
 
+    .faq-card {
+      overflow: hidden;
+    }
 
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
 
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
 
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
 
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
 
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
 
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
 
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
 
-              let sipChart;
-              function updateChart(invested, returns) {
-                  let ctx = document.getElementById("sipChart").getContext("2d");
-                  if (sipChart) sipChart.destroy();
-                  sipChart = new Chart(ctx, {
-                      type: "doughnut",
-                      data: {
-                          labels: ["Total Invested", "Total Interest"],
-                          datasets: [{
-                              data: [invested, returns],
-                              backgroundColor: ["#4CAF50", "#2196F3"]
-                          }]
-                      }
-                  });
-              }
-              calculateSIP();
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
 
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
 
-          // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
 
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
 
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-          </script>
-          
-          <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
-    authDomain: "instacalc-40640.firebaseapp.com",
-    projectId: "instacalc-40640",
-    storageBucket: "instacalc-40640.firebasestorage.app",
-    messagingSenderId: "720029503645",
-    appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
-    measurementId: "G-J0ZWXR3T5P"
-  };
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
 
-      <style>
-              bodyss {
-                  font-family: Arial, sans-serif;
-                  margin: 20px;
-                  padding: 0;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  flex-direction: column;
-                  background-color: #f4f4f4;
-              }
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
+    }
 
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
 
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+
+    /* Simple vs Advanced Toggle Styles */
+    .calculator-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .advanced-only-section {
+      display: none;
+      border-top: 1px dashed var(--line);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      gap: 0.7rem;
+    }
+
+    .advanced-only {
+      display: none;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only-section {
+      display: grid;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only {
+      display: block;
+    }
+
+    .calculator-shell.advanced-mode .result-card.advanced-only {
+      display: block;
+    }
+
+    #toggleViewBtn.active {
+      background: var(--accent-strong);
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc home">
+        <img src="logo.png" alt="InstaCalc logo">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-piggy-bank"></i>
+            EPF + EPS + VPF Planner
+          </span>
+          <h1>EPF Calculator India (Advanced Retirement Corpus Planner)</h1>
+          <p>Plan your EPF maturity with employee-employer split, EPS contribution logic, VPF boost, salary hikes,
+            one-time withdrawal impact, and inflation-adjusted retirement value.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#epf-planner">
+              <i class="fas fa-calculator"></i>
+              Start EPF Planning
+            </a>
+            <a class="btn btn-ghost" href="retirementcalculator.html">
+              <i class="fas fa-arrow-right-arrow-left"></i>
+              Retirement Calculator
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h2>Advanced Features</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Employee + employer + EPS contribution breakup
+          </div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Statutory wage cap and EPS cap controls</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Salary hike and interest scenario testing</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> VPF optimizer for target corpus</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Inflation-adjusted corpus and pension estimate
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="epf-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="Calculator mode">
+              <a href="epfcalculator.html" class="active">EPF</a>
+              <a href="gratuitycalculator.html">Gratuity</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>Advanced Mode: Off</span>
+            </button>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="monthlySalary">Monthly Basic + DA</label>
+                <span id="monthlySalaryPreview">50000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="monthlySalaryRange" min="10000" max="500000" step="500" value="50000">
+                <input type="number" id="monthlySalary" min="10000" max="500000" step="500" value="50000">
+              </div>
+            </div>
+
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="currentAge">Current Age (years)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="currentAgeRange" min="18" max="69" step="1" value="30">
+                  <input type="number" id="currentAge" min="18" max="69" step="1" value="30">
+                </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="retirementAge">Retirement Age (years)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="retirementAgeRange" min="40" max="70" step="1" value="58">
+                  <input type="number" id="retirementAge" min="40" max="70" step="1" value="58">
+                </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="employeeRate">Employee EPF Rate (percent)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="employeeRateRange" min="8" max="20" step="0.1" value="12">
+                  <input type="number" id="employeeRate" min="8" max="20" step="0.1" value="12">
+                </div>
+              </div>
+            </div>
+
+            <div class="advanced-only-section" id="advancedFields">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="annualHike">Annual Salary Hike (percent)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="annualHikeRange" min="0" max="20" step="0.1" value="7">
+                  <input type="number" id="annualHike" min="0" max="20" step="0.1" value="7">
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="vpfRate">Additional VPF Rate (percent)</label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="vpfRateRange" min="0" max="30" step="0.1" value="0">
+                    <input type="number" id="vpfRate" min="0" max="30" step="0.1" value="0">
+                  </div>
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="epfInterest">EPF Interest (percent p.a.)</label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="epfInterestRange" min="6" max="10" step="0.05" value="8.25">
+                    <input type="number" id="epfInterest" min="6" max="10" step="0.05" value="8.25">
+                  </div>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="employerEpfRate">Employer EPF Rate (percent)</label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="employerEpfRateRange" min="0" max="12" step="0.01" value="3.67">
+                    <input type="number" id="employerEpfRate" min="0" max="12" step="0.01" value="3.67">
+                  </div>
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="epsRate">Employer EPS Rate (percent)</label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="epsRateRange" min="0" max="12" step="0.01" value="8.33">
+                    <input type="number" id="epsRate" min="0" max="12" step="0.01" value="8.33">
+                  </div>
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="epsWageCap">EPS Wage Cap (/month)</label>
+                  </div>
+                  <input type="number" id="epsWageCap" min="0" step="500" value="15000">
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="wageCapMode">Apply EPF Wage Cap?</label>
+                  </div>
+                  <select id="wageCapMode">
+                    <option value="off" selected>No (contribute on full salary)</option>
+                    <option value="on">Yes (limit EPF wage)</option>
+                  </select>
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="epfWageCap">EPF Wage Cap (/month)</label>
+                  </div>
+                  <input type="number" id="epfWageCap" min="0" step="500" value="15000">
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="interestScenario">Interest Scenario</label>
+                  </div>
+                  <select id="interestScenario">
+                    <option value="lower">Lower (-0.5%)</option>
+                    <option value="base" selected>Base (as entered)</option>
+                    <option value="higher">Higher (+0.5%)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="currentBalance">Current EPF Balance</label>
+                  </div>
+                  <input type="number" id="currentBalance" min="0" step="1000" value="250000">
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="oneTimeTopup">One-time Additional Contribution</label>
+                  </div>
+                  <input type="number" id="oneTimeTopup" min="0" step="1000" value="0">
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="inflation">Inflation (percent p.a.)</label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="inflationRange" min="0" max="12" step="0.1" value="6">
+                    <input type="number" id="inflation" min="0" max="12" step="0.1" value="6">
+                  </div>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="withdrawalAge">Partial Withdrawal Age (0 = disabled)</label>
+                  </div>
+                  <input type="number" id="withdrawalAge" min="0" max="70" step="1" value="0">
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="withdrawalAmount">Partial Withdrawal Amount</label>
+                  </div>
+                  <input type="number" id="withdrawalAmount" min="0" step="1000" value="0">
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="targetCorpus">Target Retirement Corpus</label>
+                  </div>
+                  <input type="number" id="targetCorpus" min="0" step="100000" value="30000000"
+                    placeholder="Example: 30000000">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i>
+              Recalculate
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i>
+              Reset Defaults
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i>
+              Copy Summary
+            </button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card advanced-only">
+              <h3>Total Employee (EPF + VPF)</h3>
+              <div class="result-value" id="employeeTotalValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Total Employer EPF</h3>
+              <div class="result-value" id="employerEpfTotalValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Total EPS Contribution</h3>
+              <div class="result-value" id="epsTotalValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Total Interest Earned</h3>
+              <div class="result-value" id="interestTotalValue">-</div>
+            </div>
+            <div class="result-card positive">
+              <h3>Final EPF Corpus</h3>
+              <div class="result-value" id="finalCorpusValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Inflation Adjusted Corpus</h3>
+              <div class="result-value" id="realCorpusValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Estimated EPS Pension / Month</h3>
+              <div class="result-value" id="epsPensionValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Required Extra Monthly VPF</h3>
+              <div class="result-value" id="requiredVpfValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Total Partial Withdrawal</h3>
+              <div class="result-value" id="withdrawalTotalValue">-</div>
+            </div>
+          </div>
+
+          <div class="goal-status">
+            <div class="goal-meta">
+              <span id="goalStatusText">Add target corpus to see progress.</span>
+              <strong id="goalPercentText">0%</strong>
+            </div>
+            <div class="goal-progress">
+              <div class="goal-progress-bar" id="goalProgressBar"></div>
+            </div>
+          </div>
+
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h3>EPF Corpus Growth by Year</h3>
+              <div class="chart-wrap">
+                <canvas id="corpusChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card">
+              <h3>Corpus Composition</h3>
+              <div class="chart-wrap small">
+                <canvas id="compositionChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools">
+            <h3>Year-wise Projection</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
+              <i class="fas fa-file-csv"></i>
+              Download CSV
+            </button>
+          </div>
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Age</th>
+                  <th>EPF Salary (Annual)</th>
+                  <th>Employee + VPF</th>
+                  <th>Employer EPF</th>
+                  <th>EPS</th>
+                  <th>Interest</th>
+                  <th>EPF Closing Balance</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Planning Notes</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i> EPF corpus includes employee share, employer EPF share, and VPF
+                contributions plus interest.</li>
+              <li><i class="fas fa-circle-info"></i> EPS share is tracked separately and used only for pension estimate.
+              </li>
+              <li><i class="fas fa-circle-info"></i> Use wage cap mode to model conservative statutory contribution
+                behavior.</li>
+              <li><i class="fas fa-circle-info"></i> Target mode estimates the extra monthly VPF required to reach
+                retirement corpus.</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Related Calculators</h3>
+            <ul class="link-list">
+              <li><a href="retirementcalculator.html"><span>Retirement Calculator</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="gratuitycalculator.html"><span>Gratuity Calculator</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="sipcalculator.html"><span>SIP Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mutualfundreturncalculator.html"><span>Mutual Fund Calculator</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="fdcalculator.html"><span>FD Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="rdcalculator.html"><span>RD Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>How Our Advanced EPF Calculator Works</h2>
+          <p>This calculator runs a rigorous month-by-month EPF growth simulation from your current age to your expected
+            retirement age. It automatically maps your annual salary hike, applies targeted EPF and EPS contribution
+            splits, and compounds EPF interest flawlessly throughout the full tenure.</p>
+          <br>
+          <p>It also comprehensively supports VPF (Voluntary Provident Fund) boosts, one-time manual contributions,
+            early partial withdrawals, multiple interest scenarios, and automated target-based retirement planning to
+            help you maximize your ultimate tax-free corpus.</p>
+          <br>
+          <p><strong>Core Planning Elements integrated:</strong> accurately calculate EPF maturity, PF balance
+            projection, mandatory EPS pension structuring, and inflation-discounted retirement value estimation.</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>How is EPF maturity calculated in India? <i class="fas fa-chevron-down"></i></summary>
+            <p>EPF maturity is calculated by adding your monthly 12% employee contribution, the 3.67% employer share,
+              and optionally your VPF contribution, then compounding the final balance annually using the latest EPFO
+              declared interest rate (e.g., 8.25%).</p>
+          </details>
+          <details class="faq-card">
+            <summary>What is the difference between EPF and EPS? <i class="fas fa-chevron-down"></i></summary>
+            <p>EPF (Employee Provident Fund) builds your compounding lump-sum retirement corpus. EPS (Employee Pension
+              Scheme) takes 8.33% of the employer's share (capped at ₹1,250/month) to fund a fixed monthly pension paid
+              to you after your retirement.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can I include VPF in EPF calculations? <i class="fas fa-chevron-down"></i></summary>
+            <p>Yes. Voluntary Provident Fund (VPF) allows you to voluntarily contribute more than the mandated 12% of
+              your basic salary. Our advanced calculator lets you add a VPF percentage to accurately project a
+              significantly higher tax-free retirement corpus.</p>
+          </details>
+          <details class="faq-card">
+            <summary>How does a salary hike impact my EPF corpus? <i class="fas fa-chevron-down"></i></summary>
+            <p>Since EPF is a strict percentage of your Basic Salary + DA, an annual salary hike mechanically increases
+              your absolute monthly contribution. This continuous step-up effect radically boosts your final corpus via
+              long-term geometric compounding.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can I model partial EPF withdrawal before retirement? <i class="fas fa-chevron-down"></i></summary>
+            <p>Yes. EPF rules allow partial tax-free withdrawals for specific life events (marriage, home purchase,
+              medical emergencies). You can input a one-time withdrawal year and amount to instantly see how early
+              liquidity severely impacts your final retirement balance.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Does this EPF calculator show inflation-adjusted corpus? <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Yes. Viewing a massive nominal corpus value can be misleading. By setting an expected inflation rate, our
+              tool mathematically discounts your final EPF maturity amount to show its exact true purchasing power in
+              today's currency.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What is the maximum EPF interest rate? <i class="fas fa-chevron-down"></i></summary>
+            <p>The EPF interest rate is not fixed; it is actively declared by the Central Board of Trustees (EPFO) every
+              financial year. In recent years, it has fluctuated between 8.1% and 8.5%, making it one of the
+              highest-yielding sovereign-backed debt instruments in India.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Is my EPF corpus completely tax-free? <i class="fas fa-chevron-down"></i></summary>
+            <p>Generally, yes. EPF falls under the EEE (Exempt-Exempt-Exempt) tax regime. However, if your total
+              employee contribution (EPF + VPF) exceeds ₹2.5 lakh in a single financial year, the interest actively
+              earned on the excess amount becomes fully taxable according to your slab.</p>
+          </details>
+          <details class="faq-card">
+            <summary>How is the EPS pension amount estimated? <i class="fas fa-chevron-down"></i></summary>
+            <p>EPS pension is broadly estimated using the formula: (Pensionable Salary × Pensionable Service) ÷ 70. Our
+              calculator utilizes this government statutory logic to project an indicative figure of your guaranteed
+              monthly pension at retirement.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can I opt out of the EPS pension contribution? <i class="fas fa-chevron-down"></i></summary>
+            <p>No. If your Basic Pay at the time of joining was under ₹15,000, EPS deduction is strictly mandatory. If
+              your joining Basic Pay was above ₹15,000, you and your employer can jointly opt to push the entire 12%
+              into the EPF corpus without EPS allocation.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Why do people use the Wage Cap mode for EPF? <i class="fas fa-chevron-down"></i></summary>
+            <p>The EPFO statutory wage cap is ₹15,000/month. The 'Wage Cap Mode' restricts the employer's 12% matching
+              contribution specifically to this ₹15,000 limit (₹1,800 total). Switching this toggle lets you accurately
+              see how statutory limits throttle corpus growth.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What is EPF Target Planning? <i class="fas fa-chevron-down"></i></summary>
+            <p>If you have a fixed retirement corpus goal (e.g., ₹5 Crores), our advanced EPF Target Planner uses a
+              mathematical binary search to exactly calculate the additional VPF percentage you must proactively deduct
+              from your salary today to successfully close the gap.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can I transfer my EPF account when I change jobs? <i class="fas fa-chevron-down"></i></summary>
+            <p>Yes, your Universal Account Number (UAN) remains permanent throughout your career. When switching
+              employers, you seamlessly transfer your accumulated EPF balance online, ensuring uninterrupted
+              compounding.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What happens if I stop contributing to EPF? <i class="fas fa-chevron-down"></i></summary>
+            <p>If you quit your job or start a business, your existing EPF corpus continues to actively earn compound
+              interest for up to 3 years. After 3 years of zero fresh contributions, the account becomes inoperative and
+              ceases to accumulate interest.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>EPF Planning Strategy for Total Retirement Readiness</h2>
+          <p>Most salaried employees casually track their current EPF balance. However, high-net-worth planning demands
+            actively tracking three dynamic layers: long-term contribution
+            velocity, geometric compounding speed, and actual inflation-adjusted retirement value. This provides a
+            ruthless, mathematical view of future
+            purchasing power.</p>
+          <br>
+          <h2>Leveraging VPF to Erase Retirement Gaps</h2>
+          <p>When your target corpus appears statistically unattainable, forcing a modest monthly VPF increase can
+            aggressively hyper-charge your compounding over
+            long multi-decade tenures. Utilize our required VPF output percentage as an explicit benchmark for monthly
+            savings discipline.</p>
+          <br>
+          <h2>Comparing EPF with Hybrid Portfolio Assets</h2>
+          <p>You must logically combine your ultra-safe EPF foundation with aggressive, market-linked equity for
+            diversified, elite wealth creation. Use our <a href="sipcalculator.html">SIP Calculator</a> and our <a
+              href="mutualfundreturncalculator.html">Mutual Fund
+              Calculator</a> to accurately assess additional wealth creation pathways outside of fixed income.</p>
+          <br>
+          <p>For conservative fixed-income comparisons, evaluate your post-tax yields via the <a
+              href="fdcalculator.html">FD Calculator</a> and <a href="rdcalculator.html">RD Calculator</a> against EPF's
+            formidable EEE tax exemption status.</p>
+        </article>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Next Advanced Ideas</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i> Add tax treatment scenarios for early withdrawal eligibility
+                windows.</li>
+              <li><i class="fas fa-circle-info"></i> Add separate salary trajectory mode for promotions at specific
+                years.</li>
+              <li><i class="fas fa-circle-info"></i> Add side-by-side compare for two EPF contribution strategies.</li>
+              <li><i class="fas fa-circle-info"></i> Add exportable retirement plan summary PDF for advisor discussions.
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in - smart calculators and converters for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </div>
+      <p
+        style="font-size: 0.75rem; color: var(--text-soft); max-width: 800px; line-height: 1.4; opacity: 0.8; margin-top: 0.5rem;">
+        <strong>Disclaimer:</strong> All figures and projections generated by our provident fund (EPF/VPF) calculators
+        are purely mathematical estimations based exclusively on your input criteria. They do not constitute official
+        EPFO statements or certified tax advice. Actual EPF interest slabs, EPS disbursement rules, and EEE taxation
+        laws may fundamentally shift. Always consult a certified financial planner.
+      </p>
+    </div>
+  </footer>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        monthlySalary: 50000,
+        currentAge: 30,
+        retirementAge: 58,
+        annualHike: 7,
+        employeeRate: 12,
+        vpfRate: 0,
+        epfInterest: 8.25,
+        employerEpfRate: 3.67,
+        epsRate: 8.33,
+        epsWageCap: 15000,
+        wageCapMode: "off",
+        epfWageCap: 15000,
+        interestScenario: "base",
+        currentBalance: 250000,
+        oneTimeTopup: 0,
+        inflation: 6,
+        withdrawalAge: 0,
+        withdrawalAmount: 0,
+        targetCorpus: 30000000
+      };
+
+      const nfCurrency = { format: (v) => window.currencyManager ? window.currencyManager.formatCurrency(v) : String(v) };
+      const nfNumber = { format: (v) => window.currencyManager ? window.currencyManager.formatNumber(v) : String(v) };
+
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+
+        monthlySalary: document.getElementById("monthlySalary"),
+        monthlySalaryRange: document.getElementById("monthlySalaryRange"),
+        currentAge: document.getElementById("currentAge"),
+        currentAgeRange: document.getElementById("currentAgeRange"),
+        retirementAge: document.getElementById("retirementAge"),
+        retirementAgeRange: document.getElementById("retirementAgeRange"),
+        annualHike: document.getElementById("annualHike"),
+        annualHikeRange: document.getElementById("annualHikeRange"),
+        employeeRate: document.getElementById("employeeRate"),
+        employeeRateRange: document.getElementById("employeeRateRange"),
+        vpfRate: document.getElementById("vpfRate"),
+        vpfRateRange: document.getElementById("vpfRateRange"),
+        epfInterest: document.getElementById("epfInterest"),
+        epfInterestRange: document.getElementById("epfInterestRange"),
+        employerEpfRate: document.getElementById("employerEpfRate"),
+        employerEpfRateRange: document.getElementById("employerEpfRateRange"),
+        epsRate: document.getElementById("epsRate"),
+        epsRateRange: document.getElementById("epsRateRange"),
+        epsWageCap: document.getElementById("epsWageCap"),
+        wageCapMode: document.getElementById("wageCapMode"),
+        epfWageCap: document.getElementById("epfWageCap"),
+        interestScenario: document.getElementById("interestScenario"),
+        currentBalance: document.getElementById("currentBalance"),
+        oneTimeTopup: document.getElementById("oneTimeTopup"),
+        inflation: document.getElementById("inflation"),
+        inflationRange: document.getElementById("inflationRange"),
+        withdrawalAge: document.getElementById("withdrawalAge"),
+        withdrawalAmount: document.getElementById("withdrawalAmount"),
+        targetCorpus: document.getElementById("targetCorpus"),
+
+        monthlySalaryPreview: document.getElementById("monthlySalaryPreview"),
+
+        employeeTotalValue: document.getElementById("employeeTotalValue"),
+        employerEpfTotalValue: document.getElementById("employerEpfTotalValue"),
+        epsTotalValue: document.getElementById("epsTotalValue"),
+        interestTotalValue: document.getElementById("interestTotalValue"),
+        finalCorpusValue: document.getElementById("finalCorpusValue"),
+        realCorpusValue: document.getElementById("realCorpusValue"),
+        epsPensionValue: document.getElementById("epsPensionValue"),
+        requiredVpfValue: document.getElementById("requiredVpfValue"),
+        withdrawalTotalValue: document.getElementById("withdrawalTotalValue"),
+
+        goalStatusText: document.getElementById("goalStatusText"),
+        goalPercentText: document.getElementById("goalPercentText"),
+        goalProgressBar: document.getElementById("goalProgressBar"),
+
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        corpusChart: document.getElementById("corpusChart"),
+        compositionChart: document.getElementById("compositionChart")
+      };
+
+      let corpusChartInstance = null;
+      let compositionChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) {
+          return;
+        }
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 940) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
             }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
+          });
+        });
+      }
 
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) {
+          return;
+        }
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
 
-          </style>
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function roundToStep(value, step) {
+        if (!step || step <= 0) {
+          return value;
+        }
+        return Math.round(value / step) * step;
+      }
+
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) {
+          return;
+        }
+        const min = parseFloat(rangeEl.min || "0");
+        const max = parseFloat(rangeEl.max || "100");
+        const step = parseFloat(rangeEl.step || "1");
+
+        function normalize(value) {
+          const numeric = parseNumeric(value, parseFloat(rangeEl.value));
+          const stepped = roundToStep(numeric, step);
+          return clamp(stepped, min, max);
+        }
+
+        rangeEl.addEventListener("input", function () {
+          numberEl.value = rangeEl.value;
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("input", function () {
+          if (numberEl.value === "") {
+            return;
+          }
+          const normalized = normalize(numberEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("blur", function () {
+          const normalized = normalize(numberEl.value || rangeEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+      }
+
+      function formatCurrencyWithUnits(value) {
+        return window.currencyManager ? window.currencyManager.formatWithUnits(value) : nfCurrency.format(value);
+      }
+
+      function compactCurrency(value) {
+        return window.currencyManager ? window.currencyManager.formatCompact(value) : String(value);
+      }
+
+      function scenarioAdjustedRate(baseRate, scenario) {
+        const offset = scenario === "lower" ? -0.5 : (scenario === "higher" ? 0.5 : 0);
+        return Math.max(0, baseRate + offset);
+      }
+
+      function getInputs() {
+        let currentAge = Math.round(parseNumeric(elements.currentAge.value, defaults.currentAge));
+        let retirementAge = Math.round(parseNumeric(elements.retirementAge.value, defaults.retirementAge));
+
+        currentAge = clamp(currentAge, 18, 69);
+        retirementAge = clamp(retirementAge, 40, 70);
+
+        if (retirementAge <= currentAge) {
+          retirementAge = currentAge + 1;
+        }
+
+        elements.currentAge.value = currentAge;
+        elements.currentAgeRange.value = currentAge;
+        elements.retirementAge.value = retirementAge;
+        elements.retirementAgeRange.value = retirementAge;
+
+        return {
+          monthlySalary: Math.max(0, parseNumeric(elements.monthlySalary.value, defaults.monthlySalary)),
+          currentAge: currentAge,
+          retirementAge: retirementAge,
+          annualHike: Math.max(0, parseNumeric(elements.annualHike.value, defaults.annualHike)),
+          employeeRate: Math.max(0, parseNumeric(elements.employeeRate.value, defaults.employeeRate)),
+          vpfRate: Math.max(0, parseNumeric(elements.vpfRate.value, defaults.vpfRate)),
+          epfInterest: Math.max(0, parseNumeric(elements.epfInterest.value, defaults.epfInterest)),
+          employerEpfRate: Math.max(0, parseNumeric(elements.employerEpfRate.value, defaults.employerEpfRate)),
+          epsRate: Math.max(0, parseNumeric(elements.epsRate.value, defaults.epsRate)),
+          epsWageCap: Math.max(0, parseNumeric(elements.epsWageCap.value, defaults.epsWageCap)),
+          wageCapMode: elements.wageCapMode.value || defaults.wageCapMode,
+          epfWageCap: Math.max(0, parseNumeric(elements.epfWageCap.value, defaults.epfWageCap)),
+          interestScenario: elements.interestScenario.value || defaults.interestScenario,
+          currentBalance: Math.max(0, parseNumeric(elements.currentBalance.value, defaults.currentBalance)),
+          oneTimeTopup: Math.max(0, parseNumeric(elements.oneTimeTopup.value, defaults.oneTimeTopup)),
+          inflation: Math.max(0, parseNumeric(elements.inflation.value, defaults.inflation)),
+          withdrawalAge: Math.max(0, Math.round(parseNumeric(elements.withdrawalAge.value, defaults.withdrawalAge))),
+          withdrawalAmount: Math.max(0, parseNumeric(elements.withdrawalAmount.value, defaults.withdrawalAmount)),
+          targetCorpus: Math.max(0, parseNumeric(elements.targetCorpus.value, defaults.targetCorpus))
+        };
+      }
+
+      function getEpfEligibleSalary(monthlySalary, wageCapMode, epfWageCap) {
+        if (wageCapMode === "on") {
+          return Math.min(monthlySalary, Math.max(0, epfWageCap));
+        }
+        return monthlySalary;
+      }
+
+      function simulateEpf(params, extraMonthlyVpf) {
+        const years = params.retirementAge - params.currentAge;
+        const months = years * 12;
+        const effectiveRate = scenarioAdjustedRate(params.epfInterest, params.interestScenario);
+        const monthlyRate = effectiveRate / 1200;
+
+        let monthlySalary = Math.max(0, params.monthlySalary);
+        const openingBalance = Math.max(0, params.currentBalance) + Math.max(0, params.oneTimeTopup);
+        let balance = openingBalance;
+
+        let totalEmployee = 0;
+        let totalEmployerEpf = 0;
+        let totalEps = 0;
+        let totalInterest = 0;
+        let totalWithdrawn = 0;
+
+        let yearlyEmployee = 0;
+        let yearlyEmployerEpf = 0;
+        let yearlyEps = 0;
+        let yearlyInterest = 0;
+
+        const projection = [];
+        const withdrawalMonth = (params.withdrawalAge > params.currentAge && params.withdrawalAge <= params.retirementAge)
+          ? ((params.withdrawalAge - params.currentAge) * 12)
+          : -1;
+
+        for (let month = 1; month <= months; month += 1) {
+          if (month > 1 && (month - 1) % 12 === 0) {
+            monthlySalary *= (1 + params.annualHike / 100);
+          }
+
+          const epfEligibleSalary = getEpfEligibleSalary(monthlySalary, params.wageCapMode, params.epfWageCap);
+          const epsEligibleSalary = params.epsWageCap > 0 ? Math.min(monthlySalary, params.epsWageCap) : monthlySalary;
+
+          const employeeMandatory = epfEligibleSalary * (params.employeeRate / 100);
+          const employeeVpf = epfEligibleSalary * (params.vpfRate / 100) + Math.max(0, extraMonthlyVpf);
+          const employerEpf = epfEligibleSalary * (params.employerEpfRate / 100);
+          const epsContribution = epsEligibleSalary * (params.epsRate / 100);
+
+          const monthlyEpfContribution = Math.max(0, employeeMandatory + employeeVpf + employerEpf);
+          balance += monthlyEpfContribution;
+
+          const interest = Math.max(0, balance * monthlyRate);
+          balance += interest;
+
+          if (withdrawalMonth > 0 && month === withdrawalMonth && params.withdrawalAmount > 0) {
+            const withdrawn = Math.min(balance, params.withdrawalAmount);
+            balance -= withdrawn;
+            totalWithdrawn += withdrawn;
+          }
+
+          totalEmployee += (employeeMandatory + employeeVpf);
+          totalEmployerEpf += employerEpf;
+          totalEps += epsContribution;
+          totalInterest += interest;
+
+          yearlyEmployee += (employeeMandatory + employeeVpf);
+          yearlyEmployerEpf += employerEpf;
+          yearlyEps += epsContribution;
+          yearlyInterest += interest;
+
+          if (month % 12 === 0) {
+            const yearNo = month / 12;
+            projection.push({
+              year: yearNo,
+              age: params.currentAge + yearNo,
+              annualSalary: monthlySalary * 12,
+              yearlyEmployee: yearlyEmployee,
+              yearlyEmployerEpf: yearlyEmployerEpf,
+              yearlyEps: yearlyEps,
+              yearlyInterest: yearlyInterest,
+              closingBalance: balance
+            });
+            yearlyEmployee = 0;
+            yearlyEmployerEpf = 0;
+            yearlyEps = 0;
+            yearlyInterest = 0;
+          }
+        }
+
+        const serviceYears = Math.max(0, params.retirementAge - params.currentAge);
+        const pensionableSalary = params.epsWageCap > 0 ? Math.min(monthlySalary, params.epsWageCap) : monthlySalary;
+        const epsPension = serviceYears >= 10 ? (pensionableSalary * Math.min(serviceYears, 35)) / 70 : 0;
+
+        return {
+          years: years,
+          effectiveRate: effectiveRate,
+          finalSalary: monthlySalary,
+          openingBalance: openingBalance,
+          finalCorpus: balance,
+          totalEmployee: totalEmployee,
+          totalEmployerEpf: totalEmployerEpf,
+          totalEps: totalEps,
+          totalInterest: totalInterest,
+          totalWithdrawn: totalWithdrawn,
+          epsPension: epsPension,
+          projection: projection
+        };
+      }
+
+      function requiredExtraVpfForTarget(params) {
+        if (!Number.isFinite(params.targetCorpus) || params.targetCorpus <= 0) {
+          return null;
+        }
+
+        const currentResult = simulateEpf(params, 0);
+        if (currentResult.finalCorpus >= params.targetCorpus) {
+          return 0;
+        }
+
+        function corpusFor(extraAmount) {
+          return simulateEpf(params, extraAmount).finalCorpus;
+        }
+
+        let low = 0;
+        let high = 5000;
+        let guard = 0;
+
+        while (corpusFor(high) < params.targetCorpus && high < 500000) {
+          high *= 2;
+          guard += 1;
+          if (guard > 30) {
+            break;
+          }
+        }
+
+        if (corpusFor(high) < params.targetCorpus) {
+          return null;
+        }
+
+        for (let i = 0; i < 65; i += 1) {
+          const mid = (low + high) / 2;
+          if (corpusFor(mid) >= params.targetCorpus) {
+            high = mid;
+          } else {
+            low = mid;
+          }
+        }
+
+        return high;
+      }
+
+      function renderProjectionTable(projection) {
+        if (!elements.projectionTableBody) {
+          return;
+        }
+        elements.projectionTableBody.innerHTML = projection.map(function (row) {
+          return (
+            "<tr>" +
+            "<td>Year " + row.year + "</td>" +
+            "<td>" + row.age + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.annualSalary) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.yearlyEmployee) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.yearlyEmployerEpf) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.yearlyEps) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.yearlyInterest) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.closingBalance) + "</td>" +
+            "</tr>"
+          );
+        }).join("");
+      }
+
+      function renderCharts(result) {
+        if (!window.Chart || !elements.corpusChart || !elements.compositionChart) {
+          return;
+        }
+
+        const labels = result.projection.map(function (row) { return "Year " + row.year; });
+        const balanceData = result.projection.map(function (row) { return row.closingBalance; });
+        let cumulativeContrib = 0;
+        const contributionData = result.projection.map(function (row) {
+          cumulativeContrib += row.yearlyEmployee + row.yearlyEmployerEpf;
+          return cumulativeContrib;
+        });
+
+        if (corpusChartInstance) {
+          corpusChartInstance.destroy();
+        }
+        corpusChartInstance = new Chart(elements.corpusChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "EPF Corpus",
+                data: balanceData,
+                borderColor: "#007f8b",
+                backgroundColor: "rgba(0, 127, 139, 0.12)",
+                fill: true,
+                tension: 0.18,
+                pointRadius: 2
+              },
+              {
+                label: "EPF Contributions",
+                data: contributionData,
+                borderColor: "#ee9f2e",
+                backgroundColor: "rgba(238, 159, 46, 0.12)",
+                fill: false,
+                tension: 0.12,
+                pointRadius: 2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "top" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.dataset.label + ": " + formatCurrencyWithUnits(context.parsed.y);
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function (value) {
+                    return compactCurrency(value);
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        if (compositionChartInstance) {
+          compositionChartInstance.destroy();
+        }
+        compositionChartInstance = new Chart(elements.compositionChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Opening Balance", "Employee (EPF+VPF)", "Employer EPF", "Interest Earned"],
+            datasets: [
+              {
+                data: [Math.max(result.openingBalance, 0), Math.max(result.totalEmployee, 0), Math.max(result.totalEmployerEpf, 0), Math.max(result.totalInterest, 0)],
+                backgroundColor: ["#6b7f8e", "#007f8b", "#ee9f2e", "#1f9f67"],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.label + ": " + formatCurrencyWithUnits(context.parsed);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      function updatePreviewLabels(inputs) {
+        elements.monthlySalaryPreview.textContent = nfNumber.format(inputs.monthlySalary);
+      }
+
+      function calculateAndRender() {
+        const inputs = getInputs();
+        updatePreviewLabels(inputs);
+
+        const result = simulateEpf(inputs, 0);
+        const inflationFactor = Math.pow(1 + (inputs.inflation / 100), result.years);
+        const realCorpus = inflationFactor > 0 ? result.finalCorpus / inflationFactor : result.finalCorpus;
+        const requiredExtraVpf = requiredExtraVpfForTarget(inputs);
+
+        elements.employeeTotalValue.textContent = formatCurrencyWithUnits(result.totalEmployee);
+        elements.employerEpfTotalValue.textContent = formatCurrencyWithUnits(result.totalEmployerEpf);
+        elements.epsTotalValue.textContent = formatCurrencyWithUnits(result.totalEps);
+        elements.interestTotalValue.textContent = formatCurrencyWithUnits(result.totalInterest);
+        elements.finalCorpusValue.textContent = formatCurrencyWithUnits(result.finalCorpus);
+        elements.realCorpusValue.textContent = formatCurrencyWithUnits(realCorpus);
+        elements.epsPensionValue.textContent = formatCurrencyWithUnits(result.epsPension);
+        elements.requiredVpfValue.textContent = requiredExtraVpf === null
+          ? "Target too high"
+          : formatCurrencyWithUnits(requiredExtraVpf) + " / month";
+        elements.withdrawalTotalValue.textContent = formatCurrencyWithUnits(result.totalWithdrawn);
+
+        const hasGoal = inputs.targetCorpus > 0;
+        const progressPercent = hasGoal ? (result.finalCorpus / inputs.targetCorpus) * 100 : 0;
+        const clampedProgress = Math.max(0, Math.min(progressPercent, 100));
+
+        if (hasGoal) {
+          elements.goalStatusText.textContent = progressPercent >= 100
+            ? "Target reached with current EPF assumptions."
+            : "Current plan reaches " + progressPercent.toFixed(1) + "% of target.";
+          elements.goalPercentText.textContent = progressPercent.toFixed(1) + "%";
+          elements.goalProgressBar.style.width = clampedProgress.toFixed(2) + "%";
+          elements.goalProgressBar.style.background = progressPercent >= 100
+            ? "linear-gradient(110deg, #1f9f67, #1cb67a)"
+            : "linear-gradient(110deg, var(--accent), #00a1b2)";
+        } else {
+          elements.goalStatusText.textContent = "Add target corpus to see progress.";
+          elements.goalPercentText.textContent = "0%";
+          elements.goalProgressBar.style.width = "0%";
+          elements.goalProgressBar.style.background = "linear-gradient(110deg, var(--accent), #00a1b2)";
+        }
+
+        lastProjection = result.projection.slice();
+        renderProjectionTable(result.projection);
+        renderCharts(result);
+
+        lastSummaryText =
+          "EPF Summary" + "\n" +
+          "Monthly Basic + DA: " + formatCurrencyWithUnits(inputs.monthlySalary) + "\n" +
+          "Age Range: " + inputs.currentAge + " to " + inputs.retirementAge + " years" + "\n" +
+          "Effective Interest: " + result.effectiveRate.toFixed(2) + "% p.a." + "\n" +
+          "Opening Balance: " + formatCurrencyWithUnits(result.openingBalance) + "\n" +
+          "Employee (EPF + VPF): " + formatCurrencyWithUnits(result.totalEmployee) + "\n" +
+          "Employer EPF: " + formatCurrencyWithUnits(result.totalEmployerEpf) + "\n" +
+          "Interest Earned: " + formatCurrencyWithUnits(result.totalInterest) + "\n" +
+          "Final Corpus: " + formatCurrencyWithUnits(result.finalCorpus) + "\n" +
+          "Inflation Adjusted Corpus: " + formatCurrencyWithUnits(realCorpus) + "\n" +
+          "Estimated EPS Pension / Month: " + formatCurrencyWithUnits(result.epsPension);
+      }
+
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) {
+          return;
+        }
+        const headers = ["Year", "Age", "EPF Salary (Annual)", "Employee + VPF", "Employer EPF", "EPS", "Interest", "EPF Closing Balance"];
+        const rows = lastProjection.map(function (row) {
+          return [
+            "Year " + row.year,
+            row.age,
+            Math.round(row.annualSalary),
+            Math.round(row.yearlyEmployee),
+            Math.round(row.yearlyEmployerEpf),
+            Math.round(row.yearlyEps),
+            Math.round(row.yearlyInterest),
+            Math.round(row.closingBalance)
+          ].join(",");
+        });
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "epf-projection.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function resetToDefaults() {
+        elements.monthlySalary.value = defaults.monthlySalary;
+        elements.monthlySalaryRange.value = defaults.monthlySalary;
+        elements.currentAge.value = defaults.currentAge;
+        elements.currentAgeRange.value = defaults.currentAge;
+        elements.retirementAge.value = defaults.retirementAge;
+        elements.retirementAgeRange.value = defaults.retirementAge;
+        elements.annualHike.value = defaults.annualHike;
+        elements.annualHikeRange.value = defaults.annualHike;
+        elements.employeeRate.value = defaults.employeeRate;
+        elements.employeeRateRange.value = defaults.employeeRate;
+        elements.vpfRate.value = defaults.vpfRate;
+        elements.vpfRateRange.value = defaults.vpfRate;
+        elements.epfInterest.value = defaults.epfInterest;
+        elements.epfInterestRange.value = defaults.epfInterest;
+        elements.employerEpfRate.value = defaults.employerEpfRate;
+        elements.employerEpfRateRange.value = defaults.employerEpfRate;
+        elements.epsRate.value = defaults.epsRate;
+        elements.epsRateRange.value = defaults.epsRate;
+        elements.epsWageCap.value = defaults.epsWageCap;
+        elements.wageCapMode.value = defaults.wageCapMode;
+        elements.epfWageCap.value = defaults.epfWageCap;
+        elements.interestScenario.value = defaults.interestScenario;
+        elements.currentBalance.value = defaults.currentBalance;
+        elements.oneTimeTopup.value = defaults.oneTimeTopup;
+        elements.inflation.value = defaults.inflation;
+        elements.inflationRange.value = defaults.inflation;
+        elements.withdrawalAge.value = defaults.withdrawalAge;
+        elements.withdrawalAmount.value = defaults.withdrawalAmount;
+        elements.targetCorpus.value = defaults.targetCorpus;
+        calculateAndRender();
+      }
+
+      function wireEvents() {
+        syncPair(elements.monthlySalaryRange, elements.monthlySalary);
+        syncPair(elements.currentAgeRange, elements.currentAge);
+        syncPair(elements.retirementAgeRange, elements.retirementAge);
+        syncPair(elements.annualHikeRange, elements.annualHike);
+        syncPair(elements.employeeRateRange, elements.employeeRate);
+        syncPair(elements.vpfRateRange, elements.vpfRate);
+        syncPair(elements.epfInterestRange, elements.epfInterest);
+        syncPair(elements.employerEpfRateRange, elements.employerEpfRate);
+        syncPair(elements.epsRateRange, elements.epsRate);
+        syncPair(elements.inflationRange, elements.inflation);
+
+        [
+          elements.epsWageCap,
+          elements.wageCapMode,
+          elements.epfWageCap,
+          elements.interestScenario,
+          elements.currentBalance,
+          elements.oneTimeTopup,
+          elements.withdrawalAge,
+          elements.withdrawalAmount,
+          elements.targetCorpus
+        ].forEach(function (input) {
+          input.addEventListener("input", calculateAndRender);
+          input.addEventListener("change", calculateAndRender);
+        });
+
+        elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        if (window.currencyManager) { window.currencyManager.onChange(calculateAndRender); };
+        elements.resetBtn.addEventListener("click", resetToDefaults);
+        elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        elements.toggleViewBtn.addEventListener("click", function () {
+          const shell = document.querySelector(".calculator-shell");
+          const isAdvanced = shell.classList.toggle("advanced-mode");
+          elements.toggleViewBtn.classList.toggle("active", isAdvanced);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvanced ? "Advanced Mode: On" : "Advanced Mode: Off";
+        });
+
+        elements.copySummaryBtn.addEventListener("click", function () {
+          if (!navigator.clipboard || !lastSummaryText) {
+            return;
+          }
+          navigator.clipboard.writeText(lastSummaryText).then(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary';
+            }, 1300);
+          }).catch(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Copy failed';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary';
+            }, 1300);
+          });
+        });
+      }
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      if (window.currencyManager) {
+        window.currencyManager.onChange(calculateAndRender);
+      }
+      calculateAndRender();
+    })();
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+      authDomain: "instacalc-40640.firebaseapp.com",
+      projectId: "instacalc-40640",
+      storageBucket: "instacalc-40640.firebasestorage.app",
+      messagingSenderId: "720029503645",
+      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+      measurementId: "G-J0ZWXR3T5P"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+  </script>
 </body>
+
 </html>

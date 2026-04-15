@@ -1,734 +1,1545 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>SWP Calculator – Smart Systematic Withdrawal Planning Online</title>
-<meta name="description" content="Use our free SWP calculator to plan monthly withdrawals from your investments. Estimate how long your funds will last with our systematic withdrawal plan calculator.">
-<meta name="keywords" content="swp calculator, systematic withdrawal plan calculator, best swp calculator, swp plan calculator, sip swp calculator, swp calculator online, swp return calculator">
-<link rel="icon" type="image/x-icon" href="favicon.webp">
-<link rel="canonical" href="https://instacalc.in/swpcalculator.html" />
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="google-adsense-account" content="ca-pub-4943063856769784">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SWP Calculator - Calculate Systematic Withdrawal Plan Returns</title>
+  <meta name="description"
+    content="Use our free SWP Calculator to calculate your Systematic Withdrawal Plan monthly income, estimate maturity, and track how long your mutual fund corpus will last.">
+  <meta name="keywords"
+    content="swp calculator, systematic withdrawal plan calculator, swp return calculator, mutual fund swp, swp calculator india, pension calculator, swp planner, online swp calculator">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
 
-<!-- Open Graph / Facebook Meta Tags -->
-<meta property="og:title" content="SWP Calculator – Systematic Withdrawal Plan Estimator">
-<meta property="og:description" content="Plan smart withdrawals from your investments using our SWP calculator. Perfect for retirement planning, monthly cash flow, or mutual fund withdrawals.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://instacalc.in/swpcalculator.html">
-<meta property="og:image" content="https://instacalc.in/instatheme.webp">
-<meta property="og:site_name" content="InstaCalc">
+  <link rel="icon" type="image/x-icon" href="favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/swpcalculator.html">
 
-<!-- Twitter Card Meta Tags -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SWP Calculator – Online Systematic Withdrawal Planning Tool">
-<meta name="twitter:description" content="Estimate monthly withdrawals and track fund balance with this smart SWP calculator. Great for retirement, savings, and investment planning.">
-<meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:title" content="SWP Calculator - Calculate Systematic Withdrawal Plan Returns">
+  <meta property="og:description"
+    content="Calculate your SWP monthly income, estimate your mutual fund maturity amounts, and track your corpus depletion with our free SWP Calculator.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/swpcalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
 
-<!-- Additional SEO Meta Tags -->
-<meta name="author" content="Instacalc">
-<meta name="robots" content="index, follow">
-<meta name="revisit-after" content="7 days">
-<meta name="language" content="English">
-<meta name="theme-color" content="#1a2a3a">    
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SWP Calculator - Calculate Systematic Withdrawal Plan Returns">
+  <meta name="twitter:description"
+    content="Calculate your SWP monthly income, estimate your mutual fund maturity amounts, and track your corpus depletion with our free SWP Calculator.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
 
-  <!-- Critical CSS -->
-  <style>
-    /* Minimum layout stability styles */
-    body { 
-      min-height: 100vh;
-      overflow-x: hidden;
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SWP Calculator",
+      "url": "https://instacalc.in/swpcalculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "Systematic withdrawal plan (SWP) calculator to estimate monthly returns, mutual fund maturity, and track corpus longevity for retirement.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
     }
-    .calculator-container {
-      min-height: 600px; /* Reserve space for calculator */
-    }
-    .result-section {
-      height: 200px; /* Fixed height for results area */
-      visibility: hidden; /* Hidden until calculated */
-    }
-    /* Prevent layout shifts in main content */
-    .main-content {
-      position: relative;
-      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
-    }
-    /* Fixed dimensions for key elements */
-    input {
-      width: 100%;
-      max-width: 400px;
-      height: 40px;
-    }
-       /* Fixed dimensions for key elements */
-    .chart-container {
-      width: 100%;
-      max-width: 400px;
-      height: 300px;
-    }
-  </style>
-
-  <!-- Preloads -->
-  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
-  <link rel="preload" href="style.css" as="style">
-  
-  <!-- Non-critical CSS -->
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
-  <noscript>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-  </noscript>
-
-  <!-- Script optimization -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-  <!-- Only load Popper and Bootstrap JS if needed -->
-  <?php if (needs_bootstrap_js): ?>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-  
-     <script src="bootstrap/js/bootstrap.min.js" defer></script>
-  <?php endif; ?>
-
-  <!-- Load Chart.js only when needed -->
-  <script>
-    function loadChartJS() {
-      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
-        window.Chart = module.default;
-        initializeCharts();
-      });
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is SWP better than FD monthly payout?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "From a tax perspective, SWP is often better. In a Fixed Deposit (FD), the entire interest is taxed at your income slab. In SWP, only the capital gains part of the withdrawal is taxed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if my withdrawal is higher than returns?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If you withdraw more than what the investment earns, your principal will start depleting. This calculator helps you see how many years your corpus will last before hitting zero."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a Systematic Withdrawal Plan (SWP)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An SWP allows you to withdraw a fixed amount of money from your mutual fund investments at regular intervals, such as monthly or quarterly. It provides a steady source of income while letting your remaining corpus stay invested."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does an SWP calculator work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An SWP calculator estimates how long your mutual fund corpus will last and what your final balance will be. You enter your total investment, expected return rate, monthly withdrawal amount, and tenure to see a detailed projection."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I start an SWP immediately after investing a lumpsum?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, you can start an SWP immediately after making a lumpsum investment in a mutual fund. However, doing so within the first year may attract short-term capital gains tax and exit loads depending on the fund."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the tax implication of SWP in mutual funds?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In an SWP, every withdrawal is treated as a partial redemption. Only the capital gains portion of the withdrawal is taxed, not the principal amount. For equity funds held over a year, long-term capital gains (LTCG) up to ₹1.25 lakh per financial year are tax-free."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I change my SWP withdrawal amount later?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, mutual funds offer the flexibility to modify, pause, or cancel your SWP at any time. You can adjust your withdrawal amount based on your changing income needs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there any exit load on SWP withdrawals?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Exit loads may apply if you withdraw units within a specific period (usually 1 year for equity funds). However, many funds allow up to 10% of the corpus to be withdrawn without an exit load."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens to the remaining balance in my SWP account?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The unwithdrawn balance remains invested in the mutual fund and continues to earn market-linked returns. If the return rate is higher than your withdrawal rate, your corpus may even grow over time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who should opt for a Systematic Withdrawal Plan?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SWP is ideal for retirees, individuals seeking a regular secondary income, or anyone looking to systematically consume their accumulated wealth in a tax-efficient manner."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I stop my SWP at any time?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. You can stop or cancel your SWP mandate online or by submitting a request to your mutual fund house without any penalties."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which mutual funds are best for SWP?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Conservative investors generally prefer Debt Funds, Balanced Advantage Funds, or Hybrid Funds for SWPs because they offer relatively stable returns and lower volatility compared to pure equity funds."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is SWP a good strategy for retirement income?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, SWP is highly recommended for retirement income. It provides a fixed monthly paycheck similar to a pension, while offering better tax efficiency and potential capital appreciation than traditional fixed deposits."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I choose SWP or dividend payout?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SWP is generally preferred over a dividend payout option. Dividend payouts are not guaranteed and are taxed entirely at your income tax slab rate, whereas SWP gives you a predictable income and is more tax-efficient since only the capital gains are taxed."
+          }
+        }
+      ]
     }
   </script>
 
-  <script src="script.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+
+    /* Simple vs Advanced Toggle Styles */
+    .calculator-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .advanced-only-section {
+      display: none;
+      border-top: 1px dashed var(--line);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      gap: 0.7rem;
+    }
+
+    .advanced-only {
+      display: none;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only-section {
+      display: grid;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only {
+      display: block;
+    }
+
+    .calculator-shell.advanced-mode .result-card.advanced-only {
+      display: block;
+    }
+
+    #toggleViewBtn.active {
+      background: var(--accent-strong);
+      color: #fff;
+    }
+  </style>
 </head>
+
 <body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class="text-white mb-0">InstaCalc.in</h6>
-  </div>   
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>     
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="aboutus.html">About Us</a>
-      </li>
-         <li class="nav-item px-2">
-        <a class="nav-link " href="contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc home">
+        <img src="logo.png" alt="InstaCalc logo">
+        <span>InstaCalc.in</span>
+      </a>
 
-    
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
 
-  <!-- //first row first column -->
-  <div  class="row">
-  <!--   //first row first column -->
-    <div class="col-md-6" style="background-colorf:yellow;">
-     <div class="container mt-5 table1">
-    <h2>SWP Calculator</h2>
-
-    <div class="input-group">
-        <label for="lumpsum">Initial Investment (₹)</label>
-        
-          <div class="slider-container">
-            <input type="range" id="lumpsum-slider" min="10000" max="10000000" step="5000" value="100000" oninput="syncInputs('lumpsum')">
-            <input type="number" id="lumpsum" min="10000" max="10000000" step="5000" value="100000" oninput="syncInputs('lumpsum', true)">
-        </div>   
-       
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </nav>
     </div>
-
-    <div class="input-group">
-        <label for="rate">Expected Return Rate (p.a.) (%)</label>
-        <div class="slider-container">
-            <input type="range" id="rate-slider" min="1" max="20" step="0.1" value="6.5" oninput="syncInputs('rate')">
-            <input type="number" id="rate" min="1" max="20" step="0.1" value="6.5" oninput="syncInputs('rate', true)">
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-hand-holding-dollar"></i>
+            Monthly Income Goal
+          </span>
+          <h1>SWP Calculator - Calculate Systematic Withdrawal Plan</h1>
+          <p>Use our free online SWP Calculator to accurately estimate your post-retirement monthly income, track corpus
+            depletion, and confidently plan how long your mutual fund investment will last.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#swp-planner">
+              <i class="fas fa-calculator"></i>
+              Check My Withdrawals
+            </a>
+          </div>
         </div>
-    </div>
-
-    <div class="input-group">
-        <label for="withdrawal">Monthly Withdrawal Amount (₹)</label>
-        <div class="slider-container">
-            <input type="range" id="withdrawal-slider" min="1000" max="100000" step="500" value="3000" oninput="syncInputs('withdrawal')">
-            <input type="number" id="withdrawal" min="1000" max="100000" step="500" value="3000" oninput="syncInputs('withdrawal', true)">
-        </div>
-    </div>
-
-    <div class="input-group">
-        <label for="years">Withdrawal Duration (Years)</label>
-        <div class="slider-container">
-            <input type="range" id="years-slider" min="1" max="30" step="1" value="3" oninput="syncInputs('years')">
-            <input type="number" id="years" min="1" max="30" step="1" value="3" oninput="syncInputs('years', true)">
-        </div>
-    </div>
-
-    <div class="result-box">
-    <div class="result-item">
-        <span class="label">Total Withdrawn:</span>
-        <span class="value"><strong><span id="total-withdrawn">0</span></strong></span>
-    </div>
-    <div class="result-item">
-        <span class="label">Interest Earned:</span>
-        <span class="value"><strong><span id="total-interest">0</span></strong></span>
-    </div>
-    <div class="result-item">
-        <span class="label">Final Balance:</span>
-        <span class="value"><strong><span id="final-balance">0</span></strong></span>
-    </div>
-</div>
-
-   
-</div>
-
-  </div>
-  <!--   //first row second column -->
-  <div class="col-md-6 d-none d-md-block">
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <a href="sipcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="mutualfundreturncalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="gratuitycalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="epfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="fdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="rdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="cargcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="coumpoundinterest.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="retirementcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="ppfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="emicalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="simpleinterestcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
-
-
+        <aside class="hero-panel">
+          <h2>Why use SWP?</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Regular cash flow like a salary</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Capital appreciation on balance</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Tax efficient (Capital gains vs Slab)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Inflation-adjusted withdrawal mode</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Live corpus depletion chart</div>
+        </aside>
       </div>
+    </section>
 
-  <!--  /second row -->
-   <div  class="row mb-05">
-  <!--    //second row first column -->
-     <div class="col-md-6 mt-5 mb-5" style="background-colorf:red;">
+    <section id="swp-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="Calculator mode">
+              <a href="#" class="active">SWP Planner</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>Advanced Mode: Off</span>
+            </button>
+          </div>
 
-    <div class="container">
-    <div class="swp-calculator-content">
-        <div class="title">
-            <h1>SWP Calculator: Smart Withdrawals from Your Investments 💰📊</h1>
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="totalInvestment">Total Investment</label>
+                <span id="investmentPreview">10,00,000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="investmentRange" min="50000" max="50000000" step="10000" value="1000000">
+                <input type="number" id="totalInvestment" min="50000" max="50000000" step="10000" value="1000000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="withdrawal">Monthly Withdrawal</label>
+                <span id="withdrawalPreview">10,000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="withdrawalRange" min="500" max="250000" step="500" value="10000">
+                <input type="number" id="withdrawal" min="500" max="250000" step="500" value="10000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="returnRate">Expected ROI (% p.a.)</label>
+                <span id="returnPreview">10%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="returnRange" min="5" max="20" step="0.5" value="10">
+                <input type="number" id="returnRate" min="5" max="20" step="0.5" value="10">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="tenure">Tenure (Years)</label>
+                <span id="tenurePreview">10 Years</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="tenureRange" min="1" max="50" step="1" value="10">
+                <input type="number" id="tenure" min="1" max="50" step="1" value="10">
+              </div>
+            </div>
+
+            <div class="advanced-only-section" id="advancedFields">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="inflation"
+                    title="Increases your monthly withdrawal amount every year by this percentage to combat inflation and rising living costs.">Annual
+                    Withdrawal Increase (%) <i class="fas fa-circle-question"
+                      style="color:var(--text-soft); opacity: 0.6; font-size: 0.85em; cursor: help;"></i></label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="inflationRange" min="0" max="10" step="0.5" value="0">
+                  <input type="number" id="inflation" min="0" max="10" step="0.5" value="0">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i> Recalculate
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i> Reset Defaults
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i> Copy Summary
+            </button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <h3>Total Invested Amount</h3>
+              <div class="result-value" id="resInvested">-</div>
+            </div>
+            <div class="result-card positive">
+              <h3>Total Withdrawal</h3>
+              <div class="result-value" id="resWithdrawalText">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Final Estimated Balance</h3>
+              <div class="result-value" id="resFinalBalance">-</div>
+            </div>
+          </div>
+
+          <div class="chart-grid" style="margin-top:20px;">
+            <div class="chart-card">
+              <h3>Corpus Over Time</h3>
+              <div class="chart-wrap">
+                <canvas id="swpChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-shell" style="margin-top:20px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Opening Balance</th>
+                  <th>Total Withdrawal</th>
+                  <th>Interest Added</th>
+                  <th>Final Balance</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
         </div>
-        <div class="introduction">
-            <p>Looking to turn your investment into a regular income? The SWP Calculator is here to help! Also known as a Systematic Withdrawal Plan Calculator, it shows how much you can withdraw monthly without exhausting your funds too quickly.</p>
-            <p>Whether it’s for retirement income, monthly expenses, or smart withdrawals during market highs, this tool keeps your money growing while generating consistent payouts. Let's explore how this SWP calculator online can help you plan better.</p>
-        </div>
-        <div class="what-is-swp-calculator">
-            <h2>What is an SWP Calculator?</h2>
-            <p>A Systematic Withdrawal Plan Calculator estimates how long your investment will last based on a few inputs:</p>
-            <ul>
-                <li>✔️ Your initial investment amount</li>
-                <li>✔️ The fixed monthly withdrawal</li>
-                <li>✔️ Expected rate of return</li>
-                <li>✔️ Total withdrawal duration</li>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="sidebar-card">
+            <h3>Similar Utility Tools</h3>
+            <ul class="link-list">
+              <li><a href="sipcalculator.html"><span>SIP Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mutualfundreturncalculator.html"><span>Lumpsum Calculator</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="retirementcalculator.html"><span>Retirement Planner</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="epfcalculator.html"><span>EPF Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="npscalculator.html"><span>NPS Calculator</span><i class="fas fa-arrow-right"></i></a></li>
             </ul>
-            <p>Unlike lump sum withdrawals, an SWP lets you withdraw a steady amount regularly. Your remaining investment keeps earning returns, which is the core benefit of using a SWP plan calculator. 📈</p>
-        </div>
-        <div class="how-swp-calculator-works">
-            <h2>How Does an SWP Calculator Work?</h2>
-            <p>This best SWP calculator gives you a detailed picture of:</p>
-            <ul>
-                <li>✅ The monthly amount you can withdraw</li>
-                <li>✅ How long your funds will last based on returns</li>
-                <li>✅ The balance remaining after each withdrawal</li>
-            </ul>
-            <h3>How to Use This SWP Calculator Online:</h3>
-            <ol>
-                <li>1️⃣ Enter your initial investment (e.g., ₹10,00,000)</li>
-                <li>2️⃣ Set your preferred monthly withdrawal (e.g., ₹10,000)</li>
-                <li>3️⃣ Choose the expected return rate (e.g., 8% annually)</li>
-                <li>4️⃣ Select the withdrawal duration (e.g., 10 years)</li>
-                <li>5️⃣ Click "Calculate" to get your results instantly</li>
-            </ol>
-            <p>💡 <strong>Example:</strong></p>
-            <p>If you invest ₹10,00,000 and withdraw ₹10,000/month with an 8% annual return, your money could last over 12 years—even while earning!</p>
-        </div>
-        <div class="why-use-swp-calculator">
-            <h2>Why Use a Systematic Withdrawal Plan Calculator?</h2>
-            <ul>
-                <li>🔹 <strong>Steady Income</strong> – Perfect for monthly budgeting or retirement cash flow.</li>
-                <li>🔹 <strong>Prevent Overspending</strong> – Know exactly how long your funds will last.</li>
-                <li>🔹 <strong>Continued Growth</strong> – Remaining funds continue to earn interest.</li>
-                <li>🔹 <strong>Ideal for SIP + SWP Strategy</strong> – Use a SIP SWP calculator to manage both investing and withdrawals efficiently.</li>
-            </ul>
-        </div>
-        <div class="call-to-action">
-            <h2>Take Control with the Best SWP Calculator!</h2>
-            <p>Whether you're planning for retirement, managing expenses, or withdrawing from a mutual fund, this SWP return calculator gives you clarity and control over your money.</p>
-            <p>Start using our SWP calculator online today to plan smarter withdrawals and protect your financial future. 🚀💸</p>
-        </div>
-    </div>
-</div>
-
-
-
-
-       </div>
-  <!--   //second row second column -->
-   <div class="col-md-6" style="background-color:blueg;">
-    <div class="container mt-5 mb-5">
-        <h2 class="mb-4">FAQs</h2>
-        <div id="faqAccordion" class="accordion">
-
-            <!-- FAQ 1 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            What is an SWP (Systematic Withdrawal Plan)?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        An SWP is a facility offered by mutual funds that allows investors to withdraw a fixed amount of money at regular intervals (monthly, quarterly, etc.) from their investment.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 2 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            How does the SWP Calculator work?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        The SWP Calculator estimates the amount you can withdraw regularly based on your investment corpus, expected rate of return, and withdrawal frequency. It helps you plan your withdrawals without depleting your investment too quickly.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 3 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingThree">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            What inputs are required for the SWP Calculator?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        You need to provide:
-                        <ul>
-                            <li><strong>Investment Corpus:</strong> The total amount you have invested.</li>
-                            <li><strong>Expected Annual Return:</strong> The rate of return you expect from your investment.</li>
-                            <li><strong>Withdrawal Frequency:</strong> How often you want to withdraw (monthly, quarterly, etc.).</li>
-                            <li><strong>Withdrawal Amount:</strong> The fixed amount you wish to withdraw regularly.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 4 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingFour">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            Can I change the withdrawal amount in an SWP?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        Yes, you can modify the withdrawal amount by updating your SWP instructions with the mutual fund house. However, this may involve certain restrictions or charges.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 5 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingFive">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                            Is there a minimum withdrawal amount for an SWP?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        Yes, most mutual funds have a minimum withdrawal amount for SWPs, typically around ₹500 or ₹1,000 per withdrawal.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 6 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingSix">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                            Can I stop an SWP before the end of the tenure?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        Yes, you can stop an SWP at any time by submitting a request to the mutual fund house. The remaining corpus will stay invested unless you redeem it.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 7 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingSeven">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                            Are SWP withdrawals taxable?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        Yes, SWP withdrawals are subject to capital gains tax, depending on the type of mutual fund (equity or debt) and the holding period.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 8 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingEight">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                            Can I use SWP for retirement income?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        Yes, SWP is an excellent tool for generating regular income during retirement. It allows you to withdraw a fixed amount periodically while keeping the remaining corpus invested.
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-   </div>
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
-
-              Back To Home
-
-             </p>
-       </div>
-
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
+          </div>
+        </aside>
       </div>
+    </section>
 
-      <script>
-              function syncInputs(id, isManual = false) {
-                  const slider = document.getElementById(`${id}-slider`);
-                  const numberInput = document.getElementById(id);
-                  if (isManual) {
-                      slider.value = numberInput.value;
-                  } else {
-                      numberInput.value = slider.value;
-                  }
-                  calculateSIP();
-              }
-          
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>How SWP Works?</h2>
+          <p>A <strong>Systematic Withdrawal Plan (SWP)</strong> allows you to withdraw a fixed amount of money from
+            your mutual fund investment at regular intervals (monthly, quarterly, or half-yearly).</p>
+          <br>
+          <p>While you withdraw money, the remaining balance continues to grow at the expected rate of return. If your
+            withdrawal rate is lower than the growth rate, your corpus can even increase over time.</p>
+          <br>
+          <p><strong>Benefits of SWP:</strong><br>
+            1. <strong>Regular Income:</strong> Ideal for retirees who need a monthly cash flow.<br>
+            2. <strong>Capital Gains Tax:</strong> Only the gain portion of the withdrawal is taxed, making it more
+            efficient than interest-bearing products for high-income earners.<br>
+            3. <strong>Flexibility:</strong> You can stop, increase, or decrease withdrawals at any time.
+          </p>
+        </article>
 
-function calculateSIP() {
-    // Parse input values from HTML elements
-    let principal = parseFloat(document.getElementById("lumpsum").value); // Initial investment
-    let annualRate = parseFloat(document.getElementById("rate").value) / 100; // Annual rate as decimal
-    let withdrawal = parseFloat(document.getElementById("withdrawal").value); // Monthly withdrawal
-    let years = parseInt(document.getElementById("years").value); // Duration in years
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>Is SWP better than FD monthly payout? <i class="fas fa-chevron-down"></i></summary>
+            <p>From a tax perspective, SWP is often better. In a Fixed Deposit (FD), the entire interest is taxed at
+              your income slab. In SWP, only the capital gains part of the withdrawal is taxed, and long-term capital
+              gains (LTCG) in equity mutual funds have a 1.25L annual exemption.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What happens if my withdrawal is higher than returns? <i class="fas fa-chevron-down"></i></summary>
+            <p>If you withdraw more than what the investment earns, your principal will start depleting. This calculator
+              helps you see how many years your corpus will last before hitting zero.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What is a Systematic Withdrawal Plan (SWP)? <i class="fas fa-chevron-down"></i></summary>
+            <p>An SWP allows you to withdraw a fixed amount of money from your mutual fund investments at regular
+              intervals, such as monthly or quarterly. It provides a steady source of income while letting your
+              remaining corpus stay invested.</p>
+          </details>
+          <details class="faq-card">
+            <summary>How does an SWP calculator work? <i class="fas fa-chevron-down"></i></summary>
+            <p>An SWP calculator estimates how long your mutual fund corpus will last and what your final balance will
+              be. You enter your total investment, expected return rate, monthly withdrawal amount, and tenure to see a
+              detailed projection.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can I start an SWP immediately after investing a lumpsum? <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Yes, you can start an SWP immediately after making a lumpsum investment in a mutual fund. However, doing
+              so within the first year may attract short-term capital gains tax and exit loads depending on the fund.
+            </p>
+          </details>
+          <details class="faq-card">
+            <summary>What is the tax implication of SWP in mutual funds? <i class="fas fa-chevron-down"></i></summary>
+            <p>In an SWP, every withdrawal is treated as a partial redemption. Only the capital gains portion of the
+              withdrawal is taxed, not the principal amount. For equity funds held over a year, long-term capital gains
+              (LTCG) up to ₹1.25 lakh per financial year are tax-free.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can I change my SWP withdrawal amount later? <i class="fas fa-chevron-down"></i></summary>
+            <p>Yes, mutual funds offer the flexibility to modify, pause, or cancel your SWP at any time. You can adjust
+              your withdrawal amount based on your changing income needs.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Is there any exit load on SWP withdrawals? <i class="fas fa-chevron-down"></i></summary>
+            <p>Exit loads may apply if you withdraw units within a specific period (usually 1 year for equity funds).
+              However, many funds allow up to 10% of the corpus to be withdrawn without an exit load.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What happens to the remaining balance in my SWP account? <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>The unwithdrawn balance remains invested in the mutual fund and continues to earn market-linked returns.
+              If the return rate is higher than your withdrawal rate, your corpus may even grow over time.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Who should opt for a Systematic Withdrawal Plan? <i class="fas fa-chevron-down"></i></summary>
+            <p>SWP is ideal for retirees, individuals seeking a regular secondary income, or anyone looking to
+              systematically consume their accumulated wealth in a tax-efficient manner.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can I stop my SWP at any time? <i class="fas fa-chevron-down"></i></summary>
+            <p>Absolutely. You can stop or cancel your SWP mandate online or by submitting a request to your mutual fund
+              house without any penalties.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Which mutual funds are best for SWP? <i class="fas fa-chevron-down"></i></summary>
+            <p>Conservative investors generally prefer Debt Funds, Balanced Advantage Funds, or Hybrid Funds for SWPs
+              because they offer relatively stable returns and lower volatility compared to pure equity funds.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Is SWP a good strategy for retirement income? <i class="fas fa-chevron-down"></i></summary>
+            <p>Yes, SWP is highly recommended for retirement income. It provides a fixed monthly paycheck similar to a
+              pension, while offering better tax efficiency and potential capital appreciation than traditional fixed
+              deposits.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Should I choose SWP or dividend payout? <i class="fas fa-chevron-down"></i></summary>
+            <p>SWP is generally preferred over a dividend payout option. Dividend payouts are not guaranteed and are
+              taxed entirely at your income tax slab rate, whereas SWP gives you a predictable income and is more
+              tax-efficient since only the capital gains are taxed.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in - smart calculators and converters for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </div>
+      <p
+        style="font-size: 0.75rem; color: var(--text-soft); max-width: 800px; line-height: 1.4; opacity: 0.8; margin-top: 0.5rem;">
+        <strong>Disclaimer:</strong> All figures and projections provided by our mutual fund and SWP calculators are
+        purely mathematical estimations based on your input assumptions. They do not constitute certified financial
+        advice and do not account for unforeseen market volatility. Always consult a SEBI-registered portfolio manager
+        before making investment decisions.
+      </p>
+    </div>
+  </footer>
+  <script src="currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        investment: 1000000,
+        withdrawal: 10000,
+        rate: 10,
+        tenure: 10,
+        inflation: 0
+      };
 
-    // Input validation
-    if (isNaN(principal) || isNaN(annualRate) || isNaN(withdrawal) || isNaN(years) ||
-        principal < 0 || annualRate < 0 || withdrawal < 0 || years < 0) {
-        alert("Please enter valid non-negative numbers for all fields.");
-        return;
-    }
+      const nfCurrency = { format: (v) => window.currencyManager ? window.currencyManager.formatCurrency(v) : String(v) };
 
-    // Handle zero duration or principal as a special case
-    if (years === 0 || principal === 0) {
-        document.getElementById("total-withdrawn").textContent = "₹0.00";
-        document.getElementById("total-interest").textContent = "₹0.00";
-        document.getElementById("final-balance").textContent = "₹0.00";
-        return;
-    }
+      function formatWithUnits(v) {
+        return window.currencyManager ? window.currencyManager.formatWithUnits(v) : nfCurrency.format(v);
+      }
 
-    // Calculate total months and monthly interest rate
-    let months = years * 12;
-    let monthlyRate = annualRate / 12; // Monthly interest rate
+      function compactCurrency(v) {
+        return window.currencyManager ? window.currencyManager.formatCompact(v) : String(v);
+      }
 
-    // Initialize variables
-    let balance = principal;
-    let totalWithdrawn = 0;
-    let totalInterest = 0;
+      const elements = {
+        investment: document.getElementById("totalInvestment"),
+        investmentRange: document.getElementById("investmentRange"),
+        withdrawal: document.getElementById("withdrawal"),
+        withdrawalRange: document.getElementById("withdrawalRange"),
+        rate: document.getElementById("returnRate"),
+        rateRange: document.getElementById("returnRange"),
+        tenure: document.getElementById("tenure"),
+        tenureRange: document.getElementById("tenureRange"),
+        inflation: document.getElementById("inflation"),
+        inflationRange: document.getElementById("inflationRange"),
 
-    // Simulate SWP for each month
-    for (let i = 0; i < months; i++) {
-        // Calculate interest for the month
-        let monthlyInterest = balance * monthlyRate;
-        totalInterest += monthlyInterest;
-        balance += monthlyInterest;
+        investmentPreview: document.getElementById("investmentPreview"),
+        withdrawalPreview: document.getElementById("withdrawalPreview"),
+        returnPreview: document.getElementById("returnPreview"),
+        tenurePreview: document.getElementById("tenurePreview"),
 
-        // Withdraw the specified amount
-        if (balance >= withdrawal) {
-            balance -= withdrawal;
-            totalWithdrawn += withdrawal;
-        } else {
-            totalWithdrawn += balance; // Withdraw remaining balance
-            balance = 0;
-            break; // Stop if balance is exhausted
-        }
-    }
+        resInvested: document.getElementById("resInvested"),
+        resWithdrawal: document.getElementById("resWithdrawalText"),
+        resFinalBalance: document.getElementById("resFinalBalance"),
 
-    // Format numbers with rupee symbol, two decimal places, and commas
-    const formatNumber = (num) => "₹" + num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        swpChart: document.getElementById("swpChart"),
+        projectionTable: document.getElementById("projectionTable"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        calcTarget: document.getElementById("calcTarget"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn")
+      };
 
-    // Update UI with formatted values
-    document.getElementById("total-withdrawn").textContent = formatNumber(totalWithdrawn);
-    document.getElementById("total-interest").textContent = formatNumber(totalInterest);
-    document.getElementById("final-balance").textContent = formatNumber(balance);
-}
+      let chartInstance = null;
 
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
 
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) return;
+        rangeEl.addEventListener("input", () => { numberEl.value = rangeEl.value; calculate(); });
+        numberEl.addEventListener("input", () => { rangeEl.value = numberEl.value; calculate(); });
+      }
 
+      function setupToggleAdvanced() {
+        let isAdvancedMode = false;
+        elements.toggleViewBtn.addEventListener("click", () => {
+          isAdvancedMode = !isAdvancedMode;
+          elements.calcTarget.classList.toggle("advanced-mode", isAdvancedMode);
+          elements.toggleViewBtn.classList.toggle("active", isAdvancedMode);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvancedMode ? "Advanced Mode: On" : "Advanced Mode: Off";
+        });
+      }
 
+      function calculate() {
+        let currentBalance = parseNumeric(elements.investment.value, defaults.investment);
+        let monthlyWithdrawal = parseNumeric(elements.withdrawal.value, defaults.withdrawal);
+        const annualRate = parseNumeric(elements.rate.value, defaults.rate) / 100;
+        const years = parseNumeric(elements.tenure.value, defaults.tenure);
+        const withdrawalInflation = parseNumeric(elements.inflation.value, defaults.inflation) / 100;
 
+        elements.investmentPreview.textContent = formatWithUnits(currentBalance);
+        elements.withdrawalPreview.textContent = formatWithUnits(monthlyWithdrawal);
+        elements.returnPreview.textContent = (annualRate * 100).toFixed(1) + "%";
+        elements.tenurePreview.textContent = years + " Years";
 
+        let totalWithdrawal = 0;
+        const yearlyData = [];
+        const labels = ["Start"];
+        const values = [currentBalance];
 
+        const monthlyRate = annualRate / 12;
 
+        for (let y = 1; y <= years; y++) {
+          let opening = currentBalance;
+          let yearWithdrawal = 0;
+          let yearInterest = 0;
 
-
-              let sipChart;
-              function updateChart(invested, returns) {
-                  let ctx = document.getElementById("sipChart").getContext("2d");
-                  if (sipChart) sipChart.destroy();
-                  sipChart = new Chart(ctx, {
-                      type: "doughnut",
-                      data: {
-                          labels: ["Total Invested", "Total Interest"],
-                          datasets: [{
-                              data: [invested, returns],
-                              backgroundColor: ["#4CAF50", "#2196F3"]
-                          }]
-                      }
-                  });
-              }
-              calculateSIP();
-
-
-          // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
-
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
-
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-          </script>
-          
-          <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
-    authDomain: "instacalc-40640.firebaseapp.com",
-    projectId: "instacalc-40640",
-    storageBucket: "instacalc-40640.firebasestorage.app",
-    messagingSenderId: "720029503645",
-    appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
-    measurementId: "G-J0ZWXR3T5P"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
-
-      <style>
-              bodyss {
-                  font-family: Arial, sans-serif;
-                  margin: 20px;
-                  padding: 0;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  flex-direction: column;
-                  background-color: #f4f4f4;
-              }
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
-
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
-
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
+          for (let m = 1; m <= 12; m++) {
+            if (currentBalance <= 0) {
+              currentBalance = 0;
+              continue;
             }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
+
+            // Withdrawal usually happens at start of month
+            let actualWithdrawal = Math.min(monthlyWithdrawal, currentBalance);
+            currentBalance -= actualWithdrawal;
+            yearWithdrawal += actualWithdrawal;
+
+            // Balance grows
+            let mInterest = currentBalance * monthlyRate;
+            currentBalance += mInterest;
+            yearInterest += mInterest;
           }
-          
-          .slider-container {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    width: 100%;
-}
 
-          .slider-container input[type="range"] {
-           flex: 1; /* Takes remaining space */
-}
+          totalWithdrawal += yearWithdrawal;
+          yearlyData.push({
+            year: y,
+            opening: opening,
+            withdrawal: yearWithdrawal,
+            interest: yearInterest,
+            closing: currentBalance
+          });
+          labels.push("Year " + y);
+          values.push(currentBalance);
 
-.slider-container input[type="number"] {
-    width: 120px; /* Fixed width for number input */
-}
+          // Adjust withdrawal for inflation if advanced mode is on
+          monthlyWithdrawal *= (1 + withdrawalInflation);
+        }
 
-          </style>
-     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        elements.resInvested.textContent = formatWithUnits(parseNumeric(elements.investment.value, defaults.investment));
+        elements.resWithdrawal.textContent = formatWithUnits(totalWithdrawal);
+        elements.resFinalBalance.textContent = formatWithUnits(currentBalance);
+
+        elements.projectionTable.innerHTML = "";
+        yearlyData.forEach(row => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td>${row.year}</td><td>${formatWithUnits(row.opening)}</td><td>${formatWithUnits(row.withdrawal)}</td><td>${formatWithUnits(row.interest)}</td><td>${formatWithUnits(row.closing)}</td>`;
+          elements.projectionTable.appendChild(tr);
+        });
+
+        drawChart(labels, values);
+      }
+
+      function drawChart(labels, values) {
+        const ctx = elements.swpChart.getContext("2d");
+        if (chartInstance) chartInstance.destroy();
+
+        chartInstance = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Corpus Balance',
+              data: values,
+              borderColor: '#007f8b',
+              backgroundColor: 'rgba(0, 127, 139, 0.1)',
+              fill: true,
+              tension: 0.2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: { ticks: { callback: (v) => compactCurrency(v) } }
+            },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: { label: (ctx) => ` Balance: ${formatWithUnits(ctx.raw)}` }
+              }
+            }
+          }
+        });
+      }
+
+      syncPair(elements.investmentRange, elements.investment);
+      syncPair(elements.withdrawalRange, elements.withdrawal);
+      syncPair(elements.rateRange, elements.rate);
+      syncPair(elements.tenureRange, elements.tenure);
+      syncPair(elements.inflationRange, elements.inflation);
+
+      elements.recalculateBtn.addEventListener("click", calculate);
+      if (window.currencyManager) { window.currencyManager.onChange(calculate); };
+      elements.resetBtn.addEventListener("click", () => {
+        elements.investment.value = defaults.investment; elements.investmentRange.value = defaults.investment;
+        elements.withdrawal.value = defaults.withdrawal; elements.withdrawalRange.value = defaults.withdrawal;
+        elements.rate.value = defaults.rate; elements.rateRange.value = defaults.rate;
+        elements.tenure.value = defaults.tenure; elements.tenureRange.value = defaults.tenure;
+        elements.inflation.value = defaults.inflation; elements.inflationRange.value = defaults.inflation;
+        calculate();
+      });
+
+      elements.copySummaryBtn.addEventListener("click", () => {
+        const s = `SWP Plan Summary:\n` +
+          `Initial Corpus: ${elements.investmentPreview.textContent}\n` +
+          `Monthly Withdrawal: ${elements.withdrawalPreview.textContent}\n` +
+          `Tenure: ${elements.tenure.value} Years\n` +
+          `Final Corpus: ${elements.resFinalBalance.textContent}`;
+        navigator.clipboard.writeText(s).then(() => {
+          const ot = elements.copySummaryBtn.innerHTML;
+          elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          setTimeout(() => elements.copySummaryBtn.innerHTML = ot, 2000);
+        });
+      });
+
+      // Nav toggle
+      document.getElementById("menuToggle").addEventListener("click", () => {
+        document.getElementById("mainNav").classList.toggle("open");
+      });
+
+      setupToggleAdvanced();
+      calculate();
+    })();
+  </script>
+
 </body>
-    
+
 </html>

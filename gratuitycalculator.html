@@ -1,610 +1,1321 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Gratuity Calculator India (April 2025) - Calculate Your Benefit</title>
-  <meta name="description" content="Calculate the estimated gratuity amount you are eligible for in India for April 2025 using our online calculator. Understand your gratuity benefit based on salary and years of service.">
-    <!-- Basic Favicons -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <link rel="canonical" href="https://instacalc.in/gratuitycalculator.html" />
-   <meta charset="utf-8">
+<head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gratuity Calculator India | Calculate Retirement Gratuity Online</title>
+  <meta name="description"
+    content="Calculate your gratuity amount easily for both covered and non-covered employees under the Payment of Gratuity Act. Professional retirement planning tool for India.">
+  <meta name="keywords"
+    content="sip calculator, sip return, sip investment, mutual fund sip, sip interest, sip planner, sip returns, sip calculator india, sip calculator online, mutual fund calculator, sip amount calculator, sip calculator 2026">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
 
-  <!-- Critical CSS -->
-  <style>
-    /* Minimum layout stability styles */
-    body { 
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .calculator-container {
-      min-height: 600px; /* Reserve space for calculator */
-    }
-    .result-section {
-      height: 200px; /* Fixed height for results area */
-      visibility: hidden; /* Hidden until calculated */
-    }
-    /* Prevent layout shifts in main content */
-    .main-content {
-      position: relative;
-      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
-    }
-    /* Fixed dimensions for key elements */
-    input {
-      width: 100%;
-      max-width: 400px;
-      height: 40px;
-    }
-       /* Fixed dimensions for key elements */
-    .chart-container {
-      width: 100%;
-      max-width: 400px;
-      height: 300px;
-    }
-  </style>
+  <link rel="icon" type="image/x-icon" href="favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/gratuitycalculator.html">
 
-  <!-- Preloads -->
-  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
-  <link rel="preload" href="style.css" as="style">
-  
-  <!-- Non-critical CSS -->
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
-  <noscript>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-  </noscript>
+  <meta property="og:title" content="Gratuity Calculator India - Tax-Free Retirement Benefit Estimator">
+  <meta property="og:description"
+    content="Calculate SIP maturity amount, monthly SIP returns, step-up SIP growth, inflation-adjusted corpus, and goal-based SIP planning.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/gratuitycalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
 
-  <!-- Script optimization -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-  <!-- Only load Popper and Bootstrap JS if needed -->
-  <?php if (needs_bootstrap_js): ?>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-  
-     <script src="bootstrap/js/bootstrap.min.js" defer></script>
-  <?php endif; ?>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Gratuity Calculator India - Tax-Free Retirement Benefit Estimator">
+  <meta name="twitter:description"
+    content="Free SIP calculator with goal planning, step-up SIP, inflation adjustment, and required SIP to reach 50 lakh or 1 crore targets.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
 
-  <!-- Load Chart.js only when needed -->
-  <script>
-    function loadChartJS() {
-      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
-        window.Chart = module.default;
-        initializeCharts();
-      });
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Gratuity Calculator",
+      "url": "https://instacalc.in/gratuitycalculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "Mutual fund SIP calculator for monthly investment, step-up SIP, maturity amount, inflation-adjusted corpus, and goal-based planning.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How to calculate SIP returns in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Enter monthly SIP amount, expected return, and tenure. The SIP calculator compounds contributions monthly and estimates invested amount, returns, and maturity corpus."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is step up SIP?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Step-up SIP increases your monthly SIP contribution every year by a fixed percentage, helping improve long-term wealth creation and goal achievement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is SIP return guaranteed in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. SIP returns depend on mutual fund market performance. Calculator outputs are estimates, not guaranteed returns."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can NRI invest in SIP in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, NRIs can invest in SIP through eligible KYC-compliant accounts, subject to fund house and regulatory rules."
+          }
+        }
+      ]
     }
   </script>
 
-  <script src="script.js" defer></script>
-</head>
-<body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class="text-white mb-0">InstaCalc.in</h6>
-  </div>   
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>     
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="aboutus.html">About Us</a>
-      </li>
-         <li class="nav-item px-2">
-        <a class="nav-link " href="contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
 
-    
-
-
-  <!-- //first row first column -->
-  <div  class="row">
-  <!--   //first row first column -->
-    <div class="col-md-6" style="background-color: yellowd;">
-  <div class="container mt-5 table1">
-    <h2>Gratuity Calculator</h2>
-    
-    <div class="input-group m">
-      <label for="amount">Monthly Salary (₹)</label>
-      <div class="slider-container">
-        <input type="range" id="amount-slider" min="1000" max="100000" step="500" value="1000" oninput="syncInputs('amount')">
-        <input type="number" id="amount" min="1000" max="100000" step="500" value="1000" oninput="syncInputs('amount', true)">
-      </div>
-    </div>
-
-    <div class="input-group">
-      <label for="rate">Years Of Service (Y)</label>
-      <div class="slider-container">
-        <input type="range" id="rate-slider" min="0" max="50" step="0.1" value="5" oninput="syncInputs('rate')">
-        <input type="number" id="rate" min="0" max="50" step="0.1" value="5" oninput="syncInputs('rate', true)">
-      </div>
-    </div>
-
-    <div class="result mt-4">
-      <h3>Gratuity Amount: <span id="gratuity-result">₹0.00</span></h3>
-    </div>
-  </div>
-</div>
-  <!--   //first row second column -->
-      <div class="col-md-6 d-none d-md-block">
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <a href="sipcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="mutualfundreturncalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="gratuitycalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="epfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="fdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="rdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="cargcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="coumpoundinterest.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="retirementcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="ppfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="emicalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="simpleinterestcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
-
-
-
-      </div>
-
-  <!--  /second row -->
-   <div  class="row mb-05">
-  <!--    //second row first column -->
-     <div class="col-md-6 mt-5" style="background-colorf:red;">
-
-       <div class="container">
-          <div class="gratuity-calculator-content">
-    <div class="title">
-        <h1>Gratuity Calculator: Know Your Retirement Benefits Instantly</h1>
-    </div>
-
-    <div class="introduction">
-        <p>Ever wondered how much gratuity you’ll receive when you retire or leave a job? If you’ve worked for five years or more in an organization, you’re entitled to gratuity under India’s Payment of Gratuity Act, 1972. But calculating the exact amount can be tricky. That’s where a Gratuity Calculator helps!</p>
-        <p>This tool gives you an instant estimate of your gratuity amount based on your salary and years of service. No complex math—just enter your details and get the results!</p>
-    </div>
-
-    <div class="how-gratuity-is-calculated">
-        <h2>How is Gratuity Calculated?</h2>
-        <p>The gratuity formula depends on whether your employer is covered under the Gratuity Act or not.</p>
-        <div class="under-gratuity-act">
-            <h3>1️⃣ For Employees Under the Gratuity Act</h3>
-            <p>If your company is covered under the Gratuity Act, the formula is:</p>
-            <p><code>Gratuity = (15 × Last Drawn Salary × Years of Service) / 26</code></p>
-            <ul>
-                <li>✔ Last Drawn Salary = Basic Salary + Dearness Allowance (DA)</li>
-                <li>✔ Years of Service = Number of completed years (if you worked 6 years, 7 months → count as 7 years)</li>
-                <li>✔ 26 = Fixed number of working days in a month</li>
-            </ul>
-        </div>
-        <div class="not-under-gratuity-act">
-            <h3>2️⃣ For Employees NOT Under the Gratuity Act</h3>
-            <p>If the employer is not covered under the Gratuity Act, the formula changes slightly:</p>
-            <p><code>Gratuity = (15 × Last Drawn Salary × Years of Service) / 30</code></p>
-            <p>Here, 30 is used instead of 26, which means the gratuity amount will be slightly lower.</p>
-        </div>
-    </div>
-
-    <div class="example-calculation">
-        <h2>Example: See It in Action</h2>
-        <p>Let’s say your last drawn salary (Basic + DA) is ₹50,000 and you’ve worked for 12 years in a company covered under the Gratuity Act.</p>
-        <p><code>Gratuity = (15 × 50,000 × 12) / 26 = ₹3,46,153</code></p>
-        <p>So, when you leave, you’ll receive ₹3,46,153 as gratuity. If the company is not covered under the Act, the amount will be slightly less.</p>
-    </div>
-
-    <div class="eligibility">
-        <h2>Who is Eligible for Gratuity?</h2>
-        <ul>
-            <li>✔ Minimum 5 years of continuous service in a company</li>
-            <li>✔ Retirement, resignation, or job change</li>
-            <li>✔ In case of death or disability, gratuity is paid even before 5 years</li>
-        </ul>
-    </div>
-
-    <div class="why-use-gratuity-calculator">
-        <h2>Why Use a Gratuity Calculator?</h2>
-        <ul>
-            <li>✔ Instant Results: No manual calculations required</li>
-            <li>✔ Accurate Estimates: Helps in financial planning</li>
-            <li>✔ Compare Different Scenarios: Adjust years of service & salary to see changes</li>
-            <li>✔ Retirement Planning: Know how much you’ll get when you leave</li>
-        </ul>
-    </div>
-
-    <div class="final-thoughts">
-        <h2>Final Thoughts</h2>
-        <p>Gratuity is your right and a valuable financial benefit after years of hard work. Instead of guessing how much you’ll get, use a Gratuity Calculator and plan ahead!</p>
-        <p>Start early, plan wisely, and secure your financial future. 💰🔥</p>
-    </div>
-</div>
-           </div>
-
-
-
-       </div>
-  <!--   //second row second column -->
-  <div class="col-md-6">
-    <div class="container mt-5 mb-5">
-        <h2 class="mb-4 text-left">FAQs</h2>
-        <div id="faqAccordion" class="accordion">
-
-            <!-- FAQ 1 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            What is Gratuity?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        Gratuity is a lump sum payment made by an employer to an employee as a token of appreciation for their long-term service. It is governed by the Payment of Gratuity Act, 1972, and is applicable to employees who have completed at least 5 years of continuous service.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 2 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            How does the Gratuity Calculator work?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        The Gratuity Calculator estimates the gratuity amount based on the following inputs:
-                        <ul class="text-left">
-                            <li><strong>Last Drawn Salary:</strong> The sum of your basic salary and dearness allowance.</li>
-                            <li><strong>Years of Service:</strong> The total number of years you have worked for the employer.</li>
-                        </ul>
-                        It uses the formula:
-                        <br>
-                        <code>Gratuity = (Last Drawn Salary × Years of Service × 15) / 26</code>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 3 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingThree">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            What inputs are required for the Gratuity Calculator?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        You need to provide:
-                        <ul class="text-left">
-                            <li><strong>Last Drawn Salary:</strong> Your basic salary plus dearness allowance.</li>
-                            <li><strong>Years of Service:</strong> The total number of years you have worked for the employer.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 4 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingFour">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            Who is eligible for gratuity?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        Employees are eligible for gratuity if they:
-                        <ul class="text-left">
-                            <li>Have completed at least 5 years of continuous service with the same employer.</li>
-                            <li>Are retiring, resigning, or leaving the job after meeting the eligibility criteria.</li>
-                            <li>In case of death or disability, the 5-year rule is waived.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 5 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingFive">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                            Is gratuity taxable?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        Gratuity is partially taxable. For government employees, it is fully exempt from tax. For private sector employees, the least of the following is tax-free:
-                        <ul class="text-left">
-                            <li>₹20 lakh (as per the latest limit).</li>
-                            <li>Actual gratuity received.</li>
-                            <li>Eligible gratuity as per the formula.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 6 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingSix">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                            Can I receive gratuity before completing 5 years?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        Generally, gratuity is payable only after completing 5 years of continuous service. However, in case of death or disability, the 5-year rule is waived, and the gratuity is paid to the nominee or legal heir.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 7 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingSeven">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                            What is the maximum gratuity amount payable?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        The maximum gratuity amount payable is ₹20 lakh (as per the latest limit). Any amount above this is taxable.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 8 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingEight">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                            Can I calculate gratuity for part-time employees?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        No, the Gratuity Act applies only to full-time employees who have completed at least 5 years of continuous service. Part-time employees are not eligible for gratuity under this Act.
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-   </div>
-    
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
-
-              Back To Home
-
-             </p>
-       </div>
-
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
-      </div>
-      <script>
-             function syncInputs(field, isInput = false) {
-    const slider = document.getElementById(`${field}-slider`);
-    const input = document.getElementById(field);
-    
-    if (isInput) {
-        slider.value = Math.max(Math.min(input.value, slider.max), slider.min);
-    } else {
-        input.value = Math.max(Math.min(slider.value, input.max), input.min);
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
     }
-    
-    calculateGratuity();
-}
 
-function calculateGratuity() {
-    // Get values from inputs
-    const monthlySalary = parseFloat(document.getElementById('amount').value);
-    const years = parseFloat(document.getElementById('rate').value);
-    
-    // Calculate gratuity (with rounding for partial years)
-    const roundedYears = Math.round(years); // Rounds to nearest integer (0.5+ rounds up)
-    const gratuity = (roundedYears * monthlySalary * 15) / 26;
-    
-    // Display result
-    document.getElementById('gratuity-result').textContent = 
-        `₹${gratuity.toLocaleString('en-IN', { maximumFractionDigits: 2 })}`;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-// Initial calculation
-calculateGratuity();
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
 
 
-          
-          </script>
-    <script>
-    // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
 
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
+    .faq-card {
+      overflow: hidden;
+    }
 
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-    
-    
-    </script>
-     
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
 
-      <style>
-              bodyss {
-                  font-family: Arial, sans-serif;
-                  margin: 20px;
-                  padding: 0;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  flex-direction: column;
-                  background-color: #f4f4f4;
-              }
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
 
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
 
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+
+    /* Simple vs Advanced Toggle Styles */
+    .calculator-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .advanced-only-section {
+      display: none;
+      border-top: 1px dashed var(--line);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      gap: 0.7rem;
+    }
+
+    .advanced-only {
+      display: none;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only-section {
+      display: grid;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only {
+      display: block;
+    }
+
+    .calculator-shell.advanced-mode .result-card.advanced-only {
+      display: block;
+    }
+
+    #toggleViewBtn.active {
+      background: var(--accent-strong);
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc home">
+        <img src="logo.png" alt="InstaCalc logo">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-hand-holding-dollar"></i>
+            Employee Benefits
+          </span>
+          <h1>Gratuity Calculator India (Covered & Non-Covered)</h1>
+          <p>Estimate your final gratuity amount based on your salary and tenure. Perfectly aligned with the latest
+            Payment of Gratuity Act rules and tax limits.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#gratuity-planner">
+              <i class="fas fa-calculator"></i>
+              Check My Gratuity
+            </a>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h2>Premium Features Included</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Covered vs Non-Covered logic</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Latest 20 Lakh tax-free limit</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Automatic tenure rounding rules</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Visual breakdown of components</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Comprehensive retirement FAQs</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="gratuity-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="Calculator mode">
+              <a href="#" id="modeCovered" class="active">Act Covered</a>
+              <a href="#" id="modeNotCovered">Not Covered</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>Advanced Mode: Off</span>
+            </button>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="lastSalary">Last Drawn Salary (Basic + DA)</label>
+                <span id="salaryPreview">50,000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="salaryRange" min="5000" max="2000000" step="500" value="50000">
+                <input type="number" id="lastSalary" min="5000" max="2000000" step="500" value="50000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="years">Completed Years of Service</label>
+                <span id="yearsPreview">5 Years</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="yearsRange" min="1" max="50" step="1" value="5">
+                <input type="number" id="yearsOfService" min="1" max="50" step="1" value="5">
+              </div>
+            </div>
+
+            <div class="advanced-only-section" id="advancedFields">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="extraMonths">Additional Months (for rounding check)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="monthsRange" min="0" max="11" step="1" value="0">
+                  <input type="number" id="extraMonths" min="0" max="11" step="1" value="0">
+                </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label>Rounding Mechanism Info</label>
+                </div>
+                <p style="font-size:0.85rem; color:var(--text-soft);">
+                  For <strong>Covered</strong>: Serviced &gt; 6 months counts as 1 year.<br>
+                  For <strong>Non-Covered</strong>: Only full years are counted.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i> Recalculate
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i> Reset Defaults
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i> Copy Summary
+            </button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card positive">
+              <h3>Estimated Gratuity</h3>
+              <div class="result-value" id="resGratuity">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Tax-Free Amount</h3>
+              <div class="result-value" id="resTaxFree">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Taxable Portion</h3>
+              <div class="result-value" id="resTaxable">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Eligibility Status</h3>
+              <div class="result-value" id="resStatus">-</div>
+            </div>
+          </div>
+
+          <div class="chart-grid" style="margin-top:20px;">
+            <div class="chart-card">
+              <h3>Benefit Visualization</h3>
+              <div class="chart-wrap">
+                <canvas id="gratuityChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="sidebar-card">
+            <h3>Plan Your Retirement</h3>
+            <ul class="link-list">
+              <li><a href="retirementcalculator.html"><span>Retirement Planner</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="ppfcalculator.html"><span>PPF Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="npscalculator.html"><span>NPS Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="fdcalculator.html"><span>FD Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="epfcalculator.html"><span>EPF Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h3>Understanding Gratuity Rules in India</h3>
+          <p>Gratuity is a monetary benefit paid by the employer to an employee upon retirement or resignation after
+            completing at least 5 years of services.</p>
+          <br>
+          <p><strong>Act Covered Formula:</strong><br>
+            <code>Gratuity = (15/26) × Last Drawn Salary × Years of Service</code><br>
+            Note: Final tenure is rounded to the nearest year (e.g., 5 years 7 months = 6 years).
+          </p>
+          <br>
+          <p><strong>Not Covered Formula:</strong><br>
+            <code>Gratuity = (15/30) × Average 10 Months Salary × Full Years of Service</code><br>
+            Note: Rounding is not allowed; only full completed years are counted.
+          </p>
+          <br>
+          <p>The maximum tax-exempt limit for gratuity in the private sector was increased to <strong>20 Lakh</strong>
+            by the government.</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>What is the 5-year eligibility rule? <i class="fas fa-chevron-down"></i></summary>
+            <p>To be eligible for gratuity, an employee typically must complete at least five continuous years of
+              service with the same employer. Exception applies in case of death or disablement.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Is gratuity taxable? <i class="fas fa-chevron-down"></i></summary>
+            <p>For government employees, it is fully exempt. for private employees, it is exempt up to 20 Lakh (or the
+              actual amount received/calculated, whichever is lower).</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in - smart calculators and converters for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        salary: 50000,
+        years: 5,
+        months: 0,
+        isCovered: true
+      };
+
+      const nfCurrency = { format: (v) => window.currencyManager ? window.currencyManager.formatCurrency(v) : String(v) };
+
+      function formatWithUnits(v) {
+        return window.currencyManager ? window.currencyManager.formatWithUnits(v) : nfCurrency.format(v);
+      }
+
+      const elements = {
+        salary: document.getElementById("lastSalary"),
+        salaryRange: document.getElementById("salaryRange"),
+        years: document.getElementById("yearsOfService"),
+        yearsRange: document.getElementById("yearsRange"),
+        months: document.getElementById("extraMonths"),
+        monthsRange: document.getElementById("monthsRange"),
+
+        modeCovered: document.getElementById("modeCovered"),
+        modeNotCovered: document.getElementById("modeNotCovered"),
+
+        salaryPreview: document.getElementById("salaryPreview"),
+        yearsPreview: document.getElementById("yearsPreview"),
+
+        resGratuity: document.getElementById("resGratuity"),
+        resTaxFree: document.getElementById("resTaxFree"),
+        resTaxable: document.getElementById("resTaxable"),
+        resStatus: document.getElementById("resStatus"),
+
+        gratuityChart: document.getElementById("gratuityChart"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        calcTarget: document.getElementById("calcTarget"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn")
+      };
+
+      let chartInstance = null;
+      let isCovered = true;
+
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) return;
+        rangeEl.addEventListener("input", () => { numberEl.value = rangeEl.value; calculate(); });
+        numberEl.addEventListener("input", () => { rangeEl.value = numberEl.value; calculate(); });
+      }
+
+      function setupToggleAdvanced() {
+        let isAdvancedMode = false;
+        elements.toggleViewBtn.addEventListener("click", () => {
+          isAdvancedMode = !isAdvancedMode;
+          elements.calcTarget.classList.toggle("advanced-mode", isAdvancedMode);
+          elements.toggleViewBtn.classList.toggle("active", isAdvancedMode);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvancedMode ? "Advanced Mode: On" : "Advanced Mode: Off";
+        });
+      }
+
+      elements.modeCovered.addEventListener("click", (e) => { e.preventDefault(); isCovered = true; updateUI(); });
+      elements.modeNotCovered.addEventListener("click", (e) => { e.preventDefault(); isCovered = false; updateUI(); });
+
+      function updateUI() {
+        elements.modeCovered.classList.toggle("active", isCovered);
+        elements.modeNotCovered.classList.toggle("active", !isCovered);
+        calculate();
+      }
+
+      function calculate() {
+        const sal = parseNumeric(elements.salary.value, defaults.salary);
+        const y = parseNumeric(elements.years.value, defaults.years);
+        const m = parseNumeric(elements.months.value, 0);
+
+        elements.salaryPreview.textContent = formatWithUnits(sal);
+        elements.yearsPreview.textContent = y + " Years " + (m > 0 ? m + " Mo" : "");
+
+        let effectiveTenure = y;
+        let gratuity = 0;
+
+        if (isCovered) {
+          // Rounding rule: > 6 months = 1 year
+          if (m > 6) effectiveTenure += 1;
+          gratuity = (15 / 26) * sal * effectiveTenure;
+        } else {
+          // No rounding allowed
+          gratuity = (15 / 30) * sal * effectiveTenure;
+        }
+
+        const taxLimit = 2000000;
+        const taxFree = Math.min(gratuity, taxLimit);
+        const taxable = Math.max(0, gratuity - taxLimit);
+        const eligible = y >= 5;
+
+        elements.resGratuity.textContent = formatWithUnits(gratuity);
+        elements.resTaxFree.textContent = formatWithUnits(taxFree);
+        elements.resTaxable.textContent = formatWithUnits(taxable);
+        elements.resStatus.textContent = eligible ? "Eligible" : "Not yet (Needs 5 yr)";
+
+        drawChart(taxFree, taxable);
+      }
+
+      function drawChart(free, taxable) {
+        const ctx = elements.gratuityChart.getContext("2d");
+        if (chartInstance) chartInstance.destroy();
+
+        chartInstance = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: ['Tax-Free', 'Taxable'],
+            datasets: [{
+              data: [free, taxable],
+              backgroundColor: ['#007f8b', '#ee9f2e'],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom' },
+              tooltip: {
+                callbacks: {
+                  label: (ctx) => ` ${ctx.label}: ${nfCurrency.format(ctx.raw)}`
+                }
+              }
             }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
+          }
+        });
+      }
 
+      syncPair(elements.salaryRange, elements.salary);
+      syncPair(elements.yearsRange, elements.years);
+      syncPair(elements.monthsRange, elements.months);
 
-          </style>
+      elements.recalculateBtn.addEventListener("click", calculate);
+      if (window.currencyManager) { window.currencyManager.onChange(calculate); };
+      elements.resetBtn.addEventListener("click", () => {
+        elements.salary.value = defaults.salary; elements.salaryRange.value = defaults.salary;
+        elements.years.value = defaults.years; elements.yearsRange.value = defaults.years;
+        elements.months.value = defaults.months; elements.monthsRange.value = defaults.months;
+        isCovered = true; updateUI();
+      });
+
+      elements.copySummaryBtn.addEventListener("click", () => {
+        const s = `Gratuity Summary:\nType: ${isCovered ? 'Covered' : 'Not Covered'}\n` +
+          `Salary: ${elements.salaryPreview.textContent}\n` +
+          `Tenure: ${elements.years.value} Years\n` +
+          `Estimate Gratuity: ${elements.resGratuity.textContent}`;
+        navigator.clipboard.writeText(s).then(() => {
+          const ot = elements.copySummaryBtn.innerHTML;
+          elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          setTimeout(() => elements.copySummaryBtn.innerHTML = ot, 2000);
+        });
+      });
+
+      // Nav toggle
+      document.getElementById("menuToggle").addEventListener("click", () => {
+        document.getElementById("mainNav").classList.toggle("open");
+      });
+
+      setupToggleAdvanced();
+      calculate();
+    })();
+  </script>
+
 </body>
+
 </html>

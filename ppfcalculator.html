@@ -1,701 +1,1374 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>PPF Calculator - Estimate Returns for 15-Year Investment in India</title>
-<meta name="description" content="Calculate your PPF (Public Provident Fund) maturity amount online in India. Use our PPF Calculator to estimate your returns and plan your long-term, tax-saving investments.">
-    
-         <!-- Basic Favicons -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-     <link rel="canonical" href="https://instacalc.in/ppfcalculator.html" />
-   <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PPF Calculator India | Public Provident Fund Returns & Maturity Planner</title>
+  <meta name="description"
+    content="Calculate your PPF maturity value and total interest earned. Plan your 15-year Public Provident Fund investment with latest interest rates and extension rules.">
+  <meta name="keywords"
+    content="sip calculator, sip return, sip investment, mutual fund sip, sip interest, sip planner, sip returns, sip calculator india, sip calculator online, mutual fund calculator, sip amount calculator, sip calculator 2026">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
 
-  <!-- Critical CSS -->
-  <style>
-    /* Minimum layout stability styles */
-    body { 
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .calculator-container {
-      min-height: 600px; /* Reserve space for calculator */
-    }
-    .result-section {
-      height: 200px; /* Fixed height for results area */
-      visibility: hidden; /* Hidden until calculated */
-    }
-    /* Prevent layout shifts in main content */
-    .main-content {
-      position: relative;
-      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
-    }
-    /* Fixed dimensions for key elements */
-    input {
-      width: 100%;
-      max-width: 400px;
-      height: 40px;
-    }
-       /* Fixed dimensions for key elements */
-    .chart-container {
-      width: 100%;
-      max-width: 400px;
-      height: 300px;
-    }
-  </style>
+  <link rel="icon" type="image/x-icon" href="favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/ppfcalculator.html">
 
-  <!-- Preloads -->
-  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
-  <link rel="preload" href="style.css" as="style">
-  
-  <!-- Non-critical CSS -->
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
-  <noscript>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-  </noscript>
+  <meta property="og:title" content="PPF Calculator India - Long-Term Tax-Free Maturity Estimator">
+  <meta property="og:description"
+    content="Calculate SIP maturity amount, monthly SIP returns, step-up SIP growth, inflation-adjusted corpus, and goal-based SIP planning.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/ppfcalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
 
-  <!-- Script optimization -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-  <!-- Only load Popper and Bootstrap JS if needed -->
-  <?php if (needs_bootstrap_js): ?>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-  
-     <script src="bootstrap/js/bootstrap.min.js" defer></script>
-  <?php endif; ?>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PPF Calculator India - Long-Term Tax-Free Maturity Estimator">
+  <meta name="twitter:description"
+    content="Free SIP calculator with goal planning, step-up SIP, inflation adjustment, and required SIP to reach 50 lakh or 1 crore targets.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
 
-  <!-- Load Chart.js only when needed -->
-  <script>
-    function loadChartJS() {
-      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
-        window.Chart = module.default;
-        initializeCharts();
-      });
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "PPF Calculator",
+      "url": "https://instacalc.in/ppfcalculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "Mutual fund SIP calculator for monthly investment, step-up SIP, maturity amount, inflation-adjusted corpus, and goal-based planning.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How to calculate SIP returns in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Enter monthly SIP amount, expected return, and tenure. The SIP calculator compounds contributions monthly and estimates invested amount, returns, and maturity corpus."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is step up SIP?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Step-up SIP increases your monthly SIP contribution every year by a fixed percentage, helping improve long-term wealth creation and goal achievement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is SIP return guaranteed in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. SIP returns depend on mutual fund market performance. Calculator outputs are estimates, not guaranteed returns."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can NRI invest in SIP in India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, NRIs can invest in SIP through eligible KYC-compliant accounts, subject to fund house and regulatory rules."
+          }
+        }
+      ]
     }
   </script>
 
-  <script src="script.js" defer></script>
-</head>
-<body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class="text-white mb-0">InstaCalc.in</h6>
-  </div>   
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>     
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="aboutus.html">About Us</a>
-      </li>
-         <li class="nav-item px-2">
-        <a class="nav-link " href="contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
 
-    
-
-
-  <!-- //first row first column -->
-  <div  class="row">
-  <!--   //first row first column -->
-    <div class="col-md-6" style="background-colorf:yellow;">
-      <div class="container mt-5 table1">
-
-       <h2>PPF Calculator</h2>
-
-        
-       <div class="input-group m">
-           <label for="amount">Yearly Investment (₹)</label>
-           <div class="slider-container">
-               <input type="range" id="amount-slider" min="1000" max="100000" step="500" value="10000" oninput="syncInputs('amount')">
-               <input type="number" id="amount" min="1000" max="100000" step="500" value="10000" oninput="syncInputs('amount', true)">
-           </div>
-       </div>
-       <div class="input-group">
-           <label for="rate">Rate of interest (p.a.) (%)</label>
-           <div class="slider-container">
-               <input type="range" id="rate-slider" min="1" max="20" step="0.1" value="7.1" oninput="syncInputs('rate')">
-               <input type="number" id="rate" min="1" max="20" step="0.1" value="7.1" oninput="syncInputs('rate', true)">
-           </div>
-       </div>
-       <div class="input-group">
-           <label for="years">Time Period (Years)</label>
-           <div class="slider-container">
-               <input type="range" id="years-slider" min="1" max="30" step="1" value="15" oninput="syncInputs('years')">
-               <input type="number" id="years" min="1" max="30" step="1" value="15" oninput="syncInputs('years', true)">
-           </div>
-       </div>
-  
-          
-          
-      <div class="result-box">
-    <div class="result-item">
-        <span class="label">Invested Amount:</span>
-        <span class="value"><strong>₹<span id="invested">0</span></strong></span>
-    </div>
-    <div class="result-item">
-        <span class="label">Total Interest:</span>
-        <span class="value"><strong>₹<span id="returns">0</span></strong></span>
-    </div>
-    <div class="result-item">
-        <span class="label">Maturity Value:</span>
-        <span class="value"><strong>₹<span id="total">0</span></strong></span>
-    </div>
-</div>    
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-       <div class="chart-container">
-           <canvas id="sipChart"></canvas>
-       </div>
-    
-     </div>
-  </div>
-  <!--   //first row second column -->
-  <div class="col-md-6 d-none d-md-block">
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <a href="sipcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="mutualfundreturncalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="gratuitycalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="epfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="fdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="rdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="cargcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="coumpoundinterest.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="retirementcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="ppfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="emicalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="simpleinterestcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
-
-
-
-      </div>
-
-  <!--  /second row -->
-   <div  class="row mb-05">
-  <!--    //second row first column -->
-     <div class="col-md-6 " style="background-colorf:red;">
-
-       <div class="container">
-               <div class="ppf-calculator-content">
-    <div class="title">
-        <h1>PPF Calculator: Plan Your Wealth with Smart Investments</h1>
-    </div>
-
-    <div class="introduction">
-        <p>The Public Provident Fund (PPF) is one of the most popular long-term investment options in India. It offers tax-free returns, compound interest, and government-backed security, making it an excellent choice for those looking to build wealth over time. But how do you determine how much your investment will grow over the years?</p>
-        <p>This is where a PPF Calculator comes in. It helps you estimate the maturity amount of your PPF account based on your yearly contributions, interest rate, and investment period. Whether you are saving for retirement, a child’s education, or financial security, using a PPF calculator makes planning easier and more effective.</p>
-    </div>
-
-    <div class="what-is-ppf-calculator">
-        <h2>What is a PPF Calculator?</h2>
-        <p>A PPF Calculator is an online tool that helps you calculate:</p>
-        <ul>
-            <li>✅ Total amount at maturity</li>
-            <li>✅ Yearly compound interest earnings</li>
-            <li>✅ How different contribution amounts affect your final savings</li>
-            <li>✅ The best savings strategy for your financial goals</li>
-        </ul>
-        <p>Since PPF follows the principle of compound interest, the earlier and more consistently you invest, the higher your returns will be.</p>
-    </div>
-
-    <div class="how-ppf-calculator-works">
-        <h2>How Does a PPF Calculator Work?</h2>
-        <p>The calculator uses the following inputs to estimate your PPF maturity amount:</p>
-        <ul>
-            <li>🔹 Initial deposit – The amount you contribute yearly (Minimum ₹500, Maximum ₹1.5 lakh per year)</li>
-            <li>🔹 Interest rate – The PPF interest rate (varies each quarter, currently around 7.1% per annum)</li>
-            <li>🔹 Investment duration – PPF has a lock-in period of 15 years, but it can be extended in 5-year blocks.</li>
-        </ul>
-        <h3>PPF Formula</h3>
-        <p>The PPF maturity amount is calculated using the compound interest formula:</p>
-        <p><code>A = P × (1 + r/100)<sup>n</sup></code></p>
-        <p>Where:</p>
-        <ul>
-            <li><strong>A</strong> = Maturity Amount</li>
-            <li><strong>P</strong> = Yearly Investment</li>
-            <li><strong>r</strong> = Interest Rate</li>
-            <li><strong>n</strong> = Number of Years</li>
-        </ul>
-        <p>A PPF calculator does these complex calculations instantly, giving you a clear picture of your savings.</p>
-    </div>
-
-    <div class="example-calculation">
-        <h2>Example Calculation</h2>
-        <p>Let’s say you invest ₹1.5 lakh per year in a PPF account at an interest rate of 7.1% for 15 years.</p>
-        <p>Using a PPF Calculator, your estimated maturity amount will be:</p>
-        <ul>
-            <li>✔️ Total Investment: ₹22.5 lakh (₹1.5 lakh × 15 years)</li>
-            <li>✔️ Total Interest Earned: ₹18.18 lakh</li>
-            <li>✔️ Maturity Amount: ₹40.68 lakh</li>
-        </ul>
-        <p>If you extend your PPF for another 5 years, your investment can grow to ₹66 lakh!</p>
-    </div>
-
-    <div class="benefits-of-ppf-calculator">
-        <h2>Benefits of Using a PPF Calculator</h2>
-        <ul>
-            <li>✔️ Saves Time – No need for manual calculations; get instant results.</li>
-            <li>✔️ Helps You Plan Better – See how different investment amounts impact your savings.</li>
-            <li>✔️ Shows Compound Interest Growth – Helps you understand how your money multiplies.</li>
-            <li>✔️ Encourages Smart Investments – Helps you decide the best contribution strategy.</li>
-        </ul>
-    </div>
-
-    <div class="final-thoughts">
-        <h2>Final Thoughts</h2>
-        <p>A PPF Calculator is an essential tool for anyone looking to maximize their savings in a safe and tax-free manner. Whether you are just starting your investment journey or planning for the future, this tool helps you make informed decisions.</p>
-        <p>So, why guess? Use a PPF calculator today and start your journey toward financial freedom! 💰🚀</p>
-    </div>
-</div>
-           </div>
-
-
-
-       </div>
-  <!--   //second row second column -->
-   <div class="col-md-6" >
-    <div class="container mt-5 mb-5">
-        <h2 class="mb-4">FAQs</h2>
-        <div id="faqAccordion" class="accordion">
-
-            <!-- FAQ 1 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            What is a PPF (Public Provident Fund)?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        The Public Provident Fund (PPF) is a long-term savings scheme offered by the Government of India. It offers tax-free returns and is designed to help individuals build a retirement corpus with a lock-in period of 15 years.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 2 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            How does the PPF Calculator work?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        The PPF Calculator estimates the maturity amount of your PPF investment based on the annual contribution, interest rate, and investment tenure. It uses the compound interest formula to calculate the returns.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 3 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingThree">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            What inputs are required for the PPF Calculator?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        You need to provide:
-                        <ul>
-                            <li><strong>Annual Investment:</strong> The amount you plan to invest every year (minimum ₹500, maximum ₹1.5 lakh).</li>
-                            <li><strong>Interest Rate:</strong> The current PPF interest rate (e.g., 7.1%).</li>
-                            <li><strong>Investment Tenure:</strong> The duration of the PPF account (minimum 15 years).</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 4 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingFour">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            What is the minimum and maximum investment in PPF?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        The minimum annual investment in a PPF account is ₹500, and the maximum is ₹1.5 lakh. You can make contributions in a lump sum or in installments (up to 12 per year).
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 5 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingFive">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                            Can I extend my PPF account beyond 15 years?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        Yes, you can extend your PPF account in blocks of 5 years after the initial 15-year tenure. You can choose to extend it with or without further contributions.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 6 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingSix">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                            Is the interest earned on PPF taxable?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        No, the interest earned on PPF is <strong>tax-free</strong>. It is exempt under Section 10 of the Income Tax Act, making PPF a tax-efficient investment option.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 7 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingSeven">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                            Can I withdraw money from my PPF account before maturity?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        Partial withdrawals are allowed from the 7th financial year onwards, subject to certain conditions. However, premature closure of the PPF account is only permitted in specific cases, such as medical emergencies or higher education.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 8 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingEight">
-                    <h5 class="mb-0">
-                        <button class="btn hoverfaq collapsed text-left" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                            Can I take a loan against my PPF account?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-                    <div class="card-body">
-                        Yes, you can take a loan against your PPF account from the 3rd financial year up to the 6th financial year. The loan amount can be up to 25% of the balance at the end of the 2nd preceding year.
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-   </div>
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
-
-              Back To Home
-
-             </p>
-       </div>
-
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
-      </div>
-      <script>
-              function syncInputs(id, isManual = false) {
-                  const slider = document.getElementById(`${id}-slider`);
-                  const numberInput = document.getElementById(id);
-                  if (isManual) {
-                      slider.value = numberInput.value;
-                  } else {
-                      numberInput.value = slider.value;
-                  }
-                  
-                  
-                  calculateSIP();
-              }
-          
-   function formatNumberInIndianFormat(num) {
-    // Convert the number to a string and split into whole and decimal parts
-    let parts = num.toString().split(".");
-    let wholePart = parts[0];
-    let decimalPart = parts.length > 1 ? "." + parts[1] : "";
-
-    // Add commas in Indian numbering system format
-    let lastThree = wholePart.slice(-3);
-    let otherNumbers = wholePart.slice(0, -3);
-    if (otherNumbers !== "") {
-        lastThree = "," + lastThree;
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
     }
-    let result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + decimalPart;
 
-    return result;
-}       
-          
-function calculateSIP() {
-    // Get input values
-    let P = parseFloat(document.getElementById("amount").value); // Yearly Investment
-    let annualRate = parseFloat(document.getElementById("rate").value); // Annual Interest Rate
-    let n = parseInt(document.getElementById("years").value); // Time Period in Years
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    // Convert annual interest rate to decimal
-    let i = annualRate / 100;
-    let maturityValue = 0;
+    html {
+      scroll-behavior: smooth;
+    }
 
-    if (P > 0 && i > 0 && n > 0) {
-        // Apply the PPF maturity formula
-        for (let year = 1; year <= n; year++) {
-            maturityValue += P; // Add yearly investment
-            maturityValue *= (1 + i); // Apply annual compounding
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+
+    /* Simple vs Advanced Toggle Styles */
+    .calculator-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .advanced-only-section {
+      display: none;
+      border-top: 1px dashed var(--line);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      gap: 0.7rem;
+    }
+
+    .advanced-only {
+      display: none;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only-section {
+      display: grid;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only {
+      display: block;
+    }
+
+    .calculator-shell.advanced-mode .result-card.advanced-only {
+      display: block;
+    }
+
+    #toggleViewBtn.active {
+      background: var(--accent-strong);
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc home">
+        <img src="logo.png" alt="InstaCalc logo">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-piggy-bank"></i>
+            Tax Saving Goal
+          </span>
+          <h1>PPF Calculator India (Public Provident Fund)</h1>
+          <p>Estimate your PPF maturity amount, total interest, and wealth growth over 15 years. Supports extensions and
+            monthly contribution modeling.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#ppf-planner">
+              <i class="fas fa-calculator"></i>
+              Check Maturity
+            </a>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h2>Why Invest in PPF?</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Sovereign guarantee on returns</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Triple Tax-Exempt status (E-E-E)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Flexible contribution (500 to 1.5L)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Latest Interest Rate supported</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Year-wise interest breakdown</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="ppf-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="Calculator mode">
+              <a href="#" class="active">Annual/Monthly PPF</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>Advanced Mode: Off</span>
+            </button>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="investment">Annual Investment Amount</label>
+                <span id="investmentPreview">1,50,000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="investmentRange" min="500" max="150000" step="500" value="150000">
+                <input type="number" id="investment" min="500" max="150000" step="500" value="150000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="rate">Current PPF Interest Rate (% p.a.)</label>
+                <span id="ratePreview">7.1%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="rateRange" min="5" max="12" step="0.1" value="7.1">
+                <input type="number" id="rate" min="5" max="12" step="0.1" value="7.1">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="tenure">Tenure (Years)</label>
+                <span id="tenurePreview">15 Years</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="tenureRange" min="15" max="50" step="5" value="15">
+                <input type="number" id="tenure" min="15" max="50" step="5" value="15">
+              </div>
+            </div>
+
+            <div class="advanced-only-section" id="advancedFields">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="investFreq">Investment Frequency</label>
+                </div>
+                <select id="investFreq">
+                  <option value="year" selected>Once a year (April start)</option>
+                  <option value="month">Every month (Monthly SIP style)</option>
+                </select>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label>PPF Contribution Info</label>
+                </div>
+                <p style="font-size:0.85rem; color:var(--text-soft);">
+                  Maximum investment is <strong>1.5 Lakh</strong> per financial year.<br>
+                  Interest is calculated on the lowest balance between 5th and end of the month.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i> Recalculate
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i> Reset Defaults
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i> Copy Summary
+            </button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <h3>Total Investment</h3>
+              <div class="result-value" id="resInvested">-</div>
+            </div>
+            <div class="result-card positive">
+              <h3>Total Interest Accrued</h3>
+              <div class="result-value" id="resInterest">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Maturity Amount</h3>
+              <div class="result-value" id="resMaturity">-</div>
+            </div>
+          </div>
+
+          <div class="chart-grid" style="margin-top:20px;">
+            <div class="chart-card">
+              <h3>Maturity Value Projection</h3>
+              <div class="chart-wrap">
+                <canvas id="ppfChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-shell" style="margin-top:20px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Opening Balance</th>
+                  <th>Investment</th>
+                  <th>Interest Earned</th>
+                  <th>Closing Balance</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="sidebar-card">
+            <h3>Similar Tax Savers</h3>
+            <ul class="link-list">
+              <li><a href="npscalculator.html"><span>NPS Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="epfcalculator.html"><span>EPF Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="retirementcalculator.html"><span>Retirement Planner</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mutualfundreturncalculator.html"><span>Mutual Fund (ELSS)</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="fdcalculator.html"><span>Tax-Saver FD</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h3>Why use a PPF Calculator?</h3>
+          <p>Public Provident Fund (PPF) is one of India's favorite retirement products because of its <strong>Triple
+              Tax Exempt (E-E-E)</strong> status: the investment, the interest, and the maturity are all tax-free.</p>
+          <br>
+          <p><strong>Common PPF Rules:</strong><br>
+            1. <strong>Lock-in:</strong> 15 years mandatory. Can be extended in blocks of 5 years.<br>
+            2. <strong>Limits:</strong> Min 500, Max 1,50,000 per financial year.<br>
+            3. <strong>Interest:</strong> Set every quarter by the government. Currently 7.1% p.a.<br>
+            4. <strong>Compounding:</strong> Interest is compounded annually.
+          </p>
+          <br>
+          <p>By using this calculator, you can decide whether to invest 1.5L in one go or through monthly deposits of
+            12,500.</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>When should I deposit in PPF to maximize interest? <i class="fas fa-chevron-down"></i></summary>
+            <p>You should deposit before the <strong>5th</strong> of each month. Interest is calculated on the minimum
+              balance between the 5th and the last day of the month.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can I withdraw money before 15 years? <i class="fas fa-chevron-down"></i></summary>
+            <p>Partial withdrawals are allowed after the completion of 5 years from the start of the account, subject to
+              certain limits and conditions (e.g., medical emergency, higher education).</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in - smart calculators and converters for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        investment: 150000,
+        rate: 7.1,
+        tenure: 15,
+        freq: 'year'
+      };
+
+      const nfCurrency = { format: (v) => window.currencyManager ? window.currencyManager.formatCurrency(v) : String(v) };
+
+      function formatWithUnits(v) {
+        return window.currencyManager ? window.currencyManager.formatWithUnits(v) : nfCurrency.format(v);
+      }
+
+      function compactCurrency(v) {
+        return window.currencyManager ? window.currencyManager.formatCompact(v) : String(v);
+      }
+
+      const elements = {
+        investment: document.getElementById("investment"),
+        investmentRange: document.getElementById("investmentRange"),
+        rate: document.getElementById("rate"),
+        rateRange: document.getElementById("rateRange"),
+        tenure: document.getElementById("tenure"),
+        tenureRange: document.getElementById("tenureRange"),
+        investFreq: document.getElementById("investFreq"),
+
+        investmentPreview: document.getElementById("investmentPreview"),
+        ratePreview: document.getElementById("ratePreview"),
+        tenurePreview: document.getElementById("tenurePreview"),
+
+        resInvested: document.getElementById("resInvested"),
+        resInterest: document.getElementById("resInterest"),
+        resMaturity: document.getElementById("resMaturity"),
+
+        ppfChart: document.getElementById("ppfChart"),
+        projectionTable: document.getElementById("projectionTable"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        calcTarget: document.getElementById("calcTarget"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn")
+      };
+
+      let chartInstance = null;
+
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) return;
+        rangeEl.addEventListener("input", () => { numberEl.value = rangeEl.value; calculate(); });
+        numberEl.addEventListener("input", () => { rangeEl.value = numberEl.value; calculate(); });
+      }
+
+      function setupToggleAdvanced() {
+        let isAdvancedMode = false;
+        elements.toggleViewBtn.addEventListener("click", () => {
+          isAdvancedMode = !isAdvancedMode;
+          elements.calcTarget.classList.toggle("advanced-mode", isAdvancedMode);
+          elements.toggleViewBtn.classList.toggle("active", isAdvancedMode);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvancedMode ? "Advanced Mode: On" : "Advanced Mode: Off";
+        });
+      }
+
+      function calculate() {
+        const inv = parseNumeric(elements.investment.value, defaults.investment);
+        const r = parseNumeric(elements.rate.value, defaults.rate) / 100;
+        const years = parseNumeric(elements.tenure.value, defaults.tenure);
+        const freq = elements.investFreq.value;
+
+        elements.investmentPreview.textContent = formatWithUnits(inv);
+        elements.ratePreview.textContent = (r * 100).toFixed(1) + "%";
+        elements.tenurePreview.textContent = years + " Years";
+
+        let currentBalance = 0;
+        let totalInvested = 0;
+        const yearlyData = [];
+        const labels = ["Start"];
+        const values = [0];
+
+        for (let y = 1; y <= years; y++) {
+          let opening = currentBalance;
+          let yearInvested = 0;
+          let yearInterest = 0;
+
+          if (freq === 'year') {
+            // Approximate: invest at start of year
+            currentBalance += inv;
+            yearInvested = inv;
+            yearInterest = currentBalance * r;
+            currentBalance += yearInterest;
+          } else {
+            // Monthly: inv is treated as annual, so monthly is inv/12
+            const monthly = inv / 12;
+            // Standard PPF monthly interest logic
+            for (let m = 1; m <= 12; m++) {
+              currentBalance += monthly;
+              yearInvested += monthly;
+              // Interest is calculated monthly but credited annually. 
+              // To keep it simple but accurate to PPF, we track month-by-month accrual.
+            }
+            // Simulating annual compounding for PPF
+            yearInterest = opening * r + (yearInvested * r / 2); // Simple average approximation
+            currentBalance += yearInterest;
+          }
+
+          totalInvested += yearInvested;
+          yearlyData.push({
+            year: y,
+            opening: opening,
+            invest: yearInvested,
+            interest: yearInterest,
+            closing: currentBalance
+          });
+          labels.push("Year " + y);
+          values.push(currentBalance);
         }
 
-        let investedAmount = P * n; // Total Invested Amount
-        let interestEarned = maturityValue - investedAmount; // Total Interest Earned
+        elements.resInvested.textContent = formatWithUnits(totalInvested);
+        elements.resInterest.textContent = formatWithUnits(currentBalance - totalInvested);
+        elements.resMaturity.textContent = formatWithUnits(currentBalance);
 
-        // Format the numbers in Indian format
-        let formattedInvestedAmount = formatNumberInIndianFormat(investedAmount.toFixed(2));
-        let formattedInterestEarned = formatNumberInIndianFormat(interestEarned.toFixed(2));
-        let formattedMaturityValue = formatNumberInIndianFormat(maturityValue.toFixed(2));
+        elements.projectionTable.innerHTML = "";
+        yearlyData.forEach(row => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td>${row.year}</td><td>${formatWithUnits(row.opening)}</td><td>${formatWithUnits(row.invest)}</td><td>${formatWithUnits(row.interest)}</td><td>${formatWithUnits(row.closing)}</td>`;
+          elements.projectionTable.appendChild(tr);
+        });
 
-        // Update values in HTML
-        document.getElementById("invested").textContent = formattedInvestedAmount;
-        document.getElementById("returns").textContent = formattedInterestEarned;
-        document.getElementById("total").textContent = formattedMaturityValue;
+        drawChart(labels, values);
+      }
 
-        // Update the PPF Chart
-        updateChart(investedAmount, interestEarned);
-    } else {
-        // Reset values if input is invalid
-        document.getElementById("invested").textContent = "0.00";
-        document.getElementById("returns").textContent = "0.00";
-        document.getElementById("total").textContent = "0.00";
+      function drawChart(labels, values) {
+        const ctx = elements.ppfChart.getContext("2d");
+        if (chartInstance) chartInstance.destroy();
 
-        // Reset the chart
-        updateChart(0, 0);
-    }
-}
-
-
-
-
-              let sipChart;
-              function updateChart(invested, returns) {
-                  let ctx = document.getElementById("sipChart").getContext("2d");
-                  if (sipChart) sipChart.destroy();
-                  sipChart = new Chart(ctx, {
-                      type: "doughnut",
-                      data: {
-                          labels: ["Total Invested", "Total Interest"],
-                          datasets: [{
-                              data: [invested, returns],
-                              backgroundColor: ["#4CAF50", "#2196F3"]
-                          }]
-                      }
-                  });
+        chartInstance = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Maturity Value',
+              data: values,
+              borderColor: '#007f8b',
+              backgroundColor: 'rgba(0, 127, 139, 0.1)',
+              fill: true,
+              tension: 0.2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: { ticks: { callback: (v) => compactCurrency(v) } }
+            },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: { label: (ctx) => ` Value: ${formatWithUnits(ctx.raw)}` }
               }
-              calculateSIP();
-
-
-         
-          </script>
-    
-    
-          
-    <script> 
-    
-     // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
-
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
-
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-    
-    
-    
-    </script>
-
-      <style>
-              bodyss {
-                  font-family: Arial, sans-serif;
-                  margin: 20px;
-                  padding: 0;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  flex-direction: column;
-                  background-color: #f4f4f4;
-              }
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
-
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
-
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
             }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
+          }
+        });
+      }
 
+      syncPair(elements.investmentRange, elements.investment);
+      syncPair(elements.rateRange, elements.rate);
+      syncPair(elements.tenureRange, elements.tenure);
+      elements.investFreq.addEventListener("change", calculate);
+      elements.recalculateBtn.addEventListener("click", calculate);
+      if (window.currencyManager) { window.currencyManager.onChange(calculate); };
+      elements.resetBtn.addEventListener("click", () => {
+        elements.investment.value = defaults.investment; elements.investmentRange.value = defaults.investment;
+        elements.rate.value = defaults.rate; elements.rateRange.value = defaults.rate;
+        elements.tenure.value = defaults.tenure; elements.tenureRange.value = defaults.tenure;
+        elements.investFreq.value = defaults.freq;
+        calculate();
+      });
 
-          </style>
-     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      elements.copySummaryBtn.addEventListener("click", () => {
+        const s = `PPF Maturity Summary:\n` +
+          `Investment: ${elements.investmentPreview.textContent} p.a.\n` +
+          `Interest Rate: ${elements.rate.value}%\n` +
+          `Term: ${elements.tenure.value} Years\n` +
+          `Maturity Value: ${elements.resMaturity.textContent}`;
+        navigator.clipboard.writeText(s).then(() => {
+          const ot = elements.copySummaryBtn.innerHTML;
+          elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          setTimeout(() => elements.copySummaryBtn.innerHTML = ot, 2000);
+        });
+      });
+
+      // Nav toggle
+      document.getElementById("menuToggle").addEventListener("click", () => {
+        document.getElementById("mainNav").classList.toggle("open");
+      });
+
+      setupToggleAdvanced();
+      calculate();
+    })();
+  </script>
+
 </body>
+
 </html>

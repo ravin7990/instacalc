@@ -1,693 +1,2191 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Retirement Calculator - Plan Your Financial Future</title>
-  <meta name="description" content="Plan your retirement with our comprehensive Retirement Calculator. Estimate your required savings, project your future income, and secure your financial independence.">
-    <!-- Basic Favicons -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-     <link rel="canonical" href="https://instacalc.in/retirementcalculator.html" />
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Retirement Calculator - Estimate Your Post-Retirement Corpus & Income</title>
+  <meta name="description"
+    content="Use our advanced Retirement Calculator to accurately estimate your required retirement corpus, gap analysis, inflation-adjusted expenses, and monthly pension income planner.">
+  <meta name="keywords"
+    content="retirement calculator, retirement corpus calculator, fire retirement calculator india, calculate retirement age, retirement gap analysis, monthly retirement income planner, inflation adjusted withdrawal">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
 
-  <!-- Critical CSS -->
-  <style>
-    /* Minimum layout stability styles */
-    body { 
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .calculator-container {
-      min-height: 600px; /* Reserve space for calculator */
-    }
-    .result-section {
-      height: 200px; /* Fixed height for results area */
-      visibility: hidden; /* Hidden until calculated */
-    }
-    /* Prevent layout shifts in main content */
-    .main-content {
-      position: relative;
-      padding-top: 56.25%; /* Aspect ratio placeholder if needed */
-    }
-    /* Fixed dimensions for key elements */
-    input {
-      width: 100%;
-      max-width: 400px;
-      height: 40px;
-    }
-       /* Fixed dimensions for key elements */
-    .chart-container {
-      width: 100%;
-      max-width: 400px;
-      height: 300px;
-    }
-  </style>
+  <link rel="icon" type="image/x-icon" href="favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/retirementcalculator.html">
 
-  <!-- Preloads -->
-  <link rel="preload" href="bootstrap/css/bootstrap.min.css" as="style">
-  <link rel="preload" href="style.css" as="style">
-  
-  <!-- Non-critical CSS -->
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
-  <noscript>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-  </noscript>
+  <meta property="og:title" content="Retirement Calculator - Advanced Corpus & Income Planner">
+  <meta property="og:description"
+    content="Plan retirement corpus and withdrawals with inflation, contributions, returns, pension income, and target bequest in one calculator.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/retirementcalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
 
-  <!-- Script optimization -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-  <!-- Only load Popper and Bootstrap JS if needed -->
-  <?php if (needs_bootstrap_js): ?>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-  
-     <script src="bootstrap/js/bootstrap.min.js" defer></script>
-  <?php endif; ?>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Retirement Calculator - Advanced Corpus & Income Planner">
+  <meta name="twitter:description"
+    content="Free retirement calculator for savings, inflation-adjusted expenses, pension offset, drawdown planning, and corpus gap analysis.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
 
-  <!-- Load Chart.js only when needed -->
-  <script>
-    function loadChartJS() {
-      import('https://cdn.jsdelivr.net/npm/chart.js').then(module => {
-        window.Chart = module.default;
-        initializeCharts();
-      });
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Retirement Calculator",
+      "url": "https://instacalc.in/retirementcalculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "Retirement calculator for corpus accumulation, inflation-adjusted retirement expenses, drawdown projection, and savings gap planning.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "How does this retirement calculator estimate required corpus?", "acceptedAnswer": { "@type": "Answer", "text": "It calculates your inflation-adjusted future retirement expenses, subtracts expected monthly pension or other income streams, and accurately estimates the exact target corpus required to fund your withdrawals through your entire life expectancy." } },
+        { "@type": "Question", "name": "What is the 4% withdrawal rule in retirement planning?", "acceptedAnswer": { "@type": "Answer", "text": "The 4% rule is an established retirement benchmark suggesting that if you withdraw 4% of your total retirement corpus annually (adjusting for inflation), your funds should sustain you for at least 30 years without running out." } },
+        { "@type": "Question", "name": "How is inflation factored into my future retirement expenses?", "acceptedAnswer": { "@type": "Answer", "text": "Inflation silently erodes purchasing power. By inputting your current monthly expense our calculator applies an annual compounding inflation rate to accurately forecast exactly what maintaining your current lifestyle will cost by the time you retire." } },
+        { "@type": "Question", "name": "What is 'Retirement Gap' analysis?", "acceptedAnswer": { "@type": "Answer", "text": "Retirement gap analysis calculates the mathematical difference between your required ideal retirement corpus and the corpus you are actually projected to reach based on current savings. A positive gap means you need to increase your monthly investments." } },
+        { "@type": "Question", "name": "How much should I save every month for retirement?", "acceptedAnswer": { "@type": "Answer", "text": "There is no static number, but if your calculator dashboard reveals a 'Savings Gap', the tool natively estimates the exact additional monthly contribution needed today (given your pre-retirement return assumptions) to successfully close that explicit gap." } },
+        { "@type": "Question", "name": "Can I include my existing EPF or PPF savings in this calculator?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! Enter your total accumulated balance from your Employee Provident Fund (EPF), Public Provident Fund (PPF), or Mutual Fund portfolio directly into the 'Current Retirement Savings' field to act as the baseline accumulating compound interest." } },
+        { "@type": "Question", "name": "How does a monthly pension affect my required retirement corpus?", "acceptedAnswer": { "@type": "Answer", "text": "A guaranteed pension, rental yield, or annuity actively reduces your dependency on your accumulated wealth. By entering this figure into 'Other Monthly Income,' the calculator proportionately subtracts it from your inflated expenses, lowering the total target corpus you need." } },
+        { "@type": "Question", "name": "Should my post-retirement return expectation be lower?", "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. During accumulation, you can aggressively invest in equity for 10-14% returns. However, retirees globally shift into conservative, highly liquid instruments (like Senior Citizen Savings Schemes or FDs) focusing on capital preservation, usually yielding lower pre-tax returns." } },
+        { "@type": "Question", "name": "Does this calculator account for an annual 'Step-Up' in my SIP?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Most professionals experience annual salary hikes. By inputting a 'Step-Up' percentage, the model automatically increases your monthly contribution every year, heavily boosting your final projected retirement corpus via aggressive compounding." } },
+        { "@type": "Question", "name": "What is a 'Target Bequest' or legacy amount?", "acceptedAnswer": { "@type": "Answer", "text": "A 'Target Bequest' is the specific nominal wealth you intend to leave behind for your heirs or a charity after your life expectancy ends. The calculator ensures you don't drain your corpus below this threshold." } },
+        { "@type": "Question", "name": "How does life expectancy impact my retirement corpus?", "acceptedAnswer": { "@type": "Answer", "text": "Life expectancy dictates the 'Drawdown Phase'. If you retire at 60 and expect to live until 85, you need to fund exactly 25 years of living expenses. A higher expectancy mechanically increases the required corpus to prevent outliving your money." } },
+        { "@type": "Question", "name": "Is retirement corpus interest taxable in India?", "acceptedAnswer": { "@type": "Answer", "text": "Taxation depends heavily on the specific instrument you utilize. While EPF and PPF fall under the EEE (Exempt-Exempt-Exempt) category, withdrawals from debt/equity funds, fixed deposits, and direct equity are subject to LTCG or STCG taxes which you must independently factor into your net corpus planning." } },
+        { "@type": "Question", "name": "What is the difference between Accumulation and Drawdown phases?", "acceptedAnswer": { "@type": "Answer", "text": "The Accumulation phase represents your active working years where you deposit money and generate aggressive compound returns. The Drawdown phase is post-retirement, where you withdraw monthly income from a typically more conservative wealth pool." } },
+        { "@type": "Question", "name": "How often should I review my retirement portfolio?", "acceptedAnswer": { "@type": "Answer", "text": "Financial advisors strongly recommend reviewing your retirement projections at least annually, or aggressively following major life events such as marriage, children, career gaps, or massive macroeconomic shifts in persistent inflation rates." } }
+      ]
     }
   </script>
 
-  <script src="script.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+
+    /* Simple vs Advanced Toggle Styles */
+    .calculator-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .advanced-only-section {
+      display: none;
+      border-top: 1px dashed var(--line);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      gap: 0.7rem;
+    }
+
+    .advanced-only {
+      display: none;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only-section {
+      display: grid;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only {
+      display: block;
+    }
+
+    .calculator-shell.advanced-mode .result-card.advanced-only {
+      display: block;
+    }
+
+    #toggleViewBtn.active {
+      background: var(--accent-strong);
+      color: #fff;
+    }
+  </style>
 </head>
+
 <body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class="text-white mb-0">InstaCalc.in</h6>
-  </div>   
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>     
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="aboutus.html">About Us</a>
-      </li>
-         <li class="nav-item px-2">
-        <a class="nav-link " href="contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc home">
+        <img src="logo.png" alt="InstaCalc logo">
+        <span>InstaCalc.in</span>
+      </a>
 
-    
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
 
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
 
-  <!-- //first row first column -->
-  <div class="row">
-  <!-- First row, first column -->
-  <div class="col-md-6 " style="background-color:yellowg;">
-    <div class="container mt-5 table1">
-      <div class="container">
-        <h2 class="text-center mb-4">Retirement Calculator (India)</h2>
-        <form id="retirementForm">
-          <div class="form-group">
-            <label>Your Current Age:</label>
-            <input type="number" class="form-control" id="currentAge" value="30" required>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-user-clock"></i>
+            Retirement Planner
+          </span>
+          <h1>Retirement Calculator (Advanced Corpus & Income Planner)</h1>
+          <p>Build a complete retirement plan with pre-retirement savings growth, inflation-adjusted expenses,
+            post-retirement withdrawals, pension income offset, and gap analysis.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#retirement-planner">
+              <i class="fas fa-calculator"></i>
+              Start Retirement Plan
+            </a>
+            <a class="btn btn-ghost" href="compoundinterest.html">
+              <i class="fas fa-arrow-right-arrow-left"></i>
+              Compound Interest
+            </a>
           </div>
-          <div class="form-group">
-            <label>Your Retirement Age:</label>
-            <input type="number" class="form-control" id="retirementAge" value="60" required>
+        </div>
+
+        <aside class="hero-panel">
+          <h2>Advanced Features</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Required corpus based on inflation-adjusted
+            retirement expenses</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Accumulation and drawdown simulation in one flow
           </div>
-          <div class="form-group">
-            <label>Life Expectancy (India Avg: 70):</label>
-            <input type="number" class="form-control" id="lifeExpectancy" value="70" required>
-          </div>
-          <div class="form-group">
-            <label>Your Monthly Expenses (₹):</label>
-            <input type="number" class="form-control" id="monthlyExpense" value="40000" required>
-          </div>
-          <div class="form-group">
-            <label>Average Inflation Rate (%):</label>
-            <input type="number" class="form-control" id="inflationRate" value="3" required>
-          </div>
-          <div class="form-group">
-            <label>Expected ROI (%):</label>
-            <input type="number" class="form-control" id="investmentReturn" value="7" required>
-          </div>
-          <div class="form-group">
-            <label>Existing Savings for Retirement (₹):</label>
-            <input type="number" class="form-control" id="existingSavings" value="200000" required>
-          </div>
-          <button type="button" class="btn btn-success btn-block" onclick="calculateRetirement()">Calculate Retirement Plan</button>
-        </form>
-        <div id="result" class="result-box"></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Pension or other retirement income offset</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Target bequest support at end of retirement
+            horizon</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Required monthly contribution to close retirement
+            gap</div>
+        </aside>
       </div>
-    </div>
-  </div>
+    </section>
 
-       <div class="col-md-6 d-none d-md-block">
- 
-  <div class="container mt-5">
-    <div class="container-fluid mt-sm-5 mb-sm-5">
-      <a href="sipcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">SIP Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="mutualfundreturncalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Mutual Fund Returns Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="gratuitycalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Gratuity Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="epfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="fdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">FD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="rdcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">RD Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="cargcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">CARG Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="coumpoundinterest.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Compound Interest Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="retirementcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Retirement Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="ppfcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">PPF Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="emicalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">EMI Calculator</div>
-        </div>
-      </a>
-      <br>
-      <a href="simpleinterestcalculator.html" class="card-link">
-        <div class="card">
-          <div class="card-body labelbody hoverfaq sitetext">Simple Interest Calculator</div>
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
-</div>
-  <!--  /second row -->
-      
- 
-   <div  class="row mb-05">
-  <!--    //second row first column -->
-     <div class="col-md-6" style="background-colorf:red;">
+    <section id="retirement-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="Calculator mode">
+              <a href="retirementcalculator.html" class="active">Retirement</a>
+              <a href="compoundinterest.html">Compound Interest</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>Advanced Mode: Off</span>
+            </button>
+          </div>
 
-       <div class="container mt-5 mb-5">
-            <div class="retirement-calculator-content">
-    <div class="title">
-        <h1>Retirement Calculator: Secure Your Future with Smart Planning</h1>
-    </div>
+          <div class="input-grid">
+            <div class="inline-grid">
 
-    <div class="introduction">
-        <p>Retirement might seem far away, but the truth is, the earlier you start planning, the easier it is to build a secure financial future. No one wants to worry about money when they stop working, and that’s where a Retirement Calculator can help.</p>
-        <p>This simple yet powerful tool helps you figure out how much money you’ll need when you retire and how much you should start saving today to get there comfortably. Whether you dream of traveling the world, buying a home in the hills, or just living stress-free, a retirement calculator gives you a clear financial roadmap.</p>
-    </div>
-
-    <div class="what-is-retirement-calculator">
-        <h2>What is a Retirement Calculator?</h2>
-        <p>A retirement calculator is an online tool that estimates how much money you need to maintain your lifestyle after retirement. It calculates:</p>
-        <ul>
-            <li>✔️ The total amount you’ll need to retire comfortably</li>
-            <li>✔️ How much you should save each month</li>
-            <li>✔️ How inflation will impact your future expenses</li>
-            <li>✔️ The potential growth of your investments</li>
-        </ul>
-        <p>Instead of guessing how much money you’ll need, a retirement calculator gives you precise numbers based on your current savings, expected expenses, and investment returns.</p>
-    </div>
-
-    <div class="why-use-retirement-calculator">
-        <h2>Why Do You Need a Retirement Calculator?</h2>
-        <p>Many people assume that their savings will be enough without actually doing the math. But have you considered inflation, medical expenses, and longer life expectancy?</p>
-        <p>Let’s say you spend ₹50,000 per month today. In 25 years, that amount won’t be the same due to inflation. If inflation is 6% per year, your monthly expenses will be ₹2.14 lakh per month by the time you retire.</p>
-        <p>A retirement calculator helps you prepare for these rising costs so that you don’t run out of money when you need it the most.</p>
-    </div>
-
-    <div class="how-retirement-calculator-works">
-        <h2>How Does a Retirement Calculator Work?</h2>
-        <p>A retirement calculator uses the following details to estimate your future savings:</p>
-        <ul>
-            <li>🔹 Your current age</li>
-            <li>🔹 Retirement age (when you plan to stop working)</li>
-            <li>🔹 Monthly expenses (how much you’ll need after retirement)</li>
-            <li>🔹 Current savings (if any)</li>
-            <li>🔹 Expected rate of return on investments</li>
-            <li>🔹 Inflation rate</li>
-        </ul>
-        <p>Based on these inputs, the calculator estimates:</p>
-        <ul>
-            <li>✔️ The total savings you’ll need at retirement</li>
-            <li>✔️ How much you should save every month from today</li>
-        </ul>
-    </div>
-
-    <div class="example-calculation">
-        <h2>Example: How Much Should You Save for Retirement?</h2>
-        <p>Let’s assume:</p>
-        <ul>
-            <li>You’re 35 years old and want to retire at 60</li>
-            <li>Your current monthly expenses are ₹50,000</li>
-            <li>You expect to need ₹1.5 lakh per month after retirement (considering inflation)</li>
-            <li>You have ₹5 lakh in savings</li>
-            <li>Your investments give an 8% annual return</li>
-        </ul>
-        <p>Using a retirement calculator, you’ll find that you need around ₹4 crore by the time you retire. To reach this goal, you should start investing ₹25,000 per month now.</p>
-        <p>If you delay saving until you’re 45, this amount will increase significantly, making it harder to reach your goal. That’s why starting early makes retirement planning easier.</p>
-    </div>
-
-    <div class="benefits-of-retirement-calculator">
-        <h2>Benefits of Using a Retirement Calculator</h2>
-        <ul>
-            <li>✔️ Clarity on Savings Goals – You’ll know exactly how much you need for a stress-free retirement.</li>
-            <li>✔️ Inflation Adjustment – Ensures your savings grow in line with rising costs.</li>
-            <li>✔️ Avoids Financial Stress – Helps prevent a situation where you run out of money in old age.</li>
-            <li>✔️ Better Investment Planning – Shows you how different savings options can grow your wealth over time.</li>
-        </ul>
-    </div>
-
-    <div class="final-thoughts">
-        <h2>Final Thoughts</h2>
-        <p>A Retirement Calculator is an essential tool for anyone who wants to take control of their financial future. The sooner you start, the easier it will be to build a retirement fund without stress.</p>
-        <p>Instead of worrying about money later in life, start planning today. Use a retirement calculator now, adjust your savings plan, and enjoy a worry-free future! 🎯💰</p>
-    </div>
-</div>
-           </div>
-
-
-
-       </div>
-  <!--   //second row second column -->
-   <div class="col-md-6">
-    <div class="container mt-5 mb-5">
-        <h2 class="mb-4 text-left">FAQs</h2>
-        <div id="faqAccordion" class="accordion">
-
-            <!-- FAQ 1 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            What is a Retirement Calculator?
-                        </button>
-                    </h5>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="currentAge">Current Age</label>
                 </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        A Retirement Calculator is a tool that helps you estimate how much money you need to save for retirement based on your current age, retirement age, monthly expenses, expected returns, and other factors. It helps you plan your savings to ensure a comfortable retirement.
-                    </div>
+                <div class="range-row">
+                  <input type="range" id="currentAgeRange" min="18" max="70" step="1" value="32">
+                  <input type="number" id="currentAge" min="18" max="70" step="1" value="32">
                 </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="retirementAge">Retirement Age</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="retirementAgeRange" min="40" max="80" step="1" value="60">
+                  <input type="number" id="retirementAge" min="40" max="80" step="1" value="60">
+                </div>
+              </div>
             </div>
 
-            <!-- FAQ 2 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingTwo">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            How does the Retirement Calculator work?
-                        </button>
-                    </h5>
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="lifeExpectancy">Life Expectancy</label>
                 </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        The Retirement Calculator estimates the amount you need to save for retirement by considering factors such as:
-                        <ul class="text-left">
-                            <li><strong>Current Age:</strong> Your current age.</li>
-                            <li><strong>Retirement Age:</strong> The age at which you plan to retire.</li>
-                            <li><strong>Monthly Expenses:</strong> Your expected monthly expenses during retirement.</li>
-                            <li><strong>Expected Returns:</strong> The rate of return on your investments.</li>
-                            <li><strong>Inflation Rate:</strong> The expected inflation rate to adjust for rising costs.</li>
-                        </ul>
-                        It calculates the corpus required to sustain your lifestyle after retirement.
-                    </div>
+                <div class="range-row">
+                  <input type="range" id="lifeExpectancyRange" min="60" max="100" step="1" value="85">
+                  <input type="number" id="lifeExpectancy" min="60" max="100" step="1" value="85">
                 </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="currentMonthlyExpense">Current Monthly Expense</label>
+                  <span id="currentMonthlyExpensePreview">4000</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="currentMonthlyExpenseRange" min="500" max="50000" step="100" value="4000">
+                  <input type="number" id="currentMonthlyExpense" min="500" max="50000" step="100" value="4000">
+                </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="monthlyContribution">Monthly Contribution</label>
+                  <span id="monthlyContributionPreview">600</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="monthlyContributionRange" min="0" max="20000" step="50" value="600">
+                  <input type="number" id="monthlyContribution" min="0" max="20000" step="50" value="600">
+                </div>
+              </div>
+            </div>
+            <div class="field-card">
+              <div class="field-head">
+                <label for="otherRetirementIncome">Other Monthly Income in Retirement</label>
+              </div>
+              <div class="range-row">
+                <input type="range" id="otherRetirementIncomeRange" min="0" max="30000" step="100" value="1000">
+                <input type="number" id="otherRetirementIncome" min="0" max="30000" step="100" value="1000">
+              </div>
+            </div>
+          </div>
+
+          <div class="advanced-only-section" id="advancedFields">
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="lifeExpectancy">Life Expectancy (age)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="lifeExpectancyRange" min="60" max="100" step="1" value="85">
+                  <input type="number" id="lifeExpectancy" min="60" max="100" step="1" value="85">
+                </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="otherRetirementIncome">Other Monthly Income in Retirement</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="otherRetirementIncomeRange" min="0" max="30000" step="100" value="1000">
+                  <input type="number" id="otherRetirementIncome" min="0" max="30000" step="100" value="1000">
+                </div>
+              </div>
             </div>
 
-            <!-- FAQ 3 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingThree">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            What inputs are required for the Retirement Calculator?
-                        </button>
-                    </h5>
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="currentSavings">Current Retirement Savings</label>
+                  <span id="currentSavingsPreview">50000</span>
                 </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        You need to provide:
-                        <ul class="text-left">
-                            <li><strong>Current Age:</strong> Your current age.</li>
-                            <li><strong>Retirement Age:</strong> The age at which you plan to retire.</li>
-                            <li><strong>Monthly Expenses:</strong> Your expected monthly expenses during retirement.</li>
-                            <li><strong>Expected Returns:</strong> The annual rate of return on your investments.</li>
-                            <li><strong>Inflation Rate:</strong> The expected inflation rate to adjust for rising costs.</li>
-                            <li><strong>Current Savings:</strong> The amount you have already saved for retirement.</li>
-                        </ul>
-                    </div>
+                <div class="range-row">
+                  <input type="range" id="currentSavingsRange" min="0" max="5000000" step="500" value="50000">
+                  <input type="number" id="currentSavings" min="0" max="5000000" step="500" value="50000">
                 </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="annualStepup">Annual Contribution Step-up (percent)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="annualStepupRange" min="0" max="20" step="0.5" value="4">
+                  <input type="number" id="annualStepup" min="0" max="20" step="0.5" value="4">
+                </div>
+              </div>
             </div>
 
-            <!-- FAQ 4 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingFour">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            How does inflation affect retirement planning?
-                        </button>
-                    </h5>
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="preRetReturn">Pre-Retirement Return (percent)</label>
                 </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        Inflation reduces the purchasing power of money over time. For example, if the inflation rate is 6%, the cost of living will double in approximately 12 years. The Retirement Calculator accounts for inflation to ensure your savings will be sufficient to cover future expenses.
-                    </div>
+                <div class="range-row">
+                  <input type="range" id="preRetReturnRange" min="0" max="20" step="0.1" value="8">
+                  <input type="number" id="preRetReturn" min="0" max="20" step="0.1" value="8">
                 </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="postRetReturn">Post-Retirement Return (percent)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="postRetReturnRange" min="0" max="15" step="0.1" value="5">
+                  <input type="number" id="postRetReturn" min="0" max="15" step="0.1" value="5">
+                </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="inflation">Inflation (percent)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="inflationRange" min="0" max="12" step="0.1" value="3">
+                  <input type="number" id="inflation" min="0" max="12" step="0.1" value="3">
+                </div>
+              </div>
             </div>
 
-            <!-- FAQ 5 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingFive">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                            Can I adjust my retirement age in the calculator?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        Yes, you can adjust your retirement age in the calculator to see how it affects the amount you need to save. Retiring earlier will require a larger corpus, while retiring later may reduce the required savings.
-                    </div>
-                </div>
+            <div class="field-card">
+              <div class="field-head">
+                <label for="targetBequest">Target End-of-Life Bequest</label>
+              </div>
+              <input type="number" id="targetBequest" min="0" step="1000" value="50000">
             </div>
-
-            <!-- FAQ 6 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingSix">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                            What if I have existing retirement savings?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        If you have existing retirement savings, you can input the amount in the calculator. It will deduct this amount from the total corpus required, reducing the amount you need to save further.
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 7 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingSeven">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                            How can I increase my retirement savings?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        You can increase your retirement savings by:
-                        <ul class="text-left">
-                            <li>Starting to save early to benefit from compound interest.</li>
-                            <li>Increasing your monthly contributions.</li>
-                            <li>Investing in high-return instruments like equity mutual funds.</li>
-                            <li>Reducing unnecessary expenses and saving more.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ 8 -->
-            <div class="card labelbody">
-                <div class="card-header" id="headingEight">
-                    <h5 class="mb-0 text-left">
-                        <button class="btn hoverfaq text-left" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                            What is the 4% rule in retirement planning?
-                        </button>
-                    </h5>
-                </div>
-                <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-                    <div class="card-body text-left">
-                        The <strong>4% rule</strong> suggests that you can withdraw 4% of your retirement savings annually without running out of money for at least 30 years. It is a guideline to help you plan your withdrawals during retirement.
-                    </div>
-                </div>
-            </div>
-
+          </div>
         </div>
-    </div>
-</div>
-   </div>
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
 
-              Back To Home
+        <div class="calculator-actions">
+          <button class="btn btn-primary" id="recalculateBtn" type="button">
+            <i class="fas fa-bolt"></i>
+            Recalculate
+          </button>
+          <button class="btn btn-ghost" id="resetBtn" type="button">
+            <i class="fas fa-rotate-left"></i>
+            Reset Defaults
+          </button>
+          <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+            <i class="fas fa-copy"></i>
+            Copy Summary
+          </button>
+        </div>
 
-             </p>
-       </div>
+        <div class="result-grid">
+          <div class="result-card">
+            <h3>Required Retirement Corpus</h3>
+            <div class="result-value" id="requiredCorpusValue">-</div>
+          </div>
+          <div class="result-card positive">
+            <h3>Projected Corpus at Retirement</h3>
+            <div class="result-value" id="projectedCorpusValue">-</div>
+          </div>
+          <div class="result-card">
+            <h3>Retirement Gap / Surplus</h3>
+            <div class="result-value" id="retirementGapValue">-</div>
+          </div>
+          <div class="result-card advanced-only">
+            <h3>First-Year Retirement Expense</h3>
+            <div class="result-value" id="inflationAdjustedExpenseValue">-</div>
+          </div>
+          <div class="result-card advanced-only">
+            <h3>Net Withdrawal Needed (Year 1)</h3>
+            <div class="result-value" id="firstYearNetWithdrawalValue">-</div>
+          </div>
+          <div class="result-card advanced-only">
+            <h3>Sustainable Monthly Income</h3>
+            <div class="result-value" id="sustainableMonthlyIncomeValue">-</div>
+          </div>
+          <div class="result-card advanced-only">
+            <h3>Required Monthly Contribution</h3>
+            <div class="result-value" id="requiredMonthlyContributionValue">-</div>
+          </div>
+          <div class="result-card advanced-only">
+            <h3>Projected End Corpus</h3>
+            <div class="result-value" id="endingCorpusValue">-</div>
+          </div>
+          <div class="result-card advanced-only">
+            <h3>Expense Coverage at Retirement</h3>
+            <div class="result-value" id="coveragePercentValue">-</div>
+          </div>
+        </div>
 
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
+        <div class="goal-status advanced-only">
+          <div class="goal-meta">
+            <span id="goalStatusText">Retirement readiness appears here.</span>
+            <strong id="goalPercentText">0%</strong>
+          </div>
+          <div class="goal-progress">
+            <div class="goal-progress-bar" id="goalProgressBar"></div>
+          </div>
+        </div>
+
+        <div class="chart-grid">
+          <div class="chart-card">
+            <h3>Accumulation: Projected vs Required</h3>
+            <div class="chart-wrap">
+              <canvas id="growthChart"></canvas>
+            </div>
+          </div>
+          <div class="chart-card advanced-only">
+            <h3>Retirement Drawdown Path</h3>
+            <div class="chart-wrap small">
+              <canvas id="splitChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-tools">
+          <h3>Pre-Retirement Projection</h3>
+          <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
+            <i class="fas fa-file-csv"></i>
+            Download CSV
+          </button>
+        </div>
+        <div class="table-shell">
+          <table>
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Age</th>
+                <th>Annual Contribution</th>
+                <th>Total Invested</th>
+                <th>Projected Corpus</th>
+              </tr>
+            </thead>
+            <tbody id="projectionTableBody"></tbody>
+          </table>
+        </div>
       </div>
-      <script>
-          
-         function calculateRetirement() {
-    // Get input values
-    const currentAge = parseFloat(document.getElementById('currentAge').value);
-    const retirementAge = parseFloat(document.getElementById('retirementAge').value);
-    const lifeExpectancy = parseFloat(document.getElementById('lifeExpectancy').value);
-    const monthlyExpense = parseFloat(document.getElementById('monthlyExpense').value);
-    const inflationRate = parseFloat(document.getElementById('inflationRate').value)/100;
-    const investmentReturn = parseFloat(document.getElementById('investmentReturn').value)/100;
-    const existingSavings = parseFloat(document.getElementById('existingSavings').value);
 
-    // Calculate basic values
-    const yearsToRetirement = retirementAge - currentAge;
-    const yearsInRetirement = lifeExpectancy - retirementAge;
+      <aside class="section-head" style="margin-bottom:0;">
+        <div class="feature-card">
+          <h3>Planning Notes</h3>
+          <ul class="feature-list">
+            <li><i class="fas fa-circle-info"></i> Required corpus is driven by inflation-adjusted retirement
+              withdrawals, not just a target guess.</li>
+            <li><i class="fas fa-circle-info"></i> Pension or other recurring income reduces the corpus you need to fund
+              from savings.</li>
+            <li><i class="fas fa-circle-info"></i> Use conservative post-retirement return assumptions for safer
+              planning.</li>
+            <li><i class="fas fa-circle-info"></i> Required monthly contribution helps convert long-term gap into an
+              actionable plan.</li>
+          </ul>
+        </div>
 
-    // Validate inputs
-    if (yearsToRetirement <= 0 || yearsInRetirement <= 0) {
-        document.getElementById('result').innerHTML = "Please enter valid ages";
-        return;
-    }
+        <div class="sidebar-card">
+          <h3>Related Calculators</h3>
+          <ul class="link-list">
+            <li><a href="compoundinterest.html"><span>Compound Interest Calculator</span><i
+                  class="fas fa-arrow-right"></i></a></li>
+            <li><a href="sipcalculator.html"><span>SIP Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            <li><a href="mutualfundreturncalculator.html"><span>Mutual Fund Calculator</span><i
+                  class="fas fa-arrow-right"></i></a></li>
+            <li><a href="epfcalculator.html"><span>EPF Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            <li><a href="gratuitycalculator.html"><span>Gratuity Calculator</span><i class="fas fa-arrow-right"></i></a>
+            </li>
+            <li><a href="cargcalculator.html"><span>CAGR Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+          </ul>
+        </div>
+      </aside>
+      </div>
+    </section>
 
-    // Calculate annual expenses at retirement (future value)
-    const annualExpenseAtRetirement = monthlyExpense * 12 * 
-        Math.pow(1 + inflationRate, yearsToRetirement);
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>How Our Advanced Retirement Calculator Works</h2>
+          <p>The calculator mathematically maps two critical wealth phases: the rigorous <strong>accumulation
+              phase</strong> before retirement, and the sustained <strong>drawdown phase</strong> after retirement.
+            During
+            accumulation, it forcefully compounds your current savings and growing monthly contributions via an annual
+            step-up percentage.</p>
+          <br>
+          <p>Upon reaching retirement age, the tool isolates your required first-year living expense by actively
+            inflating your current lifestyle costs, subtracts any fixed monthly
+            pension or rental income offset, and accurately computes the baseline corpus needed to perfectly sustain
+            withdrawals through your designated life
+            expectancy.</p>
+          <br>
+          <p><strong>Core Planning Elements integrated:</strong> comprehensive retirement corpus calculation, retirement
+            income planning,
+            withdrawal sustainability rules, and an automated explicit retirement savings gap analysis.</p>
+        </article>
 
-    // Calculate real rate of return
-    const realRateOfReturn = (investmentReturn - inflationRate) / (1 + inflationRate);
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>How does this retirement calculator estimate the required corpus? <i
+                class="fas fa-chevron-down"></i></summary>
+            <p>It calculates your inflation-adjusted future retirement expenses, subtracts expected monthly pension or
+              other income streams, and accurately estimates the exact target corpus required to fund your withdrawals
+              through your entire life expectancy.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What is the 4% withdrawal rule in retirement planning? <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>The 4% rule is an established retirement benchmark suggesting that if you withdraw 4% of your total
+              retirement corpus annually (adjusting for inflation), your funds should sustain you for at least 30 years
+              without running out.</p>
+          </details>
+          <details class="faq-card">
+            <summary>How is inflation factored into my future retirement expenses? <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Inflation silently erodes purchasing power. By inputting your current monthly expense our calculator
+              applies an annual compounding inflation rate to accurately forecast exactly what maintaining your current
+              lifestyle will cost by the time you retire.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What is 'Retirement Gap' analysis? <i class="fas fa-chevron-down"></i></summary>
+            <p>Retirement gap analysis calculates the mathematical difference between your required ideal retirement
+              corpus and the corpus you are actually projected to reach based on current savings. A positive gap means
+              you need to increase your monthly investments.</p>
+          </details>
+          <details class="faq-card">
+            <summary>How much should I save every month for retirement? <i class="fas fa-chevron-down"></i></summary>
+            <p>There is no static number, but if your calculator dashboard reveals a 'Savings Gap', the tool natively
+              estimates the exact additional monthly contribution needed today (given your pre-retirement return
+              assumptions) to successfully close that explicit gap.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can I include my existing EPF or PPF savings in this calculator? <i
+                class="fas fa-chevron-down"></i></summary>
+            <p>Yes! Enter your total accumulated balance from your Employee Provident Fund (EPF), Public Provident Fund
+              (PPF), or Mutual Fund portfolio directly into the 'Current Retirement Savings' field to act as the
+              baseline accumulating compound interest.</p>
+          </details>
+          <details class="faq-card">
+            <summary>How does a monthly pension affect my required retirement corpus? <i
+                class="fas fa-chevron-down"></i></summary>
+            <p>A guaranteed pension, rental yield, or annuity actively reduces your dependency on your accumulated
+              wealth. By entering this figure into 'Other Monthly Income,' the calculator proportionately subtracts it
+              from your inflated expenses, lowering the total target corpus you need.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Should my post-retirement return expectation be lower? <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Absolutely. During accumulation, you can aggressively invest in equity for 10-14% returns. However,
+              retirees globally shift into conservative, highly liquid instruments (like Senior Citizen Savings Schemes
+              or FDs) focusing on capital preservation, usually yielding lower pre-tax returns.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Does this calculator account for an annual 'Step-Up' in my SIP? <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Yes. Most professionals experience annual salary hikes. By inputting a 'Step-Up' percentage, the model
+              automatically increases your monthly contribution every year, heavily boosting your final projected
+              retirement corpus via aggressive compounding.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What is a 'Target Bequest' or legacy amount? <i class="fas fa-chevron-down"></i></summary>
+            <p>A 'Target Bequest' is the specific nominal wealth you intend to leave behind for your heirs or a charity
+              after your life expectancy ends. The calculator ensures you don't drain your corpus below this threshold.
+            </p>
+          </details>
+          <details class="faq-card">
+            <summary>How does life expectancy impact my retirement corpus? <i class="fas fa-chevron-down"></i></summary>
+            <p>Life expectancy dictates the 'Drawdown Phase'. If you retire at 60 and expect to live until 85, you need
+              to fund exactly 25 years of living expenses. A higher expectancy mechanically increases the required
+              corpus to prevent outliving your money.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Is retirement corpus interest taxable in India? <i class="fas fa-chevron-down"></i></summary>
+            <p>Taxation depends heavily on the specific instrument you utilize. While EPF and PPF fall under the EEE
+              (Exempt-Exempt-Exempt) category, withdrawals from debt/equity funds, fixed deposits, and direct equity are
+              subject to LTCG or STCG taxes which you must independently factor into your net corpus planning.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What is the difference between Accumulation and Drawdown phases? <i
+                class="fas fa-chevron-down"></i></summary>
+            <p>The Accumulation phase represents your active working years where you deposit money and generate
+              aggressive compound returns. The Drawdown phase is post-retirement, where you withdraw monthly income from
+              a typically more conservative wealth pool.</p>
+          </details>
+          <details class="faq-card">
+            <summary>How often should I review my retirement portfolio? <i class="fas fa-chevron-down"></i></summary>
+            <p>Financial advisors strongly recommend reviewing your retirement projections at least annually, or
+              aggressively following major life events such as marriage, children, career gaps, or massive macroeconomic
+              shifts in persistent inflation rates.</p>
+          </details>
+        </div>
+      </div>
+    </section>
 
-    // Calculate required corpus using present value of growing annuity
-    let corpus = 0;
-    if (realRateOfReturn <= 0) {
-        corpus = annualExpenseAtRetirement * yearsInRetirement;
-    } else {
-        corpus = annualExpenseAtRetirement * 
-            (1 - Math.pow(1 + inflationRate, yearsInRetirement) / 
-            Math.pow(1 + investmentReturn, yearsInRetirement)) / 
-            realRateOfReturn;
-    }
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>Retirement Planning in Practice</h2>
+          <p>A practical, fully-funded retirement plan is not merely about reaching an arbitrary, bloated corpus number.
+            It relies completely on mathematically matching predictable income
+            needs, macro inflation trends, longevity risk, and realistic investment returns inside one highly-controlled
+            execution model.</p>
+          <br>
+          <h2>Strategic Gap Closure Strategies</h2>
+          <p>If your retirement dashboard reveals an active shortfall, ruthlessly prioritize closing it by aggressively
+            increasing monthly SIP contributions, marginally extending your planned retirement
+            age, intelligently optimizing return generation, or systematically suppressing your future inflated expense
+            expectations.</p>
+          <br>
+          <h2>Periodical Portfolio Rebalancing</h2>
+          <p>As actual retirement immediately approaches, baseline assumptions severely change. Constantly recalculate
+            your goals with updated inflation parameters, market returns, and shifting personal spending
+            needs to keep your FIRE (Financial Independence, Retire Early) plan perfectly aligned with modern reality.
+          </p>
+        </article>
 
-    // Calculate future value of existing savings
-    const futureValueExisting = existingSavings * 
-        Math.pow(1 + investmentReturn, yearsToRetirement);
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Next Advanced Ideas</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i> Add separate pre- and post-retirement inflation assumptions.</li>
+              <li><i class="fas fa-circle-info"></i> Add healthcare inflation rider for late retirement years.</li>
+              <li><i class="fas fa-circle-info"></i> Add one-click scenario compare for conservative vs growth
+                portfolios.</li>
+              <li><i class="fas fa-circle-info"></i> Add downloadable retirement plan report.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
 
-    // Calculate required savings
-    let required = corpus - futureValueExisting;
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in - smart calculators and converters for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </div>
+      <p
+        style="font-size: 0.75rem; color: var(--text-soft); max-width: 800px; line-height: 1.4; opacity: 0.8; margin-top: 0.5rem;">
+        <strong>Disclaimer:</strong> All figures and projections generated by our comprehensive retirement tools are
+        purely mathematical estimations based exclusively on your input assumptions. They do not constitute certified
+        financial advice. Actual post-retirement return rates, market volatility, inflation dynamics, and taxation rules
+        will fluctuate. Always consult with a certified financial planner.
+      </p>
+    </div>
+  </footer>
 
-    // Handle results
-    let resultHTML;
-    if (required <= 0) {
-        resultHTML = `<p class="text-success">Your existing savings are sufficient!<br>
-            Projected Retirement Corpus: ₹${corpus.toLocaleString('en-IN', {maximumFractionDigits: 2})}</p>`;
-    } else {
-        // Calculate monthly savings required (future value of annuity)
-        const monthlyRate = investmentReturn / 12;
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        currencyCode: "USD",
+        currentAge: 32,
+        retirementAge: 60,
+        lifeExpectancy: 85,
+        currentMonthlyExpense: 4000,
+        otherRetirementIncome: 1000,
+        currentSavings: 50000,
+        monthlyContribution: 600,
+        annualStepup: 4,
+        preRetReturn: 8,
+        postRetReturn: 5,
+        inflation: 3,
+        targetBequest: 50000
+      };
+
+      const nfCurrency = { format: (v) => window.currencyManager ? window.currencyManager.formatCurrency(v) : String(v) };
+      const nfNumber = { format: (v) => window.currencyManager ? window.currencyManager.formatNumber(v) : String(v) };
+
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+
+        currencyCode: document.createElement("select"),
+        currentAge: document.getElementById("currentAge"),
+        currentAgeRange: document.getElementById("currentAgeRange"),
+        retirementAge: document.getElementById("retirementAge"),
+        retirementAgeRange: document.getElementById("retirementAgeRange"),
+        lifeExpectancy: document.getElementById("lifeExpectancy"),
+        lifeExpectancyRange: document.getElementById("lifeExpectancyRange"),
+        currentMonthlyExpense: document.getElementById("currentMonthlyExpense"),
+        currentMonthlyExpenseRange: document.getElementById("currentMonthlyExpenseRange"),
+        otherRetirementIncome: document.getElementById("otherRetirementIncome"),
+        otherRetirementIncomeRange: document.getElementById("otherRetirementIncomeRange"),
+        currentSavings: document.getElementById("currentSavings"),
+        currentSavingsRange: document.getElementById("currentSavingsRange"),
+        monthlyContribution: document.getElementById("monthlyContribution"),
+        monthlyContributionRange: document.getElementById("monthlyContributionRange"),
+        annualStepup: document.getElementById("annualStepup"),
+        annualStepupRange: document.getElementById("annualStepupRange"),
+        preRetReturn: document.getElementById("preRetReturn"),
+        preRetReturnRange: document.getElementById("preRetReturnRange"),
+        postRetReturn: document.getElementById("postRetReturn"),
+        postRetReturnRange: document.getElementById("postRetReturnRange"),
+        inflation: document.getElementById("inflation"),
+        inflationRange: document.getElementById("inflationRange"),
+        targetBequest: document.getElementById("targetBequest"),
+
+        currentMonthlyExpensePreview: document.getElementById("currentMonthlyExpensePreview"),
+        currentSavingsPreview: document.getElementById("currentSavingsPreview"),
+        monthlyContributionPreview: document.getElementById("monthlyContributionPreview"),
+
+        requiredCorpusValue: document.getElementById("requiredCorpusValue"),
+        projectedCorpusValue: document.getElementById("projectedCorpusValue"),
+        retirementGapValue: document.getElementById("retirementGapValue"),
+        inflationAdjustedExpenseValue: document.getElementById("inflationAdjustedExpenseValue"),
+        firstYearNetWithdrawalValue: document.getElementById("firstYearNetWithdrawalValue"),
+        sustainableMonthlyIncomeValue: document.getElementById("sustainableMonthlyIncomeValue"),
+        requiredMonthlyContributionValue: document.getElementById("requiredMonthlyContributionValue"),
+        endingCorpusValue: document.getElementById("endingCorpusValue"),
+        coveragePercentValue: document.getElementById("coveragePercentValue"),
+
+        goalStatusText: document.getElementById("goalStatusText"),
+        goalPercentText: document.getElementById("goalPercentText"),
+        goalProgressBar: document.getElementById("goalProgressBar"),
+
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        growthChart: document.getElementById("growthChart"),
+        splitChart: document.getElementById("splitChart")
+      };
+
+      let growthChartInstance = null;
+      let splitChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function getCurrencyFormatter(currencyCode) {
+        return { format: (v) => window.currencyManager ? window.currencyManager.formatCurrency(v) : String(v) };
+      }
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) {
+          return;
+        }
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 940) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+      }
+
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) {
+          return;
+        }
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function roundToStep(value, step) {
+        if (!step || step <= 0) {
+          return value;
+        }
+        return Math.round(value / step) * step;
+      }
+
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) {
+          return;
+        }
+        const min = parseFloat(rangeEl.min || "0");
+        const max = parseFloat(rangeEl.max || "100");
+        const step = parseFloat(rangeEl.step || "1");
+
+        function normalize(value) {
+          const numeric = parseNumeric(value, parseFloat(rangeEl.value));
+          const stepped = roundToStep(numeric, step);
+          return clamp(stepped, min, max);
+        }
+
+        rangeEl.addEventListener("input", function () {
+          numberEl.value = rangeEl.value;
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("input", function () {
+          if (numberEl.value === "") {
+            return;
+          }
+          const normalized = normalize(numberEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("blur", function () {
+          const normalized = normalize(numberEl.value || rangeEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+      }
+
+      function formatCurrencyWithUnits(value) {
+        return window.currencyManager ? window.currencyManager.formatWithUnits(value) : nfCurrency.format(value);
+      }
+
+      function compactCurrency(value) {
+        return window.currencyManager ? window.currencyManager.formatCompact(value) : String(value);
+      }
+
+      function getInputs() {
+        const currentAge = Math.round(clamp(parseNumeric(elements.currentAge.value, defaults.currentAge), 18, 90));
+        let retirementAge = Math.round(clamp(parseNumeric(elements.retirementAge.value, defaults.retirementAge), 40, 95));
+        let lifeExpectancy = Math.round(clamp(parseNumeric(elements.lifeExpectancy.value, defaults.lifeExpectancy), 60, 110));
+
+        if (retirementAge <= currentAge) {
+          retirementAge = currentAge + 1;
+        }
+        if (lifeExpectancy <= retirementAge) {
+          lifeExpectancy = retirementAge + 1;
+        }
+
+        elements.currentAge.value = currentAge;
+        elements.currentAgeRange.value = currentAge;
+        elements.retirementAge.value = retirementAge;
+        elements.retirementAgeRange.value = retirementAge;
+        elements.lifeExpectancy.value = lifeExpectancy;
+        elements.lifeExpectancyRange.value = lifeExpectancy;
+
+        return {
+          currencyCode: elements.currencyCode.value || defaults.currencyCode,
+          currentAge: currentAge,
+          retirementAge: retirementAge,
+          lifeExpectancy: lifeExpectancy,
+          currentMonthlyExpense: Math.max(0, parseNumeric(elements.currentMonthlyExpense.value, defaults.currentMonthlyExpense)),
+          otherRetirementIncome: Math.max(0, parseNumeric(elements.otherRetirementIncome.value, defaults.otherRetirementIncome)),
+          currentSavings: Math.max(0, parseNumeric(elements.currentSavings.value, defaults.currentSavings)),
+          monthlyContribution: Math.max(0, parseNumeric(elements.monthlyContribution.value, defaults.monthlyContribution)),
+          annualStepup: Math.max(0, parseNumeric(elements.annualStepup.value, defaults.annualStepup)),
+          preRetReturn: Math.max(0, parseNumeric(elements.preRetReturn.value, defaults.preRetReturn)),
+          postRetReturn: Math.max(0, parseNumeric(elements.postRetReturn.value, defaults.postRetReturn)),
+          inflation: Math.max(0, parseNumeric(elements.inflation.value, defaults.inflation)),
+          targetBequest: Math.max(0, parseNumeric(elements.targetBequest.value, defaults.targetBequest))
+        };
+      }
+
+      function simulateAccumulation(inputs, overrideMonthlyContribution) {
+        const yearsToRetirement = inputs.retirementAge - inputs.currentAge;
         const months = yearsToRetirement * 12;
-        const monthlySavings = required / 
-            ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+        const monthlyRate = inputs.preRetReturn / 1200;
 
-        resultHTML = `
-            <h4 class="mb-3">Retirement Plan Results:</h4>
-            <p>Required Retirement Corpus: <b>₹${corpus.toLocaleString('en-IN', {maximumFractionDigits: 2})}</b></p>
-            <p>Future Value of Existing Savings: <b>₹${futureValueExisting.toLocaleString('en-IN', {maximumFractionDigits: 2})}</b></p>
-            <p class="text-danger">Monthly Savings Needed: <b>₹${monthlySavings.toLocaleString('en-IN', {maximumFractionDigits: 2})}</b></p>
-            <p class="text-muted">Note: Calculations assume constant returns and inflation rates.</p>
-        `;
-    }
+        let balance = inputs.currentSavings;
+        let monthlyContribution = overrideMonthlyContribution === undefined ? inputs.monthlyContribution : Math.max(0, overrideMonthlyContribution);
+        let totalInvested = inputs.currentSavings;
+        const projection = [];
 
-    document.getElementById('result').innerHTML = resultHTML;
-}
+        for (let month = 1; month <= months; month += 1) {
+          if (month > 1 && (month - 1) % 12 === 0) {
+            monthlyContribution *= (1 + inputs.annualStepup / 100);
+          }
 
+          balance *= (1 + monthlyRate);
+          balance += monthlyContribution;
+          totalInvested += monthlyContribution;
 
-          // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
+          if (month % 12 === 0) {
+            const year = month / 12;
+            projection.push({
+              year: year,
+              age: inputs.currentAge + year,
+              annualContribution: monthlyContribution * 12,
+              totalInvested: totalInvested,
+              balance: balance
+            });
+          }
+        }
 
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
+        return {
+          yearsToRetirement: yearsToRetirement,
+          projectedCorpus: balance,
+          totalInvested: totalInvested,
+          projection: projection
+        };
+      }
 
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-          
-     
-          </script>
-          
-          <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+      function calculateRequiredCorpus(inputs) {
+        const yearsToRetirement = inputs.retirementAge - inputs.currentAge;
+        const retirementYears = inputs.lifeExpectancy - inputs.retirementAge;
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
-    authDomain: "instacalc-40640.firebaseapp.com",
-    projectId: "instacalc-40640",
-    storageBucket: "instacalc-40640.firebasestorage.app",
-    messagingSenderId: "720029503645",
-    appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
-    measurementId: "G-J0ZWXR3T5P"
-  };
+        const inflationRate = inputs.inflation / 100;
+        const postRetRate = inputs.postRetReturn / 100;
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
+        const firstYearExpense = (inputs.currentMonthlyExpense * 12) * Math.pow(1 + inflationRate, yearsToRetirement);
+        const firstYearOtherIncome = (inputs.otherRetirementIncome * 12) * Math.pow(1 + inflationRate, yearsToRetirement);
+        const firstYearNetWithdrawal = Math.max(0, firstYearExpense - firstYearOtherIncome);
 
-      <style>
-              bodyss {
-                  font-family: Arial, sans-serif;
-                  margin: 20px;
-                  padding: 0;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  flex-direction: column;
-                  background-color: #f4f4f4;
+        let pvWithdrawals = 0;
+        if (retirementYears > 0 && firstYearNetWithdrawal > 0) {
+          if (Math.abs(postRetRate - inflationRate) < 1e-9) {
+            pvWithdrawals = firstYearNetWithdrawal * retirementYears / (1 + postRetRate);
+          } else {
+            const ratio = (1 + inflationRate) / (1 + postRetRate);
+            pvWithdrawals = firstYearNetWithdrawal * (1 - Math.pow(ratio, retirementYears)) / (postRetRate - inflationRate);
+          }
+        }
+
+        const bequestPV = retirementYears > 0
+          ? inputs.targetBequest / Math.pow(1 + postRetRate, retirementYears)
+          : inputs.targetBequest;
+
+        const requiredCorpus = Math.max(0, pvWithdrawals + bequestPV);
+
+        return {
+          yearsToRetirement: yearsToRetirement,
+          retirementYears: retirementYears,
+          firstYearExpense: firstYearExpense,
+          firstYearOtherIncome: firstYearOtherIncome,
+          firstYearNetWithdrawal: firstYearNetWithdrawal,
+          requiredCorpus: requiredCorpus,
+          bequestPV: bequestPV
+        };
+      }
+
+      function simulateDrawdown(inputs, startingCorpus, firstYearExpense, firstYearOtherIncome) {
+        const retirementYears = Math.max(0, inputs.lifeExpectancy - inputs.retirementAge);
+        const postRetRate = inputs.postRetReturn / 100;
+        const inflationRate = inputs.inflation / 100;
+
+        let corpus = Math.max(0, startingCorpus);
+        let expense = firstYearExpense;
+        let otherIncome = firstYearOtherIncome;
+        const drawdown = [];
+
+        for (let y = 1; y <= retirementYears; y += 1) {
+          const annualNeed = Math.max(0, expense - otherIncome);
+          corpus = Math.max(0, corpus - annualNeed);
+          corpus *= (1 + postRetRate);
+
+          drawdown.push({
+            year: y,
+            age: inputs.retirementAge + y,
+            annualNeed: annualNeed,
+            corpus: corpus
+          });
+
+          expense *= (1 + inflationRate);
+          otherIncome *= (1 + inflationRate);
+        }
+
+        return {
+          endingCorpus: corpus,
+          drawdown: drawdown
+        };
+      }
+
+      function estimateSustainableWithdrawal(inputs, projectedCorpus, bequestPV) {
+        const retirementYears = Math.max(0, inputs.lifeExpectancy - inputs.retirementAge);
+        if (retirementYears <= 0) {
+          return 0;
+        }
+
+        const postRetRate = inputs.postRetReturn / 100;
+        const inflationRate = inputs.inflation / 100;
+        const availablePV = Math.max(0, projectedCorpus - bequestPV);
+
+        if (availablePV <= 0) {
+          return 0;
+        }
+
+        if (Math.abs(postRetRate - inflationRate) < 1e-9) {
+          return availablePV * (1 + postRetRate) / retirementYears;
+        }
+
+        const ratio = (1 + inflationRate) / (1 + postRetRate);
+        const denom = 1 - Math.pow(ratio, retirementYears);
+        if (Math.abs(denom) < 1e-9) {
+          return 0;
+        }
+        return availablePV * (postRetRate - inflationRate) / denom;
+      }
+
+      function requiredMonthlyContribution(inputs, targetCorpus) {
+        if (!Number.isFinite(targetCorpus) || targetCorpus <= 0) {
+          return 0;
+        }
+
+        const current = simulateAccumulation(inputs).projectedCorpus;
+        if (current >= targetCorpus) {
+          return inputs.monthlyContribution;
+        }
+
+        function corpusForContribution(monthlyContribution) {
+          return simulateAccumulation(inputs, monthlyContribution).projectedCorpus;
+        }
+
+        let low = 0;
+        let high = Math.max(100, inputs.monthlyContribution || 100);
+        let guard = 0;
+
+        while (corpusForContribution(high) < targetCorpus && high < 1000000) {
+          high *= 2;
+          guard += 1;
+          if (guard > 35) {
+            break;
+          }
+        }
+
+        if (corpusForContribution(high) < targetCorpus) {
+          return null;
+        }
+
+        for (let i = 0; i < 65; i += 1) {
+          const mid = (low + high) / 2;
+          if (corpusForContribution(mid) >= targetCorpus) {
+            high = mid;
+          } else {
+            low = mid;
+          }
+        }
+
+        return high;
+      }
+
+      function renderProjectionTable(projection) {
+        if (!elements.projectionTableBody) {
+          return;
+        }
+        elements.projectionTableBody.innerHTML = projection.map(function (row) {
+          return (
+            "<tr>" +
+            "<td>Year " + row.year + "</td>" +
+            "<td>" + row.age + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.annualContribution) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.totalInvested) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.balance) + "</td>" +
+            "</tr>"
+          );
+        }).join("");
+      }
+
+      function renderCharts(inputs, accumulation, requiredCorpus, drawdown) {
+        if (!window.Chart || !elements.growthChart || !elements.splitChart) {
+          return;
+        }
+
+        const labels = accumulation.projection.map(function (row) { return "Age " + row.age; });
+        const corpusData = accumulation.projection.map(function (row) { return row.balance; });
+        const investedData = accumulation.projection.map(function (row) { return row.totalInvested; });
+        const requiredData = accumulation.projection.map(function () { return requiredCorpus; });
+
+        if (growthChartInstance) {
+          growthChartInstance.destroy();
+        }
+        growthChartInstance = new Chart(elements.growthChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Projected Corpus",
+                data: corpusData,
+                borderColor: "#007f8b",
+                backgroundColor: "rgba(0, 127, 139, 0.12)",
+                fill: true,
+                tension: 0.18,
+                pointRadius: 2
+              },
+              {
+                label: "Total Invested",
+                data: investedData,
+                borderColor: "#ee9f2e",
+                backgroundColor: "rgba(238, 159, 46, 0.1)",
+                fill: false,
+                tension: 0.12,
+                pointRadius: 2
+              },
+              {
+                label: "Required Corpus",
+                data: requiredData,
+                borderColor: "#d8891d",
+                backgroundColor: "rgba(216, 137, 29, 0.12)",
+                fill: false,
+                borderDash: [6, 5],
+                tension: 0,
+                pointRadius: 0
               }
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "top" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.dataset.label + ": " + formatCurrencyWithUnits(context.parsed.y, inputs.currencyCode);
+                  }
+                }
               }
-              .input-group {
-                  margin-bottom: 15px;
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function (value) {
+                    return compactCurrency(value);
+                  }
+                }
               }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
-
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
-
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
             }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
+          }
+        });
 
+        const drawLabels = drawdown.drawdown.map(function (row) { return "Age " + row.age; });
+        const drawCorpus = drawdown.drawdown.map(function (row) { return row.corpus; });
+        const bequestLine = drawdown.drawdown.map(function () { return inputs.targetBequest; });
 
-          </style>
+        if (splitChartInstance) {
+          splitChartInstance.destroy();
+        }
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: drawLabels,
+            datasets: [
+              {
+                label: "Projected Corpus During Retirement",
+                data: drawCorpus,
+                borderColor: "#1f9f67",
+                backgroundColor: "rgba(31, 159, 103, 0.12)",
+                fill: true,
+                tension: 0.18,
+                pointRadius: 2
+              },
+              {
+                label: "Target Bequest",
+                data: bequestLine,
+                borderColor: "#6b7f8e",
+                backgroundColor: "rgba(107, 127, 142, 0.12)",
+                borderDash: [5, 5],
+                fill: false,
+                tension: 0,
+                pointRadius: 0
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.dataset.label + ": " + formatCurrencyWithUnits(context.parsed.y, inputs.currencyCode);
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function (value) {
+                    return compactCurrency(value);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      function updatePreviewLabels(inputs) {
+        elements.currentMonthlyExpensePreview.textContent = nfNumber.format(inputs.currentMonthlyExpense);
+        elements.currentSavingsPreview.textContent = nfNumber.format(inputs.currentSavings);
+        elements.monthlyContributionPreview.textContent = nfNumber.format(inputs.monthlyContribution);
+      }
+
+      function calculateAndRender() {
+        const inputs = getInputs();
+        updatePreviewLabels(inputs);
+
+        const requirement = calculateRequiredCorpus(inputs);
+        const accumulation = simulateAccumulation(inputs);
+        const drawdown = simulateDrawdown(inputs, accumulation.projectedCorpus, requirement.firstYearExpense, requirement.firstYearOtherIncome);
+        const requiredMonthly = requiredMonthlyContribution(inputs, requirement.requiredCorpus);
+
+        const gap = requirement.requiredCorpus - accumulation.projectedCorpus;
+        const coverage = requirement.requiredCorpus > 0 ? (accumulation.projectedCorpus / requirement.requiredCorpus) * 100 : 100;
+
+        const sustainableAnnualFromCorpus = estimateSustainableWithdrawal(inputs, accumulation.projectedCorpus, requirement.bequestPV);
+        const sustainableMonthlyTotal = (sustainableAnnualFromCorpus + requirement.firstYearOtherIncome) / 12;
+
+        elements.requiredCorpusValue.textContent = formatCurrencyWithUnits(requirement.requiredCorpus);
+        elements.projectedCorpusValue.textContent = formatCurrencyWithUnits(accumulation.projectedCorpus);
+        elements.retirementGapValue.textContent = gap > 0
+          ? "Gap: " + formatCurrencyWithUnits(gap)
+          : "Surplus: " + formatCurrencyWithUnits(Math.abs(gap));
+        elements.inflationAdjustedExpenseValue.textContent = formatCurrencyWithUnits(requirement.firstYearExpense);
+        elements.firstYearNetWithdrawalValue.textContent = formatCurrencyWithUnits(requirement.firstYearNetWithdrawal);
+        elements.sustainableMonthlyIncomeValue.textContent = formatCurrencyWithUnits(sustainableMonthlyTotal) + " / month";
+        elements.requiredMonthlyContributionValue.textContent = requiredMonthly === null
+          ? "Goal too high"
+          : formatCurrencyWithUnits(requiredMonthly) + " / month";
+        elements.endingCorpusValue.textContent = formatCurrencyWithUnits(drawdown.endingCorpus);
+        elements.coveragePercentValue.textContent = coverage.toFixed(1) + "%";
+
+        const clampedProgress = Math.max(0, Math.min(coverage, 100));
+        elements.goalPercentText.textContent = coverage.toFixed(1) + "%";
+        elements.goalProgressBar.style.width = clampedProgress.toFixed(2) + "%";
+
+        if (coverage >= 100) {
+          elements.goalStatusText.textContent = "On track: projected corpus covers required retirement corpus.";
+          elements.goalProgressBar.style.background = "linear-gradient(110deg, #1f9f67, #1cb67a)";
+        } else {
+          elements.goalStatusText.textContent = "Shortfall detected: increase contributions or adjust retirement assumptions.";
+          elements.goalProgressBar.style.background = "linear-gradient(110deg, var(--accent), #00a1b2)";
+        }
+
+        lastProjection = accumulation.projection.slice();
+        renderProjectionTable(accumulation.projection);
+        renderCharts(inputs, accumulation, requirement.requiredCorpus, drawdown);
+
+        lastSummaryText =
+          "Retirement Plan Summary" + "\n" +
+          "Currency: " + inputs.currencyCode + "\n" +
+          "Current Age / Retirement Age / Life Expectancy: " + inputs.currentAge + " / " + inputs.retirementAge + " / " + inputs.lifeExpectancy + "\n" +
+          "Required Corpus: " + formatCurrencyWithUnits(requirement.requiredCorpus) + "\n" +
+          "Projected Corpus: " + formatCurrencyWithUnits(accumulation.projectedCorpus) + "\n" +
+          "Gap or Surplus: " + (gap > 0 ? "Gap " : "Surplus ") + formatCurrencyWithUnits(Math.abs(gap)) + "\n" +
+          "Required Monthly Contribution: " + (requiredMonthly === null ? "Goal too high" : (formatCurrencyWithUnits(requiredMonthly) + " / month")) + "\n" +
+          "Sustainable Monthly Income: " + formatCurrencyWithUnits(sustainableMonthlyTotal) + " / month";
+      }
+
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) {
+          return;
+        }
+        const headers = ["Year", "Age", "Annual Contribution", "Total Invested", "Projected Corpus"];
+        const rows = lastProjection.map(function (row) {
+          return [
+            "Year " + row.year,
+            row.age,
+            Math.round(row.annualContribution),
+            Math.round(row.totalInvested),
+            Math.round(row.balance)
+          ].join(",");
+        });
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "retirement-projection.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function resetToDefaults() {
+        elements.currencyCode.value = defaults.currencyCode;
+        elements.currentAge.value = defaults.currentAge;
+        elements.currentAgeRange.value = defaults.currentAge;
+        elements.retirementAge.value = defaults.retirementAge;
+        elements.retirementAgeRange.value = defaults.retirementAge;
+        elements.lifeExpectancy.value = defaults.lifeExpectancy;
+        elements.lifeExpectancyRange.value = defaults.lifeExpectancy;
+        elements.currentMonthlyExpense.value = defaults.currentMonthlyExpense;
+        elements.currentMonthlyExpenseRange.value = defaults.currentMonthlyExpense;
+        elements.otherRetirementIncome.value = defaults.otherRetirementIncome;
+        elements.otherRetirementIncomeRange.value = defaults.otherRetirementIncome;
+        elements.currentSavings.value = defaults.currentSavings;
+        elements.currentSavingsRange.value = defaults.currentSavings;
+        elements.monthlyContribution.value = defaults.monthlyContribution;
+        elements.monthlyContributionRange.value = defaults.monthlyContribution;
+        elements.annualStepup.value = defaults.annualStepup;
+        elements.annualStepupRange.value = defaults.annualStepup;
+        elements.preRetReturn.value = defaults.preRetReturn;
+        elements.preRetReturnRange.value = defaults.preRetReturn;
+        elements.postRetReturn.value = defaults.postRetReturn;
+        elements.postRetReturnRange.value = defaults.postRetReturn;
+        elements.inflation.value = defaults.inflation;
+        elements.inflationRange.value = defaults.inflation;
+        elements.targetBequest.value = defaults.targetBequest;
+        calculateAndRender();
+      }
+
+      function wireEvents() {
+        syncPair(elements.currentAgeRange, elements.currentAge);
+        syncPair(elements.retirementAgeRange, elements.retirementAge);
+        syncPair(elements.lifeExpectancyRange, elements.lifeExpectancy);
+        syncPair(elements.currentMonthlyExpenseRange, elements.currentMonthlyExpense);
+        syncPair(elements.otherRetirementIncomeRange, elements.otherRetirementIncome);
+        syncPair(elements.currentSavingsRange, elements.currentSavings);
+        syncPair(elements.monthlyContributionRange, elements.monthlyContribution);
+        syncPair(elements.annualStepupRange, elements.annualStepup);
+        syncPair(elements.preRetReturnRange, elements.preRetReturn);
+        syncPair(elements.postRetReturnRange, elements.postRetReturn);
+        syncPair(elements.inflationRange, elements.inflation);
+
+        [elements.currencyCode, elements.targetBequest].forEach(function (input) {
+          input.addEventListener("input", calculateAndRender);
+          input.addEventListener("change", calculateAndRender);
+        });
+
+        elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        if (window.currencyManager) { window.currencyManager.onChange(calculateAndRender); };
+        elements.resetBtn.addEventListener("click", resetToDefaults);
+        elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        elements.toggleViewBtn.addEventListener("click", function () {
+          const shell = document.querySelector(".calculator-shell");
+          const isAdvanced = shell.classList.toggle("advanced-mode");
+          elements.toggleViewBtn.classList.toggle("active", isAdvanced);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvanced ? "Advanced Mode: On" : "Advanced Mode: Off";
+        });
+
+        elements.copySummaryBtn.addEventListener("click", function () {
+          if (!navigator.clipboard || !lastSummaryText) {
+            return;
+          }
+          navigator.clipboard.writeText(lastSummaryText).then(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary';
+            }, 1300);
+          }).catch(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Copy failed';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary';
+            }, 1300);
+          });
+        });
+      }
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      if (window.currencyManager) {
+        window.currencyManager.onChange(calculateAndRender);
+      }
+      calculateAndRender();
+    })();
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+      authDomain: "instacalc-40640.firebaseapp.com",
+      projectId: "instacalc-40640",
+      storageBucket: "instacalc-40640.firebasestorage.app",
+      messagingSenderId: "720029503645",
+      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+      measurementId: "G-J0ZWXR3T5P"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+  </script>
 </body>
+
 </html>
