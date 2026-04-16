@@ -170,6 +170,7 @@
       target.style.setProperty("-webkit-overflow-scrolling", "touch", "important");
       target.style.setProperty("touch-action", "pan-y", "important");
       target.style.setProperty("max-height", "100dvh", "important");
+      target.style.setProperty("scroll-padding-bottom", "120px", "important");
       return;
     }
     target.style.removeProperty("overflow-y");
@@ -177,10 +178,38 @@
     target.style.removeProperty("-webkit-overflow-scrolling");
     target.style.removeProperty("touch-action");
     target.style.removeProperty("max-height");
+    target.style.removeProperty("height");
+    target.style.removeProperty("padding-bottom");
+    target.style.removeProperty("scroll-padding-bottom");
+  }
+
+  function syncWithVisualViewport() {
+    if (!isActive()) {
+      return;
+    }
+
+    var vv = window.visualViewport;
+    var baseBottomPadding = 84;
+
+    if (!vv) {
+      target.style.setProperty("padding-bottom", baseBottomPadding + "px", "important");
+      target.style.setProperty("scroll-padding-bottom", (baseBottomPadding + 36) + "px", "important");
+      return;
+    }
+
+    var keyboardInset = Math.max(0, window.innerHeight - (vv.height + vv.offsetTop));
+    var safeHeight = Math.max(220, Math.floor(vv.height));
+    var dynamicBottomPadding = baseBottomPadding + keyboardInset;
+
+    target.style.setProperty("height", safeHeight + "px", "important");
+    target.style.setProperty("max-height", safeHeight + "px", "important");
+    target.style.setProperty("padding-bottom", dynamicBottomPadding + "px", "important");
+    target.style.setProperty("scroll-padding-bottom", (dynamicBottomPadding + 36) + "px", "important");
   }
 
   function updateButton() {
     enforceActiveScrollStyles(isActive());
+    syncWithVisualViewport();
     if (isActive()) {
       button.innerHTML = "<span aria-hidden='true'>⤢</span><span>Exit Fullscreen</span>";
       return;
@@ -213,6 +242,24 @@
 
   ["fullscreenchange", "webkitfullscreenchange", "msfullscreenchange"].forEach(function (evt) {
     document.addEventListener(evt, updateButton);
+  });
+
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", syncWithVisualViewport);
+    window.visualViewport.addEventListener("scroll", syncWithVisualViewport);
+  }
+
+  window.addEventListener("resize", syncWithVisualViewport);
+  document.addEventListener("focusin", function (e) {
+    if (!isActive() || !target.contains(e.target)) {
+      return;
+    }
+    window.setTimeout(function () {
+      syncWithVisualViewport();
+      if (typeof e.target.scrollIntoView === "function") {
+        e.target.scrollIntoView({ block: "center", inline: "nearest", behavior: "auto" });
+      }
+    }, 80);
   });
 
   updateButton();
