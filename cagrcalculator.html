@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    (function () {
+      const userLang = localStorage.getItem('user_lang');
+      const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+      if (userLang === 'ja' || (!userLang && browserLang.startsWith('ja'))) {
+        window.location.replace('./ja/cagrcalculator.html');
+      }
+    })();
+  </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CAGR Calculator: Calculate Compound Annual Growth Rate Online</title>
@@ -516,12 +525,38 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
   .container{width:min(1150px,94vw)}
   .hero{padding:2.2rem 0 1.5rem}
   .hero-copy h1{max-width:none;font-size:clamp(1.52rem,8vw,2.02rem)}
+  .lang-switch {
+    margin-right: 0.5rem;
+  }
 }
 @media(max-width:699px){
   .result{flex-direction:column}
   .result strong{text-align:left}
   .actions .btn{width:100%}
   .site-footer{padding-bottom:4.8rem}
+}
+
+.lang-switch {
+  margin-left: auto;
+  margin-right: 1rem;
+  display: inline-flex;
+  align-items: center;
+}
+.lang-switch select {
+  min-height: 36px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--acc2);
+  background: #ffffff;
+  border: 1px solid rgba(15, 95, 93, 0.22);
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.lang-switch select:focus {
+  border-color: var(--acc);
 }
 </style>
 </head>
@@ -536,6 +571,14 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
       <img src="../logo.png" alt="InstaCalc logo" width="42" height="42" decoding="sync" fetchpriority="high">
       <span>InstaCalc.in</span>
     </a>
+
+    <div class="lang-switch">
+      <select id="langSelect" aria-label="Select Language">
+        <option value="en" selected>English</option>
+        <option value="ja">日本語</option>
+      </select>
+    </div>
+
     <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Toggle navigation">☰</button>
     <nav class="site-nav" id="mainNav">
       <a href="../index.html">Home</a>
@@ -1306,6 +1349,17 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
           content.style.maxHeight = content.scrollHeight + 'px';
         }
       });
+    });
+  }
+
+  const langSelect = document.getElementById('langSelect');
+  if (langSelect) {
+    langSelect.value = 'en';
+    langSelect.addEventListener('change', function () {
+      if (this.value === 'ja') {
+        localStorage.setItem('user_lang', 'ja');
+        window.location.href = 'ja/cagrcalculator.html';
+      }
     });
   }
 

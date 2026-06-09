@@ -2,6 +2,15 @@
 <html lang="en">
 
 <head>
+  <script>
+    (function () {
+      const userLang = localStorage.getItem('user_lang');
+      const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+      if (userLang === 'ja' || (!userLang && browserLang.startsWith('ja'))) {
+        window.location.replace('./ja/emicalculator.html');
+      }
+    })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>EMI Calculator | Advanced Loan EMI, Prepayment & Amortization Planner</title>
@@ -926,6 +935,34 @@
       background: var(--accent-strong);
       color: #fff;
     }
+
+    .lang-switch {
+      margin-left: auto;
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    .lang-switch select {
+      min-height: 36px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      background: #ffffff;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .lang-switch select:focus {
+      border-color: var(--accent);
+    }
+    @media (max-width: 940px) {
+      .lang-switch {
+        margin-right: 0.5rem;
+      }
+    }
   </style>
 </head>
 
@@ -936,6 +973,14 @@
         <img src="logo.png" alt="InstaCalc logo">
         <span>InstaCalc.in</span>
       </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Language">
+          <option value="en" selected>English</option>
+          <option value="ru">Русский</option>
+          <option value="ja">日本語</option>
+        </select>
+      </div>
 
       <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false"
         aria-controls="mainNav">
@@ -2116,6 +2161,20 @@
             }, 1300);
           });
         });
+
+        const langSelect = document.getElementById('langSelect');
+        if (langSelect) {
+          langSelect.value = 'en';
+          langSelect.addEventListener('change', function () {
+            if (this.value === 'ja') {
+              localStorage.setItem('user_lang', 'ja');
+              window.location.href = 'ja/emicalculator.html';
+            } else if (this.value === 'ru') {
+              localStorage.setItem('user_lang', 'ru');
+              window.location.href = 'ru/emicalculator.html';
+            }
+          });
+        }
       }
 
       toggleNav();

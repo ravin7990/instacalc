@@ -3,6 +3,19 @@
 
 <head>
   <meta charset="UTF-8">
+  <script>
+    (function () {
+      const userLang = localStorage.getItem('user_lang');
+      const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+      if (userLang === 'ja' || (!userLang && browserLang.startsWith('ja'))) {
+        window.location.replace('./ja/index.html');
+      } else if (userLang === 'ko' || (!userLang && browserLang.startsWith('ko'))) {
+        window.location.replace('./ko/index.html');
+      } else if (userLang === 'ru' || (!userLang && browserLang.startsWith('ru'))) {
+        window.location.replace('./ru/index.html');
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>InstaCalc.in - All-in-One Online Calculators and Unit Converters</title>
   <meta name="description"
