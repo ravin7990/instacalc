@@ -3,6 +3,17 @@
 
 <head>
   <meta charset="UTF-8">
+  <script>
+  (function() {
+    const pref = localStorage.getItem('user_lang');
+    const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    if (pref === 'ru' || (!pref && browserLang.startsWith('ru'))) {
+      window.location.replace('../ru/duration/agecalculator.html');
+    } else if (pref === 'ja' || (!pref && browserLang.startsWith('ja'))) {
+      window.location.replace('../ja/duration/agecalculator.html');
+    }
+  })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Age Calculator – Calculate Age from Date of Birth Online</title>
   <meta name="description"
@@ -794,6 +805,8 @@
         font-size: 1.7rem !important;
       }
     }
+    .lang-switch{margin-left:auto;margin-right:1rem;display:inline-flex;align-items:center}.lang-switch select{min-height:36px;padding:.2rem .5rem;font-size:.85rem;font-weight:600;color:var(--accent-strong);background:#fff;border:1px solid rgba(0,95,115,.22);border-radius:8px;cursor:pointer;outline:none;transition:border-color .2s}.lang-switch select:focus{border-color:var(--accent)}
+    @media(max-width:939px){.lang-switch{margin-right:0.5rem}}
   </style>
 <!-- Schema Markup: FAQPage -->
 <script type="application/ld+json">
@@ -903,6 +916,13 @@
         <img src="../logo.png" alt="InstaCalc">
         <span>InstaCalc.in</span>
       </a>
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Language">
+          <option value="en" selected>English</option>
+          <option value="ru">Русский</option>
+          <option value="ja">日本語</option>
+        </select>
+      </div>
       <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
       <nav class="site-nav" id="mainNav">
         <a href="../index.html">Home</a>
@@ -1408,6 +1428,20 @@
       const menuToggle = document.getElementById("menuToggle");
       const mainNav = document.getElementById("mainNav");
       menuToggle.onclick = () => mainNav.classList.toggle("open");
+
+      const langSelect = document.getElementById('langSelect');
+      if (langSelect) {
+        langSelect.value = 'en';
+        langSelect.addEventListener('change', function() {
+          if (this.value === 'ru') {
+            localStorage.setItem('user_lang', 'ru');
+            window.location.href = '../ru/duration/agecalculator.html';
+          } else if (this.value === 'ja') {
+            localStorage.setItem('user_lang', 'ja');
+            window.location.href = '../ja/duration/agecalculator.html';
+          }
+        });
+      }
 
       const inputs = { dob: document.getElementById('dob'), now: document.getElementById('now') };
       const res = {

@@ -1,0 +1,1833 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      localStorage.setItem('user_lang', 'ja');
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SIP 計算ツール | 積立投資・つみたてNISA複利シミュレーター</title>
+  <meta name="description"
+    content="無料のオンラインSIP（積立投資）計算ツール。毎月の積立額、期待リターン、期間から投資信託の将来価値をシミュレーションします。ステップアップ（毎年増額）やインフレ調整、目標金額達成シミュレーションにも対応。">
+  <meta name="keywords"
+    content="SIP 計算, 積立投資 計算, つみたてNISA シミュレーション, 投資信託 積立, 複利効果 計算, ドルコスト平均法, 利回り シミュレーター">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <link rel="icon" type="image/webp" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/ja/sipcalculator.html">
+
+  <meta property="og:title" content="SIP 計算ツール | 積立投資・つみたてNISA複利シミュレーター">
+  <meta property="og:description"
+    content="毎月の積立額と期待利回りから将来の資産形成額を簡単計算。ステップアップ機能やインフレ調整、リアルタイムチャート完備。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/ja/sipcalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SIP 計算ツール | 積立投資・つみたてNISA複利シミュレーター">
+  <meta name="twitter:description"
+    content="無料のオンライン積立投資（SIP）複利シミュレーター。目標額から必要な積立額の逆算も可能。">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SIP 計算ツール (積立投資シミュレーター)",
+      "url": "https://instacalc.in/ja/sipcalculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "毎月の積立投資額、複利利回り、目標金額から将来の資産価値を予測する高度なシミュレーター。",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "積立投資（SIP）のリターンは保証されていますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "いいえ、投資信託や株式による積立リターンは市場の値動きに連動するため、保証されていません。このツールは、入力された期待リターン（年利）に基づいた数理的なシミュレーション結果を表示します。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "ステップアップ積立とは何ですか？なぜ効果的なのですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ステップアップ積立とは、収入の増加に合わせて毎年積立額を一定の割合（例：毎年5%増）で増やしていく投資方法です。初期の積立額が少なくても、後半に向けて積立額が増えるため、複利効果と相まって目標資産額に早く到達しやすくなります。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "インフレ調整後の将来資産とは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "将来受け取る目標金額が、物価上昇（インフレ）によって現在のどれくらいの価値（購買力）に相当するかを調整した数値です。インフレ率を考慮することで、より現実的なマネープランを立てることができます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "ドルコスト平均法とは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "定期的に一定金額で同じ投資商品を購入し続ける手法です。価格が高いときは少なく、安いときは多く購入するため、平均購入単価を抑える効果があります。積立投資（SIP）の基本となる考え方です。"
+          }
+        }
+      ]
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", "Hiragino Sans", "Meiryo", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .content-card h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+      color: var(--accent-strong);
+      margin-top: 1.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .content-card h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-top: 1.2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+
+    .content-card ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-soft);
+    }
+
+    .content-card li {
+      margin-bottom: 0.4rem;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+
+    .calculator-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .advanced-only-section {
+      display: none;
+      border-top: 1px dashed var(--line);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      gap: 0.7rem;
+    }
+
+    .advanced-only {
+      display: none;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only-section {
+      display: grid;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only {
+      display: block;
+    }
+
+    .calculator-shell.advanced-mode .result-card.advanced-only {
+      display: block;
+    }
+
+    #toggleViewBtn.active {
+      background: var(--accent-strong);
+      color: #fff;
+    }
+
+    .lang-switch {
+      margin-left: auto;
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    .lang-switch select {
+      min-height: 36px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      background: #ffffff;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .lang-switch select:focus {
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc ホーム">
+        <img src="../logo.png" alt="InstaCalc ロゴ">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="言語選択">
+          <option value="en">English</option>
+          <option value="ja" selected>日本語</option>
+          <option value="ru">Русский</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="メニューを開閉" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-chart-line"></i>
+            資産運用計画プランナー
+          </span>
+          <h1>SIP 計算ツール — 積立投資・つみたてNISAの複利効果シミュレーション</h1>
+          <p>無料のオンライン積立投資（SIP）計算シミュレーターです。毎月の積立額、想定利回り（期待リターン）、期間を入力するだけで、将来価値や運用利益を瞬時に計算し、効率的な資産形成プランをサポートします。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#sip-planner">
+              <i class="fas fa-calculator"></i>
+              シミュレーションを開始
+            </a>
+            <a class="btn btn-ghost" href="sipcalculatorlumpsump.html">
+              <i class="fas fa-arrow-right-arrow-left"></i>
+              一括投資計算へ切り替え
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h2>高度なシミュレーター機能</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 毎年の増額（ステップアップ積立）に対応</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> インフレによる購買力低下を反映可能</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 目標金額（3000万円・5000万円等）までの達成度を表示</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 必要積立額の逆算シミュレーション</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 年次推移テーブルの表示とCSVダウンロード</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="sip-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="計算モード">
+              <a href="sipcalculator.html" class="active">毎月積立 (SIP)</a>
+              <a href="sipcalculatorlumpsump.html">一括投資</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>詳細設定モード: オフ</span>
+            </button>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="sipAmount">毎月の積立金額</label>
+                <span id="sipAmountPreview">25,000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="sipAmountRange" min="500" max="500000" step="500" value="25000">
+                <input type="number" id="sipAmount" min="500" max="500000" step="500" value="25000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="returnRate">期待利回り（想定年利）</label>
+                <span id="returnRatePreview">12.0%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="returnRateRange" min="1" max="30" step="0.1" value="12">
+                <input type="number" id="returnRate" min="1" max="30" step="0.1" value="12">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="years">積立期間（年数）</label>
+                <span id="yearsPreview">10</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="yearsRange" min="1" max="50" step="1" value="10">
+                <input type="number" id="years" min="1" max="50" step="1" value="10">
+              </div>
+            </div>
+          </div>
+
+          <div class="advanced-only-section">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="stepUp">毎年の増額率（ステップアップ％）</label>
+                <span id="stepUpPreview">5.0%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="stepUpRange" min="0" max="50" step="0.5" value="5">
+                <input type="number" id="stepUp" min="0" max="50" step="0.5" value="5">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="inflation">想定インフレ率（年利％）</label>
+                <span id="inflationPreview">6.0%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="inflationRange" min="0" max="15" step="0.1" value="6">
+                <input type="number" id="inflation" min="0" max="15" step="0.1" value="6">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="sipTiming">積立タイミング</label>
+              </div>
+              <select id="sipTiming">
+                <option value="start">月初（期首払い）</option>
+                <option value="end">月末（期末払い）</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="inline-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="targetCorpus">目標金額（逆算用）</label>
+              </div>
+              <input type="number" id="targetCorpus" min="0" step="10000" value="5000000">
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button id="recalculateBtn" class="btn btn-primary" type="button">再計算</button>
+            <button id="resetBtn" class="btn btn-ghost" type="button">初期値に戻す</button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <h3>総投資額（元本）</h3>
+              <div id="investedValue" class="result-value">-</div>
+            </div>
+            <div class="result-card">
+              <h3>期待運用益</h3>
+              <div id="returnsValue" class="result-value">-</div>
+            </div>
+            <div class="result-card positive">
+              <h3>想定資産総額</h3>
+              <div id="corpusValue" class="result-value">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>インフレ調整後価値</h3>
+              <div id="inflationAdjustedValue" class="result-value">-</div>
+            </div>
+            <div class="result-card">
+              <h3>目標達成に必要な毎月積立額</h3>
+              <div id="requiredSipValue" class="result-value">-</div>
+            </div>
+            <div class="result-card">
+              <h3>満期時期（目安）</h3>
+              <div id="maturityLabel" class="result-value">-</div>
+            </div>
+          </div>
+
+          <div class="goal-status">
+            <div class="goal-meta">
+              <span id="goalStatusText">目標金額までの達成状況</span>
+              <span id="goalPercentText">0%</span>
+            </div>
+            <div class="goal-progress">
+              <div id="goalProgressBar" class="goal-progress-bar"></div>
+            </div>
+          </div>
+
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h3>資産推移グラフ</h3>
+              <div class="chart-wrap">
+                <canvas id="growthChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card">
+              <h3>資産の内訳（割合）</h3>
+              <div class="chart-wrap small">
+                <canvas id="splitChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools">
+            <h3>年次の試算推移</h3>
+            <button id="downloadCsvBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-file-csv"></i> CSVを保存
+            </button>
+          </div>
+
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>経過年数</th>
+                  <th>毎月積立額（年末時点）</th>
+                  <th>投資累計額</th>
+                  <th>運用益の累計</th>
+                  <th>想定資産総額</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="calculator-actions" style="margin-top: 0.5rem;">
+            <button id="copySummaryBtn" class="btn btn-ghost" type="button">
+              <i class="fas fa-copy"></i> サマリーをコピー
+            </button>
+          </div>
+        </div>
+
+        <aside class="sidebar-card">
+          <h3>他の金融計算ツール</h3>
+          <div class="link-list">
+            <a href="sipcalculatorlumpsump.html">一括投資リターン計算</a>
+            <a href="mutualfundreturncalculator.html">投資信託XIRR利回り計算</a>
+            <a href="cagrcalculator.html">年平均成長率（CAGR）計算</a>
+            <a href="compoundinterest.html">複利計算シミュレーター</a>
+            <a href="simpleinterestcalculator.html">単利計算ツール</a>
+            <a href="emicalculator.html">住宅ローン・EMI計算</a>
+            <a href="retirementcalculator.html">老後資金シミュレーター</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <article class="content-card">
+          <h2>積立投資（SIP）計算ツールで将来価値を可視化するメリット</h2>
+          <p>
+            投資や将来設計において、<strong>「毎月の積立が将来いくらになるのか」</strong>を把握することは最初の重要なステップです。
+            当ツールは、日本の「つみたてNISA」や個人型確定拠出年金（iDeCo）、投資信託・株式の一括・積立投資などのシミュレーションに幅広く利用できるよう設計されています。
+          </p>
+
+          <h3>1. 複利効果の驚異的なパワー</h3>
+          <p>
+            アインシュタインが「宇宙最強の力」と呼んだのが<strong>「複利効果」</strong>です。運用で得た利益（利息や分配金）を元本に再投資することで、利益がさらに利益を生み出します。
+            長期運用になればなるほど、資産価値は二次関数的に急カーブを描いて増加します。当シミュレーターの「資産推移グラフ」で、その増え方をぜひ視覚的に体験してください。
+          </p>
+
+          <h3>2. ドルコスト平均法によるリスク分散</h3>
+          <p>
+            毎月定額をコツコツ買い続ける積立手法（インド等ではSIP＝Systematic Investment Planと呼ばれます）は、<strong>ドルコスト平均法</strong>に基づいています。
+            価格が高い時期には少なく、安い時期には多くの口数を自動的に買い増すことになるため、時間の経過とともに平均購入コストが平準化され、一度に大金をつぎ込む一括投資に比べて価格変動リスクを抑えることができます。
+          </p>
+
+          <h3>3. ステップアップ積立とインフレの影響</h3>
+          <p>
+            詳細設定モードでは、通常のシミュレーターにはない以下の2つの重要なファクターをシミュレートできます：
+          </p>
+          <ul>
+            <li><strong>ステップアップ（毎年の増額）：</strong> 昇給やライフスタイルの変化に合わせて、毎年積立額を増額（例：年利5%や10%のペースで増額）する計画が立てられます。これにより、最終的な受取額が爆発的に向上します。</li>
+            <li><strong>インフレ率の影響：</strong> 長期投資においては、物価の上昇（インフレ）によってお金の価値が下がります。本ツールは将来の受取想定額を現在の購買力に引き直して計算するため、現実的な将来設計（実質的な購買力の把握）が可能です。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in — 投資、教育、日常のあらゆるお金の計算をスマートに行える無料の計算プラットフォーム。</p>
+      <div class="footer-links">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </div>
+      <p
+        style="font-size: 0.75rem; color: var(--text-soft); max-width: 800px; line-height: 1.4; opacity: 0.8; margin-top: 0.5rem;">
+        <strong>免責事項：</strong> 当ツールで提供されるすべてのシミュレーション結果およびグラフは、ユーザーが入力した前提条件に基づく純粋な数学的計算結果です。これらは将来の運用成果を保証するものではなく、また金融商品の推奨やアドバイスを構成するものではありません。実際の投資判断にあたっては自己責任にてお願いいたします。
+      </p>
+    </div>
+  </footer>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="ページトップへ戻る">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        sipAmount: 25000,
+        returnRate: 12,
+        years: 10,
+        stepUp: 5,
+        inflation: 6,
+        targetCorpus: 5000000,
+        sipTiming: "start"
+      };
+
+      const nfCurrency = { format: (v) => "¥" + Math.round(v).toLocaleString('ja-JP') };
+      const nfNumber = { format: (v) => Math.round(v).toLocaleString('ja-JP') };
+
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        sipAmount: document.getElementById("sipAmount"),
+        sipAmountRange: document.getElementById("sipAmountRange"),
+        returnRate: document.getElementById("returnRate"),
+        returnRateRange: document.getElementById("returnRateRange"),
+        years: document.getElementById("years"),
+        yearsRange: document.getElementById("yearsRange"),
+        stepUp: document.getElementById("stepUp"),
+        stepUpRange: document.getElementById("stepUpRange"),
+        inflation: document.getElementById("inflation"),
+        inflationRange: document.getElementById("inflationRange"),
+        targetCorpus: document.getElementById("targetCorpus"),
+        sipTiming: document.getElementById("sipTiming"),
+        sipAmountPreview: document.getElementById("sipAmountPreview"),
+        returnRatePreview: document.getElementById("returnRatePreview"),
+        yearsPreview: document.getElementById("yearsPreview"),
+        investedValue: document.getElementById("investedValue"),
+        returnsValue: document.getElementById("returnsValue"),
+        corpusValue: document.getElementById("corpusValue"),
+        inflationAdjustedValue: document.getElementById("inflationAdjustedValue"),
+        requiredSipValue: document.getElementById("requiredSipValue"),
+        maturityLabel: document.getElementById("maturityLabel"),
+        goalStatusText: document.getElementById("goalStatusText"),
+        goalPercentText: document.getElementById("goalPercentText"),
+        goalProgressBar: document.getElementById("goalProgressBar"),
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        growthChart: document.getElementById("growthChart"),
+        splitChart: document.getElementById("splitChart")
+      };
+
+      let growthChartInstance = null;
+      let splitChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) {
+          return;
+        }
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 940) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+      }
+
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) {
+          return;
+        }
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function roundToStep(value, step) {
+        if (!step || step <= 0) {
+          return value;
+        }
+        return Math.round(value / step) * step;
+      }
+
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) {
+          return;
+        }
+        const min = parseFloat(rangeEl.min || "0");
+        const max = parseFloat(rangeEl.max || "100");
+        const step = parseFloat(rangeEl.step || "1");
+
+        function normalize(value) {
+          const numeric = parseNumeric(value, parseFloat(rangeEl.value));
+          const stepped = roundToStep(numeric, step);
+          return clamp(stepped, min, max);
+        }
+
+        rangeEl.addEventListener("input", function () {
+          numberEl.value = rangeEl.value;
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("input", function () {
+          if (numberEl.value === "") {
+            return;
+          }
+          const normalized = normalize(numberEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("blur", function () {
+          const normalized = normalize(numberEl.value || rangeEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+      }
+
+      function formatCurrencyWithUnits(value) {
+        return nfCurrency.format(value);
+      }
+
+      function compactCurrency(value) {
+        if (value >= 100000000) {
+          return (value / 100000000).toFixed(1) + "億円";
+        }
+        if (value >= 10000) {
+          return (value / 10000).toFixed(0) + "万円";
+        }
+        return nfNumber.format(value) + "円";
+      }
+
+      function getInputs() {
+        return {
+          sipAmount: parseNumeric(elements.sipAmount.value, defaults.sipAmount),
+          returnRate: parseNumeric(elements.returnRate.value, defaults.returnRate),
+          years: parseNumeric(elements.years.value, defaults.years),
+          stepUp: parseNumeric(elements.stepUp.value, defaults.stepUp),
+          inflation: parseNumeric(elements.inflation.value, defaults.inflation),
+          targetCorpus: parseNumeric(elements.targetCorpus.value, 0),
+          sipTiming: elements.sipTiming.value === "end" ? "end" : "start"
+        };
+      }
+
+      function simulateSIP(initialMonthlySip, params) {
+        const months = Math.round(params.years * 12);
+        const monthlyRate = params.returnRate / 1200;
+        let currentMonthlySip = initialMonthlySip;
+        let invested = 0;
+        let corpus = 0;
+        const projection = [];
+
+        for (let month = 1; month <= months; month += 1) {
+          if (params.stepUp > 0 && month > 1 && (month - 1) % 12 === 0) {
+            currentMonthlySip *= (1 + params.stepUp / 100);
+          }
+
+          if (params.sipTiming === "start") {
+            corpus += currentMonthlySip;
+            invested += currentMonthlySip;
+            corpus *= (1 + monthlyRate);
+          } else {
+            corpus *= (1 + monthlyRate);
+            corpus += currentMonthlySip;
+            invested += currentMonthlySip;
+          }
+
+          if (month % 12 === 0) {
+            projection.push({
+              year: month / 12,
+              monthlySipAtYearEnd: currentMonthlySip,
+              invested: invested,
+              corpus: corpus,
+              gains: corpus - invested
+            });
+          }
+        }
+
+        return {
+          months: months,
+          invested: invested,
+          corpus: corpus,
+          gains: corpus - invested,
+          projection: projection
+        };
+      }
+
+      function estimateRequiredSip(targetCorpus, params) {
+        if (!Number.isFinite(targetCorpus) || targetCorpus <= 0) {
+          return null;
+        }
+
+        const simulationParams = {
+          returnRate: params.returnRate,
+          years: params.years,
+          stepUp: params.stepUp,
+          sipTiming: params.sipTiming
+        };
+
+        function corpusForSip(sip) {
+          return simulateSIP(sip, simulationParams).corpus;
+        }
+
+        let low = 0;
+        let high = Math.max(1000, params.sipAmount);
+        let guard = 0;
+
+        while (corpusForSip(high) < targetCorpus && high < 100000000) {
+          high *= 2;
+          guard += 1;
+          if (guard > 32) {
+            break;
+          }
+        }
+
+        if (corpusForSip(high) < targetCorpus) {
+          return null;
+        }
+
+        for (let i = 0; i < 60; i += 1) {
+          const mid = (low + high) / 2;
+          if (corpusForSip(mid) >= targetCorpus) {
+            high = mid;
+          } else {
+            low = mid;
+          }
+        }
+        return high;
+      }
+
+      function renderProjectionTable(projection) {
+        if (!elements.projectionTableBody) {
+          return;
+        }
+        elements.projectionTableBody.innerHTML = projection.map(function (row) {
+          return (
+            "<tr>" +
+            "<td>" + row.year + "年目</td>" +
+            "<td>" + formatCurrencyWithUnits(row.monthlySipAtYearEnd) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.invested) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.gains) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.corpus) + "</td>" +
+            "</tr>"
+          );
+        }).join("");
+      }
+
+      function renderCharts(projection, invested, gains) {
+        if (!window.Chart || !elements.growthChart || !elements.splitChart) {
+          return;
+        }
+
+        const labels = projection.map(function (row) {
+          return row.year + "年目";
+        });
+        const corpusData = projection.map(function (row) { return row.corpus; });
+        const investedData = projection.map(function (row) { return row.invested; });
+
+        if (growthChartInstance) {
+          growthChartInstance.destroy();
+        }
+        growthChartInstance = new Chart(elements.growthChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "想定資産総額",
+                data: corpusData,
+                borderColor: "#007f8b",
+                backgroundColor: "rgba(0, 127, 139, 0.16)",
+                fill: true,
+                tension: 0.18,
+                pointRadius: 2
+              },
+              {
+                label: "投資元本",
+                data: investedData,
+                borderColor: "#ee9f2e",
+                backgroundColor: "rgba(238, 159, 46, 0.16)",
+                fill: false,
+                tension: 0.12,
+                pointRadius: 2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "top" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.dataset.label + ": " + formatCurrencyWithUnits(context.parsed.y);
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function (value) {
+                    return compactCurrency(value);
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        if (splitChartInstance) {
+          splitChartInstance.destroy();
+        }
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["投資元本", "期待運用益"],
+            datasets: [
+              {
+                data: [Math.max(invested, 0), Math.max(gains, 0)],
+                backgroundColor: ["#007f8b", "#1f9f67"],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.label + ": " + formatCurrencyWithUnits(context.parsed);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      function updatePreviewLabels(inputs) {
+        elements.sipAmountPreview.textContent = nfNumber.format(inputs.sipAmount);
+        elements.returnRatePreview.textContent = inputs.returnRate.toFixed(1) + "%";
+        elements.yearsPreview.textContent = String(Math.round(inputs.years));
+      }
+
+      function calculateAndRender() {
+        const inputs = getInputs();
+        updatePreviewLabels(inputs);
+
+        const result = simulateSIP(inputs.sipAmount, inputs);
+        const inflationFactor = Math.pow(1 + (inputs.inflation / 100), inputs.years);
+        const inflationAdjusted = inflationFactor > 0 ? result.corpus / inflationFactor : result.corpus;
+        const requiredSip = estimateRequiredSip(inputs.targetCorpus, inputs);
+
+        const now = new Date();
+        const maturityDate = new Date(now.getFullYear(), now.getMonth() + result.months, 1);
+        const maturityText = maturityDate.toLocaleDateString("ja-JP", { month: "short", year: "numeric" });
+
+        elements.investedValue.textContent = formatCurrencyWithUnits(result.invested);
+        elements.returnsValue.textContent = formatCurrencyWithUnits(result.gains);
+        elements.corpusValue.textContent = formatCurrencyWithUnits(result.corpus);
+        elements.inflationAdjustedValue.textContent = formatCurrencyWithUnits(inflationAdjusted);
+        elements.requiredSipValue.textContent = requiredSip ? formatCurrencyWithUnits(requiredSip) : "目標金額を設定してください";
+        elements.maturityLabel.textContent = maturityText;
+
+        const hasGoal = inputs.targetCorpus > 0;
+        const progressPercent = hasGoal ? (result.corpus / inputs.targetCorpus) * 100 : 0;
+        const clampedProgress = Math.max(0, Math.min(progressPercent, 100));
+
+        if (hasGoal) {
+          elements.goalStatusText.textContent = progressPercent >= 100
+            ? "現在の前提条件で目標金額に到達しました。"
+            : "現在のプランで目標額の " + progressPercent.toFixed(1) + "% に達します。";
+          elements.goalPercentText.textContent = progressPercent.toFixed(1) + "%";
+          elements.goalProgressBar.style.width = clampedProgress.toFixed(2) + "%";
+          elements.goalProgressBar.style.background = progressPercent >= 100
+            ? "linear-gradient(110deg, #1f9f67, #1cb67a)"
+            : "linear-gradient(110deg, var(--accent), #00a1b2)";
+        } else {
+          elements.goalStatusText.textContent = "目標金額を設定すると進捗が表示されます。";
+          elements.goalPercentText.textContent = "0%";
+          elements.goalProgressBar.style.width = "0%";
+          elements.goalProgressBar.style.background = "linear-gradient(110deg, var(--accent), #00a1b2)";
+        }
+
+        lastProjection = result.projection.slice();
+        renderProjectionTable(result.projection);
+        renderCharts(result.projection, result.invested, result.gains);
+
+        lastSummaryText =
+          "【SIP積立投資シミュレーション結果】" + "\n" +
+          "毎月の積立額: " + formatCurrencyWithUnits(inputs.sipAmount) + "\n" +
+          "期待利回り: " + inputs.returnRate.toFixed(2) + "%（年利）" + "\n" +
+          "積立期間: " + Math.round(inputs.years) + "年" + "\n" +
+          "毎年の増額率: " + inputs.stepUp.toFixed(2) + "%" + "\n" +
+          "投資元本の累計: " + formatCurrencyWithUnits(result.invested) + "\n" +
+          "期待運用利益: " + formatCurrencyWithUnits(result.gains) + "\n" +
+          "想定資産総額: " + formatCurrencyWithUnits(result.corpus) + "\n" +
+          "インフレ調整後の実質価値: " + formatCurrencyWithUnits(inflationAdjusted) + "\n" +
+          "目標達成に必要な毎月積立額: " + (requiredSip ? formatCurrencyWithUnits(requiredSip) : "N/A");
+      }
+
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) {
+          return;
+        }
+        const headers = ["経過年数", "毎月積立額（年末時点）", "投資元本累計", "期待運用利益累計", "想定資産総額"];
+        const rows = lastProjection.map(function (row) {
+          return [
+            row.year + "年目",
+            Math.round(row.monthlySipAtYearEnd),
+            Math.round(row.invested),
+            Math.round(row.gains),
+            Math.round(row.corpus)
+          ].join(",");
+        });
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csv], { type: "text/csv;charset=utf-8;" }); // BOM for Excel JP
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "sip-simulation-projection.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function resetToDefaults() {
+        elements.sipAmount.value = defaults.sipAmount;
+        elements.sipAmountRange.value = defaults.sipAmount;
+        elements.returnRate.value = defaults.returnRate;
+        elements.returnRateRange.value = defaults.returnRate;
+        elements.years.value = defaults.years;
+        elements.yearsRange.value = defaults.years;
+        elements.stepUp.value = defaults.stepUp;
+        elements.stepUpRange.value = defaults.stepUp;
+        elements.inflation.value = defaults.inflation;
+        elements.inflationRange.value = defaults.inflation;
+        elements.targetCorpus.value = defaults.targetCorpus;
+        elements.sipTiming.value = defaults.sipTiming;
+        calculateAndRender();
+      }
+
+      function wireEvents() {
+        syncPair(elements.sipAmountRange, elements.sipAmount);
+        syncPair(elements.returnRateRange, elements.returnRate);
+        syncPair(elements.yearsRange, elements.years);
+        syncPair(elements.stepUpRange, elements.stepUp);
+        syncPair(elements.inflationRange, elements.inflation);
+
+        elements.targetCorpus.addEventListener("input", calculateAndRender);
+        elements.sipTiming.addEventListener("change", calculateAndRender);
+        elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        elements.resetBtn.addEventListener("click", resetToDefaults);
+        elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        elements.toggleViewBtn.addEventListener("click", function () {
+          const shell = document.querySelector(".calculator-shell");
+          const isAdvanced = shell.classList.toggle("advanced-mode");
+          elements.toggleViewBtn.classList.toggle("active", isAdvanced);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvanced ? "詳細設定モード: オン" : "詳細設定モード: オフ";
+        });
+
+        elements.copySummaryBtn.addEventListener("click", function () {
+          if (!navigator.clipboard || !lastSummaryText) {
+            return;
+          }
+          navigator.clipboard.writeText(lastSummaryText).then(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> コピーしました';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> サマリーをコピー';
+            }, 1300);
+          }).catch(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> コピー失敗';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> サマリーをコピー';
+            }, 1300);
+          });
+        });
+      }
+
+      // Language switch dropdown handler
+      const langSelect = document.getElementById('langSelect');
+      if (langSelect) {
+        langSelect.value = 'ja';
+        langSelect.addEventListener('change', function() {
+          if (this.value === 'en') {
+            localStorage.setItem('user_lang', 'en');
+            window.location.href = '../sipcalculator.html';
+          } else if (this.value === 'ru') {
+            localStorage.setItem('user_lang', 'ru');
+            window.location.href = '../ru/sipcalculator.html';
+          }
+        });
+      }
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      calculateAndRender();
+    })();
+  </script>
+</body>
+
+</html>

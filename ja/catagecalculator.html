@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      localStorage.setItem('user_lang', 'ja');
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>猫の年齢計算ツール | 猫の年齢を人間の年齢に換算シミュレーター</title>
+  <meta name="description"
+    content="愛猫の年齢を瞬時に人間の年齢に換算。獣医師が推奨するライフステージ分類（子猫から高齢期まで）や分かりやすい年別換算表、成長推移グラフを表示。">
+  <meta name="keywords"
+    content="猫 年齢 計算, 猫 人間 年齢 換算, キャットエイジ 計算, 猫 寿命 換算, 猫 ライフステージ">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/ja/catagecalculator.html">
+
+  <meta property="og:title" content="猫の年齢計算ツール | 猫の年齢を人間の年齢に換算シミュレーター">
+  <meta property="og:description"
+    content="愛猫の年齢を人間の年齢に換算。成長スピードに合わせたライフステージ判定や、分かりやすいグラフ・比較表で解説します。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/ja/catagecalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="猫の年齢計算ツール | 猫の年齢を人間の年齢に換算シミュレーター">
+  <meta name="twitter:description"
+    content="愛猫の年齢を人間の年齢に換算。成長スピードに合わせたライフステージ判定や、分かりやすいグラフ・比較表で解説します。">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "猫の年齢はどのように人間に換算されますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "最も一般的な換算方法は以下の通りです：最初の1年で人間の15歳程度まで成長し、2年目でさらに9歳分成長して24歳になります。その後は1年ごとに人間の4歳分ずつ歳をとる計算になります。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "なぜ「猫の1年は人間の7年」というルールは正しくないのですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "猫は生後2年間で急速に肉体的・精神的に成熟するためです。単純に1年に7を掛ける方法では、幼少期や成猫期の年齢を正確に表現できません。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "室内飼いと外飼いの猫で老化のスピードは変わりますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "はい、変わります。一般的に室内飼いの猫の方が健康管理が行き届きやすく、事故や感染症のリスクが極めて低いため寿命が長く、老化も穏やかになります。換算結果はあくまで一般的な目安としてお考えください。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "猫は何歳から高齢期（シニア）と見なされますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "多くの獣医師や専門家は、猫が11歳（人間換算で60歳相当）を超えると高齢期（シニア）に入ると見なします。個体差や品種によって健康状態は異なります。"
+          }
+        }
+      ]
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", "Hiragino Sans", "Meiryo", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .lang-switch {
+      margin-left: auto;
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    .lang-switch select {
+      min-height: 36px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      background: #ffffff;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .lang-switch select:focus {
+      border-color: var(--accent);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+
+    /* Simple vs Advanced Toggle Styles */
+    .calculator-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .advanced-only-section {
+      display: none;
+      border-top: 1px dashed var(--line);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      gap: 0.7rem;
+    }
+
+    .advanced-only {
+      display: none;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only-section {
+      display: grid;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only {
+      display: block;
+    }
+
+    .calculator-shell.advanced-mode .result-card.advanced-only {
+      display: block;
+    }
+
+    #toggleViewBtn.active {
+      background: var(--accent-strong);
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc ホーム">
+        <img src="../logo.png" alt="InstaCalc ロゴ">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="言語選択">
+          <option value="en">English</option>
+          <option value="ja" selected>日本語</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="メニュー開閉" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-cat"></i>
+            ペット年齢換算ツール
+          </span>
+          <h1>猫の年齢計算シミュレーター</h1>
+          <p>愛猫のライフステージを人間の年齢に換算します。ライフステージ分類、年別の詳細比較テーブル、成長曲線のグラフを一目で確認できます。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#cat-age-planner">
+              <i class="fas fa-calculator"></i>
+              猫の年齢を計算する
+            </a>
+            <a class="btn btn-ghost" href="duration/agecalculator.html">
+              <i class="fas fa-user-clock"></i>
+              人間の年齢計算ツール
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h2>確認できる項目</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 猫の年齢から人間の年齢への換算</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 現在のライフステージ判定</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 年別対応表の出力</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 年齢換算の成長推移グラフ</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 結果サマリーコピー＆CSV保存</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="cat-age-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="計算モード">
+              <a href="catagecalculator.html" class="active">猫の年齢 → 人間の年齢</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>詳細モード: オフ</span>
+            </button>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="catAge">猫の年齢 (歳)</label>
+                <span id="catAgePreview">5.0</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="catAgeRange" min="0.1" max="30" step="0.1" value="5">
+                <input type="number" id="catAge" min="0.1" max="30" step="0.1" value="5">
+              </div>
+            </div>
+
+            <div class="advanced-only-section" id="advancedFields">
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="roundingMode">結果の表示形式</label>
+                  </div>
+                  <select id="roundingMode">
+                    <option value="one">小数点第1位まで表示</option>
+                    <option value="whole">四捨五入して整数表示</option>
+                  </select>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="lifeExpectancy">予想される寿命 (年)</label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="lifeExpectancyRange" min="12" max="25" step="1" value="15">
+                    <input type="number" id="lifeExpectancy" min="12" max="25" step="1" value="15">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i>
+              再計算する
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i>
+              初期設定に戻す
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i>
+              結果をコピー
+            </button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card positive">
+              <h3>人間に換算した年齢</h3>
+              <div class="result-value" id="humanEquivalentValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>ライフステージ</h3>
+              <div class="result-value" id="lifeStageValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>次の節目</h3>
+              <div class="result-value" id="nextMilestoneValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>現在の寿命消費率</h3>
+              <div class="result-value" id="lifeProgressValue">-</div>
+            </div>
+          </div>
+
+          <div class="goal-status advanced-only">
+            <div class="goal-meta">
+              <span id="goalStatusText">予想寿命（15年）に対する進捗割合</span>
+              <strong id="goalPercentText">0%</strong>
+            </div>
+            <div class="goal-progress">
+              <div class="goal-progress-bar" id="goalProgressBar"></div>
+            </div>
+          </div>
+
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h3>猫の年齢と人間の年齢の成長推移</h3>
+              <div class="chart-wrap">
+                <canvas id="growthChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools">
+            <h3>年別・年齢換算一覧表</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
+              <i class="fas fa-file-csv"></i>
+              CSVをダウンロード
+            </button>
+          </div>
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>猫の年齢 (歳)</th>
+                  <th>人間の年齢相当</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>計算モデルの解説</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i> 猫の最初の1年は、人間の約15年に相当します。</li>
+              <li><i class="fas fa-circle-info"></i> 2年目で人間の約9年分にあたる成長を遂げ、計24歳になります。</li>
+              <li><i class="fas fa-circle-info"></i> 3年目以降は、猫の1年が人間の約4年分としてカウントされます。</li>
+              <li><i class="fas fa-circle-info"></i> 本計算は一般的な目安であり、獣医学的な個別診断に代わるものではありません。</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>関連する便利ツール</h3>
+            <ul class="link-list">
+              <li><a href="duration/agecalculator.html"><span>年齢計算ツール</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="duration/birthdaycalculator.html"><span>誕生日計算ツール</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="duration/weekcalculator.html"><span>週数・カレンダー計算</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="duration/timedurationcalculator.html"><span>期間・時間計算</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="index.html"><span>すべての計算ツール</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>猫の年齢を人間の年齢に換算する計算式</h2>
+          <p>本ツールは広く用いられている以下の算定モデルに基づいています：生後1年＝15歳、2年目＝24歳に到達。それ以降（3歳以降）は毎年人間の4歳分が追加されます。</p>
+          <br>
+          <p>計算式（3歳以上の場合）：<br><code>人間年齢 = 24 + (猫の年齢 - 2) × 4</code></p>
+          <br>
+          <p>猫の成長スピードは初期に急激で、その後緩やかになります。毎日の健康管理やシニア期の食事設計などに、換算年齢をご参考ください。</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>猫の年齢は人間の何歳に相当しますか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>1歳の猫は人間の高校生（15歳相当）、2歳で社会人なりたて（24歳相当）になります。それ以降は、猫の1年ごとに人間の4歳ずつ歳をとっていきます。</p>
+          </details>
+          <details class="faq-card">
+            <summary>「猫の1年は人間の7年」という噂は本当ですか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>いいえ、正確ではありません。猫は最初の2年間で非常に速く成熟するため、単純に7を掛ける方法では実情に合いません。</p>
+          </details>
+          <details class="faq-card">
+            <summary>何歳からが高齢猫（シニア）ですか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>一般的に11歳頃（人間でいう60歳前後に相当）から高齢期（シニア）と見なされます。この時期から健康状態に応じたフードへの切り替えや定期健診が推奨されます。</p>
+          </details>
+          <details class="faq-card">
+            <summary>室内飼育の猫は寿命が延びますか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>はい。交通事故や感染症のリスクが著しく低いため、室内飼育の猫は外飼いの猫に比べて平均寿命がはるかに長くなります。</p>
+          </details>
+          <details class="faq-card">
+            <summary>1歳未満の子猫でも計算できますか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>はい。本ツールは生後数か月などの小数での入力（例：生後6か月なら 0.5 歳）に対応しており、急速な成長期に応じた換算を行います。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in — 毎日の暮らしに役立つ、簡単で正確な計算ツールコレクション。</p>
+      <div class="footer-links">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </div>
+      <p
+        style="font-size: 0.75rem; color: var(--text-soft); max-width: 800px; line-height: 1.4; opacity: 0.8; margin-top: 0.5rem;">
+        <strong>免責事項：</strong> 本ツールは一般的な年齢換算モデルに基づく参考数値を提示するものです。猫の実際の健康状態や老化度には個体差があります。健康上のご懸念がある場合は、必ずかかりつけの獣医師にご相談ください。
+      </p>
+    </div>
+  </footer>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="ページトップに戻る">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        catAge: 5,
+        lifeExpectancy: 15,
+        roundingMode: "one"
+      };
+
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        catAge: document.getElementById("catAge"),
+        catAgeRange: document.getElementById("catAgeRange"),
+        lifeExpectancy: document.getElementById("lifeExpectancy"),
+        lifeExpectancyRange: document.getElementById("lifeExpectancyRange"),
+        roundingMode: document.getElementById("roundingMode"),
+        catAgePreview: document.getElementById("catAgePreview"),
+        humanEquivalentValue: document.getElementById("humanEquivalentValue"),
+        lifeStageValue: document.getElementById("lifeStageValue"),
+        nextMilestoneValue: document.getElementById("nextMilestoneValue"),
+        lifeProgressValue: document.getElementById("lifeProgressValue"),
+        goalStatusText: document.getElementById("goalStatusText"),
+        goalPercentText: document.getElementById("goalPercentText"),
+        goalProgressBar: document.getElementById("goalProgressBar"),
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        growthChart: document.getElementById("growthChart")
+      };
+
+      let growthChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) {
+          return;
+        }
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+      }
+
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) {
+          return;
+        }
+        window.addEventListener("scroll", function () {
+          if (window.scrollY > 420) {
+            elements.backToTopBtn.classList.add("show");
+          } else {
+            elements.backToTopBtn.classList.remove("show");
+          }
+        });
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) {
+          return;
+        }
+        const push = function (value) {
+          rangeEl.value = value;
+          numberEl.value = value;
+          calculateAndRender();
+        };
+        rangeEl.addEventListener("input", function () {
+          push(rangeEl.value);
+        });
+        numberEl.addEventListener("input", function () {
+          push(numberEl.value);
+        });
+      }
+
+      function catToHuman(catYears) {
+        if (catYears <= 0) {
+          return 0;
+        }
+        if (catYears <= 1) {
+          return catYears * 15;
+        }
+        if (catYears <= 2) {
+          return 15 + ((catYears - 1) * 9);
+        }
+        return 24 + ((catYears - 2) * 4);
+      }
+
+      function getLifeStage(catYears) {
+        if (catYears < 1) return "子猫期 (Kitten)";
+        if (catYears < 2) return "若年期 (Junior)";
+        if (catYears < 7) return "成猫期 (Prime Adult)";
+        if (catYears < 11) return "壮年期 (Mature)";
+        if (catYears < 15) return "高齢期 (Senior)";
+        return "超高齢期 (Super Senior)";
+      }
+
+      function formatHumanAge(value, mode) {
+        if (mode === "whole") {
+          return String(Math.round(value));
+        }
+        return value.toFixed(1);
+      }
+
+      function getInputs() {
+        const catAge = Number(elements.catAge.value);
+        const lifeExpectancy = Number(elements.lifeExpectancy.value);
+        const roundingMode = elements.roundingMode.value;
+        return {
+          catAge: Number.isFinite(catAge) ? Math.min(Math.max(catAge, 0.1), 30) : defaults.catAge,
+          lifeExpectancy: Number.isFinite(lifeExpectancy) ? Math.min(Math.max(lifeExpectancy, 12), 25) : defaults.lifeExpectancy,
+          roundingMode: roundingMode === "whole" ? "whole" : "one"
+        };
+      }
+
+      function buildProjection(catAge) {
+        const maxYear = Math.max(1, Math.ceil(catAge));
+        const list = [];
+        for (let year = 1; year <= maxYear; year += 1) {
+          list.push({
+            catAge: year,
+            humanAge: catToHuman(year)
+          });
+        }
+        return list;
+      }
+
+      function renderProjectionTable(projection, roundingMode) {
+        if (!elements.projectionTableBody) {
+          return;
+        }
+        elements.projectionTableBody.innerHTML = projection.map(function (row) {
+          return (
+            "<tr>" +
+            "<td>" + row.catAge + " 歳</td>" +
+            "<td>人間の " + formatHumanAge(row.humanAge, roundingMode) + " 歳相当</td>" +
+            "</tr>"
+          );
+        }).join("");
+      }
+
+      function renderChart(projection) {
+        if (!window.Chart || !elements.growthChart) {
+          return;
+        }
+
+        const labels = projection.map(function (row) {
+          return row.catAge + " 歳";
+        });
+
+        const humanAges = projection.map(function (row) {
+          return Number(row.humanAge.toFixed(2));
+        });
+
+        if (growthChartInstance) {
+          growthChartInstance.destroy();
+        }
+
+        growthChartInstance = new Chart(elements.growthChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "人間の換算年齢 (歳)",
+                data: humanAges,
+                borderColor: "#007f8b",
+                backgroundColor: "rgba(0, 127, 139, 0.18)",
+                fill: true,
+                tension: 0.25,
+                pointRadius: 2.5
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false }
+            }
+          }
+        });
+      }
+
+      function calculateAndRender() {
+        const inputs = getInputs();
+
+        elements.catAge.value = inputs.catAge;
+        elements.catAgeRange.value = inputs.catAge;
+        elements.lifeExpectancy.value = inputs.lifeExpectancy;
+        elements.lifeExpectancyRange.value = inputs.lifeExpectancy;
+
+        const humanAge = catToHuman(inputs.catAge);
+        const lifeStage = getLifeStage(inputs.catAge);
+        const nextCatYear = Math.ceil(inputs.catAge);
+        const nextHumanAge = catToHuman(nextCatYear);
+        const progressPercent = (inputs.catAge / inputs.lifeExpectancy) * 100;
+        const clampedProgress = Math.max(0, Math.min(progressPercent, 100));
+
+        elements.catAgePreview.textContent = inputs.catAge.toFixed(1);
+        elements.humanEquivalentValue.textContent = "約 " + formatHumanAge(humanAge, inputs.roundingMode) + " 歳";
+        elements.lifeStageValue.textContent = lifeStage;
+        elements.nextMilestoneValue.textContent = "猫の年齢 " + nextCatYear + " 歳時: 人間の " + formatHumanAge(nextHumanAge, inputs.roundingMode) + " 歳相当";
+        elements.lifeProgressValue.textContent = progressPercent.toFixed(1) + "%";
+
+        elements.goalStatusText.textContent = "想定寿命 " + inputs.lifeExpectancy + " 年に対する進捗度";
+        elements.goalPercentText.textContent = progressPercent.toFixed(1) + "%";
+        elements.goalProgressBar.style.width = clampedProgress.toFixed(2) + "%";
+        elements.goalProgressBar.style.background = progressPercent >= 100
+          ? "linear-gradient(110deg, #1f9f67, #1cb67a)"
+          : "linear-gradient(110deg, var(--accent), #00a1b2)";
+
+        const projection = buildProjection(inputs.catAge);
+        lastProjection = projection.slice();
+        renderProjectionTable(projection, inputs.roundingMode);
+        renderChart(projection);
+
+        lastSummaryText =
+          "猫の年齢計算サマリー\n" +
+          "猫の年齢: " + inputs.catAge.toFixed(1) + " 歳\n" +
+          "人間に換算した年齢: 約 " + formatHumanAge(humanAge, inputs.roundingMode) + " 歳\n" +
+          "ライフステージ: " + lifeStage + "\n" +
+          "想定寿命に対する進捗: " + progressPercent.toFixed(1) + "% (想定寿命: " + inputs.lifeExpectancy + " 年)";
+      }
+
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) {
+          return;
+        }
+        const headers = ["Cat Age (years)", "Human Age Equivalent"];
+        const rows = lastProjection.map(function (row) {
+          return [row.catAge, row.humanAge.toFixed(2)].join(",");
+        });
+        // Use BOM to ensure Excel opens CSV cleanly in Japanese locale
+        const csv = "\uFEFF" + [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "cat-age-conversion.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function resetToDefaults() {
+        elements.catAge.value = defaults.catAge;
+        elements.catAgeRange.value = defaults.catAge;
+        elements.lifeExpectancy.value = defaults.lifeExpectancy;
+        elements.lifeExpectancyRange.value = defaults.lifeExpectancy;
+        elements.roundingMode.value = defaults.roundingMode;
+        calculateAndRender();
+      }
+
+      function wireEvents() {
+        syncPair(elements.catAgeRange, elements.catAge);
+        syncPair(elements.lifeExpectancyRange, elements.lifeExpectancy);
+
+        elements.roundingMode.addEventListener("change", calculateAndRender);
+        elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        elements.resetBtn.addEventListener("click", resetToDefaults);
+        elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        elements.toggleViewBtn.addEventListener("click", function () {
+          const shell = document.querySelector(".calculator-shell");
+          const isAdvanced = shell.classList.toggle("advanced-mode");
+          elements.toggleViewBtn.classList.toggle("active", isAdvanced);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvanced ? "詳細モード: オン" : "詳細モード: オフ";
+        });
+
+        elements.copySummaryBtn.addEventListener("click", function () {
+          if (!navigator.clipboard || !lastSummaryText) {
+            return;
+          }
+          navigator.clipboard.writeText(lastSummaryText).then(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> コピー完了';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> 結果をコピー';
+            }, 1300);
+          }).catch(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> コピー失敗';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> 結果をコピー';
+            }, 1300);
+          });
+        });
+
+        // Language switcher redirect
+        const langSelect = document.getElementById("langSelect");
+        if (langSelect) {
+          langSelect.addEventListener("change", function () {
+            if (this.value === "en") {
+              localStorage.setItem("user_lang", "en");
+              window.location.href = "../catagecalculator.html";
+            }
+          });
+        }
+      }
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      calculateAndRender();
+    })();
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+      authDomain: "instacalc-40640.firebaseapp.com",
+      projectId: "instacalc-40640",
+      storageBucket: "instacalc-40640.firebasestorage.app",
+      messagingSenderId: "720029503645",
+      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+      measurementId: "G-J0ZWXR3T5P"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+  </script>
+</body>
+
+</html>

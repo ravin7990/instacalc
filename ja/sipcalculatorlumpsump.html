@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      localStorage.setItem('user_lang', 'ja');
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>一括投資計算ツール | 投資信託の将来価値・複利シミュレーター</title>
+  <meta name="description"
+    content="無料のオンライン一括投資（Lumpsum）計算ツール。元本、期待リターン、期間から投資信託の一括運用における将来価値と利益額をシミュレーションします。複利周期、インフレ調整、目標金額の進捗も完備。">
+  <meta name="keywords"
+    content="一括投資 計算, 投資信託 スポット購入, 複利効果 シミュレーター, つみたてNISA 一括, 一括投資 積立投資 比較, 資産運用 利回り, 将来価値 逆算">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <link rel="icon" type="image/webp" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/ja/sipcalculatorlumpsump.html">
+
+  <meta property="og:title" content="一括投資計算ツール | 投資信託の将来価値・複利シミュレーター">
+  <meta property="og:description"
+    content="元本と期待利回りから将来の一括投資成果を簡単計算。複利周期設定、インフレ調整、リアルタイムチャート完備。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/ja/sipcalculatorlumpsump.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="一括投資計算ツール | 投資信託の将来価値・複利シミュレーター">
+  <meta name="twitter:description"
+    content="無料のオンライン一括投資（Lumpsum）複利シミュレーター。目標額から必要な一括投資元本の逆算も可能。">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "一括投資計算ツール",
+      "url": "https://instacalc.in/ja/sipcalculatorlumpsump.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "初期投資元本、複利利回り、複利周期、目標金額から将来の資産価値を予測する高度な一括投資シミュレーター。",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "一括投資（Lumpsum）とは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "毎月の積立投資（SIP）とは異なり、まとまった資金（例：50万円、100万円など）を一度に投資信託や株式などに投資する手法を指します。初期から全額に複利効果が働く点が特徴です。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "一括投資と積立投資（SIP）はどちらが良いですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "一括投資は、相場が右肩上がりで成長する局面では、初期から全額が複利で運用されるため、積立投資（SIP）よりも高いリターンを得られます。しかし、投資直後に急落した場合の精神的負担や元本割れリスクが大きいため、タイミングを見極める必要があります。手元の資金状況やリスク許容度に応じて使い分けるのが理想です。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "複利の計算周期（年、四半期、月）による違いは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "同じ年利であっても、複利を計算する周期が短いほど（例えば、年1回よりも月1回）、利息が元本に組み込まれる頻度が高くなるため、将来的な受取金額は多くなります。投資信託は一般的に日々基準価額が計算されていますが、このシミュレーターでは設定した周期に基づいた数理モデルで複利計算を行えます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "インフレ調整後の資産額とは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "インフレ率を考慮し、将来手に入るお金の「実質的な価値（購買力）」を算出する機能です。物価が上昇すると同じ金額で買えるものが少なくなる（お金の価値が下がる）ため、長期運用ではインフレを考慮することが実用的な計画立案に不可欠です。"
+          }
+        }
+      ]
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", "Hiragino Sans", "Meiryo", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .content-card h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+      color: var(--accent-strong);
+      margin-top: 1.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .content-card h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-top: 1.2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+
+    .content-card ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-soft);
+    }
+
+    .content-card li {
+      margin-bottom: 0.4rem;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+
+    .calculator-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .advanced-only-section {
+      display: none;
+      border-top: 1px dashed var(--line);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      gap: 0.7rem;
+    }
+
+    .advanced-only {
+      display: none;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only-section {
+      display: grid;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only {
+      display: block;
+    }
+
+    .calculator-shell.advanced-mode .result-card.advanced-only {
+      display: block;
+    }
+
+    #toggleViewBtn.active {
+      background: var(--accent-strong);
+      color: #fff;
+    }
+
+    .lang-switch {
+      margin-left: auto;
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    .lang-switch select {
+      min-height: 36px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      background: #ffffff;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .lang-switch select:focus {
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc ホーム">
+        <img src="../logo.png" alt="InstaCalc ロゴ">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="言語選択">
+          <option value="en">English</option>
+          <option value="ja" selected>日本語</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="メニューを開閉" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-chart-line"></i>
+            資産運用計画プランナー
+          </span>
+          <h1>一括投資計算ツール — 投資信託の将来価値・複利運用シミュレーション</h1>
+          <p>無料のオンライン一括投資（Lumpsum）計算シミュレーターです。初期元本、想定利回り（期待リターン）、期間を入力するだけで、将来価値や運用利益を瞬時に計算し、効率的な資産形成プランをサポートします。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#lumpsum-planner">
+              <i class="fas fa-calculator"></i>
+              シミュレーションを開始
+            </a>
+            <a class="btn btn-ghost" href="sipcalculator.html">
+              <i class="fas fa-arrow-right-arrow-left"></i>
+              毎月積立（SIP）計算へ切り替え
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h2>高度なシミュレーター機能</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 複利計算周期（年、半年、四半期、月）の選択</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> インフレによる購買力低下を反映可能</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 目標金額までの達成状況と不足額の算出</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 必要元本の逆算シミュレーション</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 年次推移テーブルの表示とCSVダウンロード</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="lumpsum-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="計算モード">
+              <a href="sipcalculator.html">毎月積立 (SIP)</a>
+              <a href="sipcalculatorlumpsump.html" class="active">一括投資</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>詳細設定モード: オフ</span>
+            </button>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="lumpsumAmount">一括投資金額</label>
+                <span id="lumpsumAmountPreview">500,000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="lumpsumAmountRange" min="1000" max="50000000" step="1000" value="500000">
+                <input type="number" id="lumpsumAmount" min="1000" max="50000000" step="1000" value="500000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="returnRate">期待利回り（想定年利％）</label>
+                <span id="returnRatePreview">12.0%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="returnRateRange" min="1" max="25" step="0.1" value="12">
+                <input type="number" id="returnRate" min="1" max="25" step="0.1" value="12">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="years">運用期間（年数）</label>
+                <span id="yearsPreview">10</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="yearsRange" min="1" max="40" step="1" value="10">
+                <input type="number" id="years" min="1" max="40" step="1" value="10">
+              </div>
+            </div>
+
+            <div class="advanced-only-section" id="advancedFields">
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="compounding" title="利息が元本に組み込まれる頻度です。">複利の計算周期</label>
+                  </div>
+                  <select id="compounding">
+                    <option value="1">年1回（年複利）</option>
+                    <option value="2">年2回（半年複利）</option>
+                    <option value="4" selected>年4回（四半期複利）</option>
+                    <option value="12">年12回（月複利）</option>
+                  </select>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="inflation" title="想定される物価上昇率。将来の資産の購買力を評価するために使用します。">想定インフレ率（年率％）</label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="inflationRange" min="0" max="12" step="0.1" value="6">
+                    <input type="number" id="inflation" min="0" max="12" step="0.1" value="6">
+                  </div>
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="targetCorpus">目標金額（逆算用）</label>
+                </div>
+                <input type="number" id="targetCorpus" min="0" step="100000" value="5000000" placeholder="例：5000000">
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i>
+              再計算
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i>
+              初期値に戻す
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i>
+              サマリーをコピー
+            </button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <h3>総投資額（元本）</h3>
+              <div class="result-value" id="investedValue">-</div>
+            </div>
+            <div class="result-card positive">
+              <h3>想定運用益</h3>
+              <div class="result-value" id="returnsValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>想定資産総額</h3>
+              <div class="result-value" id="corpusValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>インフレ調整後価値</h3>
+              <div class="result-value" id="inflationAdjustedValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>目標達成に必要な一括元本</h3>
+              <div class="result-value" id="requiredLumpsumValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>満期時期（目安）</h3>
+              <div class="result-value" id="maturityLabel">-</div>
+            </div>
+          </div>
+
+          <div class="goal-status advanced-only">
+            <div class="goal-meta">
+              <span id="goalStatusText">目標金額を設定すると進捗が表示されます。</span>
+              <strong id="goalPercentText">0%</strong>
+            </div>
+            <div class="goal-progress">
+              <div class="goal-progress-bar" id="goalProgressBar"></div>
+            </div>
+          </div>
+
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h3>資産推移グラフ</h3>
+              <div class="chart-wrap">
+                <canvas id="growthChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card advanced-only">
+              <h3>資産の内訳（割合）</h3>
+              <div class="chart-wrap small">
+                <canvas id="splitChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools">
+            <h3>年次の試算推移</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
+              <i class="fas fa-file-csv"></i>
+              CSVを保存
+            </button>
+          </div>
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>経過年数</th>
+                  <th>投資元本</th>
+                  <th>想定運用益の累計</th>
+                  <th>想定資産総額</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>資産運用のポイント</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i> このシミュレーターは、1年、5年、10年、20年といった長期的な一括運用の将来成果を予測するために設計されています。</li>
+              <li><i class="fas fa-circle-info"></i> 複利計算周期の変更機能を利用することで、四半期複利や月複利が最終資産額に与えるインパクトを検証できます。</li>
+              <li><i class="fas fa-circle-info"></i> 長期運用においては物価上昇（インフレ）が最大の敵となります。インフレ調整後価値で、将来の実質的な購買力を確かめておきましょう。</li>
+              <li><i class="fas fa-circle-info"></i> 積立投資（SIP）との違いを理解するために、上部の切り替えボタンから同じ金額設計でのリターン比較を行うことができます。</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>他の金融計算ツール</h3>
+            <ul class="link-list">
+              <li><a href="sipcalculator.html"><span>毎月積立（SIP）計算</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mutualfundreturncalculator.html"><span>投資信託XIRR利回り計算</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="cagrcalculator.html"><span>年平均成長率（CAGR）計算</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="compoundinterest.html"><span>複利計算シミュレーター</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="simpleinterestcalculator.html"><span>単利計算ツール</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="emicalculator.html"><span>住宅ローン・EMI計算</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="retirementcalculator.html"><span>老後資金シミュレーター</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>一括投資シミュレーターの仕組みと数理モデル</h2>
+          <p>当シミュレーターは、指定された初期投資額（元本）、期待利回り（年利％）、複利計算周期、および運用年数から、将来の満期金額を正確に試算します。まとまった余剰資金を一括でスポット運用する場合の予測に最適です。</p>
+          <br>
+          <p>計算に使用する標準的な複利公式は以下の通りです： <code>FV = P * (1 + r/n)^(n*t)</code>。<br>
+            ここで、<code>P</code>は初期投資額、<code>r</code>は年率換算の利回り、<code>n</code>は1年あたりの複利計算回数（例：年複利なら1、四半期複利なら4、月複利なら12）、<code>t</code>は運用年数です。
+          </p>
+          <br>
+          <p>一括投資を決定する際には、短期的な市場のボラティリティ（価格変動リスク）や税金の影響を考慮することが重要です。特に株式や投資信託など値動きがある商品を対象とする場合、一括投資と積立投資（ドルコスト平均法）のメリット・デメリットを理解し、自身のライフプランやリスク許容度に合わせて適切な配分を行いましょう。</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>一括投資（Lumpsum）とは何ですか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>毎月の積立投資（SIP）とは異なり、まとまった資金（例：50万円、100万円など）を一度に投資信託や株式などに投資する手法を指します。初期から全額に複利効果が働く点が特徴です。</p>
+          </details>
+          <details class="faq-card">
+            <summary>一括投資と積立投資（SIP）はどちらが良いですか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>一括投資は、相場が右肩上がりで成長する局面では、初期から全額が複利で運用されるため、積立投資（SIP）よりも高いリターンを得られます。しかし、投資直後に急落した場合の精神的負担や元本割れリスクが大きいため、タイミングを見極める必要があります。手元の資金状況やリスク許容度に応じて使い分けるのが理想です。</p>
+          </details>
+          <details class="faq-card">
+            <summary>複利の計算周期（年、四半期、月）による違いは何ですか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>同じ年利であっても、複利を計算する周期が短いほど（例えば、年1回よりも月1回）、利息が元本に組み込まれる頻度が高くなるため、将来的な受取金額は多くなります。投資信託は一般的に日々基準価額が計算されていますが、このシミュレーターでは設定した周期に基づいた数理モデルで複利計算を行えます。</p>
+          </details>
+          <details class="faq-card">
+            <summary>インフレ調整後の資産額とは何ですか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>インフレ率を考慮し、将来手に入るお金の「実質的な価値（購買力）」を算出する機能です。物価が上昇すると同じ金額で買えるものが少なくなる（お金の価値が下がる）ため、長期運用ではインフレを考慮することが実用的な計画立案に不可欠です。</p>
+          </details>
+          <details class="faq-card">
+            <summary>一括投資における税金や手数料（信託報酬等）はどう影響しますか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>日本の税制では、投資信託や株式の譲渡益（値上がり益）および配当に対して通常約20.315%の税金がかかります（NISA口座を利用する場合は非課税となります）。また、早期解約時の「信託財産留保額（Exit Load）」や保有期間中の「信託報酬」などのコストが発生するため、これらを差し引いた上で実質的な手残り額をイメージすることが大切です。</p>
+          </details>
+          <details class="faq-card">
+            <summary>最低いくらから一括投資を始められますか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>多くのネット証券等では、投資信託のスポット購入（一括投資）は最低100円から可能です。一般的にまとまった資産運用をイメージされる場合は数万円から数百万円で利用されますが、ご自身の経済状況に合わせた任意の金額から開始できます。</p>
+          </details>
+          <details class="faq-card">
+            <summary>一括投資したお金はいつでも引き出せますか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>オープンエンド型と呼ばれる一般的な投資信託や上場株式であれば、いつでも売却・解約して現金化することができます。ただし、売却から手元に資金が戻るまでに数営業日かかることや、時期によっては元本割れしているリスクがある点に注意が必要です。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>日本における一般的な一括投資シミュレーション例</h2>
+          <p>当シミュレーターでは、10万円、100万円、500万円といった代表的な初期元本に対し、年利3%（堅実なインデックス・債券運用）、年利5%〜7%（世界株式インデックスの平均値）、年利10%以上（積極的なアクティブファンド・個別株）などの成長率で、10年や20年といった長期間放置した場合の成果を瞬時にシミュレートできます。</p>
+          <br>
+          <p>お子様の教育資金（15年後に300万円用意したい場合など）や、老後資金2000万円問題に向けた対策として、今ある一括元本をどの程度複利で回せば目標に届くかを検証するのに非常に便利です。</p>
+        </article>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>推奨ステップ</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i> 年利前提は現実的かつ保守的に（まずは世界株インデックスの過去平均である5%〜7%程度からお試しください）。</li>
+              <li><i class="fas fa-circle-info"></i> 物価上昇率（現在の日本の目標である2%程度など）を入れて、購買力ベースでの計画を検証する。</li>
+              <li><i class="fas fa-circle-info"></i> 計算結果が出たら「結果サマリーをコピー」してメモに残すか、推移をCSVで保存する。</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in — 日常の金利や複利の計算をスマートに行える無料の計算プラットフォーム。</p>
+      <div class="footer-links">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </div>
+      <p
+        style="font-size: 0.75rem; color: var(--text-soft); max-width: 800px; line-height: 1.4; opacity: 0.8; margin-top: 0.5rem;">
+        <strong>免責事項：</strong> 当シミュレーターで提示される数値や試算結果は、純粋な数学的複利モデルに基づく予測値です。将来の投資収益を保証するものではありません。実際の投資判断にあたっては、経済情勢や自己の判断のもと、自己責任で行っていただきますようお願いいたします。
+      </p>
+    </div>
+  </footer>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="ページトップへ戻る">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        lumpsumAmount: 500000,
+        returnRate: 12,
+        years: 10,
+        inflation: 6,
+        targetCorpus: 5000000,
+        compounding: 4
+      };
+
+      const nfCurrency = { format: (v) => "¥" + Math.round(v).toLocaleString('ja-JP') };
+      const nfNumber = { format: (v) => Math.round(v).toLocaleString('ja-JP') };
+
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        lumpsumAmount: document.getElementById("lumpsumAmount"),
+        lumpsumAmountRange: document.getElementById("lumpsumAmountRange"),
+        returnRate: document.getElementById("returnRate"),
+        returnRateRange: document.getElementById("returnRateRange"),
+        years: document.getElementById("years"),
+        yearsRange: document.getElementById("yearsRange"),
+        inflation: document.getElementById("inflation"),
+        inflationRange: document.getElementById("inflationRange"),
+        compounding: document.getElementById("compounding"),
+        targetCorpus: document.getElementById("targetCorpus"),
+        lumpsumAmountPreview: document.getElementById("lumpsumAmountPreview"),
+        returnRatePreview: document.getElementById("returnRatePreview"),
+        yearsPreview: document.getElementById("yearsPreview"),
+        investedValue: document.getElementById("investedValue"),
+        returnsValue: document.getElementById("returnsValue"),
+        corpusValue: document.getElementById("corpusValue"),
+        inflationAdjustedValue: document.getElementById("inflationAdjustedValue"),
+        requiredLumpsumValue: document.getElementById("requiredLumpsumValue"),
+        maturityLabel: document.getElementById("maturityLabel"),
+        goalStatusText: document.getElementById("goalStatusText"),
+        goalPercentText: document.getElementById("goalPercentText"),
+        goalProgressBar: document.getElementById("goalProgressBar"),
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        growthChart: document.getElementById("growthChart"),
+        splitChart: document.getElementById("splitChart")
+      };
+
+      let growthChartInstance = null;
+      let splitChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) {
+          return;
+        }
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 940) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+      }
+
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) {
+          return;
+        }
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function roundToStep(value, step) {
+        if (!step || step <= 0) {
+          return value;
+        }
+        return Math.round(value / step) * step;
+      }
+
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) {
+          return;
+        }
+        const min = parseFloat(rangeEl.min || "0");
+        const max = parseFloat(rangeEl.max || "100");
+        const step = parseFloat(rangeEl.step || "1");
+
+        function normalize(value) {
+          const numeric = parseNumeric(value, parseFloat(rangeEl.value));
+          const stepped = roundToStep(numeric, step);
+          return clamp(stepped, min, max);
+        }
+
+        rangeEl.addEventListener("input", function () {
+          numberEl.value = rangeEl.value;
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("input", function () {
+          if (numberEl.value === "") {
+            return;
+          }
+          const normalized = normalize(numberEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("blur", function () {
+          const normalized = normalize(numberEl.value || rangeEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+      }
+
+      function formatCurrencyWithUnits(value) {
+        return nfCurrency.format(value);
+      }
+
+      function compactCurrency(value) {
+        if (value >= 100000000) {
+          return (value / 100000000).toFixed(1) + "億円";
+        }
+        if (value >= 10000) {
+          return (value / 10000).toFixed(0) + "万円";
+        }
+        return nfNumber.format(value) + "円";
+      }
+
+      function getInputs() {
+        return {
+          lumpsumAmount: parseNumeric(elements.lumpsumAmount.value, defaults.lumpsumAmount),
+          returnRate: parseNumeric(elements.returnRate.value, defaults.returnRate),
+          years: parseNumeric(elements.years.value, defaults.years),
+          inflation: parseNumeric(elements.inflation.value, defaults.inflation),
+          targetCorpus: parseNumeric(elements.targetCorpus.value, 0),
+          compounding: parseNumeric(elements.compounding.value, defaults.compounding)
+        };
+      }
+
+      function simulateLumpsum(lumpsumAmount, params) {
+        const years = Math.max(1, Math.round(params.years));
+        const compounds = clamp(Math.round(params.compounding), 1, 12);
+        const periodicRate = params.returnRate / 100 / compounds;
+        const totalPeriods = years * compounds;
+        const corpus = lumpsumAmount * Math.pow(1 + periodicRate, totalPeriods);
+        const projection = [];
+        const annualEffectiveRate = Math.pow(1 + periodicRate, compounds) - 1;
+
+        for (let year = 1; year <= years; year += 1) {
+          const yearCorpus = lumpsumAmount * Math.pow(1 + annualEffectiveRate, year);
+          projection.push({
+            year: year,
+            invested: lumpsumAmount,
+            corpus: yearCorpus,
+            gains: yearCorpus - lumpsumAmount
+          });
+        }
+
+        return {
+          months: years * 12,
+          invested: lumpsumAmount,
+          corpus: corpus,
+          gains: corpus - lumpsumAmount,
+          projection: projection
+        };
+      }
+
+      function estimateRequiredLumpsum(targetCorpus, params) {
+        if (!Number.isFinite(targetCorpus) || targetCorpus <= 0) {
+          return null;
+        }
+        const years = Math.max(1, Math.round(params.years));
+        const compounds = clamp(Math.round(params.compounding), 1, 12);
+        const periodicRate = params.returnRate / 100 / compounds;
+        const totalPeriods = years * compounds;
+        return targetCorpus / Math.pow(1 + periodicRate, totalPeriods);
+      }
+
+      function renderProjectionTable(projection) {
+        if (!elements.projectionTableBody) {
+          return;
+        }
+        elements.projectionTableBody.innerHTML = projection.map(function (row) {
+          return (
+            "<tr>" +
+            "<td>" + row.year + "年目</td>" +
+            "<td>" + formatCurrencyWithUnits(row.invested) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.gains) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.corpus) + "</td>" +
+            "</tr>"
+          );
+        }).join("");
+      }
+
+      function renderCharts(projection, invested, gains) {
+        if (!window.Chart || !elements.growthChart || !elements.splitChart) {
+          return;
+        }
+
+        const labels = projection.map(function (row) {
+          return row.year + "年目";
+        });
+        const corpusData = projection.map(function (row) { return row.corpus; });
+        const investedData = projection.map(function () { return invested; });
+
+        if (growthChartInstance) {
+          growthChartInstance.destroy();
+        }
+        growthChartInstance = new Chart(elements.growthChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "想定資産総額",
+                data: corpusData,
+                borderColor: "#007f8b",
+                backgroundColor: "rgba(0, 127, 139, 0.16)",
+                fill: true,
+                tension: 0.18,
+                pointRadius: 2
+              },
+              {
+                label: "投資元本",
+                data: investedData,
+                borderColor: "#ee9f2e",
+                backgroundColor: "rgba(238, 159, 46, 0.16)",
+                fill: false,
+                tension: 0.12,
+                pointRadius: 2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "top" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.dataset.label + ": " + formatCurrencyWithUnits(context.parsed.y);
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function (value) {
+                    return compactCurrency(value);
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        if (splitChartInstance) {
+          splitChartInstance.destroy();
+        }
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["投資元本", "想定運用益"],
+            datasets: [
+              {
+                data: [Math.max(invested, 0), Math.max(gains, 0)],
+                backgroundColor: ["#007f8b", "#1f9f67"],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.label + ": " + formatCurrencyWithUnits(context.parsed);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      function updatePreviewLabels(inputs) {
+        elements.lumpsumAmountPreview.textContent = nfNumber.format(inputs.lumpsumAmount);
+        elements.returnRatePreview.textContent = inputs.returnRate.toFixed(1) + "%";
+        elements.yearsPreview.textContent = String(Math.round(inputs.years));
+      }
+
+      function calculateAndRender() {
+        const inputs = getInputs();
+        updatePreviewLabels(inputs);
+
+        const result = simulateLumpsum(inputs.lumpsumAmount, inputs);
+        const inflationFactor = Math.pow(1 + (inputs.inflation / 100), inputs.years);
+        const inflationAdjusted = inflationFactor > 0 ? result.corpus / inflationFactor : result.corpus;
+        const requiredLumpsum = estimateRequiredLumpsum(inputs.targetCorpus, inputs);
+
+        const now = new Date();
+        const maturityDate = new Date(now.getFullYear(), now.getMonth() + result.months, 1);
+        const maturityText = maturityDate.toLocaleDateString("ja-JP", { month: "short", year: "numeric" });
+
+        elements.investedValue.textContent = formatCurrencyWithUnits(result.invested);
+        elements.returnsValue.textContent = formatCurrencyWithUnits(result.gains);
+        elements.corpusValue.textContent = formatCurrencyWithUnits(result.corpus);
+        elements.inflationAdjustedValue.textContent = formatCurrencyWithUnits(inflationAdjusted);
+        elements.requiredLumpsumValue.textContent = requiredLumpsum ? formatCurrencyWithUnits(requiredLumpsum) : "目標金額を設定してください";
+        elements.maturityLabel.textContent = maturityText;
+
+        const hasGoal = inputs.targetCorpus > 0;
+        const progressPercent = hasGoal ? (result.corpus / inputs.targetCorpus) * 100 : 0;
+        const clampedProgress = Math.max(0, Math.min(progressPercent, 100));
+
+        if (hasGoal) {
+          elements.goalStatusText.textContent = progressPercent >= 100
+            ? "現在の前提条件で目標金額に到達しました。"
+            : "現在のプランで目標額の " + progressPercent.toFixed(1) + "% に達します。";
+          elements.goalPercentText.textContent = progressPercent.toFixed(1) + "%";
+          elements.goalProgressBar.style.width = clampedProgress.toFixed(2) + "%";
+          elements.goalProgressBar.style.background = progressPercent >= 100
+            ? "linear-gradient(110deg, #1f9f67, #1cb67a)"
+            : "linear-gradient(110deg, var(--accent), #00a1b2)";
+        } else {
+          elements.goalStatusText.textContent = "目標金額を設定すると進捗が表示されます。";
+          elements.goalPercentText.textContent = "0%";
+          elements.goalProgressBar.style.width = "0%";
+          elements.goalProgressBar.style.background = "linear-gradient(110deg, var(--accent), #00a1b2)";
+        }
+
+        lastProjection = result.projection.slice();
+        renderProjectionTable(result.projection);
+        renderCharts(result.projection, result.invested, result.gains);
+
+        lastSummaryText =
+          "【一括投資シミュレーション結果】" + "\n" +
+          "一括投資金額: " + formatCurrencyWithUnits(inputs.lumpsumAmount) + "\n" +
+          "期待利回り: " + inputs.returnRate.toFixed(2) + "%（年利）" + "\n" +
+          "運用期間: " + Math.round(inputs.years) + "年" + "\n" +
+          "複利計算周期: " + Math.round(inputs.compounding) + "回/年" + "\n" +
+          "総投資額（元本）: " + formatCurrencyWithUnits(result.invested) + "\n" +
+          "想定運用益: " + formatCurrencyWithUnits(result.gains) + "\n" +
+          "想定資産総額: " + formatCurrencyWithUnits(result.corpus) + "\n" +
+          "インフレ調整後価値: " + formatCurrencyWithUnits(inflationAdjusted) + "\n" +
+          "目標達成に必要な一括元本: " + (requiredLumpsum ? formatCurrencyWithUnits(requiredLumpsum) : "N/A");
+      }
+
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) {
+          return;
+        }
+        const headers = ["経過年数", "投資元本", "想定運用益累計", "想定資産総額"];
+        const rows = lastProjection.map(function (row) {
+          return [
+            row.year + "年目",
+            Math.round(row.invested),
+            Math.round(row.gains),
+            Math.round(row.corpus)
+          ].join(",");
+        });
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csv], { type: "text/csv;charset=utf-8;" }); // BOM for Excel JP
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "lumpsum-simulation-projection.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function resetToDefaults() {
+        elements.lumpsumAmount.value = defaults.lumpsumAmount;
+        elements.lumpsumAmountRange.value = defaults.lumpsumAmount;
+        elements.returnRate.value = defaults.returnRate;
+        elements.returnRateRange.value = defaults.returnRate;
+        elements.years.value = defaults.years;
+        elements.yearsRange.value = defaults.years;
+        elements.inflation.value = defaults.inflation;
+        elements.inflationRange.value = defaults.inflation;
+        elements.compounding.value = defaults.compounding;
+        elements.targetCorpus.value = defaults.targetCorpus;
+        calculateAndRender();
+      }
+
+      function wireEvents() {
+        syncPair(elements.lumpsumAmountRange, elements.lumpsumAmount);
+        syncPair(elements.returnRateRange, elements.returnRate);
+        syncPair(elements.yearsRange, elements.years);
+        syncPair(elements.inflationRange, elements.inflation);
+
+        elements.targetCorpus.addEventListener("input", calculateAndRender);
+        elements.compounding.addEventListener("change", calculateAndRender);
+        elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        elements.resetBtn.addEventListener("click", resetToDefaults);
+        elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        elements.toggleViewBtn.addEventListener("click", function () {
+          const shell = document.querySelector(".calculator-shell");
+          const isAdvanced = shell.classList.toggle("advanced-mode");
+          elements.toggleViewBtn.classList.toggle("active", isAdvanced);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvanced ? "詳細設定モード: オン" : "詳細設定モード: オフ";
+        });
+
+        elements.copySummaryBtn.addEventListener("click", function () {
+          if (!navigator.clipboard || !lastSummaryText) {
+            return;
+          }
+          navigator.clipboard.writeText(lastSummaryText).then(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> コピーしました';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> サマリーをコピー';
+            }, 1300);
+          }).catch(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> コピー失敗';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> サマリーをコピー';
+            }, 1300);
+          });
+        });
+      }
+
+      // Language switch dropdown handler
+      const langSelect = document.getElementById('langSelect');
+      if (langSelect) {
+        langSelect.value = 'ja';
+        langSelect.addEventListener('change', function() {
+          if (this.value === 'en') {
+            localStorage.setItem('user_lang', 'en');
+            window.location.href = '../sipcalculatorlumpsump.html';
+          }
+        });
+      }
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      calculateAndRender();
+    })();
+  </script>
+</body>
+
+</html>

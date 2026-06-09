@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      localStorage.setItem('user_lang', 'ja');
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>グラチュイティ（退職金）計算ツール - インドの退職金・非課税額シミュレーター</title>
+  <meta name="description"
+    content="インドのグラチュイティ（退職手当法に基づく退職金）の受取想定額、非課税額を簡単計算。法適用対象・対象外の双方の計算方式に対応。">
+  <meta name="keywords"
+    content="退職金計算, グラチュイティ, インド退職金, Gratuityシミュレーション">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/ja/gratuitycalculator.html">
+
+  <meta property="og:title" content="グラチュイティ（退職金）計算ツール - インドの退職金・非課税額シミュレーター">
+  <meta property="og:description"
+    content="インドのグラチュイティ（退職手当法に基づく退職金）の受取想定額、非課税額を簡単計算。法適用対象・対象外の双方の計算方式に対応。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/ja/gratuitycalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="グラチュイティ（退職金）計算ツール - インドの退職金・非課税額シミュレーター">
+  <meta name="twitter:description"
+    content="インドのグラチュイティ（退職手当法に基づく退職金）の受取想定額、非課税額を簡単計算。法適用対象・対象外の双方の計算方式に対応。">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "グラチュイティ（退職金）の受給要件である5年ルールとは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "グラチュイティを受け取るためには、原則として同一の雇用主のもとで最低5年間の連続勤務（Continuous Service）が必要です。ただし、死亡または障害による退職の場合は、この5年要件は免除されます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "グラチュイティには所得税がかかりますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "政府職員の場合は全額非課税です。民間セクターの従業員の場合は、200万ルピー（20 Lakh）を上限として非課税枠が適用され、それを超える部分が課税対象となります。"
+          }
+        }
+      ]
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "グラチュイティ計算ツール",
+      "url": "https://instacalc.in/ja/gratuitycalculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "インドの退職手当法（Payment of Gratuity Act）に基づく退職金の受取額と非課税額の計算。"
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", "Hiragino Sans", "Meiryo", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.8rem, 4.5vw, 2.7rem);
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 25ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .calculator-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .advanced-only-section {
+      display: none;
+      grid-column: 1 / -1;
+      gap: 0.7rem;
+      border-top: 1px dashed var(--line);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only-section {
+      display: grid;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+      .result-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+    }
+
+    .lang-switch {
+      margin-left: auto;
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    .lang-switch select {
+      min-height: 36px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      background: #ffffff;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .lang-switch select:focus {
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc ホーム">
+        <img src="../logo.png" alt="InstaCalc ロゴ">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="言語選択">
+          <option value="en">English</option>
+          <option value="ja" selected>日本語</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="ナビゲーションの切り替え" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-hand-holding-dollar"></i>
+            退職金・手当
+          </span>
+          <h1>グラチュイティ（退職金）計算ツール - インドの退職金・非課税額シミュレーター</h1>
+          <p>インドのグラチュイティ（退職手当法に基づく退職金）の受取想定額、非課税額を簡単計算。法適用対象・対象外の双方の計算方式に対応。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#gratuity-planner">
+              <i class="fas fa-calculator"></i>
+              退職金を試算する
+            </a>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h2>退職金計算の機能</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 退職手当法適用（Covered）および非適用（Not Covered）の双方に対応</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 最新の非課税枠上限（200万ルピー/20 Lakh）に完全準拠</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 勤続年数の端数処理ルールを自動適用</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 退職金の非課税額・課税額を円グラフでわかりやすく可視化</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> インドの退職金・税金に関する詳細なFAQ付</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="gratuity-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="計算モード">
+              <a href="#" id="modeCovered" class="active">法適用対象 (Covered)</a>
+              <a href="#" id="modeNotCovered">法適用対象外 (Not Covered)</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>詳細設定モード: オフ</span>
+            </button>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="lastSalary">直近の月給 (基本給 + 物価手当)</label>
+                <span id="salaryPreview">50,000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="salaryRange" min="5000" max="2000000" step="500" value="50000">
+                <input type="number" id="lastSalary" min="5000" max="2000000" step="500" value="50000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="yearsOfService">勤続年数 (年)</label>
+                <span id="yearsPreview">5年</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="yearsRange" min="1" max="50" step="1" value="5">
+                <input type="number" id="yearsOfService" min="1" max="50" step="1" value="5">
+              </div>
+            </div>
+
+            <div class="advanced-only-section" id="advancedFields">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="extraMonths">端数月数 (端数繰り上げ判定用)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="monthsRange" min="0" max="11" step="1" value="0">
+                  <input type="number" id="extraMonths" min="0" max="11" step="1" value="0">
+                </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label>端数処理について</label>
+                </div>
+                <p style="font-size:0.85rem; color:var(--text-soft);">
+                  <strong>法適用対象（Covered）</strong>の場合、6か月を超える端数は1年に切り上げられます。<br>
+                  <strong>法適用対象外（Not Covered）</strong>の場合、満年数のみをカウントします（切り上げなし）。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i> 再計算
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i> 初期値に戻す
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i> 結果をコピー
+            </button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card positive">
+              <h3>想定退職金額 (グラチュイティ)</h3>
+              <div class="result-value" id="resGratuity">-</div>
+            </div>
+            <div class="result-card">
+              <h3>非課税額</h3>
+              <div class="result-value" id="resTaxFree">-</div>
+            </div>
+            <div class="result-card">
+              <h3>課税対象額</h3>
+              <div class="result-value" id="resTaxable">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>受給資格ステータス</h3>
+              <div class="result-value" id="resStatus">-</div>
+            </div>
+          </div>
+
+          <div class="chart-grid" style="margin-top:20px;">
+            <div class="chart-card">
+              <h3>退職金構成（非課税枠の割合）</h3>
+              <div class="chart-wrap">
+                <canvas id="gratuityChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="sidebar-card">
+            <h3>老後資金計画を立てる</h3>
+            <ul class="link-list">
+              <li><a href="retirementcalculator.html"><span>老後資金シミュレーター</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="ppfcalculator.html"><span>PPF（公共プロビデント基金）計算</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="npscalculator.html"><span>NPS（国民年金）計算ツール</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="fdcalculator.html"><span>定期預金（FD）計算ツール</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="epfcalculator.html"><span>EPF（従業員プロビデント基金）計算</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h3>インドのグラチュイティ（退職手当）制度のルール</h3>
+          <p>グラチュイティとは、インドの「退職手当法（Payment of Gratuity Act）」に基づき、同一の雇用主のもとで5年以上勤務した従業員が退職または退任する際に、雇用主から支払われる法的退職給付金です。</p>
+          <br>
+          <p><strong>法適用対象（Covered）の計算式：</strong><br>
+            <code>グラチュイティ = (15/26) × 直近月給 × 勤続年数</code><br>
+            ※端数処理：勤続年数の端数が6か月を超える場合、1年に繰り上げられます（例：5年7か月＝6年）。
+          </p>
+          <br>
+          <p><strong>法適用対象外（Not Covered）の計算式：</strong><br>
+            <code>グラチュイティ = (15/30) × 過去10か月の平均月給 × 満勤続年数</code><br>
+            ※端数処理：端数の切り上げは行われず、満年数のみで計算されます。
+          </p>
+          <br>
+          <p>民間セクターの従業員に対するグラチュイティの非課税限度額は、現在最大200万ルピー（20 Lakh）に設定されています。</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>グラチュイティ（退職金）の受給要件である5年ルールとは何ですか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>グラチュイティを受け取るためには、原則として同一の雇用主のもとで最低5年間の連続勤務（Continuous Service）が必要です。ただし、従業員の死亡または怪我による障害で退職を余儀なくされた場合は、この5年要件は免除されます。</p>
+          </details>
+          <details class="faq-card">
+            <summary>グラチュイティには所得税がかかりますか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>政府機関や公務員の場合は全額が所得税非課税となります。民間セクターの従業員の場合、200万ルピー（20 Lakh）を上限として非課税枠が適用され、それを超える部分が課税されます。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in — 日々の選択をスマートにする、実用的でシンプルな計算ツール・コンバーター。</p>
+      <div class="footer-links">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        salary: 50000,
+        years: 5,
+        months: 0,
+        isCovered: true
+      };
+
+      const nfCurrency = { format: (v) => "¥" + Math.round(v).toLocaleString('ja-JP') };
+
+      function formatWithUnits(v) {
+        return nfCurrency.format(v);
+      }
+
+      const elements = {
+        salary: document.getElementById("lastSalary"),
+        salaryRange: document.getElementById("salaryRange"),
+        years: document.getElementById("yearsOfService"),
+        yearsRange: document.getElementById("yearsRange"),
+        months: document.getElementById("extraMonths"),
+        monthsRange: document.getElementById("monthsRange"),
+
+        modeCovered: document.getElementById("modeCovered"),
+        modeNotCovered: document.getElementById("modeNotCovered"),
+
+        salaryPreview: document.getElementById("salaryPreview"),
+        yearsPreview: document.getElementById("yearsPreview"),
+
+        resGratuity: document.getElementById("resGratuity"),
+        resTaxFree: document.getElementById("resTaxFree"),
+        resTaxable: document.getElementById("resTaxable"),
+        resStatus: document.getElementById("resStatus"),
+
+        gratuityChart: document.getElementById("gratuityChart"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        calcTarget: document.getElementById("calcTarget"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn")
+      };
+
+      let chartInstance = null;
+      let isCovered = true;
+
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) return;
+        rangeEl.addEventListener("input", () => { numberEl.value = rangeEl.value; calculate(); });
+        numberEl.addEventListener("input", () => { rangeEl.value = numberEl.value; calculate(); });
+      }
+
+      function setupToggleAdvanced() {
+        let isAdvancedMode = false;
+        elements.toggleViewBtn.addEventListener("click", () => {
+          isAdvancedMode = !isAdvancedMode;
+          elements.calcTarget.classList.toggle("advanced-mode", isAdvancedMode);
+          elements.toggleViewBtn.classList.toggle("active", isAdvancedMode);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvancedMode ? "詳細設定モード: オン" : "詳細設定モード: オフ";
+        });
+      }
+
+      elements.modeCovered.addEventListener("click", (e) => { e.preventDefault(); isCovered = true; updateUI(); });
+      elements.modeNotCovered.addEventListener("click", (e) => { e.preventDefault(); isCovered = false; updateUI(); });
+
+      function updateUI() {
+        elements.modeCovered.classList.toggle("active", isCovered);
+        elements.modeNotCovered.classList.toggle("active", !isCovered);
+        calculate();
+      }
+
+      function calculate() {
+        const sal = parseNumeric(elements.salary.value, defaults.salary);
+        const y = parseNumeric(elements.years.value, defaults.years);
+        const m = parseNumeric(elements.months.value, 0);
+
+        elements.salaryPreview.textContent = formatWithUnits(sal);
+        elements.yearsPreview.textContent = y + "年 " + (m > 0 ? m + "ヶ月" : "");
+
+        let effectiveTenure = y;
+        let gratuity = 0;
+
+        if (isCovered) {
+          if (m > 6) effectiveTenure += 1;
+          gratuity = (15 / 26) * sal * effectiveTenure;
+        } else {
+          gratuity = (15 / 30) * sal * effectiveTenure;
+        }
+
+        const taxLimit = 2000000;
+        const taxFree = Math.min(gratuity, taxLimit);
+        const taxable = Math.max(0, gratuity - taxLimit);
+        const eligible = y >= 5;
+
+        elements.resGratuity.textContent = formatWithUnits(gratuity);
+        elements.resTaxFree.textContent = formatWithUnits(taxFree);
+        elements.resTaxable.textContent = formatWithUnits(taxable);
+        elements.resStatus.textContent = eligible ? "受給資格あり" : "受給資格なし (要勤続5年)";
+
+        drawChart(taxFree, taxable);
+      }
+
+      function drawChart(free, taxable) {
+        const ctx = elements.gratuityChart.getContext("2d");
+        if (chartInstance) chartInstance.destroy();
+
+        chartInstance = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: ['非課税', '課税対象'],
+            datasets: [{
+              data: [free, taxable],
+              backgroundColor: ['#007f8b', '#ee9f2e'],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom' }
+            }
+          }
+        });
+      }
+
+      syncPair(elements.salaryRange, elements.salary);
+      syncPair(elements.yearsRange, elements.years);
+      syncPair(elements.monthsRange, elements.months);
+
+      elements.recalculateBtn.addEventListener("click", calculate);
+      elements.resetBtn.addEventListener("click", () => {
+        elements.salary.value = defaults.salary; elements.salaryRange.value = defaults.salary;
+        elements.years.value = defaults.years; elements.yearsRange.value = defaults.years;
+        elements.months.value = defaults.months; elements.monthsRange.value = defaults.months;
+        isCovered = true; updateUI();
+      });
+
+      elements.copySummaryBtn.addEventListener("click", () => {
+        const s = `【グラチュイティ（退職金）シミュレーション結果】\n` +
+          `区分: ${isCovered ? '法適用対象 (Covered)' : '法適用対象外 (Not Covered)'}\n` +
+          `直近月給: ${elements.salaryPreview.textContent}\n` +
+          `勤続年数: ${elements.years.value}年\n` +
+          `見込み退職金額: ${elements.resGratuity.textContent}\n` +
+          `非課税額: ${elements.resTaxFree.textContent}\n` +
+          `課税対象額: ${elements.resTaxable.textContent}\n` +
+          `受給資格: ${elements.resStatus.textContent}`;
+        navigator.clipboard.writeText(s).then(() => {
+          const ot = elements.copySummaryBtn.innerHTML;
+          elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> コピーしました！';
+          setTimeout(() => elements.copySummaryBtn.innerHTML = ot, 2000);
+        });
+      });
+
+      // Nav toggle
+      document.getElementById("menuToggle").addEventListener("click", () => {
+        document.getElementById("mainNav").classList.toggle("open");
+      });
+
+      // Language switch dropdown handler
+      const langSelect = document.getElementById('langSelect');
+      if (langSelect) {
+        langSelect.value = 'ja';
+        langSelect.addEventListener('change', function() {
+          if (this.value === 'en') {
+            localStorage.setItem('user_lang', 'en');
+            window.location.href = '../gratuitycalculator.html';
+          }
+        });
+      }
+
+      setupToggleAdvanced();
+      calculate();
+    })();
+  </script>
+</body>
+
+</html>

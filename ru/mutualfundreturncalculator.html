@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      localStorage.setItem('user_lang', 'ru');
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Калькулятор доходности взаимных фондов Индия | Паушальное пополнение, пополнение SIP, планировщик налогов и SWP</title>
+  <meta name="description"
+    content="Расширенный калькулятор доходности взаимных фондов для Индии с единовременным + ежемесячным пополнением, коэффициентом расходов, налогом LTCG, выходной нагрузкой, инфляцией, SWP и планированием целей.">
+  <meta name="keywords"
+    content="Калькулятор доходности взаимных фондов, калькулятор взаимных фондов Индии, калькулятор единовременной доходности, калькулятор пополнения счета, калькулятор свопа, калькулятор налога взаимных фондов, калькулятор взаимных фондов ltcg">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/mutualfundreturncalculator.html">
+
+  <meta property="og:title" content="Калькулятор доходности взаимных фондов в Индии — единовременная выплата, налоги, SWP и планировщик целей">
+  <meta property="og:description"
+    content="Рассчитайте доходность взаимных фондов с расширенными настройками, такими как коэффициент расходов, выходная нагрузка, налог LTCG, инфляция, снятие средств SWP и планирование целей.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/mutualfundreturncalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Калькулятор доходности взаимных фондов в Индии — единовременная выплата, налоги, SWP и планировщик целей">
+  <meta name="twitter:description"
+    content="Расширенный калькулятор доходности взаимных фондов с паушальной суммой, ежемесячным пополнением, коэффициентом расходов, выходной нагрузкой, налогом LTCG, режимами инфляции и SWP.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Калькулятор доходности взаимного фонда",
+  "url": "https://instacalc.in/mutualfundreturncalculator.html",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "All",
+  "description": "Калькулятор доходности взаимных фондов для паушального и ежемесячного пополнения инвестиций с коэффициентом расходов, налогом, SWP и планированием целей.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Как рассчитать доходность взаимных фондов в Индии?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Введите первоначальную единовременную сумму инвестиций, дополнительное ежемесячное пополнение (SIP), ожидаемую доходность и срок владения. Калькулятор рассчитывает рост по месяцам, чтобы оценить ваш валовой корпус."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Гарантирован ли возврат взаимных фондов?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Нет. Доходы взаимных фондов привязаны к рынку и подвержены риску. Этот калькулятор создает прогнозы на основе сценариев на основе предоставленных вами предположений об ожидаемой годовой доходности."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Зачем включать коэффициент расходов в планирование прибыли?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Коэффициент расходов представляет собой ежегодную комиссию, взимаемую фондом. Даже небольшая комиссия (например, 1%) может значительно сократить ваш долгосрочный чистый корпус из-за геометрического начисления процентов, поэтому его моделирование обеспечивает реалистичный чистый результат."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как доходы взаимных фондов облагаются налогом в Индии?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Для взаимных фондов акций, владеющих более одного года, долгосрочный прирост капитала (LTCG), превышающий 1,25 лакха в год, облагается налогом по ставке 12,5%. Краткосрочная прибыль (менее 1 года) облагается налогом по ставке 20%."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Могу ли я смоделировать налоговое воздействие до погашения паевого инвестиционного фонда?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да. Наш расширенный калькулятор рассчитывает налог LTCG на вашу окончательную прибыль сверх выбранного предела освобождения, давая вам четкое представление о вашей чистой выкупной стоимости после уплаты налогов."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Что такое выходная нагрузка во взаимном фонде?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Выходная нагрузка — это штраф, взимаемый, если вы снимаете свои паи взаимного фонда до истечения четко определенного периода (обычно 1 год для фондов акций). Она вычитается непосредственно из суммы погашения."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Что такое SWP и когда мне следует его использовать?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SWP означает систематический план вывода средств. Вам следует использовать режим SWP в этом калькуляторе, чтобы проверить, сможет ли ваш накопленный корпус выдержать снятие фиксированного ежемесячного дохода во время выхода на пенсию."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как сценарий риска влияет на прогнозы взаимных фондов?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "В настройках сценария риска применяется смещение доходности: «Консервативный» снижает ожидаемую доходность, «Базовый» сохраняет ее неизменной, а «Агрессивный» повышает ее. Это поможет вам провести стресс-тестирование выживаемости вашего портфеля в различных рыночных условиях."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Поддерживает ли этот калькулятор взаимных фондов планирование целей?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да. Вы можете ввести целевой корпус, и раздел прогресса цели калькулятора покажет вам, какой процент вашей цели вы достигнете при текущих инвестиционных предположениях."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Можно ли использовать этот калькулятор для планирования вывода средств на пенсию?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Абсолютно. Комбинируя целевой корпус, параметры компенсации инфляции и вывода средств SWP, вы можете оценить накопление богатства и устойчивость вывода средств после выхода на пенсию."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Что такое «пополнение» или «шаг» при инвестировании во взаимные фонды?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Пополнение (или Step-Up) означает увеличение ваших ежемесячных инвестиций на определенный процент или фиксированную сумму каждый год, обычно в соответствии с увеличением вашей зарплаты, чтобы гораздо быстрее достичь ваших финансовых целей."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Каковы преимущества гибридного подхода Lumpsum + SIP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Сочетание паушальной инвестиции с ежемесячным SIP позволяет вашему начальному капиталу накапливаться дольше, обеспечивая при этом усреднение стоимости ваших новых ежемесячных взносов в рупиях, сочетая преимущества обеих стратегий."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Что означает доход с поправкой на инфляцию?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Это означает корректировку вашего прогнозируемого конечного богатства с учетом снижения покупательной способности валюты с течением времени. Это покажет вам «реальную стоимость» вашего будущего корпуса в сегодняшних деньгах."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Что такое CAGR и XIRR во взаимных фондах?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "CAGR (Совокупный годовой темп роста) измеряет среднегодовой темп роста единовременных инвестиций. XIRR (расширенная внутренняя норма доходности) рассчитывает годовую доходность при наличии нескольких инвестиций и выводов средств с течением времени (например, SIP)."
+      }
+    }
+  ]
+}</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+
+    /* Simple vs Advanced Toggle Styles */
+    .calculator-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .advanced-only-section {
+      display: none;
+      border-top: 1px dashed var(--line);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      gap: 0.7rem;
+    }
+
+    .advanced-only {
+      display: none;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only-section {
+      display: grid;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only {
+      display: block;
+    }
+
+    .calculator-shell.advanced-mode .result-card.advanced-only {
+      display: block;
+    }
+
+    #toggleViewBtn.active {
+      background: var(--accent-strong);
+      color: #fff;
+    }
+
+    .lang-switch {
+      margin-left: auto;
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    .lang-switch select {
+      min-height: 36px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      background: #ffffff;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .lang-switch select:focus {
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc home">
+        <img src="../logo.png" alt="Логотип ИнстаКальк">
+        <span>InstaCalc.in</span>
+      </a>
+
+                              <div class="lang-switch">
+        <select id="langSelect" aria-label="Выберите язык">
+          <option value="en">English</option>
+          <option value="ru" selected>Русский</option>
+          <option value="ja">日本語</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">Главная</a>
+        <a href="aboutus.html">О нас</a>
+        <a href="contactus.html">Свяжитесь с нами</a>
+        <a href="privacypolicy.html">Политика конфиденциальности</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-chart-pie"></i>Планировщик взаимных фондов</span>
+          <h1>Калькулятор доходности взаимных фондов — расчет единовременной прибыли и прибыли SIP с поправкой на налог</h1>
+          <p>Воспользуйтесь нашим усовершенствованным калькулятором доходности взаимных фондов, чтобы точно спрогнозировать размер единовременного роста и дополнительный SIP.
+            пополнения. Моделируйте расширенные сценарии, включая изъятие SWP, выходную нагрузку, налоговое воздействие LTCG и
+            суммы погашения с поправкой на инфляцию в Индии.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#mf-planner">
+              <i class="fas fa-calculator"></i>Начать планирование</a>
+            <a class="btn btn-ghost" href="sipcalculator.html">
+              <i class="fas fa-arrow-right-arrow-left"></i>Переключиться на SIP</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h2>Расширенные функции</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i>Единовременная выплата + ежемесячное моделирование пополнения</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i>Коэффициент расходов и влияние выходной нагрузки</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i>Оценка LTCG с учетом налогов и освобождений от налогов</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i>Моделирование вывода SWP по году начала</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i>Отслеживание целей и оценка необходимых инвестиций</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="mf-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="Calculator mode">
+              <a href="mutualfundreturncalculator.html" class="active">Взаимный фонд</a>
+              <a href="sipcalculator.html">SIP</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>Расширенный режим: Выкл.</span>
+            </button>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="initialInvestment">Первоначальные инвестиции</label>
+                <span id="initialInvestmentPreview">500000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="initialInvestmentRange" min="1000" max="50000000" step="1000" value="500000">
+                <input type="number" id="initialInvestment" min="1000" max="50000000" step="1000" value="500000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="monthlyTopup">Ежемесячное пополнение SIP (необязательно)</label>
+                <span id="monthlyTopupPreview">10000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="monthlyTopupRange" min="0" max="500000" step="500" value="10000">
+                <input type="number" id="monthlyTopup" min="0" max="500000" step="500" value="10000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="returnRate">Ожидаемая доходность (в процентах в год)</label>
+                <span id="returnRatePreview">12.0%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="returnRateRange" min="1" max="30" step="0.1" value="12">
+                <input type="number" id="returnRate" min="1" max="30" step="0.1" value="12">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="years">Период времени (лет)</label>
+                <span id="yearsPreview">15</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="yearsRange" min="1" max="40" step="1" value="15">
+                <input type="number" id="years" min="1" max="40" step="1" value="15">
+              </div>
+            </div>
+
+            <div class="advanced-only-section" id="advancedFields">
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="stepUp"
+                      title="Increases your monthly top-up amount yearly by this percentage to match your salary growth.">Ежегодный
+                      Увеличение суммы пополнения (в процентах)<i class="fas fa-circle-question"
+                        style="color:var(--text-soft); opacity: 0.6; font-size: 0.85em; cursor: help;"></i></label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="stepUpRange" min="0" max="25" step="0.5" value="5">
+                    <input type="number" id="stepUp" min="0" max="25" step="0.5" value="5">
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="expenseRatio"
+                      title="The annual fee charged by the mutual fund AMC to manage your money. This is continuously deducted from your portfolio.">Расход
+                      Коэффициент (в процентах в год)<i class="fas fa-circle-question"
+                        style="color:var(--text-soft); opacity: 0.6; font-size: 0.85em; cursor: help;"></i></label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="expenseRatioRange" min="0" max="3" step="0.05" value="1">
+                    <input type="number" id="expenseRatio" min="0" max="3" step="0.05" value="1">
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="inflation"
+                      title="The anticipated rate at which the value of currency depreciates. Used to calculate the real purchasing power of your final corpus.">Инфляция
+                      (процентов в год)<i class="fas fa-circle-question"
+                        style="color:var(--text-soft); opacity: 0.6; font-size: 0.85em; cursor: help;"></i></label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="inflationRange" min="0" max="12" step="0.1" value="6">
+                    <input type="number" id="inflation" min="0" max="12" step="0.1" value="6">
+                  </div>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="exitLoad"
+                      title="A penalty fee charged by the mutual fund if you withdraw your money before a specific lock-in period ends.">Выход
+                      Нагрузка (проценты при погашении)<i class="fas fa-circle-question"
+                        style="color:var(--text-soft); opacity: 0.6; font-size: 0.85em; cursor: help;"></i></label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="exitLoadRange" min="0" max="5" step="0.1" value="1">
+                    <input type="number" id="exitLoad" min="0" max="5" step="0.1" value="1">
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="ltcgRate"
+                      title="Long Term Capital Gains Tax. Generally 12.5% on equity funds when held for more than 1 year.">LTCG
+                      Налоговая ставка (в процентах)<i class="fas fa-circle-question"
+                        style="color:var(--text-soft); opacity: 0.6; font-size: 0.85em; cursor: help;"></i></label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="ltcgRateRange" min="0" max="25" step="0.5" value="12.5">
+                    <input type="number" id="ltcgRate" min="0" max="25" step="0.5" value="12.5">
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="ltcgExemption"
+                      title="The amount of gains completely exempt from LTCG tax each financial year (currently ₹1,25,000 for equity funds in India).">LTCG
+                      Освобождение<i class="fas fa-circle-question"
+                        style="color:var(--text-soft); opacity: 0.6; font-size: 0.85em; cursor: help;"></i></label>
+                  </div>
+                  <input type="number" id="ltcgExemption" min="0" step="10000" value="125000">
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="swpStartYear">Год начала SWP (0 = отключено)</label>
+                  </div>
+                  <input type="number" id="swpStartYear" min="0" max="40" step="1" value="0">
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="swpMonthly">Ежемесячный вывод SWP</label>
+                  </div>
+                  <input type="number" id="swpMonthly" min="0" step="500" value="0">
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="riskScenario">Рисковый сценарий</label>
+                  </div>
+                  <select id="riskScenario">
+                    <option value="conservative">Консервативный (доходность -2%)</option>
+                    <option value="base" selected>Базовый вариант (как введено)</option>
+                    <option value="aggressive">Агрессивный (+2% доходности)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="targetCorpus">Целевой сетевой корпус (необязательно)</label>
+                </div>
+                <input type="number" id="targetCorpus" min="0" step="100000" value="20000000"
+                  placeholder="Пример: 20000000">
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i>Пересчитать</button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i>Сбросить настройки по умолчанию</button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i>Копировать сводку</button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <h3>Всего инвестировано</h3>
+              <div class="result-value" id="investedValue">-</div>
+            </div>
+            <div class="result-card positive">
+              <h3>Общий корпус</h3>
+              <div class="result-value" id="grossCorpusValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Всего отозвано SWP</h3>
+              <div class="result-value" id="swpValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Оценка расходов</h3>
+              <div class="result-value" id="expenseDragValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Выходная нагрузка + налог LTCG</h3>
+              <div class="result-value" id="deductionValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Чистый погашаемый корпус</h3>
+              <div class="result-value" id="netCorpusValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Чистая инфляция с поправкой на инфляцию</h3>
+              <div class="result-value" id="inflationAdjustedValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Требуемые первоначальные инвестиции</h3>
+              <div class="result-value" id="requiredInitialValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Эффективный чистый среднегодовой темп роста</h3>
+              <div class="result-value" id="effectiveCagrValue">-</div>
+            </div>
+          </div>
+
+          <div class="goal-status advanced-only">
+            <div class="goal-meta">
+              <span id="goalStatusText">Добавьте целевой корпус, чтобы увидеть прогресс.</span>
+              <strong id="goalPercentText">0%</strong>
+            </div>
+            <div class="goal-progress">
+              <div class="goal-progress-bar" id="goalProgressBar"></div>
+            </div>
+          </div>
+
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h3>Валовой и чистый прогресс корпуса</h3>
+              <div class="chart-wrap">
+                <canvas id="growthChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card advanced-only">
+              <h3>Инвестированные и компоненты богатства</h3>
+              <div class="chart-wrap small">
+                <canvas id="splitChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools">
+            <h3>Годовой прогноз</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
+              <i class="fas fa-file-csv"></i>Скачать CSV-файл</button>
+          </div>
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>Год</th>
+                  <th>Всего инвестировано</th>
+                  <th>Общий корпус</th>
+                  <th>Совокупная СРП</th>
+                  <th>Расчетная чистая прибыль в случае погашения</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Примечания по планированию</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i>Коэффициент расходов применяется ежемесячно, чтобы отразить долгосрочное замедление
+                возвращается.</li>
+              <li><i class="fas fa-circle-info"></i>Выходная нагрузка и LTCG оцениваются при погашении как чистая, а не
+                просто ужасные результаты.</li>
+              <li><i class="fas fa-circle-info"></i>Режим SWP помогает проверить выход на пенсию или выход в стиле пассивного дохода
+                сценарии.</li>
+              <li><i class="fas fa-circle-info"></i>Используйте сценарии риска для стресс-тестирования консервативных, базовых и
+                агрессивные последствия.</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Похожие калькуляторы</h3>
+            <ul class="link-list">
+              <li><a href="sipcalculator.html"><span>SIP-калькулятор</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="sipcalculatorlumpsump.html"><span>Калькулятор единовременной суммы</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="cargcalculator.html"><span>Калькулятор среднегодового темпа роста</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="fdcalculator.html"><span>Калькулятор ФД</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="rdcalculator.html"><span>Калькулятор РД</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="retirementcalculator.html"><span>Пенсионный калькулятор</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>Как работает наш расширенный калькулятор доходности взаимных фондов</h2>
+          <p>Этот мощный инструмент оценки легко сочетает единовременное паушальное инвестирование в паевые инвестиционные фонды с дополнительными инвестициями.
+            ежемесячные пополнения SIP в очень подробную ежемесячную симуляцию. Чтобы дать вам максимум
+            возможен точный прогноз, он применяет выбранные вами предположения об ожидаемой доходности, а математически
+            учет скрытых затрат, таких как сопротивление коэффициенту расходов, дополнительное снятие средств SWP и вычеты при окончательном погашении
+            рассчитать реалистичные результаты чистого богатства.</p>
+          <br>
+          <p><strong>Расширенный вычислительный поток:</strong>Механизм обрабатывает ежемесячный рост процентов -> расходы.
+            вычет коэффициента -> дополнительное ежемесячное добавление SIP -> дополнительный вывод SWP -> снимок корпуса на конец года.
+            Наконец, прохождение суммы погашения через выходную нагрузку и оценку налога на взаимный фонд LTCG (бухгалтерский учет
+            за стандартное освобождение от налога на сумму 1,25 л).</p>
+          <br>
+          <p><strong>Поддерживаются основные вычисления:</strong>Калькулятор доходности взаимных фондов Индия, единовременный доход
+            калькулятор, калькулятор пополнения SIP, калькулятор налога на взаимные фонды с учетом инфляции, планировщик возвратов SWP и
+            долгосрочное целенаправленное отслеживание благосостояния взаимных фондов.</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>Как рассчитать доходность взаимных фондов в Индии?<i class="fas fa-chevron-down"></i></summary>
+            <p>Введите первоначальную единовременную сумму инвестиций, дополнительное ежемесячное пополнение (SIP), ожидаемую доходность и срок владения.
+              Калькулятор рассчитывает рост по месяцам, чтобы оценить ваш валовой корпус.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Гарантирован ли возврат взаимных фондов?<i class="fas fa-chevron-down"></i></summary>
+            <p>Нет. Доходы взаимных фондов привязаны к рынку и подвержены риску. Этот калькулятор вычисляет на основе сценариев
+              прогнозы, основанные на предоставленных вами предположениях об ожидаемой годовой доходности.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Зачем включать коэффициент расходов в планирование прибыли?<i class="fas fa-chevron-down"></i></summary>
+            <p>Коэффициент расходов представляет собой ежегодную комиссию, взимаемую фондом. Даже небольшая комиссия (например, 1%) может
+              значительно сократить ваш долгосрочный чистый корпус из-за геометрического компаундирования, поэтому его моделирование обеспечивает
+              реалистичный чистый результат.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Как доходы взаимных фондов облагаются налогом в Индии?<i class="fas fa-chevron-down"></i></summary>
+            <p>Для взаимных фондов акций, держащих более одного года, долгосрочный прирост капитала (LTCG), превышающий ₹ 1,25 лакха в
+              год облагаются налогом по ставке 12,5%. Краткосрочная прибыль (менее 1 года) облагается налогом по ставке 20%.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Могу ли я смоделировать налоговое воздействие до погашения паевого инвестиционного фонда?<i class="fas fa-chevron-down"></i></summary>
+            <p>Да. Наш расширенный калькулятор рассчитывает налог LTCG на вашу окончательную прибыль сверх выбранного освобождения.
+              лимит, давая вам четкое представление о вашей чистой стоимости погашения после уплаты налогов.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Что такое выходная нагрузка во взаимном фонде?<i class="fas fa-chevron-down"></i></summary>
+            <p>Выходная нагрузка — это штраф, взимаемый, если вы снимаете свои паи взаимного фонда до наступления определенного срока.
+              определенный период (обычно 1 год для фондов акций). Она вычитается непосредственно из суммы погашения.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Что такое SWP и когда мне следует его использовать?<i class="fas fa-chevron-down"></i></summary>
+            <p>SWP означает систематический план вывода средств. Вам следует использовать режим SWP в этом калькуляторе, чтобы проверить,
+              Накопленный корпус может поддерживать фиксированный ежемесячный доход во время выхода на пенсию.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Как сценарий риска влияет на прогнозы взаимных фондов?<i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Настройка сценария риска применяет смещение доходности: «Консервативный» снижает ожидаемую доходность, «Базовый»
+              сохраняет его неизменным, а «Агрессивный» повышает его. Это поможет вам провести стресс-тестирование живучести вашего портфеля.
+              в разных рыночных условиях.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Поддерживает ли этот калькулятор взаимных фондов планирование целей?<i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Да. Вы можете ввести целевой корпус, и раздел прогресса цели калькулятора покажет вам, что
+              процент вашей цели, которую вы достигнете при текущих инвестиционных предположениях.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Можно ли использовать этот калькулятор для планирования вывода средств на пенсию?<i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Абсолютно. Комбинируя целевой корпус, настройку компенсации инфляции и вывода SWP, вы можете
+              оценить накопление богатства и устойчивость вывода средств после выхода на пенсию.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Что такое «пополнение» или «шаг» при инвестировании во взаимные фонды?<i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Пополнение (или Step-Up) означает увеличение ваших ежемесячных инвестиций на определенный процент или фиксированную сумму.
+              каждый год, обычно в соответствии с увеличением вашей зарплаты, чтобы гораздо быстрее достичь своих финансовых целей.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Каковы преимущества гибридного подхода Lumpsum + SIP?<i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Сочетание паушальной инвестиции с ежемесячным SIP позволяет вашему начальному капиталу накапливаться дольше, в то время как
+              обеспечение усреднения стоимости ваших новых ежемесячных взносов в рупиях, сочетая преимущества обоих вариантов
+              стратегии.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Что означает доход с поправкой на инфляцию?<i class="fas fa-chevron-down"></i></summary>
+            <p>Это означает корректировку вашего прогнозируемого конечного богатства с учетом снижения покупательной способности валюты.
+              со временем. Это покажет вам «реальную стоимость» вашего будущего корпуса в сегодняшних деньгах.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Что такое CAGR и XIRR во взаимных фондах?<i class="fas fa-chevron-down"></i></summary>
+            <p>CAGR (Совокупный годовой темп роста) измеряет среднегодовой темп роста единовременных инвестиций. XIRR
+              (Расширенная внутренняя норма доходности) рассчитывает годовую доходность при наличии нескольких инвестиций и
+              вывод средств с течением времени (например, SIP).</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>Планирование доходности взаимных фондов на практике</h2>
+          <p>Многие начинающие инвесторы просто смотрят на валовую сумму окончательного погашения. Однако профессиональные финансовые
+            планирование требует сравнения валовой суммы со скрытыми вычетами, чтобы увидеть истинную чистую сумму, подлежащую выкупу.
+            ценность. Использование расширенной функции калькулятора налогов взаимных фондов гарантирует активное уточнение этих переменных.
+            ваш выбор портфеля и долгосрочная инвестиционная стратегия.</p>
+          <br>
+          <h2>Единовременное инвестирование или гибридный подход SIP с пополнением счета</h2>
+          <p>Портфели зрелых инвесторов обычно сочетают в себе дорогостоящие первоначальные паушальные инвестиции с дисциплинированными ежемесячными инвестициями.
+            SIP-дополнения. Наша гибридная архитектура калькулятора изначально поддерживает этот путь, позволяя вам напрямую тестировать
+            как периодическое инвестирование постоянно снижает риск выбора времени на рынке и масштабирует ваш окончательный корпус взаимных фондов
+            на горизонте нескольких десятилетий.</p>
+          <br>
+          <h2>Решения взаимных фондов с учетом налогов и выходной нагрузки</h2>
+          <p>Для получения реалистичных оценок портфеля всегда учитывайте моделирование коэффициента расходов, окна штрафных санкций за выход и
+            Налоговые прогнозы LTCG. Как только вы достигнете точной чистой стоимости погашения взаимных фондов, вы сможете с уверенностью
+            сравнить эти рыночные результаты с традиционными банковскими инструментами с фиксированным доходом, такими как<a
+              href="fdcalculator.html">Срочные депозиты (ФД)</a>и<a href="rdcalculator.html">Регулярные депозиты (RD)</a>со значительно более четкими ожиданиями.</p>
+          <br>
+          <p>Вам нужно мгновенно измерить процент доходности в годовом исчислении между точным начальным и конечным значением? Использование
+            наш преданный<a href="cargcalculator.html">Калькулятор среднегодового темпа роста</a>для этой быстрой проверки.</p>
+        </article>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Следующие продвинутые идеи</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i>Добавить режим динамического роста SWP, связанный с инфляцией, для выхода на пенсию
+                симуляции.</li>
+              <li><i class="fas fa-circle-info"></i>Добавьте разделение долга и собственного капитала со смешанной ожидаемой доходностью.</li>
+              <li><i class="fas fa-circle-info"></i>Добавьте сравнение в один клик с базовыми показателями только для SIP и только для единовременных платежей.</li>
+              <li><i class="fas fa-circle-info"></i>Добавьте ссылки на сохранение/поделиться сценарием для отзывов консультанта и клиента.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in — умные калькуляторы и конвертеры для повседневных решений.</p>
+      <div class="footer-links">
+        <a href="index.html">Главная</a>
+        <a href="aboutus.html">О нас</a>
+        <a href="contactus.html">Свяжитесь с нами</a>
+        <a href="privacypolicy.html">Политика конфиденциальности</a>
+      </div>
+      <p
+        style="font-size: 0.75rem; color: var(--text-soft); max-width: 800px; line-height: 1.4; opacity: 0.8; margin-top: 0.5rem;">
+        <strong>Отказ от ответственности:</strong>Все цифры и прогнозы, предоставленные нашим взаимным фондом и калькуляторами SIP, являются
+        чисто математические оценки, основанные на ваших исходных предположениях. Они не представляют собой сертифицированные финансовые
+        рекомендации и не учитывать непредвиденную волатильность рынка. Всегда консультируйтесь с портфельным менеджером, зарегистрированным в SEBI.
+        до принятия инвестиционных решений.</p>
+    </div>
+  </footer>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="../currency-manager.js"></script>
+  
+
+  <script>
+
+    (function () {
+      const defaults = {
+        initialInvestment: 500000,
+        monthlyTopup: 10000,
+        returnRate: 12,
+        лет: 15,
+        stepUp: 5,
+        expenseRatio: 1,
+        inflation: 6,
+        exitLoad: 1,
+        ltcgRate: 12.5,
+        ltcgExemption: 125000,
+        swpStartYear: 0,
+        swpMonthly: 0,
+        targetCorpus: 20000000,
+        riskScenario: "base"
+      };
+
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+
+        initialInvestment: document.getElementById("initialInvestment"),
+        initialInvestmentRange: document.getElementById("initialInvestmentRange"),
+        monthlyTopup: document.getElementById("monthlyTopup"),
+        monthlyTopupRange: document.getElementById("monthlyTopupRange"),
+        returnRate: document.getElementById("returnRate"),
+        returnRateRange: document.getElementById("returnRateRange"),
+        лет: document.getElementById("years"),
+        летRange: document.getElementById("yearsRange"),
+        stepUp: document.getElementById("stepUp"),
+        stepUpRange: document.getElementById("stepUpRange"),
+        expenseRatio: document.getElementById("expenseRatio"),
+        expenseRatioRange: document.getElementById("expenseRatioRange"),
+        inflation: document.getElementById("inflation"),
+        inflationRange: document.getElementById("inflationRange"),
+        exitLoad: document.getElementById("exitLoad"),
+        exitLoadRange: document.getElementById("exitLoadRange"),
+        ltcgRate: document.getElementById("ltcgRate"),
+        ltcgRateRange: document.getElementById("ltcgRateRange"),
+        ltcgExemption: document.getElementById("ltcgExemption"),
+        swpStartYear: document.getElementById("swpStartYear"),
+        swpMonthly: document.getElementById("swpMonthly"),
+        targetCorpus: document.getElementById("targetCorpus"),
+        riskScenario: document.getElementById("riskScenario"),
+
+        initialInvestmentPreview: document.getElementById("initialInvestmentPreview"),
+        monthlyTopupPreview: document.getElementById("monthlyTopupPreview"),
+        returnRatePreview: document.getElementById("returnRatePreview"),
+        летPreview: document.getElementById("yearsPreview"),
+
+        investedValue: document.getElementById("investedValue"),
+        grossCorpusValue: document.getElementById("grossCorpusValue"),
+        swpValue: document.getElementById("swpValue"),
+        expenseDragValue: document.getElementById("expenseDragValue"),
+        deductionValue: document.getElementById("deductionValue"),
+        netCorpusValue: document.getElementById("netCorpusValue"),
+        inflationAdjustedValue: document.getElementById("inflationAdjustedValue"),
+        requiredInitialValue: document.getElementById("requiredInitialValue"),
+        effectiveCagrValue: document.getElementById("effectiveCagrValue"),
+
+        goalStatusText: document.getElementById("goalStatusText"),
+        goalPercentText: document.getElementById("goalPercentText"),
+        goalProgressBar: document.getElementById("goalProgressBar"),
+
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        growthChart: document.getElementById("growthChart"),
+        splitChart: document.getElementById("splitChart")
+      };
+
+      let growthChartInstance = null;
+      let splitChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) {
+          return;
+        }
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 940) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+      }
+
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) {
+          return;
+        }
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function roundToStep(value, step) {
+        if (!step || step <= 0) {
+          return value;
+        }
+        return Math.round(value / step) * step;
+      }
+
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) {
+          return;
+        }
+        const min = parseFloat(rangeEl.min || "0");
+        const max = parseFloat(rangeEl.max || "100");
+        const step = parseFloat(rangeEl.step || "1");
+
+        function normalize(value) {
+          const numeric = parseNumeric(value, parseFloat(rangeEl.value));
+          const stepped = roundToStep(numeric, step);
+          return clamp(stepped, min, max);
+        }
+
+        rangeEl.addEventListener("input", function () {
+          numberEl.value = rangeEl.value;
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("input", function () {
+          if (numberEl.value === "") {
+            return;
+          }
+          const normalized = normalize(numberEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("blur", function () {
+          const normalized = normalize(numberEl.value || rangeEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+      }
+
+      function formatCurrencyWithUnits(value) {
+        return window.currencyManager ? window.currencyManager.formatWithUnits(value) : String(value);
+      }
+
+      function compactCurrency(value) {
+        return window.currencyManager ? window.currencyManager.formatCompact(value) : String(value);
+      }
+
+      function getInputs() {
+        return {
+          initialInvestment: parseNumeric(elements.initialInvestment.value, defaults.initialInvestment),
+          monthlyTopup: parseNumeric(elements.monthlyTopup.value, defaults.monthlyTopup),
+          returnRate: parseNumeric(elements.returnRate.value, defaults.returnRate),
+          лет: parseNumeric(elements.years.value, defaults.years),
+          stepUp: parseNumeric(elements.stepUp.value, defaults.stepUp),
+          expenseRatio: parseNumeric(elements.expenseRatio.value, defaults.expenseRatio),
+          inflation: parseNumeric(elements.inflation.value, defaults.inflation),
+          exitLoad: parseNumeric(elements.exitLoad.value, defaults.exitLoad),
+          ltcgRate: parseNumeric(elements.ltcgRate.value, defaults.ltcgRate),
+          ltcgExemption: parseNumeric(elements.ltcgExemption.value, defaults.ltcgExemption),
+          swpStartYear: Math.max(0, Math.round(parseNumeric(elements.swpStartYear.value, defaults.swpStartYear))),
+          swpMonthly: Math.max(0, parseNumeric(elements.swpMonthly.value, defaults.swpMonthly)),
+          targetCorpus: Math.max(0, parseNumeric(elements.targetCorpus.value, defaults.targetCorpus)),
+          riskScenario: elements.riskScenario.value || defaults.riskScenario
+        };
+      }
+
+      function scenarioAdjustedReturn(baseReturn, riskScenario) {
+        const offset = riskScenario === "conservative" ? -2 : (riskScenario === "aggressive" ? 2 : 0);
+        return Math.max(0, baseReturn + offset);
+      }
+
+      function estimateRedemption(corpus, invested, exitLoadRate, taxRate, taxExemption) {
+        const gain = Math.max(0, corpus - invested);
+        const exitLoadAmount = Math.max(0, corpus * (exitLoadRate / 100));
+        const taxableGain = Math.max(0, gain - Math.max(0, taxExemption));
+        const taxAmount = taxableGain * (Math.max(0, taxRate) / 100);
+        const net = Math.max(0, corpus - exitLoadAmount - taxAmount);
+        return {
+          gain: gain,
+          exitLoadAmount: exitLoadAmount,
+          taxAmount: taxAmount,
+          net: net
+        };
+      }
+
+      function simulatePortfolio(params) {
+        const months = Math.round(params.years * 12);
+        const adjustedReturn = scenarioAdjustedReturn(params.returnRate, params.riskScenario);
+        const monthlyGrowth = adjustedReturn / 1200;
+        const monthlyExpense = Math.max(0, params.expenseRatio) / 1200;
+
+        let invested = Math.max(0, params.initialInvestment);
+        let corpus = Math.max(0, params.initialInvestment);
+        let monthlyTopup = Math.max(0, params.monthlyTopup);
+        let cumulativeSwp = 0;
+        let cumulativeExpenseDrag = 0;
+        const projection = [];
+
+        const swpStartMonth = params.swpStartГод > 0 ? ((params.swpStartГод - 1) * 12 + 1) : Number.POSITIVE_INFINITY;
+
+        for (let month = 1; month <= months; month += 1) {
+          if (params.stepUp > 0 && month > 1 && (month - 1) % 12 === 0) {
+            monthlyTopup *= (1 + params.stepUp / 100);
+          }
+
+          corpus *= (1 + monthlyGrowth);
+
+          const expense = Math.max(0, corpus * monthlyExpense);
+          corpus -= expense;
+          cumulativeExpenseDrag += expense;
+
+          if (monthlyTopup > 0) {
+            corpus += monthlyTopup;
+            invested += monthlyTopup;
+          }
+
+          if (month >= swpStartMonth && params.swpMonthly > 0) {
+            const withdrawn = Math.min(corpus, params.swpMonthly);
+            corpus -= withdrawn;
+            cumulativeSwp += withdrawn;
+          }
+
+          if (month % 12 === 0) {
+            const redemption = estimateRedemption(corpus, invested, params.exitLoad, params.ltcgRate, params.ltcgExemption);
+            projection.push({
+              year: month / 12,
+              invested: invested,
+              grossCorpus: corpus,
+              cumulativeSwp: cumulativeSwp,
+              netIfRedeemed: redemption.net
+            });
+          }
+        }
+
+        const finalRedemption = estimateRedemption(corpus, invested, params.exitLoad, params.ltcgRate, params.ltcgExemption);
+
+        return {
+          months: months,
+          invested: invested,
+          grossCorpus: corpus,
+          cumulativeSwp: cumulativeSwp,
+          expenseDrag: cumulativeExpenseDrag,
+          finalRedemption: finalRedemption,
+          projection: projection
+        };
+      }
+
+      function estimateRequiredInitial(targetNetCorpus, params) {
+        if (!Number.isFinite(targetNetCorpus) || targetNetCorpus <= 0) {
+          return null;
+        }
+
+        const simulationParams = {
+          monthlyTopup: params.monthlyTopup,
+          returnRate: params.returnRate,
+          лет: params.years,
+          stepUp: params.stepUp,
+          expenseRatio: params.expenseRatio,
+          exitLoad: params.exitLoad,
+          ltcgRate: params.ltcgRate,
+          ltcgExemption: params.ltcgExemption,
+          swpStartYear: params.swpStartYear,
+          swpMonthly: params.swpMonthly,
+          riskScenario: params.riskScenario,
+          initialInvestment: 0,
+          inflation: params.inflation,
+          targetCorpus: params.targetCorpus
+        };
+
+        function netForInitial(initialAmount) {
+          simulationParams.initialInvestment = initialAmount;
+          return simulatePortfolio(simulationParams).finalRedemption.net;
+        }
+
+        let low = 0;
+        let high = Math.max(100000, params.initialInvestment || 100000);
+        let guard = 0;
+
+        while (netForInitial(high) < targetNetCorpus && high < 1000000000) {
+          high *= 2;
+          guard += 1;
+          if (guard > 40) {
+            break;
+          }
+        }
+
+        if (netForInitial(high) < targetNetCorpus) {
+          return null;
+        }
+
+        for (let i = 0; i < 65; i += 1) {
+          const mid = (low + high) / 2;
+          if (netForInitial(mid) >= targetNetCorpus) {
+            high = mid;
+          } else {
+            low = mid;
+          }
+        }
+
+        return high;
+      }
+
+      function renderProjectionTable(projection) {
+        if (!elements.projectionTableBody) {
+          return;
+        }
+        elements.projectionTableBody.innerHTML = projection.map(function (row) {
+          return (
+            "<tr>" +
+            "<td>Год " + row.year + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.invested) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.grossCorpus) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.cumulativeSwp) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.netIfRedeemed) + "</td>" +
+            "</tr>"
+          );
+        }).join("");
+      }
+
+      function renderCharts(projection, result) {
+        if (!window.Chart || !elements.growthChart || !elements.splitChart) {
+          return;
+        }
+
+        const labels = projection.map(function (row) { return "Год " + row.year; });
+        const grossData = projection.map(function (row) { return row.grossCorpus; });
+        const netData = projection.map(function (row) { return row.netIfRedeemed; });
+        const investedData = projection.map(function (row) { return row.invested; });
+
+        if (growthChartInstance) {
+          growthChartInstance.destroy();
+        }
+        growthChartInstance = new Chart(elements.growthChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Валовый корпус",
+                data: grossData,
+                borderColor: "#007f8b",
+                backgroundColor: "rgba(0, 127, 139, 0.12)",
+                fill: true,
+                tension: 0.18,
+                pointRadius: 2
+              },
+              {
+                label: "Чистый при выкупе",
+                data: netData,
+                borderColor: "#1f9f67",
+                backgroundColor: "rgba(31, 159, 103, 0.09)",
+                fill: false,
+                tension: 0.18,
+                pointRadius: 2
+              },
+              {
+                label: "Всего инвестировано",
+                data: investedData,
+                borderColor: "#ee9f2e",
+                backgroundColor: "rgba(238, 159, 46, 0.12)",
+                fill: false,
+                tension: 0.12,
+                pointRadius: 2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "top" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.dataset.label + ": " + formatCurrencyWithUnits(context.parsed.y);
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function (value) {
+                    return compactCurrency(value);
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        const wealthRealized = result.finalRedemption.net + result.cumulativeSwp;
+        const netGain = Math.max(0, wealthRealized - result.invested);
+        const deductionBucket = Math.max(0, result.expenseDrag + result.finalRedemption.exitLoadAmount + result.finalRedemption.taxAmount);
+
+        if (splitChartInstance) {
+          splitChartInstance.destroy();
+        }
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Инвестировано", "Чистая прибыль", "Вычеты"],
+            datasets: [
+              {
+                data: [Math.max(result.invested, 0), netGain, deductionBucket],
+                backgroundColor: ["#007f8b", "#1f9f67", "#d8891d"],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.label + ": " + formatCurrencyWithUnits(context.parsed);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      function updatePreviewLabels(inputs) {
+        if (window.currencyManager) {
+          elements.initialInvestmentPreview.textContent = window.currencyManager.formatNumber(inputs.initialInvestment);
+          elements.monthlyTopupPreview.textContent = window.currencyManager.formatNumber(inputs.monthlyTopup);
+        } else {
+          elements.initialInvestmentPreview.textContent = inputs.initialInvestment;
+          elements.monthlyTopupPreview.textContent = inputs.monthlyTopup;
+        }
+        elements.returnRatePreview.textContent = inputs.returnRate.toFixed(1) + "%";
+        elements.yearsPreview.textContent = String(Math.round(inputs.years));
+      }
+
+      function calculateAndRender() {
+        const inputs = getInputs();
+        updatePreviewLabels(inputs);
+
+        const result = simulatePortfolio(inputs);
+        const inflationFactor = Math.pow(1 + (inputs.inflation / 100), inputs.years);
+        const inflationAdjusted = inflationFactor > 0 ? result.finalRedemption.net / inflationFactor : result.finalRedemption.net;
+        const requiredInitial = estimateRequiredInitial(inputs.targetCorpus, inputs);
+
+        const wealthRealized = result.finalRedemption.net + result.cumulativeSwp;
+        const effectiveCagr = (inputs.years > 0 && result.invested > 0 && wealthRealized > 0)
+          ? (Math.pow(wealthRealized / result.invested, 1 / inputs.years) - 1)
+          : 0;
+
+        elements.investedValue.textContent = formatCurrencyWithUnits(result.invested);
+        elements.grossCorpusValue.textContent = formatCurrencyWithUnits(result.grossCorpus);
+        elements.swpValue.textContent = formatCurrencyWithUnits(result.cumulativeSwp);
+        elements.expenseDragValue.textContent = formatCurrencyWithUnits(result.expenseDrag);
+        elements.deductionValue.textContent = formatCurrencyWithUnits(result.finalRedemption.exitLoadAmount + result.finalRedemption.taxAmount);
+        elements.netCorpusValue.textContent = formatCurrencyWithUnits(result.finalRedemption.net);
+        elements.inflationAdjustedValue.textContent = formatCurrencyWithUnits(inflationAdjusted);
+        elements.requiredInitialValue.textContent = requiredInitial ? formatCurrencyWithUnits(requiredInitial) : "Добавьте корректную цель";
+        elements.effectiveCagrValue.textContent = (effectiveCagr * 100).toFixed(2) + "% годовых";
+
+        const hasGoal = inputs.targetCorpus > 0;
+        const progressPercent = hasGoal ? (result.finalRedemption.net / inputs.targetCorpus) * 100 : 0;
+        const clampedProgress = Math.max(0, Math.min(progressPercent, 100));
+
+        if (hasGoal) {
+          elements.goalStatusText.textContent = progressPercent >= 100
+            ? "Цель достигнута при текущих предположениях."
+            : "Текущий план достигает " + progressPercent.toFixed(1) + "% от цели.";
+          elements.goalPercentText.textContent = progressPercent.toFixed(1) + "%";
+          elements.goalProgressBar.style.width = clampedProgress.toFixed(2) + "%";
+          elements.goalProgressBar.style.background = progressPercent >= 100
+            ? "linear-gradient(110deg, #1f9f67, #1cb67a)"
+            : "linear-gradient(110deg, var(--accent), #00a1b2)";
+        } else {
+          elements.goalStatusText.textContent = "Добавьте целевой корпус, чтобы увидеть прогресс.";
+          elements.goalPercentText.textContent = "0%";
+          elements.goalProgressBar.style.width = "0%";
+          elements.goalProgressBar.style.background = "linear-gradient(110deg, var(--accent), #00a1b2)";
+        }
+
+        lastProjection = result.projection.slice();
+        renderProjectionTable(result.projection);
+        renderCharts(result.projection, result);
+
+        lastSummaryText =
+          "Сводка взаимного фонда" + "\n" +
+          "Начальные инвестиции: " + formatCurrencyWithUnits(inputs.initialInvestment) + "\n" +
+          "Ежемесячное пополнение: " + formatCurrencyWithUnits(inputs.monthlyTopup) + "\n" +
+          "Ставка доходности: " + scenarioAdjustedReturn(inputs.returnRate, inputs.riskScenario).toFixed(2) + "% годовых (scenario adjusted)" + "\n" +
+          "Срок: " + Math.round(inputs.years) + " лет" + "\n" +
+          "Всего инвестировано: " + formatCurrencyWithUnits(result.invested) + "\n" +
+          "Валовый корпус: " + formatCurrencyWithUnits(result.grossCorpus) + "\n" +
+          "Чистый корпус при выкупе: " + formatCurrencyWithUnits(result.finalRedemption.net) + "\n" +
+          "Чистый корпус с поправкой на инфляцию: " + formatCurrencyWithUnits(inflationAdjusted) + "\n" +
+          "Эффективный чистый CAGR: " + (effectiveCagr * 100).toFixed(2) + "% годовых";
+      }
+
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) {
+          return;
+        }
+        const headers = ["Год", "Всего инвестировано", "Валовый корпус", "Накопленный SWP", "Estimated Чистый при выкупе"];
+        const rows = lastProjection.map(function (row) {
+          return [
+            "Год " + row.year,
+            Math.round(row.invested),
+            Math.round(row.grossCorpus),
+            Math.round(row.cumulativeSwp),
+            Math.round(row.netIfRedeemed)
+          ].join(",");
+        });
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "mutual-fund-projection.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function resetToDefaults() {
+        elements.initialInvestment.value = defaults.initialInvestment;
+        elements.initialInvestmentRange.value = defaults.initialInvestment;
+        elements.monthlyTopup.value = defaults.monthlyTopup;
+        elements.monthlyTopupRange.value = defaults.monthlyTopup;
+        elements.returnRate.value = defaults.returnRate;
+        elements.returnRateRange.value = defaults.returnRate;
+        elements.years.value = defaults.years;
+        elements.yearsRange.value = defaults.years;
+        elements.stepUp.value = defaults.stepUp;
+        elements.stepUpRange.value = defaults.stepUp;
+        elements.expenseRatio.value = defaults.expenseRatio;
+        elements.expenseRatioRange.value = defaults.expenseRatio;
+        elements.inflation.value = defaults.inflation;
+        elements.inflationRange.value = defaults.inflation;
+        elements.exitLoad.value = defaults.exitLoad;
+        elements.exitLoadRange.value = defaults.exitLoad;
+        elements.ltcgRate.value = defaults.ltcgRate;
+        elements.ltcgRateRange.value = defaults.ltcgRate;
+        elements.ltcgExemption.value = defaults.ltcgExemption;
+        elements.swpStartYear.value = defaults.swpStartYear;
+        elements.swpMonthly.value = defaults.swpMonthly;
+        elements.targetCorpus.value = defaults.targetCorpus;
+        elements.riskScenario.value = defaults.riskScenario;
+        calculateAndRender();
+      }
+
+      function wireEvents() {
+        syncPair(elements.initialInvestmentRange, elements.initialInvestment);
+        syncPair(elements.monthlyTopupRange, elements.monthlyTopup);
+        syncPair(elements.returnRateRange, elements.returnRate);
+        syncPair(elements.yearsRange, elements.years);
+        syncPair(elements.stepUpRange, elements.stepUp);
+        syncPair(elements.expenseRatioRange, elements.expenseRatio);
+        syncPair(elements.inflationRange, elements.inflation);
+        syncPair(elements.exitLoadRange, elements.exitLoad);
+        syncPair(elements.ltcgRateRange, elements.ltcgRate);
+
+        [elements.ltcgExemption, elements.swpStartYear, elements.swpMonthly, elements.targetCorpus].forEach(function (input) {
+          input.addEventListener("input", calculateAndRender);
+        });
+        elements.riskScenario.addEventListener("change", calculateAndRender);
+
+        elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        if (window.currencyManager) { window.currencyManager.onChange(calculateAndRender); };
+        elements.resetBtn.addEventListener("click", resetToDefaults);
+        elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        elements.toggleViewBtn.addEventListener("click", function () {
+          const shell = document.querySelector(".calculator-shell");
+          const isAdvanced = shell.classList.toggle("advanced-mode");
+          elements.toggleViewBtn.classList.toggle("active", isAdvanced);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvanced ? "Расширенный режим: Вкл." : "Расширенный режим: Выкл.";
+        });
+
+        elements.copySummaryBtn.addEventListener("click", function () {
+          if (!navigator.clipboard || !lastSummaryText) {
+            return;
+          }
+          navigator.clipboard.writeText(lastSummaryText).then(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Копировать сводку';
+            }, 1300);
+          }).catch(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Ошибка копирования';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Копировать сводку';
+            }, 1300);
+          });
+        });
+      }
+
+      // Language switch dropdown handler
+      const langSelect = document.getElementById('langSelect');
+        if (langSelect) {
+          langSelect.value = 'ru';
+          langSelect.addEventListener('change', function () {
+            if (this.value === 'en') {
+              localStorage.setItem('user_lang', 'en');
+              window.location.href = '../mutualfundreturncalculator.html';
+            } else if (this.value === 'ja') {
+              localStorage.setItem('user_lang', 'ja');
+              window.location.href = '../ja/mutualfundreturncalculator.html';
+            }
+          });
+        }
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      if (window.currencyManager) {
+        window.currencyManager.onChange(calculateAndRender);
+      }
+      calculateAndRender();
+    })();
+  
+  </script>
+</body>
+
+</html>

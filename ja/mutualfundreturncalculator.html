@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      localStorage.setItem('user_lang', 'ja');
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>投資信託利回り・積立シミュレーター | 一括投資・積立・税金・SWP対応</title>
+  <meta name="description"
+    content="インドの投資信託（ミューチュアル・ファンド）利回りシミュレーター。一括投資＋毎月の積立、信託報酬・手数料、長期キャピタルゲイン（LTCG）課税、インフレ調整、SWP（定額取崩し）などを統合的に計算。">
+  <meta name="keywords"
+    content="投資信託計算, 利回りシミュレーター, ミューチュアルファンド, 一括投資, SIP, SWP, LTCG税金">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/ja/mutualfundreturncalculator.html">
+
+  <meta property="og:title" content="投資信託利回り・積立シミュレーター | 一括投資・積立・税金・SWP対応">
+  <meta property="og:description"
+    content="インドの投資信託（ミューチュアル・ファンド）利回りシミュレーター。一括投資＋毎月の積立、信託報酬・手数料、長期キャピタルゲイン（LTCG）課税、インフレ調整、SWP（定額取崩し）などを統合的に計算。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/ja/mutualfundreturncalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="投資信託利回り・積立シミュレーター | 一括投資・積立・税金・SWP対応">
+  <meta name="twitter:description"
+    content="インドの投資信託（ミューチュアル・ファンド）利回りシミュレーター。一括投資＋毎月の積立、信託報酬・手数料、長期キャピタルゲイン（LTCG）課税、インフレ調整、SWP（定額取崩し）などを統合的に計算。">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "投資信託利回りシミュレーター",
+      "url": "https://instacalc.in/ja/mutualfundreturncalculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "一括・積立投資、信託報酬、税金、インフレ調整、SWP、目標設定に対応した投資信託利回り計算シミュレーター。"
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", "Hiragino Sans", "Meiryo", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    .lang-switch {
+      margin-left: auto;
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    .lang-switch select {
+      min-height: 36px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      background: #ffffff;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .lang-switch select:focus {
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc ホーム">
+        <img src="../logo.png" alt="InstaCalc ロゴ">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="言語選択">
+          <option value="en">English</option>
+          <option value="ja" selected>日本語</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="ナビゲーションの切り替え" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-calculator"></i>
+            投資信託・積立
+          </span>
+          <h1>投資信託利回り・積立シミュレーター</h1>
+          <p>一括投資や毎月の積立（SIP）から、信託報酬（経費）、長期キャピタルゲイン（LTCG）課税、インフレ調整、SWP（定額取崩し）まで統合的に計算し、将来の実質手取り額を可視化します。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#mf-planner">
+              <i class="fas fa-calculator"></i>
+              シミュレーションを開始
+            </a>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h2>シミュレーターの機能</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 一括投資と毎月の積立（SIP）を組み合わせた詳細なシミュレーション</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 信託報酬（経費率）や解約手数料（Exit Load）による複利への影響を算出</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> インドの最新LTCG課税ルール（12.5%税率・12.5万ルピー免税枠）に対応</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 将来の資産価値を現在の購買力に換算するインフレ調整機能</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 老後の生活設計に役立つSWP（定期的な取り崩し）の持続性テスト</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="mf-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="計算ツール切り替え">
+              <a href="mutualfundreturncalculator.html" class="active">投資信託</a>
+              <a href="sipcalculator.html">SIP（積立）</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>詳細設定モード: オフ</span>
+            </button>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="initialInvestment">初期投資額 (一括投資)</label>
+                <span id="initialInvestmentPreview">500,000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="initialInvestmentRange" min="1000" max="50000000" step="1000" value="500000">
+                <input type="number" id="initialInvestment" min="1000" max="50000000" step="1000" value="500000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="monthlyTopup">毎月の追加入金額 (SIP/任意)</label>
+                <span id="monthlyTopupPreview">10,000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="monthlyTopupRange" min="0" max="500000" step="500" value="10000">
+                <input type="number" id="monthlyTopup" min="0" max="500000" step="500" value="10000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="returnRate">想定年間利回り (%)</label>
+                <span id="returnRatePreview">12.0%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="returnRateRange" min="1" max="30" step="0.1" value="12">
+                <input type="number" id="returnRate" min="1" max="30" step="0.1" value="12">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="years">積立・運用期間 (年)</label>
+                <span id="yearsPreview">15</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="yearsRange" min="1" max="40" step="1" value="15">
+                <input type="number" id="years" min="1" max="40" step="1" value="15">
+              </div>
+            </div>
+
+            <div class="advanced-only-section" id="advancedFields">
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="stepUp"
+                      title="給与アップ等に合わせて、毎月の積立額を毎年一定割合で増額します。">年間増額ステップアップ率 (%) <i class="fas fa-circle-question"
+                        style="color:var(--text-soft); opacity: 0.6; font-size: 0.85em; cursor: help;"></i></label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="stepUpRange" min="0" max="25" step="0.5" value="5">
+                    <input type="number" id="stepUp" min="0" max="25" step="0.5" value="5">
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="expenseRatio"
+                      title="信託報酬など、投資信託の管理運営のために日々運用資産から差し引かれる年間手数料率です。">信託報酬・経費率 (年率 %) <i class="fas fa-circle-question"
+                        style="color:var(--text-soft); opacity: 0.6; font-size: 0.85em; cursor: help;"></i></label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="expenseRatioRange" min="0" max="3" step="0.05" value="1">
+                    <input type="number" id="expenseRatio" min="0" max="3" step="0.05" value="1">
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="inflation"
+                      title="将来の資産価値をインフレ（物価上昇）に合わせて割り引き、現在の購買力ベースでの実質価値を算出します。">想定インフレ率 (年率 %) <i class="fas fa-circle-question"
+                        style="color:var(--text-soft); opacity: 0.6; font-size: 0.85em; cursor: help;"></i></label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="inflationRange" min="0" max="12" step="0.1" value="6">
+                    <input type="number" id="inflation" min="0" max="12" step="0.1" value="6">
+                  </div>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="exitLoad"
+                      title="一定の保有期間未満で途中解約（売却）する際に引かれる手数料率です。">信託財産留保額・解約手数料 (%) <i class="fas fa-circle-question"
+                        style="color:var(--text-soft); opacity: 0.6; font-size: 0.85em; cursor: help;"></i></label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="exitLoadRange" min="0" max="5" step="0.1" value="1">
+                    <input type="number" id="exitLoad" min="0" max="5" step="0.1" value="1">
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="ltcgRate"
+                      title="長期キャピタルゲイン税率。インドの株式型投資信託において1年超保有の場合、原則12.5%が課税されます。">LTCG 税率 (%) <i class="fas fa-circle-question"
+                        style="color:var(--text-soft); opacity: 0.6; font-size: 0.85em; cursor: help;"></i></label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="ltcgRateRange" min="0" max="25" step="0.5" value="12.5">
+                    <input type="number" id="ltcgRate" min="0" max="25" step="0.5" value="12.5">
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="ltcgExemption"
+                      title="長期キャピタルゲイン税の対象から差し引かれる非課税枠（インドでは現行125,000ルピー）です。">LTCG 非課税枠 <i class="fas fa-circle-question"
+                        style="color:var(--text-soft); opacity: 0.6; font-size: 0.85em; cursor: help;"></i></label>
+                  </div>
+                  <input type="number" id="ltcgExemption" min="0" step="10000" value="125000">
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="swpStartYear">SWP開始年 (0で無効)</label>
+                  </div>
+                  <input type="number" id="swpStartYear" min="0" max="40" step="1" value="0">
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="swpMonthly">SWP毎月取崩額</label>
+                  </div>
+                  <input type="number" id="swpMonthly" min="0" step="500" value="0">
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="riskScenario">リスクシナリオ</label>
+                  </div>
+                  <select id="riskScenario">
+                    <option value="conservative">保守的シナリオ (利回り-2%)</option>
+                    <option value="base" selected>基本シナリオ (指定利回り通り)</option>
+                    <option value="aggressive">積極的シナリオ (利回り+2%)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="targetCorpus">目標純資産額 (任意)</label>
+                </div>
+                <input type="number" id="targetCorpus" min="0" step="100000" value="20000000"
+                  placeholder="例: 20000000">
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i> 再計算
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i> 初期値に戻す
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i> 結果をコピー
+            </button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <h3>総投資額</h3>
+              <div class="result-value" id="investedValue">-</div>
+            </div>
+            <div class="result-card positive">
+              <h3>資産総額 (総評価額)</h3>
+              <div class="result-value" id="grossCorpusValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>SWP累計受取額</h3>
+              <div class="result-value" id="swpValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>経費累積影響 (信託報酬等)</h3>
+              <div class="result-value" id="expenseDragValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>解約手数料＋LTCG税金</h3>
+              <div class="result-value" id="deductionValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>手取り金額 (純受取額)</h3>
+              <div class="result-value" id="netCorpusValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>インフレ調整後手取り額</h3>
+              <div class="result-value" id="inflationAdjustedValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>目標達成に必要な初期投資額</h3>
+              <div class="result-value" id="requiredInitialValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>実質年平均利回り (CAGR)</h3>
+              <div class="result-value" id="effectiveCagrValue">-</div>
+            </div>
+          </div>
+
+          <div class="goal-status advanced-only">
+            <div class="goal-meta">
+              <span id="goalStatusText">目標金額を設定すると進捗が表示されます。</span>
+              <strong id="goalPercentText">0%</strong>
+            </div>
+            <div class="goal-progress">
+              <div class="goal-progress-bar" id="goalProgressBar"></div>
+            </div>
+          </div>
+
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h3>評価額・手取り額の推移</h3>
+              <div class="chart-wrap">
+                <canvas id="growthChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card advanced-only">
+              <h3>投資資産構成比</h3>
+              <div class="chart-wrap small">
+                <canvas id="splitChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools">
+            <h3>年次シミュレーション詳細</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
+              <i class="fas fa-file-csv"></i> CSVダウンロード
+            </button>
+          </div>
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>経過年数</th>
+                  <th>総投資額</th>
+                  <th>総資産額</th>
+                  <th>SWP累計受取</th>
+                  <th>想定純手取り額</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>プランニング上の留意点</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i> 信託報酬（経費率）は毎月差し引かれ、長期の複利効果を押し下げる要因になります。</li>
+              <li><i class="fas fa-circle-info"></i> 解約手数料と長期キャピタルゲイン税（LTCG）は売却時に適用され、実質的な手取り額を算出します。</li>
+              <li><i class="fas fa-circle-info"></i> SWPモードはリタイア後の生活費や定期収入を得るための取り崩しプランに活用できます。</li>
+              <li><i class="fas fa-circle-info"></i> リスクシナリオを利用して、相場が軟調な場合（保守的）や好調な場合（積極的）をストレステストしましょう。</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>関連する計算ツール</h3>
+            <ul class="link-list">
+              <li><a href="sipcalculator.html"><span>SIP積立シミュレーター</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="sipcalculatorlumpsump.html"><span>一括投資シミュレーター</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="cagrcalculator.html"><span>CAGR（年平均成長率）計算</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="fdcalculator.html"><span>定期預金（FD）計算</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="rdcalculator.html"><span>積立預金（RD）計算</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="retirementcalculator.html"><span>老後資金・リタイア計算</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>投資信託利回り・積立シミュレーターについて</h2>
+          <p>この高度なシミュレーターは、一括購入した投資信託（Lumpsum）の運用と、毎月定期的に積み立てる「SIP（Systematic Investment Plan）」を組み合わせた資産運用の経過を、月単位でシミュレーションします。さらに信託報酬（経費率）の引き去り、定期売却によるSWPの引出し、解約時の税金など、より実態に即した純資産（手取り）推移を明らかにします。</p>
+          <br>
+          <p><strong>シミュレーションの流れ：</strong> 毎月の複利成長 → 信託報酬の差引き → SIPの追加入金 → SWPの定額取崩し → 年末時点の評価額集計。そして、最終売却時に解約手数料（Exit Load）と、インドの最新税制に基づく長期キャピタルゲイン税（LTCG、現行12.5万ルピーの免税枠を適用）を控除します。</p>
+          <br>
+          <p><strong>対応する主なシミュレーション：</strong> 投資信託の複利運用計算、一括投資の将来推移、年間ステップアップ付き積立投資、インフレ調整を考慮した税引き後手取り試算、SWP取り崩し生存テスト、目標額達成に向けた初期投資額の逆算。</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>投資信託の利回りはどのように計算されますか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>設定された一括投資額および毎月の積立額に対し、想定される年間利回りを月換算して複利加算します。当ツールではそこから信託報酬（経費率）を毎日/毎月控除するモデルを採用しています。</p>
+          </details>
+          <details class="faq-card">
+            <summary>投資信託の運用益は保証されていますか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>いいえ、保証されていません。投資信託は市場の動きに連動する金融商品であり、リスクが伴います。シミュレーターの結果はあくまで入力された想定利回りに基づくシナリオ予測です。</p>
+          </details>
+          <details class="faq-card">
+            <summary>信託報酬（経費率）を考慮する必要があるのはなぜですか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>信託報酬は、運用会社に支払う管理費用です。年1%程度と小さく見えても、数十年といった長期運用では複利の力で資産総額を押し下げる大きな「ドラッグ（足かせ）」になります。これを織り込むことで、より現実的な手元資金を予測できます。</p>
+          </details>
+          <details class="faq-card">
+            <summary>インドにおける投資信託の税制はどうなっていますか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>株式型投資信託を1年以上保有して売却した場合の長期キャピタルゲイン（LTCG）は、年度内で12.5万ルピーを超える利益分に対して12.5%が課税されます。1年未満の短期キャピタルゲイン（STCG）には20%が課税されます。</p>
+          </details>
+          <details class="faq-card">
+            <summary>SWP（定期取崩しプラン）とは何ですか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>Systematic Withdrawal Plan（定期取崩しプラン）の略で、貯まった資産から毎月一定額を自動売却して現金として受け取る仕組みです。老後の年金代わりなどに使用され、資産が底をつかずに何年持つかを確認できます。</p>
+          </details>
+          <details class="faq-card">
+            <summary>インフレ調整後手取り額とは何ですか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>物価上昇によって将来のお金の価値が目減りすることを考慮した、現在の価値に引き直した手元資金の額です。将来の1,000万ルピーが今の何ルピー相当の購買力を持つかを示します。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>一括投資と積立（SIP）のハイブリッド戦略</h2>
+          <p>多くの個人投資家は、まとまった初期資金を一括投資しつつ、毎月の給与から少額を「SIP」で追加積立するハイブリッドな手法を実践しています。このアプローチにより、初期資産を長期間複利の波に乗せながら、ドルコスト平均法（ルピーコスト平均法）によって市場価格の変動リスクを抑えることができます。</p>
+          <br>
+          <h2>税金と手数料を考慮したスマートな選択</h2>
+          <p>資産運用においては、表面上の満期金額だけではなく、売却手数料や税金を差し引いた「手元に残る金額」をベースに計画を立てることが不可欠です。当ツールで算出された純手取り額と、銀行の定期預金（FD）や積立預金（RD）などの確定利回り商品を比較することで、自身のリスク許容度に応じた最適なポートフォリオを選択する助けになります。</p>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in — 日々の選択をスマートにする、実用的でシンプルな計算ツール・コンバーター。</p>
+      <div class="footer-links">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        initialInvestment: 500000,
+        monthlyTopup: 10000,
+        returnRate: 12,
+        years: 15,
+        stepUp: 5,
+        expenseRatio: 1,
+        inflation: 6,
+        exitLoad: 1,
+        ltcgRate: 12.5,
+        ltcgExemption: 125000,
+        swpStartYear: 0,
+        swpMonthly: 0,
+        targetCorpus: 20000000,
+        riskScenario: "base"
+      };
+
+      const nfCurrency = { format: (v) => "¥" + Math.round(v).toLocaleString('ja-JP') };
+
+      let growthChartInstance = null;
+      let splitChartInstance = null;
+      let lastProjection = null;
+      let lastSummaryText = "";
+
+      const elements = {
+        initialInvestment: document.getElementById("initialInvestment"),
+        initialInvestmentRange: document.getElementById("initialInvestmentRange"),
+        initialInvestmentPreview: document.getElementById("initialInvestmentPreview"),
+        monthlyTopup: document.getElementById("monthlyTopup"),
+        monthlyTopupRange: document.getElementById("monthlyTopupRange"),
+        monthlyTopupPreview: document.getElementById("monthlyTopupPreview"),
+        returnRate: document.getElementById("returnRate"),
+        returnRateRange: document.getElementById("returnRateRange"),
+        returnRatePreview: document.getElementById("returnRatePreview"),
+        years: document.getElementById("years"),
+        yearsRange: document.getElementById("yearsRange"),
+        yearsPreview: document.getElementById("yearsPreview"),
+        stepUp: document.getElementById("stepUp"),
+        stepUpRange: document.getElementById("stepUpRange"),
+        expenseRatio: document.getElementById("expenseRatio"),
+        expenseRatioRange: document.getElementById("expenseRatioRange"),
+        inflation: document.getElementById("inflation"),
+        inflationRange: document.getElementById("inflationRange"),
+        exitLoad: document.getElementById("exitLoad"),
+        exitLoadRange: document.getElementById("exitLoadRange"),
+        ltcgRate: document.getElementById("ltcgRate"),
+        ltcgRateRange: document.getElementById("ltcgRateRange"),
+        ltcgExemption: document.getElementById("ltcgExemption"),
+        swpStartYear: document.getElementById("swpStartYear"),
+        swpMonthly: document.getElementById("swpMonthly"),
+        riskScenario: document.getElementById("riskScenario"),
+        targetCorpus: document.getElementById("targetCorpus"),
+
+        investedValue: document.getElementById("investedValue"),
+        grossCorpusValue: document.getElementById("grossCorpusValue"),
+        swpValue: document.getElementById("swpValue"),
+        expenseDragValue: document.getElementById("expenseDragValue"),
+        deductionValue: document.getElementById("deductionValue"),
+        netCorpusValue: document.getElementById("netCorpusValue"),
+        inflationAdjustedValue: document.getElementById("inflationAdjustedValue"),
+        requiredInitialValue: document.getElementById("requiredInitialValue"),
+        effectiveCagrValue: document.getElementById("effectiveCagrValue"),
+
+        goalStatusText: document.getElementById("goalStatusText"),
+        goalPercentText: document.getElementById("goalPercentText"),
+        goalProgressBar: document.getElementById("goalProgressBar"),
+
+        growthChart: document.getElementById("growthChart"),
+        splitChart: document.getElementById("splitChart"),
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        backToTopBtn: document.getElementById("backToTop")
+      };
+
+      function toggleNav() {
+        const menuToggle = document.getElementById("menuToggle");
+        const mainNav = document.getElementById("mainNav");
+        if (menuToggle && mainNav) {
+          menuToggle.addEventListener("click", function () {
+            mainNav.classList.toggle("open");
+          });
+        }
+      }
+
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) return;
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function roundToStep(value, step) {
+        if (!step || step <= 0) return value;
+        return Math.round(value / step) * step;
+      }
+
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) return;
+        const min = parseFloat(rangeEl.min || "0");
+        const max = parseFloat(rangeEl.max || "100");
+        const step = parseFloat(rangeEl.step || "1");
+
+        function normalize(value) {
+          const numeric = parseNumeric(value, parseFloat(rangeEl.value));
+          const stepped = roundToStep(numeric, step);
+          return clamp(stepped, min, max);
+        }
+
+        rangeEl.addEventListener("input", function () {
+          numberEl.value = rangeEl.value;
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("input", function () {
+          if (numberEl.value === "") return;
+          const normalized = normalize(numberEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("blur", function () {
+          const normalized = normalize(numberEl.value || rangeEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+      }
+
+      function formatCurrencyWithUnits(value) {
+        return nfCurrency.format(value);
+      }
+
+            function compactCurrency(value) {
+        if (value >= 100000000) {
+          return "¥" + (value / 100000000).toFixed(1) + "億円";
+        }
+        if (value >= 10000) {
+          return "¥" + (value / 10000).toFixed(0) + "万円";
+        }
+        return "¥" + Math.round(value).toLocaleString('ja-JP');
+      }
+      function getInputs() {
+        return {
+          initialInvestment: parseNumeric(elements.initialInvestment.value, defaults.initialInvestment),
+          monthlyTopup: parseNumeric(elements.monthlyTopup.value, defaults.monthlyTopup),
+          returnRate: parseNumeric(elements.returnRate.value, defaults.returnRate),
+          years: parseNumeric(elements.years.value, defaults.years),
+          stepUp: parseNumeric(elements.stepUp.value, defaults.stepUp),
+          expenseRatio: parseNumeric(elements.expenseRatio.value, defaults.expenseRatio),
+          inflation: parseNumeric(elements.inflation.value, defaults.inflation),
+          exitLoad: parseNumeric(elements.exitLoad.value, defaults.exitLoad),
+          ltcgRate: parseNumeric(elements.ltcgRate.value, defaults.ltcgRate),
+          ltcgExemption: parseNumeric(elements.ltcgExemption.value, defaults.ltcgExemption),
+          swpStartYear: Math.max(0, Math.round(parseNumeric(elements.swpStartYear.value, defaults.swpStartYear))),
+          swpMonthly: Math.max(0, parseNumeric(elements.swpMonthly.value, defaults.swpMonthly)),
+          targetCorpus: Math.max(0, parseNumeric(elements.targetCorpus.value, defaults.targetCorpus)),
+          riskScenario: elements.riskScenario.value || defaults.riskScenario
+        };
+      }
+
+      function scenarioAdjustedReturn(baseReturn, riskScenario) {
+        const offset = riskScenario === "conservative" ? -2 : (riskScenario === "aggressive" ? 2 : 0);
+        return Math.max(0, baseReturn + offset);
+      }
+
+      function estimateRedemption(corpus, invested, exitLoadRate, taxRate, taxExemption) {
+        const gain = Math.max(0, corpus - invested);
+        const exitLoadAmount = Math.max(0, corpus * (exitLoadRate / 100));
+        const taxableGain = Math.max(0, gain - Math.max(0, taxExemption));
+        const taxAmount = taxableGain * (Math.max(0, taxRate) / 100);
+        const net = Math.max(0, corpus - exitLoadAmount - taxAmount);
+        return {
+          gain: gain,
+          exitLoadAmount: exitLoadAmount,
+          taxAmount: taxAmount,
+          net: net
+        };
+      }
+
+      function simulatePortfolio(params) {
+        const months = Math.round(params.years * 12);
+        const adjustedReturn = scenarioAdjustedReturn(params.returnRate, params.riskScenario);
+        const monthlyGrowth = adjustedReturn / 1200;
+        const monthlyExpense = Math.max(0, params.expenseRatio) / 1200;
+
+        let invested = Math.max(0, params.initialInvestment);
+        let corpus = Math.max(0, params.initialInvestment);
+        let monthlyTopup = Math.max(0, params.monthlyTopup);
+        let cumulativeSwp = 0;
+        let cumulativeExpenseDrag = 0;
+        const projection = [];
+
+        const swpStartMonth = params.swpStartYear > 0 ? ((params.swpStartYear - 1) * 12 + 1) : Number.POSITIVE_INFINITY;
+
+        for (let month = 1; month <= months; month += 1) {
+          if (params.stepUp > 0 && month > 1 && (month - 1) % 12 === 0) {
+            monthlyTopup *= (1 + params.stepUp / 100);
+          }
+
+          corpus *= (1 + monthlyGrowth);
+
+          const expense = Math.max(0, corpus * monthlyExpense);
+          corpus -= expense;
+          cumulativeExpenseDrag += expense;
+
+          if (monthlyTopup > 0) {
+            corpus += monthlyTopup;
+            invested += monthlyTopup;
+          }
+
+          if (month >= swpStartMonth && params.swpMonthly > 0) {
+            const withdrawn = Math.min(corpus, params.swpMonthly);
+            corpus -= withdrawn;
+            cumulativeSwp += withdrawn;
+          }
+
+          if (month % 12 === 0) {
+            const redemption = estimateRedemption(corpus, invested, params.exitLoad, params.ltcgRate, params.ltcgExemption);
+            projection.push({
+              year: month / 12,
+              invested: invested,
+              grossCorpus: corpus,
+              cumulativeSwp: cumulativeSwp,
+              netIfRedeemed: redemption.net
+            });
+          }
+        }
+
+        const finalRedemption = estimateRedemption(corpus, invested, params.exitLoad, params.ltcgRate, params.ltcgExemption);
+
+        return {
+          months: months,
+          invested: invested,
+          grossCorpus: corpus,
+          cumulativeSwp: cumulativeSwp,
+          expenseDrag: cumulativeExpenseDrag,
+          finalRedemption: finalRedemption,
+          projection: projection
+        };
+      }
+
+      function estimateRequiredInitial(targetNetCorpus, params) {
+        if (!Number.isFinite(targetNetCorpus) || targetNetCorpus <= 0) return null;
+
+        const simulationParams = {
+          ...params,
+          initialInvestment: 0
+        };
+
+        function netForInitial(initialAmount) {
+          simulationParams.initialInvestment = initialAmount;
+          return simulatePortfolio(simulationParams).finalRedemption.net;
+        }
+
+        let low = 0;
+        let high = Math.max(100000, params.initialInvestment || 100000);
+        let guard = 0;
+
+        while (netForInitial(high) < targetNetCorpus && high < 1000000000) {
+          high *= 2;
+          guard += 1;
+          if (guard > 40) break;
+        }
+
+        if (netForInitial(high) < targetNetCorpus) return null;
+
+        for (let i = 0; i < 65; i += 1) {
+          const mid = (low + high) / 2;
+          if (netForInitial(mid) >= targetNetCorpus) {
+            high = mid;
+          } else {
+            low = mid;
+          }
+        }
+
+        return high;
+      }
+
+      function renderProjectionTable(projection) {
+        if (!elements.projectionTableBody) return;
+        elements.projectionTableBody.innerHTML = projection.map(function (row) {
+          return (
+            "<tr>" +
+            "<td>" + row.year + " 年目</td>" +
+            "<td>" + formatCurrencyWithUnits(row.invested) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.grossCorpus) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.cumulativeSwp) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.netIfRedeemed) + "</td>" +
+            "</tr>"
+          );
+        }).join("");
+      }
+
+      function renderCharts(projection, result) {
+        if (!window.Chart || !elements.growthChart || !elements.splitChart) return;
+
+        const labels = projection.map(function (row) { return row.year + "年目"; });
+        const grossData = projection.map(function (row) { return row.grossCorpus; });
+        const netData = projection.map(function (row) { return row.netIfRedeemed; });
+        const investedData = projection.map(function (row) { return row.invested; });
+
+        if (growthChartInstance) growthChartInstance.destroy();
+        growthChartInstance = new Chart(elements.growthChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "資産総額",
+                data: grossData,
+                borderColor: "#007f8b",
+                backgroundColor: "rgba(0, 127, 139, 0.12)",
+                fill: true,
+                tension: 0.18,
+                pointRadius: 2
+              },
+              {
+                label: "純手取り額",
+                data: netData,
+                borderColor: "#1f9f67",
+                backgroundColor: "rgba(31, 159, 103, 0.09)",
+                fill: false,
+                tension: 0.18,
+                pointRadius: 2
+              },
+              {
+                label: "総投資額",
+                data: investedData,
+                borderColor: "#ee9f2e",
+                backgroundColor: "rgba(238, 159, 46, 0.12)",
+                fill: false,
+                tension: 0.12,
+                pointRadius: 2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "top" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.dataset.label + ": " + formatCurrencyWithUnits(context.parsed.y);
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function (value) { return compactCurrency(value); }
+                }
+              }
+            }
+          }
+        });
+
+        const wealthRealized = result.finalRedemption.net + result.cumulativeSwp;
+        const netGain = Math.max(0, wealthRealized - result.invested);
+        const deductionBucket = Math.max(0, result.expenseDrag + result.finalRedemption.exitLoadAmount + result.finalRedemption.taxAmount);
+
+        if (splitChartInstance) splitChartInstance.destroy();
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["投資元本", "純利益", "手数料・税金控除"],
+            datasets: [
+              {
+                data: [Math.max(result.invested, 0), netGain, deductionBucket],
+                backgroundColor: ["#007f8b", "#1f9f67", "#d8891d"],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.label + ": " + formatCurrencyWithUnits(context.parsed);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      function updatePreviewLabels(inputs) {
+        elements.initialInvestmentPreview.textContent = inputs.initialInvestment.toLocaleString('ja-JP');
+        elements.monthlyTopupPreview.textContent = inputs.monthlyTopup.toLocaleString('ja-JP');
+        elements.returnRatePreview.textContent = inputs.returnRate.toFixed(1) + "%";
+        elements.yearsPreview.textContent = String(Math.round(inputs.years));
+      }
+
+      function calculateAndRender() {
+        const inputs = getInputs();
+        updatePreviewLabels(inputs);
+
+        const result = simulatePortfolio(inputs);
+        const inflationFactor = Math.pow(1 + (inputs.inflation / 100), inputs.years);
+        const inflationAdjusted = inflationFactor > 0 ? result.finalRedemption.net / inflationFactor : result.finalRedemption.net;
+        const requiredInitial = estimateRequiredInitial(inputs.targetCorpus, inputs);
+
+        const wealthRealized = result.finalRedemption.net + result.cumulativeSwp;
+        const effectiveCagr = (inputs.years > 0 && result.invested > 0 && wealthRealized > 0)
+          ? (Math.pow(wealthRealized / result.invested, 1 / inputs.years) - 1)
+          : 0;
+
+        elements.investedValue.textContent = formatCurrencyWithUnits(result.invested);
+        elements.grossCorpusValue.textContent = formatCurrencyWithUnits(result.grossCorpus);
+        elements.swpValue.textContent = formatCurrencyWithUnits(result.cumulativeSwp);
+        elements.expenseDragValue.textContent = formatCurrencyWithUnits(result.expenseDrag);
+        elements.deductionValue.textContent = formatCurrencyWithUnits(result.finalRedemption.exitLoadAmount + result.finalRedemption.taxAmount);
+        elements.netCorpusValue.textContent = formatCurrencyWithUnits(result.finalRedemption.net);
+        elements.inflationAdjustedValue.textContent = formatCurrencyWithUnits(inflationAdjusted);
+        elements.requiredInitialValue.textContent = requiredInitial ? formatCurrencyWithUnits(requiredInitial) : "目標金額を設定してください";
+        elements.effectiveCagrValue.textContent = (effectiveCagr * 100).toFixed(2) + "% p.a.";
+
+        const hasGoal = inputs.targetCorpus > 0;
+        const progressPercent = hasGoal ? (result.finalRedemption.net / inputs.targetCorpus) * 100 : 0;
+        const clampedProgress = Math.max(0, Math.min(progressPercent, 100));
+
+        if (hasGoal) {
+          elements.goalStatusText.textContent = progressPercent >= 100
+            ? "現在の計画で目標金額を達成できます。"
+            : "現在の計画では目標の " + progressPercent.toFixed(1) + "% に到達します。";
+          elements.goalPercentText.textContent = progressPercent.toFixed(1) + "%";
+          elements.goalProgressBar.style.width = clampedProgress.toFixed(2) + "%";
+          elements.goalProgressBar.style.background = progressPercent >= 100
+            ? "linear-gradient(110deg, #1f9f67, #1cb67a)"
+            : "linear-gradient(110deg, var(--accent), #00a1b2)";
+        } else {
+          elements.goalStatusText.textContent = "進捗を確認するには目標金額を設定してください。";
+          elements.goalPercentText.textContent = "0%";
+          elements.goalProgressBar.style.width = "0%";
+          elements.goalProgressBar.style.background = "linear-gradient(110deg, var(--accent), #00a1b2)";
+        }
+
+        lastProjection = result.projection.slice();
+        renderProjectionTable(result.projection);
+        renderCharts(result.projection, result);
+
+        lastSummaryText =
+          "【投資信託シミュレーション結果】" + "\n" +
+          "初期投資額: " + formatCurrencyWithUnits(inputs.initialInvestment) + "\n" +
+          "毎月積立額: " + formatCurrencyWithUnits(inputs.monthlyTopup) + "\n" +
+          "想定年間利回り: " + scenarioAdjustedReturn(inputs.returnRate, inputs.riskScenario).toFixed(2) + "% p.a. (調整後)" + "\n" +
+          "運用期間: " + Math.round(inputs.years) + " 年" + "\n" +
+          "総投資元本: " + formatCurrencyWithUnits(result.invested) + "\n" +
+          "総資産総額: " + formatCurrencyWithUnits(result.grossCorpus) + "\n" +
+          "純手取り額: " + formatCurrencyWithUnits(result.finalRedemption.net) + "\n" +
+          "インフレ調整後手取り: " + formatCurrencyWithUnits(inflationAdjusted) + "\n" +
+          "実質年平均成長率(CAGR): " + (effectiveCagr * 100).toFixed(2) + "% p.a.";
+      }
+
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) return;
+        const headers = ["経過年数", "総投資額", "総資産額", "SWP累計受取額", "純手取り額"];
+        const rows = lastProjection.map(function (row) {
+          return [
+            row.year + "年目",
+            Math.round(row.invested),
+            Math.round(row.grossCorpus),
+            Math.round(row.cumulativeSwp),
+            Math.round(row.netIfRedeemed)
+          ].join(",");
+        });
+        const csv = "\ufeff" + [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "mutual-fund-projection.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function resetToDefaults() {
+        elements.initialInvestment.value = defaults.initialInvestment;
+        elements.initialInvestmentRange.value = defaults.initialInvestment;
+        elements.monthlyTopup.value = defaults.monthlyTopup;
+        elements.monthlyTopupRange.value = defaults.monthlyTopup;
+        elements.returnRate.value = defaults.returnRate;
+        elements.returnRateRange.value = defaults.returnRate;
+        elements.years.value = defaults.years;
+        elements.yearsRange.value = defaults.years;
+        elements.stepUp.value = defaults.stepUp;
+        elements.stepUpRange.value = defaults.stepUp;
+        elements.expenseRatio.value = defaults.expenseRatio;
+        elements.expenseRatioRange.value = defaults.expenseRatio;
+        elements.inflation.value = defaults.inflation;
+        elements.inflationRange.value = defaults.inflation;
+        elements.exitLoad.value = defaults.exitLoad;
+        elements.exitLoadRange.value = defaults.exitLoad;
+        elements.ltcgRate.value = defaults.ltcgRate;
+        elements.ltcgRateRange.value = defaults.ltcgRate;
+        elements.ltcgExemption.value = defaults.ltcgExemption;
+        elements.swpStartYear.value = defaults.swpStartYear;
+        elements.swpMonthly.value = defaults.swpMonthly;
+        elements.riskScenario.value = defaults.riskScenario;
+        elements.targetCorpus.value = defaults.targetCorpus;
+        calculateAndRender();
+      }
+
+      function wireEvents() {
+        syncPair(elements.initialInvestmentRange, elements.initialInvestment);
+        syncPair(elements.monthlyTopupRange, elements.monthlyTopup);
+        syncPair(elements.returnRateRange, elements.returnRate);
+        syncPair(elements.yearsRange, elements.years);
+        syncPair(elements.stepUpRange, elements.stepUp);
+        syncPair(elements.expenseRatioRange, elements.expenseRatio);
+        syncPair(elements.inflationRange, elements.inflation);
+        syncPair(elements.exitLoadRange, elements.exitLoad);
+        syncPair(elements.ltcgRateRange, elements.ltcgRate);
+
+        const advancedInputs = [
+          elements.ltcgExemption,
+          elements.swpStartYear,
+          elements.swpMonthly,
+          elements.targetCorpus
+        ];
+        advancedInputs.forEach(function (input) {
+          if (input) {
+            input.addEventListener("input", calculateAndRender);
+          }
+        });
+        elements.riskScenario.addEventListener("change", calculateAndRender);
+
+        elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        elements.resetBtn.addEventListener("click", resetToDefaults);
+        elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        elements.toggleViewBtn.addEventListener("click", function () {
+          const shell = document.querySelector(".calculator-shell");
+          const isAdvanced = shell.classList.toggle("advanced-mode");
+          elements.toggleViewBtn.classList.toggle("active", isAdvanced);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvanced ? "詳細設定モード: オン" : "詳細設定モード: オフ";
+        });
+
+        elements.copySummaryBtn.addEventListener("click", function () {
+          if (!navigator.clipboard || !lastSummaryText) return;
+          navigator.clipboard.writeText(lastSummaryText).then(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> コピーしました！';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> 結果をコピー';
+            }, 1300);
+          }).catch(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> コピー失敗';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> 結果をコピー';
+            }, 1300);
+          });
+        });
+      }
+
+      // Language switch dropdown handler
+      const langSelect = document.getElementById('langSelect');
+      if (langSelect) {
+        langSelect.value = 'ja';
+        langSelect.addEventListener('change', function() {
+          if (this.value === 'en') {
+            localStorage.setItem('user_lang', 'en');
+            window.location.href = '../mutualfundreturncalculator.html';
+          }
+        });
+      }
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      calculateAndRender();
+    })();
+  </script>
+</body>
+
+</html>

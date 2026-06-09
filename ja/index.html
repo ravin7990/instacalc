@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      localStorage.setItem('user_lang', 'ja');
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InstaCalc.in - 無料オンライン計算機＆単位変換ツール集</title>
+  <meta name="description"
+    content="InstaCalc.inは、金融電卓、単位換算、時間計算、建築ツールなど、40以上の便利な無料ツールを提供しています。シンプルで使いやすく、モバイルでも高速に動作します。">
+  <meta name="keywords"
+    content="InstaCalc, オンライン計算機, 単位変換, SIP計算, EMI計算, 消費税計算, 年齢計算, 期間計算">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <link rel="canonical" href="https://instacalc.in/ja/index.html">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+
+  <meta property="og:title" content="InstaCalc.in - 40以上の無料オンライン計算機＆単位換算ツール">
+  <meta property="og:description"
+    content="スマートな金融計算機、高速な単位変換、時間計算ツールなどをInstaCalc.inで今すぐ体験。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/ja/index.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="InstaCalc.in - スマート計算機と高速単位換算">
+  <meta name="twitter:description" content="SIP、EMI、消費税、年齢、期間などを計算するクリーンな計算ツール集。">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --card: #ffffff;
+      --line: #d3e1ea;
+      --glow: rgba(0, 127, 139, 0.16);
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", "Hiragino Sans", Meiryo, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, #d8edf6 0, transparent 42%),
+        radial-gradient(circle at 90% 15%, #ffe7bf 0, transparent 37%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 35%, #f0f6f9 100%);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.25;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 0.75rem;
+      top: 0.5rem;
+      z-index: 120;
+      transform: translateY(-150%);
+      padding: 0.45rem 0.75rem;
+      border-radius: 0.45rem;
+      background: #ffffff;
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      font-weight: 700;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    .container {
+      width: min(1120px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.25rem 0;
+    }
+
+    .section-head {
+      max-width: 700px;
+      margin-bottom: 1.35rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.5rem, 2.2vw, 2.3rem);
+      margin: 0.35rem 0 0.65rem;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.18);
+      background: rgba(255, 255, 255, 0.72);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-strong);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(242, 246, 248, 0.9);
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      min-height: 74px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      border: 1px solid rgba(0, 95, 115, 0.18);
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      left: 4vw;
+      right: 4vw;
+      top: calc(100% + 8px);
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 20px 35px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      color: var(--text-soft);
+      font-weight: 600;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding-top: 3.4rem;
+      padding-bottom: 2.2rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .hero-copy {
+      background: linear-gradient(140deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.62));
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      border-radius: var(--radius-lg);
+      padding: 1.3rem;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(0, 127, 139, 0.12);
+      color: var(--accent-strong);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .hero-copy h1 {
+      margin-top: 0.9rem;
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.85rem, 5vw, 3.15rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      max-width: 19ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      max-width: 55ch;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+    }
+
+    .hero-actions {
+      margin-top: 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      border-radius: 12px;
+      font-weight: 700;
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      transition: transform 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      color: #ffffff;
+      box-shadow: 0 12px 25px rgba(0, 127, 139, 0.28);
+    }
+
+    .btn-ghost {
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+      color: var(--accent-strong);
+    }
+
+    .hero-badges {
+      margin-top: 1.35rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+
+    .badge-card {
+      display: grid;
+      gap: 0.15rem;
+      padding: 0.75rem 0.85rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .badge-card strong {
+      font-family: "Sora", sans-serif;
+      font-size: 0.95rem;
+    }
+
+    .badge-card span {
+      color: var(--text-soft);
+      font-size: 0.9rem;
+    }
+
+    .hero-panel {
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.92));
+      color: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 1.2rem;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.3rem;
+      line-height: 1.2;
+      margin-bottom: 0.85rem;
+    }
+
+    .quick-links {
+      display: grid;
+      gap: 0.58rem;
+    }
+
+    .quick-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem;
+      padding: 0.72rem 0.85rem;
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      color: #f8fcff;
+      font-weight: 600;
+      transition: background-color 0.25s ease;
+    }
+
+    .quick-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .converter-shell {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbfc 100%);
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 1.15rem;
+    }
+
+    .converter-search-zone {
+      position: relative;
+    }
+
+    .converter-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 56px;
+      padding: 0.35rem 0.45rem 0.35rem 0.8rem;
+      border: 2px solid rgba(0, 95, 115, 0.24);
+      border-radius: 14px;
+      background: #ffffff;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .converter-input-wrap:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--glow);
+    }
+
+    .input-icon {
+      color: #658596;
+      font-size: 1rem;
+    }
+
+    #conversion-input {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      font-size: 1.03rem;
+    }
+
+    #clear-input-btn {
+      width: 34px;
+      height: 34px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #edf4f7;
+      color: #5d7585;
+      font-size: 0.95rem;
+    }
+
+    .suggestions-container {
+      position: absolute;
+      z-index: 25;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      max-height: 235px;
+      overflow-y: auto;
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.12);
+      padding: 0.35rem;
+    }
+
+    .suggestion-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.62rem 0.7rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.93rem;
+      color: var(--text);
+      transition: background-color 0.2s ease;
+    }
+
+    .suggestion-item span {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      text-transform: capitalize;
+    }
+
+    .suggestion-item:hover,
+    .suggestion-item.active {
+      background: #eaf4f8;
+    }
+
+    .results-container {
+      margin-top: 0.95rem;
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .helper-text {
+      min-height: 110px;
+      border-radius: 12px;
+      border: 1px dashed rgba(0, 95, 115, 0.22);
+      color: var(--text-soft);
+      background: rgba(232, 244, 248, 0.55);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 1rem;
+      gap: 0.45rem;
+    }
+
+    .helper-text i {
+      font-size: 1.25rem;
+      color: var(--accent);
+    }
+
+    .result-card,
+    .error-card,
+    .related-card {
+      border-radius: 14px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.9rem;
+    }
+
+    .result-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .result-source {
+      font-weight: 700;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.35rem, 4vw, 2rem);
+      line-height: 1.15;
+      color: var(--accent-strong);
+      margin-top: 0.2rem;
+      word-break: break-word;
+    }
+
+    .result-icon {
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(0, 127, 139, 0.12);
+      color: var(--accent-strong);
+    }
+
+    .error-card {
+      border-color: rgba(179, 64, 50, 0.35);
+      background: #fff5f2;
+      color: #9d3022;
+      font-weight: 600;
+    }
+
+    .related-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 0.95rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.55rem;
+    }
+
+    .related-item {
+      border: 1px solid rgba(0, 95, 115, 0.12);
+      border-radius: 10px;
+      background: #f8fcff;
+      padding: 0.5rem 0.6rem;
+      font-size: 0.9rem;
+    }
+
+    .converter-foot {
+      margin-top: 0.8rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .toggle-categories-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      border: none;
+      background: rgba(0, 95, 115, 0.08);
+      color: var(--accent-strong);
+      padding: 0.5rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .categories-wrap {
+      margin-top: 0.85rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.12);
+      padding-top: 0.9rem;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      gap: 0.55rem;
+    }
+
+    .category-item {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.62rem 0.68rem;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(0, 127, 139, 0.07);
+      color: #214255;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    .tool-groups {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .tool-group {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.86);
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .tool-group summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem;
+      padding: 0.95rem 1rem;
+      font-family: "Sora", sans-serif;
+      font-size: 1.03rem;
+      color: var(--accent-strong);
+      background: linear-gradient(130deg, rgba(0, 127, 139, 0.08), rgba(240, 170, 60, 0.15));
+    }
+
+    .tool-group summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .tool-group summary i {
+      transition: transform 0.25s ease;
+    }
+
+    .tool-group[open] summary i {
+      transform: rotate(180deg);
+    }
+
+    .tool-grid {
+      padding: 0.95rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.6rem;
+    }
+
+    .tool-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      min-height: 47px;
+      padding: 0.58rem 0.7rem;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      background: #ffffff;
+      color: var(--text);
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-1px);
+      border-color: rgba(0, 127, 139, 0.4);
+      box-shadow: 0 10px 20px rgba(0, 95, 115, 0.1);
+    }
+
+    .tool-card i {
+      color: var(--accent-strong);
+      font-size: 0.9rem;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+    }
+
+    .info-card {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.07);
+      padding: 1rem;
+    }
+
+    .info-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .info-card p {
+      color: var(--text-soft);
+    }
+
+    .site-footer {
+      border-top: 1px solid rgba(0, 95, 115, 0.15);
+      margin-top: 1.3rem;
+      padding: 1.4rem 0 2.4rem;
+      background: rgba(238, 246, 250, 0.82);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 45;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .lang-switch {
+      margin-left: auto;
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .lang-switch select {
+      min-height: 36px;
+      padding: .2rem .5rem;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      background: #fff;
+      border: 1px solid rgba(0, 95, 115, .22);
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    .lang-switch select:focus {
+      border-color: var(--accent);
+    }
+
+    @media (max-width: 959px) {
+      .lang-switch {
+        margin-right: 0.5rem;
+      }
+    }
+
+    @media (min-width: 700px) {
+      .hero-badges {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .tool-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .info-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .related-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 960px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .converter-shell {
+        padding: 1.25rem;
+      }
+
+      .tool-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .tool-card,
+      .back-to-top {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">メインコンテンツへスキップ</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc ホーム">
+        <img src="../logo.png" alt="InstaCalc ロゴ">
+        <span>InstaCalc.in</span>
+      </a>
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="言語選択">
+          <option value="en">English</option>
+          <option value="ru">Русский</option>
+          <option value="ja" selected>日本語</option>
+          <option value="ko">한국어</option>
+        </select>
+      </div>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="ナビゲーションの切り替え" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars menu-open-icon" aria-hidden="true"></i>
+        <i class="fas fa-xmark menu-close-icon hidden" aria-hidden="true"></i>
+      </button>
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html" class="active">ホーム</a>
+        <a href="aboutus.html">運営会社</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero section">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="hero-tag"><i class="fas fa-bolt"></i> 40以上の無料計算ツール</span>
+          <h1>お金、単位、時間の計算を、もっと速く、正確に。</h1>
+          <p>InstaCalcは、投資計画のシミュレーション、測定単位の変換、日常のちょっとした数学的な疑問を、PCでもスマホでも素早く解決できるクリーンな計算ツール集です。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#unit-converter"><i class="fas fa-arrow-right-arrow-left"></i> 単位変換ツールを試す</a>
+            <a class="btn btn-ghost" href="#calculator-library"><i class="fas fa-layer-group"></i> 計算機ライブラリ</a>
+          </div>
+          <div class="hero-badges">
+            <div class="badge-card"><strong>金融計算</strong><span>SIP、EMI、固定金利、NPS、消費税</span></div>
+            <div class="badge-card"><strong>単位換算</strong><span>長さ、温度、面積、気圧、体積</span>
+            </div>
+            <div class="badge-card"><strong>日付と時間</strong><span>年齢、期間、タイムゾーン、週数</span></div>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h2>人気のツール</h2>
+          <div class="quick-links">
+            <a class="quick-link" href="sipcalculator.html"><span>SIP計算機（積立投資）</span><i
+                class="fas fa-arrow-up-right-from-square"></i></a>
+            <a class="quick-link" href="emicalculator.html"><span>EMI計算機（ローン）</span><i
+                class="fas fa-arrow-up-right-from-square"></i></a>
+            <a class="quick-link" href="gstcalculator.html"><span>GST計算機（消費税）</span><i
+                class="fas fa-arrow-up-right-from-square"></i></a>
+            <a class="quick-link" href="duration/agecalculator.html"><span>年齢計算機</span><i
+                class="fas fa-arrow-up-right-from-square"></i></a>
+            <a class="quick-link" href="catagecalculator.html"><span>猫の年齢計算機</span><i
+                class="fas fa-arrow-up-right-from-square"></i></a>
+            <a class="quick-link" href="moretools/concretecalculator.html"><span>コンクリート計算機</span><i
+                class="fas fa-arrow-up-right-from-square"></i></a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="unit-converter" class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">単位コンバーター</span>
+          <h2>スマート単位変換ツール</h2>
+          <p>普段通りの言葉で入力してください。例: <strong>5 km to mile</strong> や <strong>100 c to f</strong>。</p>
+        </div>
+        <div class="converter-shell">
+          <div class="converter-search-zone">
+            <div class="converter-input-wrap">
+              <label for="conversion-input" class="sr-only">変換を入力</label>
+              <i class="fas fa-exchange-alt input-icon"></i>
+              <input type="text" id="conversion-input" placeholder="例: 15 meter to foot" autocomplete="off"
+                spellcheck="false">
+              <button id="clear-input-btn" type="button" class="hidden" title="入力をクリア" aria-label="入力をクリア"><i
+                  class="fas fa-xmark"></i></button>
+            </div>
+            <div id="suggestions-container" class="suggestions-container hidden" role="listbox"
+              aria-label="単位候補"></div>
+          </div>
+          <div id="results-container" class="results-container">
+            <div class="helper-text" id="helper-text">
+              <i class="fas fa-keyboard"></i>
+              <p>入力すると、リアルタイムで変換結果が表示されます。</p>
+            </div>
+          </div>
+          <div class="converter-foot">
+            <button id="toggle-categories-btn" class="toggle-categories-btn" type="button" aria-expanded="false">
+              <span id="toggle-categories-text">対応カテゴリを表示</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+          </div>
+          <div id="categories-grid-container" class="categories-wrap hidden">
+            <div class="grid category-grid"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="calculator-library" class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">ライブラリ</span>
+          <h2>カテゴリから計算機を探す</h2>
+          <p>各カードをタップすると、その計算機が直接開きます。</p>
+        </div>
+
+        <div class="tool-groups">
+          <details class="tool-group" open>
+            <summary><span>金融ツール</span><i class="fas fa-chevron-down"></i></summary>
+            <div class="tool-grid">
+              <a class="tool-card" href="sipcalculator.html"><span>SIP計算機（積立シミュレーション）</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="mutualfundreturncalculator.html"><span>投資信託リターン計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="swpcalculator.html"><span>SWP計算機（定期引き出し）</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="epfcalculator.html"><span>EPF計算機（従業員積立金）</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="fdcalculator.html"><span>FD計算機（定期預金）</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="rdcalculator.html"><span>RD計算機（積立預金）</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="cagrcalculator.html"><span>CAGR計算機（年平均成長率）</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="compoundinterest.html"><span>複利計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="simpleinterestcalculator.html"><span>単利計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="retirementcalculator.html"><span>退職金・老後資金計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="ppfcalculator.html"><span>PPF計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="emicalculator.html"><span>EMI計算機（毎月返済額）</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="gstcalculator.html"><span>GST計算機（消費税）</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="npscalculator.html"><span>NPS計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="gratuitycalculator.html"><span>退職手当（グラチュイティ）計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+            </div>
+          </details>
+
+          <details class="tool-group">
+            <summary><span>日付・時間ツール</span><i class="fas fa-chevron-down"></i></summary>
+            <div class="tool-grid">
+              <a class="tool-card" href="../duration/dayscalculator.html"><span>日数計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="../duration/hourcalculator.html"><span>時間計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="../duration/timedurationcalculator.html"><span>期間計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="duration/agecalculator.html"><span>年齢計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="catagecalculator.html"><span>猫の年齢計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="../duration/timezonecalculator.html"><span>タイムゾーン変換</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="../duration/birthdaycalculator.html"><span>誕生日カウントダウン</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="../duration/weekcalculator.html"><span>週数・週番号計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="../duration/minutes-hourscalculator.html"><span>分時間変換計算機</span><i class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="../duration/juliandatecalculator.html"><span>ユリウス日計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+            </div>
+          </details>
+
+          <details class="tool-group">
+            <summary><span>その他の便利ツール</span><i class="fas fa-chevron-down"></i></summary>
+            <div class="tool-grid">
+              <a class="tool-card" href="moretools/diagonalcalculator.html"><span>対角線・ピタゴラス計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="../gallontolitercalculator.html"><span>ガロン・リットル換算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="moretools/concretecalculator.html"><span>コンクリート必要量計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+              <a class="tool-card" href="moretools/trignometrycalculator.html"><span>三角形・三角比計算機</span><i
+                  class="fas fa-arrow-right"></i></a>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">InstaCalcの特長</span>
+          <h2>信頼できる多機能オンラインツールボックス</h2>
+          <p>学生、専門職、ビジネスオーナー、日常的に計算や変換を必要とするすべての人々のために設計されています。</p>
+        </div>
+        <div class="info-grid">
+          <article class="info-card">
+            <h3>シンプルな資産運用計画</h3>
+            <p>積立投資（SIP）の成長率の予測、月々のローン支払額（EMI）の見積もり、定期預金の利息計算など、すっきりしたフォームで手軽にシミュレーションできます。</p>
+          </article>
+          <article class="info-card">
+            <h3>日常で役立つ単位換算</h3>
+            <p>長さ、面積、体積、温度、気圧、力、電力、エネルギーなど、手動で数式を使わなくても日常の言葉を使って素早く換算できます。</p>
+          </article>
+          <article class="info-card">
+            <h3>強力な時間・日付ツール</h3>
+            <p>年齢の正確な計算、2つの日付の間の日数、週番号、時差の計算など、個人用、教育用、プロジェクト計画用に非常に便利です。</p>
+          </article>
+          <article class="info-card">
+            <h3>いつでも無料・登録不要</h3>
+            <p>面倒な会員登録やログインは一切不要。PC、タブレット、スマートフォンのどの画面からでも快適に操作できます。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in - 日常生活のための信頼できるオンライン計算機＆コンバーター。</p>
+      <div class="footer-links">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営会社</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="上に戻る"><i
+      class="fas fa-arrow-up"></i></button>
+
+  <script>
+    (function () {
+      const menuToggle = document.getElementById("menuToggle");
+      const mainNav = document.getElementById("mainNav");
+      const backToTopBtn = document.getElementById("backToTopBtn");
+
+      if (menuToggle && mainNav) {
+        menuToggle.addEventListener("click", function () {
+          const isOpen = mainNav.classList.toggle("open");
+          menuToggle.setAttribute("aria-expanded", String(isOpen));
+          const openIcon = menuToggle.querySelector(".menu-open-icon");
+          const closeIcon = menuToggle.querySelector(".menu-close-icon");
+          if (openIcon && closeIcon) {
+            openIcon.classList.toggle("hidden", isOpen);
+            closeIcon.classList.toggle("hidden", !isOpen);
+          }
+        });
+
+        mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 960) {
+              mainNav.classList.remove("open");
+              menuToggle.setAttribute("aria-expanded", "false");
+              const openIcon = menuToggle.querySelector(".menu-open-icon");
+              const closeIcon = menuToggle.querySelector(".menu-close-icon");
+              if (openIcon && closeIcon) {
+                openIcon.classList.remove("hidden");
+                closeIcon.classList.add("hidden");
+              }
+            }
+          });
+        });
+      }
+
+      let backToTopVisible = false;
+      let backToTopTicking = false;
+
+      function syncBackToTop() {
+        if (!backToTopBtn) return;
+        const shouldShow = window.scrollY > 260;
+        if (shouldShow !== backToTopVisible) {
+          backToTopVisible = shouldShow;
+          backToTopBtn.classList.toggle("show", shouldShow);
+        }
+        backToTopTicking = false;
+      }
+
+      function scheduleBackToTopSync() {
+        if (backToTopTicking) return;
+        backToTopTicking = true;
+        window.requestAnimationFrame(syncBackToTop);
+      }
+
+      if (backToTopBtn) {
+        window.addEventListener("scroll", scheduleBackToTopSync, { passive: true });
+        backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+      scheduleBackToTopSync();
+    })();
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const conversionInput = document.getElementById("conversion-input");
+      const suggestionsContainer = document.getElementById("suggestions-container");
+      const resultsContainer = document.getElementById("results-container");
+      const helperText = document.getElementById("helper-text");
+      const toggleCategoriesBtn = document.getElementById("toggle-categories-btn");
+      const categoriesGridContainerEl = document.getElementById("categories-grid-container");
+      const categoriesGrid = categoriesGridContainerEl ? categoriesGridContainerEl.querySelector(".grid") : null;
+      const toggleCategoriesText = document.getElementById("toggle-categories-text");
+      const clearInputBtn = document.getElementById("clear-input-btn");
+
+      if (!conversionInput || !suggestionsContainer || !resultsContainer || !helperText || !toggleCategoriesBtn || !categoriesGridContainerEl || !categoriesGrid || !toggleCategoriesText || !clearInputBtn) {
+        return;
+      }
+      const unitCategories = {
+        length: { meter: 1, centimeter: 0.01, millimeter: 0.001, kilometer: 1000, inch: 0.0254, foot: 0.3048, yard: 0.9144, mile: 1609.344, "nautical mile": 1852 },
+        mass: { gram: 1, kilogram: 1000, milligram: 0.001, pound: 453.59237, ounce: 28.349523125, ton_us: 907184.74, "metric ton": 1000000, stone: 6350.29318 },
+        speed: { "meter per second": 1, "kilometer per hour": 1 / 3.6, "mile per hour": 0.44704, knot: 0.514444444, "foot per second": 0.3048 },
+        area: { "square meter": 1, "square kilometer": 1e6, "square centimeter": 1e-4, "square millimeter": 1e-6, "square inch": 0.00064516, "square foot": 0.09290304, "square yard": 0.83612736, "square mile": 2589988.110336, acre: 4046.8564224, hectare: 10000 },
+        volume: { liter: 1, milliliter: 0.001, "cubic meter": 1000, "cubic centimeter": 0.001, gallon_us_liquid: 3.785411784, quart_us_liquid: 0.946352946, pint_us_liquid: 0.473176473, cup_us_customary: 0.24, fluid_ounce_us: 0.0295735295625, tablespoon_us: 0.01478676478125, teaspoon_us: 0.00492892159375 },
+        temperature: { celsius: 0, fahrenheit: 0, kelvin: 0, rankine: 0, reaumur: 0 },
+        angle: { radian: 1, degree: Math.PI / 180, gradian: Math.PI / 200, arcminute: Math.PI / (180 * 60), arcsecond: Math.PI / (180 * 3600), revolution: 2 * Math.PI },
+        pressure: { pascal: 1, kilopascal: 1000, hectopascal: 100, megapascal: 1e6, bar: 1e5, millibar: 100, atmosphere_std: 101325, "pound per square inch": 6894.7572931783, torr: 133.32236842105, "millimeter of mercury": 133.322387415, inch_of_mercury_32f: 3386.38815789 },
+        force: { newton: 1, kilonewton: 1000, dyne: 1e-5, "kilogram-force": 9.80665, "pound-force": 4.44822162 },
+        power: { watt: 1, kilowatt: 1000, megawatt: 1e6, horsepower: 745.699872, metric_horsepower: 735.49875, "foot-pound per second": 1.35581795, btu_th_per_hour: 0.292875 },
+        energy: { joule: 1, kilojoule: 1000, megajoule: 1e6, "kilowatt-hour": 3.6e6, watt_hour: 3600, calorie_th: 4.184, kilocalorie_th: 4184, british_thermal_unit_th: 1054.35, electronvolt: 1.602176634e-19, "foot-pound": 1.3558179483314004 },
+        time: { second: 1, millisecond: 0.001, microsecond: 1e-6, nanosecond: 1e-9, minute: 60, hour: 3600, day: 86400, week: 604800, month_avg_gregorian: 2629746, year_gregorian: 31556952, decade: 315569520, century: 3155695200 }
+      };
+
+      const unitAliases = {
+        m: "meter", meter: "meter", meters: "meter", cm: "centimeter", mm: "millimeter", km: "kilometer", in: "inch", ft: "foot", yd: "yard", mi: "mile", nmi: "nautical mile",
+        g: "gram", kg: "kilogram", mg: "milligram", lb: "pound", lbs: "pound", oz: "ounce", st: "stone", "us ton": "ton_us", ton: "ton_us", "metric ton": "metric ton",
+        "m/s": "meter per second", "km/h": "kilometer per hour", kph: "kilometer per hour", mph: "mile per hour", kt: "knot", knots: "knot", "ft/s": "foot per second",
+        sqm: "square meter", "sq m": "square meter", m2: "square meter", km2: "square kilometer", cm2: "square centimeter", mm2: "square millimeter", in2: "square inch", ft2: "square foot", yd2: "square yard", mi2: "square mile", ac: "acre", ha: "hectare",
+        l: "liter", ml: "milliliter", m3: "cubic meter", cc: "cubic centimeter", cm3: "cubic centimeter", gal: "gallon_us_liquid", qt: "quart_us_liquid", pt: "pint_us_liquid", cup: "cup_us_customary", "fl oz": "fluid_ounce_us", tbsp: "tablespoon_us", tsp: "teaspoon_us",
+        c: "celsius", f: "fahrenheit", k: "kelvin", r: "rankine", re: "reaumur", rad: "radian", deg: "degree", grad: "gradian", rev: "revolution",
+        pa: "pascal", kpa: "kilopascal", hpa: "hectopascal", mpa: "megapascal", mbar: "millibar", atm: "atmosphere_std", psi: "pound per square inch", torr: "torr", mmhg: "millimeter of mercury", inhg: "inch_of_mercury_32f",
+        n: "newton", kn: "kilonewton", dyn: "dyne", kgf: "kilogram-force", lbf: "pound-force",
+        w: "watt", kw: "kilowatt", mw: "megawatt", hp: "horsepower", ps: "metric_horsepower", "ftlb/s": "foot-pound per second", "btu/hr": "btu_th_per_hour",
+        j: "joule", kj: "kilojoule", mj: "megajoule", kwh: "kilowatt-hour", wh: "watt_hour", cal: "calorie_th", kcal: "kilocalorie_th", btu: "british_thermal_unit_th", ev: "electronvolt", "ft-lb": "foot-pound",
+        s: "second", sec: "second", ms: "millisecond", us: "microsecond", ns: "nanosecond", min: "minute", h: "hour", hr: "hour", d: "day", wk: "week", mo: "month_avg_gregorian", yr: "year_gregorian"
+      };
+
+      const unitDisplayNames = {
+        meter: "メートル (m)", centimeter: "センチメートル (cm)", millimeter: "ミリメートル (mm)", kilometer: "キロメートル (km)", inch: "インチ (in)", foot: "フィート (ft)", yard: "ヤード (yd)", mile: "マイル (mi)", "nautical mile": "海里 (nmi)",
+        gram: "グラム (g)", kilogram: "キログラム (kg)", milligram: "ミリグラム (mg)", pound: "ポンド (lb)", ounce: "オンス (oz)", ton_us: "米トン", "metric ton": "メトリックトン", stone: "ストーン (st)",
+        "meter per second": "メートル毎秒", "kilometer per hour": "キロメートル毎時", "mile per hour": "マイル毎時", knot: "ノット (kt)", "foot per second": "フィート毎秒",
+        "square meter": "平方メートル", "square kilometer": "平方キロメートル", "square centimeter": "平方センチメートル", "square millimeter": "平方ミリメートル", "square inch": "平方インチ", "square foot": "平方フィート", "square yard": "平方ヤード", "square mile": "平方マイル", acre: "エーカー", hectare: "ヘクタール",
+        liter: "リットル", milliliter: "ミリリットル", "cubic meter": "立方メートル", "cubic centimeter": "立方センチメートル", gallon_us_liquid: "米ガロン", quart_us_liquid: "米クォート", pint_us_liquid: "米パイント", cup_us_customary: "米カップ", fluid_ounce_us: "米液量オンス", tablespoon_us: "米大さじ", teaspoon_us: "米小さじ",
+        celsius: "セルシウス度 (℃)", fahrenheit: "ファーレンハイト度 (℉)", kelvin: "ケルビン (K)", rankine: "ランキン度", reaumur: "レオミュール度",
+        radian: "ラジアン", degree: "度 (°)", gradian: "グラード", arcminute: "分", arcsecond: "秒", revolution: "回転",
+        pascal: "パスカル (Pa)", kilopascal: "キロパスカル (kPa)", hectopascal: "ヘクトパスカル (hPa)", megapascal: "メガパスカル (MPa)", bar: "バール", millibar: "ミリバール", atmosphere_std: "気圧 (atm)", "pound per square inch": "ポンド平方インチ (psi)", torr: "トル", "millimeter of mercury": "水銀柱ミリメートル (mmHg)", inch_of_mercury_32f: "水銀柱インチ",
+        newton: "ニュートン (N)", kilonewton: "キロニュートン (kN)", dyne: "ダイン", "kilogram-force": "キログラム重", "pound-force": "ポンド重",
+        watt: "ワット (W)", kilowatt: "キロワット (kW)", megawatt: "メガワット (MW)", horsepower: "馬力 (hp)", metric_horsepower: "仏馬力 (ps)", "foot-pound per second": "フィートポンド毎秒", btu_th_per_hour: "BTU毎時",
+        joule: "ジュール (J)", kilojoule: "キロジュール (kJ)", megajoule: "メガジュール (MJ)", "kilowatt-hour": "キロワット時 (kWh)", watt_hour: "ワット時 (Wh)", calorie_th: "カロリー", kilocalorie_th: "キロカロリー", british_thermal_unit_th: "BTU", electronvolt: "電子ボルト (eV)", "foot-pound": "フィートポンド",
+        second: "秒", millisecond: "ミリ秒", microsecond: "マイクロ秒", nanosecond: "ナノ秒", minute: "分", hour: "時間", day: "日", week: "週", month_avg_gregorian: "月 (平均)", year_gregorian: "年 (平均)", decade: "十年", century: "世紀"
+      };
+
+      const categoryIcons = {
+        length: "fas fa-ruler",
+        mass: "fas fa-weight-hanging",
+        speed: "fas fa-gauge-high",
+        area: "fas fa-vector-square",
+        volume: "fas fa-flask",
+        temperature: "fas fa-temperature-half",
+        angle: "fas fa-drafting-compass",
+        pressure: "fas fa-compress",
+        force: "fas fa-hand-fist",
+        power: "fas fa-industry",
+        energy: "fas fa-bolt",
+        time: "fas fa-clock"
+      };
+
+      const categoryDisplayNames = {
+        length: "長さ",
+        mass: "質量",
+        speed: "速度",
+        area: "面積",
+        volume: "体積",
+        temperature: "温度",
+        angle: "角度",
+        pressure: "圧力",
+        force: "力",
+        power: "電力",
+        energy: "エネルギー",
+        time: "時間"
+      };
+
+      Object.keys(unitCategories).forEach(function (category) {
+        Object.keys(unitCategories[category]).forEach(function (unit) {
+          if (!unitAliases[unit]) unitAliases[unit] = unit;
+        });
+      });
+
+      const unitToCategory = {};
+      Object.keys(unitCategories).forEach(function (category) {
+        Object.keys(unitCategories[category]).forEach(function (unit) {
+          unitToCategory[unit] = category;
+        });
+      });
+
+      const aliasesByUnit = {};
+      Object.keys(unitAliases).forEach(function (alias) {
+        const canonical = unitAliases[alias];
+        if (!aliasesByUnit[canonical]) aliasesByUnit[canonical] = new Set();
+        aliasesByUnit[canonical].add(alias);
+      });
+
+      const allUnits = Object.keys(unitToCategory).map(function (unit) {
+        return { unit: unit, category: unitToCategory[unit], display: unitDisplayNames[unit] || toTitleCase(unit) };
+      });
+
+      function toTitleCase(value) {
+        return String(value).replace(/_/g, " ").replace(/\b\w/g, function (ch) { return ch.toUpperCase(); });
+      }
+
+      function normalizeUnit(value) {
+        const cleaned = String(value || "").toLowerCase().trim().replace(/\s+/g, " ");
+        return unitAliases[cleaned] || cleaned;
+      }
+
+      function getCategoryForUnit(unit) {
+        return unitToCategory[unit] || null;
+      }
+
+      function convertTemperature(value, fromUnit, toUnit) {
+        let celsiusValue;
+        switch (fromUnit) {
+          case "celsius": celsiusValue = value; break;
+          case "fahrenheit": celsiusValue = (value - 32) * (5 / 9); break;
+          case "kelvin": celsiusValue = value - 273.15; break;
+          case "rankine": celsiusValue = (value - 491.67) * (5 / 9); break;
+          case "reaumur": celsiusValue = value * (5 / 4); break;
+          default: return null;
+        }
+
+        switch (toUnit) {
+          case "celsius": return celsiusValue;
+          case "fahrenheit": return celsiusValue * (9 / 5) + 32;
+          case "kelvin": return celsiusValue + 273.15;
+          case "rankine": return (celsiusValue + 273.15) * (9 / 5);
+          case "reaumur": return celsiusValue * (4 / 5);
+          default: return null;
+        }
+      }
+
+      function convert(value, fromInput, toInput) {
+        const fromUnit = normalizeUnit(fromInput);
+        const toUnit = normalizeUnit(toInput);
+        const fromCategory = getCategoryForUnit(fromUnit);
+        const toCategory = getCategoryForUnit(toUnit);
+        if (!fromCategory || !toCategory || fromCategory !== toCategory) return null;
+        if (fromCategory === "temperature") return convertTemperature(value, fromUnit, toUnit);
+
+        const fromFactor = unitCategories[fromCategory][fromUnit];
+        const toFactor = unitCategories[toCategory][toUnit];
+        if (typeof fromFactor !== "number" || typeof toFactor !== "number") return null;
+        return (value * fromFactor) / toFactor;
+      }
+
+      function parseConversionExpression(input) {
+        const expression = String(input || "").trim();
+        const matched = expression.match(/^([-+]?\d*\.?\d+(?:e[-+]?\d+)?)\s*(.+?)\s+to\s+(.+)$/i);
+        if (!matched) return null;
+        return { value: Number(matched[1]), fromUnit: matched[2].trim(), toUnit: matched[3].trim() };
+      }
+
+      function formatNumber(value) {
+        if (!Number.isFinite(value)) return "N/A";
+        const abs = Math.abs(value);
+        if ((abs > 0 && abs < 1e-7) || abs >= 1e12) return value.toExponential(6);
+        return Number(value.toPrecision(12)).toString();
+      }
+
+      function getPreferredAlias(canonicalUnit) {
+        const aliasSet = aliasesByUnit[canonicalUnit];
+        if (!aliasSet || aliasSet.size === 0) return canonicalUnit;
+        const aliases = Array.from(aliasSet);
+        const shortAlias = aliases.filter(function (alias) {
+          return alias.length <= 4 && /^[a-z0-9/ ]+$/.test(alias);
+        }).sort(function (a, b) { return a.length - b.length; })[0];
+        return shortAlias || aliases.sort(function (a, b) { return a.length - b.length; })[0];
+      }
+
+      function getUnitSuggestions(text) {
+        const rawText = String(text || "");
+        const trimmed = rawText.trim();
+        if (!trimmed) return [];
+
+        const split = trimmed.split(/\s+to\s+/i);
+        const hasTo = split.length > 1;
+        const numberOnlyMatch = trimmed.match(/^[-+]?\d*\.?\d+(?:e[-+]?\d+)?\s*$/i);
+
+        let query = "";
+        let sourceCategory = null;
+
+        if (hasTo) {
+          query = split[1].trim().toLowerCase();
+          const leftUnit = split[0].replace(/^[-+]?\d*\.?\d+(?:e[-+]?\d+)?\s*/i, "").trim();
+          sourceCategory = getCategoryForUnit(normalizeUnit(leftUnit));
+        } else {
+          query = trimmed.replace(/^[-+]?\d*\.?\d+(?:e[-+]?\d+)?\s*/i, "").trim().toLowerCase();
+        }
+
+        const pool = allUnits.filter(function (entry) {
+          return !sourceCategory || entry.category === sourceCategory;
+        });
+
+        const filtered = pool.filter(function (entry) {
+          if (numberOnlyMatch) return true;
+          if (!query) return false;
+          if (entry.unit.includes(query) || entry.display.toLowerCase().includes(query)) return true;
+          const aliases = aliasesByUnit[entry.unit] ? Array.from(aliasesByUnit[entry.unit]) : [];
+          return aliases.some(function (alias) { return alias.includes(query); });
+        });
+
+        function score(entry) {
+          if (numberOnlyMatch) return 1;
+          let points = 0;
+          const display = entry.display.toLowerCase();
+          const unit = entry.unit.toLowerCase();
+          const aliases = aliasesByUnit[entry.unit] ? Array.from(aliasesByUnit[entry.unit]) : [];
+          if (unit === query) points += 7;
+          if (display.startsWith(query)) points += 6;
+          if (unit.startsWith(query)) points += 5;
+          if (display.includes(query)) points += 2;
+          if (aliases.includes(query)) points += 6;
+          if (aliases.some(function (alias) { return alias.startsWith(query); })) points += 4;
+          return points;
+        }
+
+        return filtered.sort(function (a, b) {
+          const byScore = score(b) - score(a);
+          if (byScore !== 0) return byScore;
+          return a.display.localeCompare(b.display);
+        }).slice(0, numberOnlyMatch ? 32 : 14);
+      }
+
+      function showHelperMessage(message, isHint) {
+        helperText.innerHTML = isHint
+          ? '<i class="fas fa-circle-info"></i><p>' + message + '</p>'
+          : '<i class="fas fa-keyboard"></i><p>' + message + '</p>';
+        helperText.classList.remove("hidden");
+      }
+
+      function clearDynamicResults() {
+        resultsContainer.querySelectorAll(".result-card, .error-card, .related-card").forEach(function (item) {
+          item.remove();
+        });
+      }
+
+      function renderSuggestions(text) {
+        const suggestions = getUnitSuggestions(text);
+        suggestionsContainer.innerHTML = "";
+        if (suggestions.length === 0) {
+          suggestionsContainer.classList.add("hidden");
+          return;
+        }
+
+        suggestions.forEach(function (item, index) {
+          const suggestion = document.createElement("div");
+          suggestion.className = "suggestion-item";
+          suggestion.dataset.unit = item.unit;
+          suggestion.dataset.index = String(index);
+          suggestion.innerHTML = "<strong>" + item.display + "</strong><span>" + (categoryDisplayNames[item.category] || item.category) + "</span>";
+          suggestion.addEventListener("click", function () { selectSuggestion(item.unit); });
+          suggestionsContainer.appendChild(suggestion);
+        });
+
+        suggestionsContainer.classList.remove("hidden");
+      }
+
+      function selectSuggestion(canonicalUnit) {
+        const existingText = conversionInput.value;
+        const alias = getPreferredAlias(canonicalUnit);
+
+        let updatedValue = "";
+        if (/\s+to\s+/i.test(existingText)) {
+          const leftPart = existingText.split(/\s+to\s+/i)[0].trim();
+          updatedValue = leftPart + " to " + alias + " ";
+        } else {
+          const numberMatch = existingText.trim().match(/^([-+]?\d*\.?\d+(?:e[-+]?\d+)?)\s*(.*)$/i);
+          if (numberMatch && numberMatch[1]) updatedValue = numberMatch[1] + " " + alias + " to ";
+          else updatedValue = alias + " ";
+        }
+
+        conversionInput.value = updatedValue;
+        conversionInput.focus();
+        suggestionsContainer.classList.add("hidden");
+        performConversion(updatedValue);
+      }
+
+      function addRelatedConversions(value, fromCanonicalUnit) {
+        const category = getCategoryForUnit(fromCanonicalUnit);
+        if (!category) return;
+
+        const otherUnits = Object.keys(unitCategories[category]).filter(function (unit) {
+          return unit !== fromCanonicalUnit;
+        }).slice(0, 6);
+
+        if (otherUnits.length === 0) return;
+
+        const relatedCard = document.createElement("div");
+        relatedCard.className = "related-card";
+        relatedCard.id = "related-conversions";
+        relatedCard.innerHTML = "<h3>他の単位での計算結果</h3>";
+
+        const relatedGrid = document.createElement("div");
+        relatedGrid.className = "related-grid";
+
+        otherUnits.forEach(function (unit) {
+          const converted = convert(value, fromCanonicalUnit, unit);
+          if (converted === null || !Number.isFinite(converted)) return;
+          const item = document.createElement("div");
+          item.className = "related-item";
+          item.innerHTML = "<strong>" + formatNumber(converted) + "</strong> " + (unitDisplayNames[unit] || toTitleCase(unit));
+          relatedGrid.appendChild(item);
+        });
+
+        if (relatedGrid.childElementCount > 0) {
+          relatedCard.appendChild(relatedGrid);
+          resultsContainer.appendChild(relatedCard);
+        }
+      }
+
+      function performConversion(rawInput) {
+        const text = String(rawInput || "");
+        const trimmed = text.trim();
+        clearInputBtn.classList.toggle("hidden", trimmed.length === 0);
+        clearDynamicResults();
+
+        if (!trimmed) {
+          showHelperMessage("入力すると、リアルタイムで変換結果が表示されます。", false);
+          return;
+        }
+
+        const parsed = parseConversionExpression(trimmed);
+        if (!parsed || Number.isNaN(parsed.value)) {
+          showHelperMessage('入力フォーマット例: "5 km to mile"', true);
+          return;
+        }
+
+        const fromCanonical = normalizeUnit(parsed.fromUnit);
+        const toCanonical = normalizeUnit(parsed.toUnit);
+        const result = convert(parsed.value, parsed.fromUnit, parsed.toUnit);
+
+        helperText.classList.add("hidden");
+
+        if (result === null || !Number.isFinite(result)) {
+          const errorCard = document.createElement("div");
+          errorCard.className = "error-card";
+          errorCard.textContent = "変換できませんでした。同じカテゴリの単位（例: 長さ同士）を指定してください。";
+          resultsContainer.appendChild(errorCard);
+          return;
+        }
+
+        const sourceDisplay = unitDisplayNames[fromCanonical] || parsed.fromUnit;
+        const targetDisplay = unitDisplayNames[toCanonical] || parsed.toUnit;
+
+        const resultCard = document.createElement("div");
+        resultCard.className = "result-card";
+        resultCard.id = "primary-result";
+        resultCard.innerHTML =
+          '<div class="result-head">' +
+          '<div>' +
+          '<p class="result-source">' + formatNumber(parsed.value) + ' ' + sourceDisplay + '</p>' +
+          '<p class="result-value">' + formatNumber(result) + ' ' + targetDisplay + '</p>' +
+          '</div>' +
+          '<div class="result-icon"><i class="fas fa-right-left"></i></div>' +
+          '</div>';
+
+        resultsContainer.appendChild(resultCard);
+        addRelatedConversions(parsed.value, fromCanonical);
+      }
+
+      function fillCategories() {
+        Object.keys(unitCategories).sort().forEach(function (category) {
+          const card = document.createElement("div");
+          card.className = "category-item";
+          const icon = categoryIcons[category] || "fas fa-square";
+          card.innerHTML = '<i class="' + icon + '"></i><span>' + (categoryDisplayNames[category] || toTitleCase(category)) + '</span>';
+          categoriesGrid.appendChild(card);
+        });
+      }
+
+      function setActiveSuggestion(index) {
+        const items = Array.from(suggestionsContainer.querySelectorAll(".suggestion-item"));
+        items.forEach(function (item) { item.classList.remove("active"); });
+        if (index >= 0 && index < items.length) {
+          items[index].classList.add("active");
+          items[index].scrollIntoView({ block: "nearest" });
+        }
+      }
+
+      fillCategories();
+      let activeSuggestionIndex = -1;
+
+      conversionInput.addEventListener("input", function () {
+        activeSuggestionIndex = -1;
+        renderSuggestions(conversionInput.value);
+        performConversion(conversionInput.value);
+      });
+
+      conversionInput.addEventListener("keydown", function (event) {
+        const items = Array.from(suggestionsContainer.querySelectorAll(".suggestion-item"));
+        if (items.length === 0 || suggestionsContainer.classList.contains("hidden")) return;
+
+        if (event.key === "ArrowDown") {
+          event.preventDefault();
+          activeSuggestionIndex = activeSuggestionIndex >= items.length - 1 ? 0 : activeSuggestionIndex + 1;
+          setActiveSuggestion(activeSuggestionIndex);
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          activeSuggestionIndex = activeSuggestionIndex <= 0 ? items.length - 1 : activeSuggestionIndex - 1;
+          setActiveSuggestion(activeSuggestionIndex);
+        } else if ((event.key === "Enter" || event.key === "Tab") && activeSuggestionIndex >= 0) {
+          event.preventDefault();
+          selectSuggestion(items[activeSuggestionIndex].dataset.unit);
+        }
+      });
+
+      conversionInput.addEventListener("focus", function () {
+        renderSuggestions(conversionInput.value || " ");
+      });
+
+      clearInputBtn.addEventListener("click", function () {
+        conversionInput.value = "";
+        clearInputBtn.classList.add("hidden");
+        suggestionsContainer.classList.add("hidden");
+        clearDynamicResults();
+        showHelperMessage("入力すると、リアルタイムで変換結果が表示されます。", false);
+        conversionInput.focus();
+      });
+
+      document.addEventListener("click", function (event) {
+        const insideInput = conversionInput.contains(event.target);
+        const insideSuggestions = suggestionsContainer.contains(event.target);
+        if (!insideInput && !insideSuggestions) suggestionsContainer.classList.add("hidden");
+      });
+
+      toggleCategoriesBtn.addEventListener("click", function () {
+        const willShow = categoriesGridContainerEl.classList.contains("hidden");
+        categoriesGridContainerEl.classList.toggle("hidden");
+        toggleCategoriesBtn.setAttribute("aria-expanded", String(willShow));
+        toggleCategoriesText.textContent = willShow ? "対応カテゴリを非表示" : "対応カテゴリを表示";
+        const icon = toggleCategoriesBtn.querySelector("i");
+        if (icon) icon.className = willShow ? "fas fa-chevron-up" : "fas fa-chevron-down";
+      });
+
+      const langSelect = document.getElementById('langSelect');
+      if (langSelect) {
+        langSelect.addEventListener('change', function() {
+          if (this.value === 'en') {
+            localStorage.setItem('user_lang', 'en');
+            window.location.href = '../index.html';
+          } else if (this.value === 'ko') {
+            localStorage.setItem('user_lang', 'ko');
+            window.location.href = '../ko/index.html'; // If it exists, otherwise root
+          } else if (this.value === 'ru') {
+            localStorage.setItem('user_lang', 'ru');
+            window.location.href = '../ru/index.html'; // If it exists, otherwise root
+          }
+        });
+      }
+
+      conversionInput.focus();
+    });
+  </script>
+  <script src="../currency-manager.js"></script>
+</body>
+
+</html>

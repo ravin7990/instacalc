@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      localStorage.setItem('user_lang', 'ru');
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Калькулятор вкладов: рассчитать проценты по депозитам физических лиц онлайн</title>
+  <meta name="description" content="Удобный онлайн-калькулятор вкладов. Рассчитайте сумму процентов, капитализацию, доход с ежемесячной выплатой и чистую прибыль после вычета налога.">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/ru/fdcalculator.html">
+
+  <meta property="og:title" content="Калькулятор вкладов: рассчитать проценты по депозитам онлайн">
+  <meta property="og:description" content="Удобный онлайн-калькулятор вкладов. Рассчитайте сумму процентов, капитализацию, доход с ежемесячной выплатой и чистую прибыль после вычета налога.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/ru/fdcalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Калькулятор вкладов: рассчитать проценты по депозитам онлайн">
+  <meta name="twitter:description" content="Удобный онлайн-калькулятор вкладов. Рассчитайте сумму процентов, капитализацию, доход с ежемесячной выплатой и чистую прибыль после вычета налога.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Калькулятор вкладов",
+      "url": "https://instacalc.in/ru/fdcalculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "Депозитный калькулятор для расчета процентов по вкладам физических лиц, сравнения капитализации и чистой доходности после вычета НДФЛ.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "RUB"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Как рассчитать проценты по вкладу?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Укажите сумму, которую вы планируете положить в банк, процентную ставку, срок и параметры капитализации. Калькулятор мгновенно покажет сумму начисленных процентов и общую сумму на счете в конце срока."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Что такое капитализация и как она влияет на доходность?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Капитализация — это процесс причисления начисленных процентов к основной сумме вклада. В следующем периоде проценты начисляются уже на большую сумму. Капитализация увеличивает общую доходность вклада."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Чем отличается кумулятивный вклад от некумулятивного?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "В кумулятивном вкладе проценты капитализируются и выплачиваются только в конце срока. В некумулятивном — выплачиваются регулярно (например, каждый месяц или квартал) на карту, не увеличивая сумму самого вклада."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Облагаются ли налогом проценты по вкладам?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Да, процентные доходы по вкладам в РФ облагаются НДФЛ по ставке 13% (или 15% при превышении лимита доходов). Налог взимается только с суммы процентов, которая превышает установленный законом необлагаемый лимит."
+          }
+        }
+      ]
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 25ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 999px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    .lang-switch {
+      margin-left: auto;
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    .lang-switch select {
+      min-height: 36px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      background: #ffffff;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .lang-switch select:focus {
+      border-color: var(--accent);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="На главную InstaCalc">
+        <img src="../logo.png" alt="Логотип InstaCalc">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Выбор языка">
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="ru" selected>Русский</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">Главная</a>
+        <a href="aboutus.html">О нас</a>
+        <a href="contactus.html">Контакты</a>
+        <a href="privacypolicy.html">Конфиденциальность</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-building-columns"></i>
+            Планирование вкладов
+          </span>
+          <h1>Калькулятор вкладов онлайн: рассчитать проценты по депозиту</h1>
+          <p>Депозитный калькулятор поможет рассчитать сумму процентов по вкладу, конечный баланс на момент закрытия счета, влияние ежемесячной капитализации или регулярных выплат, а также чистый доход после уплаты налога.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#fd-planner">
+              <i class="fas fa-calculator"></i>
+              Начать расчет
+            </a>
+            <a class="btn btn-ghost" href="rdcalculator.html">
+              <i class="fas fa-arrow-right-arrow-left"></i>
+              Пополняемый вклад
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h2>Полезные функции</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Капитализация процентов и регулярная выплата на карту</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Точный расчет чистой прибыли с вычетом налога (НДФЛ)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Опция пенсионной надбавки к ставке вклада (+0.5%)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Подбор необходимой суммы вклада для целевой выплаты</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="fd-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="mode-switch" aria-label="Режим вклада">
+            <a href="fdcalculator.html" class="active">Обычный</a>
+            <a href="rdcalculator.html">Пополняемый</a>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="principalAmount">Сумма вклада (₽)</label>
+                <span id="principalAmountPreview">500 000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="principalAmountRange" min="5000" max="50000000" step="5000" value="500000">
+                <input type="number" id="principalAmount" min="5000" max="50000000" step="5000" value="500000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="returnRate">Процентная ставка (% годовых)</label>
+                <span id="returnRatePreview">16%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="returnRateRange" min="1" max="25" step="0.1" value="16">
+                <input type="number" id="returnRate" min="1" max="25" step="0.1" value="16">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="years">Срок вклада (лет)</label>
+                <span id="yearsPreview">3</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="yearsRange" min="1" max="15" step="1" value="3">
+                <input type="number" id="years" min="1" max="15" step="1" value="3">
+              </div>
+            </div>
+
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="compounding">Капитализация процентов</label>
+                </div>
+                <select id="compounding">
+                  <option value="1">Раз в год</option>
+                  <option value="2">Раз в полгода</option>
+                  <option value="4">Ежеквартально</option>
+                  <option value="12" selected>Ежемесячно</option>
+                </select>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="payoutType">Тип выплаты процентов</label>
+                </div>
+                <select id="payoutType">
+                  <option value="cumulative" selected>Капитализация (причисление к вкладу)</option>
+                  <option value="noncumulative">Ежемесячная выплата (без капитализации)</option>
+                </select>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="seniorCitizen">Надбавка для пенсионеров</label>
+                </div>
+                <select id="seniorCitizen">
+                  <option value="no" selected>Нет</option>
+                  <option value="yes">Да (+0.5% к ставке)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="taxRate">Налоговая ставка на проценты (%)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="taxRateRange" min="0" max="35" step="1" value="13">
+                  <input type="number" id="taxRate" min="0" max="35" step="1" value="13">
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="targetCorpus">Целевая сумма в конце срока (₽)</label>
+                </div>
+                <input type="number" id="targetCorpus" min="0" step="100000" value="1000000" placeholder="Пример: 1000000">
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i>
+              Рассчитать
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i>
+              Сбросить
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i>
+              Скопировать сводку
+            </button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <h3>Сумма вклада</h3>
+              <div class="result-value" id="investedValue">-</div>
+            </div>
+            <div class="result-card positive">
+              <h3>Начисленные проценты</h3>
+              <div class="result-value" id="returnsValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Итоговая сумма (до налога)</h3>
+              <div class="result-value" id="corpusValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Сумма после уплаты налога</h3>
+              <div class="result-value" id="inflationAdjustedValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Необходимый вклад для цели</h3>
+              <div class="result-value" id="requiredSipValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Чистая доходность (эффективная)</h3>
+              <div class="result-value" id="maturityLabel">-</div>
+            </div>
+          </div>
+
+          <div class="goal-status">
+            <div class="goal-meta">
+              <span id="goalStatusText">Укажите целевую сумму для отслеживания прогресса.</span>
+              <strong id="goalPercentText">0%</strong>
+            </div>
+            <div class="goal-progress">
+              <div class="goal-progress-bar" id="goalProgressBar"></div>
+            </div>
+          </div>
+
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h3>Динамика роста вклада</h3>
+              <div class="chart-wrap">
+                <canvas id="growthChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card">
+              <h3>Соотношение вклада и процентов</h3>
+              <div class="chart-wrap small">
+                <canvas id="splitChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools">
+            <h3>Таблица прогноза по годам</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
+              <i class="fas fa-file-csv"></i>
+              Скачать CSV
+            </button>
+          </div>
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>Год</th>
+                  <th>Сумма вклада</th>
+                  <th>Начисленные проценты</th>
+                  <th>Итоговая сумма</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Советы вкладчикам</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i> При выборе капитализации (кумулятивный вклад) проценты регулярно прибавляются к вкладу и увеличивают доход.</li>
+              <li><i class="fas fa-circle-info"></i> При выплате процентов без капитализации (простой процент) доход перечисляется на отдельную карту ежемесячно.</li>
+              <li><i class="fas fa-circle-info"></i> Налог на доходы (13%) рассчитывается только на сумму процентов, превышающую необлагаемый лимит.</li>
+              <li><i class="fas fa-circle-info"></i> У пенсионеров есть надбавка во многих банках — воспользуйтесь соответствующей опцией.</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Другие калькуляторы</h3>
+            <ul class="link-list">
+              <li><a href="rdcalculator.html"><span>Пополняемый вклад</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="sipcalculator.html"><span>Инвестиционный калькулятор (SIP)</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="sipcalculatorlumpsump.html"><span>Единовременная инвестиция</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="ppfcalculator.html"><span>Калькулятор пенсионных накоплений</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="retirementcalculator.html"><span>Пенсионный планировщик</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mutualfundreturncalculator.html"><span>Доходность ПИФов</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h3>Как работает калькулятор процентов по вкладам</h3>
+          <p>Этот калькулятор оценивает доходность вашего банковского вклада на основе суммы вклада, процентной ставки, срока, типа выплаты и периодичности капитализации. В кумулятивном режиме проценты реинвестируются. В некумулятивном режиме проценты трактуются как периодические выплаты без реинвестирования.</p>
+          <br>
+          <p>Формула расчета при капитализации: <code>FV = P * (1 + r/n)^(n*t)</code>. При выплате без капитализации: <code>FV = P + (P * r * t)</code>.</p>
+          <br>
+          <p>Этот калькулятор вкладов покрывает популярные поисковые сценарии: расчет ежемесячных выплат, сравнение капитализации и учет НДФЛ для вкладчиков в России.</p>
+          <p>Хотите узнать совокупный среднегодовой темп роста инвестиций за несколько лет? Используйте наш <a href="cagrcalculator.html">Калькулятор CAGR</a>.</p>
+          <p>Нужна регулярная сберегательная стратегия с ежемесячным отчислением вместо единовременной суммы? Используйте наш <a href="rdcalculator.html">Калькулятор пополняемого вклада</a> для детального сравнения.</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>
+              Как рассчитать проценты по вкладу?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Укажите первоначальную сумму, ставку банка, срок размещения и тип выплаты (с капитализацией или без). Калькулятор посчитает точный доход и баланс на дату окончания договора.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              Что выгоднее: кумулятивный вклад или ежемесячная выплата на карту?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Вклад с капитализацией (кумулятивный) приносит больший итоговый доход за счет сложного процента. Вариант без капитализации подходит, если вам нужны «живые» деньги каждый месяц на повседневные расходы.</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              Как рассчитать налог на вклады пенсионерам?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Пенсионеры уплачивают налог на проценты по вкладам на общих основаниях, если суммарный процентный доход за год превышает необлагаемый лимит (1 млн ₽ умножить на максимальную ключевую ставку ЦБ РФ за год).</p>
+          </details>
+          <details class="faq-card">
+            <summary>
+              Что произойдет с вкладом при досрочном закрытии?
+              <i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>В большинстве случаев банк выплатит вам средства со ставкой до востребования (обычно 0.01% годовых), что означает практически полную потерю накопленного процентного дохода.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in — умные калькуляторы для принятия верных финансовых решений.</p>
+      <div class="footer-links">
+        <a href="index.html">Главная</a>
+        <a href="aboutus.html">О нас</a>
+        <a href="contactus.html">Контакты</a>
+        <a href="privacypolicy.html">Политика конфиденциальности</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="Наверх">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        principalAmount: 500000,
+        returnRate: 16.0,
+        years: 3,
+        taxRate: 13,
+        targetCorpus: 1000000,
+        compounding: 12,
+        payoutType: "cumulative",
+        seniorCitizen: "no"
+      };
+
+      const nfCurrency = {
+        format: (v) => window.currencyManager ? window.currencyManager.formatCurrency(v) : v.toLocaleString('ru-RU') + " ₽"
+      };
+      const nfNumber = new Intl.NumberFormat("ru-RU", {
+        maximumFractionDigits: 2
+      });
+
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+        principalAmount: document.getElementById("principalAmount"),
+        principalAmountRange: document.getElementById("principalAmountRange"),
+        returnRate: document.getElementById("returnRate"),
+        returnRateRange: document.getElementById("returnRateRange"),
+        years: document.getElementById("years"),
+        yearsRange: document.getElementById("yearsRange"),
+        taxRate: document.getElementById("taxRate"),
+        taxRateRange: document.getElementById("taxRateRange"),
+        compounding: document.getElementById("compounding"),
+        payoutType: document.getElementById("payoutType"),
+        seniorCitizen: document.getElementById("seniorCitizen"),
+        targetCorpus: document.getElementById("targetCorpus"),
+        principalAmountPreview: document.getElementById("principalAmountPreview"),
+        returnRatePreview: document.getElementById("returnRatePreview"),
+        yearsPreview: document.getElementById("yearsPreview"),
+        investedValue: document.getElementById("investedValue"),
+        returnsValue: document.getElementById("returnsValue"),
+        corpusValue: document.getElementById("corpusValue"),
+        inflationAdjustedValue: document.getElementById("inflationAdjustedValue"),
+        requiredSipValue: document.getElementById("requiredSipValue"),
+        maturityLabel: document.getElementById("maturityLabel"),
+        goalStatusText: document.getElementById("goalStatusText"),
+        goalPercentText: document.getElementById("goalPercentText"),
+        goalProgressBar: document.getElementById("goalProgressBar"),
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        growthChart: document.getElementById("growthChart"),
+        splitChart: document.getElementById("splitChart")
+      };
+
+      let growthChartInstance = null;
+      let splitChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) {
+          return;
+        }
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 940) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+      }
+
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) {
+          return;
+        }
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function roundToStep(value, step) {
+        if (!step || step <= 0) {
+          return value;
+        }
+        return Math.round(value / step) * step;
+      }
+
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) {
+          return;
+        }
+        const min = parseFloat(rangeEl.min || "0");
+        const max = parseFloat(rangeEl.max || "100");
+        const step = parseFloat(rangeEl.step || "1");
+
+        function normalize(value) {
+          const numeric = parseNumeric(value, parseFloat(rangeEl.value));
+          const stepped = roundToStep(numeric, step);
+          return clamp(stepped, min, max);
+        }
+
+        rangeEl.addEventListener("input", function () {
+          numberEl.value = rangeEl.value;
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("input", function () {
+          if (numberEl.value === "") {
+            return;
+          }
+          const normalized = normalize(numberEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("blur", function () {
+          const normalized = normalize(numberEl.value || rangeEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+      }
+
+      function formatCurrencyWithUnits(value) {
+        if (window.currencyManager) {
+          return window.currencyManager.formatWithUnits(value);
+        }
+        return nfCurrency.format(value);
+      }
+
+      function compactCurrency(value) {
+        if (window.currencyManager) {
+          return window.currencyManager.formatCompact(value);
+        }
+        return nfCurrency.format(value);
+      }
+
+      function getInputs() {
+        return {
+          principalAmount: parseNumeric(elements.principalAmount.value, defaults.principalAmount),
+          returnRate: parseNumeric(elements.returnRate.value, defaults.returnRate),
+          years: parseNumeric(elements.years.value, defaults.years),
+          taxRate: parseNumeric(elements.taxRate.value, defaults.taxRate),
+          targetCorpus: parseNumeric(elements.targetCorpus.value, 0),
+          compounding: parseNumeric(elements.compounding.value, defaults.compounding),
+          payoutType: elements.payoutType.value === "noncumulative" ? "noncumulative" : "cumulative",
+          seniorCitizen: elements.seniorCitizen.value === "yes" ? "yes" : "no"
+        };
+      }
+
+      function simulateFD(principalAmount, params) {
+        const years = Math.max(1, Math.round(params.years));
+        const compounds = clamp(Math.round(params.compounding), 1, 12);
+        const adjustedRate = params.returnRate + (params.seniorCitizen === "yes" ? 0.5 : 0);
+        const rateDecimal = adjustedRate / 100;
+        const projection = [];
+        let corpus = principalAmount;
+
+        if (params.payoutType === "noncumulative") {
+          const yearlyInterest = principalAmount * rateDecimal;
+          for (let year = 1; year <= years; year += 1) {
+            const gains = yearlyInterest * year;
+            const yearCorpus = principalAmount + gains;
+            projection.push({
+              year: year,
+              invested: principalAmount,
+              gains: gains,
+              corpus: yearCorpus
+            });
+          }
+          corpus = principalAmount + yearlyInterest * years;
+        } else {
+          const periodicRate = rateDecimal / compounds;
+          for (let year = 1; year <= years; year += 1) {
+            const yearCorpus = principalAmount * Math.pow(1 + periodicRate, compounds * year);
+            projection.push({
+              year: year,
+              invested: principalAmount,
+              gains: yearCorpus - principalAmount,
+              corpus: yearCorpus
+            });
+          }
+          corpus = principalAmount * Math.pow(1 + periodicRate, compounds * years);
+        }
+
+        return {
+          years: years,
+          adjustedRate: adjustedRate,
+          invested: principalAmount,
+          corpus: corpus,
+          gains: corpus - principalAmount,
+          projection: projection
+        };
+      }
+
+      function estimateRequiredPrincipal(targetCorpus, params) {
+        if (!Number.isFinite(targetCorpus) || targetCorpus <= 0) {
+          return null;
+        }
+        const years = Math.max(1, Math.round(params.years));
+        const compounds = clamp(Math.round(params.compounding), 1, 12);
+        const adjustedRate = params.returnRate + (params.seniorCitizen === "yes" ? 0.5 : 0);
+        const rateDecimal = adjustedRate / 100;
+
+        if (params.payoutType === "noncumulative") {
+          const factor = 1 + (rateDecimal * years);
+          return factor > 0 ? (targetCorpus / factor) : null;
+        }
+
+        const periodicRate = rateDecimal / compounds;
+        const factor = Math.pow(1 + periodicRate, compounds * years);
+        return factor > 0 ? (targetCorpus / factor) : null;
+      }
+
+      function renderProjectionTable(projection) {
+        if (!elements.projectionTableBody) {
+          return;
+        }
+        elements.projectionTableBody.innerHTML = projection.map(function (row) {
+          return (
+            "<tr>" +
+              "<td>Год " + row.year + "</td>" +
+              "<td>" + formatCurrencyWithUnits(row.invested) + "</td>" +
+              "<td>" + formatCurrencyWithUnits(row.gains) + "</td>" +
+              "<td>" + formatCurrencyWithUnits(row.corpus) + "</td>" +
+            "</tr>"
+          );
+        }).join("");
+      }
+
+      function renderCharts(projection, invested, gains) {
+        if (!window.Chart || !elements.growthChart || !elements.splitChart) {
+          return;
+        }
+
+        const labels = projection.map(function (row) {
+          return "Год " + row.year;
+        });
+        const corpusData = projection.map(function (row) { return row.corpus; });
+        const investedData = projection.map(function () { return invested; });
+
+        if (growthChartInstance) {
+          growthChartInstance.destroy();
+        }
+        growthChartInstance = new Chart(elements.growthChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Баланс вклада",
+                data: corpusData,
+                borderColor: "#007f8b",
+                backgroundColor: "rgba(0, 127, 139, 0.16)",
+                fill: true,
+                tension: 0.18,
+                pointRadius: 2
+              },
+              {
+                label: "Сумма вклада",
+                data: investedData,
+                borderColor: "#ee9f2e",
+                backgroundColor: "rgba(238, 159, 46, 0.16)",
+                fill: false,
+                tension: 0.12,
+                pointRadius: 2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "top" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.dataset.label + ": " + formatCurrencyWithUnits(context.parsed.y);
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function (value) {
+                    return compactCurrency(value);
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        if (splitChartInstance) {
+          splitChartInstance.destroy();
+        }
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Вклад", "Проценты"],
+            datasets: [
+              {
+                data: [Math.max(invested, 0), Math.max(gains, 0)],
+                backgroundColor: ["#007f8b", "#1f9f67"],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.label + ": " + formatCurrencyWithUnits(context.parsed);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      function updatePreviewLabels(inputs) {
+        elements.principalAmountPreview.textContent = nfNumber.format(inputs.principalAmount);
+        const adjustedRate = inputs.returnRate + (inputs.seniorCitizen === "yes" ? 0.5 : 0);
+        elements.returnRatePreview.textContent = adjustedRate.toFixed(1) + "%";
+        elements.yearsPreview.textContent = String(Math.round(inputs.years));
+      }
+
+      function calculateAndRender() {
+        const inputs = getInputs();
+        updatePreviewLabels(inputs);
+
+        const result = simulateFD(inputs.principalAmount, inputs);
+        const taxRate = clamp(inputs.taxRate, 0, 35);
+        const postTaxCorpus = result.invested + (result.gains * (1 - taxRate / 100));
+        const requiredPrincipal = estimateRequiredPrincipal(inputs.targetCorpus, inputs);
+        const postTaxYield = result.invested > 0 && result.years > 0
+          ? (Math.pow(postTaxCorpus / result.invested, 1 / result.years) - 1) * 100
+          : 0;
+
+        elements.investedValue.textContent = formatCurrencyWithUnits(result.invested);
+        elements.returnsValue.textContent = formatCurrencyWithUnits(result.gains);
+        elements.corpusValue.textContent = formatCurrencyWithUnits(result.corpus);
+        elements.inflationAdjustedValue.textContent = formatCurrencyWithUnits(postTaxCorpus);
+        elements.requiredSipValue.textContent = requiredPrincipal ? formatCurrencyWithUnits(requiredPrincipal) : "Укажите цель";
+        elements.maturityLabel.textContent = postTaxYield.toFixed(2) + "%";
+
+        const hasGoal = inputs.targetCorpus > 0;
+        const progressPercent = hasGoal ? (result.corpus / inputs.targetCorpus) * 100 : 0;
+        const clampedProgress = Math.max(0, Math.min(progressPercent, 100));
+
+        if (hasGoal) {
+          elements.goalStatusText.textContent = progressPercent >= 100
+            ? "Финансовая цель полностью достигнута!"
+            : "Текущий план покрывает " + progressPercent.toFixed(1) + "% от цели.";
+          elements.goalPercentText.textContent = progressPercent.toFixed(1) + "%";
+          elements.goalProgressBar.style.width = clampedProgress.toFixed(2) + "%";
+          elements.goalProgressBar.style.background = progressPercent >= 100
+            ? "linear-gradient(110deg, #1f9f67, #1cb67a)"
+            : "linear-gradient(110deg, var(--accent), #00a1b2)";
+        } else {
+          elements.goalStatusText.textContent = "Укажите целевую сумму для отслеживания прогресса.";
+          elements.goalPercentText.textContent = "0%";
+          elements.goalProgressBar.style.width = "0%";
+          elements.goalProgressBar.style.background = "linear-gradient(110deg, var(--accent), #00a1b2)";
+        }
+
+        lastProjection = result.projection.slice();
+        renderProjectionTable(result.projection);
+        renderCharts(result.projection, result.invested, result.gains);
+
+        lastSummaryText =
+          "Сводка вклада" + "\n" +
+          "Сумма вклада: " + formatCurrencyWithUnits(inputs.principalAmount) + "\n" +
+          "Ставка (с учетом надбавок): " + result.adjustedRate.toFixed(2) + "% годовых" + "\n" +
+          "Срок накопления: " + Math.round(inputs.years) + " лет" + "\n" +
+          "Капитализация: " + Math.round(inputs.compounding) + " раз(а) в год" + "\n" +
+          "Тип выплаты: " + (inputs.payoutType === "noncumulative" ? "Ежемесячная выплата" : "Капитализация") + "\n" +
+          "Ставка налога на проценты: " + taxRate.toFixed(1) + "%" + "\n" +
+          "Начисленные проценты: " + formatCurrencyWithUnits(result.gains) + "\n" +
+          "Итоговая сумма (до налога): " + formatCurrencyWithUnits(result.corpus) + "\n" +
+          "Сумма после уплаты налога: " + formatCurrencyWithUnits(postTaxCorpus) + "\n" +
+          "Необходимый вклад для цели: " + (requiredPrincipal ? formatCurrencyWithUnits(requiredPrincipal) : "N/A");
+      }
+
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) {
+          return;
+        }
+        const headers = ["Год", "Сумма вклада", "Начисленные проценты", "Итоговая сумма"];
+        const rows = lastProjection.map(function (row) {
+          return [
+            "Год " + row.year,
+            Math.round(row.invested),
+            Math.round(row.gains),
+            Math.round(row.corpus)
+          ].join(",");
+        });
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "projection.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function resetToDefaults() {
+        elements.principalAmount.value = defaults.principalAmount;
+        elements.principalAmountRange.value = defaults.principalAmount;
+        elements.returnRate.value = defaults.returnRate;
+        elements.returnRateRange.value = defaults.returnRate;
+        elements.years.value = defaults.years;
+        elements.yearsRange.value = defaults.years;
+        elements.taxRate.value = defaults.taxRate;
+        elements.taxRateRange.value = defaults.taxRate;
+        elements.compounding.value = defaults.compounding;
+        elements.payoutType.value = defaults.payoutType;
+        elements.seniorCitizen.value = defaults.seniorCitizen;
+        elements.targetCorpus.value = defaults.targetCorpus;
+        calculateAndRender();
+      }
+
+      function wireEvents() {
+        syncPair(elements.principalAmountRange, elements.principalAmount);
+        syncPair(elements.returnRateRange, elements.returnRate);
+        syncPair(elements.yearsRange, elements.years);
+        syncPair(elements.taxRateRange, elements.taxRate);
+
+        elements.targetCorpus.addEventListener("input", calculateAndRender);
+        elements.compounding.addEventListener("change", calculateAndRender);
+        elements.payoutType.addEventListener("change", calculateAndRender);
+        elements.seniorCitizen.addEventListener("change", calculateAndRender);
+        elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        elements.resetBtn.addEventListener("click", resetToDefaults);
+        elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        elements.copySummaryBtn.addEventListener("click", function () {
+          if (!navigator.clipboard || !lastSummaryText) {
+            return;
+          }
+          navigator.clipboard.writeText(lastSummaryText).then(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Скопировано';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Скопировать сводку';
+            }, 1300);
+          }).catch(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Ошибка';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Скопировать сводку';
+            }, 1300);
+          });
+        });
+
+        const langSelect = document.getElementById('langSelect');
+        if (langSelect) {
+          langSelect.value = 'ru';
+          langSelect.addEventListener('change', function () {
+            if (this.value === 'en') {
+              localStorage.setItem('user_lang', 'en');
+              window.location.href = '../fdcalculator.html';
+            } else if (this.value === 'ja') {
+              localStorage.setItem('user_lang', 'ja');
+              window.location.href = '../ja/fdcalculator.html';
+            }
+          });
+        }
+      }
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      calculateAndRender();
+    })();
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+      authDomain: "instacalc-40640.firebaseapp.com",
+      projectId: "instacalc-40640",
+      storageBucket: "instacalc-40640.firebasestorage.app",
+      messagingSenderId: "720029503645",
+      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+      measurementId: "G-J0ZWXR3T5P"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+  </script>
+</body>
+</html>

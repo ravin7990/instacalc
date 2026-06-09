@@ -1,0 +1,2182 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <script>
+    (function () {
+      localStorage.setItem('user_lang', 'ru');
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Кредитный калькулятор EMI | Расширенный расчет платежей, предоплаты и амортизации</title>
+  <meta name="description"
+    content="Расширенный калькулятор EMI с графиком амортизации, влиянием частичной предоплаты, экономией на процентах, сокращением срока владения, комиссией за обработку и планированием сценариев с плавающей ставкой.">
+  <meta name="keywords"
+    content="Калькулятор emi, калькулятор кредита emi, калькулятор амортизации, калькулятор предоплаты, калькулятор ипотечного кредита emi, планировщик автокредита emi, калькулятор процентов по кредиту">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/emicalculator.html">
+
+  <meta property="og:title" content="Калькулятор EMI — планировщик расширенного кредита, предоплаты и срока владения">
+  <meta property="og:description"
+    content="Рассчитайте EMI, общую сумму процентов, график амортизации и влияние досрочного погашения с помощью планирования изменения ставок и комиссий.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/emicalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Калькулятор EMI — планировщик расширенного кредита, предоплаты и срока владения">
+  <meta name="twitter:description"
+    content="Бесплатный калькулятор EMI с таблицей амортизации, влиянием досрочного погашения, экономией на процентах и моделированием стратегии погашения.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Кредитный калькулятор EMI",
+  "url": "https://instacalc.in/emicalculator.html",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "All",
+  "description": "Калькулятор EMI для планирования погашения кредита с графиком амортизации, влиянием досрочного погашения, экономией на процентах и сравнением срока владения.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Как рассчитывается EMI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "EMI рассчитывается с использованием суммы кредита, ежемесячной процентной ставки и срока владения. Стандартная формула: EMI = P x r x (1+r)^n / ((1+r)^n - 1)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Что такое график амортизации?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "График погашения кредита представляет собой помесячную разбивку кредита, показывающую разделение EMI на проценты и основную сумму долга, а также оставшуюся непогашенную сумму."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как частичная предоплата снижает проценты?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Частичная предоплата напрямую уменьшает непогашенную основную сумму долга, поэтому будущие проценты начисляются на меньший остаток, что может сократить срок владения или EMI и снизить общую стоимость процентов."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Должен ли я уменьшить EMI или сократить срок владения после предоплаты?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Сокращение срока владения обычно позволяет сэкономить больше общих процентов, а сокращение EMI ​​улучшает ежемесячный денежный поток. Правильный выбор зависит от вашего бюджета и целей."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Могу ли я включить комиссию за обработку и дополнительные сборы?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да. Этот калькулятор включает комиссию за обработку и авансовые платежи, поэтому вы можете более реалистично оценить общую стоимость займа."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Может ли EMI измениться, если изменится процентная ставка?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да. В кредитах с плавающей ставкой EMI или срок владения могут измениться при сбросе ставок. Этот калькулятор поддерживает сценарий изменения ставок для моделирования воздействия погашения."
+      }
+    }
+  ]
+}</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+
+    /* Simple vs Advanced Toggle Styles */
+    .calculator-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-sm {
+      min-height: 36px !important;
+      padding: 0.4rem 0.8rem !important;
+      font-size: 0.85rem !important;
+    }
+
+    .advanced-only {
+      display: none;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only {
+      display: block;
+    }
+
+    #toggleViewBtn.active {
+      background: var(--accent-strong);
+      color: #fff;
+    }
+
+    .lang-switch {
+      margin-left: auto;
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    .lang-switch select {
+      min-height: 36px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      background: #ffffff;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .lang-switch select:focus {
+      border-color: var(--accent);
+    }
+    @media (max-width: 940px) {
+      .lang-switch {
+        margin-right: 0.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc home">
+        <img src="../logo.png" alt="Логотип ИнстаКальк">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Выберите язык">
+          <option value="en">English</option>
+          <option value="ru" selected>Русский</option>
+          <option value="ja">日本語</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">Главная</a>
+        <a href="aboutus.html">О нас</a>
+        <a href="contactus.html">Свяжитесь с нами</a>
+        <a href="privacypolicy.html">Политика конфиденциальности</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-house-chimney"></i>Планировщик кредита EMI</span>
+          <h1>Калькулятор EMI (расширенный планировщик кредитов и предоплат)</h1>
+          <p>Планируйте погашение кредита с помощью EMI, амортизацию, влияние частичной предоплаты, сокращение срока владения, заимствование с учетом комиссионных
+            сценарии изменения стоимости и плавающей ставки.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#emi-planner">
+              <i class="fas fa-calculator"></i>Запустить план EMI</a>
+            <a class="btn btn-ghost" href="compoundinterest.html">
+              <i class="fas fa-arrow-right-arrow-left"></i>Сложные проценты</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h2>Расширенные функции</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i>График EMI и амортизации по годам
+            расставание</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i>Моделирование разовой и годовой предоплаты</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i>Сравнение стратегий сокращения срока владения и сокращения EMI</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i>Влияние изменения плавающей ставки после выбранного месяца</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i>Плата за обработку и общая сумма авансовых затрат
+            расходы</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="emi-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="Calculator mode">
+              <a href="emicalculator.html" class="active">ЭМИ</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>Расширенный режим: Выкл.</span>
+            </button>
+          </div>
+
+          <div class="input-grid">
+            <div class="inline-grid advanced-only">
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="repaymentMode">Стратегия предоплаты</label>
+                </div>
+                <select id="repaymentMode">
+                  <option value="reduce_tenure" selected>Сохраните EMI, сократите срок владения</option>
+                  <option value="reduce_emi">Сохраняйте штат, уменьшайте EMI</option>
+                </select>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="targetInterestSaving">Целевая экономия процентов (в процентах)</label>
+                </div>
+                <input type="number" id="targetInterestSaving" min="0" max="100" step="1" value="20">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="loanAmount">Сумма кредита</label>
+                <span id="loanAmountPreview">300000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="loanAmountRange" min="1000" max="10000000" step="1000" value="300000">
+                <input type="number" id="loanAmount" min="1000" max="10000000" step="1000" value="300000">
+              </div>
+            </div>
+
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="annualRate">Процентная ставка (в процентах годовых)</label>
+                  <span id="annualRatePreview">8.0%</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="annualRateRange" min="0" max="25" step="0.1" value="8">
+                  <input type="number" id="annualRate" min="0" max="25" step="0.1" value="8">
+                </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="tenureYears">Срок владения (лет)</label>
+                  <span id="tenureYearsPreview">10</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="tenureYearsRange" min="1" max="40" step="1" value="10">
+                  <input type="number" id="tenureYears" min="1" max="40" step="1" value="10">
+                </div>
+              </div>
+              <div class="field-card advanced-only">
+                <div class="field-head">
+                  <label for="tenureExtraMonths">Дополнительные месяцы</label>
+                </div>
+                <input type="number" id="tenureExtraMonths" min="0" max="11" step="1" value="0">
+              </div>
+            </div>
+
+            <div class="inline-grid advanced-only">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="processingFeePercent">Комиссия за обработку (%)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="processingFeePercentRange" min="0" max="5" step="0.05" value="1">
+                  <input type="number" id="processingFeePercent" min="0" max="5" step="0.05" value="1">
+                </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="upfrontCharges">Другие сборы</label>
+                </div>
+                <input type="number" id="upfrontCharges" min="0" step="100" value="500">
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="emiStepupPercent">Ежегодное повышение (%)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="emiStepupPercentRange" min="0" max="20" step="0.5" value="0">
+                  <input type="number" id="emiStepupPercent" min="0" max="20" step="0.5" value="0">
+                </div>
+              </div>
+            </div>
+
+            <div class="inline-grid advanced-only">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="oneTimePrepayMonth">Разовый месяц</label>
+                </div>
+                <input type="number" id="oneTimePrepayMonth" min="0" max="600" step="1" value="24">
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="oneTimePrepayAmount">Единовременная сумма</label>
+                </div>
+                <input type="number" id="oneTimePrepayAmount" min="0" step="100" value="10000">
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="annualPrepayAmount">Годовая предоплата</label>
+                </div>
+                <input type="number" id="annualPrepayAmount" min="0" step="100" value="0">
+              </div>
+            </div>
+
+            <div class="inline-grid advanced-only">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="rateChangeMonth">Месяц изменения тарифа</label>
+                </div>
+                <input type="number" id="rateChangeMonth" min="0" max="600" step="1" value="0">
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="newAnnualRate">Новая ставка (%)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="newAnnualRateRange" min="0" max="25" step="0.1" value="9">
+                  <input type="number" id="newAnnualRate" min="0" max="25" step="0.1" value="9">
+                </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="maxSimulationMonths">Сим-месяцев</label>
+                </div>
+                <input type="number" id="maxSimulationMonths" min="12" max="1200" step="12" value="720">
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i>Пересчитать</button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i>Сбросить настройки по умолчанию</button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i>Копировать сводку</button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card positive">
+              <h3>Ежемесячный EMI</h3>
+              <div class="result-value" id="emiValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Общий процент</h3>
+              <div class="result-value" id="totalInterestValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Общая стоимость кредита</h3>
+              <div class="result-value" id="totalCostValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Комиссии + авансовые платежи</h3>
+              <div class="result-value" id="feesValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Общая предоплата</h3>
+              <div class="result-value" id="totalPrepayValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Время окупаемости</h3>
+              <div class="result-value" id="payoffTimeValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Сэкономленные проценты по сравнению с базовыми</h3>
+              <div class="result-value" id="interestSavedValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Срок владения сохранен</h3>
+              <div class="result-value" id="tenureSavedValue">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Эффективная годовая процентная ставка заимствования (приблизительно)</h3>
+              <div class="result-value" id="effectiveAprValue">-</div>
+            </div>
+          </div>
+
+          <div class="goal-status">
+            <div class="goal-meta">
+              <span id="goalStatusText">Здесь отображается прогресс накопления процентов.</span>
+              <strong id="goalPercentText">0%</strong>
+            </div>
+            <div class="goal-progress">
+              <div class="goal-progress-bar" id="goalProgressBar"></div>
+            </div>
+          </div>
+
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h3>Выдающийся баланс: базовый и оптимизированный</h3>
+              <div class="chart-wrap">
+                <canvas id="growthChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card">
+              <h3>Состав платежа</h3>
+              <div class="chart-wrap small">
+                <canvas id="splitChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools">
+            <h3>Годовая амортизация</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
+              <i class="fas fa-file-csv"></i>Скачать CSV-файл</button>
+          </div>
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>Год</th>
+                  <th>Начальный баланс</th>
+                  <th>Основная сумма оплачена</th>
+                  <th>Выплаченные проценты</th>
+                  <th>Предоплата</th>
+                  <th>Итоговый баланс</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Примечания по планированию</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i>Предоплата в начале срока аренды обычно позволяет сэкономить наибольшую часть процентов.</li>
+              <li><i class="fas fa-circle-info"></i>Режим сокращения срока владения часто максимизирует экономию на процентах.</li>
+              <li><i class="fas fa-circle-info"></i>Режим уменьшения ежемесячного платежа повышает ежемесячную доступность при сохранении срока службы стабильным.</li>
+              <li><i class="fas fa-circle-info"></i>Включите комиссии и авансовые платежи для реалистичной общей суммы займа.
+                стоимость.</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Похожие калькуляторы</h3>
+            <ul class="link-list">
+              <li><a href="fdcalculator.html"><span>Калькулятор ФД</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="rdcalculator.html"><span>Калькулятор РД</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="compoundinterest.html"><span>Калькулятор сложных процентов</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="retirementcalculator.html"><span>Пенсионный калькулятор</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="cargcalculator.html"><span>Калькулятор среднегодового темпа роста</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h3>Как работает этот продвинутый калькулятор EMI</h3>
+          <p>Этот инструмент ежемесячно моделирует ваш кредит, используя логику амортизации. Он рассчитывает EMI, разделяет каждый
+            оплата основной суммы долга и процентов, а также отслеживание непогашенного остатка с течением времени.</p>
+          <br>
+          <p>Вы можете моделировать разовые или ежегодные предоплаты, выбирать, сокращает ли предоплата срок владения или EMI, а также тестировать
+            изменение плавающей ставки в выбранный месяц для реалистичного планирования погашения.</p>
+          <br>
+          <p><strong>Основные намерения:</strong>Расчет EMI, график амортизации, влияние досрочного погашения и общая сумма
+            анализ стоимости займа.</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>Что такое ЭМИ?<i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>EMI (приравненный ежемесячный платеж) — это фиксированный ежемесячный платеж по вашему кредиту, состоящий из
+              основная сумма и проценты.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Почему ранний EMI вызывает наибольший интерес?<i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Проценты начисляются на непогашенную основную сумму долга. Поскольку в начале основная сумма является самой высокой, проценты
+              доля больше при досрочных платежах.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Всегда ли предоплата помогает?<i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>В целом да, особенно в начале срока владения. Это уменьшает основную сумму долга и снижает будущую процентную нагрузку.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Уменьшить EMI или сократить срок владения: что лучше?<i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Сокращение срока владения обычно позволяет сэкономить больше общих процентов, а сокращение EMI улучшает ежемесячный денежный поток. Выберите
+              исходя из ваших приоритетов.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Могут ли изменения плавающей ставки увеличить общие затраты?<i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Да. Повышение ставки может повысить EMI или продлить срок владения, в зависимости от условий кредитора и вашего погашения.
+              стратегия.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Должен ли я включить плату за обработку в планирование?<i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Да. Комиссии и первоначальные затраты существенно влияют на фактические расходы по займам и должны быть включены в общую сумму.
+              сравнение стоимости кредита.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h3>Планирование EMI на практике</h3>
+          <p>Эффективное планирование кредита сочетает в себе доступность с оптимизацией затрат. Более низкий уровень ежемесячных платежей (EMI) может быть комфортным
+            ежемесячно, но срок владения и общая сумма процентов могут значительно увеличиться.</p>
+          <br>
+          <h3>Используйте предоплату стратегически</h3>
+          <p>Предоплата в первые годы часто дает наибольшую экономию на процентах. Даже умеренные годовые предоплаты
+            может существенно сократить срок владения.</p>
+          <br>
+          <h3>Отслеживайте реальную стоимость, а не только EMI</h3>
+          <p>Сравните варианты на основе общей суммы погашения, комиссий и времени погашения. Это дает полную картину кредита
+            эффективность перед выбором стратегии погашения.</p>
+        </article>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Следующие продвинутые идеи</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i>Добавьте параллельное сравнение для двух кредиторов.</li>
+              <li><i class="fas fa-circle-info"></i>Добавьте временную шкалу с регулируемой скоростью и несколькими точками сброса скорости.</li>
+              <li><i class="fas fa-circle-info"></i>Добавьте стресс-тест денежного потока в сравнении с ежемесячным доходом.</li>
+              <li><i class="fas fa-circle-info"></i>Добавьте загружаемый отчет об амортизации в формате PDF.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in — умные калькуляторы и конвертеры для повседневных решений.</p>
+      <div class="footer-links">
+        <a href="index.html">Главная</a>
+        <a href="aboutus.html">О нас</a>
+        <a href="contactus.html">Свяжитесь с нами</a>
+        <a href="privacypolicy.html">Политика конфиденциальности</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script>
+    (function () {
+      const defaults = {
+        currencyCode: "RUB",
+        repaymentMode: "reduce_tenure",
+        targetInterestSaving: 20,
+        loanAmount: 300000,
+        annualRate: 8,
+        tenureYears: 10,
+        tenureExtraMonths: 0,
+        processingFeePercent: 1,
+        upfrontCharges: 500,
+        emiStepupPercent: 0,
+        oneTimePrepayMonth: 24,
+        oneTimePrepayAmount: 10000,
+        annualPrepayAmount: 0,
+        rateChangeMonth: 0,
+        newAnnualRate: 9,
+        maxSimulationMonths: 720
+      };
+
+      const numberFormatter = new Intl.NumberFormat("ru-RU", {
+        maximumFractionDigits: 2
+      });
+
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+
+        currencyCode: document.createElement("select"), // Compatibility placeholder
+        repaymentMode: document.getElementById("repaymentMode"),
+        targetInterestSaving: document.getElementById("targetInterestSaving"),
+        loanAmount: document.getElementById("loanAmount"),
+        loanAmountRange: document.getElementById("loanAmountRange"),
+        annualRate: document.getElementById("annualRate"),
+        annualRateRange: document.getElementById("annualRateRange"),
+        tenureYears: document.getElementById("tenureYears"),
+        tenureYearsRange: document.getElementById("tenureYearsRange"),
+        tenureExtraMonths: document.getElementById("tenureExtraMonths"),
+        processingFeePercent: document.getElementById("processingFeePercent"),
+        processingFeePercentRange: document.getElementById("processingFeePercentRange"),
+        upfrontCharges: document.getElementById("upfrontCharges"),
+        emiStepupPercent: document.getElementById("emiStepupPercent"),
+        emiStepupPercentRange: document.getElementById("emiStepupPercentRange"),
+        oneTimePrepayMonth: document.getElementById("oneTimePrepayMonth"),
+        oneTimePrepayAmount: document.getElementById("oneTimePrepayAmount"),
+        annualPrepayAmount: document.getElementById("annualPrepayAmount"),
+        rateChangeMonth: document.getElementById("rateChangeMonth"),
+        newAnnualRate: document.getElementById("newAnnualRate"),
+        newAnnualRateRange: document.getElementById("newAnnualRateRange"),
+        maxSimulationMonths: document.getElementById("maxSimulationMonths"),
+
+        loanAmountPreview: document.getElementById("loanAmountPreview"),
+        annualRatePreview: document.getElementById("annualRatePreview"),
+        tenureYearsPreview: document.getElementById("tenureYearsPreview"),
+
+        emiValue: document.getElementById("emiValue"),
+        totalInterestValue: document.getElementById("totalInterestValue"),
+        totalCostValue: document.getElementById("totalCostValue"),
+        feesValue: document.getElementById("feesValue"),
+        totalPrepayValue: document.getElementById("totalPrepayValue"),
+        payoffTimeValue: document.getElementById("payoffTimeValue"),
+        interestSavedValue: document.getElementById("interestSavedValue"),
+        tenureSavedValue: document.getElementById("tenureSavedValue"),
+        effectiveAprValue: document.getElementById("effectiveAprValue"),
+
+        goalStatusText: document.getElementById("goalStatusText"),
+        goalPercentText: document.getElementById("goalPercentText"),
+        goalProgressBar: document.getElementById("goalProgressBar"),
+
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        growthChart: document.getElementById("growthChart"),
+        splitChart: document.getElementById("splitChart")
+      };
+
+      let growthChartInstance = null;
+      let splitChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function getCurrencyFormatter(currencyCode) {
+        return { format: (v) => window.currencyManager ? window.currencyManager.formatCurrency(v) : String(v) };
+      }
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) {
+          return;
+        }
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 940) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+      }
+
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) {
+          return;
+        }
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function roundToStep(value, step) {
+        if (!step || step <= 0) {
+          return value;
+        }
+        return Math.round(value / step) * step;
+      }
+
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) {
+          return;
+        }
+        const min = parseFloat(rangeEl.min || "0");
+        const max = parseFloat(rangeEl.max || "100");
+        const step = parseFloat(rangeEl.step || "1");
+
+        function normalize(value) {
+          const numeric = parseNumeric(value, parseFloat(rangeEl.value));
+          const stepped = roundToStep(numeric, step);
+          return clamp(stepped, min, max);
+        }
+
+        rangeEl.addEventListener("input", function () {
+          numberEl.value = rangeEl.value;
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("input", function () {
+          if (numberEl.value === "") {
+            return;
+          }
+          const normalized = normalize(numberEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("blur", function () {
+          const normalized = normalize(numberEl.value || rangeEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+      }
+
+      function formatCurrencyWithUnits(value, currencyCode) {
+        if (window.currencyManager) {
+          return window.currencyManager.formatWithUnits(value);
+        }
+        const currency = getCurrencyFormatter(currencyCode);
+        return currency.format(value);
+      }
+
+      function compactCurrency(value) {
+        if (window.currencyManager) {
+          return window.currencyManager.formatCompact(value);
+        }
+        const abs = Math.abs(value);
+        const sign = value < 0 ? "-" : "";
+        if (abs >= 1000000000) {
+          return sign + (abs / 1000000000).toFixed(1) + " млрд";
+        }
+        if (abs >= 1000000) {
+          return sign + (abs / 1000000).toFixed(1) + " млн";
+        }
+        if (abs >= 1000) {
+          return sign + (abs / 1000).toFixed(1) + " тыс.";
+        }
+        return sign + Math.round(abs).toString();
+      }
+
+      function monthsToLabel(months) {
+        const yrs = Math.floor(months / 12);
+        const mos = months % 12;
+
+        function getYearWord(y) {
+          if (y % 100 >= 11 && y % 100 <= 19) return "лет";
+          const lastDigit = y % 10;
+          if (lastDigit === 1) return "год";
+          if (lastDigit >= 2 && lastDigit <= 4) return "года";
+          return "лет";
+        }
+
+        function getMonthWord(m) {
+          if (m % 100 >= 11 && m % 100 <= 19) return "месяцев";
+          const lastDigit = m % 10;
+          if (lastDigit === 1) return "месяц";
+          if (lastDigit >= 2 && lastDigit <= 4) return "месяца";
+          return "месяцев";
+        }
+
+        if (yrs <= 0) {
+          return mos + " " + getMonthWord(mos);
+        }
+        if (mos === 0) {
+          return yrs + " " + getYearWord(yrs);
+        }
+        return yrs + " " + getYearWord(yrs) + " " + mos + " " + getMonthWord(mos);
+      }
+
+      function calculateEmi(principal, annualRate, months) {
+        const n = Math.max(1, Math.round(months));
+        const p = Math.max(0, principal);
+        const r = Math.max(0, annualRate) / 1200;
+
+        if (r === 0) {
+          return p / n;
+        }
+        const pow = Math.pow(1 + r, n);
+        return p * r * pow / (pow - 1);
+      }
+
+      function getInputs() {
+        const tenureYears = Math.max(1, Math.round(parseNumeric(elements.tenureYears.value, defaults.tenureYears)));
+        const tenureExtraMonths = Math.max(0, Math.min(11, Math.round(parseNumeric(elements.tenureExtraMonths.value, defaults.tenureExtraMonths))));
+
+        elements.tenureYears.value = tenureYears;
+        elements.tenureYearsRange.value = tenureYears;
+        elements.tenureExtraMonths.value = tenureExtraMonths;
+
+        return {
+          currencyCode: elements.currencyCode.value || defaults.currencyCode,
+          repaymentMode: elements.repaymentMode.value || defaults.repaymentMode,
+          targetInterestSaving: Math.max(0, parseNumeric(elements.targetInterestSaving.value, defaults.targetInterestSaving)),
+          loanAmount: Math.max(100, parseNumeric(elements.loanAmount.value, defaults.loanAmount)),
+          annualRate: Math.max(0, parseNumeric(elements.annualRate.value, defaults.annualRate)),
+          tenureYears: tenureYears,
+          tenureExtraMonths: tenureExtraMonths,
+          tenureMonths: tenureYears * 12 + tenureExtraMonths,
+          processingFeePercent: Math.max(0, parseNumeric(elements.processingFeePercent.value, defaults.processingFeePercent)),
+          upfrontCharges: Math.max(0, parseNumeric(elements.upfrontCharges.value, defaults.upfrontCharges)),
+          emiStepupPercent: Math.max(0, parseNumeric(elements.emiStepupPercent.value, defaults.emiStepupPercent)),
+          oneTimePrepayMonth: Math.max(0, Math.round(parseNumeric(elements.oneTimePrepayMonth.value, defaults.oneTimePrepayMonth))),
+          oneTimePrepayAmount: Math.max(0, parseNumeric(elements.oneTimePrepayAmount.value, defaults.oneTimePrepayAmount)),
+          annualPrepayAmount: Math.max(0, parseNumeric(elements.annualPrepayAmount.value, defaults.annualPrepayAmount)),
+          rateChangeMonth: Math.max(0, Math.round(parseNumeric(elements.rateChangeMonth.value, defaults.rateChangeMonth))),
+          newAnnualRate: Math.max(0, parseNumeric(elements.newAnnualRate.value, defaults.newAnnualRate)),
+          maxSimulationMonths: Math.max(12, Math.round(parseNumeric(elements.maxSimulationMonths.value, defaults.maxSimulationMonths)))
+        };
+      }
+
+      function simulateLoan(inputs, disablePrepayment) {
+        const principal = inputs.loanAmount;
+        const originalMonths = inputs.tenureMonths;
+        const mode = inputs.repaymentMode;
+
+        let currentRateAnnual = inputs.annualRate;
+        let monthlyRate = currentRateAnnual / 1200;
+
+        let emi = calculateEmi(principal, currentRateAnnual, originalMonths);
+        const startingEmi = emi;
+
+        let balance = principal;
+        let totalInterest = 0;
+        let totalPrincipalPaid = 0;
+        let totalPrepayment = 0;
+        let totalEmiPaid = 0;
+
+        const yearSummary = [];
+        let yearOpening = balance;
+        let yearPrincipal = 0;
+        let yearInterest = 0;
+        let yearPrepay = 0;
+
+        const cashflows = [];
+        const processingFee = principal * (inputs.processingFeePercent / 100);
+        const upfrontTotal = processingFee + inputs.upfrontCharges;
+        cashflows.push(principal - upfrontTotal);
+
+        const amortization = [];
+
+        const endMonthLimit = mode === "reduce_emi" ? Math.min(inputs.maxSimulationMonths, originalMonths) : inputs.maxSimulationMonths;
+
+        for (let month = 1; month <= endMonthLimit; month += 1) {
+          if (inputs.rateChangeMonth > 0 && month === inputs.rateChangeMonth) {
+            currentRateAnnual = inputs.newAnnualRate;
+            monthlyRate = currentRateAnnual / 1200;
+            if (mode === "reduce_emi") {
+              const remaining = Math.max(1, originalMonths - month + 1);
+              emi = calculateEmi(balance, currentRateAnnual, remaining);
+            }
+          }
+
+          if (month > 1 && (month - 1) % 12 === 0 && inputs.emiStepupPercent > 0) {
+            emi *= (1 + inputs.emiStepupPercent / 100);
+          }
+
+          const interest = Math.max(0, balance * monthlyRate);
+          let principalFromEmi = Math.max(0, emi - interest);
+
+          if (principalFromEmi > balance) {
+            principalFromEmi = balance;
+          }
+
+          balance -= principalFromEmi;
+          totalInterest += interest;
+          totalPrincipalPaid += principalFromEmi;
+          totalEmiPaid += (principalFromEmi + interest);
+
+          let prepayThisMonth = 0;
+          let actualPrepay = 0;
+          if (!disablePrepayment) {
+            if (inputs.oneTimePrepayMonth > 0 && month === inputs.oneTimePrepayMonth) {
+              prepayThisMonth += inputs.oneTimePrepayAmount;
+            }
+            if (inputs.annualPrepayAmount > 0 && month % 12 === 0) {
+              prepayThisMonth += inputs.annualPrepayAmount;
+            }
+          }
+
+          if (prepayThisMonth > 0 && balance > 0) {
+            actualPrepay = Math.min(balance, prepayThisMonth);
+            balance -= actualPrepay;
+            totalPrepayment += actualPrepay;
+
+            if (mode === "reduce_emi") {
+              const remaining = Math.max(1, originalMonths - month);
+              emi = calculateEmi(balance, currentRateAnnual, remaining);
+            }
+          }
+
+          cashflows.push(-(principalFromEmi + interest + actualPrepay));
+
+          yearPrincipal += principalFromEmi;
+          yearInterest += interest;
+          yearPrepay += actualPrepay;
+
+          amortization.push({
+            month: month,
+            emi: principalFromEmi + interest,
+            principal: principalFromEmi,
+            interest: interest,
+            prepayment: actualPrepay,
+            balance: balance
+          });
+
+          if (month % 12 === 0 || balance <= 0) {
+            const yearIndex = Math.ceil(month / 12);
+            yearSummary.push({
+              year: yearIndex,
+              opening: yearOpening,
+              principalPaid: yearPrincipal,
+              interestPaid: yearInterest,
+              prepayment: yearPrepay,
+              closing: balance
+            });
+            yearOpening = balance;
+            yearPrincipal = 0;
+            yearInterest = 0;
+            yearPrepay = 0;
+          }
+
+          if (balance <= 0.01) {
+            balance = 0;
+            break;
+          }
+        }
+
+        const payoffMonths = amortization.length;
+        const totalCost = principal + totalInterest + upfrontTotal;
+
+        return {
+          principal: principal,
+          startingEmi: startingEmi,
+          endingEmi: emi,
+          totalInterest: totalInterest,
+          totalPrincipalPaid: totalPrincipalPaid,
+          totalPrepayment: totalPrepayment,
+          totalEmiPaid: totalEmiPaid,
+          processingFee: processingFee,
+          upfrontTotal: upfrontTotal,
+          totalCost: totalCost,
+          payoffMonths: payoffMonths,
+          endingBalance: balance,
+          yearSummary: yearSummary,
+          amortization: amortization,
+          cashflows: cashflows
+        };
+      }
+
+      function calculateIrrMonthly(cashflows) {
+        if (!cashflows || cashflows.length < 2) {
+          return null;
+        }
+
+        function npv(rate) {
+          let sum = 0;
+          for (let t = 0; t < cashflows.length; t += 1) {
+            sum += cashflows[t] / Math.pow(1 + rate, t);
+          }
+          return sum;
+        }
+
+        let low = -0.95;
+        let high = 1.5;
+        let fLow = npv(low);
+        let fHigh = npv(high);
+
+        if (fLow * fHigh > 0) {
+          return null;
+        }
+
+        for (let i = 0; i < 120; i += 1) {
+          const mid = (low + high) / 2;
+          const fMid = npv(mid);
+          if (Math.abs(fMid) < 1e-8) {
+            return mid;
+          }
+          if (fLow * fMid <= 0) {
+            high = mid;
+            fHigh = fMid;
+          } else {
+            low = mid;
+            fLow = fMid;
+          }
+        }
+
+        return (low + high) / 2;
+      }
+
+      function renderProjectionTable(yearSummary, currencyCode) {
+        if (!elements.projectionTableBody) {
+          return;
+        }
+        elements.projectionTableBody.innerHTML = yearSummary.map(function (row) {
+          return (
+            "<tr>" +
+            "<td>Год " + row.year + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.opening, currencyCode) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.principalPaid, currencyCode) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.interestPaid, currencyCode) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.prepayment, currencyCode) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.closing, currencyCode) + "</td>" +
+            "</tr>"
+          );
+        }).join("");
+      }
+
+      function renderCharts(base, optimized, inputs) {
+        if (!window.Chart || !elements.growthChart || !elements.splitChart) {
+          return;
+        }
+
+        const maxYears = Math.max(base.yearSummary.length, optimized.yearSummary.length);
+        const labels = [];
+        const baseData = [];
+        const optData = [];
+
+        for (let y = 1; y <= maxYears; y += 1) {
+          labels.push("Год " + y);
+          const baseRow = base.yearSummary.find(function (r) { return r.year === y; });
+          const optRow = optimized.yearSummary.find(function (r) { return r.year === y; });
+          baseData.push(baseRow ? baseRow.closing : 0);
+          optData.push(optRow ? optRow.closing : 0);
+        }
+
+        if (growthChartInstance) {
+          growthChartInstance.destroy();
+        }
+        growthChartInstance = new Chart(elements.growthChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Базовый баланс",
+                data: baseData,
+                borderColor: "#d8891d",
+                backgroundColor: "rgba(216, 137, 29, 0.1)",
+                fill: false,
+                tension: 0.18,
+                pointRadius: 2
+              },
+              {
+                label: "Оптимизированный баланс",
+                data: optData,
+                borderColor: "#007f8b",
+                backgroundColor: "rgba(0, 127, 139, 0.12)",
+                fill: true,
+                tension: 0.18,
+                pointRadius: 2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "top" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.dataset.label + ": " + formatCurrencyWithUnits(context.parsed.y, inputs.currencyCode);
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function (value) {
+                    return compactCurrency(value);
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        if (splitChartInstance) {
+          splitChartInstance.destroy();
+        }
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Основной долг", "Проценты", "Предоплата", "Комиссии и сборы"],
+            datasets: [
+              {
+                data: [optimized.principal, optimized.totalInterest, optimized.totalPrepayment, optimized.upfrontTotal],
+                backgroundColor: ["#007f8b", "#1f9f67", "#ee9f2e", "#6b7f8e"],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.label + ": " + formatCurrencyWithUnits(context.parsed, inputs.currencyCode);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      function updatePreviewLabels(inputs) {
+        elements.loanAmountPreview.textContent = formatCurrencyWithUnits(inputs.loanAmount, inputs.currencyCode);
+        elements.annualRatePreview.textContent = inputs.annualRate.toFixed(1) + "%";
+        elements.tenureYearsPreview.textContent = String(inputs.tenureYears);
+      }
+
+      function calculateAndRender() {
+        const inputs = getInputs();
+        updatePreviewLabels(inputs);
+
+        const baseInputs = Object.assign({}, inputs, {
+          oneTimePrepayMonth: 0,
+          oneTimePrepayAmount: 0,
+          annualPrepayAmount: 0
+        });
+
+        const base = simulateLoan(baseInputs, true);
+        const optimized = simulateLoan(inputs, false);
+
+        const interestSaved = Math.max(0, base.totalInterest - optimized.totalInterest);
+        const tenureSaved = Math.max(0, base.payoffMonths - optimized.payoffMonths);
+        const savingPercent = base.totalInterest > 0 ? (interestSaved / base.totalInterest) * 100 : 0;
+
+        const monthlyIrr = calculateIrrMonthly(optimized.cashflows);
+        const effectiveApr = monthlyIrr === null ? null : (Math.pow(1 + monthlyIrr, 12) - 1) * 100;
+
+        elements.emiValue.textContent = formatCurrencyWithUnits(optimized.startingEmi, inputs.currencyCode);
+        elements.totalInterestValue.textContent = formatCurrencyWithUnits(optimized.totalInterest, inputs.currencyCode);
+        elements.totalCostValue.textContent = formatCurrencyWithUnits(optimized.totalCost, inputs.currencyCode);
+        elements.feesValue.textContent = formatCurrencyWithUnits(optimized.upfrontTotal, inputs.currencyCode);
+        elements.totalPrepayValue.textContent = formatCurrencyWithUnits(optimized.totalPrepayment, inputs.currencyCode);
+        elements.payoffTimeValue.textContent = monthsToLabel(optimized.payoffMonths);
+        elements.interestSavedValue.textContent = formatCurrencyWithUnits(interestSaved, inputs.currencyCode);
+        elements.tenureSavedValue.textContent = monthsToLabel(tenureSaved);
+        elements.effectiveAprValue.textContent = effectiveApr === null ? "N/A" : effectiveApr.toFixed(2) + "%";
+
+        const target = Math.max(0, inputs.targetInterestSaving);
+        const progressPercent = target > 0 ? (savingPercent / target) * 100 : 0;
+        const clampedProgress = Math.max(0, Math.min(progressPercent, 100));
+
+        elements.goalPercentText.textContent = savingPercent.toFixed(1) + "%";
+        elements.goalProgressBar.style.width = clampedProgress.toFixed(2) + "%";
+
+        if (savingPercent >= target) {
+          elements.goalStatusText.textContent = "Цель достигнута: экономия на процентах соответствует вашей цели.";
+          elements.goalProgressBar.style.background = "linear-gradient(110deg, #1f9f67, #1cb67a)";
+        } else {
+          elements.goalStatusText.textContent = "Текущая стратегия экономит " + savingPercent.toFixed(1) + "% процентов по сравнению с базовой.";
+          elements.goalProgressBar.style.background = "linear-gradient(110deg, var(--accent), #00a1b2)";
+        }
+
+        lastProjection = optimized.yearSummary.slice();
+        renderProjectionTable(optimized.yearSummary, inputs.currencyCode);
+        renderCharts(base, optimized, inputs);
+
+        lastSummaryText =
+          "Сводка плана EMI" + "\n" +
+          "Сумма кредита: " + formatCurrencyWithUnits(inputs.loanAmount, inputs.currencyCode) + "\n" +
+          "Процентная ставка: " + inputs.annualRate.toFixed(2) + "%" + "\n" +
+          "Срок кредита: " + monthsToLabel(inputs.tenureMonths) + "\n" +
+          "Стратегия погашения: " + (inputs.repaymentMode === "reduce_tenure" ? "Сократить срок" : "Уменьшить ежемесячный платеж") + "\n" +
+          "Ежемесячный платеж (EMI): " + formatCurrencyWithUnits(optimized.startingEmi, inputs.currencyCode) + "\n" +
+          "Общая сумма процентов: " + formatCurrencyWithUnits(optimized.totalInterest, inputs.currencyCode) + "\n" +
+          "Сэкономленные проценты: " + formatCurrencyWithUnits(interestSaved, inputs.currencyCode) + "\n" +
+          "Сэкономленный срок: " + monthsToLabel(tenureSaved) + "\n" +
+          "Общая стоимость: " + formatCurrencyWithUnits(optimized.totalCost, inputs.currencyCode);
+      }
+
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) {
+          return;
+        }
+        const headers = ["Год", "Начальный баланс", "Выплаченная основная сумма", "Выплаченные проценты", "Предоплата", "Итоговый баланс"];
+        const rows = lastProjection.map(function (row) {
+          return [
+            "Год " + row.year,
+            Math.round(row.opening),
+            Math.round(row.principalPaid),
+            Math.round(row.interestPaid),
+            Math.round(row.prepayment),
+            Math.round(row.closing)
+          ].join(",");
+        });
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "emi-amortization.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function resetToDefaults() {
+        elements.currencyCode.value = defaults.currencyCode;
+        elements.repaymentMode.value = defaults.repaymentMode;
+        elements.targetInterestSaving.value = defaults.targetInterestSaving;
+        elements.loanAmount.value = defaults.loanAmount;
+        elements.loanAmountRange.value = defaults.loanAmount;
+        elements.annualRate.value = defaults.annualRate;
+        elements.annualRateRange.value = defaults.annualRate;
+        elements.tenureYears.value = defaults.tenureYears;
+        elements.tenureYearsRange.value = defaults.tenureYears;
+        elements.tenureExtraMonths.value = defaults.tenureExtraMonths;
+        elements.processingFeePercent.value = defaults.processingFeePercent;
+        elements.processingFeePercentRange.value = defaults.processingFeePercent;
+        elements.upfrontCharges.value = defaults.upfrontCharges;
+        elements.emiStepupPercent.value = defaults.emiStepupPercent;
+        elements.emiStepupPercentRange.value = defaults.emiStepupPercent;
+        elements.oneTimePrepayMonth.value = defaults.oneTimePrepayMonth;
+        elements.oneTimePrepayAmount.value = defaults.oneTimePrepayAmount;
+        elements.annualPrepayAmount.value = defaults.annualPrepayAmount;
+        elements.rateChangeMonth.value = defaults.rateChangeMonth;
+        elements.newAnnualRate.value = defaults.newAnnualRate;
+        elements.newAnnualRateRange.value = defaults.newAnnualRate;
+        elements.maxSimulationMonths.value = defaults.maxSimulationMonths;
+        calculateAndRender();
+      }
+
+      function wireEvents() {
+        const toggleBtn = document.getElementById("toggleViewBtn");
+        if (toggleBtn) {
+          toggleBtn.addEventListener("click", function () {
+            const shell = document.querySelector(".calculator-shell");
+            const isAdvanced = shell.classList.toggle("advanced-mode");
+            this.classList.toggle("active", isAdvanced);
+            this.querySelector("span").textContent = isAdvanced ? "Расширенный режим: Вкл." : "Расширенный режим: Выкл.";
+          });
+        }
+
+        syncPair(elements.loanAmountRange, elements.loanAmount);
+        syncPair(elements.annualRateRange, elements.annualRate);
+        syncPair(elements.tenureYearsRange, elements.tenureYears);
+        syncPair(elements.processingFeePercentRange, elements.processingFeePercent);
+        syncPair(elements.emiStepupPercentRange, elements.emiStepupPercent);
+        syncPair(elements.newAnnualRateRange, elements.newAnnualRate);
+
+        [
+          elements.currencyCode,
+          elements.repaymentMode,
+          elements.targetInterestSaving,
+          elements.tenureExtraMonths,
+          elements.upfrontCharges,
+          elements.oneTimePrepayMonth,
+          elements.oneTimePrepayAmount,
+          elements.annualPrepayAmount,
+          elements.rateChangeMonth,
+          elements.maxSimulationMonths
+        ].forEach(function (input) {
+          input.addEventListener("input", calculateAndRender);
+          input.addEventListener("change", calculateAndRender);
+        });
+
+        elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        if (window.currencyManager) { window.currencyManager.onChange(calculateAndRender); };
+        elements.resetBtn.addEventListener("click", resetToDefaults);
+        elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        elements.copySummaryBtn.addEventListener("click", function () {
+          if (!navigator.clipboard || !lastSummaryText) {
+            return;
+          }
+          navigator.clipboard.writeText(lastSummaryText).then(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Скопировано';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Копировать сводку';
+            }, 1300);
+          }).catch(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Ошибка';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Копировать сводку';
+            }, 1300);
+          });
+        });
+
+        const langSelect = document.getElementById('langSelect');
+        if (langSelect) {
+          langSelect.value = 'ru';
+          langSelect.addEventListener('change', function () {
+            if (this.value === 'en') {
+              localStorage.setItem('user_lang', 'en');
+              window.location.href = '../emicalculator.html';
+            } else if (this.value === 'ja') {
+              localStorage.setItem('user_lang', 'ja');
+              window.location.href = '../ja/emicalculator.html';
+            }
+          });
+        }
+      }
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      calculateAndRender();
+    })();
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+      authDomain: "instacalc-40640.firebaseapp.com",
+      projectId: "instacalc-40640",
+      storageBucket: "instacalc-40640.firebasestorage.app",
+      messagingSenderId: "720029503645",
+      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+      measurementId: "G-J0ZWXR3T5P"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+  </script>
+</body>
+
+</html>

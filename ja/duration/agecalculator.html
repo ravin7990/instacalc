@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+  (function() {
+    localStorage.setItem('user_lang', 'ja');
+  })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>年齢計算機 | 生年月日から年齢・満年齢を正確に計算ツール</title>
+  <meta name="description"
+    content="生年月日から正確な年齢（満年齢、何歳何ヶ月何日）を自動で計算する無料のオンラインツールです。次の誕生日までの日数、星座、誕生石、生きてきた秒数、生物学的統計（心拍数・睡眠時間など）も瞬時に算出します。">
+  <meta name="keywords"
+    content="年齢計算, 年齢計算機, 満年齢 計算, 生年月日 年齢, 年齢 計算 ツール, 生年月日から年齢">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/ja/duration/agecalculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 20ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    input {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .planet-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .planet-box {
+      text-align: center;
+      border: 1px solid var(--line);
+      padding: 0.5rem;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .planet-box .pn {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .planet-box .pv {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .ms-list {
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .ms-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.85rem;
+    }
+
+    .ms-item span {
+      font-weight: 600;
+      color: var(--text-soft);
+    }
+
+    .ms-item strong {
+      font-weight: 700;
+      color: var(--accent-strong);
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    @media (min-width: 640px) {
+      .input-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .span-2 {
+        grid-column: span 2;
+      }
+    }
+
+    @media (min-width: 940px) {
+      .hero-grid {
+        grid-template-columns: 1.5fr 1fr;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.751fr 1fr;
+        align-items: start;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    /* SEO & Article Styles */
+    .article-card {
+      background: var(--card);
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      border-radius: var(--radius-xl);
+      padding: 2.2rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+      color: var(--text);
+    }
+    
+    .article-card h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      color: var(--accent-strong);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    
+    .article-card h2:first-of-type {
+      margin-top: 0;
+    }
+    
+    .article-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      color: var(--text);
+      margin-top: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    .article-card p {
+      color: var(--text-soft);
+      font-size: 1.02rem;
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+    
+    .article-card ul, .article-card ol {
+      color: var(--text-soft);
+      padding-left: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+    
+    .article-card li {
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+    
+    .toc-card {
+      background: #f0f6f8;
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      border-left: 4px solid var(--accent);
+      margin-bottom: 2rem;
+    }
+    
+    .toc-card strong {
+      font-family: "Sora", sans-serif;
+      color: var(--accent-strong);
+      display: block;
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+    }
+    
+    .toc-list {
+      list-style-type: none !important;
+      padding-left: 0 !important;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+    @media (min-width: 640px) {
+      .toc-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem 1.5rem;
+      }
+    }
+    
+    .toc-list a {
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.94rem;
+      transition: color 0.2s ease;
+    }
+    
+    .toc-list a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+    
+    .highlight-box {
+      background: rgba(0, 127, 139, 0.06);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    
+    .highlight-box strong {
+      color: var(--accent-strong);
+    }
+    
+    .warning-box {
+      background: #fff8eb;
+      border-left: 4px solid var(--accent-2);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      margin: 1.5rem 0;
+    }
+    
+    .warning-box strong {
+      color: #b27300;
+    }
+    
+    /* SEO Table Styles */
+    .seo-table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+    }
+    
+    .seo-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.96rem;
+    }
+    
+    .seo-table th {
+      background: var(--accent-strong);
+      color: #ffffff;
+      padding: 0.9rem 1.1rem;
+      font-weight: 600;
+      font-family: "Sora", sans-serif;
+    }
+    
+    .seo-table td {
+      padding: 0.9rem 1.1rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--text-soft);
+    }
+    
+    .seo-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .seo-table tr:nth-child(even) {
+      background: rgba(242, 246, 248, 0.5);
+    }
+
+    /* FAQ Accordion Styles */
+    .faq-wrapper {
+      margin-top: 2rem;
+    }
+    
+    .faq-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--card);
+      margin-bottom: 0.8rem;
+      overflow: hidden;
+      transition: border-color 0.25s ease;
+    }
+    
+    .faq-item:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+    }
+    
+    .faq-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 1.4rem;
+      background: none;
+      border: none;
+      text-align: left;
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      cursor: pointer;
+      outline: none;
+    }
+    
+    .faq-header i {
+      color: var(--accent);
+      transition: transform 0.25s ease;
+    }
+    
+    .faq-item.active .faq-header i {
+      transform: rotate(180deg);
+    }
+    
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s cubic-bezier(0, 1, 0, 1);
+    }
+    
+    .faq-body {
+      padding: 0 1.4rem 1.3rem;
+      color: var(--text-soft);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Mobile & Tablet Responsiveness Adjustments */
+    @media (max-width: 768px) {
+      .seo-section {
+        padding: 1.25rem 0;
+      }
+      .article-card {
+        padding: 1.25rem 1rem;
+        border-radius: var(--radius-lg);
+        margin-bottom: 1rem;
+      }
+      .article-card h1 {
+        font-size: 1.55rem !important;
+        margin-bottom: 1rem !important;
+      }
+      .article-card h2 {
+        font-size: 1.32rem !important;
+        margin-top: 1.5rem !important;
+        margin-bottom: 0.75rem !important;
+      }
+      .article-card h3 {
+        font-size: 1.12rem !important;
+        margin-top: 1.2rem !important;
+        margin-bottom: 0.6rem !important;
+      }
+      .article-card p, .article-card li {
+        font-size: 0.95rem !important;
+        line-height: 1.6 !important;
+        margin-bottom: 0.9rem !important;
+      }
+      .toc-card {
+        padding: 1rem !important;
+        margin-bottom: 1.5rem !important;
+      }
+      .toc-list {
+        grid-template-columns: 1fr !important;
+        gap: 0.4rem !important;
+      }
+      .toc-list a {
+        font-size: 0.88rem !important;
+      }
+      .highlight-box, .warning-box {
+        padding: 0.9rem !important;
+        margin: 1.1rem 0 !important;
+      }
+      .seo-table th, .seo-table td {
+        padding: 0.75rem 0.85rem !important;
+        font-size: 0.86rem !important;
+      }
+      .faq-header {
+        padding: 0.95rem 1rem !important;
+        font-size: 0.96rem !important;
+      }
+      .faq-body {
+        padding: 0 1rem 1rem !important;
+        font-size: 0.9rem !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .planet-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .hero-copy h1 {
+        font-size: 1.7rem !important;
+      }
+    }
+    .lang-switch{margin-left:auto;margin-right:1rem;display:inline-flex;align-items:center}.lang-switch select{min-height:36px;padding:.2rem .5rem;font-size:.85rem;font-weight:600;color:var(--accent-strong);background:#fff;border:1px solid rgba(0,95,115,.22);border-radius:8px;cursor:pointer;outline:none;transition:border-color .2s}.lang-switch select:focus{border-color:var(--accent)}
+    @media(max-width:939px){.lang-switch{margin-right:0.5rem}}
+  </style>
+<!-- Schema Markup: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "生年月日から正確な年齢を計算するにはどうすればよいですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "生年月日から正確な年齢を計算するには、現在の基準日から生年月日を差し引きます。各月の日数の違いやうるう年を考慮する必要があります。当サイトの年齢計算ツールを使用すれば、生年月日を入力するだけで自動かつ瞬時に正確な年齢が算出されます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "履歴書や公式手続きでの年齢はどのように計算されますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "一般に公式な手続きや履歴書では、提出日または指定された基準日時点での「満年齢（誕生日を迎えるごとに1歳加算される数え方）」を使用します。日本の法律（年齢計算ニ関スル法律）では、誕生日の前日の午後12時に加算されると定められています。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "満年齢と数え年の違いは何ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "満年齢は生まれた時を0歳とし、誕生日を迎えるごとに1歳を加算する一般的な年齢の数え方です。一方、数え年は生まれた時を1歳とし、元日（1月1日）を迎えるごとに1歳を加算する、伝統的な日本の数え方です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "うるう年は自動的に考慮されますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "はい。当ツールはグレゴリオ暦に基づき、2月29日があるうるう年を自動的に検出して正確に日数を計算するため、数十年分の年齢計算であってもズレが生じることはありません。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "入力した生年月日などのデータは保存されますか？プライバシーは安全ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "はい、完全に安全です。当年齢計算機は、お客様のブラウザ上（JavaScript）で完全に動作するため、入力された日付や個人情報が外部サーバーに送信されたり、保存されたりすることは一切ありません。"
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Schema Markup: BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://instacalc.in/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "年齢計算機",
+      "item": "https://instacalc.in/ja/duration/agecalculator.html"
+    }
+  ]
+}
+</script>
+
+<!-- Schema Markup: HowTo -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "オンラインでの正確な年齢計算方法",
+  "description": "無料のオンライン年齢計算機を使用して、生年月日から何歳何ヶ月何日かを正確に算出する手順です。",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "生年月日の入力",
+      "text": "最初の入力フィールドから、生年月日の年・月・日・時間を設定します。"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "計算基準日の設定",
+      "text": "年齢を算出したい基準日を設定します。デフォルトは現在の今日の日時になっています。"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "結果の確認",
+      "text": "満年齢、生きてきた合計日数や秒数、次の誕生日までの日数、生物学的指標がリアルタイムに表示されます。"
+    }
+  ]
+}
+</script>
+
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand">
+        <img src="../logo.png" alt="InstaCalc">
+        <span>InstaCalc.in</span>
+      </a>
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="言語選択">
+          <option value="en">English</option>
+          <option value="ru">Русский</option>
+          <option value="ja" selected>日本語</option>
+          <option value="ko">한국어</option>
+        </select>
+      </div>
+      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+      <nav class="site-nav" id="mainNav">
+        <a href="../index.html">ホーム</a>
+        <a href="../aboutus.html">会社概要</a>
+        <a href="../privacypolicy.html">プライバシーポリシー</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-history"></i> ライフ・アナリシス</span>
+          <h1>生年月日から正確な年齢計算・健康指標</h1>
+          <p>あなたの生年月日から正確な年齢（満年齢、何ヶ月、何日）を秒単位で計算。さらに生物学的な統計データや、太陽系各惑星での年齢進捗を可視化します。</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>精密インサイト</h2>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> 正確な年齢と次の誕生日カウントダウン</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> 各惑星でのマチュリティ（成熟）指数</div>
+          <div class="hero-point"><i class="fas fa-check-circle"></i> バイオライフ統計（生涯心拍数・睡眠時間）</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="mode-switch">
+            <a href="#" class="active">年齢分析</a>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head"><label for="dob">生年月日</label></div>
+              <input type="datetime-local" id="dob">
+            </div>
+            <div class="field-card">
+              <div class="field-head"><label for="now">計算基準日</label></div>
+              <input type="datetime-local" id="now">
+            </div>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card positive span-2">
+              <h3>計算された年齢</h3>
+              <div class="result-value" id="resAge">-- 年 -- ヶ月 -- 日</div>
+              <div style="font-size: 0.82rem; font-weight:700; color:var(--accent-strong); margin-top:0.4rem;"
+                id="resSubAge"></div>
+            </div>
+
+            <div class="result-card">
+              <h3>パーソナル・プロファイル</h3>
+              <div class="ms-list">
+                <div class="ms-item"><span>生まれた曜日</span> <strong id="resDay">-</strong></div>
+                <div class="ms-item"><span>次の誕生日まで</span> <strong id="resNext">-</strong></div>
+                <div class="ms-item"><span>星座</span> <strong id="resZod">-</strong></div>
+                <div class="ms-item"><span>誕生石</span> <strong id="resStone">-</strong></div>
+              </div>
+            </div>
+
+            <div class="result-card">
+              <h3>バイオ統計（推定値）</h3>
+              <div class="ms-list">
+                <div class="ms-item"><span>総心拍数</span> <strong id="resHeart"
+                    style="color:var(--success);">-</strong></div>
+                <div class="ms-item"><span>総呼吸数</span> <strong id="resBreaths"
+                    style="color:var(--success);">-</strong></div>
+                <div class="ms-item"><span>総睡眠時間</span> <strong id="resSleep"
+                    style="color:var(--success);">-</strong></div>
+              </div>
+            </div>
+
+            <div class="result-card span-2">
+              <h3>惑星別の年齢</h3>
+              <div class="planet-grid">
+                <div class="planet-box"><span class="pn">水星</span>
+                  <div class="pv" id="pMerc">--</div>
+                </div>
+                <div class="planet-box"><span class="pn">金星</span>
+                  <div class="pv" id="pVen">--</div>
+                </div>
+                <div class="planet-box"><span class="pn">火星</span>
+                  <div class="pv" id="pMars">--</div>
+                </div>
+                <div class="planet-box"><span class="pn">木星</span>
+                  <div class="pv" id="pJup">--</div>
+                </div>
+                <div class="planet-box"><span class="pn">土星</span>
+                  <div class="pv" id="pSat">--</div>
+                </div>
+                <div class="planet-box"><span class="pn">海王星</span>
+                  <div class="pv" id="pNep">--</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="sidebar-card">
+            <h3>関連ツール</h3>
+            <ul class="link-list">
+              <li><a href="../moretools/diagonalcalculator.html"><span>対角線計算機</span> <i class="fas fa-chevron-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SEO Content Section -->
+    <section class="section seo-section" style="padding-top: 0;">
+      <div class="container">
+        <div class="article-card">
+          <!-- Breadcrumb List UI -->
+          <nav aria-label="breadcrumb" style="margin-bottom: 20px; font-size: 0.9rem; font-weight: 600; color: var(--text-soft);">
+            <a href="../index.html" style="color: var(--accent);">ホーム</a> &raquo; 
+            <span style="color: var(--text-soft);">年齢計算機</span>
+          </nav>
+
+          <!-- H1 heading -->
+          <h1 style="font-family: 'Sora', sans-serif; font-size: clamp(1.8rem, 4vw, 2.5rem); color: var(--accent-strong); margin-bottom: 1.5rem; letter-spacing: -0.03em; line-height: 1.2;">
+            年齢計算機 – 生年月日から年齢・満年齢を正確に計算するツール
+          </h1>
+
+          <!-- Table of Contents -->
+          <div class="toc-card">
+            <strong>&#128209; 目次</strong>
+            <ul class="toc-list">
+              <li><a href="#what-is">年齢計算機とは？</a></li>
+              <li><a href="#why-important">正確な年齢を知ることが重要な理由</a></li>
+              <li><a href="#benefits">本年齢計算ツールの主な特徴とメリット</a></li>
+              <li><a href="#how-works">年齢計算ツールの仕組みについて</a></li>
+              <li><a href="#step-by-step">ツールの使い方ガイド</a></li>
+              <li><a href="#formula">生年月日から年齢を求める計算式とルール</a></li>
+              <li><a href="#example">具体例：手計算で年齢を計算する</a></li>
+              <li><a href="#legal-japan">日本における法律と年齢の計算方法</a></li>
+              <li><a href="#mistakes">年齢計算でよくある間違い</a></li>
+              <li><a href="#faqs">よくある質問 (FAQs)</a></li>
+            </ul>
+          </div>
+
+          <!-- Featured Snippet Paragraph -->
+          <div class="introduction highlight-box" style="margin-top: 20px;">
+            <p style="margin-bottom: 0;">生年月日から年齢を計算するには、基準となる日付から出生日を差し引くことで、正確な<strong>「何歳、何ヶ月、何日」</strong>の年齢を算出できます。例えば、生年月日が1997年8月15日で、計算基準日が2026年5月31日の場合、年齢は28年9ヶ月16日となります。当サイトの無料<strong>「年齢計算機」</strong>は、うるう年や各月の日数を踏まえて自動計算するため、履歴書作成、各種手続き、手続き基準日の確認に最適です。</p>
+          </div>
+
+          <p>日常生活で「今、自分が正確に何歳何ヶ月なのか」を調べる機会は意外と多くあります。特に公務員試験や入社試験の応募資格、学校の入学基準日（早生まれ・遅生まれの判定）、保険料の算出、パスポートやマイナンバーカードなどの公的文書の申請など、日数のズレが許されない場面が多々あります。当ツールは、そうした複雑な計算を数秒で完了し、正確な結果を提供します。</p>
+
+          <!-- 年齢計算機とは？ -->
+          <div id="what-is">
+            <h2>年齢計算機とは？</h2>
+            <p>オンラインの<strong>年齢計算機</strong>は、生年月日と任意の基準日（デフォルトは今日）を入力するだけで、その期間に経過した正確な時間を算出するデジタルツールです。人間の手計算では見落としがちなうるう年の調整や、大の月（31日）と小の月（30日・28日）の違いを考慮し、正確な年月日に落とし込みます。</p>
+            <p>年齢には大きく分けて「満年齢」と「数え年」がありますが、現代のビジネスや公式な手続きでは「満年齢」が一般的に使用されます。当ツールは満年齢を基準にしつつ、生きてきた合計日数、時間、秒数まで網羅した詳細なライフデータを算出します。</p>
+          </div>
+
+          <!-- 正確な年齢を知ることが重要な理由 -->
+          <div id="why-important">
+            <h2>正確な年齢を知ることが重要な理由</h2>
+            <p>年齢を1日単位で正確に把握しておくべきシーンはいくつかあります：</p>
+            <ul>
+              <li><strong>受験・就職の年齢制限：</strong> 公務員採用試験や特定の企業採用情報では、「◯◯年◯月◯日時点で満30歳以下であること」などの条件が設けられており、1日の違いで応募資格を失う場合があります。</li>
+              <li><strong>学校の入学時期：</strong> 日本では、4月2日〜翌年4月1日までに生まれた子供が同じ学年になります（満6歳に達した後の最初の4月に入学するため）。基準日での正確な年齢確認が必要です。</li>
+              <li><strong>生命保険などの契約：</strong> 保険料率の算出において、満年齢を基準にするものや「契約日に最も近い誕生日」を基準にするものがあり、保険料に影響します。</li>
+              <li><strong>公的年金や医療費負担：</strong> 医療費の窓口負担割合が変わる年齢（70歳や75歳）や、年金の受給開始年齢などの判定にも、厳密な年齢計算が用いられます。</li>
+            </ul>
+          </div>
+
+          <!-- 本年齢計算ツールの主な特徴とメリット -->
+          <div id="benefits">
+            <h2>本年齢計算ツールの主な特徴とメリット</h2>
+            <p>当ツールの強みは、単に年齢を表示するだけではなく、以下のような多角的な視点から計算結果を提供する点です：</p>
+            <ul>
+              <li><strong>ヒューマンエラーの排除：</strong> 「先月は何日まであったか」を毎回考える必要がなく、アルゴリズムがすべてカレンダーを自動追跡して計算します。</li>
+              <li><strong>プライバシー保護（完全ローカル動作）：</strong> 生年月日などのプライベートデータは、すべてご利用のブラウザ上で暗号化されずに即座に計算されます。サーバー等に保存されたり送信されたりすることはありません。</li>
+              <li><strong>生物学的パラメータの推定：</strong> 生まれてから現在までに刻んだ推定の総心拍数や総呼吸数、合計睡眠時間を可視化します。</li>
+              <li><strong>惑星別の年齢計算：</strong> 地球以外の惑星（水星、金星、火星、木星など）の公転周期に基づいた、あなたの宇宙年齢を算出して楽しめます。</li>
+            </ul>
+          </div>
+
+          <!-- 年齢計算ツールの仕組みについて -->
+          <div id="how-works">
+            <h2>年齢計算ツールの仕組みについて</h2>
+            <p>当計算ツールは、Javascriptの「Date」オブジェクトを使用しています。ユーザーが「生年月日」と「計算基準日」を指定すると、ミリ秒単位で2つの日付のタイムスタンプを取得します。その後、カレンダーの規則に従って、年、月、日の単位に分解して引き算を行います。</p>
+            <p>引き算をする際、「基準日」の日数が「誕生日」の日数より小さい場合は、前月のカレンダーから日数を借りてくる（繰り下げ処理を行う）ことで、カレンダー通りの正確な「日」を導き出します。うるう年の2月29日がある場合も、その年がうるう年であるかを自動判別し、29日間として処理するため、一切の計算ズレが発生しません。</p>
+          </div>
+
+          <!-- ツールの使い方ガイド -->
+          <div id="step-by-step">
+            <h2>ツールの使い方ガイド</h2>
+            <ol>
+              <li><strong>ステップ1（生年月日の選択）：</strong> 「生年月日」の入力欄をタップまたはクリックして、あなたの誕生年・月・日・時間をカレンダーから選択します。</li>
+              <li><strong>ステップ2（基準日の設定）：</strong> 「計算基準日」の入力欄を確認します。デフォルトでは現在の「今日・今この瞬間」が入力されていますが、過去や未来の時点での年齢を調べたい場合は、日付を変更します。</li>
+              <li><strong>ステップ3（結果の確認）：</strong> 画面に即座に「◯◯年 ◯ヶ月 ◯日」と、生きてきた合計秒数が表示されます。さらに、生まれた曜日、次の誕生日までの日数、バイオデータなども併せて確認できます。</li>
+            </ol>
+          </div>
+
+          <!-- 生年月日から年齢を求める計算式とルール -->
+          <div id="formula">
+            <h2>生年月日から年齢を求める計算式とルール</h2>
+            <p>手計算で年齢を求める場合は、右から左（日 → 月 → 年）に向かって引き算を行います。基本的な計算式は以下の通りです：</p>
+            <div class="highlight-box" style="text-align: center;">
+              <strong style="font-size: 1.2rem; color: var(--accent-strong);">年齢 = 計算基準日 - 生年月日</strong>
+            </div>
+            <p><strong>【繰り下げ（借りる）のルール】</strong></p>
+            <ol>
+              <li>「基準日の日」＜「生年月日の日」の場合：基準日の月を1つ減らし、基準日の前月の日数を「基準日の日」に加算してから引き算します。</li>
+              <li>「基準日の月」＜「生年月日の月」の場合：基準日の年を1つ減らし、12ヶ月を「基準日の月」に加算してから引き算します。</li>
+            </ol>
+          </div>
+
+          <!-- 具体例：手計算で年齢を計算する -->
+          <div id="example">
+            <h2>具体例：手計算で年齢を計算する</h2>
+            <p>実際に、<strong>1998年11月25日</strong>に生まれた人の、<strong>2026年5月15日</strong>時点での年齢を計算してみましょう。</p>
+            <div class="highlight-box">
+              <p><strong>手順1（日付の並び）：</strong><br>
+              基準日：2026年 5月 15日<br>
+              生年月日：1998年 11月 25日</p>
+              
+              <p><strong>手順2（日の引き算 15日 - 25日）：</strong><br>
+              15日は25日より小さいため、5月から1ヶ月借りてきます。5月は4月になります。借りてくる4月の日数は「30日」です。<br>
+              15日 ＋ 30日 ＝ 45日。<br>
+              <strong>45日 － 25日 ＝ 20日</strong></p>
+              
+              <p><strong>手順3（月の引き算 4ヶ月 - 11ヶ月）：</strong><br>
+              5月から1つ減って4ヶ月になっています。4ヶ月は11ヶ月より小さいため、2026年から1年（12ヶ月）借ります。2026年は2025年になります。<br>
+              4ヶ月 ＋ 12ヶ月 ＝ 16ヶ月。<br>
+              <strong>16ヶ月 － 11ヶ月 ＝ 5ヶ月</strong></p>
+              
+              <p><strong>手順4（年の引き算 2025年 - 1998年）：</strong><br>
+              <strong>2025年 － 1998年 ＝ 27年</strong></p>
+              
+              <p><strong>計算結果：</strong> 27歳 5ヶ月 20日</p>
+            </div>
+          </div>
+
+          <!-- 日本における法律と年齢の計算方法 -->
+          <div id="legal-japan">
+            <h2>日本における法律と年齢の計算方法</h2>
+            <p>日本の法律（「年齢計算ニ関スル法律」および「民法第143条」）では、年齢の計算方法について以下のように厳密に定められています：</p>
+            <ul>
+              <li><strong>生まれた日を1日目としてカウントする：</strong> 民法の原則では「初日不算入（期間を計算する際に初日は含めない）」となっていますが、年齢計算については例外的に「出生の日を初日として算入する」と決められています。</li>
+              <li><strong>歳をとる瞬間は「誕生日前日の午後12時（24時）」：</strong> 法律上、年齢は「誕生日前日の最後の瞬間に1歳加算される」ことになっています。例えば、4月1日生まれの人は、前日の3月31日午後12時に満年齢が上がります。これが「4月1日生まれは早生まれ（前年度の学年に入る）」とされる法的理由です。</li>
+            </ul>
+          </div>
+
+          <!-- 年齢計算でよくある間違い -->
+          <div id="mistakes">
+            <h2>年齢計算でよくある間違い</h2>
+            <ul>
+              <li><strong>1年を単純に365日として計算する：</strong> 4年に1回うるう年があるため、長期の年齢を単純に365で割ると数日間のズレが生じます。当ツールは実際の暦通りに計算しています。</li>
+              <li><strong>1ヶ月を一律30日として計算する：</strong> 2月は28日または29日、大の月は31日まであるため、単純に「1ヶ月＝30日」とみなして手計算すると、正確な年月日が出せない場合があります。</li>
+              <li><strong>基準日の勘違い：</strong> 履歴書を書く場合、年齢欄には「履歴書を書いた日」または「提出する日」時点での年齢を記入する必要があります。当ツールの「計算基準日」をその日付に合わせるのを忘れないようにしましょう。</li>
+            </ul>
+          </div>
+
+          <!-- FAQ Accordion -->
+          <div id="faqs" class="faq-wrapper">
+            <h2>よくある質問 (FAQs)</h2>
+            <p>年齢計算や仕組みについて寄せられる、よくある質問とその解説です。</p>
+            
+            <div class="faq-item">
+              <button class="faq-header" type="button">生年月日から正確な年齢を計算するには？ <i class="fas fa-chevron-down"></i></button>
+              <div class="faq-content">
+                <div class="faq-body">
+                  当年齢計算機の入力欄に生年月日を設定し、基準日（デフォルトは今日）を設定するだけで、うるう年や各月の日数差を完全に考慮した正確な「年齢（年・ヶ月・日）」が即座に表示されます。
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-header" type="button">履歴書に書く年齢は「満年齢」ですか？ <i class="fas fa-chevron-down"></i></button>
+              <div class="faq-content">
+                <div class="faq-body">
+                  はい、日本の履歴書や各種公的書類に記入する年齢は、現在広く使用されている「満年齢」です。数え年で記入する指示がない限り、すべて満年齢を記入します。
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-header" type="button">満年齢とうるう年はどのように計算されますか？ <i class="fas fa-chevron-down"></i></button>
+              <div class="faq-content">
+                <div class="faq-body">
+                  当ツールはグレゴリオ暦を完全にサポートしています。うるう年の2月29日が存在するサイクル（4年に1度）をシステムが自動で判別し、1年を366日として日数を正しく積算・差分計算するため、誤差はありません。
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-header" type="button">なぜ4月1日生まれは「早生まれ」になるのですか？ <i class="fas fa-chevron-down"></i></button>
+              <div class="faq-content">
+                <div class="faq-body">
+                  日本の「年齢計算ニ関スル法律」では、誕生日の前日の終了（午後12時）をもって年齢が加算されます。4月1日生まれの人は前日の3月31日24時に歳をとるため、学校教育法に定める「4月1日までに満6歳に達した児童」に含まれ、4月2日生まれ以降の児童より1学年上（早生まれ）のクラスに入る仕組みになっています。
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-header" type="button">入力した誕生日のプライバシーは安全ですか？ <i class="fas fa-chevron-down"></i></button>
+              <div class="faq-content">
+                <div class="faq-body">
+                  はい。入力されたデータはすべてお客様のデバイスのウェブブラウザ上でのみ処理されます。外部サーバーへの送信、収集、ログ保存などは一切行われませんので、安心してお使いください。
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 InstaCalc.in — 高精度時間計算ユーティリティ。</p>
+      <div class="footer-links">
+        <a href="../aboutus.html">会社概要</a>
+        <a href="../privacypolicy.html">プライバシーポリシー</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const menuToggle = document.getElementById("menuToggle");
+      const mainNav = document.getElementById("mainNav");
+      menuToggle.onclick = () => mainNav.classList.toggle("open");
+
+      const langSelect = document.getElementById('langSelect');
+      if (langSelect) {
+        langSelect.value = 'ja';
+        langSelect.addEventListener('change', function() {
+          if (this.value === 'en') {
+            localStorage.setItem('user_lang', 'en');
+            window.location.href = '../../duration/agecalculator.html';
+          } else if (this.value === 'ru') {
+            localStorage.setItem('user_lang', 'ru');
+            window.location.href = '../../ru/duration/agecalculator.html';
+          } else if (this.value === 'ko') {
+            localStorage.setItem('user_lang', 'ko');
+            window.location.href = '../../ko/duration/agecalculator.html';
+          }
+        });
+      }
+
+      const inputs = { dob: document.getElementById('dob'), now: document.getElementById('now') };
+      const res = {
+        age: document.getElementById('resAge'),
+        sub: document.getElementById('resSubAge'),
+        day: document.getElementById('resDay'),
+        next: document.getElementById('resNext'),
+        zod: document.getElementById('resZod'),
+        stone: document.getElementById('resStone'),
+        heart: document.getElementById('resHeart'),
+        breaths: document.getElementById('resBreaths'),
+        sleep: document.getElementById('resSleep'),
+        pm: document.getElementById('pMerc'),
+        pv: document.getElementById('pVen'),
+        pa: document.getElementById('pMars'),
+        pj: document.getElementById('pJup'),
+        ps: document.getElementById('pSat'),
+        pn: document.getElementById('pNep')
+      };
+
+      const nowD = new Date();
+      inputs.now.value = nowD.toISOString().slice(0, 16);
+      const defB = new Date(nowD.getFullYear() - 25, nowD.getMonth(), nowD.getDate(), 9, 0);
+      inputs.dob.value = defB.toISOString().slice(0, 16);
+
+      const stones = ["ガーネット", "アメジスト", "アクアマリン", "ダイヤモンド", "エメラルド", "真珠", "ルビー", "ペリドット", "サファイア", "オパール", "トパーズ", "ターコイズ"];
+      const zodes = [["山羊座", 20, 0], ["水瓶座", 19, 1], ["魚座", 20, 2], ["牡羊座", 20, 3], ["牡牛座", 21, 4], ["双子座", 21, 5], ["蟹座", 23, 6], ["獅子座", 23, 7], ["乙女座", 23, 8], ["天秤座", 23, 9], ["蠍座", 22, 10], ["射手座", 22, 11], ["山羊座", 31, 11]];
+      
+      const weekdays = ["日", "月", "火", "水", "木", "金", "土"];
+
+      function update() {
+        const b = new Date(inputs.dob.value);
+        const n = new Date(inputs.now.value);
+        if (isNaN(b) || isNaN(n)) return;
+
+        const diffMs = n - b;
+        const totalSecs = Math.floor(diffMs / 1000);
+        const totalMins = Math.floor(totalSecs / 60);
+        const totalHrs = Math.floor(totalMins / 60);
+        const totalDays = Math.floor(totalHrs / 24);
+
+        let y = n.getFullYear() - b.getFullYear();
+        let mon = n.getMonth() - b.getMonth();
+        let d = n.getDate() - b.getDate();
+        if (d < 0) { mon--; d += new Date(n.getFullYear(), n.getMonth(), 0).getDate(); }
+        if (mon < 0) { y--; mon += 12; }
+
+        res.age.textContent = `${y} 年 ${mon} ヶ月 ${d} 日`;
+        res.sub.textContent = `生きてきた合計秒数: ${totalSecs.toLocaleString("ja-JP")} 秒`;
+
+        res.day.textContent = weekdays[b.getDay()] + "曜日";
+        let next = new Date(n.getFullYear(), b.getMonth(), b.getDate());
+        if (next < n) next.setFullYear(n.getFullYear() + 1);
+        res.next.textContent = "あと " + Math.ceil((next - n) / 86400000) + " 日";
+        res.stone.textContent = stones[b.getMonth()];
+        for (let z of zodes) { if (b.getMonth() < z[2] || (b.getMonth() === z[2] && b.getDate() <= z[1])) { res.zod.textContent = z[0]; break; } }
+
+        res.heart.textContent = (totalMins * 72).toLocaleString("ja-JP") + " 回";
+        res.breaths.textContent = (totalMins * 12).toLocaleString("ja-JP") + " 回";
+        res.sleep.textContent = (totalDays * 8).toLocaleString("ja-JP") + " 時間";
+
+        res.pm.textContent = (totalDays / 88).toFixed(1) + " 歳";
+        res.pv.textContent = (totalDays / 225).toFixed(1) + " 歳";
+        res.pa.textContent = (totalDays / 687).toFixed(1) + " 歳";
+        res.pj.textContent = (totalDays / 4333).toFixed(1) + " 歳";
+        res.ps.textContent = (totalDays / 10759).toFixed(1) + " 歳";
+        res.pn.textContent = (totalDays / 60190).toFixed(2) + " 歳";
+      }
+
+      inputs.dob.oninput = update;
+      inputs.now.oninput = update;
+      update();
+
+      // Collapsible FAQ Accordion Logic
+      document.querySelectorAll('.faq-header').forEach(button => {
+        button.addEventListener('click', () => {
+          const faqItem = button.parentElement;
+          const faqContent = faqItem.querySelector('.faq-content');
+          const isActive = faqItem.classList.contains('active');
+          
+          // Close all FAQ items
+          document.querySelectorAll('.faq-item').forEach(item => {
+            item.classList.remove('active');
+            item.querySelector('.faq-content').style.maxHeight = null;
+          });
+          
+          if (!isActive) {
+            faqItem.classList.add('active');
+            faqContent.style.maxHeight = faqContent.scrollHeight + "px";
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      localStorage.setItem('user_lang', 'ja');
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PPF（公共プロビデント基金）計算ツール - インドの金利・満期受取額シミュレーター</title>
+  <meta name="description"
+    content="インドのPPF（公共プロビデント基金）の満期額、受取利息を簡単シミュレーション。最新の金利（7.1%）や15年の満期・延長ルールに対応。">
+  <meta name="keywords"
+    content="PPF計算ツール, 公共プロビデント基金, インド節税, PPF金利, PPFシミュレーション">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/ja/ppfcalculator.html">
+
+  <meta property="og:title" content="PPF（公共プロビデント基金）計算ツール - インドの金利・満期受取額シミュレーター">
+  <meta property="og:description"
+    content="インドのPPF（公共プロビデント基金）の満期額、受取利息をシミュレーション。最新の金利（7.1%）や15年の満期・延長ルールに対応。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/ja/ppfcalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PPF（公共プロビデント基金）計算ツール - インドの金利・満期受取額シミュレーター">
+  <meta name="twitter:description"
+    content="インドのPPF（公共プロビデント基金）の満期額、受取利息をシミュレーション。最新の金利（7.1%）や15年の満期・延長ルールに対応。">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "PPF計算ツール",
+      "url": "https://instacalc.in/ja/ppfcalculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "インドのPPF（公共プロビデント基金）の満期額、受取利息、将来推移を簡単シミュレーション。"
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "PPFの利息を最大化するには、いつ預け入れるべきですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "毎月の5日までに入金することをお勧めします。PPFの利息は毎月5日から月末までの間の「最低残高」を対象に日割り・月割り計算されるため、5日を過ぎるとその月の利息計算から除外されてしまいます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "15年の満期前に引き出すことはできますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "口座開設から5年が経過（6年目以降）すると、一定の条件（病気治療や高等教育など）に基づき、規定の上限額範囲内で一部の中途引き出し（Partial Withdrawal）が可能になります。"
+          }
+        }
+      ]
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", "Hiragino Sans", "Meiryo", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.8rem, 4.5vw, 2.7rem);
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 25ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .calculator-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .advanced-only-section {
+      display: none;
+      grid-column: 1 / -1;
+      gap: 0.7rem;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only-section {
+      display: grid;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+      .result-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+    }
+
+    .lang-switch {
+      margin-left: auto;
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    .lang-switch select {
+      min-height: 36px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      background: #ffffff;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .lang-switch select:focus {
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc ホーム">
+        <img src="../logo.png" alt="InstaCalc ロゴ">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="言語選択">
+          <option value="en">English</option>
+          <option value="ja" selected>日本語</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="ナビゲーションの切り替え" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-piggy-bank"></i>
+            PPF満期シミュレーター
+          </span>
+          <h1>PPF（公共プロビデント基金）計算ツール - インドの金利・満期受取額シミュレーター</h1>
+          <p>インドのPPF（公共プロビデント基金）の満期額、受取利息、将来推移を簡単シミュレーション。15年間の長期積立計画（延長オプション対応）や年次内訳の出力が行えます。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#ppf-planner">
+              <i class="fas fa-calculator"></i>
+              シミュレーションを開始
+            </a>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h2>PPFに投資するメリット</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> インド政府（国）による元本・利息保証</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> トリプル非課税（投資時・利息・満期時すべて非課税）</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 柔軟な積立設定（年間500〜15万ルピー）</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 最新の政府発表金利（7.1%）に対応</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 年別の元本・利息推移の内訳表示</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="ppf-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="計算モード">
+              <a href="#" class="active">PPF積立シミュレーション</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>詳細設定モード: オフ</span>
+            </button>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="investment">年間投資金総額</label>
+                <span id="investmentPreview">150,000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="investmentRange" min="500" max="150000" step="500" value="150000">
+                <input type="number" id="investment" min="500" max="150000" step="500" value="150000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="rate">現在のPPF金利 (年利%)</label>
+                <span id="ratePreview">7.1%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="rateRange" min="5" max="12" step="0.1" value="7.1">
+                <input type="number" id="rate" min="5" max="12" step="0.1" value="7.1">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="tenure">預入期間 (年数)</label>
+                <span id="tenurePreview">15年</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="tenureRange" min="15" max="50" step="5" value="15">
+                <input type="number" id="tenure" min="15" max="50" step="5" value="15">
+              </div>
+            </div>
+
+            <div class="advanced-only-section" id="advancedFields">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="investFreq">投資の頻度</label>
+                </div>
+                <select id="investFreq">
+                  <option value="year" selected>年に1回 (4月期首払い)</option>
+                  <option value="month">毎月積み立て (SIPスタイル)</option>
+                </select>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label>PPFの投資ルール</label>
+                </div>
+                <p style="font-size:0.85rem; color:var(--text-soft);">
+                  会計年度（4月〜翌3月）あたり最大15万ルピー（1.5 Lakh）まで投資可能です。<br>
+                  利息は毎月5日から月末までの最低残高を基準に計算されます。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i> 再計算
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i> 初期値に戻す
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i> 結果をコピー
+            </button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <h3>累計投資元本</h3>
+              <div class="result-value" id="resInvested">-</div>
+            </div>
+            <div class="result-card positive">
+              <h3>受取利息総額</h3>
+              <div class="result-value" id="resInterest">-</div>
+            </div>
+            <div class="result-card">
+              <h3>満期受取金額</h3>
+              <div class="result-value" id="resMaturity">-</div>
+            </div>
+          </div>
+
+          <div class="chart-grid" style="margin-top:20px;">
+            <div class="chart-card">
+              <h3>満期受取額の推移</h3>
+              <div class="chart-wrap">
+                <canvas id="ppfChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-shell" style="margin-top:20px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>年度</th>
+                  <th>期首残高</th>
+                  <th>年間投資額</th>
+                  <th>発生利息</th>
+                  <th>期末残高</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="sidebar-card">
+            <h3>関連する節税計算ツール</h3>
+            <ul class="link-list">
+              <li><a href="npscalculator.html"><span>NPS（年金制度）計算ツール</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="epfcalculator.html"><span>EPF（従業員プロビデント基金）計算</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="retirementcalculator.html"><span>老後資金シミュレーター</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mutualfundreturncalculator.html"><span>投資信託（ELSS節税型）</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="fdcalculator.html"><span>節税定期預金（Tax-Saver FD）</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h3>PPF計算ツールを利用するメリット</h3>
+          <p>PPF（Public Provident Fund）は、投資額、発生する利息、および満期受取金のすべてが非課税となる「トリプル非課税（E-E-E）ステータス」を持つため、インドで最も人気のある老後資金用貯蓄手段の1つです。</p>
+          <br>
+          <p><strong>PPFの主なルールと特徴：</strong><br>
+            1. <strong>資金ロックイン：</strong> 15年間の預入期間が必須です。満期後は5年単位で何度でも延長可能です。<br>
+            2. <strong>投資制限額：</strong> 1会計年度あたり最低500ルピー、最大15万ルピー（1.5 Lakh）まで投資できます。<br>
+            3. <strong>適用金利：</strong> インド政府により四半期ごとに設定されます。現在は年利7.1%です。<br>
+            4. <strong>複利計算：</strong> 利息は年1回の年複利で計算されます。
+          </p>
+          <br>
+          <p>このシミュレーターを使うことで、年初に一括で15万ルピーを預け入れる場合と、毎月12,500ルピーずつコツコツ積み立てる場合で、将来の受取額にどの程度の違いが出るかを簡単に比較できます。</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>利息を最大化するには、いつ預け入れるべきですか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>毎月の<strong>5日まで</strong>に入金することをお勧めします。PPFの利息は毎月5日から月末までの間の「最低残高」を対象に日割り・月割り計算されるため、5日を過ぎるとその月の利息計算から除外されてしまいます。</p>
+          </details>
+          <details class="faq-card">
+            <summary>15年の満期前に引き出すことはできますか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>口座開設から5年が経過（6年目以降）すると、一定の条件（病気治療や高等教育など）に基づき、規定の上限額範囲内で一部の中途引き出し（Partial Withdrawal）が可能になります。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in — 日々の選択をスマートにする、実用的でシンプルな計算ツール・コンバーター。</p>
+      <div class="footer-links">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        investment: 150000,
+        rate: 7.1,
+        tenure: 15,
+        freq: 'year'
+      };
+
+      const nfCurrency = { format: (v) => "¥" + Math.round(v).toLocaleString('ja-JP') };
+
+      function formatWithUnits(v) {
+        return nfCurrency.format(v);
+      }
+
+            function compactCurrency(v) {
+        if (v >= 100000000) {
+          return "¥" + (v / 100000000).toFixed(1) + "億円";
+        }
+        if (v >= 10000) {
+          return "¥" + (v / 10000).toFixed(0) + "万円";
+        }
+        return "¥" + Math.round(v).toLocaleString('ja-JP');
+      }
+      const elements = {
+        investment: document.getElementById("investment"),
+        investmentRange: document.getElementById("investmentRange"),
+        rate: document.getElementById("rate"),
+        rateRange: document.getElementById("rateRange"),
+        tenure: document.getElementById("tenure"),
+        tenureRange: document.getElementById("tenureRange"),
+        investFreq: document.getElementById("investFreq"),
+
+        investmentPreview: document.getElementById("investmentPreview"),
+        ratePreview: document.getElementById("ratePreview"),
+        tenurePreview: document.getElementById("tenurePreview"),
+
+        resInvested: document.getElementById("resInvested"),
+        resInterest: document.getElementById("resInterest"),
+        resMaturity: document.getElementById("resMaturity"),
+
+        ppfChart: document.getElementById("ppfChart"),
+        projectionTable: document.getElementById("projectionTable"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        calcTarget: document.getElementById("calcTarget"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn")
+      };
+
+      let chartInstance = null;
+
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) return;
+        rangeEl.addEventListener("input", () => { numberEl.value = rangeEl.value; calculate(); });
+        numberEl.addEventListener("input", () => { rangeEl.value = numberEl.value; calculate(); });
+      }
+
+      function setupToggleAdvanced() {
+        let isAdvancedMode = false;
+        elements.toggleViewBtn.addEventListener("click", () => {
+          isAdvancedMode = !isAdvancedMode;
+          elements.calcTarget.classList.toggle("advanced-mode", isAdvancedMode);
+          elements.toggleViewBtn.classList.toggle("active", isAdvancedMode);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvancedMode ? "詳細設定モード: オン" : "詳細設定モード: オフ";
+        });
+      }
+
+      function calculate() {
+        const inv = parseNumeric(elements.investment.value, defaults.investment);
+        const r = parseNumeric(elements.rate.value, defaults.rate) / 100;
+        const years = parseNumeric(elements.tenure.value, defaults.tenure);
+        const freq = elements.investFreq.value;
+
+        elements.investmentPreview.textContent = formatWithUnits(inv);
+        elements.ratePreview.textContent = (r * 100).toFixed(1) + "%";
+        elements.tenurePreview.textContent = years + "年";
+
+        let currentBalance = 0;
+        let totalInvested = 0;
+        const yearlyData = [];
+        const labels = ["開始"];
+        const values = [0];
+
+        for (let y = 1; y <= years; y++) {
+          let opening = currentBalance;
+          let yearInvested = 0;
+          let yearInterest = 0;
+
+          if (freq === 'year') {
+            currentBalance += inv;
+            yearInvested = inv;
+            yearInterest = currentBalance * r;
+            currentBalance += yearInterest;
+          } else {
+            const monthly = inv / 12;
+            for (let m = 1; m <= 12; m++) {
+              currentBalance += monthly;
+              yearInvested += monthly;
+            }
+            yearInterest = opening * r + (yearInvested * r / 2);
+            currentBalance += yearInterest;
+          }
+
+          totalInvested += yearInvested;
+          yearlyData.push({
+            year: y,
+            opening: opening,
+            invest: yearInvested,
+            interest: yearInterest,
+            closing: currentBalance
+          });
+          labels.push(y + "年目");
+          values.push(currentBalance);
+        }
+
+        elements.resInvested.textContent = formatWithUnits(totalInvested);
+        elements.resInterest.textContent = formatWithUnits(currentBalance - totalInvested);
+        elements.resMaturity.textContent = formatWithUnits(currentBalance);
+
+        elements.projectionTable.innerHTML = "";
+        yearlyData.forEach(row => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td>${row.year}年目</td><td>${formatWithUnits(row.opening)}</td><td>${formatWithUnits(row.invest)}</td><td>${formatWithUnits(row.interest)}</td><td>${formatWithUnits(row.closing)}</td>`;
+          elements.projectionTable.appendChild(tr);
+        });
+
+        drawChart(labels, values);
+      }
+
+      function drawChart(labels, values) {
+        const ctx = elements.ppfChart.getContext("2d");
+        if (chartInstance) chartInstance.destroy();
+
+        chartInstance = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: '満期受取金額',
+              data: values,
+              borderColor: '#007f8b',
+              backgroundColor: 'rgba(0, 127, 139, 0.1)',
+              fill: true,
+              tension: 0.2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: { ticks: { callback: (v) => compactCurrency(v) } }
+            },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: { label: (ctx) => ` 予定額: ${formatWithUnits(ctx.raw)}` }
+              }
+            }
+          }
+        });
+      }
+
+      syncPair(elements.investmentRange, elements.investment);
+      syncPair(elements.rateRange, elements.rate);
+      syncPair(elements.tenureRange, elements.tenure);
+      elements.investFreq.addEventListener("change", calculate);
+      elements.recalculateBtn.addEventListener("click", calculate);
+      elements.resetBtn.addEventListener("click", () => {
+        elements.investment.value = defaults.investment; elements.investmentRange.value = defaults.investment;
+        elements.rate.value = defaults.rate; elements.rateRange.value = defaults.rate;
+        elements.tenure.value = defaults.tenure; elements.tenureRange.value = defaults.tenure;
+        elements.investFreq.value = defaults.freq;
+        calculate();
+      });
+
+      elements.copySummaryBtn.addEventListener("click", () => {
+        const s = `【PPF満期シミュレーション結果】\n` +
+          `年間投資額: ${elements.investmentPreview.textContent} /年\n` +
+          `適用金利: ${elements.rate.value}%\n` +
+          `預入期間: ${elements.tenure.value}年\n` +
+          `満期受取金額: ${elements.resMaturity.textContent}`;
+        navigator.clipboard.writeText(s).then(() => {
+          const ot = elements.copySummaryBtn.innerHTML;
+          elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> コピーしました！';
+          setTimeout(() => elements.copySummaryBtn.innerHTML = ot, 2000);
+        });
+      });
+
+      // Nav toggle
+      document.getElementById("menuToggle").addEventListener("click", () => {
+        document.getElementById("mainNav").classList.toggle("open");
+      });
+
+      // Language switch dropdown handler
+      const langSelect = document.getElementById('langSelect');
+      if (langSelect) {
+        langSelect.value = 'ja';
+        langSelect.addEventListener('change', function() {
+          if (this.value === 'en') {
+            localStorage.setItem('user_lang', 'en');
+            window.location.href = '../ppfcalculator.html';
+          }
+        });
+      }
+
+      setupToggleAdvanced();
+      calculate();
+    })();
+  </script>
+</body>
+
+</html>

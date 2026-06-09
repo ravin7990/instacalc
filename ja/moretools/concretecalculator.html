@@ -1,62 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
   <meta charset="UTF-8">
   <script>
   (function() {
-    const pref = localStorage.getItem('user_lang');
-    const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-    if (pref === 'ru' || (!pref && browserLang.startsWith('ru'))) {
-      window.location.replace('../ru/moretools/concretecalculator.html');
-    } else if (pref === 'ja' || (!pref && browserLang.startsWith('ja'))) {
-      window.location.replace('../ja/moretools/concretecalculator.html');
-    } else if (pref === 'ko' || (!pref && browserLang.startsWith('ko'))) {
-      window.location.replace('../ko/moretools/concretecalculator.html');
-    }
+    localStorage.setItem('user_lang', 'ja');
   })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Advanced Concrete Calculator | Cement, Sand, Aggregate & Cost Estimator</title>
+  <title>コンクリート計算機 | セメント・砂・砂利の必要量と費用を自動計算</title>
   <meta name="description"
-    content="Advanced concrete calculator to estimate concrete volume, cement bags, sand (CFT/m³), aggregate, and cost for slabs, footings, columns, beams, stairs, and retaining walls. Accurate RCC and construction material estimator in 2026.">
+    content="構造物（スラブ、柱、梁、基礎、階段、壁など）に必要なコンクリートの量、セメント袋数、砂、砂利（骨材）、および費用を簡単かつ正確に見積もる高度な無料オンライン計算ツール。">
   <meta name="keywords"
-    content="concrete calculator, cement calculator, concrete mix, concrete volume, building material estimator, cement sand aggregate calculator, rcc calculator, slab concrete calculator, concrete cost calculator, construction calculator india">
+    content="コンクリート 計算, コンクリート 必要量 計算, セメント 計算, 砂 砂利 コンクリート 比率, コンクリート 費用 計算, 建築資材 見積もり">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
 
   <link rel="icon" type="image/x-icon" href="../favicon.webp">
-  <link rel="canonical" href="https://instacalc.in/moretools/concretecalculator.html">
+  <link rel="canonical" href="https://instacalc.in/ja/moretools/concretecalculator.html">
 
-  <meta property="og:title" content="Advanced Concrete Calculator - Cement, Sand, Aggregate & Cost Estimator">
+  <meta property="og:title" content="コンクリート計算機 - セメント・砂・砂利の必要量と費用を自動計算">
   <meta property="og:description"
-    content="Calculate concrete quantity, material requirements, and total cost for various structures. Accurate building material estimates with dry volume conversion.">
+    content="スラブ、柱、基礎など各種構造物のコンクリート量、必要な材料、総費用を正確に算出します。乾燥体積換算を考慮した高精度な計算に対応。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://instacalc.in/moretools/concretecalculator.html">
+  <meta property="og:url" content="https://instacalc.in/ja/moretools/concretecalculator.html">
   <meta property="og:image" content="https://instacalc.in/instatheme.webp">
   <meta property="og:site_name" content="InstaCalc">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Advanced Concrete Calculator - Cement, Sand, Aggregate & Cost Estimator">
+  <meta name="twitter:title" content="コンクリート計算機 - セメント・砂・砂利の必要量と費用を自動計算">
   <meta name="twitter:description"
-    content="Free advanced concrete calculator for slabs, columns, and foundations. Get precise cement, sand, and aggregate lists with cost estimates.">
+    content="スラブ、柱、基礎用の無料のコンクリート材料計算ツール。必要セメント、砂、砂利と概算費用を瞬時に計算します。">
   <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Advanced Concrete Calculator",
-      "url": "https://instacalc.in/moretools/concretecalculator.html",
+      "name": "コンクリート計算機",
+      "url": "https://instacalc.in/ja/moretools/concretecalculator.html",
       "applicationCategory": "ConstructionApplication",
       "operatingSystem": "All",
-      "description": "Concrete calculator for estimating materials and costs of slabs, columns, beams, and more.",
+      "description": "スラブ、柱、梁などのコンクリート材料必要量および費用を計算・見積もりするツール。",
       "offers": {
         "@type": "Offer",
         "price": "0",
-        "priceCurrency": "USD"
+        "priceCurrency": "JPY"
       }
     }
   </script>
@@ -108,7 +100,7 @@
 
     body {
       min-height: 100vh;
-      font-family: "Public Sans", sans-serif;
+      font-family: "Public Sans", "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
       color: var(--text);
       background:
         radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
@@ -355,6 +347,8 @@
       background: #ffffff;
       width: fit-content;
       gap: 0.25rem;
+      display: flex;
+      flex-wrap: wrap;
     }
 
     .mode-switch button {
@@ -854,26 +848,26 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="../index.html" class="brand">
-        <img src="../logo.png" alt="InstaCalc" width="42" height="42">
+        <img src="../logo.png" alt="InstaCalc ロゴ" width="42" height="42">
         <span>InstaCalc.in</span>
       </a>
       <div class="lang-switch">
-        <select id="langSelect" aria-label="Select Language">
-          <option value="en" selected>English</option>
+        <select id="langSelect" aria-label="言語選択">
+          <option value="en">English</option>
           <option value="ru">Русский</option>
-          <option value="ja">日本語</option>
+          <option value="ja" selected>日本語</option>
           <option value="ko">한국어</option>
         </select>
       </div>
-      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+      <button class="menu-toggle" id="menuToggle" aria-label="メニュー">
         <i class="fas fa-bars"></i>
       </button>
       <nav class="site-nav" id="siteNav">
-        <a href="../index.html">Home</a>
-        <a href="concretecalculator.html" class="active">Concrete Tool</a>
-        <a href="../sipcalculator.html">SIP Calculator</a>
-        <a href="../emicalculator.html">EMI Tool</a>
-        <a href="../contactus.html">Support</a>
+        <a href="../index.html">ホーム</a>
+        <a href="concretecalculator.html" class="active">コンクリート計算</a>
+        <a href="../sipcalculator.html">SIP計算機</a>
+        <a href="../emicalculator.html">EMI計算ツール</a>
+        <a href="../contactus.html">サポート</a>
       </nav>
     </div>
   </header>
@@ -882,34 +876,32 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow"><i class="fas fa-hard-hat"></i> Professional Civil Tool</span>
-          <h1>Advanced Concrete & Building Material Quantity Estimator</h1>
-          <p>Get precise requirements for <strong>cement bags, sand (CFT/m³), aggregate, and water</strong> for any
-            structural element. Our advanced concrete mix calculator supports M15 to M25 grades with built-in
-            <strong>RCC reinforcement steel</strong> and <strong>cost estimation</strong>.
+          <span class="eyebrow"><i class="fas fa-hard-hat"></i> 土木・建築プロツール</span>
+          <h1>高度なコンクリート・建築資材必要量計算ツール</h1>
+          <p>構造物ごとに必要な**セメント袋数、砂（m³）、砂利（骨材）、水**の量を正確に見積もります。当社の高度なコンクリート配合計算機は、M15〜M25の配合強度グレードに対応し、**鉄筋量（RC見積）**や**費用の概算**も自動で行えます。
           </p>
           <div class="calc-actions">
-            <a href="#calculator" class="btn btn-primary">Start Calculation</a>
-            <a href="#guide" class="btn btn-outline">Mix Guide</a>
+            <a href="#calculator" class="btn btn-primary">計算を開始</a>
+            <a href="#guide" class="btn btn-outline">配合ガイド</a>
           </div>
         </div>
         <aside class="hero-panel">
-          <h2>Why Use Advanced Calculator?</h2>
+          <h2>なぜ高度な計算機を使用するのか？</h2>
           <div class="hero-point">
             <i class="fas fa-check-circle"></i>
-            <span>Accurate Dry Volume conversion (1.54 Factor)</span>
+            <span>正確な乾燥体積（ドライボリューム）換算（係数 1.54）</span>
           </div>
           <div class="hero-point">
             <i class="fas fa-check-circle"></i>
-            <span>Material breakdown by Weight & Volume</span>
+            <span>重量と体積による詳細な材料内訳</span>
           </div>
           <div class="hero-point">
             <i class="fas fa-check-circle"></i>
-            <span>Real-time Cost Estimation for project planning</span>
+            <span>プロジェクト計画に役立つリアルタイムの費用見積もり</span>
           </div>
           <div class="hero-point">
             <i class="fas fa-check-circle"></i>
-            <span>Supports Metric and Imperial unit systems</span>
+            <span>メートル法（m³）とヤード・ポンド法（CFT/ft³）の両方に対応</span>
           </div>
         </aside>
       </div>
@@ -920,15 +912,15 @@
         <article class="calculator-shell">
           <div class="shell-header">
             <div class="mode-switch">
-              <button class="active" data-shape="slab">Slab</button>
-              <button data-shape="column">Column</button>
-              <button data-shape="beam">Beam</button>
-              <button data-shape="footing">Footing</button>
-              <button data-shape="staircase">Stairs</button>
-              <button data-shape="circle">Circle</button>
-              <button data-shape="wall">Wall</button>
+              <button class="active" data-shape="slab">スラブ</button>
+              <button data-shape="column">柱</button>
+              <button data-shape="beam">梁</button>
+              <button data-shape="footing">独立基礎</button>
+              <button data-shape="staircase">階段</button>
+              <button data-shape="circle">円柱</button>
+              <button data-shape="wall">擁壁</button>
             </div>
-            <div class="eyebrow" id="currentShapeLabel">Rectangular Slab</div>
+            <div class="eyebrow" id="currentShapeLabel">長方形スラブ</div>
           </div>
 
           <div class="input-section" id="shapeInputs">
@@ -936,11 +928,11 @@
           </div>
 
           <div class="advanced-settings">
-            <h3>Mix & Efficiency Settings</h3>
+            <h3>配合＆効率設定</h3>
             <div class="input-grid">
               <div class="field-card">
                 <div class="field-head">
-                  <label for="concreteGrade">Design Mix Grade</label>
+                  <label for="concreteGrade">配合強度設計（グレード）</label>
                 </div>
                 <select id="concreteGrade">
                   <option value="M5">M5 (1:5:10)</option>
@@ -949,27 +941,27 @@
                   <option value="M15">M15 (1:2:4)</option>
                   <option value="M20" selected>M20 (1:1.5:3)</option>
                   <option value="M25">M25 (1:1:2)</option>
-                  <option value="custom">Custom Ratio</option>
+                  <option value="custom">カスタム配合比率</option>
                 </select>
               </div>
               <div id="customRatioFields" class="field-card" style="display:none; grid-column: span 2;">
-                <div class="field-head"><label>Custom Ratio (C:S:A)</label></div>
+                <div class="field-head"><label>カスタム比率 (セメント:砂:砂利)</label></div>
                 <div style="display:flex; gap:0.5rem;">
-                  <input type="number" id="ratioC" value="1" step="0.1" placeholder="C">
-                  <input type="number" id="ratioS" value="1.5" step="0.1" placeholder="S">
-                  <input type="number" id="ratioA" value="3" step="0.1" placeholder="A">
+                  <input type="number" id="ratioC" value="1" step="0.1" placeholder="セメント">
+                  <input type="number" id="ratioS" value="1.5" step="0.1" placeholder="砂">
+                  <input type="number" id="ratioA" value="3" step="0.1" placeholder="砂利">
                 </div>
               </div>
               <div class="field-card">
                 <div class="field-head">
-                  <label for="wastage">Wastage (%)</label>
+                  <label for="wastage">ロス率・無駄分 (%)</label>
                   <span id="wastageVal">5%</span>
                 </div>
                 <input type="range" id="wastage" min="0" max="20" step="1" value="5">
               </div>
               <div class="field-card">
                 <div class="field-head">
-                  <label for="cementBagSize">Bag Size (kg)</label>
+                  <label for="cementBagSize">セメント袋の重量 (kg)</label>
                 </div>
                 <select id="cementBagSize">
                   <option value="50" selected>50 kg</option>
@@ -981,81 +973,81 @@
 
             <div class="toggle-group">
               <input type="checkbox" id="includeSteel" checked>
-              <label for="includeSteel">Include Reinforcement Steel (RCC Est.)</label>
+              <label for="includeSteel">鉄筋（鉄筋コンクリート造見積もり）を含める</label>
             </div>
           </div>
 
           <div class="advanced-settings">
-            <h3>Cost Estimation (Optional)</h3>
+            <h3>費用見積もり (任意)</h3>
             <div class="input-grid">
               <div class="field-card">
-                <div class="field-head"><label>Cement / Bag</label></div>
-                <input type="number" id="costCement" placeholder="Price">
+                <div class="field-head"><label>セメント / 袋の単価</label></div>
+                <input type="number" id="costCement" placeholder="価格">
               </div>
               <div class="field-card">
-                <div class="field-head"><label>Sand / Unit</label></div>
-                <input type="number" id="costSand" placeholder="Price">
+                <div class="field-head"><label>砂 / 単位あたりの単価</label></div>
+                <input type="number" id="costSand" placeholder="価格">
               </div>
               <div class="field-card">
-                <div class="field-head"><label>Aggregate / Unit</label></div>
-                <input type="number" id="costAgg" placeholder="Price">
+                <div class="field-head"><label>砂利 / 単位あたりの単価</label></div>
+                <input type="number" id="costAgg" placeholder="価格">
               </div>
               <div id="steelCostField" class="field-card">
-                <div class="field-head"><label>Steel / kg</label></div>
-                <input type="number" id="costSteel" placeholder="Price">
+                <div class="field-head"><label>鉄筋 / kgあたりの単価</label></div>
+                <input type="number" id="costSteel" placeholder="価格">
               </div>
             </div>
           </div>
 
           <div class="result-section">
             <div class="total-cost-card" id="totalCostSection" style="display:none;">
-              <h3>Estimated Total Cost</h3>
-              <div class="total-cost-value" id="totalCostDisplay">₹ 0</div>
+              <h3>見積もり総費用</h3>
+              <div class="total-cost-value" id="totalCostDisplay">¥ 0</div>
             </div>
 
             <div class="result-grid">
               <div class="result-card highlight">
-                <h3>Total Wet Volume</h3>
+                <h3>総湿潤体積 (ウェットボリューム)</h3>
                 <div class="result-value" id="resWetVol">- m³</div>
               </div>
               <div class="result-card">
-                <h3>Dry Volume Req.</h3>
+                <h3>必要乾燥体積 (ドライボリューム)</h3>
                 <div class="result-value" id="resDryVol">- m³</div>
               </div>
               <div class="result-card highlight">
-                <h3>Cement Required</h3>
-                <div class="result-value" id="resCement">- Bags</div>
+                <h3>必要セメント量</h3>
+                <div class="result-value" id="resCement">- 袋</div>
               </div>
               <div class="result-card">
-                <h3>Sand Required</h3>
+                <h3>必要砂量</h3>
                 <div class="result-value" id="resSand">- m³</div>
               </div>
               <div class="result-card highlight">
-                <h3>Aggregate Req.</h3>
+                <h3>必要砂利量 (骨材)</h3>
                 <div class="result-value" id="resAgg">- m³</div>
               </div>
               <div class="result-card accent">
-                <h3>Steel Weight</h3>
+                <h3>必要鉄筋重量</h3>
                 <div class="result-value" id="resSteel">- kg</div>
               </div>
             </div>
 
             <div class="chart-grid">
               <div class="chart-card">
-                <h3>Material Distribution (%)</h3>
+                <h3>材料配分比率 (%)</h3>
                 <div class="chart-wrap">
                   <canvas id="materialChart"></canvas>
                 </div>
               </div>
               <div class="chart-card">
-                <h3>Detailed Breakdown</h3>
+                <h3>詳細な材料内訳</h3>
                 <div class="table-shell">
                   <table>
                     <thead>
                       <tr>
-                        <th>Material</th>
-                        <th>Quantity</th>
-                        <th>Unit</th>
+                        <th>材料</th>
+                        <th>数量</th>
+                        <th>単位</th>
                       </tr>
                     </thead>
                     <tbody id="breakdownTable">
@@ -1068,29 +1060,28 @@
           </div>
 
           <div class="calc-actions">
-            <button class="btn btn-primary" id="copyResult"><i class="fas fa-copy"></i> Copy Materials List</button>
-            <button class="btn btn-outline" id="resetCalc"><i class="fas fa-undo"></i> Reset</button>
+            <button class="btn btn-primary" id="copyResult"><i class="fas fa-copy"></i> 材料リストをコピー</button>
+            <button class="btn btn-outline" id="resetCalc"><i class="fas fa-undo"></i> リセット</button>
           </div>
         </article>
 
         <aside class="sidebar">
           <div class="sidebar-card">
-            <h3>Recent Estimates</h3>
+            <h3>最近の計算履歴</h3>
             <div id="calcLog" class="link-list">
-              <div style="font-size: 0.85rem; color: var(--text-soft); text-align: center; padding: 1rem;">No history
-                available.</div>
+              <div style="font-size: 0.85rem; color: var(--text-soft); text-align: center; padding: 1rem;">履歴はありません。</div>
             </div>
             <button class="btn btn-outline" style="width:100%; font-size:0.8rem; min-height:36px; margin-top:0.5rem;"
-              id="clearLog">Clear History</button>
+              id="clearLog">履歴をクリア</button>
           </div>
 
           <div class="sidebar-card" style="margin-top: 1rem;">
-            <h3>Quick Links</h3>
+            <h3>クイックリンク</h3>
             <nav class="link-list">
-              <a href="../index.html">Main Dashboard <i class="fas fa-chevron-right"></i></a>
-              <a href="../agecalculator.html">Age Calculator <i class="fas fa-chevron-right"></i></a>
-              <a href="../gstcalculator.html">GST Calculator <i class="fas fa-chevron-right"></i></a>
-              <a href="../emicalculator.html">Loan EMI Tool <i class="fas fa-chevron-right"></i></a>
+              <a href="../index.html">メインダッシュボード <i class="fas fa-chevron-right"></i></a>
+              <a href="../duration/agecalculator.html">年齢計算機 <i class="fas fa-chevron-right"></i></a>
+              <a href="trignometrycalculator.html">三角形計算機 <i class="fas fa-chevron-right"></i></a>
+              <a href="../emicalculator.html">住宅ローン計算ツール <i class="fas fa-chevron-right"></i></a>
             </nav>
           </div>
         </aside>
@@ -1100,23 +1091,20 @@
     <section class="section" id="guide">
       <div class="container content-card">
         <div class="section-head">
-          <h2>Comprehensive Guide to Concrete Calculation</h2>
-          <p>Learn the science behind material estimation and how to use our advanced concrete calculator for maximum
-            accuracy on your site.</p>
+          <h2>コンクリート計算の包括的なガイド</h2>
+          <p>材料の見積もりの背後にある科学と、現場でコンクリート計算機を最大限に活用する方法を学びましょう。</p>
         </div>
         <div class="input-grid">
           <article>
-            <h3 style="font-family: Sora; margin-bottom: 0.5rem;">The Dry Volume Rule</h3>
-            <p>When mixing concrete, the dry materials (cement, sand, aggregate) occupy more space than the final wet
-              mixture. We use a <strong>Dry Volume Factor of 1.54</strong>. This means 1m³ of wet concrete requires
-              1.54m³ of dry ingredients.</p>
+            <h3 style="font-family: Sora; margin-bottom: 0.5rem;">乾燥体積（ドライボリューム）の法則</h3>
+            <p>コンクリートを混ぜる際、乾燥した材料（セメント、砂、砂利）は、最終的な濡れた混合物よりも多くのスペースを占有します。そのため、**乾燥体積係数 1.54** を使用します。これは、1m³の完成したコンクリートを作るために、1.54m³の乾燥原料が必要であることを意味します。</p>
           </article>
           <article>
-            <h3 style="font-family: Sora; margin-bottom: 0.5rem;">Grade Mix Ratios</h3>
+            <h3 style="font-family: Sora; margin-bottom: 0.5rem;">配合強度の比率グレード</h3>
             <ul style="padding-left: 1.2rem; color: var(--text-soft); font-size: 0.95rem;">
               <li><strong>M15:</strong> 1 : 2 : 4 (15 MPa)</li>
-              <li><strong>M20:</strong> 1 : 1.5 : 3 (20 MPa) - Standard for RCC</li>
-              <li><strong>M25:</strong> 1 : 1 : 2 (25 MPa) - High strength</li>
+              <li><strong>M20:</strong> 1 : 1.5 : 3 (20 MPa) - RC造の標準</li>
+              <li><strong>M25:</strong> 1 : 1 : 2 (25 MPa) - 高強度コンクリート</li>
             </ul>
           </article>
         </div>
@@ -1126,23 +1114,20 @@
     <section class="section">
       <div class="container">
         <div class="section-head">
-          <h2>Frequently Asked Questions</h2>
+          <h2>よくある質問 (FAQ)</h2>
         </div>
         <div class="faq-list">
           <details class="faq-card">
-            <summary>How many bags of cement are in M20 per cubic meter? <i class="fas fa-chevron-down"></i></summary>
-            <p>For M20 grade concrete (1:1.5:3 ratio), you typically need about 8.2 to 8.5 bags of 50kg cement per cubic
-              meter of wet concrete, depending on the aggregate size and water-cement ratio.</p>
+            <summary>1m³のM20コンクリートには何袋のセメントが必要ですか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>M20グレードのコンクリート（比率 1:1.5:3）では、粗骨材のサイズや水セメント比にもよりますが、通常、1立方メートルあたり約8.2〜8.5袋（1袋50kg換算）のセメントが必要です。</p>
           </details>
           <details class="faq-card">
-            <summary>How much sand and aggregate is needed for 1m³? <i class="fas fa-chevron-down"></i></summary>
-            <p>For a standard M20 mix, you will need approximately 15.7 CFT (0.44 m³) of sand and 31.4 CFT (0.89 m³) of
-              aggregate per cubic meter of wet concrete.</p>
+            <summary>1m³のコンクリートを作るのに必要な砂と砂利の量はどれくらいですか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>標準的なM20配合の場合、湿潤コンクリート1立方メートルあたり、約0.44m³（15.7 CFT）の砂と約0.89m³（31.4 CFT）の砂利（骨材）が必要です。</p>
           </details>
           <details class="faq-card">
-            <summary>What is the density of cement and steel? <i class="fas fa-chevron-down"></i></summary>
-            <p>The standard density of cement is 1440 kg/m³. For reinforcement steel, the density used is 7850 kg/m³,
-              though our calculator use percentage-based estimation for quick site checks.</p>
+            <summary>セメントと鉄筋の密度はどれくらいですか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>セメントの標準密度は1440 kg/m³です。鉄筋の密度は7850 kg/m³ですが、当計算機では現場での迅速な確認のためにパーセンテージベースの概算を使用しています。</p>
           </details>
         </div>
       </div>
@@ -1152,22 +1137,21 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="brand">
-        <img src="../logo.png" alt="InstaCalc" width="30" height="30">
+        <img src="../logo.png" alt="InstaCalc ロゴ" width="30" height="30">
         <span>InstaCalc.in</span>
       </div>
-      <p>Precision tools for engineers, architects, and homeowners. Calculate construction materials, financial goals,
-        and daily conversions with ease.</p>
+      <p>エンジニア、設計士、および一般の方向けの高精度な計算ツール。建築資材の必要量、ローン金利、日常の様々な換算をシンプルに行えます。</p>
       <div class="footer-links">
-        <a href="../index.html">Home</a>
-        <a href="../aboutus.html">About</a>
-        <a href="../contactus.html">Contact</a>
-        <a href="../privacypolicy.html">Privacy</a>
+        <a href="../index.html">ホーム</a>
+        <a href="../aboutus.html">会社概要</a>
+        <a href="../contactus.html">お問い合わせ</a>
+        <a href="../privacypolicy.html">プライバシー</a>
       </div>
-      <p style="font-size: 0.85rem; opacity: 0.8;">&copy; 2026 InstaCalc India. All rights reserved.</p>
+      <p style="font-size: 0.85rem; opacity: 0.8;">&copy; 2026 InstaCalc Japan. All rights reserved.</p>
     </div>
   </footer>
 
-  <button class="back-to-top" id="topBtn" title="Go to top">
+  <button class="back-to-top" id="topBtn" title="上に戻る">
     <i class="fas fa-arrow-up"></i>
   </button>
 
@@ -1204,13 +1188,13 @@
       };
 
       const SHAPES = {
-        slab: { label: 'Rectangular Slab', fields: [['Length (m)', 'l', 5], ['Width (m)', 'w', 4], ['Thickness (m)', 't', 0.15]] },
-        column: { label: 'Column / Pillar', fields: [['Side A (m)', 'l', 0.45], ['Side B (m)', 'w', 0.45], ['Height (m)', 'h', 3]] },
-        beam: { label: 'Structural Beam', fields: [['Length (m)', 'l', 4], ['Width (m)', 'w', 0.3], ['Depth (m)', 'd', 0.5]] },
-        footing: { label: 'Foundation Footing', fields: [['Length (m)', 'l', 2], ['Width (m)', 'w', 2], ['Depth (m)', 'd', 0.6]] },
-        staircase: { label: 'Staircase Steps', fields: [['Tread (m)', 'tr', 0.25], ['Riser (m)', 'rs', 0.15], ['Width (m)', 'w', 1.2], ['Steps Qty', 'qty', 15]] },
-        circle: { label: 'Circular Column', fields: [['Diameter (m)', 'dia', 0.45], ['Height (m)', 'h', 3.5]] },
-        wall: { label: 'Retaining Wall', fields: [['Length (m)', 'l', 10], ['Height (m)', 'h', 3], ['Avg. Thickness (m)', 't', 0.25]] }
+        slab: { label: '長方形スラブ', fields: [['長さ (m)', 'l', 5], ['幅 (m)', 'w', 4], ['厚み (m)', 't', 0.15]] },
+        column: { label: '柱 / ピラー', fields: [['幅 A (m)', 'l', 0.45], ['幅 B (m)', 'w', 0.45], ['高さ (m)', 'h', 3]] },
+        beam: { label: '梁 (ビーム)', fields: [['長さ (m)', 'l', 4], ['幅 (m)', 'w', 0.3], ['深さ (m)', 'd', 0.5]] },
+        footing: { label: '独立基礎 (フーチング)', fields: [['長さ (m)', 'l', 2], ['幅 (m)', 'w', 2], ['深さ (m)', 'd', 0.6]] },
+        staircase: { label: '階段', fields: [['踏み面 (m)', 'tr', 0.25], ['蹴上げ (m)', 'rs', 0.15], ['幅 (m)', 'w', 1.2], ['段数', 'qty', 15]] },
+        circle: { label: '円柱 (丸柱)', fields: [['直径 (m)', 'dia', 0.45], ['高さ (m)', 'h', 3.5]] },
+        wall: { label: '擁壁', fields: [['長さ (m)', 'l', 10], ['高さ (m)', 'h', 3], ['平均厚み (m)', 't', 0.25]] }
       };
 
       function initInputs() {
@@ -1238,7 +1222,6 @@
         let wetVol = 0;
         const s = currentShape;
 
-        // Volume logic
         if (s === 'slab' || s === 'column' || s === 'beam' || s === 'footing' || s === 'wall') {
           const v1 = parseFloat($('inp_l')?.value || $('inp_dia')?.value || 0);
           const v2 = parseFloat($('inp_w')?.value || $('inp_h')?.value || 0);
@@ -1253,9 +1236,8 @@
           const rs = parseFloat($('inp_rs').value);
           const w = parseFloat($('inp_w').value);
           const qty = parseFloat($('inp_qty').value);
-          // Steps volume + estimated waist slab (usually same as steps surface)
           const stepsVol = (0.5 * tr * rs) * w * qty;
-          const waistVol = (tr * qty) * w * 0.15; // Assume 150mm waist slab
+          const waistVol = (tr * qty) * w * 0.15; 
           wetVol = stepsVol + waistVol;
         }
 
@@ -1280,40 +1262,35 @@
         const sandVol = (sa / totalParts) * dryVol;
         const aggVol = (ag / totalParts) * dryVol;
 
-        const cementDensity = 1440; // kg/m3
+        const cementDensity = 1440; 
         const bagSize = parseFloat($('cementBagSize').value);
         const cementBags = (cementVol * cementDensity) / bagSize;
-        const water = (cementVol * cementDensity) * 0.5; // Avg 0.5 water-cement ratio
+        const water = (cementVol * cementDensity) * 0.5; 
 
         const steelFactor = STEEL_FACTORS[s];
         const includeSteel = $('includeSteel').checked;
-        const steelWeight = includeSteel ? wetVol * steelFactor * 7850 * 0.1 : 0; // Simplified estimate (approx 60-150kg/m3)
-        // More standard civil approx:
         const steelKg = includeSteel ? (wetVol * (s === 'column' ? 145 : s === 'beam' ? 120 : 80)) : 0;
 
-        // UI Update
         $('resWetVol').innerText = nf.format(wetVol) + ' m³';
         $('resDryVol').innerText = nf.format(dryVol) + ' m³';
-        $('resCement').innerText = nf.format(cementBags) + ' Bags';
+        $('resCement').innerText = nf.format(cementBags) + ' 袋';
         $('resSand').innerText = nf.format(sandVol) + ' m³';
         $('resAgg').innerText = nf.format(aggVol) + ' m³';
         $('resSteel').innerText = nf.format(steelKg) + ' kg';
         $('wastageVal').innerText = $('wastage').value + '%';
 
-        // Table Breakdown
         const breakdown = [
-          ['Cement', nf.format(cementBags), 'Bags'],
-          ['Cement (Weight)', nf.format(cementVol * cementDensity), 'kg'],
-          ['Sand', nf.format(sandVol), 'm³'],
-          ['Sand (CFT)', nf.format(sandVol * 35.3147), 'ft³'],
-          ['Aggregate', nf.format(aggVol), 'm³'],
-          ['Aggregate (Tonnes)', nf.format(aggVol * 1.6), 'MT'],
-          ['Water', nf.format(water), 'Litres'],
-          ['Steel', nf.format(steelKg), 'kg']
+          ['セメント', nf.format(cementBags), '袋'],
+          ['セメント (重量)', nf.format(cementVol * cementDensity), 'kg'],
+          ['砂', nf.format(sandVol), 'm³'],
+          ['砂 (CFT)', nf.format(sandVol * 35.3147), 'ft³'],
+          ['砂利・骨材', nf.format(aggVol), 'm³'],
+          ['砂利・骨材 (重量)', nf.format(aggVol * 1.6), 'トン'],
+          ['水', nf.format(water), 'リットル'],
+          ['鉄筋', nf.format(steelKg), 'kg']
         ];
         $('breakdownTable').innerHTML = breakdown.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
 
-        // Cost Calc
         calculateCost(cementBags, sandVol, aggVol, steelKg);
         updateChart(c, sa, ag);
       }
@@ -1340,7 +1317,7 @@
         chartInstance = new Chart(ctx, {
           type: 'doughnut',
           data: {
-            labels: ['Cement', 'Sand', 'Aggregate'],
+            labels: ['セメント', '砂', '砂利・骨材'],
             datasets: [{
               data: [c, sa, ag],
               backgroundColor: ['#007f8b', '#ee9f2e', '#546e7a'],
@@ -1387,15 +1364,15 @@
         }
 
         $('copyResult').addEventListener('click', () => {
-          const text = `Concrete Material List (${SHAPES[currentShape].label}):
-- Cement: ${$('resCement').innerText}
-- Sand: ${$('resSand').innerText}
-- Aggregate: ${$('resAgg').innerText}
-- Steel: ${$('resSteel').innerText}
-- Wet Volume: ${$('resWetVol').innerText}`;
+          const text = `コンクリート必要材料リスト (${SHAPES[currentShape].label}):
+- セメント: ${$('resCement').innerText}
+- 砂: ${$('resSand').innerText}
+- 砂利・骨材: ${$('resAgg').innerText}
+- 鉄筋: ${$('resSteel').innerText}
+- 総湿潤体積: ${$('resWetVol').innerText}`;
           navigator.clipboard.writeText(text).then(() => {
             const original = $('copyResult').innerHTML;
-            $('copyResult').innerHTML = '<i class="fas fa-check"></i> Copied!';
+            $('copyResult').innerHTML = '<i class="fas fa-check"></i> コピーしました！';
             setTimeout(() => $('copyResult').innerHTML = original, 2000);
             saveToLog();
           });
@@ -1428,7 +1405,7 @@
       function renderLog() {
         const wrap = $('calcLog');
         if (log.length === 0) {
-          wrap.innerHTML = '<div style="font-size: 0.85rem; color: var(--text-soft); text-align: center; padding: 1rem;">No history available.</div>';
+          wrap.innerHTML = '<div style="font-size: 0.85rem; color: var(--text-soft); text-align: center; padding: 1rem;">履歴はありません。</div>';
           return;
         }
         wrap.innerHTML = log.map(e => `
@@ -1437,8 +1414,8 @@
                   <span>${e.shape}</span>
                   <span style="opacity:0.6;">${e.time}</span>
                </div>
-               <div style="font-size: 0.85rem;">Volume: <strong>${e.vol}</strong></div>
-               <div style="font-size: 0.85rem;">Cement: <strong>${e.bags}</strong></div>
+               <div style="font-size: 0.85rem;">体積: <strong>${e.vol}</strong></div>
+               <div style="font-size: 0.85rem;">セメント: <strong>${e.bags}</strong></div>
             </div>
          `).join('');
       }
@@ -1463,22 +1440,21 @@
 
       const langSelect = $('langSelect');
       if (langSelect) {
-        langSelect.value = 'en';
+        langSelect.value = 'ja';
         langSelect.addEventListener('change', function () {
-          if (this.value === 'ru') {
+          if (this.value === 'en') {
+            localStorage.setItem('user_lang', 'en');
+            window.location.href = '../../moretools/concretecalculator.html';
+          } else if (this.value === 'ru') {
             localStorage.setItem('user_lang', 'ru');
-            window.location.href = '../ru/moretools/concretecalculator.html';
-          } else if (this.value === 'ja') {
-            localStorage.setItem('user_lang', 'ja');
-            window.location.href = '../ja/moretools/concretecalculator.html';
+            window.location.href = '../../ru/moretools/concretecalculator.html';
           } else if (this.value === 'ko') {
             localStorage.setItem('user_lang', 'ko');
-            window.location.href = '../ko/moretools/concretecalculator.html';
+            window.location.href = '../../ko/moretools/concretecalculator.html';
           }
         });
       }
 
-      // Start
       setupGlobal();
       initInputs();
       syncUI();

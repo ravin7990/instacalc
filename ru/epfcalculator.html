@@ -1,0 +1,2298 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      localStorage.setItem('user_lang', 'ru');
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Калькулятор EPF для Индии — расширенный планировщик пенсионных планов PF, EPS и VPF</title>
+  <meta name="description"
+    content="Воспользуйтесь нашим усовершенствованным калькулятором EPF, чтобы точно оценить срок погашения вашего резервного фонда, пенсию EPS, добровольное влияние VPF и пенсионный фонд после уплаты налогов в Индии.">
+  <meta name="keywords"
+    content="Калькулятор epf, калькулятор pf для Индии, расчет срока погашения epf, калькулятор vpf, пенсионный калькулятор eps, онлайн-калькулятор резервного фонда, калькулятор вывода epf, epf с поправкой на инфляцию">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/epfcalculator.html">
+
+  <meta property="og:title" content="Калькулятор EPF для Индии — расширенный планировщик PF, EPS, VPF и пенсионного планирования">
+  <meta property="og:description"
+    content="Рассчитайте срок погашения EPF с разделением сотрудников и работодателей, EPS, VPF, повышением заработной платы, снятием средств, инфляцией и целевым пенсионным планированием.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/epfcalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Калькулятор EPF для Индии — расширенный планировщик PF, EPS, VPF и пенсионного планирования">
+  <meta name="twitter:description"
+    content="Бесплатный калькулятор EPF с разделением EPF+EPS, VPF, ростом заработной платы, частичным снятием средств, корпусом с поправкой на инфляцию и отслеживанием целей.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Калькулятор EPF",
+  "url": "https://instacalc.in/epfcalculator.html",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "All",
+  "description": "Калькулятор EPF для взносов сотрудников и работодателей, EPS, VPF, роста заработной платы, планирования вывода средств и оценки пенсионного корпуса.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Как рассчитывается срок погашения EPF в Индии?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Срок погашения EPF рассчитывается путем сложения вашего ежемесячного взноса сотрудника в размере 12%, доли работодателя в размере 3,67% и, при необходимости, вашего вклада VPF, а затем ежегодного составления окончательного баланса с использованием последней объявленной процентной ставки EPFO (например, 8,25%)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "В чем разница между EPF и EPS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "EPF (Фонд обеспечения сотрудников) формирует ваш совокупный единовременный пенсионный фонд. EPS (пенсионная программа для сотрудников) берет 8,33% от доли работодателя (ограничение составляет 1250 фунтов стерлингов в месяц) для финансирования фиксированной ежемесячной пенсии, выплачиваемой вам после выхода на пенсию."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Могу ли я включить VPF в расчеты EPF?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да. Фонд добровольного обеспечения (VPF) позволяет вам добровольно вносить взносы, превышающие обязательные 12% от вашей базовой зарплаты. Наш расширенный калькулятор позволяет добавить процент VPF, чтобы точно спрогнозировать значительно более высокий необлагаемый налогом пенсионный фонд."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как повышение зарплаты повлияет на мой корпус EPF?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Поскольку EPF представляет собой строгий процент от вашей базовой зарплаты + DA, ежегодное повышение зарплаты автоматически увеличивает ваш абсолютный ежемесячный взнос. Этот непрерывный эффект повышения радикально улучшает ваш окончательный корпус за счет долгосрочного геометрического компаундирования."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Могу ли я смоделировать частичное снятие средств из EPF до выхода на пенсию?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да. Правила EPF допускают частичное необлагаемое налогом снятие средств при определенных жизненных событиях (брак, покупка дома, неотложная медицинская помощь). Вы можете ввести год и сумму однократного вывода средств, чтобы мгновенно увидеть, насколько ранняя ликвидность серьезно повлияет на ваш окончательный пенсионный баланс."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Показывает ли этот калькулятор EPF корпус с поправкой на инфляцию?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да. Представление о массивной номинальной стоимости корпуса может ввести в заблуждение. Установив ожидаемый уровень инфляции, наш инструмент математически дисконтирует вашу окончательную сумму погашения EPF, чтобы показать ее точную истинную покупательную способность в сегодняшней валюте."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Какова максимальная процентная ставка EPF?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Процентная ставка EPF не фиксирована; об этом активно заявляет Центральный попечительский совет (EPFO) каждый финансовый год. В последние годы она колебалась между 8,1% и 8,5%, что делало его одним из самых высокодоходных долговых инструментов, обеспеченных государством, в Индии."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Является ли мой корпус EPF полностью свободным от налогов?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "В целом да. EPF подпадает под налоговый режим EEE (Освобождение-Освобождение-Освобождение). Однако, если общий взнос вашего сотрудника (EPF + VPF) превышает 2,5 лакха рупий за один финансовый год, проценты, активно заработанные на сумму превышения, становятся полностью облагаемыми налогом в соответствии с вашей таблицей."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как рассчитывается размер пенсии EPS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Пенсия EPS в общих чертах рассчитывается по формуле: (Пенсионная зарплата × Пенсионный стаж) ÷ 70. Наш калькулятор использует эту законодательную логику правительства для прогнозирования ориентировочной суммы вашей гарантированной ежемесячной пенсии при выходе на пенсию."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Могу ли я отказаться от пенсионных взносов EPS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Нет. Если на момент присоединения ваша базовая зарплата была менее 15 000 рупий, вычет EPS строго обязателен. Если сумма вашего участия в программе Basic Pay превысила 15 000 фунтов стерлингов, вы и ваш работодатель можете совместно принять решение перевести все 12% в корпус EPF без распределения EPS."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Почему люди используют режим ограничения заработной платы для EPF?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Установленный законом предел заработной платы EPFO составляет 15 000 фунтов стерлингов в месяц. «Режим ограничения заработной платы» ограничивает соответствующий взнос работодателя в размере 12% конкретно этим пределом в 15 000 фунтов стерлингов (всего 1800 фунтов стерлингов). Переключение этого переключателя позволяет точно увидеть, как законодательно ограничивается рост корпуса дроссельной заслонки."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Что такое целевое планирование EPF?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Если у вас есть фиксированная цель пенсионного корпуса (например, 5 крор рупий), наш расширенный планировщик целей EPF использует математический двоичный поиск, чтобы точно рассчитать дополнительный процент VPF, который вы должны активно вычесть из своей зарплаты сегодня, чтобы успешно сократить разрыв."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Могу ли я перенести свой счет EPF при смене места работы?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да, ваш универсальный номер счета (UAN) остается постоянным на протяжении всей вашей карьеры. При смене работодателя вы беспрепятственно переводите накопленный баланс EPF онлайн, обеспечивая непрерывное начисление процентов."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Что произойдет, если я перестану вносить взносы в EPF?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Если вы уйдете с работы или начнете свой бизнес, ваш существующий корпус EPF продолжит активно приносить сложные проценты в течение 3 лет. Через 3 года отсутствия новых взносов счет становится недействительным и перестает накапливаться проценты."
+      }
+    }
+  ]
+}</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 16ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .inline-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .goal-status {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .goal-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .goal-progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5eef3;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      transition: width 0.3s ease;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .chart-wrap.small {
+      height: 240px;
+    }
+
+    .table-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+    }
+
+    th,
+    td {
+      padding: 0.54rem 0.65rem;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
+      text-align: left;
+      font-size: 0.88rem;
+      vertical-align: middle;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #f4fafc;
+      font-weight: 700;
+      color: var(--text);
+      z-index: 1;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(0, 127, 139, 0.04);
+    }
+
+    .feature-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .feature-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .feature-list,
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .feature-list li {
+      color: var(--text-soft);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .feature-list i {
+      color: var(--accent-strong);
+      margin-top: 0.12rem;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 13px;
+      background: linear-gradient(130deg, var(--accent), #0ca4b4);
+      color: #ffffff;
+      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(9px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      z-index: 48;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+
+      .inline-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .btn,
+      .link-list a,
+      .faq-card i,
+      .back-to-top {
+        transition: none;
+      }
+    }
+
+    /* Simple vs Advanced Toggle Styles */
+    .calculator-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-sm {
+      min-height: 36px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .advanced-only-section {
+      display: none;
+      border-top: 1px dashed var(--line);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      gap: 0.7rem;
+    }
+
+    .advanced-only {
+      display: none;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only-section {
+      display: grid;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only {
+      display: block;
+    }
+
+    .calculator-shell.advanced-mode .result-card.advanced-only {
+      display: block;
+    }
+
+    #toggleViewBtn.active {
+      background: var(--accent-strong);
+      color: #fff;
+    }
+    .lang-switch {
+      margin-left: auto;
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    .lang-switch select {
+      min-height: 36px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      background: #ffffff;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .lang-switch select:focus {
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc home">
+        <img src="../logo.png" alt="Логотип ИнстаКальк">
+        <span>InstaCalc.in</span>
+      </a>
+
+                              <div class="lang-switch">
+        <select id="langSelect" aria-label="Выберите язык">
+          <option value="en">English</option>
+          <option value="ru" selected>Русский</option>
+          <option value="ja">日本語</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">Главная</a>
+        <a href="aboutus.html">О нас</a>
+        <a href="contactus.html">Свяжитесь с нами</a>
+        <a href="privacypolicy.html">Политика конфиденциальности</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-piggy-bank"></i>Планировщик EPF + EPS + VPF</span>
+          <h1>Калькулятор EPF Индия (Расширенный планировщик пенсионного корпуса)</h1>
+          <p>Планируйте зрелость EPF с помощью разделения сотрудников и работодателей, логики взносов EPS, повышения VPF, повышения заработной платы,
+            влияние единовременного вывода средств и размер пенсии с поправкой на инфляцию.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#epf-planner">
+              <i class="fas fa-calculator"></i>Начать планирование EPF</a>
+            <a class="btn btn-ghost" href="retirementcalculator.html">
+              <i class="fas fa-arrow-right-arrow-left"></i>Пенсионный калькулятор</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h2>Расширенные функции</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i>Сотрудник + работодатель + разбивка взносов на акцию</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i>Установленный законом предел заработной платы и контроль за пределом прибыли на акцию</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i>Тестирование сценария повышения зарплаты и процентных ставок</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i>Оптимизатор VPF для целевого корпуса</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i>Корпус и оценка пенсий с поправкой на инфляцию</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="epf-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="Calculator mode">
+              <a href="epfcalculator.html" class="active">ФЭП</a>
+              <a href="gratuitycalculator.html">Чаевые</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>Расширенный режим: Выкл.</span>
+            </button>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="monthlySalary">Ежемесячно базовый + DA</label>
+                <span id="monthlySalaryPreview">50000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="monthlySalaryRange" min="10000" max="500000" step="500" value="50000">
+                <input type="number" id="monthlySalary" min="10000" max="500000" step="500" value="50000">
+              </div>
+            </div>
+
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="currentAge">Текущий возраст (лет)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="currentAgeRange" min="18" max="69" step="1" value="30">
+                  <input type="number" id="currentAge" min="18" max="69" step="1" value="30">
+                </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="retirementAge">Пенсионный возраст (лет)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="retirementAgeRange" min="40" max="70" step="1" value="58">
+                  <input type="number" id="retirementAge" min="40" max="70" step="1" value="58">
+                </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="employeeRate">Ставка EPF для сотрудников (в процентах)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="employeeRateRange" min="8" max="20" step="0.1" value="12">
+                  <input type="number" id="employeeRate" min="8" max="20" step="0.1" value="12">
+                </div>
+              </div>
+            </div>
+
+            <div class="advanced-only-section" id="advancedFields">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="annualHike">Ежегодное повышение зарплаты (в процентах)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="annualHikeRange" min="0" max="20" step="0.1" value="7">
+                  <input type="number" id="annualHike" min="0" max="20" step="0.1" value="7">
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="vpfRate">Дополнительная ставка VPF (в процентах)</label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="vpfRateRange" min="0" max="30" step="0.1" value="0">
+                    <input type="number" id="vpfRate" min="0" max="30" step="0.1" value="0">
+                  </div>
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="epfInterest">Проценты EPF (в процентах годовых)</label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="epfInterestRange" min="6" max="10" step="0.05" value="8.25">
+                    <input type="number" id="epfInterest" min="6" max="10" step="0.05" value="8.25">
+                  </div>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="employerEpfRate">Ставка EPF работодателя (в процентах)</label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="employerEpfRateRange" min="0" max="12" step="0.01" value="3.67">
+                    <input type="number" id="employerEpfRate" min="0" max="12" step="0.01" value="3.67">
+                  </div>
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="epsRate">Уровень прибыли на акцию работодателя (в процентах)</label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="epsRateRange" min="0" max="12" step="0.01" value="8.33">
+                    <input type="number" id="epsRate" min="0" max="12" step="0.01" value="8.33">
+                  </div>
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="epsWageCap">Предел заработной платы на акцию (в месяц)</label>
+                  </div>
+                  <input type="number" id="epsWageCap" min="0" step="500" value="15000">
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="wageCapMode">Применить потолок заработной платы EPF?</label>
+                  </div>
+                  <select id="wageCapMode">
+                    <option value="off" selected>Нет (вносить взносы в размере полной зарплаты)</option>
+                    <option value="on">Да (ограничить заработную плату EPF)</option>
+                  </select>
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="epfWageCap">Предел заработной платы EPF (в месяц)</label>
+                  </div>
+                  <input type="number" id="epfWageCap" min="0" step="500" value="15000">
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="interestScenario">Интересный сценарий</label>
+                  </div>
+                  <select id="interestScenario">
+                    <option value="lower">Ниже (-0,5%)</option>
+                    <option value="base" selected>База (как введено)</option>
+                    <option value="higher">Выше (+0,5%)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="currentBalance">Текущий баланс EPF</label>
+                  </div>
+                  <input type="number" id="currentBalance" min="0" step="1000" value="250000">
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="oneTimeTopup">Единовременный дополнительный взнос</label>
+                  </div>
+                  <input type="number" id="oneTimeTopup" min="0" step="1000" value="0">
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="inflation">Инфляция (в процентах в год)</label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="inflationRange" min="0" max="12" step="0.1" value="6">
+                    <input type="number" id="inflation" min="0" max="12" step="0.1" value="6">
+                  </div>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="withdrawalAge">Возраст частичного вывода средств (0 = отключено)</label>
+                  </div>
+                  <input type="number" id="withdrawalAge" min="0" max="70" step="1" value="0">
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="withdrawalAmount">Частичная сумма вывода</label>
+                  </div>
+                  <input type="number" id="withdrawalAmount" min="0" step="1000" value="0">
+                </div>
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="targetCorpus">Целевой пенсионный корпус</label>
+                  </div>
+                  <input type="number" id="targetCorpus" min="0" step="100000" value="30000000"
+                    placeholder="Пример: 30000000">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i>Пересчитать</button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i>Сбросить настройки по умолчанию</button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i>Копировать сводку</button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card advanced-only">
+              <h3>Всего сотрудников (EPF + VPF)</h3>
+              <div class="result-value" id="employeeTotalValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Всего EPF работодателя</h3>
+              <div class="result-value" id="employerEpfTotalValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Общий вклад на акцию</h3>
+              <div class="result-value" id="epsTotalValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Общая сумма полученных процентов</h3>
+              <div class="result-value" id="interestTotalValue">-</div>
+            </div>
+            <div class="result-card positive">
+              <h3>Окончательный корпус EPF</h3>
+              <div class="result-value" id="finalCorpusValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Корпус с поправкой на инфляцию</h3>
+              <div class="result-value" id="realCorpusValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Расчетная пенсия EPS в месяц</h3>
+              <div class="result-value" id="epsPensionValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Требуемый дополнительный ежемесячный VPF</h3>
+              <div class="result-value" id="requiredVpfValue">-</div>
+            </div>
+            <div class="result-card advanced-only">
+              <h3>Всего частичное снятие</h3>
+              <div class="result-value" id="withdrawalTotalValue">-</div>
+            </div>
+          </div>
+
+          <div class="goal-status">
+            <div class="goal-meta">
+              <span id="goalStatusText">Добавьте целевой корпус, чтобы увидеть прогресс.</span>
+              <strong id="goalPercentText">0%</strong>
+            </div>
+            <div class="goal-progress">
+              <div class="goal-progress-bar" id="goalProgressBar"></div>
+            </div>
+          </div>
+
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h3>Рост корпуса EPF по годам</h3>
+              <div class="chart-wrap">
+                <canvas id="corpusChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card">
+              <h3>Состав корпуса</h3>
+              <div class="chart-wrap small">
+                <canvas id="compositionChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools">
+            <h3>Годовой прогноз</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
+              <i class="fas fa-file-csv"></i>Скачать CSV-файл</button>
+          </div>
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th>Год</th>
+                  <th>Возраст</th>
+                  <th>Заработная плата EPF (годовая)</th>
+                  <th>Сотрудник + ВПФ</th>
+                  <th>Работодатель ЕПФ</th>
+                  <th>прибыль на акцию</th>
+                  <th>Интерес</th>
+                  <th>Исходящий баланс EPF</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Примечания по планированию</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i>Корпус EPF включает долю сотрудников, долю EPF работодателя и VPF.
+                взносы плюс проценты.</li>
+              <li><i class="fas fa-circle-info"></i>Доля прибыли на акцию отслеживается отдельно и используется только для расчета пенсии.</li>
+              <li><i class="fas fa-circle-info"></i>Используйте режим ограничения заработной платы для моделирования консервативных обязательных взносов
+                поведение.</li>
+              <li><i class="fas fa-circle-info"></i>В целевом режиме рассчитывается дополнительный ежемесячный VPF, необходимый для достижения
+                пенсионный корпус.</li>
+            </ul>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Похожие калькуляторы</h3>
+            <ul class="link-list">
+              <li><a href="retirementcalculator.html"><span>Пенсионный калькулятор</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="gratuitycalculator.html"><span>Калькулятор чаевых</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="sipcalculator.html"><span>SIP-калькулятор</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mutualfundreturncalculator.html"><span>Калькулятор взаимных фондов</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="fdcalculator.html"><span>Калькулятор ФД</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="rdcalculator.html"><span>Калькулятор РД</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>Как работает наш расширенный калькулятор EPF</h2>
+          <p>Этот калькулятор проводит тщательное ежемесячное моделирование роста EPF от вашего текущего возраста до ожидаемого.
+            пенсионный возраст. Он автоматически отображает ваш годовой рост заработной платы, применяет целевые взносы EPF и EPS.
+            дробит и умножает проценты EPF безупречно на протяжении всего срока пребывания в должности.</p>
+          <br>
+          <p>Он также всесторонне поддерживает надбавки VPF (Фонд добровольного обеспечения), единовременные взносы вручную,
+            раннее частичное снятие средств, несколько сценариев процентной ставки и автоматическое целевое пенсионное планирование для
+            поможет вам максимизировать ваш конечный безналоговый корпус.</p>
+          <br>
+          <p><strong>Интегрированы основные элементы планирования:</strong>точно рассчитать срок погашения EPF, баланс PF
+            прогнозирование, структурирование обязательной пенсии на акцию и оценка пенсионной стоимости с учетом инфляции.</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>Как рассчитывается срок погашения EPF в Индии?<i class="fas fa-chevron-down"></i></summary>
+            <p>Срок погашения EPF рассчитывается путем сложения вашего ежемесячного взноса сотрудника в размере 12%, доли работодателя в размере 3,67% и
+              и, при необходимости, ваш вклад в VPF, а затем ежегодно усугубляйте окончательный баланс, используя последнюю версию EPFO.
+              заявленная процентная ставка (например, 8,25%).</p>
+          </details>
+          <details class="faq-card">
+            <summary>В чем разница между EPF и EPS?<i class="fas fa-chevron-down"></i></summary>
+            <p>EPF (Фонд обеспечения сотрудников) формирует ваш совокупный единовременный пенсионный фонд. EPS (пенсия сотрудника
+              Схема) берет 8,33% от доли работодателя (ограничение в размере 1250 фунтов стерлингов в месяц) для финансирования выплачиваемой фиксированной ежемесячной пенсии.
+              вам после выхода на пенсию.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Могу ли я включить VPF в расчеты EPF?<i class="fas fa-chevron-down"></i></summary>
+            <p>Да. Фонд добровольного обеспечения (VPF) позволяет вам добровольно вносить более обязательных 12%
+              ваша основная зарплата. Наш расширенный калькулятор позволяет добавить процент VPF, чтобы точно спрогнозировать
+              значительно более высокий необлагаемый налогом пенсионный фонд.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Как повышение зарплаты повлияет на мой корпус EPF?<i class="fas fa-chevron-down"></i></summary>
+            <p>Поскольку EPF представляет собой строгий процент от вашей базовой зарплаты + DA, ежегодное повышение зарплаты автоматически увеличивается.
+              ваш абсолютный ежемесячный вклад. Этот непрерывный эффект повышения радикально улучшает ваш конечный корпус за счет
+              долгосрочное геометрическое соединение.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Могу ли я смоделировать частичное снятие средств из EPF до выхода на пенсию?<i class="fas fa-chevron-down"></i></summary>
+            <p>Да. Правила EPF допускают частичное безналоговое снятие средств за определенные жизненные события (брак, покупка дома,
+              неотложная медицинская помощь). Вы можете ввести год и сумму единовременного вывода средств, чтобы сразу увидеть, насколько раньше
+              Ликвидность серьезно влияет на ваш окончательный пенсионный баланс.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Показывает ли этот калькулятор EPF корпус с поправкой на инфляцию?<i class="fas fa-chevron-down"></i>
+            </summary>
+            <p>Да. Представление о массивной номинальной стоимости корпуса может ввести в заблуждение. Устанавливая ожидаемый уровень инфляции, мы
+              Инструмент математически дисконтирует вашу окончательную сумму погашения EPF, чтобы показать ее точную истинную покупательную способность в
+              сегодняшняя валюта.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Какова максимальная процентная ставка EPF?<i class="fas fa-chevron-down"></i></summary>
+            <p>Процентная ставка EPF не фиксирована; об этом активно заявляет Центральный попечительский совет (EPFO) каждый
+              финансовый год. В последние годы она колебалась между 8,1% и 8,5%, что делает ее одной из
+              самые доходные долговые инструменты, обеспеченные государством, в Индии.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Является ли мой корпус EPF полностью свободным от налогов?<i class="fas fa-chevron-down"></i></summary>
+            <p>В целом да. EPF подпадает под налоговый режим EEE (Освобождение-Освобождение-Освобождение). Однако, если ваша общая сумма
+              Взносы сотрудников (EPF + VPF) превышают ₹2,5 лакха за один финансовый год, проценты активно
+              заработанная на сумму франшизы полностью облагается налогом в соответствии с вашей плитой.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Как рассчитывается размер пенсии EPS?<i class="fas fa-chevron-down"></i></summary>
+            <p>Пенсия EPS в общих чертах рассчитывается по формуле: (Пенсионная зарплата × Пенсионный стаж) ÷ 70.
+              Калькулятор использует эту законодательную логику правительства для расчета ориентировочной цифры вашего гарантированного дохода.
+              ежемесячная пенсия при выходе на пенсию.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Могу ли я отказаться от пенсионных взносов EPS?<i class="fas fa-chevron-down"></i></summary>
+            <p>Нет. Если на момент присоединения ваша базовая зарплата была менее 15 000 рупий, вычет EPS строго обязателен. Если
+              сумма вашей подписки на базовую выплату превысила 15 000 рупий, вы и ваш работодатель можете совместно принять решение о повышении всех 12 %
+              в корпус EPF без распределения EPS.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Почему люди используют режим ограничения заработной платы для EPF?<i class="fas fa-chevron-down"></i></summary>
+            <p>Установленный законом предел заработной платы EPFO ​​составляет 15 000 фунтов стерлингов в месяц. «Режим ограничения заработной платы» ограничивает соответствие работодателя 12%.
+              вклад в этот лимит в размере 15 000 рупий (всего 1800 рупий). Переключение этого переключателя позволяет точно
+              посмотрите, как законодательные ограничения ограничивают рост корпуса.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Что такое целевое планирование EPF?<i class="fas fa-chevron-down"></i></summary>
+            <p>Если у вас есть фиксированная цель пенсионного корпуса (например, 5 крор рупий), наш расширенный целевой планировщик EPF использует
+              математический бинарный поиск для точного расчета дополнительного процента VPF, который вы должны заранее вычесть
+              от вашей сегодняшней зарплаты, чтобы успешно сократить разрыв.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Могу ли я перенести свой счет EPF при смене места работы?<i class="fas fa-chevron-down"></i></summary>
+            <p>Да, ваш универсальный номер счета (UAN) остается постоянным на протяжении всей вашей карьеры. При переключении
+              работодатели, вы беспрепятственно переводите накопленный баланс EPF онлайн, обеспечивая бесперебойную
+              компаундирование.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Что произойдет, если я перестану вносить взносы в EPF?<i class="fas fa-chevron-down"></i></summary>
+            <p>Если вы уйдете с работы или начнете свой бизнес, ваш существующий корпус EPF продолжит активно зарабатывать сложные суммы.
+              проценты на срок до 3 лет. После 3 лет отсутствия новых взносов счет становится недействительным и
+              перестает накапливать проценты.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h2>Стратегия планирования EPF для полной пенсионной готовности</h2>
+          <p>Большинство штатных сотрудников случайно отслеживают текущий баланс EPF. Однако планирование высокого собственного капитала требует
+            активное отслеживание трех динамических слоев: долгосрочный вклад
+            скорость, геометрическая скорость начисления сложных процентов и фактическая пенсионная стоимость с поправкой на инфляцию. Это обеспечивает
+            безжалостный, математический взгляд на будущее
+            покупательная способность.</p>
+          <br>
+          <h2>Использование VPF для устранения пенсионного разрыва</h2>
+          <p>Когда ваш целевой корпус оказывается статистически недостижимым, можно добиться небольшого ежемесячного увеличения VPF.
+            агрессивно завышайте процентные ставки
+            длительный многолетний стаж. Используйте наш требуемый процент результатов VPF в качестве явного ориентира для ежемесячных
+            сберегательная дисциплина.</p>
+          <br>
+          <h2>Сравнение EPF с активами гибридного портфеля</h2>
+          <p>Вы должны логически объединить свой сверхбезопасный фундамент EPF с агрессивным, ориентированным на рынок капиталом для
+            диверсифицированное создание элитного богатства. Используйте наш<a href="sipcalculator.html">SIP-калькулятор</a>и наш<a
+              href="mutualfundreturncalculator.html">Взаимный фонд
+              Калькулятор</a>чтобы точно оценить дополнительные пути создания богатства помимо фиксированного дохода.</p>
+          <br>
+          <p>Для консервативного сравнения фиксированного дохода оцените свою доходность после уплаты налогов с помощью<a
+              href="fdcalculator.html">Калькулятор ФД</a>и<a href="rdcalculator.html">Калькулятор РД</a>против EPF
+            огромный статус освобождения от налогов EEE.</p>
+        </article>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="feature-card">
+            <h3>Следующие продвинутые идеи</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-info"></i>Добавить сценарии налогового режима для права на досрочное снятие средств
+                окна.</li>
+              <li><i class="fas fa-circle-info"></i>Добавить отдельный режим траектории заработной платы для продвижения по службе в определенных
+                лет.</li>
+              <li><i class="fas fa-circle-info"></i>Добавьте параллельное сравнение двух стратегий вклада в EPF.</li>
+              <li><i class="fas fa-circle-info"></i>Добавьте экспортируемое резюме пенсионного плана в формате PDF для обсуждения с консультантами.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in — умные калькуляторы и конвертеры для повседневных решений.</p>
+      <div class="footer-links">
+        <a href="index.html">Главная</a>
+        <a href="aboutus.html">О нас</a>
+        <a href="contactus.html">Свяжитесь с нами</a>
+        <a href="privacypolicy.html">Политика конфиденциальности</a>
+      </div>
+      <p
+        style="font-size: 0.75rem; color: var(--text-soft); max-width: 800px; line-height: 1.4; opacity: 0.8; margin-top: 0.5rem;">
+        <strong>Отказ от ответственности:</strong>Все цифры и прогнозы получены с помощью наших калькуляторов резервного фонда (EPF/VPF).
+        представляют собой чисто математические оценки, основанные исключительно на ваших входных критериях. Они не являются официальными
+        Заявления EPFO или сертифицированные налоговые консультации. Фактические процентные ставки EPF, правила выплаты EPS и налогообложение EEE
+        законы могут фундаментально измениться. Всегда консультируйтесь с сертифицированным специалистом по финансовому планированию.</p>
+    </div>
+  </footer>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  
+
+  <script>
+
+    (function () {
+      const defaults = {
+        monthlySalary: 50000,
+        currentAge: 30,
+        retirementAge: 58,
+        annualHike: 7,
+        employeeRate: 12,
+        vpfRate: 0,
+        epfПроценты: 8.25,
+        employerEpfRate: 3.67,
+        epsRate: 8.33,
+        epsWageCap: 15000,
+        wageCapMode: "off",
+        epfWageCap: 15000,
+        interestScenario: "base",
+        currentBalance: 250000,
+        oneTimeTopup: 0,
+        inflation: 6,
+        withdrawalAge: 0,
+        withdrawalAmount: 0,
+        targetCorpus: 30000000
+      };
+
+      const nfCurrency = { format: (v) => window.currencyManager ? window.currencyManager.formatCurrency(v) : String(v) };
+      const nfNumber = { format: (v) => window.currencyManager ? window.currencyManager.formatNumber(v) : String(v) };
+
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+
+        monthlySalary: document.getElementById("monthlySalary"),
+        monthlySalaryRange: document.getElementById("monthlySalaryRange"),
+        currentAge: document.getElementById("currentAge"),
+        currentAgeRange: document.getElementById("currentAgeRange"),
+        retirementAge: document.getElementById("retirementAge"),
+        retirementAgeRange: document.getElementById("retirementAgeRange"),
+        annualHike: document.getElementById("annualHike"),
+        annualHikeRange: document.getElementById("annualHikeRange"),
+        employeeRate: document.getElementById("employeeRate"),
+        employeeRateRange: document.getElementById("employeeRateRange"),
+        vpfRate: document.getElementById("vpfRate"),
+        vpfRateRange: document.getElementById("vpfRateRange"),
+        epfПроценты: document.getElementById("epfПроценты"),
+        epfПроцентыRange: document.getElementById("epfПроцентыRange"),
+        employerEpfRate: document.getElementById("employerEpfRate"),
+        employerEpfRateRange: document.getElementById("employerEpfRateRange"),
+        epsRate: document.getElementById("epsRate"),
+        epsRateRange: document.getElementById("epsRateRange"),
+        epsWageCap: document.getElementById("epsWageCap"),
+        wageCapMode: document.getElementById("wageCapMode"),
+        epfWageCap: document.getElementById("epfWageCap"),
+        interestScenario: document.getElementById("interestScenario"),
+        currentBalance: document.getElementById("currentBalance"),
+        oneTimeTopup: document.getElementById("oneTimeTopup"),
+        inflation: document.getElementById("inflation"),
+        inflationRange: document.getElementById("inflationRange"),
+        withdrawalAge: document.getElementById("withdrawalAge"),
+        withdrawalAmount: document.getElementById("withdrawalAmount"),
+        targetCorpus: document.getElementById("targetCorpus"),
+
+        monthlySalaryPreview: document.getElementById("monthlySalaryPreview"),
+
+        employeeTotalValue: document.getElementById("employeeTotalValue"),
+        employerEpfTotalValue: document.getElementById("employerEpfTotalValue"),
+        epsTotalValue: document.getElementById("epsTotalValue"),
+        interestTotalValue: document.getElementById("interestTotalValue"),
+        finalCorpusValue: document.getElementById("finalCorpusValue"),
+        realCorpusValue: document.getElementById("realCorpusValue"),
+        epsPensionValue: document.getElementById("epsPensionValue"),
+        requiredVpfValue: document.getElementById("requiredVpfValue"),
+        withdrawalTotalValue: document.getElementById("withdrawalTotalValue"),
+
+        goalStatusText: document.getElementById("goalStatusText"),
+        goalPercentText: document.getElementById("goalPercentText"),
+        goalProgressBar: document.getElementById("goalProgressBar"),
+
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        corpusChart: document.getElementById("corpusChart"),
+        compositionChart: document.getElementById("compositionChart")
+      };
+
+      let corpusChartInstance = null;
+      let compositionChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) {
+          return;
+        }
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 940) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+      }
+
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) {
+          return;
+        }
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
+
+      function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
+      }
+
+      function roundToStep(value, step) {
+        if (!step || step <= 0) {
+          return value;
+        }
+        return Math.round(value / step) * step;
+      }
+
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) {
+          return;
+        }
+        const min = parseFloat(rangeEl.min || "0");
+        const max = parseFloat(rangeEl.max || "100");
+        const step = parseFloat(rangeEl.step || "1");
+
+        function normalize(value) {
+          const numeric = parseNumeric(value, parseFloat(rangeEl.value));
+          const stepped = roundToStep(numeric, step);
+          return clamp(stepped, min, max);
+        }
+
+        rangeEl.addEventListener("input", function () {
+          numberEl.value = rangeEl.value;
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("input", function () {
+          if (numberEl.value === "") {
+            return;
+          }
+          const normalized = normalize(numberEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+
+        numberEl.addEventListener("blur", function () {
+          const normalized = normalize(numberEl.value || rangeEl.value);
+          rangeEl.value = String(normalized);
+          numberEl.value = String(normalized);
+          calculateAndRender();
+        });
+      }
+
+      function formatCurrencyWithUnits(value) {
+        return window.currencyManager ? window.currencyManager.formatWithUnits(value) : nfCurrency.format(value);
+      }
+
+      function compactCurrency(value) {
+        return window.currencyManager ? window.currencyManager.formatCompact(value) : String(value);
+      }
+
+      function scenarioAdjustedRate(baseRate, scenario) {
+        const offset = scenario === "lower" ? -0.5 : (scenario === "higher" ? 0.5 : 0);
+        return Math.max(0, baseRate + offset);
+      }
+
+      function getInputs() {
+        let currentAge = Math.round(parseNumeric(elements.currentAge.value, defaults.currentAge));
+        let retirementAge = Math.round(parseNumeric(elements.retirementAge.value, defaults.retirementAge));
+
+        currentAge = clamp(currentAge, 18, 69);
+        retirementAge = clamp(retirementAge, 40, 70);
+
+        if (retirementAge <= currentAge) {
+          retirementAge = currentAge + 1;
+        }
+
+        elements.currentAge.value = currentAge;
+        elements.currentAgeRange.value = currentAge;
+        elements.retirementAge.value = retirementAge;
+        elements.retirementAgeRange.value = retirementAge;
+
+        return {
+          monthlySalary: Math.max(0, parseNumeric(elements.monthlySalary.value, defaults.monthlySalary)),
+          currentAge: currentAge,
+          retirementAge: retirementAge,
+          annualHike: Math.max(0, parseNumeric(elements.annualHike.value, defaults.annualHike)),
+          employeeRate: Math.max(0, parseNumeric(elements.employeeRate.value, defaults.employeeRate)),
+          vpfRate: Math.max(0, parseNumeric(elements.vpfRate.value, defaults.vpfRate)),
+          epfПроценты: Math.max(0, parseNumeric(elements.epfПроценты.value, defaults.epfПроценты)),
+          employerEpfRate: Math.max(0, parseNumeric(elements.employerEpfRate.value, defaults.employerEpfRate)),
+          epsRate: Math.max(0, parseNumeric(elements.epsRate.value, defaults.epsRate)),
+          epsWageCap: Math.max(0, parseNumeric(elements.epsWageCap.value, defaults.epsWageCap)),
+          wageCapMode: elements.wageCapMode.value || defaults.wageCapMode,
+          epfWageCap: Math.max(0, parseNumeric(elements.epfWageCap.value, defaults.epfWageCap)),
+          interestScenario: elements.interestScenario.value || defaults.interestScenario,
+          currentBalance: Math.max(0, parseNumeric(elements.currentBalance.value, defaults.currentBalance)),
+          oneTimeTopup: Math.max(0, parseNumeric(elements.oneTimeTopup.value, defaults.oneTimeTopup)),
+          inflation: Math.max(0, parseNumeric(elements.inflation.value, defaults.inflation)),
+          withdrawalAge: Math.max(0, Math.round(parseNumeric(elements.withdrawalAge.value, defaults.withdrawalAge))),
+          withdrawalAmount: Math.max(0, parseNumeric(elements.withdrawalAmount.value, defaults.withdrawalAmount)),
+          targetCorpus: Math.max(0, parseNumeric(elements.targetCorpus.value, defaults.targetCorpus))
+        };
+      }
+
+      function getEpfEligibleSalary(monthlySalary, wageCapMode, epfWageCap) {
+        if (wageCapMode === "on") {
+          return Math.min(monthlySalary, Math.max(0, epfWageCap));
+        }
+        return monthlySalary;
+      }
+
+      function simulateEpf(params, extraMonthlyVpf) {
+        const лет = params.retirementAge - params.currentAge;
+        const months = лет * 12;
+        const effectiveRate = scenarioAdjustedRate(params.epfПроценты, params.interestScenario);
+        const monthlyRate = effectiveRate / 1200;
+
+        let monthlySalary = Math.max(0, params.monthlySalary);
+        const openingBalance = Math.max(0, params.currentBalance) + Math.max(0, params.oneTimeTopup);
+        let balance = openingBalance;
+
+        let totalEmployee = 0;
+        let totalEmployerEpf = 0;
+        let totalEps = 0;
+        let totalПроценты = 0;
+        let totalWithdrawn = 0;
+
+        let yearlyEmployee = 0;
+        let yearlyEmployerEpf = 0;
+        let yearlyEps = 0;
+        let yearlyПроценты = 0;
+
+        const projection = [];
+        const withdrawalMonth = (params.withdrawalAge > params.currentAge && params.withdrawalAge <= params.retirementAge)
+          ? ((params.withdrawalAge - params.currentAge) * 12)
+          : -1;
+
+        for (let month = 1; month <= months; month += 1) {
+          if (month > 1 && (month - 1) % 12 === 0) {
+            monthlySalary *= (1 + params.annualHike / 100);
+          }
+
+          const epfEligibleSalary = getEpfEligibleSalary(monthlySalary, params.wageCapMode, params.epfWageCap);
+          const epsEligibleSalary = params.epsWageCap > 0 ? Math.min(monthlySalary, params.epsWageCap) : monthlySalary;
+
+          const employeeMandatory = epfEligibleSalary * (params.employeeRate / 100);
+          const employeeVpf = epfEligibleSalary * (params.vpfRate / 100) + Math.max(0, extraMonthlyVpf);
+          const employerEpf = epfEligibleSalary * (params.employerEpfRate / 100);
+          const epsContribution = epsEligibleSalary * (params.epsRate / 100);
+
+          const monthlyEpfContribution = Math.max(0, employeeMandatory + employeeVpf + employerEpf);
+          balance += monthlyEpfContribution;
+
+          const interest = Math.max(0, balance * monthlyRate);
+          balance += interest;
+
+          if (withdrawalMonth > 0 && month === withdrawalMonth && params.withdrawalAmount > 0) {
+            const withdrawn = Math.min(balance, params.withdrawalAmount);
+            balance -= withdrawn;
+            totalWithdrawn += withdrawn;
+          }
+
+          totalEmployee += (employeeMandatory + employeeVpf);
+          totalEmployerEpf += employerEpf;
+          totalEps += epsContribution;
+          totalПроценты += interest;
+
+          yearlyEmployee += (employeeMandatory + employeeVpf);
+          yearlyEmployerEpf += employerEpf;
+          yearlyEps += epsContribution;
+          yearlyПроценты += interest;
+
+          if (month % 12 === 0) {
+            const yearNo = month / 12;
+            projection.push({
+              year: yearNo,
+              age: params.currentAge + yearNo,
+              annualSalary: monthlySalary * 12,
+              yearlyEmployee: yearlyEmployee,
+              yearlyEmployerEpf: yearlyEmployerEpf,
+              yearlyEps: yearlyEps,
+              yearlyПроценты: yearlyПроценты,
+              closingBalance: balance
+            });
+            yearlyEmployee = 0;
+            yearlyEmployerEpf = 0;
+            yearlyEps = 0;
+            yearlyПроценты = 0;
+          }
+        }
+
+        const serviceYears = Math.max(0, params.retirementAge - params.currentAge);
+        const pensionableSalary = params.epsWageCap > 0 ? Math.min(monthlySalary, params.epsWageCap) : monthlySalary;
+        const epsPension = serviceYears >= 10 ? (pensionableSalary * Math.min(serviceYears, 35)) / 70 : 0;
+
+        return {
+          лет: лет,
+          effectiveRate: effectiveRate,
+          finalSalary: monthlySalary,
+          openingBalance: openingBalance,
+          finalCorpus: balance,
+          totalEmployee: totalEmployee,
+          totalEmployerEpf: totalEmployerEpf,
+          totalEps: totalEps,
+          totalПроценты: totalПроценты,
+          totalWithdrawn: totalWithdrawn,
+          epsPension: epsPension,
+          projection: projection
+        };
+      }
+
+      function requiredExtraVpfForTarget(params) {
+        if (!Number.isFinite(params.targetCorpus) || params.targetCorpus <= 0) {
+          return null;
+        }
+
+        const currentResult = simulateEpf(params, 0);
+        if (currentResult.finalCorpus >= params.targetCorpus) {
+          return 0;
+        }
+
+        function corpusFor(extraAmount) {
+          return simulateEpf(params, extraAmount).finalCorpus;
+        }
+
+        let low = 0;
+        let high = 5000;
+        let guard = 0;
+
+        while (corpusFor(high) < params.targetCorpus && high < 500000) {
+          high *= 2;
+          guard += 1;
+          if (guard > 30) {
+            break;
+          }
+        }
+
+        if (corpusFor(high) < params.targetCorpus) {
+          return null;
+        }
+
+        for (let i = 0; i < 65; i += 1) {
+          const mid = (low + high) / 2;
+          if (corpusFor(mid) >= params.targetCorpus) {
+            high = mid;
+          } else {
+            low = mid;
+          }
+        }
+
+        return high;
+      }
+
+      function renderProjectionTable(projection) {
+        if (!elements.projectionTableBody) {
+          return;
+        }
+        elements.projectionTableBody.innerHTML = projection.map(function (row) {
+          return (
+            "<tr>" +
+            "<td>Год " + row.year + "</td>" +
+            "<td>" + row.age + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.annualSalary) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.yearlyEmployee) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.yearlyEmployerEpf) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.yearlyEps) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.yearlyПроценты) + "</td>" +
+            "<td>" + formatCurrencyWithUnits(row.closingBalance) + "</td>" +
+            "</tr>"
+          );
+        }).join("");
+      }
+
+      function renderCharts(result) {
+        if (!window.Chart || !elements.corpusChart || !elements.compositionChart) {
+          return;
+        }
+
+        const labels = result.projection.map(function (row) { return "Год " + row.year; });
+        const balanceData = result.projection.map(function (row) { return row.closingBalance; });
+        let cumulativeContrib = 0;
+        const contributionData = result.projection.map(function (row) {
+          cumulativeContrib += row.yearlyEmployee + row.yearlyEmployerEpf;
+          return cumulativeContrib;
+        });
+
+        if (corpusChartInstance) {
+          corpusChartInstance.destroy();
+        }
+        corpusChartInstance = new Chart(elements.corpusChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Корпус EPF",
+                data: balanceData,
+                borderColor: "#007f8b",
+                backgroundColor: "rgba(0, 127, 139, 0.12)",
+                fill: true,
+                tension: 0.18,
+                pointRadius: 2
+              },
+              {
+                label: "Взносы EPF",
+                data: contributionData,
+                borderColor: "#ee9f2e",
+                backgroundColor: "rgba(238, 159, 46, 0.12)",
+                fill: false,
+                tension: 0.12,
+                pointRadius: 2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "top" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.dataset.label + ": " + formatCurrencyWithUnits(context.parsed.y);
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: function (value) {
+                    return compactCurrency(value);
+                  }
+                }
+              }
+            }
+          }
+        });
+
+        if (compositionChartInstance) {
+          compositionChartInstance.destroy();
+        }
+        compositionChartInstance = new Chart(elements.compositionChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Начальный баланс", "Сотрудник (EPF+VPF)", "Работодатель EPF", "Начисленные проценты"],
+            datasets: [
+              {
+                data: [Math.max(result.openingBalance, 0), Math.max(result.totalEmployee, 0), Math.max(result.totalEmployerEpf, 0), Math.max(result.totalПроценты, 0)],
+                backgroundColor: ["#6b7f8e", "#007f8b", "#ee9f2e", "#1f9f67"],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return context.label + ": " + formatCurrencyWithUnits(context.parsed);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      function updatePreviewLabels(inputs) {
+        elements.monthlySalaryPreview.textContent = nfNumber.format(inputs.monthlySalary);
+      }
+
+      function calculateAndRender() {
+        const inputs = getInputs();
+        updatePreviewLabels(inputs);
+
+        const result = simulateEpf(inputs, 0);
+        const inflationFactor = Math.pow(1 + (inputs.inflation / 100), result.years);
+        const realCorpus = inflationFactor > 0 ? result.finalCorpus / inflationFactor : result.finalCorpus;
+        const requiredExtraVpf = requiredExtraVpfForTarget(inputs);
+
+        elements.employeeTotalValue.textContent = formatCurrencyWithUnits(result.totalEmployee);
+        elements.employerEpfTotalValue.textContent = formatCurrencyWithUnits(result.totalEmployerEpf);
+        elements.epsTotalValue.textContent = formatCurrencyWithUnits(result.totalEps);
+        elements.interestTotalValue.textContent = formatCurrencyWithUnits(result.totalПроценты);
+        elements.finalCorpusValue.textContent = formatCurrencyWithUnits(result.finalCorpus);
+        elements.realCorpusValue.textContent = formatCurrencyWithUnits(realCorpus);
+        elements.epsPensionValue.textContent = formatCurrencyWithUnits(result.epsPension);
+        elements.requiredVpfValue.textContent = requiredExtraVpf === null
+          ? "Цель слишком высока"
+          : formatCurrencyWithUnits(requiredExtraVpf) + " / month";
+        elements.withdrawalTotalValue.textContent = formatCurrencyWithUnits(result.totalWithdrawn);
+
+        const hasGoal = inputs.targetCorpus > 0;
+        const progressPercent = hasGoal ? (result.finalCorpus / inputs.targetCorpus) * 100 : 0;
+        const clampedProgress = Math.max(0, Math.min(progressPercent, 100));
+
+        if (hasGoal) {
+          elements.goalStatusText.textContent = progressPercent >= 100
+            ? "Цель достигнута при текущих предположениях EPF."
+            : "Текущий план достигает " + progressPercent.toFixed(1) + "% от цели.";
+          elements.goalPercentText.textContent = progressPercent.toFixed(1) + "%";
+          elements.goalProgressBar.style.width = clampedProgress.toFixed(2) + "%";
+          elements.goalProgressBar.style.background = progressPercent >= 100
+            ? "linear-gradient(110deg, #1f9f67, #1cb67a)"
+            : "linear-gradient(110deg, var(--accent), #00a1b2)";
+        } else {
+          elements.goalStatusText.textContent = "Добавьте целевой корпус, чтобы увидеть прогресс.";
+          elements.goalPercentText.textContent = "0%";
+          elements.goalProgressBar.style.width = "0%";
+          elements.goalProgressBar.style.background = "linear-gradient(110deg, var(--accent), #00a1b2)";
+        }
+
+        lastProjection = result.projection.slice();
+        renderProjectionTable(result.projection);
+        renderCharts(result);
+
+        lastSummaryText =
+          "Сводка EPF" + "\n" +
+          "Ежемесячный оклад + DA: " + formatCurrencyWithUnits(inputs.monthlySalary) + "\n" +
+          "Возрастной диапазон: " + inputs.currentAge + " до " + inputs.retirementAge + " лет" + "\n" +
+          "Эффективная ставка: " + result.effectiveRate.toFixed(2) + "% годовых" + "\n" +
+          "Начальный баланс: " + formatCurrencyWithUnits(result.openingBalance) + "\n" +
+          "Сотрудник (EPF + VPF): " + formatCurrencyWithUnits(result.totalEmployee) + "\n" +
+          "Работодатель EPF: " + formatCurrencyWithUnits(result.totalEmployerEpf) + "\n" +
+          "Начисленные проценты: " + formatCurrencyWithUnits(result.totalПроценты) + "\n" +
+          "Итоговый корпус: " + formatCurrencyWithUnits(result.finalCorpus) + "\n" +
+          "Корпус с поправкой на инфляцию: " + formatCurrencyWithUnits(realCorpus) + "\n" +
+          "Оценочная пенсия EPS в месяц: " + formatCurrencyWithUnits(result.epsPension);
+      }
+
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) {
+          return;
+        }
+        const headers = ["Год", "Возраст", "Годовая зарплата EPF", "Сотрудник + VPF", "Работодатель EPF", "EPS", "Проценты", "Конечный баланс EPF"];
+        const rows = lastProjection.map(function (row) {
+          return [
+            "Год " + row.year,
+            row.age,
+            Math.round(row.annualSalary),
+            Math.round(row.yearlyEmployee),
+            Math.round(row.yearlyEmployerEpf),
+            Math.round(row.yearlyEps),
+            Math.round(row.yearlyПроценты),
+            Math.round(row.closingBalance)
+          ].join(",");
+        });
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "epf-projection.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function resetToDefaults() {
+        elements.monthlySalary.value = defaults.monthlySalary;
+        elements.monthlySalaryRange.value = defaults.monthlySalary;
+        elements.currentAge.value = defaults.currentAge;
+        elements.currentAgeRange.value = defaults.currentAge;
+        elements.retirementAge.value = defaults.retirementAge;
+        elements.retirementAgeRange.value = defaults.retirementAge;
+        elements.annualHike.value = defaults.annualHike;
+        elements.annualHikeRange.value = defaults.annualHike;
+        elements.employeeRate.value = defaults.employeeRate;
+        elements.employeeRateRange.value = defaults.employeeRate;
+        elements.vpfRate.value = defaults.vpfRate;
+        elements.vpfRateRange.value = defaults.vpfRate;
+        elements.epfПроценты.value = defaults.epfПроценты;
+        elements.epfПроцентыRange.value = defaults.epfПроценты;
+        elements.employerEpfRate.value = defaults.employerEpfRate;
+        elements.employerEpfRateRange.value = defaults.employerEpfRate;
+        elements.epsRate.value = defaults.epsRate;
+        elements.epsRateRange.value = defaults.epsRate;
+        elements.epsWageCap.value = defaults.epsWageCap;
+        elements.wageCapMode.value = defaults.wageCapMode;
+        elements.epfWageCap.value = defaults.epfWageCap;
+        elements.interestScenario.value = defaults.interestScenario;
+        elements.currentBalance.value = defaults.currentBalance;
+        elements.oneTimeTopup.value = defaults.oneTimeTopup;
+        elements.inflation.value = defaults.inflation;
+        elements.inflationRange.value = defaults.inflation;
+        elements.withdrawalAge.value = defaults.withdrawalAge;
+        elements.withdrawalAmount.value = defaults.withdrawalAmount;
+        elements.targetCorpus.value = defaults.targetCorpus;
+        calculateAndRender();
+      }
+
+      function wireEvents() {
+        syncPair(elements.monthlySalaryRange, elements.monthlySalary);
+        syncPair(elements.currentAgeRange, elements.currentAge);
+        syncPair(elements.retirementAgeRange, elements.retirementAge);
+        syncPair(elements.annualHikeRange, elements.annualHike);
+        syncPair(elements.employeeRateRange, elements.employeeRate);
+        syncPair(elements.vpfRateRange, elements.vpfRate);
+        syncPair(elements.epfПроцентыRange, elements.epfПроценты);
+        syncPair(elements.employerEpfRateRange, elements.employerEpfRate);
+        syncPair(elements.epsRateRange, elements.epsRate);
+        syncPair(elements.inflationRange, elements.inflation);
+
+        [
+          elements.epsWageCap,
+          elements.wageCapMode,
+          elements.epfWageCap,
+          elements.interestScenario,
+          elements.currentBalance,
+          elements.oneTimeTopup,
+          elements.withdrawalAge,
+          elements.withdrawalAmount,
+          elements.targetCorpus
+        ].forEach(function (input) {
+          input.addEventListener("input", calculateAndRender);
+          input.addEventListener("change", calculateAndRender);
+        });
+
+        elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        if (window.currencyManager) { window.currencyManager.onChange(calculateAndRender); };
+        elements.resetBtn.addEventListener("click", resetToDefaults);
+        elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        elements.toggleViewBtn.addEventListener("click", function () {
+          const shell = document.querySelector(".calculator-shell");
+          const isAdvanced = shell.classList.toggle("advanced-mode");
+          elements.toggleViewBtn.classList.toggle("active", isAdvanced);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvanced ? "Расширенный режим: Вкл." : "Расширенный режим: Выкл.";
+        });
+
+        elements.copySummaryBtn.addEventListener("click", function () {
+          if (!navigator.clipboard || !lastSummaryText) {
+            return;
+          }
+          navigator.clipboard.writeText(lastSummaryText).then(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Копировать сводку';
+            }, 1300);
+          }).catch(function () {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Ошибка копирования';
+            window.setTimeout(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Копировать сводку';
+            }, 1300);
+          });
+        });
+
+        const langSelect = document.getElementById('langSelect');
+        if (langSelect) {
+          langSelect.value = 'ru';
+          langSelect.addEventListener('change', function () {
+            if (this.value === 'en') {
+              localStorage.setItem('user_lang', 'en');
+              window.location.href = '../epfcalculator.html';
+            } else if (this.value === 'ja') {
+              localStorage.setItem('user_lang', 'ja');
+              window.location.href = '../ja/epfcalculator.html';
+            }
+          });
+        }
+      }
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      if (window.currencyManager) {
+        window.currencyManager.onChange(calculateAndRender);
+      }
+      calculateAndRender();
+    })();
+  
+  </script>
+</body>
+
+</html>

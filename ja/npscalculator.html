@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      localStorage.setItem('user_lang', 'ja');
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NPS（国民年金制度）計算ツール - インドの老後金利・年金シミュレーター</title>
+  <meta name="description"
+    content="インドのNPS（国民年金制度）での将来受取額をシミュレーション。毎月の積立額、期待運用益から、60歳時点での総資産、一括受取額、毎月の年金額を自動算出。">
+  <meta name="keywords"
+    content="NPS計算ツール, 国民年金制度, インド年金, NPSシミュレーション, 老後資金積立">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/ja/npscalculator.html">
+
+  <meta property="og:title" content="NPS（国民年金制度）計算ツール - インドの老後金利・年金シミュレーター">
+  <meta property="og:description"
+    content="インドのNPS（国民年金制度）での将来受取額をシミュレーション。毎月の積立額、期待運用益から、60歳時点での総資産、一括受取額、毎月の年金額を自動算出。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/ja/npscalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NPS（国民年金制度）計算ツール - インドの老後金利・年金シミュレーター">
+  <meta name="twitter:description"
+    content="インドのNPS（国民年金制度）での将来受取額をシミュレーション。毎月の積立額、期待運用益から、60歳時点での総資産、一括受取額、毎月の年金額を自動算出。">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "NPS計算ツール",
+      "url": "https://instacalc.in/ja/npscalculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "インドのNPS（国民年金制度）の積立満期額、一括受取額、毎月の年金額を簡単シミュレーション。"
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "NPSへの加入は全員に義務付けられていますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "公務員（中央・州政府）は原則として加入が義務付けられていますが、民間セクターの従業員や個人事業主は任意（Voluntary）で加入できます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "NPSの最低年間投資額はいくらですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tier-1（通常口座）を維持するには、1会計年度あたり最低1,000ルピーの投資が必要です。"
+          }
+        }
+      ]
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", "Hiragino Sans", "Meiryo", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.8rem, 4.5vw, 2.7rem);
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 25ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+      max-width: 56ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 0.55rem 1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      font: inherit;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
+    }
+
+    .btn-ghost {
+      color: var(--accent-strong);
+      border: 1px solid rgba(0, 95, 115, 0.25);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1rem;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .calculator-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch a {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.92rem;
+    }
+
+    .mode-switch a.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.7rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+      display: grid;
+      gap: 0.54rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.55rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .advanced-only-section {
+      display: none;
+      grid-column: 1 / -1;
+      gap: 0.7rem;
+      border-top: 1px dashed var(--line);
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .calculator-shell.advanced-mode .advanced-only-section {
+      display: grid;
+    }
+
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.62rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.72rem;
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.22rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
+      line-height: 1.3;
+      color: var(--text);
+      word-break: break-word;
+    }
+
+    .result-card.positive {
+      background: rgba(31, 159, 103, 0.08);
+      border-color: rgba(31, 159, 103, 0.26);
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.7rem;
+    }
+
+    .chart-card h3 {
+      font-size: 0.93rem;
+      color: var(--text-soft);
+      margin-bottom: 0.42rem;
+      font-weight: 700;
+    }
+
+    .chart-wrap {
+      height: 290px;
+      position: relative;
+    }
+
+    .sidebar-card {
+      padding: 1rem;
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .link-list a {
+      min-height: 41px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      background: #ffffff;
+      padding: 0.48rem 0.62rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .link-list a:hover {
+      border-color: rgba(0, 127, 139, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .content-card {
+      padding: 1rem;
+    }
+
+    .content-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.62rem;
+    }
+
+    .faq-card {
+      overflow: hidden;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .faq-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-card p {
+      color: var(--text-soft);
+      padding: 0 0.95rem 0.9rem;
+      font-size: 0.92rem;
+    }
+
+    .faq-card i {
+      color: var(--accent-strong);
+      transition: transform 0.2s ease;
+    }
+
+    .faq-card[open] i {
+      transform: rotate(180deg);
+    }
+
+    .site-footer {
+      margin-top: 1rem;
+      border-top: 1px solid rgba(0, 95, 115, 0.14);
+      background: rgba(238, 246, 250, 0.86);
+      padding: 1.4rem 0 2.3rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-weight: 600;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    @media (min-width: 640px) {
+      .range-row {
+        grid-template-columns: 1fr 120px;
+        align-items: center;
+      }
+      .result-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 940px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.45fr 1fr;
+        align-items: stretch;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1.72fr 1fr;
+        align-items: start;
+      }
+    }
+
+    .lang-switch {
+      margin-left: auto;
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    .lang-switch select {
+      min-height: 36px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      background: #ffffff;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .lang-switch select:focus {
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc ホーム">
+        <img src="../logo.png" alt="InstaCalc ロゴ">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="言語選択">
+          <option value="en">English</option>
+          <option value="ja" selected>日本語</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="ナビゲーションの切り替え" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-piggy-bank"></i>
+            老後資金積立
+          </span>
+          <h1>NPS（国民年金制度）計算ツール - インドの老後金利・年金シミュレーター</h1>
+          <p>インドのNPS（国民年金制度）での将来受取額をシミュレーション。毎月の積立額、期待運用益から、60歳時点での総資産、一括受取額、毎月の年金額を自動算出。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#ppf-planner">
+              <i class="fas fa-calculator"></i>
+              シミュレーションを開始
+            </a>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h2>NPSに投資するメリット</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 所得税法80Cおよび80CCD(1B)のダブル節税メリット</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 株式・債券を組み合わせた低コスト資産運用</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 60歳時点で最大60%を非課税で一括受取可能</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 年金（アニュイティ）買い取り比率のカスタマイズ対応</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 投資金と運用益の内訳を円グラフで一目瞭然に可視化</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="ppf-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="計算モード">
+              <a href="#" class="active">NPS（国民年金）シミュレーション</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>詳細設定モード: オフ</span>
+            </button>
+          </div>
+
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="monthlyContrib">毎月の積立金額</label>
+                <span id="contribPreview">10,000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="contribRange" min="500" max="150000" step="500" value="10000">
+                <input type="number" id="monthlyContrib" min="500" max="150000" step="500" value="10000">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="age">現在の年齢</label>
+                <span id="agePreview">30</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="ageRange" min="18" max="60" step="1" value="30">
+                <input type="number" id="age" min="18" max="60" step="1" value="30">
+              </div>
+            </div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="returnRate">期待運用利回り (年利%)</label>
+                <span id="returnPreview">10.0%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="returnRange" min="5" max="15" step="0.1" value="10">
+                <input type="number" id="returnRate" min="5" max="15" step="0.1" value="10">
+              </div>
+            </div>
+
+            <div class="advanced-only-section" id="advancedFields">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="annuityPct">年金（アニュイティ）買い取り割合 (%)</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="annuityRange" min="40" max="100" step="1" value="40">
+                  <input type="number" id="annuityPct" min="40" max="100" step="1" value="40">
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="annuityRate">想定年利（アニュイティ利率 %）</label>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="annRRange" min="3" max="12" step="0.1" value="6">
+                  <input type="number" id="annuityRate" min="3" max="12" step="0.1" value="6">
+                </div>
+              </div>
+
+              <div class="field-card col-span-2">
+                <div class="field-head">
+                  <label>NPSの積立基本ルール</label>
+                </div>
+                <p style="font-size:0.85rem; color:var(--text-soft);">
+                  NPSの積立満期は60歳に固定されています。満期額の最低40%は毎月の年金（アニュイティ）受取のための買い取りに充てる必要があり、残りの最大60%は無税で一括引き出しが可能です。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i> 再計算
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i> 初期値に戻す
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i> 結果をコピー
+            </button>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <h3>累計投資元本</h3>
+              <div class="result-value" id="resInvested">-</div>
+            </div>
+            <div class="result-card positive">
+              <h3>見込み総資産 (コーパス)</h3>
+              <div class="result-value" id="resCorpus">-</div>
+            </div>
+            <div class="result-card">
+              <h3>一括受取金額</h3>
+              <div class="result-value" id="resLumpsum">-</div>
+            </div>
+            <div class="result-card">
+              <h3>毎月の推定年金受取額</h3>
+              <div class="result-value" id="resPension">-</div>
+            </div>
+          </div>
+
+          <div class="chart-grid" style="margin-top:20px;">
+            <div class="chart-card">
+              <h3>積立資産の内訳とアニュイティ割合</h3>
+              <div class="chart-wrap">
+                <canvas id="npsChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="section-head" style="margin-bottom:0;">
+          <div class="sidebar-card">
+            <h3>関連する節税計算ツール</h3>
+            <ul class="link-list">
+              <li><a href="ppfcalculator.html"><span>PPF（公共プロビデント基金）計算</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="epfcalculator.html"><span>EPF（従業員プロビデント基金）計算</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="retirementcalculator.html"><span>老後資金シミュレーター</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mutualfundreturncalculator.html"><span>投資信託（ELSS節税型）</span><i
+                    class="fas fa-arrow-right"></i></a></li>
+              <li><a href="fdcalculator.html"><span>節税定期預金（Tax-Saver FD）</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <article class="content-card">
+          <h3>NPS計算ツールを利用するメリット</h3>
+          <p>国民年金制度（NPS）は、低コストの株式や債券への運用を通じて老後資金を準備するための、インド政府主導の年金・積立制度です。公的保証と柔軟な資産運用を併せ持ち、民間セクターの従業員や個人事業主も任意で利用することができます。</p>
+          <br>
+          <p><strong>NPSの主なルールと特徴：</strong><br>
+            1. <strong>ロックイン期間：</strong> 原則として60歳に達するまで資金はロックされます。<br>
+            2. <strong>所得税控除：</strong> セクション80Cの1.5L控除上限枠に加え、セクション80CCD(1B)に基づいて最大5万ルピーの追加所得税控除が受けられます。<br>
+            3. <strong>年金化と一括受取：</strong> 60歳時点で満期額の最低40%を年金原資に回す必要があり、残りの最大60%は完全に非課税の一括引き出し（Lump Sum）として受け取ることができます。
+          </p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>NPSへの加入は全員に義務付けられていますか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>公務員（中央・州政府）は原則として加入が義務付けられていますが、民間セクターの従業員や個人事業主は任意（Voluntary）で加入できます。</p>
+          </details>
+          <details class="faq-card">
+            <summary>NPSの最低年間投資額はいくらですか？ <i class="fas fa-chevron-down"></i></summary>
+            <p>Tier-1（通常口座）を維持するには、1会計年度あたり最低1,000ルピーの投資が必要です。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in — 日々の選択をスマートにする、実用的でシンプルな計算ツール・コンバーター。</p>
+      <div class="footer-links">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        contrib: 10000,
+        age: 30,
+        roi: 10,
+        annPct: 40,
+        annRate: 6
+      };
+
+      const nfCurrency = { format: (v) => "¥" + Math.round(v).toLocaleString('ja-JP') };
+
+      function formatWithUnits(v) {
+        return nfCurrency.format(v);
+      }
+
+      const elements = {
+        contrib: document.getElementById("monthlyContrib"),
+        contribRange: document.getElementById("contribRange"),
+        age: document.getElementById("age"),
+        ageRange: document.getElementById("ageRange"),
+        roi: document.getElementById("returnRate"),
+        roiRange: document.getElementById("returnRange"),
+        annPct: document.getElementById("annuityPct"),
+        annPctRange: document.getElementById("annuityRange"),
+        annRate: document.getElementById("annuityRate"),
+        annRateRange: document.getElementById("annRRange"),
+
+        contribPreview: document.getElementById("contribPreview"),
+        agePreview: document.getElementById("agePreview"),
+        returnPreview: document.getElementById("returnPreview"),
+
+        resInvested: document.getElementById("resInvested"),
+        resCorpus: document.getElementById("resCorpus"),
+        resLumpsum: document.getElementById("resLumpsum"),
+        resPension: document.getElementById("resPension"),
+
+        npsChart: document.getElementById("npsChart"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        calcTarget: document.getElementById("calcTarget"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn")
+      };
+
+      let chartInstance = null;
+
+      function parseNumeric(input, fallback) {
+        const value = Number(input);
+        return Number.isFinite(value) ? value : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl) {
+        if (!rangeEl || !numberEl) return;
+        rangeEl.addEventListener("input", () => { numberEl.value = rangeEl.value; calculate(); });
+        numberEl.addEventListener("input", () => { rangeEl.value = numberEl.value; calculate(); });
+      }
+
+      function setupToggleAdvanced() {
+        let isAdvancedMode = false;
+        elements.toggleViewBtn.addEventListener("click", () => {
+          isAdvancedMode = !isAdvancedMode;
+          elements.calcTarget.classList.toggle("advanced-mode", isAdvancedMode);
+          elements.toggleViewBtn.classList.toggle("active", isAdvancedMode);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvancedMode ? "詳細設定モード: オン" : "詳細設定モード: オフ";
+        });
+      }
+
+      function calculate() {
+        const C = parseNumeric(elements.contrib.value, defaults.contrib);
+        const age = parseNumeric(elements.age.value, defaults.age);
+        const rAnnual = parseNumeric(elements.roi.value, defaults.roi) / 100;
+        const annPct = parseNumeric(elements.annPct.value, defaults.annPct);
+        const annRate = parseNumeric(elements.annRate.value, defaults.annRate) / 100;
+
+        elements.contribPreview.textContent = formatWithUnits(C);
+        elements.agePreview.textContent = age;
+        elements.returnPreview.textContent = (rAnnual * 100).toFixed(1) + "%";
+
+        const years = 60 - age;
+        if (years <= 0) {
+          alert("年齢は60歳未満で指定してください");
+          return;
+        }
+
+        const n = years * 12;
+        const i = rAnnual / 12;
+
+        const corpus = C * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+        const invested = C * n;
+
+        const annuityCorpus = corpus * (annPct / 100);
+        const lumpsum = corpus - annuityCorpus;
+        const monthlyPension = (annuityCorpus * annRate) / 12;
+
+        elements.resInvested.textContent = formatWithUnits(invested);
+        elements.resCorpus.textContent = formatWithUnits(corpus);
+        elements.resLumpsum.textContent = formatWithUnits(lumpsum);
+        elements.resPension.textContent = formatWithUnits(monthlyPension);
+
+        drawChart(invested, corpus - invested, lumpsum, annuityCorpus);
+      }
+
+      function drawChart(inv, growth, lumpsum, annuity) {
+        const ctx = elements.npsChart.getContext("2d");
+        if (chartInstance) chartInstance.destroy();
+
+        chartInstance = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['投資元本', '運用益', '一括受取額', '年金原資'],
+            datasets: [{
+              data: [inv, growth, lumpsum, annuity],
+              backgroundColor: ['#007f8b', '#ee9f2e', '#0ca4b4', '#334d60'],
+              borderWidth: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom' }
+            }
+          }
+        });
+      }
+
+      syncPair(elements.contribRange, elements.contrib);
+      syncPair(elements.ageRange, elements.age);
+      syncPair(elements.roiRange, elements.roi);
+      syncPair(elements.annPctRange, elements.annPct);
+      syncPair(elements.annRateRange, elements.annRate);
+
+      elements.recalculateBtn.addEventListener("click", calculate);
+      elements.resetBtn.addEventListener("click", () => {
+        elements.contrib.value = defaults.contrib; elements.contribRange.value = defaults.contrib;
+        elements.age.value = defaults.age; elements.ageRange.value = defaults.age;
+        elements.roi.value = defaults.roi; elements.roiRange.value = defaults.roi;
+        elements.annPct.value = defaults.annPct; elements.annPctRange.value = defaults.annPct;
+        elements.annRate.value = defaults.annRate; elements.annRateRange.value = defaults.annRate;
+        calculate();
+      });
+
+      elements.copySummaryBtn.addEventListener("click", () => {
+        const s = `【NPS満期シミュレーション結果 (60歳時点)】\n` +
+          `毎月の積立額: ${elements.contribPreview.textContent}\n` +
+          `積立年齢: ${elements.agePreview.textContent}歳（60歳まで）\n` +
+          `想定運用利回り: ${elements.returnPreview.textContent}\n` +
+          `見込み総資産: ${elements.resCorpus.textContent}\n` +
+          `一括受取額: ${elements.resLumpsum.textContent}\n` +
+          `毎月の推定年金受取額: ${elements.resPension.textContent}`;
+        navigator.clipboard.writeText(s).then(() => {
+          const ot = elements.copySummaryBtn.innerHTML;
+          elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> コピーしました！';
+          setTimeout(() => elements.copySummaryBtn.innerHTML = ot, 2000);
+        });
+      });
+
+      // Nav toggle
+      document.getElementById("menuToggle").addEventListener("click", () => {
+        document.getElementById("mainNav").classList.toggle("open");
+      });
+
+      // Language switch dropdown handler
+      const langSelect = document.getElementById('langSelect');
+      if (langSelect) {
+        langSelect.value = 'ja';
+        langSelect.addEventListener('change', function() {
+          if (this.value === 'en') {
+            localStorage.setItem('user_lang', 'en');
+            window.location.href = '../npscalculator.html';
+          }
+        });
+      }
+
+      setupToggleAdvanced();
+      calculate();
+    })();
+  </script>
+</body>
+
+</html>

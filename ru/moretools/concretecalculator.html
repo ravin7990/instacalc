@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+  (function() {
+    localStorage.setItem('user_lang', 'ru');
+  })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Калькулятор бетона онлайн | Расчет цемента, песка, щебня и стоимости</title>
+  <meta name="description"
+    content="Профессиональный онлайн-калькулятор бетона для точного расчета объема смеси, мешков цемента, песка (м³), щебня и стоимости для плит, фундаментов, колонн, балок, лестниц и стен. Точный сметный расчет ЖБИ.">
+  <meta name="keywords"
+    content="калькулятор бетона, расчет цемента, расход бетона, объем бетона, строительный калькулятор, цемент песок щебень соотношение, расчет фундамента, калькулятор расхода материалов">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <link rel="icon" type="image/x-icon" href="../../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/ru/moretools/concretecalculator.html">
+
+  <meta property="og:title" content="Калькулятор бетона онлайн - Расчет цемента, песка, щебня и стоимости">
+  <meta property="og:description"
+    content="Рассчитайте объем бетона, необходимое количество материалов и общую стоимость для различных строительных конструкций. Точные оценки с учетом усадки смеси.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/ru/moretools/concretecalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Калькулятор бетона онлайн - Расчет цемента, песка, щебня и стоимости">
+  <meta name="twitter:description"
+    content="Бесплатный строительный калькулятор бетона для плит перекрытия, колонн и фундаментов. Получите точный список материалов и оценку затрат.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Калькулятор бетона онлайн",
+      "url": "https://instacalc.in/ru/moretools/concretecalculator.html",
+      "applicationCategory": "ConstructionApplication",
+      "operatingSystem": "All",
+      "description": "Профессиональный калькулятор бетона для расчета материалов и стоимости плит, колонн, балок и других конструкций.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "RUB"
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <style>
+    :root {
+      --bg: #f2f6f8;
+      --text: #132a3b;
+      --text-soft: #334d60;
+      --accent: #007f8b;
+      --accent-strong: #005f73;
+      --accent-2: #ee9f2e;
+      --line: #d3e1ea;
+      --line-strong: #bfd2dd;
+      --card: #ffffff;
+      --success: #1f9f67;
+      --warn: #d8891d;
+      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 15px;
+      --radius-sm: 11px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Public Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
+        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
+        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
+      background-size: 100% 36px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 3.2rem 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 95, 115, 0.2);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--accent-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-head h2 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0.45rem 0 0.7rem;
+    }
+
+    .section-head p {
+      color: var(--text-soft);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
+      background: rgba(242, 246, 248, 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      color: var(--accent-strong);
+      letter-spacing: -0.02em;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid rgba(0, 95, 115, 0.15);
+      background: #ffffff;
+    }
+
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(46, 125, 50, 0.2);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--accent-strong);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .site-nav {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 4vw;
+      right: 4vw;
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(46, 125, 50, 0.2);
+      background: #ffffff;
+      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .site-nav.open {
+      display: flex;
+    }
+
+    .site-nav a {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      color: var(--text-soft);
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent-strong);
+      background: rgba(0, 127, 139, 0.12);
+    }
+
+    .hero {
+      padding: 3.3rem 0 2.4rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .hero-copy {
+      border: 1px solid rgba(0, 95, 115, 0.16);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
+      box-shadow: var(--shadow);
+      padding: 1.35rem;
+    }
+
+    .hero-copy h1 {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.05rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-top: 0.9rem;
+      max-width: 20ch;
+    }
+
+    .hero-copy p {
+      margin-top: 0.95rem;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 2.2vw, 1.1rem);
+      max-width: 60ch;
+    }
+
+    .hero-panel {
+      border-radius: var(--radius-xl);
+      padding: 1.15rem;
+      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
+      color: #f8fcff;
+      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+      display: grid;
+      gap: 0.6rem;
+      align-content: start;
+    }
+
+    .hero-panel h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.18rem;
+    }
+
+    .hero-point {
+      border-radius: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.11);
+      padding: 0.63rem 0.72rem;
+      font-size: 0.93rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.46rem;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
+    }
+
+    .calculator-shell,
+    .feature-card,
+    .content-card,
+    .faq-card,
+    .sidebar-card {
+      border: 1px solid rgba(0, 95, 115, 0.15);
+      background: rgba(255, 255, 255, 0.89);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .calculator-shell {
+      padding: 1.25rem;
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .shell-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .mode-switch {
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 12px;
+      padding: 0.26rem;
+      background: #ffffff;
+      width: fit-content;
+      gap: 0.25rem;
+    }
+
+    .mode-switch button {
+      min-height: 38px;
+      padding: 0.42rem 0.76rem;
+      border-radius: 9px;
+      font-weight: 700;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-size: 0.88rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .mode-switch button.active {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    }
+
+    .input-grid {
+      display: grid;
+      gap: 0.8rem;
+      grid-template-columns: 1fr;
+    }
+
+    .field-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.75rem;
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field-head label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .field-head span {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      font-weight: 600;
+    }
+
+    .range-row {
+      display: grid;
+      gap: 0.6rem;
+      grid-template-columns: 1fr;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.48rem 0.62rem;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: rgba(0, 127, 139, 0.62);
+      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    }
+
+    .result-section {
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .result-card {
+      border: 1px solid rgba(0, 95, 115, 0.13);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.85rem;
+      transition: transform 0.2s ease;
+    }
+
+    .result-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(0, 95, 115, 0.3);
+    }
+
+    .result-card h3 {
+      color: var(--text-soft);
+      font-size: 0.8rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .result-value {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      line-height: 1.3;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .result-card.highlight {
+      background: rgba(0, 127, 139, 0.06);
+      border-color: rgba(0, 127, 139, 0.25);
+    }
+
+    .result-card.accent {
+      background: rgba(239, 108, 0, 0.06);
+      border-color: rgba(239, 108, 0, 0.25);
+    }
+
+    .total-cost-card {
+      background: linear-gradient(135deg, var(--accent-strong), var(--accent));
+      color: #ffffff;
+      padding: 1.1rem;
+      border-radius: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 20px rgba(0, 95, 115, 0.2);
+    }
+
+    .total-cost-card h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .total-cost-value {
+      font-family: "Sora", sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
+    .chart-grid {
+      display: grid;
+      gap: 1.1rem;
+      grid-template-columns: 1fr;
+    }
+
+    .chart-card {
+      border: 1px solid rgba(0, 127, 139, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 1rem;
+    }
+
+    .chart-card h3 {
+      font-size: 1rem;
+      color: var(--text-soft);
+      margin-bottom: 0.8rem;
+      font-weight: 700;
+      font-family: "Sora", sans-serif;
+    }
+
+    .chart-wrap {
+      height: 280px;
+      position: relative;
+    }
+
+    .calc-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn {
+      min-height: 44px;
+      padding: 0.6rem 1.1rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font: inherit;
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(110deg, var(--accent), #00a1b2);
+      box-shadow: 0 10px 20px rgba(0, 95, 115, 0.2);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      color: var(--accent-strong);
+      border: 1.5px solid rgba(0, 95, 115, 0.3);
+      background: #ffffff;
+    }
+
+    .btn-outline:hover {
+      background: rgba(0, 127, 139, 0.05);
+      border-color: var(--accent-strong);
+    }
+
+    .advanced-settings {
+      border-top: 1px dashed var(--line);
+      padding-top: 1.1rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .advanced-settings h3 {
+      font-size: 1rem;
+      font-family: "Sora", sans-serif;
+      color: var(--accent-strong);
+    }
+
+    .toggle-group {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+    }
+
+    .toggle-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+    }
+
+    .toggle-group label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-soft);
+      cursor: pointer;
+    }
+
+    .sidebar-card h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .link-list {
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .link-list a {
+      min-height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 95, 115, 0.12);
+      background: #ffffff;
+      padding: 0.6rem 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
+    }
+
+    .link-list a:hover {
+      border-color: var(--accent);
+      background: rgba(0, 127, 139, 0.04);
+      padding-left: 0.9rem;
+    }
+
+    .table-shell {
+      overflow: auto;
+      border: 1px solid rgba(0, 95, 115, 0.14);
+      border-radius: 12px;
+      background: #ffffff;
+      margin-top: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 500px;
+    }
+
+    th,
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: #f4faf8;
+      font-weight: 800;
+      color: var(--accent-strong);
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .faq-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-weight: 700;
+      font-family: "Sora", sans-serif;
+    }
+
+    .faq-card p {
+      padding: 0 1.25rem 1.1rem;
+      color: var(--text-soft);
+      font-size: 0.93rem;
+    }
+
+    .faq-card i {
+      color: var(--accent);
+      transition: transform 0.2s ease;
+    }
+
+    address {
+      font-style: normal;
+    }
+
+    .site-footer {
+      margin-top: 2rem;
+      border-top: 1px solid var(--line);
+      background: #fbfdfd;
+      padding: 2rem 0 3rem;
+    }
+
+    .footer-inner {
+      display: grid;
+      gap: 1.2rem;
+      color: var(--text-soft);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.2rem;
+      font-weight: 700;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-strong);
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--accent-strong);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 90;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (min-width: 768px) {
+      .hero-grid {
+        grid-template-columns: 1.4fr 1fr;
+      }
+
+      .calc-layout {
+        grid-template-columns: 1fr 340px;
+      }
+
+      .input-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .chart-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .input-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .calculator-shell {
+        padding: 1.7rem;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    @media (min-width: 981px) {
+      .menu-toggle {
+        display: none;
+      }
+
+      .site-nav {
+        position: static;
+        display: flex;
+        flex-direction: row;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+    }
+    .lang-switch {
+      margin-left: auto;
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    .lang-switch select {
+      min-height: 36px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-strong);
+      background: #ffffff;
+      border: 1px solid rgba(0, 95, 115, 0.22);
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .lang-switch select:focus {
+      border-color: var(--accent);
+    }
+    @media (max-width: 980px) {
+      .lang-switch {
+        margin-right: 0.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../../index.html" class="brand">
+        <img src="../../logo.png" alt="InstaCalc на русском" width="42" height="42">
+        <span>InstaCalc.in</span>
+      </a>
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Выберите язык">
+          <option value="en">English</option>
+          <option value="ru" selected>Русский</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+        </select>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav class="site-nav" id="siteNav">
+        <a href="../../index.html">Главная</a>
+        <a href="concretecalculator.html" class="active">Расчет бетона</a>
+        <a href="../../sipcalculator.html">SIP калькулятор</a>
+        <a href="../../emicalculator.html">EMI калькулятор</a>
+        <a href="../../contactus.html">Поддержка</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-hard-hat"></i> Профессиональный строительный инструмент</span>
+          <h1>Строительный калькулятор бетона и расхода материалов</h1>
+          <p>Получите точный расчет необходимого количества <strong>цемента (в мешках), песка (в м³), щебня и воды</strong> для любых монолитных конструкций. Наш калькулятор поддерживает стандартные классы бетона (от М100 до М350) с возможностью расчета <strong>арматуры (ЖБИ)</strong> и <strong>стоимости проекта</strong>.
+          </p>
+          <div class="calc-actions">
+            <a href="#calculator" class="btn btn-primary">Начать расчет</a>
+            <a href="#guide" class="btn btn-outline">Справочник смесей</a>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h2>Преимущества калькулятора</h2>
+          <div class="hero-point">
+            <i class="fas fa-check-circle"></i>
+            <span>Коэффициент усадки сухой смеси (1.54)</span>
+          </div>
+          <div class="hero-point">
+            <i class="fas fa-check-circle"></i>
+            <span>Раскладка материалов по весу и объему</span>
+          </div>
+          <div class="hero-point">
+            <i class="fas fa-check-circle"></i>
+            <span>Расчет стоимости материалов в реальном времени</span>
+          </div>
+          <div class="hero-point">
+            <i class="fas fa-check-circle"></i>
+            <span>Метрическая система (метры, килограммы, кубометры)</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="container" id="calculator">
+      <div class="calc-layout">
+        <article class="calculator-shell">
+          <div class="shell-header">
+            <div class="mode-switch">
+              <button class="active" data-shape="slab">Плита</button>
+              <button data-shape="column">Колонна</button>
+              <button data-shape="beam">Балка</button>
+              <button data-shape="footing">Фундамент</button>
+              <button data-shape="staircase">Лестница</button>
+              <button data-shape="circle">Круг</button>
+              <button data-shape="wall">Стена</button>
+            </div>
+            <div class="eyebrow" id="currentShapeLabel">Плита перекрытия</div>
+          </div>
+
+          <div class="input-section" id="shapeInputs">
+            <!-- Dynamic inputs generated by JS -->
+          </div>
+
+          <div class="advanced-settings">
+            <h3>Марка смеси и параметры потерь</h3>
+            <div class="input-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="concreteGrade">Марка (класс) бетона</label>
+                </div>
+                <select id="concreteGrade">
+                  <option value="M5">М100 (1:5:10)</option>
+                  <option value="M7.5">М150 (1:4:8)</option>
+                  <option value="M10">М150 (1:3:6)</option>
+                  <option value="M15">М200 (1:2:4)</option>
+                  <option value="M20" selected>М250 (1:1.5:3)</option>
+                  <option value="M25">М300/М350 (1:1:2)</option>
+                  <option value="custom">Свое соотношение</option>
+                </select>
+              </div>
+              <div id="customRatioFields" class="field-card" style="display:none; grid-column: span 2;">
+                <div class="field-head"><label>Пропорции (Ц:П:Щ)</label></div>
+                <div style="display:flex; gap:0.5rem;">
+                  <input type="number" id="ratioC" value="1" step="0.1" placeholder="Ц">
+                  <input type="number" id="ratioS" value="1.5" step="0.1" placeholder="П">
+                  <input type="number" id="ratioA" value="3" step="0.1" placeholder="Щ">
+                </div>
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="wastage">Потери при укладке (%)</label>
+                  <span id="wastageVal">5%</span>
+                </div>
+                <input type="range" id="wastage" min="0" max="20" step="1" value="5">
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="cementBagSize">Вес мешка цемента</label>
+                </div>
+                <select id="cementBagSize">
+                  <option value="50" selected>50 кг</option>
+                  <option value="40">40 кг</option>
+                  <option value="25">25 кг</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="toggle-group">
+              <input type="checkbox" id="includeSteel" checked>
+              <label for="includeSteel">Включить арматуру (экспресс-расчет ЖБИ)</label>
+            </div>
+          </div>
+
+          <div class="advanced-settings">
+            <h3>Расчет стоимости (необязательно)</h3>
+            <div class="input-grid">
+              <div class="field-card">
+                <div class="field-head"><label>Цемент / Мешок (₽)</label></div>
+                <input type="number" id="costCement" placeholder="Цена">
+              </div>
+              <div class="field-card">
+                <div class="field-head"><label>Песок / м³ (₽)</label></div>
+                <input type="number" id="costSand" placeholder="Цена">
+              </div>
+              <div class="field-card">
+                <div class="field-head"><label>Щебень / м³ (₽)</label></div>
+                <input type="number" id="costAgg" placeholder="Цена">
+              </div>
+              <div id="steelCostField" class="field-card">
+                <div class="field-head"><label>Арматура / кг (₽)</label></div>
+                <input type="number" id="costSteel" placeholder="Цена">
+              </div>
+            </div>
+          </div>
+
+          <div class="result-section">
+            <div class="total-cost-card" id="totalCostSection" style="display:none;">
+              <h3>Примерная стоимость проекта</h3>
+              <div class="total-cost-value" id="totalCostDisplay">0 ₽</div>
+            </div>
+
+            <div class="result-grid">
+              <div class="result-card highlight">
+                <h3>Влажный объем бетона</h3>
+                <div class="result-value" id="resWetVol">- м³</div>
+              </div>
+              <div class="result-card">
+                <h3>Необходимый сухой объем</h3>
+                <div class="result-value" id="resDryVol">- м³</div>
+              </div>
+              <div class="result-card highlight">
+                <h3>Необходимый цемент</h3>
+                <div class="result-value" id="resCement">- мешков</div>
+              </div>
+              <div class="result-card">
+                <h3>Необходимый песок</h3>
+                <div class="result-value" id="resSand">- м³</div>
+              </div>
+              <div class="result-card highlight">
+                <h3>Необходимый щебень</h3>
+                <div class="result-value" id="resAgg">- м³</div>
+              </div>
+              <div class="result-card accent">
+                <h3>Вес арматуры</h3>
+                <div class="result-value" id="resSteel">- кг</div>
+              </div>
+            </div>
+
+            <div class="chart-grid">
+              <div class="chart-card">
+                <h3>Соотношение компонентов (%)</h3>
+                <div class="chart-wrap">
+                  <canvas id="materialChart"></canvas>
+                </div>
+              </div>
+              <div class="chart-card">
+                <h3>Подробная смета расхода</h3>
+                <div class="table-shell">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Материал</th>
+                        <th>Количество</th>
+                        <th>Ед. изм.</th>
+                      </tr>
+                    </thead>
+                    <tbody id="breakdownTable">
+                      <!-- JS Output -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="calc-actions">
+            <button class="btn btn-primary" id="copyResult"><i class="fas fa-copy"></i> Скопировать список материалов</button>
+            <button class="btn btn-outline" id="resetCalc"><i class="fas fa-undo"></i> Сбросить</button>
+          </div>
+        </article>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>Последние расчеты</h3>
+            <div id="calcLog" class="link-list">
+              <div style="font-size: 0.85rem; color: var(--text-soft); text-align: center; padding: 1rem;">История расчетов пуста.</div>
+            </div>
+            <button class="btn btn-outline" style="width:100%; font-size:0.8rem; min-height:36px; margin-top:0.5rem;"
+              id="clearLog">Очистить историю</button>
+          </div>
+
+          <div class="sidebar-card" style="margin-top: 1rem;">
+            <h3>Полезные ссылки</h3>
+            <nav class="link-list">
+              <a href="../../index.html">Главная страница <i class="fas fa-chevron-right"></i></a>
+              <a href="../duration/agecalculator.html">Калькулятор возраста <i class="fas fa-chevron-right"></i></a>
+              <a href="../../gstcalculator.html">Калькулятор НДС <i class="fas fa-chevron-right"></i></a>
+              <a href="../../emicalculator.html">Кредитный калькулятор <i class="fas fa-chevron-right"></i></a>
+            </nav>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <section class="section" id="guide">
+      <div class="container content-card">
+        <div class="section-head">
+          <h2>Подробное руководство по расчету бетона</h2>
+          <p>Узнайте, как правильно рассчитывать расход строительных материалов и как использовать наш калькулятор бетона для максимальной точности на стройплощадке.</p>
+        </div>
+        <div class="input-grid">
+          <article>
+            <h3 style="font-family: Sora; margin-bottom: 0.5rem;">Правило сухого объема (коэффициент усадки)</h3>
+            <p>При смешивании бетона сухие компоненты (цемент, песок, щебень) при добавлении воды уменьшаются в объеме. Мы используем <strong>коэффициент усадки сухой смеси 1.54</strong>. Это означает, что для получения 1 м³ готового мокрого бетона вам потребуется 1.54 м³ сухой смеси.</p>
+          </article>
+          <article>
+            <h3 style="font-family: Sora; margin-bottom: 0.5rem;">Пропорции марок бетона</h3>
+            <ul style="padding-left: 1.2rem; color: var(--text-soft); font-size: 0.95rem;">
+              <li><strong>М200:</strong> 1 : 2 : 4 — для фундаментов, отмосток, дорожек.</li>
+              <li><strong>М250:</strong> 1 : 1.5 : 3 — стандарт для плит и несущих стен.</li>
+              <li><strong>М300:</strong> 1 : 1 : 2 — высокая прочность для ответственных конструкций.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Часто задаваемые вопросы</h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq-card">
+            <summary>Сколько мешков цемента нужно на 1 м³ бетона М250? <i class="fas fa-chevron-down"></i></summary>
+            <p>Для бетона марки М250 (пропорции 1:1.5:3) на один кубический метр готовой смеси требуется примерно от 8.2 до 8.5 мешков цемента весом 50 кг, в зависимости от влажности песка и требуемой подвижности смеси.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Сколько песка и щебня нужно на 1 м³ бетона? <i class="fas fa-chevron-down"></i></summary>
+            <p>Для стандартного замеса бетона М250 на 1 м³ готового раствора требуется около 15.7 кубических футов (0.44 м³) песка и 31.4 кубических футов (0.89 м³) щебня.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Какова плотность цемента и арматурной стали? <i class="fas fa-chevron-down"></i></summary>
+            <p>Стандартная насыпная плотность цемента составляет около 1440 кг/м³. Плотность строительной арматурной стали равна 7850 кг/м³. Наш калькулятор использует процентное соотношение армирования для быстрого экспресс-расчета.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="brand">
+        <img src="../../logo.png" alt="InstaCalc" width="30" height="30">
+        <span>InstaCalc.in</span>
+      </div>
+      <p>Прецизионные инструменты для инженеров, строителей и частных застройщиков. Просто и точно рассчитывайте строительные материалы, финансовые показатели и повседневные вычисления.</p>
+      <div class="footer-links">
+        <a href="../../index.html">Главная</a>
+        <a href="../../aboutus.html">О нас</a>
+        <a href="../../contactus.html">Контакты</a>
+        <a href="../../privacypolicy.html">Конфиденциальность</a>
+      </div>
+      <p style="font-size: 0.85rem; opacity: 0.8;">&copy; 2026 InstaCalc Россия. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="topBtn" title="Наверх">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="../../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    (function () {
+      const $ = id => document.getElementById(id);
+      const fmt = (v, d = 2) => Number.isFinite(v) ? v.toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: d }) : '-';
+      const nf = { format: (v) => fmt(v) };
+      const nfc = { format: (v) => fmt(v) + ' ₽' };
+      const nft = { format: (v) => fmt(v) + ' ₽' };
+
+      let currentShape = 'slab';
+      let chartInstance = null;
+      let log = [];
+
+      const MIX_DATA = {
+        'M5': [1, 5, 10],
+        'M7.5': [1, 4, 8],
+        'M10': [1, 3, 6],
+        'M15': [1, 2, 4],
+        'M20': [1, 1.5, 3],
+        'M25': [1, 1, 2]
+      };
+
+      const STEEL_FACTORS = {
+        'slab': 0.01,
+        'column': 0.025,
+        'beam': 0.02,
+        'footing': 0.008,
+        'staircase': 0.012,
+        'circle': 0.025,
+        'wall': 0.015
+      };
+
+      const SHAPES = {
+        slab: { label: 'Плита перекрытия', fields: [['Длина (м)', 'l', 5], ['Ширина (м)', 'w', 4], ['Толщина (м)', 't', 0.15]] },
+        column: { label: 'Колонна', fields: [['Сторона A (м)', 'l', 0.45], ['Сторона B (м)', 'w', 0.45], ['Высота (м)', 'h', 3]] },
+        beam: { label: 'Несущая балка', fields: [['Длина (м)', 'l', 4], ['Ширина (м)', 'w', 0.3], ['Высота/Глубина (м)', 'd', 0.5]] },
+        footing: { label: 'Фундамент под колонну', fields: [['Длина (м)', 'l', 2], ['Ширина (м)', 'w', 2], ['Глубина (м)', 'd', 0.6]] },
+        staircase: { label: 'Лестница (Ступени)', fields: [['Проступь (м)', 'tr', 0.25], ['Подступенек (м)', 'rs', 0.15], ['Ширина (м)', 'w', 1.2], ['Кол-во ступеней', 'qty', 15]] },
+        circle: { label: 'Круглая колонна', fields: [['Диаметр (м)', 'dia', 0.45], ['Высота (м)', 'h', 3.5]] },
+        wall: { label: 'Подпорная стена', fields: [['Длина (м)', 'l', 10], ['Высота (м)', 'h', 3], ['Средняя толщина (м)', 't', 0.25]] }
+      };
+
+      function initInputs() {
+        const wrap = $('shapeInputs');
+        const shape = SHAPES[currentShape];
+        $('currentShapeLabel').innerHTML = `<i class="fas fa-cube"></i> ${shape.label}`;
+
+        let html = '<div class="input-grid">';
+        shape.fields.forEach(f => {
+          html += `
+            <div class="field-card">
+              <div class="field-head"><label for="inp_${f[1]}">${f[0]}</label></div>
+              <input type="number" id="inp_${f[1]}" value="${f[2]}" step="0.01" class="calc-trigger">
+            </div>`;
+        });
+        html += '</div>';
+        wrap.innerHTML = html;
+
+        document.querySelectorAll('.calc-trigger').forEach(el => {
+          el.addEventListener('input', calculate);
+        });
+      }
+
+      function calculate() {
+        let wetVol = 0;
+        const s = currentShape;
+
+        if (s === 'slab' || s === 'column' || s === 'beam' || s === 'footing' || s === 'wall') {
+          const v1 = parseFloat($('inp_l')?.value || $('inp_dia')?.value || 0);
+          const v2 = parseFloat($('inp_w')?.value || $('inp_h')?.value || 0);
+          const v3 = parseFloat($('inp_t')?.value || $('inp_d')?.value || $('inp_h')?.value || 1);
+          if (s === 'circle') {
+            wetVol = Math.PI * Math.pow(v1 / 2, 2) * v2;
+          } else {
+            wetVol = v1 * v2 * v3;
+          }
+        } else if (s === 'staircase') {
+          const tr = parseFloat($('inp_tr').value);
+          const rs = parseFloat($('inp_rs').value);
+          const w = parseFloat($('inp_w').value);
+          const qty = parseFloat($('inp_qty').value);
+          const stepsVol = (0.5 * tr * rs) * w * qty;
+          const waistVol = (tr * qty) * w * 0.15;
+          wetVol = stepsVol + waistVol;
+        }
+
+        const grade = $('concreteGrade').value;
+        let c, sa, ag;
+        if (grade === 'custom') {
+          c = parseFloat($('ratioC').value) || 1;
+          sa = parseFloat($('ratioS').value) || 1.5;
+          ag = parseFloat($('ratioA').value) || 3;
+          $('customRatioFields').style.display = 'grid';
+        } else {
+          [c, sa, ag] = MIX_DATA[grade];
+          $('customRatioFields').style.display = 'none';
+        }
+
+        const totalParts = c + sa + ag;
+        const dryVolFactor = 1.54;
+        const wastage = 1 + (parseFloat($('wastage').value) / 100);
+        const dryVol = wetVol * dryVolFactor * wastage;
+
+        const cementVol = (c / totalParts) * dryVol;
+        const sandVol = (sa / totalParts) * dryVol;
+        const aggVol = (ag / totalParts) * dryVol;
+
+        const cementDensity = 1440;
+        const bagSize = parseFloat($('cementBagSize').value);
+        const cementBags = (cementVol * cementDensity) / bagSize;
+        const water = (cementVol * cementDensity) * 0.5;
+
+        const steelFactor = STEEL_FACTORS[s];
+        const includeSteel = $('includeSteel').checked;
+        const steelKg = includeSteel ? (wetVol * (s === 'column' ? 145 : s === 'beam' ? 120 : 80)) : 0;
+
+        $('resWetVol').innerText = fmt(wetVol) + ' м³';
+        $('resDryVol').innerText = fmt(dryVol) + ' м³';
+        $('resCement').innerText = fmt(cementBags) + ' мешков';
+        $('resSand').innerText = fmt(sandVol) + ' м³';
+        $('resAgg').innerText = fmt(aggVol) + ' м³';
+        $('resSteel').innerText = fmt(steelKg) + ' кг';
+        $('wastageVal').innerText = $('wastage').value + '%';
+
+        const breakdown = [
+          ['Цемент', fmt(cementBags), 'мешков'],
+          ['Цемент (Вес)', fmt(cementVol * cementDensity), 'кг'],
+          ['Песок', fmt(sandVol), 'м³'],
+          ['Песок (в куб. футах)', fmt(sandVol * 35.3147), 'куб. фут'],
+          ['Щебень', fmt(aggVol), 'м³'],
+          ['Щебень (в тоннах)', fmt(aggVol * 1.6), 'т'],
+          ['Вода', fmt(water), 'л'],
+          ['Арматура', fmt(steelKg), 'кг']
+        ];
+        $('breakdownTable').innerHTML = breakdown.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+
+        calculateCost(cementBags, sandVol, aggVol, steelKg);
+        updateChart(c, sa, ag);
+      }
+
+      function calculateCost(cb, sv, av, sk) {
+        const costC = parseFloat($('costCement').value) || 0;
+        const costS = parseFloat($('costSand').value) || 0;
+        const costA = parseFloat($('costAgg').value) || 0;
+        const costSt = parseFloat($('costSteel').value) || 0;
+
+        const total = (cb * costC) + (sv * costS) + (av * costA) + (sk * costSt);
+        const card = $('totalCostSection');
+        if (total > 0) {
+          card.style.display = 'flex';
+          // Format as localized ruble currency
+          $('totalCostDisplay').innerText = fmt(total) + ' ₽';
+        } else {
+          card.style.display = 'none';
+        }
+      }
+
+      function updateChart(c, sa, ag) {
+        const ctx = $('materialChart').getContext('2d');
+        if (chartInstance) chartInstance.destroy();
+        chartInstance = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Цемент', 'Песок', 'Щебень'],
+            datasets: [{
+              data: [c, sa, ag],
+              backgroundColor: ['#007f8b', '#ee9f2e', '#546e7a'],
+              borderWidth: 2,
+              hoverOffset: 10
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom' }
+            }
+          }
+        });
+      }
+
+      function syncUI() {
+        document.querySelectorAll('.mode-switch button').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelector('.mode-switch button.active').classList.remove('active');
+            btn.classList.add('active');
+            currentShape = btn.dataset.shape;
+            initInputs();
+            calculate();
+          });
+        });
+
+        $('includeSteel').addEventListener('change', (e) => {
+          $('steelCostField').style.display = e.target.checked ? 'block' : 'none';
+          calculate();
+        });
+
+        $('concreteGrade').addEventListener('change', calculate);
+        $('cementBagSize').addEventListener('change', calculate);
+        $('wastage').addEventListener('input', calculate);
+
+        document.querySelectorAll('#costCement, #costSand, #costAgg, #costSteel, #ratioC, #ratioS, #ratioA').forEach(el => {
+          el.addEventListener('input', calculate);
+        });
+
+        $('copyResult').addEventListener('click', () => {
+          const text = `Смета материалов бетона (${SHAPES[currentShape].label}):
+- Цемент: ${$('resCement').innerText}
+- Песок: ${$('resSand').innerText}
+- Щебень: ${$('resAgg').innerText}
+- Арматура: ${$('resSteel').innerText}
+- Влажный объем: ${$('resWetVol').innerText}`;
+          navigator.clipboard.writeText(text).then(() => {
+            const original = $('copyResult').innerHTML;
+            $('copyResult').innerHTML = '<i class="fas fa-check"></i> Скопировано!';
+            setTimeout(() => $('copyResult').innerHTML = original, 2000);
+            saveToLog();
+          });
+        });
+
+        $('resetCalc').addEventListener('click', () => {
+          location.reload();
+        });
+
+        $('clearLog').addEventListener('click', () => {
+          log = [];
+          localStorage.removeItem('conc_log');
+          renderLog();
+        });
+      }
+
+      function saveToLog() {
+        const entry = {
+          shape: SHAPES[currentShape].label,
+          vol: $('resWetVol').innerText,
+          bags: $('resCement').innerText,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        log.unshift(entry);
+        if (log.length > 5) log.pop();
+        localStorage.setItem('conc_log', JSON.stringify(log));
+        renderLog();
+      }
+
+      function renderLog() {
+        const wrap = $('calcLog');
+        if (log.length === 0) {
+          wrap.innerHTML = '<div style="font-size: 0.85rem; color: var(--text-soft); text-align: center; padding: 1rem;">История расчетов пуста.</div>';
+          return;
+        }
+        wrap.innerHTML = log.map(e => `
+            <div style="border: 1px solid var(--line); padding: 0.7rem; border-radius: 8px; background: #fff; display:grid; gap:0.2rem;">
+               <div style="display:flex; justify-content:space-between; font-weight:700; font-size:0.8rem; color:var(--accent-strong);">
+                  <span>${e.shape}</span>
+                  <span style="opacity:0.6;">${e.time}</span>
+               </div>
+               <div style="font-size: 0.85rem;">Объем: <strong>${e.vol}</strong></div>
+               <div style="font-size: 0.85rem;">Цемент: <strong>${e.bags}</strong></div>
+            </div>
+         `).join('');
+      }
+
+      function setupGlobal() {
+        const menuBtn = $('menuToggle');
+        const nav = $('siteNav');
+        menuBtn.addEventListener('click', () => {
+          nav.classList.toggle('open');
+          menuBtn.innerHTML = nav.classList.contains('open') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        const topBtn = $('topBtn');
+        window.addEventListener('scroll', () => {
+          topBtn.classList.toggle('show', window.scrollY > 400);
+        });
+        topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        const saved = localStorage.getItem('conc_log');
+        if (saved) log = JSON.parse(saved);
+      }
+
+      const langSelect = $('langSelect');
+      if (langSelect) {
+        langSelect.value = 'ru';
+        langSelect.addEventListener('change', function () {
+          if (this.value === 'en') {
+            localStorage.setItem('user_lang', 'en');
+            window.location.href = '../../moretools/concretecalculator.html';
+          } else if (this.value === 'ja') {
+            localStorage.setItem('user_lang', 'ja');
+            window.location.href = '../../ja/moretools/concretecalculator.html';
+          } else if (this.value === 'ko') {
+            localStorage.setItem('user_lang', 'ko');
+            window.location.href = '../../ko/moretools/concretecalculator.html';
+          }
+        });
+      }
+
+      setupGlobal();
+      initInputs();
+      syncUI();
+      renderLog();
+      calculate();
+    })();
+  </script>
+</body>
+
+</html>
