@@ -363,9 +363,11 @@
       </a>
 
       <div class="lang-switch">
-        <select id="langSelect" aria-label="Select Language">
-          <option value="en" selected>English</option>
-          <option value="ja">日本語</option>
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="in" selected>India (₹ INR)</option>
+          <option value="us">United States ($ USD)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
         </select>
       </div>
 
@@ -1609,7 +1611,9 @@
         if (langSelect) {
           langSelect.value = 'en';
           langSelect.addEventListener('change', function () {
-            if (this.value === 'ja') {
+            if (this.value === "us") {
+            window.location.href = "./us/index.html";
+          } else if (this.value === 'ja') {
               localStorage.setItem('user_lang', 'ja');
               window.location.href = 'ja/compoundinterest.html';
             }
