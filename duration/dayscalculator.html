@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Advanced Days Calculator | Date Difference & Business Day Counter</title>
+  <title>Days Calculator – Date Difference, Working Days & Date Arithmetic</title>
   <meta name="description"
-    content="Calculate exact days between dates, including or excluding weekends (business days). Advanced date arithmetic to add or subtract days, weeks, months, and years.">
+    content="Free online Days Calculator to calculate exact days between two dates, business days (skipping weekends), and add or subtract days, weeks, months, or years to any date.">
   <meta name="keywords"
-    content="days calculator, date difference calculator, business days counter, work days calculator, add days to date, subtract days from date, date duration">
+    content="days calculator, date difference calculator, calculate days between dates, business days calculator, work days counter, add days to date, date duration calculator">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#005f73">
@@ -17,630 +17,475 @@
   <link rel="icon" type="image/x-icon" href="../favicon.webp">
   <link rel="canonical" href="https://instacalc.in/duration/dayscalculator.html">
 
-  <style>
-    :root {
-      --bg: #f2f6f8;
-      --text: #132a3b;
-      --text-soft: #334d60;
-      --accent: #007f8b;
-      --accent-strong: #005f73;
-      --accent-2: #ee9f2e;
-      --line: #d3e1ea;
-      --line-strong: #bfd2dd;
-      --card: #ffffff;
-      --success: #1f9f67;
-      --warn: #d8891d;
-      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
-      --radius-xl: 26px;
-      --radius-lg: 20px;
-      --radius-md: 15px;
-      --radius-sm: 11px;
-    }
+  <meta property="og:title" content="Days Calculator - Date Difference & Working Days Counter">
+  <meta property="og:description"
+    content="Calculate exact duration between dates, working days, and perform date addition/subtraction easily.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/duration/dayscalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+
+  <style>
+    /* Ultra-Responsive Modern Days Calculator Styles */
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      font-family: "Public Sans", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
-        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
-        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.22;
-      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
-      background-size: 100% 36px;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
+    
     .container {
-      width: min(1180px, 92vw);
+      width: min(1240px, 92vw);
       margin: 0 auto;
-    }
-
-    .section {
-      padding: 3.2rem 0;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.32rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: rgba(255, 255, 255, 0.74);
-      color: var(--accent-strong);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      font-size: 0.78rem;
-    }
-
-    .section-head {
-      max-width: 720px;
-      margin-bottom: 1.25rem;
-    }
-
-    .section-head h1,
-    .section-head h2 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin: 0.45rem 0 0.7rem;
-    }
-
-    .section-head p {
-      color: var(--text-soft);
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 55;
-      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
-      background: rgba(242, 246, 248, 0.92);
-      backdrop-filter: blur(10px);
-    }
-
-    .header-inner {
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.8rem;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: "Sora", sans-serif;
-      font-weight: 700;
-      color: var(--accent-strong);
-      letter-spacing: -0.02em;
-    }
-
-    .brand img {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 2px solid rgba(0, 95, 115, 0.15);
-      background: #ffffff;
-    }
-
-    .menu-toggle {
-      width: 42px;
-      height: 42px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      border-radius: 12px;
-      background: #ffffff;
-      color: var(--accent-strong);
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .site-nav {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 4vw;
-      right: 4vw;
-      display: none;
-      flex-direction: column;
-      gap: 0.4rem;
-      padding: 0.7rem;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: #ffffff;
-      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
-    }
-
-    .site-nav.open {
-      display: flex;
-    }
-
-    .site-nav a {
-      min-height: 40px;
-      display: inline-flex;
-      align-items: center;
-      padding: 0.45rem 0.8rem;
-      border-radius: 10px;
-      font-weight: 600;
-      color: var(--text-soft);
-      transition: background-color 0.25s ease, color 0.25s ease;
-    }
-
-    .site-nav a:hover,
-    .site-nav a.active {
-      color: var(--accent-strong);
-      background: rgba(0, 127, 139, 0.12);
-    }
-
-    .hero {
-      padding: 3.3rem 0 2.4rem;
-    }
-
-    .hero-grid {
-      display: grid;
-      gap: 1.1rem;
-    }
-
-    .hero-copy {
-      border: 1px solid rgba(0, 95, 115, 0.16);
-      border-radius: var(--radius-xl);
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
-      box-shadow: var(--shadow);
-      padding: 1.35rem;
-    }
-
-    .hero-copy h1 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(2rem, 5vw, 3.05rem);
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      margin-top: 0.9rem;
-      max-width: 16ch;
-    }
-
-    .hero-copy p {
-      margin-top: 0.95rem;
-      color: var(--text-soft);
-      font-size: clamp(1rem, 2.2vw, 1.1rem);
-      max-width: 56ch;
-    }
-
-    .hero-actions {
-      margin-top: 1.2rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }
-
-    .btn {
-      min-height: 42px;
-      padding: 0.55rem 1rem;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.45rem;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      font: inherit;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      color: #ffffff;
-      background: linear-gradient(110deg, var(--accent), #00a1b2);
-      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
-    }
-
-    .btn-ghost {
-      color: var(--accent-strong);
-      border: 1px solid rgba(0, 95, 115, 0.25);
-      background: rgba(255, 255, 255, 0.75);
-    }
-
-    .hero-panel {
-      border-radius: var(--radius-xl);
-      padding: 1.15rem;
-      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
-      color: #f8fcff;
-      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
-      display: grid;
-      gap: 0.6rem;
-      align-content: start;
-    }
-
-    .hero-panel h2 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.18rem;
-    }
-
-    .hero-point {
-      border-radius: 11px;
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      background: rgba(255, 255, 255, 0.11);
-      padding: 0.63rem 0.72rem;
-      font-size: 0.93rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.46rem;
+      padding: 0 0.5rem;
     }
 
     .calc-layout {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.95rem;
-    }
-
-    .calculator-shell,
-    .feature-card,
-    .content-card,
-    .faq-card,
-    .sidebar-card {
-      border: 1px solid rgba(0, 95, 115, 0.15);
-      background: rgba(255, 255, 255, 0.89);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+      grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
+      gap: 1.75rem;
+      align-items: start;
+      width: 100%;
     }
 
     .calculator-shell {
-      padding: 1rem;
-      display: grid;
-      gap: 0.95rem;
-    }
-
-    .mode-tabs {
-      display: inline-flex;
-      border: 1px solid rgba(0, 95, 115, 0.22);
-      border-radius: 14px;
-      padding: 0.3rem;
       background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-lg);
+      box-shadow: var(--ic-shadow-md);
+      padding: 1.75rem;
       width: 100%;
-      max-width: 420px;
-      gap: 0.25rem;
+      max-width: 100%;
+      overflow: hidden;
     }
 
-    .mode-tabs a {
-      flex: 1;
-      min-height: 40px;
-      padding: 0.42rem 0.6rem;
-      border-radius: 10px;
-      font-weight: 700;
-      color: var(--text-soft);
+    /* Mode Pill Switcher */
+    .days-nav-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--ic-border);
+      width: 100%;
+    }
+
+    .mode-pill-btn {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s ease, color 0.2s ease;
-      font-size: 0.9rem;
-    }
-
-    .mode-tabs a.active {
-      color: #ffffff;
-      background: linear-gradient(110deg, var(--accent), #00a1b2);
-    }
-
-    .input-grid {
-      display: grid;
-      gap: 0.7rem;
-      grid-template-columns: 1fr;
-    }
-
-    .field-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
+      gap: 0.45rem;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      border-radius: var(--ic-radius-full);
+      border: 1px solid var(--ic-border);
       background: #ffffff;
-      padding: 0.85rem;
+      color: var(--ic-text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .mode-pill-btn:hover {
+      border-color: var(--ic-primary);
+      color: var(--ic-primary-dark);
+      background: var(--ic-bg-subtle);
+    }
+
+    .mode-pill-btn.active {
+      background: linear-gradient(135deg, var(--ic-primary-dark), var(--ic-primary));
+      color: #ffffff;
+      border-color: var(--ic-primary-dark);
+      box-shadow: 0 3px 8px rgba(0, 127, 139, 0.25);
+    }
+
+    /* Hero Live Result Card */
+    .hero-result-card {
+      background: linear-gradient(135deg, #f0fdfa 0%, #e6f7f6 100%);
+      border: 1px solid rgba(0, 127, 139, 0.25);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      position: relative;
+    }
+
+    .hero-result-card .label-group {
       display: grid;
-      gap: 0.54rem;
+      gap: 0.25rem;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .hero-result-card .res-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ic-primary-dark);
+    }
+
+    .hero-result-card .res-val {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.45rem, 4vw, 2.2rem);
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      line-height: 1.2;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .hero-result-card .res-desc {
+      font-size: 0.85rem;
+      color: var(--ic-text-muted);
+      word-break: break-word;
+    }
+
+    .hero-result-card .quick-copy-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 127, 139, 0.25);
+      background: #ffffff;
+      color: var(--ic-primary-dark);
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .hero-result-card .quick-copy-btn:hover {
+      background: var(--ic-primary-dark);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* Form Fields */
+    .field-card {
+      background: var(--ic-bg-subtle);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1rem;
+      margin-bottom: 0.85rem;
+      width: 100%;
     }
 
     .field-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 0.6rem;
+      font-weight: 700;
+      font-size: 0.92rem;
       gap: 0.5rem;
     }
 
-    .field-head label {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text);
+    .field-head span {
+      color: var(--ic-primary-dark);
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
     }
 
-    input[type="date"],
-    input[type="number"],
-    select {
+    .field-card input[type="date"],
+    .field-card input[type="number"],
+    .field-card select {
       width: 100%;
-      min-height: 44px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 0.55rem 0.75rem;
-      font: inherit;
-      color: var(--text);
+      height: 48px;
+      padding: 0.65rem 1rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ic-text);
       background: #ffffff;
+      border: 1.5px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
       outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: all 0.2s ease;
     }
 
-    input[type="date"]:focus,
-    input[type="number"]:focus,
-    select:focus {
-      border-color: rgba(0, 127, 139, 0.62);
-      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
+    .field-card input[type="date"]:focus,
+    .field-card input[type="number"]:focus,
+    .field-card select:focus {
+      border-color: var(--ic-primary);
+      box-shadow: 0 0 0 3.5px var(--ic-primary-light);
     }
 
-    .checkbox-field {
+    .chips-wrap {
       display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      cursor: pointer;
-      user-select: none;
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--text-soft);
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+      width: 100%;
     }
 
-    .checkbox-field input {
+    .chip {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border-radius: 999px;
+      border: 1px solid var(--ic-border);
+      background: #ffffff;
+      color: var(--ic-text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .chip:hover, .chip.active {
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      border-color: var(--ic-primary);
+    }
+
+    .inline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .options-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 0.5rem 0 1rem;
+      padding: 0.75rem 1rem;
+      background: var(--ic-bg-subtle);
+      border-radius: var(--ic-radius-md);
+      border: 1px solid var(--ic-border);
+    }
+
+    .options-row label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--ic-text);
+      cursor: pointer;
+    }
+
+    .options-row input[type="checkbox"] {
       width: 18px;
       height: 18px;
-      accent-color: var(--accent);
+      accent-color: var(--ic-primary);
     }
 
+    /* Panels */
+    .days-panel {
+      display: none;
+    }
+
+    .days-panel.active {
+      display: block;
+    }
+
+    /* Result grid */
     .result-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.62rem;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      width: 100%;
     }
 
     .result-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
       background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
       padding: 0.85rem;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .result-card h3 {
-      color: var(--text-soft);
-      font-size: 0.8rem;
-      font-weight: 700;
-      margin-bottom: 0.22rem;
+      font-size: 0.76rem;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
+      color: var(--ic-text-muted);
+      font-weight: 700;
+      margin-bottom: 0.25rem;
     }
 
     .result-value {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
-      line-height: 1.3;
-      color: var(--text);
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+      font-weight: 800;
+      color: var(--ic-text);
+      word-break: break-word;
     }
 
     .result-card.highlight {
-      background: rgba(31, 159, 103, 0.08);
-      border-color: rgba(31, 159, 103, 0.26);
+      background: #f8fafc;
+      border-color: rgba(0, 127, 139, 0.3);
     }
 
-    .breakdown-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.4rem;
+    .result-card.highlight .result-value {
+      color: var(--ic-primary-dark);
     }
 
-    .breakdown-item {
-      padding: 0.25rem 0.6rem;
-      background: var(--bg);
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--accent-strong);
+    .result-card.positive .result-value {
+      color: #1f9f67;
     }
 
-    .sidebar-card {
-      padding: 1rem;
-      display: grid;
-      gap: 0.5rem;
-      align-content: start;
-    }
-
-    .link-list {
-      list-style: none;
-      display: grid;
-      gap: 0.45rem;
-    }
-
-    .link-list a {
-      min-height: 44px;
-      border-radius: 10px;
-      border: 1px solid rgba(0, 95, 115, 0.13);
+    /* Visual Timeline Card */
+    .visual-timeline-card {
       background: #ffffff;
-      padding: 0.48rem 0.72rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.4rem;
-      color: var(--text);
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .link-list a:hover {
-      border-color: rgba(0, 127, 139, 0.4);
-      transform: translateY(-1px);
-    }
-
-    .content-card {
-      padding: 1.25rem;
-    }
-
-    .content-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.15rem;
-      margin: 1.2rem 0 0.5rem;
-    }
-
-    .content-card p {
-      color: var(--text-soft);
-      margin-bottom: 0.8rem;
-    }
-
-    .faq-list {
-      display: grid;
-      gap: 0.62rem;
-    }
-
-    .faq-card summary {
-      list-style: none;
-      cursor: pointer;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
       padding: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .timeline-bar-wrap {
+      width: 100%;
+      height: 24px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      font-weight: 700;
-      color: var(--text);
+      margin-top: 0.75rem;
     }
 
-    .faq-card p {
-      color: var(--text-soft);
-      padding: 0 1rem 1rem;
-      font-size: 0.95rem;
+    .timeline-bar-work {
+      background: #007f8b;
+      height: 100%;
+      transition: width 0.3s ease;
     }
 
-    .site-footer {
-      margin-top: 1rem;
-      border-top: 1px solid rgba(0, 95, 115, 0.14);
-      background: rgba(238, 246, 250, 1);
-      padding: 2rem 0 3rem;
+    .timeline-bar-weekend {
+      background: #f59e0b;
+      height: 100%;
+      transition: width 0.3s ease;
     }
 
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      color: var(--text-soft);
-      font-size: 0.95rem;
-    }
-
-    .footer-links {
+    /* Actions */
+    .calculator-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem 1.5rem;
-      font-weight: 600;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+      width: 100%;
     }
 
-    @media (min-width: 640px) {
-      .input-grid {
-        grid-template-columns: repeat(2, 1fr);
+    /* Mobile media query (320px - 640px) */
+    @media (max-width: 640px) {
+      .calc-layout {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+      
+      .calculator-shell {
+        padding: 1rem 0.75rem !important;
+        border-radius: var(--ic-radius-md) !important;
+      }
+
+      .days-nav-wrap {
+        gap: 0.3rem !important;
+      }
+
+      .mode-pill-btn {
+        padding: 0.45rem 0.65rem !important;
+        font-size: 0.78rem !important;
+      }
+
+      .hero-result-card {
+        padding: 1rem 0.85rem !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.5rem !important;
+      }
+
+      .hero-result-card .quick-copy-btn {
+        position: absolute !important;
+        top: 0.75rem !important;
+        right: 0.75rem !important;
+        width: 38px !important;
+        height: 38px !important;
+      }
+
+      .hero-result-card .res-val {
+        font-size: clamp(1.35rem, 6.5vw, 1.85rem) !important;
+        max-width: calc(100% - 44px) !important;
+      }
+
+      .hero-result-card .res-desc {
+        font-size: 0.8rem !important;
+        line-height: 1.35 !important;
+      }
+
+      .inline-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.5rem !important;
       }
 
       .result-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
       }
 
-      .span-2 {
-        grid-column: span 2;
-      }
-    }
-
-    @media (min-width: 940px) {
-      .hero-grid {
-        grid-template-columns: 1.5fr 1fr;
+      .result-card {
+        padding: 0.75rem 0.65rem !important;
       }
 
-      .calc-layout {
-        grid-template-columns: 1.751fr 1fr;
-        align-items: start;
+      .result-value {
+        font-size: 1.05rem !important;
       }
 
-      .site-nav {
-        position: static;
-        display: flex;
-        flex-direction: row;
-        background: none;
-        border: none;
-        box-shadow: none;
-        padding: 0;
+      .calculator-actions {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 0.4rem !important;
       }
 
-      .menu-toggle {
-        display: none;
-      }
-    }
-
-    .add-subtract-mode {
-      display: none;
-    }
-
-    .calculator-shell.arithmetic-mode .diff-mode {
-      display: none;
-    }
-
-    .calculator-shell.arithmetic-mode .add-subtract-mode {
-      display: grid;
-    }
-
-    .unit-controls {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.7rem;
-    }
-
-    @media (min-width: 480px) {
-      .unit-controls {
-        grid-template-columns: repeat(4, 1fr);
+      .calculator-actions .btn:first-child,
+      .calculator-actions .btn-primary {
+        grid-column: span 2 !important;
       }
     }
   </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Days Calculator Online",
+    "url": "https://instacalc.in/duration/dayscalculator.html",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "description": "Calculate exact days between two dates, work days excluding weekends, and add/subtract time units.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 </head>
 
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="../index.html" class="brand">
-        <img src="../logo.png" alt="InstaCalc">
+      <a href="../index.html" class="brand" aria-label="InstaCalc Home">
+        <img src="../logo.png" alt="InstaCalc Logo" width="38" height="38">
         <span>InstaCalc.in</span>
       </a>
-      <button class="menu-toggle" id="menuToggle">
-        <i class="fas fa-bars"></i>
-      </button>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
       <nav class="site-nav" id="mainNav">
         <a href="../index.html">Home</a>
-        <a href="../aboutus.html">About Us</a>
-        <a href="../contactus.html">Contact Us</a>
-        <a href="../privacypolicy.html">Privacy Policy</a>
+        <a href="dayscalculator.html" class="active">Days Calculator</a>
+        <a href="agecalculator.html">Age Tool</a>
+        <a href="hourcalculator.html">Hour Tool</a>
+        <a href="../sipcalculator.html">SIP Planner</a>
       </nav>
     </div>
   </header>
@@ -649,172 +494,244 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow"><i class="fas fa-calendar-alt"></i> Time & Duration</span>
-          <h1>Advanced Days Calculator</h1>
-          <p>The ultimate tool for date arithmetic. Calculate exact differences, skip weekends (business days), or
-            add/subtract time units from any date instantly.</p>
-          <div class="hero-actions">
-            <a href="#calcArea" class="btn btn-primary"><i class="fas fa-play"></i> Get Started</a>
-          </div>
+          <span class="eyebrow"><i class="fas fa-calendar-days"></i> Time & Date Arithmetic</span>
+          <h1>Days Calculator – Date Difference & Working Days</h1>
+          <p>Compute the exact <strong>number of days, weeks, months, and years</strong> between two calendar dates. Filter for <strong>business working days</strong> or add/subtract time units forward and backward.</p>
         </div>
         <aside class="hero-panel">
-          <h2>Why Professionals Use It</h2>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Business Day Counting (Ignore Weekends)</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Inclusive or Exclusive Date Ranges</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Breakdown: Yrs, Months, Weeks & Days</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Add or Subtract any amount of time</div>
+          <h2>Precision Features</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Exact Calendar Day Difference</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Business Days Counter (Mon–Fri)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Add / Subtract Days, Weeks & Months</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Inclusive / Exclusive Boundary Options</div>
         </aside>
       </div>
     </section>
 
-    <section class="section" id="calcArea">
-      <div class="container calc-layout">
-        <div class="calculator-shell" id="calcShell">
-          <div class="mode-tabs">
-            <a href="#" class="active" id="tabDiff">Date Difference</a>
-            <a href="#" id="tabMath">Add / Subtract</a>
+    <div class="container" id="calculator">
+      <div class="calc-layout">
+        <article class="calculator-shell">
+          <!-- Mobile Sticky Summary Pill -->
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label" id="mobileSummaryLabel">Calculated Duration</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
           </div>
 
-          <div class="input-grid diff-mode">
-            <div class="field-card">
-              <div class="field-head"><label for="startDate">Start Date</label></div>
-              <input type="date" id="startDate">
+          <!-- Mode Navigation Pills -->
+          <div class="days-nav-wrap" aria-label="Select Mode">
+            <button type="button" class="mode-pill-btn active" data-mode="diff"><i class="fas fa-calendar-day"></i> Date Difference</button>
+            <button type="button" class="mode-pill-btn" data-mode="math"><i class="fas fa-calendar-plus"></i> Add / Subtract Time</button>
+          </div>
+
+          <!-- Hero Live Result Card -->
+          <div class="hero-result-card">
+            <div class="label-group">
+              <span class="res-eyebrow" id="heroEyebrow">Total Duration</span>
+              <div class="res-val" id="heroValue">-</div>
+              <div class="res-desc" id="heroDesc">-</div>
             </div>
-            <div class="field-card">
-              <div class="field-head"><label for="endDate">End Date</label></div>
-              <input type="date" id="endDate">
-            </div>
-            <div class="field-card span-2">
-              <div class="inline-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
-                <label class="checkbox-field">
-                  <input type="checkbox" id="includeEndDay"> Include end day (+1 day)
-                </label>
-                <label class="checkbox-field">
-                  <input type="checkbox" id="businessDaysOnly"> Business days only (Mon-Fri)
-                </label>
+            <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+
+          <!-- Panel 1: Date Difference Mode -->
+          <div class="days-panel active" id="panel_diff">
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="startDate">Start Date</label>
+                  <span id="startWeekdayLabel">-</span>
+                </div>
+                <input type="date" id="startDate" class="date-trigger">
+                <div class="chips-wrap">
+                  <button type="button" class="chip" id="btnStartToday">Today</button>
+                  <button type="button" class="chip" id="btnStartStartOfMonth">1st of Month</button>
+                  <button type="button" class="chip" id="btnStartStartOfYear">Jan 1</button>
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="endDate">End Date</label>
+                  <span id="endWeekdayLabel">-</span>
+                </div>
+                <input type="date" id="endDate" class="date-trigger">
+                <div class="chips-wrap">
+                  <button type="button" class="chip" id="btnEndPlus7">+7 Days</button>
+                  <button type="button" class="chip" id="btnEndPlus30">+30 Days</button>
+                  <button type="button" class="chip" id="btnEndPlus90">+90 Days</button>
+                  <button type="button" class="chip" id="btnEndEndOfMonth">End of Month</button>
+                  <button type="button" class="chip" id="btnEndEndOfYear">Dec 31</button>
+                </div>
               </div>
             </div>
+
+            <div class="options-row">
+              <label for="includeEndDay">
+                <input type="checkbox" id="includeEndDay"> Include End Date (+1 Day)
+              </label>
+              <label for="businessDaysOnly">
+                <input type="checkbox" id="businessDaysOnly"> Business Days Only (Mon–Fri)
+              </label>
+            </div>
           </div>
 
-          <div class="input-grid add-subtract-mode">
-            <div class="field-card span-2">
-              <div class="field-head"><label for="baseDate">Start Date</label></div>
-              <input type="date" id="baseDate">
+          <!-- Panel 2: Add / Subtract Mode -->
+          <div class="days-panel" id="panel_math">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="baseDate">Starting Date</label>
+                <span id="baseWeekdayLabel">-</span>
+              </div>
+              <input type="date" id="baseDate" class="date-trigger">
             </div>
-            <div class="field-card span-2">
-              <div class="field-head"><label>Operation</label></div>
+
+            <div class="field-card">
+              <div class="field-head">
+                <label for="mathOp">Operation</label>
+              </div>
               <select id="mathOp">
-                <option value="add">Add Time Units</option>
-                <option value="sub">Subtract Time Units</option>
+                <option value="add" selected>➕ Add to Date (Future)</option>
+                <option value="sub">➖ Subtract from Date (Past)</option>
               </select>
             </div>
-            <div class="field-card span-2">
-              <div class="unit-controls">
-                <div>
-                  <label style="font-size: 0.75rem; font-weight:700;">Years</label>
-                  <input type="number" id="numYears" value="0" min="0">
-                </div>
-                <div>
-                  <label style="font-size: 0.75rem; font-weight:700;">Months</label>
-                  <input type="number" id="numMonths" value="0" min="0">
-                </div>
-                <div>
-                  <label style="font-size: 0.75rem; font-weight:700;">Weeks</label>
-                  <input type="number" id="numWeeks" value="0" min="0">
-                </div>
-                <div>
-                  <label style="font-size: 0.75rem; font-weight:700;">Days</label>
-                  <input type="number" id="numDays" value="0" min="0">
-                </div>
+
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head"><label for="numYears">Years</label></div>
+                <input type="number" id="numYears" value="0" min="0" step="1">
               </div>
+              <div class="field-card">
+                <div class="field-head"><label for="numMonths">Months</label></div>
+                <input type="number" id="numMonths" value="0" min="0" step="1">
+              </div>
+              <div class="field-card">
+                <div class="field-head"><label for="numWeeks">Weeks</label></div>
+                <input type="number" id="numWeeks" value="0" min="0" step="1">
+              </div>
+              <div class="field-card">
+                <div class="field-head"><label for="numDays">Days</label></div>
+                <input type="number" id="numDays" value="30" min="0" step="1">
+              </div>
+            </div>
+
+            <div class="chips-wrap">
+              <button type="button" class="chip" data-days="7">+7 Days (1 Wk)</button>
+              <button type="button" class="chip" data-days="14">+14 Days (2 Wks)</button>
+              <button type="button" class="chip" data-days="30">+30 Days (1 Mo)</button>
+              <button type="button" class="chip" data-days="60">+60 Days (2 Mos)</button>
+              <button type="button" class="chip" data-days="90">+90 Days (Quarter)</button>
+              <button type="button" class="chip" data-days="180">+180 Days (Half Yr)</button>
+              <button type="button" class="chip" data-days="365">+365 Days (1 Yr)</button>
             </div>
           </div>
 
+          <!-- Result Grid -->
           <div class="result-grid">
-            <div class="result-card highlight span-2" id="primaryResultCard">
-              <h3 id="resTitle">Total Duration</h3>
-              <div class="result-value" id="resPrimary">-</div>
-              <div class="breakdown-row" id="resBreakdown">
-                <!-- Dynamic breakdown tokens -->
-              </div>
+            <div class="result-card highlight">
+              <h3 id="card1Label">Total Days</h3>
+              <div class="result-value" id="card1Val">-</div>
             </div>
-            <div class="result-card diff-mode">
-              <h3>Alternative Units</h3>
-              <div id="altUnits" style="font-size: 0.9rem; color: var(--text-soft);">
-                <!-- Minutes, Hours labels -->
-              </div>
+            <div class="result-card positive">
+              <h3 id="card2Label">Working Days (Mon-Fri)</h3>
+              <div class="result-value" id="card2Val">-</div>
             </div>
-            <div class="result-card diff-mode">
-              <h3>Distribution</h3>
-              <div id="daySplit" style="font-size: 0.9rem; color: var(--text-soft);">
-                <!-- Weekdays/Weekends -->
-              </div>
+            <div class="result-card">
+              <h3 id="card3Label">Weekend Days</h3>
+              <div class="result-value" id="card3Val">-</div>
             </div>
-            <div class="result-card add-subtract-mode span-2">
-              <h3>Target Date Day</h3>
-              <div class="result-value" id="resTargetDay" style="color: var(--accent);">Monday</div>
+            <div class="result-card">
+              <h3 id="card4Label">Weeks & Days</h3>
+              <div class="result-value" id="card4Val">-</div>
+            </div>
+            <div class="result-card">
+              <h3 id="card5Label">Total Hours</h3>
+              <div class="result-value" id="card5Val">-</div>
+            </div>
+            <div class="result-card">
+              <h3 id="card6Label">Total Minutes</h3>
+              <div class="result-value" id="card6Val">-</div>
+            </div>
+          </div>
+
+          <!-- Visual Timeline Split -->
+          <div class="visual-timeline-card" id="timelineSection">
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; font-weight:700;">
+              <span><i class="fas fa-chart-pie" style="color:var(--ic-primary);"></i> Working Days vs Weekends</span>
+              <span id="timelineRatioText" style="color:var(--ic-primary-dark);">-</span>
+            </div>
+            <div class="timeline-bar-wrap">
+              <div class="timeline-bar-work" id="barWork" style="width: 70%;"></div>
+              <div class="timeline-bar-weekend" id="barWeekend" style="width: 30%;"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:0.78rem; color:var(--ic-text-muted); margin-top:0.4rem;">
+              <span><i class="fas fa-square" style="color:#007f8b;"></i> Business Days</span>
+              <span><i class="fas fa-square" style="color:#f59e0b;"></i> Weekends</span>
             </div>
           </div>
 
           <div class="calculator-actions">
-            <button class="btn btn-primary" id="btnCalc"><i class="fas fa-rotate"></i> Recalculate</button>
-            <button class="btn btn-ghost" id="btnReset"><i class="fas fa-undo"></i> Reset</button>
+            <button class="btn btn-primary" id="copyResultBtn" type="button"><i class="fas fa-copy"></i> Copy Duration Summary</button>
+            <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset Defaults</button>
           </div>
-        </div>
+        </article>
 
-        <aside class="sidebar-head">
+        <aside class="sidebar">
           <div class="sidebar-card">
-            <h3 style="font-family: 'Sora', sans-serif; font-size: 1.1rem; margin-bottom: 0.5rem;">Quick Tools</h3>
+            <h3>Recent Calculations</h3>
+            <div id="calcLog" class="link-list">
+              <div style="font-size: 0.85rem; color: var(--ic-text-muted); text-align: center; padding: 1rem;">No history logged.</div>
+            </div>
+            <button class="btn btn-ghost" style="width:100%; font-size:0.8rem; min-height:36px; margin-top:0.5rem;" id="clearLog" type="button">Clear History</button>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Related Duration Tools</h3>
             <ul class="link-list">
               <li><a href="agecalculator.html"><span>Age Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="hourcalculator.html"><span>Hour Calculator</span> <i class="fas fa-chevron-right"></i></a>
-              </li>
-              <li><a href="timedurationcalculator.html"><span>Duration Calculator</span> <i
-                    class="fas fa-chevron-right"></i></a></li>
-              <li><a href="timezonecalculator.html"><span>Timezone Tool</span> <i class="fas fa-chevron-right"></i></a>
-              </li>
+              <li><a href="hourcalculator.html"><span>Hour Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="timedurationcalculator.html"><span>Duration Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="weekcalculator.html"><span>Week Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
             </ul>
           </div>
-          <div class="feature-card" style="margin-top: 1rem; padding: 1rem;">
-            <h3 style="font-family: 'Sora', sans-serif; font-size: 1.1rem; margin-bottom: 0.5rem;">Pro Tips</h3>
-            <p style="font-size: 0.88rem; color: var(--text-soft);">Enable <strong>Business Days Only</strong> to
-              calculate project deadlines excluding Saturdays and Sundays.</p>
-          </div>
         </aside>
+      </div>
+    </div>
+
+    <!-- Educational & FAQ Section -->
+    <section class="section">
+      <div class="container content-card">
+        <h2 style="font-family: 'Sora', sans-serif; font-size: clamp(1.4rem, 3vw, 1.85rem); margin-bottom: 1rem; color: var(--ic-text);">
+          How Date & Day Difference Calculation Works
+        </h2>
+        <div class="input-grid">
+          <article>
+            <h3 style="font-family: 'Sora', sans-serif; margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--ic-primary-dark);">Calendar Days vs. Business Days</h3>
+            <p style="color: var(--ic-text-muted); font-size: 0.95rem; line-height: 1.6;">
+              Calendar days count every single 24-hour cycle between two points on the Gregorian calendar. Business days exclude Saturdays and Sundays, which is essential for legal court deadlines, payroll processing, and logistics tracking.
+            </p>
+          </article>
+          <article>
+            <h3 style="font-family: 'Sora', sans-serif; margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--ic-primary-dark);">Boundary Rules (Inclusive vs Exclusive)</h3>
+            <p style="color: var(--ic-text-muted); font-size: 0.95rem; line-height: 1.6;">
+              By mathematical default, date difference is exclusive of the final day (e.g., Oct 1 to Oct 2 is 1 day). Checking <strong>"Include End Date"</strong> counts both the start and finish days actively, yielding 2 days.
+            </p>
+          </article>
+        </div>
       </div>
     </section>
 
     <section class="section">
-      <div class="container calc-layout">
-        <article class="content-card">
-          <h2>Mastering Date Calculations</h2>
-          <p>Counting days might seem simple, but when leap years, different month lengths, and business hours come into
-            play, errors are common. This advanced tool removes the guesswork.</p>
-
-          <h3>Business Days vs Calendar Days</h3>
-          <p>By default, calendar days count every single day from start to finish. Business days (Commonly Mon-Fri) are
-            essential for HR systems, logistics, and legal deadlines.</p>
-
-          <h3>Date Arithmetic Explained</h3>
-          <p>Want to know where you'll be in exactly 100 days? Or what 6 months ago was? Use the <strong>Add /
-              Subtract</strong> tab to find target dates by shifting time forward or backward.</p>
-        </article>
-
+      <div class="container">
         <div class="faq-list">
-          <details class="faq-card">
-            <summary>How does "Include End Day" work? <i class="fas fa-chevron-down"></i></summary>
-            <p>Normally, calculators subtract one date from another. Feb 1 to Feb 2 is 1 day. If you check "Include End
-              Day", it counts both as active days, resulting in 2 days.</p>
+          <details class="faq-card" open>
+            <summary>How many working days are in a typical year? <i class="fas fa-chevron-down"></i></summary>
+            <p>A standard 365-day year has 52 weeks plus 1 day (or 2 days in a leap year). This typically results in <strong>260 to 262 working days (Mon–Fri)</strong> and 104 weekend days, before factoring in public holidays.</p>
           </details>
           <details class="faq-card">
-            <summary>Are leap years supported? <i class="fas fa-chevron-down"></i></summary>
-            <p>Yes. Our logic uses the JavaScript Date object which fully supports Gregorian leap year rules (like 2024
-              or 2028).</p>
-          </details>
-          <details class="faq-card">
-            <summary>Can I calculate work days? <i class="fas fa-chevron-down"></i></summary>
-            <p>Absolutely. Toggle "Business Days Only" to automatically filter out all Saturdays and Sundays from your
-              result.</p>
+            <summary>How does leap year calculation work? <i class="fas fa-chevron-down"></i></summary>
+            <p>Our days calculator automatically accounts for February 29 in leap years (such as 2024, 2028, and 2032) across both past and future date queries.</p>
           </details>
         </div>
       </div>
@@ -823,193 +740,375 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© 2026 InstaCalc.in — Fast, accurate time and duration tools.</p>
+      <p>© 2026 InstaCalc.in — Precision Time & Calendar Engineering Tools.</p>
       <div class="footer-links">
         <a href="../index.html">Home</a>
         <a href="../aboutus.html">About Us</a>
-        <a href="../contactus.html">Contact Us</a>
         <a href="../privacypolicy.html">Privacy Policy</a>
       </div>
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/js/all.min.js"></script>
   <script>
     (function () {
-      const els = {
-        menuToggle: document.getElementById('menuToggle'),
-        mainNav: document.getElementById('mainNav'),
-        calcShell: document.getElementById('calcShell'),
-        tabDiff: document.getElementById('tabDiff'),
-        tabMath: document.getElementById('tabMath'),
-        startDate: document.getElementById('startDate'),
-        endDate: document.getElementById('endDate'),
-        includeEndDay: document.getElementById('includeEndDay'),
-        businessDaysOnly: document.getElementById('businessDaysOnly'),
-        baseDate: document.getElementById('baseDate'),
-        mathOp: document.getElementById('mathOp'),
-        numYears: document.getElementById('numYears'),
-        numMonths: document.getElementById('numMonths'),
-        numWeeks: document.getElementById('numWeeks'),
-        numDays: document.getElementById('numDays'),
-        btnCalc: document.getElementById('btnCalc'),
-        btnReset: document.getElementById('btnReset'),
-        resTitle: document.getElementById('resTitle'),
-        resPrimary: document.getElementById('resPrimary'),
-        resBreakdown: document.getElementById('resBreakdown'),
-        altUnits: document.getElementById('altUnits'),
-        daySplit: document.getElementById('daySplit'),
-        resTargetDay: document.getElementById('resTargetDay')
-      };
+      const $ = id => document.getElementById(id);
+      let currentMode = 'diff';
+      let log = [];
+      let lastSummary = '';
 
-      // Set default dates
-      const now = new Date();
-      els.startDate.valueAsDate = now;
-      els.baseDate.valueAsDate = now;
-
-      const nextWeek = new Date();
-      nextWeek.setDate(now.getDate() + 7);
-      els.endDate.valueAsDate = nextWeek;
-
-      // Navigation
-      els.menuToggle.addEventListener('click', () => els.mainNav.classList.toggle('open'));
-
-      // Tab Switching
-      els.tabDiff.addEventListener('click', (e) => {
-        e.preventDefault();
-        els.tabDiff.classList.add('active');
-        els.tabMath.classList.remove('active');
-        els.calcShell.classList.remove('arithmetic-mode');
-        updateAll();
-      });
-
-      els.tabMath.addEventListener('click', (e) => {
-        e.preventDefault();
-        els.tabMath.classList.add('active');
-        els.tabDiff.classList.remove('active');
-        els.calcShell.classList.add('arithmetic-mode');
-        updateAll();
-      });
-
-      function updateAll() {
-        if (els.calcShell.classList.contains('arithmetic-mode')) {
-          calculateArithmetic();
-        } else {
-          calculateDifference();
-        }
+      function formatDateStr(d) {
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
       }
 
-      function calculateDifference() {
-        const start = new Date(els.startDate.value);
-        const end = new Date(els.endDate.value);
-        if (isNaN(start) || isNaN(end)) return;
+      function parseLocalDate(str) {
+        if (!str) return new Date();
+        const parts = str.split('-');
+        return new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+      }
 
-        els.resTitle.textContent = "Duration Between Dates";
+      function getWeekdayName(d) {
+        return d.toLocaleDateString(undefined, { weekday: 'long' });
+      }
 
-        let diffMs = end - start;
-        let isFuture = diffMs >= 0;
+      function getShortDateName(d) {
+        return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+
+      function initDates() {
+        const today = new Date();
+        $('startDate').value = formatDateStr(today);
+        $('baseDate').value = formatDateStr(today);
+
+        const nextWeek = new Date();
+        nextWeek.setDate(today.getDate() + 30);
+        $('endDate').value = formatDateStr(nextWeek);
+      }
+
+      function calculateDiff() {
+        const start = parseLocalDate($('startDate').value);
+        const end = parseLocalDate($('endDate').value);
+
+        $('startWeekdayLabel').textContent = getWeekdayName(start);
+        $('endWeekdayLabel').textContent = getWeekdayName(end);
+
+        let diffMs = end.getTime() - start.getTime();
+        const isPast = diffMs < 0;
         let absMs = Math.abs(diffMs);
-        let totalDays = Math.floor(absMs / (1000 * 60 * 60 * 24));
+        let totalDays = Math.round(absMs / (1000 * 60 * 60 * 24));
 
-        if (els.includeEndDay.checked) totalDays += 1;
+        const includeEnd = $('includeEndDay').checked;
+        if (includeEnd) totalDays += 1;
 
-        // Breakdown (Y, M, D)
-        let bY = 0, bM = 0, bD = 0;
-        let tempStart = new Date(isFuture ? start : end);
-        let tempEnd = new Date(isFuture ? end : start);
-
-        let d1 = tempStart.getDate();
-        let m1 = tempStart.getMonth();
-        let y1 = tempStart.getFullYear();
-        let d2 = tempEnd.getDate();
-        let m2 = tempEnd.getMonth();
-        let y2 = tempEnd.getFullYear();
-
-        bY = y2 - y1;
-        bM = m2 - m1;
-        bD = d2 - d1;
-
-        if (bD < 0) {
-          bM--;
-          let prevMonth = new Date(y2, m2, 0).getDate();
-          bD += prevMonth;
-        }
-        if (bM < 0) {
-          bY--;
-          bM += 12;
-        }
-
-        // Business Days Logic
+        // Working vs Weekend Days
         let workDays = 0, weekendDays = 0;
-        let curr = new Date(tempStart);
-        let limit = new Date(tempEnd);
-        if (els.includeEndDay.checked) limit.setDate(limit.getDate() + 1);
+        let curr = new Date(isPast ? end : start);
+        let limit = new Date(isPast ? start : end);
+
+        if (includeEnd) limit.setDate(limit.getDate() + 1);
 
         while (curr < limit) {
-          let day = curr.getDay();
-          if (day === 0 || day === 6) weekendDays++;
+          const dayOfWeek = curr.getDay();
+          if (dayOfWeek === 0 || dayOfWeek === 6) weekendDays++;
           else workDays++;
           curr.setDate(curr.getDate() + 1);
         }
 
-        const displayDays = els.businessDaysOnly.checked ? workDays : totalDays;
+        const bizOnly = $('businessDaysOnly').checked;
+        const displayDays = bizOnly ? workDays : totalDays;
+        const weeks = Math.floor(totalDays / 7);
+        const remDays = totalDays % 7;
 
-        els.resPrimary.textContent = displayDays + " Days";
+        // Years, Months, Days breakdown
+        let d1 = isPast ? end : start;
+        let d2 = isPast ? start : end;
+        let yDiff = d2.getFullYear() - d1.getFullYear();
+        let mDiff = d2.getMonth() - d1.getMonth();
+        let dayDiff = d2.getDate() - d1.getDate();
 
-        let breakdownHtml = `<div class="breakdown-item">${Math.floor(totalDays / 7)} Weeks</div>`;
-        if (bY > 0) breakdownHtml += `<div class="breakdown-item">${bY} Years</div>`;
-        if (bM > 0) breakdownHtml += `<div class="breakdown-item">${bM} Months</div>`;
+        if (dayDiff < 0) {
+          mDiff--;
+          const prevMonthDays = new Date(d2.getFullYear(), d2.getMonth(), 0).getDate();
+          dayDiff += prevMonthDays;
+        }
+        if (mDiff < 0) {
+          yDiff--;
+          mDiff += 12;
+        }
 
-        els.resBreakdown.innerHTML = breakdownHtml;
+        let ymdStr = [];
+        if (yDiff > 0) ymdStr.push(`${yDiff} Yr${yDiff > 1 ? 's' : ''}`);
+        if (mDiff > 0) ymdStr.push(`${mDiff} Mo${mDiff > 1 ? 's' : ''}`);
+        if (dayDiff > 0) ymdStr.push(`${dayDiff} Day${dayDiff > 1 ? 's' : ''}`);
 
-        els.altUnits.innerHTML = `
-          <div>~ ${totalDays * 24} Hours</div>
-          <div>~ ${(totalDays * 24 * 60).toLocaleString()} Minutes</div>
-        `;
+        const ymdText = ymdStr.length > 0 ? ymdStr.join(', ') : '0 Days';
 
-        els.daySplit.innerHTML = `
-          <div>Work Days: ${workDays}</div>
-          <div>Weekends: ${weekendDays}</div>
-        `;
+        // Update UI
+        $('heroEyebrow').textContent = bizOnly ? 'Total Working Business Days' : 'Total Duration Between Dates';
+        $('heroValue').textContent = `${displayDays} Days`;
+        $('heroDesc').textContent = `${getShortDateName(start)} (${getWeekdayName(start)}) → ${getShortDateName(end)} (${getWeekdayName(end)}) • ${ymdText} (${weeks} wks, ${remDays} days)`;
+
+        if ($('mobileSummaryVal')) {
+          $('mobileSummaryVal').textContent = `${displayDays} Days (${weeks} wks)`;
+        }
+
+        $('card1Label').textContent = 'Total Calendar Days';
+        $('card1Val').textContent = `${totalDays} Days`;
+
+        $('card2Label').textContent = 'Working Days (Mon-Fri)';
+        $('card2Val').textContent = `${workDays} Days`;
+
+        $('card3Label').textContent = 'Weekend Days (Sat-Sun)';
+        $('card3Val').textContent = `${weekendDays} Days`;
+
+        $('card4Label').textContent = 'Weeks & Days';
+        $('card4Val').textContent = `${weeks} Wks, ${remDays} D`;
+
+        $('card5Label').textContent = 'Total Hours';
+        $('card5Val').textContent = `${(totalDays * 24).toLocaleString()} Hrs`;
+
+        $('card6Label').textContent = 'Total Minutes';
+        $('card6Val').textContent = `${(totalDays * 24 * 60).toLocaleString()} Min`;
+
+        // Timeline Bar
+        $('timelineSection').style.display = 'block';
+        const workPct = totalDays > 0 ? Math.round((workDays / totalDays) * 100) : 0;
+        const weekendPct = 100 - workPct;
+        $('barWork').style.width = `${workPct}%`;
+        $('barWeekend').style.width = `${weekendPct}%`;
+        $('timelineRatioText').textContent = `${workDays} Work (${workPct}%) : ${weekendDays} Wknd (${weekendPct}%)`;
+
+        lastSummary = `Date Difference:\nStart: ${getShortDateName(start)} (${getWeekdayName(start)})\nEnd: ${getShortDateName(end)} (${getWeekdayName(end)})\nTotal Days: ${totalDays} Days (${ymdText})\nWorking Days: ${workDays} Days | Weekends: ${weekendDays} Days`;
       }
 
-      function calculateArithmetic() {
-        const base = new Date(els.baseDate.value);
-        if (isNaN(base)) return;
+      function calculateMath() {
+        const base = parseLocalDate($('baseDate').value);
+        $('baseWeekdayLabel').textContent = getWeekdayName(base);
 
-        els.resTitle.textContent = "Calculated Target Date";
+        const op = $('mathOp').value === 'add' ? 1 : -1;
+        const y = parseInt($('numYears').value, 10) || 0;
+        const m = parseInt($('numMonths').value, 10) || 0;
+        const w = parseInt($('numWeeks').value, 10) || 0;
+        const d = parseInt($('numDays').value, 10) || 0;
 
-        const op = els.mathOp.value === 'add' ? 1 : -1;
-        const target = new Date(base);
+        const target = new Date(base.getTime());
+        target.setFullYear(target.getFullYear() + (y * op));
+        target.setMonth(target.getMonth() + (m * op));
+        target.setDate(target.getDate() + ((w * 7 + d) * op));
 
-        target.setFullYear(target.getFullYear() + (parseInt(els.numYears.value) || 0) * op);
-        target.setMonth(target.getMonth() + (parseInt(els.numMonths.value) || 0) * op);
+        const diffDays = Math.round(Math.abs(target.getTime() - base.getTime()) / (1000 * 60 * 60 * 24));
 
-        let extraDays = (parseInt(els.numWeeks.value) || 0) * 7 + (parseInt(els.numDays.value) || 0);
-        target.setDate(target.getDate() + extraDays * op);
+        $('heroEyebrow').textContent = op > 0 ? 'Calculated Future Target Date' : 'Calculated Past Target Date';
+        $('heroValue').textContent = getShortDateName(target);
+        $('heroDesc').textContent = `${getWeekdayName(target)} • Shifted by ${diffDays} days from ${getShortDateName(base)}`;
 
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        els.resPrimary.textContent = target.toLocaleDateString(undefined, options);
-        els.resTargetDay.textContent = target.toLocaleDateString(undefined, { weekday: 'long' });
-        els.resBreakdown.innerHTML = `<div class="breakdown-item">${op > 0 ? 'Future' : 'Past'} Event</div>`;
+        if ($('mobileSummaryVal')) {
+          $('mobileSummaryVal').textContent = `${getShortDateName(target)} (${getWeekdayName(target)})`;
+        }
+
+        $('card1Label').textContent = 'Target Day of Week';
+        $('card1Val').textContent = getWeekdayName(target);
+
+        $('card2Label').textContent = 'Total Days Shifted';
+        $('card2Val').textContent = `${diffDays} Days`;
+
+        $('card3Label').textContent = 'Total Weeks';
+        $('card3Val').textContent = `${(diffDays / 7).toFixed(1)} Weeks`;
+
+        $('card4Label').textContent = 'Total Hours';
+        $('card4Val').textContent = `${(diffDays * 24).toLocaleString()} Hrs`;
+
+        $('card5Label').textContent = 'Day of Year';
+        const startOfYear = new Date(target.getFullYear(), 0, 1);
+        const dayOfYear = Math.ceil((target - startOfYear) / (1000 * 60 * 60 * 24)) + 1;
+        $('card5Val').textContent = `Day ${dayOfYear}`;
+
+        $('card6Label').textContent = 'Leap Year?';
+        const isLeap = new Date(target.getFullYear(), 1, 29).getDate() === 29;
+        $('card6Val').textContent = isLeap ? 'Yes (366 D)' : 'No (365 D)';
+
+        $('timelineSection').style.display = 'none';
+
+        lastSummary = `Date Arithmetic:\nBase Date: ${getShortDateName(base)} (${getWeekdayName(base)})\nOperation: ${op > 0 ? 'Add' : 'Subtract'} ${y}Y ${m}M ${w}W ${d}D\nResult Date: ${getShortDateName(target)} (${getWeekdayName(target)})`;
       }
 
-      // Event listeners for real-time feel
-      [els.startDate, els.endDate, els.includeEndDay, els.businessDaysOnly,
-      els.baseDate, els.numYears, els.numMonths, els.numWeeks, els.numDays, els.mathOp]
-        .forEach(el => el.addEventListener('input', updateAll));
+      function calculate() {
+        if (currentMode === 'diff') calculateDiff();
+        else calculateMath();
+      }
 
-      els.btnReset.addEventListener('click', () => {
-        els.numYears.value = 0;
-        els.numMonths.value = 0;
-        els.numWeeks.value = 0;
-        els.numDays.value = 0;
-        els.startDate.valueAsDate = now;
-        els.baseDate.valueAsDate = now;
-        updateAll();
-      });
+      function syncUI() {
+        document.querySelectorAll('.mode-pill-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.mode-pill-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentMode = btn.dataset.mode;
+            document.querySelectorAll('.days-panel').forEach(p => p.classList.remove('active'));
+            const activePanel = $(`panel_${currentMode}`);
+            if (activePanel) activePanel.classList.add('active');
+            calculate();
+          });
+        });
 
-      updateAll();
+        // Quick Preset Chips for Date Difference
+        $('btnStartToday')?.addEventListener('click', () => {
+          $('startDate').value = formatDateStr(new Date());
+          calculate();
+        });
+
+        $('btnStartStartOfMonth')?.addEventListener('click', () => {
+          const d = parseLocalDate($('startDate').value);
+          d.setDate(1);
+          $('startDate').value = formatDateStr(d);
+          calculate();
+        });
+
+        $('btnStartStartOfYear')?.addEventListener('click', () => {
+          const d = parseLocalDate($('startDate').value);
+          d.setMonth(0, 1);
+          $('startDate').value = formatDateStr(d);
+          calculate();
+        });
+
+        $('btnEndPlus7')?.addEventListener('click', () => {
+          const d = parseLocalDate($('startDate').value);
+          d.setDate(d.getDate() + 7);
+          $('endDate').value = formatDateStr(d);
+          calculate();
+        });
+
+        $('btnEndPlus30')?.addEventListener('click', () => {
+          const d = parseLocalDate($('startDate').value);
+          d.setDate(d.getDate() + 30);
+          $('endDate').value = formatDateStr(d);
+          calculate();
+        });
+
+        $('btnEndPlus90')?.addEventListener('click', () => {
+          const d = parseLocalDate($('startDate').value);
+          d.setDate(d.getDate() + 90);
+          $('endDate').value = formatDateStr(d);
+          calculate();
+        });
+
+        $('btnEndEndOfMonth')?.addEventListener('click', () => {
+          const d = parseLocalDate($('startDate').value);
+          const endOfMonth = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+          $('endDate').value = formatDateStr(endOfMonth);
+          calculate();
+        });
+
+        $('btnEndEndOfYear')?.addEventListener('click', () => {
+          const d = parseLocalDate($('startDate').value);
+          const endOfYear = new Date(d.getFullYear(), 11, 31);
+          $('endDate').value = formatDateStr(endOfYear);
+          calculate();
+        });
+
+        // Quick chips for Add/Subtract
+        document.querySelectorAll('#panel_math .chip').forEach(btn => {
+          btn.addEventListener('click', function () {
+            const days = parseInt(this.dataset.days, 10) || 0;
+            $('numYears').value = 0;
+            $('numMonths').value = 0;
+            $('numWeeks').value = 0;
+            $('numDays').value = days;
+            calculate();
+          });
+        });
+
+        // Input triggers
+        document.querySelectorAll('.date-trigger, #includeEndDay, #businessDaysOnly, #mathOp, #numYears, #numMonths, #numWeeks, #numDays')
+          .forEach(el => el.addEventListener('input', calculate));
+
+        function copySummary(btn) {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(lastSummary).then(() => {
+              const orig = btn.innerHTML;
+              btn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+              setTimeout(() => btn.innerHTML = orig, 1800);
+              saveToLog();
+            });
+          }
+        }
+
+        $('copyResultBtn')?.addEventListener('click', function () { copySummary(this); });
+        $('copyHeroBtn')?.addEventListener('click', function () { copySummary(this); });
+
+        $('resetBtn')?.addEventListener('click', () => {
+          initDates();
+          $('includeEndDay').checked = false;
+          $('businessDaysOnly').checked = false;
+          $('mathOp').value = 'add';
+          $('numYears').value = 0;
+          $('numMonths').value = 0;
+          $('numWeeks').value = 0;
+          $('numDays').value = 30;
+          calculate();
+        });
+
+        $('clearLog')?.addEventListener('click', () => {
+          log = [];
+          localStorage.removeItem('days_log');
+          renderLog();
+        });
+      }
+
+      function saveToLog() {
+        const entry = {
+          mode: currentMode.toUpperCase(),
+          val: $('heroValue').textContent,
+          desc: $('heroDesc').textContent,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        log.unshift(entry);
+        if (log.length > 5) log.pop();
+        localStorage.setItem('days_log', JSON.stringify(log));
+        renderLog();
+      }
+
+      function renderLog() {
+        const wrap = $('calcLog');
+        if (!wrap) return;
+        if (log.length === 0) {
+          wrap.innerHTML = '<div style="font-size: 0.85rem; color: var(--ic-text-muted); text-align: center; padding: 1rem;">No history logged.</div>';
+          return;
+        }
+        wrap.innerHTML = log.map(e => `
+          <div style="border: 1px solid var(--ic-border); padding: 0.65rem; border-radius: var(--ic-radius-sm); background: #fff; display:grid; gap:0.2rem;">
+            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:0.8rem; color:var(--ic-primary-dark);">
+              <span>${e.mode}</span>
+              <span style="opacity:0.6;">${e.time}</span>
+            </div>
+            <div style="font-size: 0.95rem; font-weight:800; color:var(--ic-text);">${e.val}</div>
+            <div style="font-size: 0.8rem; color:var(--ic-text-muted);">${e.desc}</div>
+          </div>
+        `).join('');
+      }
+
+      function setupGlobal() {
+        const menuBtn = $('menuToggle');
+        const nav = $('mainNav');
+        if (menuBtn && nav) {
+          menuBtn.addEventListener('click', () => {
+            const isOpen = nav.classList.toggle('open');
+            menuBtn.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+          });
+        }
+
+        const saved = localStorage.getItem('days_log');
+        if (saved) {
+          try { log = JSON.parse(saved); } catch (e) { }
+        }
+      }
+
+      initDates();
+      setupGlobal();
+      syncUI();
+      renderLog();
+      calculate();
     })();
   </script>
 </body>

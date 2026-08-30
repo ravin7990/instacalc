@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Time Duration Calculator | Date & Time Difference Tool</title>
+  <title>Time Duration Calculator – Calculate Exact Time Elapsed & Time Arithmetic</title>
   <meta name="description"
-    content="Calculate the exact time duration between two points in time. Get results in years, months, days, hours, and minutes. Includes advanced date arithmetic to add or subtract time units.">
+    content="Free online Time Duration Calculator to calculate exact days, hours, minutes, and seconds between two timestamps or sum multiple time intervals.">
   <meta name="keywords"
-    content="time duration calculator, duration between dates, time difference calculator, add time to date, subtract time from date, duration counter">
+    content="time duration calculator, duration calculator, elapsed time calculator, calculate duration, time interval calculator, add time duration">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#005f73">
@@ -17,437 +17,76 @@
   <link rel="icon" type="image/x-icon" href="../favicon.webp">
   <link rel="canonical" href="https://instacalc.in/duration/timedurationcalculator.html">
 
+  <meta property="og:title" content="Time Duration Calculator - Exact Elapsed Time Between Timestamps">
+  <meta property="og:description"
+    content="Calculate exact days, hours, minutes, and seconds between timestamps or add time intervals easily.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/duration/timedurationcalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+
   <style>
-    :root {
-      --bg: #f2f6f8;
-      --text: #132a3b;
-      --text-soft: #334d60;
-      --accent: #2196F3;
-      --accent-strong: #005f73;
-      --accent-2: #ee9f2e;
-      --line: #d3e1ea;
-      --line-strong: #bfd2dd;
-      --card: #ffffff;
-      --success: #1f9f67;
-      --warn: #d8891d;
-      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
-      --radius-xl: 26px;
-      --radius-lg: 20px;
-      --radius-md: 15px;
-      --radius-sm: 11px;
-    }
+    * { box-sizing: border-box; }
+    .container { width: min(1240px, 92vw); margin: 0 auto; padding: 0 0.5rem; }
+    .calc-layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem; gap: 1.75rem; align-items: start; width: 100%; }
+    .calculator-shell { background: #ffffff; border: 1px solid var(--ic-border); border-radius: var(--ic-radius-lg); box-shadow: var(--ic-shadow-md); padding: 1.75rem; width: 100%; max-width: 100%; overflow: hidden; }
+    
+    .nav-pills-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; padding-bottom: 0.85rem; border-bottom: 1px solid var(--ic-border); width: 100%; }
+    .mode-pill-btn { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.5rem 0.85rem; font-size: 0.84rem; font-weight: 700; border-radius: var(--ic-radius-full); border: 1px solid var(--ic-border); background: #ffffff; color: var(--ic-text-muted); cursor: pointer; transition: all 0.2s ease; white-space: nowrap; }
+    .mode-pill-btn:hover { border-color: var(--ic-primary); color: var(--ic-primary-dark); background: var(--ic-bg-subtle); }
+    .mode-pill-btn.active { background: linear-gradient(135deg, var(--ic-primary-dark), var(--ic-primary)); color: #ffffff; border-color: var(--ic-primary-dark); box-shadow: 0 3px 8px rgba(0, 127, 139, 0.25); }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    .hero-result-card { background: linear-gradient(135deg, #f0fdfa 0%, #e6f7f6 100%); border: 1px solid rgba(0, 127, 139, 0.25); border-radius: var(--ic-radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; width: 100%; position: relative; }
+    .hero-result-card .label-group { display: grid; gap: 0.25rem; width: 100%; min-width: 0; }
+    .hero-result-card .res-eyebrow { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ic-primary-dark); }
+    .hero-result-card .res-val { font-family: 'Sora', sans-serif; font-size: clamp(1.45rem, 4vw, 2.2rem); font-weight: 800; color: var(--ic-primary-dark); line-height: 1.2; word-break: break-word; }
+    .hero-result-card .res-desc { font-size: 0.85rem; color: var(--ic-text-muted); word-break: break-word; }
+    .hero-result-card .quick-copy-btn { width: 42px; height: 42px; border-radius: 12px; border: 1px solid rgba(0, 127, 139, 0.25); background: #ffffff; color: var(--ic-primary-dark); font-size: 1.05rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0; }
+    .hero-result-card .quick-copy-btn:hover { background: var(--ic-primary-dark); color: #ffffff; transform: translateY(-2px); }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    .field-card { background: var(--ic-bg-subtle); border: 1px solid var(--ic-border); border-radius: var(--ic-radius-md); padding: 1rem; margin-bottom: 0.85rem; width: 100%; }
+    .field-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; font-weight: 700; font-size: 0.92rem; gap: 0.5rem; }
+    .field-head span { color: var(--ic-primary-dark); font-family: 'Sora', sans-serif; font-size: 0.95rem; }
+    .field-card input, .field-card select { width: 100%; height: 48px; padding: 0.65rem 1rem; font-size: 1.05rem; font-weight: 700; color: var(--ic-text); background: #ffffff; border: 1.5px solid var(--ic-border); border-radius: var(--ic-radius-md); outline: none; transition: all 0.2s ease; }
+    .field-card input:focus, .field-card select:focus { border-color: var(--ic-primary); box-shadow: 0 0 0 3.5px var(--ic-primary-light); }
 
-    body {
-      min-height: 100vh;
-      font-family: "Public Sans", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
-        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
-        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    .chips-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; width: 100%; }
+    .chip { padding: 0.35rem 0.75rem; font-size: 0.82rem; font-weight: 700; border-radius: 999px; border: 1px solid var(--ic-border); background: #ffffff; color: var(--ic-text-muted); cursor: pointer; white-space: nowrap; transition: all 0.15s ease; }
+    .chip:hover, .chip.active { color: var(--ic-primary-dark); background: var(--ic-primary-light); border-color: var(--ic-primary); }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.22;
-      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
-      background-size: 100% 36px;
-    }
+    .inline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; }
+    .tool-panel { display: none; }
+    .tool-panel.active { display: block; }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+    .result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 0.75rem; margin-top: 1.25rem; width: 100%; }
+    .result-card { background: #ffffff; border: 1px solid var(--ic-border); border-radius: var(--ic-radius-md); padding: 0.85rem; min-width: 0; overflow: hidden; }
+    .result-card h3 { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ic-text-muted); font-weight: 700; margin-bottom: 0.25rem; }
+    .result-value { font-family: 'Sora', sans-serif; font-size: clamp(1.1rem, 3.5vw, 1.35rem); font-weight: 800; color: var(--ic-text); word-break: break-word; }
+    .result-card.highlight { background: #f8fafc; border-color: rgba(0, 127, 139, 0.3); }
+    .result-card.highlight .result-value { color: var(--ic-primary-dark); }
+    .result-card.positive .result-value { color: #1f9f67; }
 
-    .container {
-      width: min(1180px, 92vw);
-      margin: 0 auto;
-    }
+    .calculator-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; width: 100%; }
 
-    .section {
-      padding: 3.2rem 0;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.32rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: rgba(255, 255, 255, 0.74);
-      color: var(--accent-strong);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      font-size: 0.78rem;
-    }
-
-    .section-head {
-      max-width: 720px;
-      margin-bottom: 1.25rem;
-    }
-
-    .section-head h1 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin: 0.45rem 0 0.7rem;
-    }
-
-    .section-head p {
-      color: var(--text-soft);
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 55;
-      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
-      background: rgba(242, 246, 248, 0.92);
-      backdrop-filter: blur(10px);
-    }
-
-    .header-inner {
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.8rem;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: "Sora", sans-serif;
-      font-weight: 700;
-      color: var(--accent-strong);
-    }
-
-    .brand img {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 2px solid rgba(0, 95, 115, 0.15);
-      background: #ffffff;
-    }
-
-    .menu-toggle {
-      width: 42px;
-      height: 42px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      border-radius: 12px;
-      background: #ffffff;
-      color: var(--accent-strong);
-      cursor: pointer;
-    }
-
-    .site-nav {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 4vw;
-      right: 4vw;
-      display: none;
-      flex-direction: column;
-      gap: 0.4rem;
-      padding: 0.7rem;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: #ffffff;
-      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
-    }
-
-    .site-nav.open {
-      display: flex;
-    }
-
-    .site-nav a {
-      min-height: 40px;
-      padding: 0.45rem 0.8rem;
-      border-radius: 10px;
-      font-weight: 600;
-      color: var(--text-soft);
-      transition: background-color 0.25s ease, color 0.25s ease;
-    }
-
-    .site-nav a:hover,
-    .site-nav a.active {
-      color: var(--accent-strong);
-      background: rgba(0, 127, 139, 0.12);
-    }
-
-    .hero {
-      padding: 3.3rem 0 2.4rem;
-    }
-
-    .hero-grid {
-      display: grid;
-      gap: 1.1rem;
-    }
-
-    .hero-copy {
-      border: 1px solid rgba(0, 95, 115, 0.16);
-      border-radius: var(--radius-xl);
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
-      box-shadow: var(--shadow);
-      padding: 1.35rem;
-    }
-
-    .hero-copy h1 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(2rem, 5vw, 3.05rem);
-      line-height: 1.08;
-      margin-top: 0.9rem;
-    }
-
-    .hero-copy p {
-      margin-top: 0.95rem;
-      color: var(--text-soft);
-    }
-
-    .hero-panel {
-      border-radius: var(--radius-xl);
-      padding: 1.15rem;
-      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
-      color: #f8fcff;
-      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
-      display: grid;
-      gap: 0.6rem;
-      align-content: start;
-    }
-
-    .hero-point {
-      border-radius: 11px;
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      background: rgba(255, 255, 255, 0.11);
-      padding: 0.63rem 0.72rem;
-      font-size: 0.93rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.46rem;
-    }
-
-    .calc-layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.95rem;
-    }
-
-    .calculator-shell,
-    .content-card,
-    .faq-card,
-    .sidebar-card {
-      border: 1px solid rgba(0, 95, 115, 0.15);
-      background: rgba(255, 255, 255, 0.89);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
-      padding: 1rem;
-    }
-
-    .calculator-shell {
-      display: grid;
-      gap: 0.95rem;
-    }
-
-    .mode-tabs {
-      display: inline-flex;
-      border: 1px solid rgba(0, 127, 139, 0.22);
-      border-radius: 14px;
-      padding: 0.3rem;
-      background: #ffffff;
-      width: 100%;
-      max-width: 420px;
-      gap: 0.25rem;
-    }
-
-    .mode-tabs a {
-      flex: 1;
-      min-height: 40px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      font-weight: 700;
-      color: var(--text-soft);
-      font-size: 0.9rem;
-    }
-
-    .mode-tabs a.active {
-      color: #ffffff;
-      background: linear-gradient(110deg, var(--accent), #1E88E5);
-    }
-
-    .input-grid {
-      display: grid;
-      gap: 0.7rem;
-    }
-
-    .field-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.85rem;
-    }
-
-    .field-head label {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    input[type="datetime-local"],
-    input[type="number"],
-    select {
-      width: 100%;
-      min-height: 44px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 0.55rem 0.75rem;
-      font: inherit;
-    }
-
-    .result-grid {
-      display: grid;
-      gap: 0.62rem;
-    }
-
-    .result-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.85rem;
-    }
-
-    .result-card h3 {
-      color: var(--text-soft);
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      margin-bottom: 0.25rem;
-    }
-
-    .result-value {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
-      color: var(--text);
-    }
-
-    .result-card.highlight {
-      background: rgba(31, 159, 103, 0.08);
-      border-color: rgba(31, 159, 103, 0.26);
-    }
-
-    .breakdown-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-
-    .breakdown-item {
-      padding: 0.25rem 0.6rem;
-      background: var(--bg);
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--accent-strong);
-    }
-
-    .sidebar-card {
-      align-content: start;
-    }
-
-    .link-list {
-      list-style: none;
-      display: grid;
-      gap: 0.45rem;
-    }
-
-    .link-list a {
-      min-height: 44px;
-      padding: 0.48rem 0.72rem;
-      border-radius: 10px;
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      background: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    @media (min-width: 640px) {
-      .input-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .result-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .span-2 {
-        grid-column: span 2;
-      }
-    }
-
-    @media (min-width: 940px) {
-      .hero-grid {
-        grid-template-columns: 1.5fr 1fr;
-      }
-
-      .calc-layout {
-        grid-template-columns: 1.751fr 1fr;
-      }
-
-      .site-nav {
-        position: static;
-        display: flex;
-        flex-direction: row;
-        background: none;
-        border: none;
-        box-shadow: none;
-        padding: 0;
-      }
-
-      .menu-toggle {
-        display: none;
-      }
-    }
-
-    .arithmetic-mode-content {
-      display: none;
-    }
-
-    .calculator-shell.arithmetic-mode .diff-mode-content {
-      display: none;
-    }
-
-    .calculator-shell.arithmetic-mode .arithmetic-mode-content {
-      display: grid;
-    }
-
-    .unit-controls {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-      gap: 0.7rem;
+    @media (max-width: 640px) {
+      .calc-layout { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+      .calculator-shell { padding: 1rem 0.75rem !important; border-radius: var(--ic-radius-md) !important; }
+      .nav-pills-wrap { gap: 0.3rem !important; }
+      .mode-pill-btn { padding: 0.45rem 0.65rem !important; font-size: 0.78rem !important; }
+      .hero-result-card { padding: 1rem 0.85rem !important; flex-direction: column !important; align-items: flex-start !important; gap: 0.5rem !important; }
+      .hero-result-card .quick-copy-btn { position: absolute !important; top: 0.75rem !important; right: 0.75rem !important; width: 38px !important; height: 38px !important; }
+      .hero-result-card .res-val { font-size: clamp(1.35rem, 6.5vw, 1.85rem) !important; max-width: calc(100% - 44px) !important; }
+      .inline-grid { grid-template-columns: 1fr !important; gap: 0.5rem !important; }
+      .result-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.5rem !important; }
+      .calculator-actions { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 0.4rem !important; }
+      .calculator-actions .btn:first-child, .calculator-actions .btn-primary { grid-column: span 2 !important; }
     }
   </style>
 </head>
@@ -455,16 +94,17 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="../index.html" class="brand">
-        <img src="../logo.png" alt="InstaCalc">
+      <a href="../index.html" class="brand" aria-label="InstaCalc Home">
+        <img src="../logo.png" alt="InstaCalc Logo" width="38" height="38">
         <span>InstaCalc.in</span>
       </a>
-      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
       <nav class="site-nav" id="mainNav">
         <a href="../index.html">Home</a>
-        <a href="../aboutus.html">About Us</a>
-        <a href="../contactus.html">Contact Us</a>
-        <a href="../privacypolicy.html">Privacy Policy</a>
+        <a href="timedurationcalculator.html" class="active">Duration Tool</a>
+        <a href="hourcalculator.html">Hours Tool</a>
+        <a href="dayscalculator.html">Days Tool</a>
+        <a href="../sipcalculator.html">SIP Planner</a>
       </nav>
     </div>
   </header>
@@ -473,250 +113,424 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow"><i class="fas fa-hourglass-half"></i> Full Span</span>
-          <h1>Time Duration Calculator</h1>
-          <p>The most comprehensive tool to measure the distance between two points in time. Get granular breakdowns
-            down to the second spanning years, months, and days.</p>
-          <div class="hero-actions">
-            <a href="#calcArea" class="btn btn-primary"><i class="fas fa-play"></i> Start Calculating</a>
-          </div>
+          <span class="eyebrow"><i class="fas fa-hourglass-start"></i> High-Precision Time Tracking</span>
+          <h1>Time Duration Calculator – Elapsed Interval Analyzer</h1>
+          <p>Compute exact <strong>days, hours, minutes, and seconds</strong> between two timestamps or sum multiple time intervals with instant unit conversion.</p>
         </div>
         <aside class="hero-panel">
-          <h2>Why Use This Tool?</h2>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Spans Years, Months, Days & Time</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Add/Subtract granular time units</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Precision for projects & milestones</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Real-time result streaming</div>
+          <h2>Key Highlights</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> High-Precision Second Breakdown</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Multi-Day Timestamp Duration</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Total Hours, Minutes & Seconds</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Percentage of 24-Hour Day</div>
         </aside>
       </div>
     </section>
 
-    <section class="section" id="calcArea">
-      <div class="container calc-layout">
-        <div class="calculator-shell" id="calcShell">
-          <div class="mode-tabs">
-            <a href="#" class="active" id="tabDiff">Find Duration</a>
-            <a href="#" id="tabMath">Arithmetic</a>
+    <div class="container" id="calculator">
+      <div class="calc-layout">
+        <article class="calculator-shell">
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label" id="mobileSummaryLabel">Calculated Duration</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
           </div>
 
-          <div class="input-grid diff-mode-content">
-            <div class="field-card">
-              <div class="field-head"><label for="startTime">Start Date & Time</label></div>
-              <input type="datetime-local" id="startTime">
+          <div class="nav-pills-wrap" aria-label="Select Mode">
+            <button type="button" class="mode-pill-btn active" data-mode="diff"><i class="fas fa-arrows-left-right"></i> Between Timestamps</button>
+            <button type="button" class="mode-pill-btn" data-mode="add"><i class="fas fa-calculator"></i> Add / Subtract Intervals</button>
+          </div>
+
+          <div class="hero-result-card">
+            <div class="label-group">
+              <span class="res-eyebrow" id="heroEyebrow">Elapsed Time Duration</span>
+              <div class="res-val" id="heroValue">-</div>
+              <div class="res-desc" id="heroDesc">-</div>
             </div>
-            <div class="field-card">
-              <div class="field-head"><label for="endTime">End Date & Time</label></div>
-              <input type="datetime-local" id="endTime">
+            <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+
+          <!-- Panel 1: Between Timestamps -->
+          <div class="tool-panel active" id="panel_diff">
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="startDT">Start Date & Time</label>
+                  <span id="startDT_preview">-</span>
+                </div>
+                <input type="datetime-local" id="startDT">
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="endDT">End Date & Time</label>
+                  <span id="endDT_preview">-</span>
+                </div>
+                <input type="datetime-local" id="endDT">
+              </div>
+            </div>
+
+            <div class="chips-wrap">
+              <button type="button" class="chip" id="btnNow">Set Start = Now</button>
+              <button type="button" class="chip" id="btnPlus1H">+1 Hour</button>
+              <button type="button" class="chip" id="btnPlus4H">+4 Hours</button>
+              <button type="button" class="chip" id="btnPlus8H">+8 Hours</button>
+              <button type="button" class="chip" id="btnPlus24H">+24 Hours (1 Day)</button>
+              <button type="button" class="chip" id="btnPlus7D">+7 Days (1 Week)</button>
             </div>
           </div>
 
-          <div class="input-grid arithmetic-mode-content">
-            <div class="field-card span-2">
-              <div class="field-head"><label for="baseTime">Starting Date & Time</label></div>
-              <input type="datetime-local" id="baseTime">
-            </div>
-            <div class="field-card span-2">
-              <div class="unit-controls">
-                <div><label style="font-size:0.75rem; font-weight:700;">Years</label><input type="number" id="mY"
-                    value="0"></div>
-                <div><label style="font-size:0.75rem; font-weight:700;">Months</label><input type="number" id="mM"
-                    value="0"></div>
-                <div><label style="font-size:0.75rem; font-weight:700;">Days</label><input type="number" id="mD"
-                    value="0"></div>
-                <div><label style="font-size:0.75rem; font-weight:700;">Hours</label><input type="number" id="mH"
-                    value="0"></div>
+          <!-- Panel 2: Interval Adder -->
+          <div class="tool-panel" id="panel_add">
+            <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head"><label for="intDays">Days</label></div>
+                <input type="number" id="intDays" value="1" min="0" step="1">
+              </div>
+              <div class="field-card">
+                <div class="field-head"><label for="intHours">Hours</label></div>
+                <input type="number" id="intHours" value="6" min="0" step="1">
+              </div>
+              <div class="field-card">
+                <div class="field-head"><label for="intMins">Minutes</label></div>
+                <input type="number" id="intMins" value="30" min="0" step="1">
+              </div>
+              <div class="field-card">
+                <div class="field-head"><label for="intSecs">Seconds</label></div>
+                <input type="number" id="intSecs" value="0" min="0" step="1">
               </div>
             </div>
           </div>
 
           <div class="result-grid">
-            <div class="result-card highlight span-2">
-              <h3 id="resTitle">Total Duration</h3>
-              <div class="result-value" id="resPrimary">-</div>
-              <div class="breakdown-row" id="resBreakdown"></div>
+            <div class="result-card highlight">
+              <h3>Total Hours</h3>
+              <div class="result-value" id="cHours">-</div>
+            </div>
+            <div class="result-card positive">
+              <h3>Total Minutes</h3>
+              <div class="result-value" id="cMinutes">-</div>
             </div>
             <div class="result-card">
-              <h3>Alternative Breakdown</h3>
-              <div id="resAlt" style="font-size: 0.85rem; color: var(--text-soft);"></div>
+              <h3>Total Seconds</h3>
+              <div class="result-value" id="cSeconds">-</div>
             </div>
             <div class="result-card">
-              <h3>Total In Days</h3>
-              <div class="result-value" id="resDays" style="font-size: 1.2rem; color: var(--accent);">0 Days</div>
+              <h3>Decimal Days</h3>
+              <div class="result-value" id="cDays">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Total Weeks</h3>
+              <div class="result-value" id="cWeeks">-</div>
+            </div>
+            <div class="result-card">
+              <h3>24-Hour Share</h3>
+              <div class="result-value" id="cDayPct">-</div>
             </div>
           </div>
 
           <div class="calculator-actions">
-            <button class="btn btn-ghost" id="btnReset"><i class="fas fa-undo"></i> Reset Fields</button>
+            <button class="btn btn-primary" id="copyResultBtn" type="button"><i class="fas fa-copy"></i> Copy Duration Summary</button>
+            <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset Defaults</button>
           </div>
-        </div>
+        </article>
 
         <aside class="sidebar">
           <div class="sidebar-card">
-            <h3 style="font-family: Sora; font-size: 1.1rem; margin-bottom: 0.5rem;">Quick Navigation</h3>
+            <h3>Recent Estimates</h3>
+            <div id="calcLog" class="link-list">
+              <div style="font-size: 0.85rem; color: var(--ic-text-muted); text-align: center; padding: 1rem;">No history logged.</div>
+            </div>
+            <button class="btn btn-ghost" style="width:100%; font-size:0.8rem; min-height:36px; margin-top:0.5rem;" id="clearLog" type="button">Clear History</button>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Related Tools</h3>
             <ul class="link-list">
-              <li><a href="dayscalculator.html"><span>Days Only</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="hourcalculator.html"><span>Hours Only</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="agecalculator.html"><span>Age Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="hourcalculator.html"><span>Hours Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="dayscalculator.html"><span>Days Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="minutes-hourscalculator.html"><span>Min to Hours</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="timezonecalculator.html"><span>Timezone Tool</span> <i class="fas fa-chevron-right"></i></a></li>
             </ul>
           </div>
         </aside>
       </div>
-    </section>
+    </div>
 
     <section class="section">
-      <div class="container calc-layout">
-        <article class="content-card">
-          <h2>Precision Time Durations</h2>
-          <p>Traditional date subtraction fails when you need to know exactly how many months and days have passed
-            alongside hours and minutes. This tool uses a sophisticated calendar engine to give you the most accurate
-            "Natural Language" duration.</p>
-          <h3>How we calculate months</h3>
-          <p>Since months have different lengths (28, 29, 30, or 31 days), we calculate the duration by incrementing the
-            years and months sequentially, then filling in the remaining days and time units for maximum accuracy.</p>
-        </article>
+      <div class="container content-card">
+        <h2 style="font-family: 'Sora', sans-serif; font-size: clamp(1.4rem, 3vw, 1.85rem); margin-bottom: 1rem; color: var(--ic-text);">
+          How Time Duration Calculations Work
+        </h2>
+        <p style="color: var(--ic-text-muted); font-size: 0.95rem; line-height: 1.6;">
+          Time duration measures the exact elapsed continuous span between two coordinate timestamps on the Gregorian timeline. It factors in multi-day shifts, 60-second minutes, and 60-minute hours for precise countdowns, flight durations, and project timelines.
+        </p>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© 2026 InstaCalc.in — Fast, accurate time and duration tools.</p>
+      <p>© 2026 InstaCalc.in — Precision Time Duration Analytics.</p>
       <div class="footer-links">
         <a href="../index.html">Home</a>
         <a href="../aboutus.html">About Us</a>
-        <a href="../contactus.html">Contact Us</a>
         <a href="../privacypolicy.html">Privacy Policy</a>
       </div>
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/js/all.min.js"></script>
   <script>
     (function () {
-      const els = {
-        menuToggle: document.getElementById('menuToggle'),
-        mainNav: document.getElementById('mainNav'),
-        calcShell: document.getElementById('calcShell'),
-        tabDiff: document.getElementById('tabDiff'),
-        tabMath: document.getElementById('tabMath'),
-        startTime: document.getElementById('startTime'),
-        endTime: document.getElementById('endTime'),
-        baseTime: document.getElementById('baseTime'),
-        mY: document.getElementById('mY'),
-        mM: document.getElementById('mM'),
-        mD: document.getElementById('mD'),
-        mH: document.getElementById('mH'),
-        resTitle: document.getElementById('resTitle'),
-        resPrimary: document.getElementById('resPrimary'),
-        resBreakdown: document.getElementById('resBreakdown'),
-        resAlt: document.getElementById('resAlt'),
-        resDays: document.getElementById('resDays'),
-        btnReset: document.getElementById('btnReset')
-      };
+      const $ = id => document.getElementById(id);
+      let currentMode = 'diff';
+      let log = [];
+      let lastSummary = '';
 
-      const now = new Date();
-      els.startTime.value = now.toISOString().slice(0, 16);
-      els.baseTime.value = now.toISOString().slice(0, 16);
-      const later = new Date(now.getTime() + (2 * 24 * 60 * 60 * 1000) + (5 * 3600000));
-      els.endTime.value = later.toISOString().slice(0, 16);
+      function pad(n) { return String(n).padStart(2, '0'); }
 
-      els.menuToggle.addEventListener('click', () => els.mainNav.classList.toggle('open'));
-
-      els.tabDiff.addEventListener('click', (e) => {
-        e.preventDefault();
-        els.tabDiff.classList.add('active'); els.tabMath.classList.remove('active');
-        els.calcShell.classList.remove('arithmetic-mode'); update();
-      });
-
-      els.tabMath.addEventListener('click', (e) => {
-        e.preventDefault();
-        els.tabMath.classList.add('active'); els.tabDiff.classList.remove('active');
-        els.calcShell.classList.add('arithmetic-mode'); update();
-      });
-
-      function update() {
-        if (els.calcShell.classList.contains('arithmetic-mode')) calculateArithmetic();
-        else calculateDifference();
+      function formatDTLocal(d) {
+        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
       }
 
-      function calculateDifference() {
-        const start = new Date(els.startTime.value);
-        const end = new Date(els.endTime.value);
-        if (isNaN(start) || isNaN(end)) return;
+      function initTimestamps() {
+        const now = new Date();
+        const end = new Date(now.getTime() + (26 * 60 + 30) * 60 * 1000); // +26h 30m
+        $('startDT').value = formatDTLocal(now);
+        $('endDT').value = formatDTLocal(end);
+      }
 
-        els.resTitle.textContent = "Time Distance Between Points";
+      function calculateDiff() {
+        const sDate = new Date($('startDT').value);
+        const eDate = new Date($('endDT').value);
 
-        let diffMs = end - start;
-        let isFuture = diffMs >= 0;
-        let t1 = isFuture ? start : end;
-        let t2 = isFuture ? end : start;
+        if (isNaN(sDate) || isNaN(eDate)) return;
 
-        // Calendar Difference
-        let y = t2.getFullYear() - t1.getFullYear();
-        let m = t2.getMonth() - t1.getMonth();
-        let d = t2.getDate() - t1.getDate();
-        let h = t2.getHours() - t1.getHours();
-        let min = t2.getMinutes() - t1.getMinutes();
+        $('startDT_preview').textContent = sDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        $('endDT_preview').textContent = eDate.toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 
-        if (min < 0) { h--; min += 60; }
-        if (h < 0) { d--; h += 24; }
-        if (d < 0) {
-          m--;
-          let prevMonth = new Date(t2.getFullYear(), t2.getMonth(), 0).getDate();
-          d += prevMonth;
+        let diffMs = eDate.getTime() - sDate.getTime();
+        const isPast = diffMs < 0;
+        let absMs = Math.abs(diffMs);
+
+        let totalSecs = Math.floor(absMs / 1000);
+        let totalMins = Math.floor(totalSecs / 60);
+        let totalHours = (totalSecs / 3600).toFixed(2);
+        let totalDays = (totalSecs / 86400).toFixed(2);
+
+        let days = Math.floor(totalSecs / 86400);
+        let remSecs = totalSecs % 86400;
+        let hours = Math.floor(remSecs / 3600);
+        remSecs %= 3600;
+        let mins = Math.floor(remSecs / 60);
+        let secs = remSecs % 60;
+
+        let parts = [];
+        if (days > 0) parts.push(`${days}d`);
+        if (hours > 0 || days > 0) parts.push(`${hours}h`);
+        parts.push(`${mins}m`);
+        parts.push(`${secs}s`);
+
+        const formattedDuration = parts.join(' ');
+
+        $('heroEyebrow').textContent = isPast ? 'Past Elapsed Duration' : 'Future Elapsed Duration';
+        $('heroValue').textContent = formattedDuration;
+        $('heroDesc').textContent = `${totalHours} Decimal Hours • ${totalMins.toLocaleString()} Total Minutes • ${totalSecs.toLocaleString()} Seconds`;
+
+        if ($('mobileSummaryVal')) {
+          $('mobileSummaryVal').textContent = formattedDuration;
         }
-        if (m < 0) { y--; m += 12; }
 
-        let primary = "";
-        if (y > 0) primary += y + "y ";
-        if (m > 0) primary += m + "m ";
-        if (d > 0) primary += d + "d ";
-        primary += h + "h " + min + "m";
-        els.resPrimary.textContent = primary;
+        $('cHours').textContent = `${totalHours} Hrs`;
+        $('cMinutes').textContent = `${totalMins.toLocaleString()} Mins`;
+        $('cSeconds').textContent = `${totalSecs.toLocaleString()} Sec`;
+        $('cDays').textContent = `${totalDays} Days`;
+        $('cWeeks').textContent = `${(totalSecs / 604800).toFixed(2)} Wks`;
+        $('cDayPct').textContent = `${((totalSecs % 86400) / 864).toFixed(1)}% of Day`;
 
-        let totalDays = Math.floor(Math.abs(diffMs) / (1000 * 3600 * 24));
-        els.resDays.textContent = totalDays.toLocaleString() + " Days";
-
-        els.resAlt.innerHTML = `
-           <div>~ ${Math.floor(Math.abs(diffMs) / 3600000).toLocaleString()} Total Hours</div>
-           <div>~ ${Math.floor(Math.abs(diffMs) / 1000).toLocaleString()} Total Seconds</div>
-        `;
-
-        els.resBreakdown.innerHTML = `
-           <div class="breakdown-item">${y} Years</div>
-           <div class="breakdown-item">${m} Months</div>
-           <div class="breakdown-item">${d} Days</div>
-        `;
+        lastSummary = `Duration Summary:\nStart: ${sDate.toLocaleString()}\nEnd: ${eDate.toLocaleString()}\nDuration: ${formattedDuration} (${totalHours} Decimal Hours)`;
       }
 
-      function calculateArithmetic() {
-        const base = new Date(els.baseTime.value);
-        if (isNaN(base)) return;
+      function calculateAdd() {
+        const d = parseInt($('intDays').value, 10) || 0;
+        const h = parseInt($('intHours').value, 10) || 0;
+        const m = parseInt($('intMins').value, 10) || 0;
+        const s = parseInt($('intSecs').value, 10) || 0;
 
-        els.resTitle.textContent = "Calculated Milestone Date";
-        const target = new Date(base);
-        target.setFullYear(target.getFullYear() + (parseInt(els.mY.value) || 0));
-        target.setMonth(target.getMonth() + (parseInt(els.mM.value) || 0));
-        target.setDate(target.getDate() + (parseInt(els.mD.value) || 0));
-        target.setHours(target.getHours() + (parseInt(els.mH.value) || 0));
+        const totalSecs = (d * 86400) + (h * 3600) + (m * 60) + s;
+        const totalMins = Math.floor(totalSecs / 60);
+        const totalHours = (totalSecs / 3600).toFixed(2);
+        const totalDays = (totalSecs / 86400).toFixed(2);
 
-        els.resPrimary.textContent = target.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        els.resDays.textContent = target.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
-        els.resAlt.innerHTML = `<div>Full Date: ${target.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>`;
-        els.resBreakdown.innerHTML = `<div class="breakdown-item">Arithmetic Shift Applied</div>`;
+        let parts = [];
+        if (d > 0) parts.push(`${d}d`);
+        if (h > 0 || d > 0) parts.push(`${h}h`);
+        parts.push(`${m}m`);
+        if (s > 0) parts.push(`${s}s`);
+
+        const formatted = parts.join(' ');
+
+        $('heroEyebrow').textContent = 'Cumulative Interval Duration';
+        $('heroValue').textContent = formatted;
+        $('heroDesc').textContent = `${totalHours} Total Hours • ${totalMins.toLocaleString()} Minutes • ${totalSecs.toLocaleString()} Seconds`;
+
+        if ($('mobileSummaryVal')) {
+          $('mobileSummaryVal').textContent = formatted;
+        }
+
+        $('cHours').textContent = `${totalHours} Hrs`;
+        $('cMinutes').textContent = `${totalMins.toLocaleString()} Mins`;
+        $('cSeconds').textContent = `${totalSecs.toLocaleString()} Sec`;
+        $('cDays').textContent = `${totalDays} Days`;
+        $('cWeeks').textContent = `${(totalSecs / 604800).toFixed(2)} Wks`;
+        $('cDayPct').textContent = `${((totalSecs % 86400) / 864).toFixed(1)}% of Day`;
+
+        lastSummary = `Interval Sum: ${formatted} (${totalHours} Hours / ${totalSecs} Seconds)`;
       }
 
-      [els.startTime, els.endTime, els.baseTime, els.mY, els.mM, els.mD, els.mH]
-        .forEach(el => el.addEventListener('input', update));
+      function calculate() {
+        if (currentMode === 'diff') calculateDiff();
+        else calculateAdd();
+      }
 
-      els.btnReset.addEventListener('click', () => {
-        els.mY.value = 0; els.mM.value = 0; els.mD.value = 0; els.mH.value = 0;
-        els.startTime.value = now.toISOString().slice(0, 16);
-        els.baseTime.value = now.toISOString().slice(0, 16);
-        update();
-      });
+      function syncUI() {
+        document.querySelectorAll('.mode-pill-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.mode-pill-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentMode = btn.dataset.mode;
+            document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+            $(`panel_${currentMode}`).classList.add('active');
+            calculate();
+          });
+        });
 
-      update();
+        $('btnNow')?.addEventListener('click', () => {
+          $('startDT').value = formatDTLocal(new Date());
+          calculate();
+        });
+
+        $('btnPlus1H')?.addEventListener('click', () => {
+          const s = new Date($('startDT').value);
+          s.setHours(s.getHours() + 1);
+          $('endDT').value = formatDTLocal(s);
+          calculate();
+        });
+
+        $('btnPlus4H')?.addEventListener('click', () => {
+          const s = new Date($('startDT').value);
+          s.setHours(s.getHours() + 4);
+          $('endDT').value = formatDTLocal(s);
+          calculate();
+        });
+
+        $('btnPlus8H')?.addEventListener('click', () => {
+          const s = new Date($('startDT').value);
+          s.setHours(s.getHours() + 8);
+          $('endDT').value = formatDTLocal(s);
+          calculate();
+        });
+
+        $('btnPlus24H')?.addEventListener('click', () => {
+          const s = new Date($('startDT').value);
+          s.setDate(s.getDate() + 1);
+          $('endDT').value = formatDTLocal(s);
+          calculate();
+        });
+
+        $('btnPlus7D')?.addEventListener('click', () => {
+          const s = new Date($('startDT').value);
+          s.setDate(s.getDate() + 7);
+          $('endDT').value = formatDTLocal(s);
+          calculate();
+        });
+
+        document.querySelectorAll('input').forEach(el => el.addEventListener('input', calculate));
+
+        function copySummary(btn) {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(lastSummary).then(() => {
+              const orig = btn.innerHTML;
+              btn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+              setTimeout(() => btn.innerHTML = orig, 1800);
+              saveToLog();
+            });
+          }
+        }
+
+        $('copyResultBtn')?.addEventListener('click', function () { copySummary(this); });
+        $('copyHeroBtn')?.addEventListener('click', function () { copySummary(this); });
+
+        $('resetBtn')?.addEventListener('click', () => {
+          initTimestamps();
+          $('intDays').value = 1;
+          $('intHours').value = 6;
+          $('intMins').value = 30;
+          $('intSecs').value = 0;
+          calculate();
+        });
+
+        $('clearLog')?.addEventListener('click', () => {
+          log = [];
+          localStorage.removeItem('duration_log');
+          renderLog();
+        });
+      }
+
+      function saveToLog() {
+        const entry = {
+          mode: currentMode.toUpperCase(),
+          val: $('heroValue').textContent,
+          desc: $('heroDesc').textContent,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        log.unshift(entry);
+        if (log.length > 5) log.pop();
+        localStorage.setItem('duration_log', JSON.stringify(log));
+        renderLog();
+      }
+
+      function renderLog() {
+        const wrap = $('calcLog');
+        if (!wrap) return;
+        if (log.length === 0) {
+          wrap.innerHTML = '<div style="font-size: 0.85rem; color: var(--ic-text-muted); text-align: center; padding: 1rem;">No history logged.</div>';
+          return;
+        }
+        wrap.innerHTML = log.map(e => `
+          <div style="border: 1px solid var(--ic-border); padding: 0.65rem; border-radius: var(--ic-radius-sm); background: #fff; display:grid; gap:0.2rem;">
+            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:0.8rem; color:var(--ic-primary-dark);">
+              <span>${e.mode}</span>
+              <span style="opacity:0.6;">${e.time}</span>
+            </div>
+            <div style="font-size: 0.95rem; font-weight:800; color:var(--ic-text);">${e.val}</div>
+            <div style="font-size: 0.8rem; color:var(--ic-text-muted);">${e.desc}</div>
+          </div>
+        `).join('');
+      }
+
+      function setupGlobal() {
+        const menuBtn = $('menuToggle');
+        const nav = $('mainNav');
+        if (menuBtn && nav) {
+          menuBtn.addEventListener('click', () => {
+            const isOpen = nav.classList.toggle('open');
+            menuBtn.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+          });
+        }
+
+        const saved = localStorage.getItem('duration_log');
+        if (saved) {
+          try { log = JSON.parse(saved); } catch (e) { }
+        }
+      }
+
+      initTimestamps();
+      setupGlobal();
+      syncUI();
+      renderLog();
+      calculate();
     })();
   </script>
 </body>

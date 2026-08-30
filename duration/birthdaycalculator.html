@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Premium Birthday Calculator | Countdown, Milestones & Fun Facts</title>
+  <title>Birthday Calculator – Next Birthday Countdown, Milestones & Astrology</title>
   <meta name="description"
-    content="The most detailed birthday calculator. Track your next birthday countdown, discover your birth flower and stone, find your golden birthday year, and view upcoming age milestones.">
+    content="Free online Birthday Calculator. Count days until your next birthday, find the day of the week you were born, calculate half-birthday, zodiac signs, and life milestones.">
   <meta name="keywords"
-    content="birthday calculator, days until birthday, next birthday countdown, birth flower, golden birthday, chinese zodiac, age milestones">
+    content="birthday calculator, next birthday countdown, birthday day of week, half birthday calculator, zodiac sign calculator, milestone birthday">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#005f73">
@@ -23,484 +23,49 @@
     href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
 
   <style>
-    :root {
-      --bg: #f2f6f8;
-      --text: #132a3b;
-      --text-soft: #334d60;
-      --accent: #007f8b;
-      --accent-strong: #005f73;
-      --accent-2: #ee9f2e;
-      --line: #d3e1ea;
-      --card: #ffffff;
-      --success: #1f9f67;
-      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
-      --radius-xl: 26px;
-      --radius-lg: 20px;
-      --radius-md: 15px;
-      --radius-sm: 11px;
-    }
+    * { box-sizing: border-box; }
+    .container { width: min(1240px, 92vw); margin: 0 auto; padding: 0 0.5rem; }
+    .calc-layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem; gap: 1.75rem; align-items: start; width: 100%; }
+    .calculator-shell { background: #ffffff; border: 1px solid var(--ic-border); border-radius: var(--ic-radius-lg); box-shadow: var(--ic-shadow-md); padding: 1.75rem; width: 100%; max-width: 100%; overflow: hidden; }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    .hero-result-card { background: linear-gradient(135deg, #f0fdfa 0%, #e6f7f6 100%); border: 1px solid rgba(0, 127, 139, 0.25); border-radius: var(--ic-radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; width: 100%; position: relative; }
+    .hero-result-card .label-group { display: grid; gap: 0.25rem; width: 100%; min-width: 0; }
+    .hero-result-card .res-eyebrow { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ic-primary-dark); }
+    .hero-result-card .res-val { font-family: 'Sora', sans-serif; font-size: clamp(1.45rem, 4vw, 2.2rem); font-weight: 800; color: var(--ic-primary-dark); line-height: 1.2; word-break: break-word; }
+    .hero-result-card .res-desc { font-size: 0.85rem; color: var(--ic-text-muted); word-break: break-word; }
+    .hero-result-card .quick-copy-btn { width: 42px; height: 42px; border-radius: 12px; border: 1px solid rgba(0, 127, 139, 0.25); background: #ffffff; color: var(--ic-primary-dark); font-size: 1.05rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0; }
+    .hero-result-card .quick-copy-btn:hover { background: var(--ic-primary-dark); color: #ffffff; transform: translateY(-2px); }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    .field-card { background: var(--ic-bg-subtle); border: 1px solid var(--ic-border); border-radius: var(--ic-radius-md); padding: 1rem; margin-bottom: 0.85rem; width: 100%; }
+    .field-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; font-weight: 700; font-size: 0.92rem; gap: 0.5rem; }
+    .field-head span { color: var(--ic-primary-dark); font-family: 'Sora', sans-serif; font-size: 0.95rem; }
+    .field-card input { width: 100%; height: 48px; padding: 0.65rem 1rem; font-size: 1.05rem; font-weight: 700; color: var(--ic-text); background: #ffffff; border: 1.5px solid var(--ic-border); border-radius: var(--ic-radius-md); outline: none; transition: all 0.2s ease; }
+    .field-card input:focus { border-color: var(--ic-primary); box-shadow: 0 0 0 3.5px var(--ic-primary-light); }
 
-    body {
-      min-height: 100vh;
-      font-family: "Public Sans", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
-        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
-        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    .chips-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; width: 100%; }
+    .chip { padding: 0.35rem 0.75rem; font-size: 0.82rem; font-weight: 700; border-radius: 999px; border: 1px solid var(--ic-border); background: #ffffff; color: var(--ic-text-muted); cursor: pointer; white-space: nowrap; transition: all 0.15s ease; }
+    .chip:hover, .chip.active { color: var(--ic-primary-dark); background: var(--ic-primary-light); border-color: var(--ic-primary); }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.22;
-      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
-      background-size: 100% 36px;
-    }
+    .result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 0.75rem; margin-top: 1.25rem; width: 100%; }
+    .result-card { background: #ffffff; border: 1px solid var(--ic-border); border-radius: var(--ic-radius-md); padding: 0.85rem; min-width: 0; overflow: hidden; }
+    .result-card h3 { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ic-text-muted); font-weight: 700; margin-bottom: 0.25rem; }
+    .result-value { font-family: 'Sora', sans-serif; font-size: clamp(1.1rem, 3.5vw, 1.35rem); font-weight: 800; color: var(--ic-text); word-break: break-word; }
+    .result-card.highlight { background: #f8fafc; border-color: rgba(0, 127, 139, 0.3); }
+    .result-card.highlight .result-value { color: var(--ic-primary-dark); }
+    .result-card.positive .result-value { color: #1f9f67; }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+    .calculator-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; width: 100%; }
 
-    .container {
-      width: min(1180px, 92vw);
-      margin: 0 auto;
-    }
-
-    .section {
-      padding: 3.2rem 0;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 55;
-      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
-      background: rgba(242, 246, 248, 0.92);
-      backdrop-filter: blur(10px);
-    }
-
-    .header-inner {
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.8rem;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: "Sora", sans-serif;
-      font-weight: 700;
-      color: var(--accent-strong);
-      letter-spacing: -0.02em;
-    }
-
-    .brand img {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 2px solid rgba(0, 95, 115, 0.15);
-      background: #ffffff;
-    }
-
-    .menu-toggle {
-      width: 42px;
-      height: 42px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      border-radius: 12px;
-      background: #ffffff;
-      color: var(--accent-strong);
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .site-nav {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 4vw;
-      right: 4vw;
-      display: none;
-      flex-direction: column;
-      gap: 0.4rem;
-      padding: 0.7rem;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: #ffffff;
-      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
-    }
-
-    .site-nav.open {
-      display: flex;
-    }
-
-    .site-nav a {
-      min-height: 40px;
-      display: inline-flex;
-      align-items: center;
-      padding: 0.45rem 0.8rem;
-      border-radius: 10px;
-      font-weight: 600;
-      color: var(--text-soft);
-    }
-
-    .site-nav a:hover,
-    .site-nav a.active {
-      color: var(--accent-strong);
-      background: rgba(0, 127, 139, 0.12);
-    }
-
-    .hero {
-      padding: 3.3rem 0 2.4rem;
-    }
-
-    .hero-grid {
-      display: grid;
-      gap: 1.1rem;
-    }
-
-    .hero-copy {
-      border: 1px solid rgba(0, 95, 115, 0.16);
-      border-radius: var(--radius-xl);
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
-      box-shadow: var(--shadow);
-      padding: 1.35rem;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.32rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: rgba(255, 255, 255, 0.74);
-      color: var(--accent-strong);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      font-size: 0.78rem;
-    }
-
-    .hero-copy h1 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(2rem, 5vw, 3.05rem);
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      margin-top: 0.9rem;
-      max-width: 16ch;
-    }
-
-    .hero-copy p {
-      margin-top: 0.95rem;
-      color: var(--text-soft);
-      font-size: clamp(1rem, 2.2vw, 1.1rem);
-      max-width: 56ch;
-    }
-
-    .hero-panel {
-      border-radius: var(--radius-xl);
-      padding: 1.15rem;
-      background: linear-gradient(165deg, var(--accent-strong), #0ca4b4);
-      color: #f8fcff;
-      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
-      display: grid;
-      gap: 0.6rem;
-      align-content: start;
-    }
-
-    .hero-panel h2 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.18rem;
-    }
-
-    .hero-point {
-      border-radius: 11px;
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      background: rgba(255, 255, 255, 0.11);
-      padding: 0.63rem 0.72rem;
-      font-size: 0.93rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.46rem;
-    }
-
-    .calc-layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.95rem;
-    }
-
-    .calculator-shell,
-    .sidebar-card,
-    .grid-card {
-      border: 1px solid rgba(0, 95, 115, 0.15);
-      background: rgba(255, 255, 255, 0.89);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
-    }
-
-    .calculator-shell {
-      padding: 1rem;
-      display: grid;
-      gap: 0.95rem;
-    }
-
-    .mode-switch {
-      display: inline-flex;
-      border: 1px solid rgba(0, 95, 115, 0.22);
-      border-radius: 12px;
-      padding: 0.26rem;
-      background: #ffffff;
-      width: fit-content;
-      gap: 0.25rem;
-    }
-
-    .mode-switch a {
-      min-height: 38px;
-      padding: 0.42rem 0.76rem;
-      border-radius: 9px;
-      font-weight: 700;
-      color: var(--text-soft);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.92rem;
-    }
-
-    .mode-switch a.active {
-      color: #ffffff;
-      background: linear-gradient(110deg, var(--accent), #00a1b2);
-    }
-
-    .input-grid {
-      display: grid;
-      gap: 0.7rem;
-      grid-template-columns: 1fr;
-    }
-
-    .field-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-      display: grid;
-      gap: 0.54rem;
-    }
-
-    .field-head label {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    input {
-      width: 100%;
-      min-height: 42px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 0.48rem 0.62rem;
-      font: inherit;
-      outline: none;
-    }
-
-    .result-grid {
-      display: grid;
-      gap: 0.62rem;
-      margin-top: 0.5rem;
-    }
-
-    .result-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-    }
-
-    .result-card h3 {
-      color: var(--text-soft);
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      margin-bottom: 0.2rem;
-    }
-
-    .result-value {
-      font-family: Sora;
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: var(--text);
-    }
-
-    .result-card.primary {
-      background: rgba(31, 159, 103, 0.08);
-      border-color: rgba(31, 159, 103, 0.26);
-    }
-
-    .countdown-wrap {
-      display: flex;
-      gap: 0.5rem;
-      justify-content: center;
-      margin-top: 0.5rem;
-    }
-
-    .cd-box {
-      text-align: center;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 0.5rem;
-      min-width: 60px;
-    }
-
-    .cd-val {
-      display: block;
-      font-family: Sora;
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--accent-strong);
-    }
-
-    .cd-lab {
-      font-size: 0.65rem;
-      font-weight: 800;
-      color: var(--text-soft);
-      text-transform: uppercase;
-    }
-
-    .ms-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.45rem 0;
-      border-bottom: 1px solid var(--line);
-      font-size: 0.88rem;
-    }
-
-    .ms-item span {
-      color: var(--text-soft);
-      font-weight: 600;
-    }
-
-    .ms-item strong {
-      color: var(--accent-strong);
-      font-weight: 700;
-    }
-
-    .sidebar-card {
-      padding: 1rem;
-      display: grid;
-      gap: 0.5rem;
-      align-content: start;
-    }
-
-    .sidebar-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.05rem;
-    }
-
-    .link-list {
-      list-style: none;
-      display: grid;
-      gap: 0.4rem;
-    }
-
-    .link-list a {
-      min-height: 41px;
-      border-radius: 10px;
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      background: #fff;
-      padding: 0.5rem 0.75rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .link-list a:hover {
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    @media (min-width: 640px) {
-      .input-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .result-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .span-2 {
-        grid-column: span 2;
-      }
-    }
-
-    @media (min-width: 940px) {
-      .hero-grid {
-        grid-template-columns: 1.5fr 1fr;
-      }
-
-      .calc-layout {
-        grid-template-columns: 1.751fr 1fr;
-        align-items: start;
-      }
-
-      .site-nav {
-        position: static;
-        display: flex;
-        flex-direction: row;
-        gap: 0.3rem;
-        background: none;
-        border: none;
-        box-shadow: none;
-        padding: 0;
-      }
-
-      .menu-toggle {
-        display: none;
-      }
-    }
-
-    .site-footer {
-      margin-top: 1rem;
-      border-top: 1px solid rgba(0, 95, 115, 0.14);
-      background: rgba(238, 246, 250, 0.86);
-      padding: 1.4rem 0 2.3rem;
-    }
-
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 0.78rem;
-      text-align: left;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-      font-weight: 600;
+    @media (max-width: 640px) {
+      .calc-layout { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+      .calculator-shell { padding: 1rem 0.75rem !important; border-radius: var(--ic-radius-md) !important; }
+      .hero-result-card { padding: 1rem 0.85rem !important; flex-direction: column !important; align-items: flex-start !important; gap: 0.5rem !important; }
+      .hero-result-card .quick-copy-btn { position: absolute !important; top: 0.75rem !important; right: 0.75rem !important; width: 38px !important; height: 38px !important; }
+      .hero-result-card .res-val { font-size: clamp(1.35rem, 6.5vw, 1.85rem) !important; max-width: calc(100% - 44px) !important; }
+      .result-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.5rem !important; }
     }
   </style>
 </head>
@@ -508,15 +73,16 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="../index.html" class="brand">
-        <img src="../logo.png" alt="InstaCalc">
+      <a href="../index.html" class="brand" aria-label="InstaCalc Home">
+        <img src="../logo.png" alt="InstaCalc Logo" width="38" height="38">
         <span>InstaCalc.in</span>
       </a>
-      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
       <nav class="site-nav" id="mainNav">
         <a href="../index.html">Home</a>
-        <a href="../aboutus.html">About Us</a>
-        <a href="../privacypolicy.html">Privacy Policy</a>
+        <a href="birthdaycalculator.html" class="active">Birthday Tool</a>
+        <a href="agecalculator.html">Age Tool</a>
+        <a href="dayscalculator.html">Days Tool</a>
       </nav>
     </div>
   </header>
@@ -525,180 +91,209 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow"><i class="fas fa-cake-candles"></i> Big Day Tracker</span>
-          <h1>Premium Birthday Analyzer</h1>
-          <p>The total celebration toolkit. Track your next countdown with precision, discover your birth identity, and
-            map out your next 10 years of celebrations.</p>
+          <span class="eyebrow"><i class="fas fa-cake-candles"></i> Birthday Milestones & Astrology</span>
+          <h1>Birthday Calculator – Next Birthday Countdown & Insights</h1>
+          <p>Find out the exact <strong>days left until your next birthday</strong>, the day of the week you were born, your half-birthday date, zodiac sign, and upcoming life milestones.</p>
         </div>
         <aside class="hero-panel">
-          <h2>Identity Insights</h2>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Live Ticking Countdown</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Birth Identity (Stone/Flower)</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Golden Birthday Predictor</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Milestone Achievement Tracker</div>
+          <h2>Birthday Insights</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Live Next Birthday Countdown</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Day of Week Born & Next Birthday Day</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Western & Chinese Zodiac Animal</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Half-Birthday Exact Date</div>
         </aside>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container calc-layout">
-        <div class="calculator-shell">
-          <div class="mode-switch">
-            <a href="#" class="active">Birthday Analysis</a>
+    <div class="container" id="calculator">
+      <div class="calc-layout">
+        <article class="calculator-shell">
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label" id="mobileSummaryLabel">Next Birthday</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
           </div>
 
-          <div class="input-grid">
-            <div class="field-card">
-              <div class="field-head"><label for="birthDate">Select Your Date of Birth</label></div>
-              <input type="date" id="birthDate">
+          <div class="hero-result-card">
+            <div class="label-group">
+              <span class="res-eyebrow" id="heroEyebrow">Next Birthday Countdown</span>
+              <div class="res-val" id="heroValue">-</div>
+              <div class="res-desc" id="heroDesc">-</div>
             </div>
-            <div class="field-card primary" style="background:rgba(31,159,103,0.05);">
-              <h3 style="font-size:0.75rem; font-weight:700; color:var(--success); text-transform:uppercase;">Days
-                Remaining</h3>
-              <div class="countdown-wrap">
-                <div class="cd-box"><span class="cd-val" id="cdDays">--</span><span class="cd-lab">Days</span></div>
-                <div class="cd-box"><span class="cd-val" id="cdHrs">--</span><span class="cd-lab">Hrs</span></div>
-                <div class="cd-box"><span class="cd-val" id="cdMin">--</span><span class="cd-lab">Min</span></div>
-              </div>
+            <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+
+          <div class="field-card">
+            <div class="field-head">
+              <label for="birthDate">Select Your Date of Birth</label>
+              <span id="bornDayPreview">Born on a Friday</span>
+            </div>
+            <input type="date" id="birthDate" value="1998-05-15">
+            <div class="chips-wrap">
+              <button type="button" class="chip" data-age="18">18 Years Ago</button>
+              <button type="button" class="chip" data-age="21">21 Years Ago</button>
+              <button type="button" class="chip" data-age="25">25 Years Ago</button>
+              <button type="button" class="chip" data-age="30">30 Years Ago</button>
+              <button type="button" class="chip" data-age="50">50 Years Ago</button>
             </div>
           </div>
 
           <div class="result-grid">
-            <div class="result-card primary span-2">
-              <h3>Next Celebration</h3>
-              <div class="result-value" id="resNextDate">-- Month --, ----</div>
-              <div style="font-size:0.88rem; font-weight:700; color:var(--accent-strong); margin-top:0.4rem;"
-                id="resNextAge">Age 0 Celebration</div>
+            <div class="result-card highlight">
+              <h3>Days Until Birthday</h3>
+              <div class="result-value" id="cardDaysUntil">-</div>
             </div>
-
+            <div class="result-card positive">
+              <h3>Next Birthday Day</h3>
+              <div class="result-value" id="cardNextDay">-</div>
+            </div>
             <div class="result-card">
-              <h3>Birth Identity</h3>
-              <div class="ms-list">
-                <div class="ms-item"><span>Born Day</span> <strong id="resBornDay">-</strong></div>
-                <div class="ms-item"><span>Birthstone</span> <strong id="resStone">-</strong></div>
-                <div class="ms-item"><span>Birth Flower</span> <strong id="resFlower">-</strong></div>
-                <div class="ms-item"><span>Chinese Sign</span> <strong id="resChinese">-</strong></div>
-              </div>
+              <h3>Day You Were Born</h3>
+              <div class="result-value" id="cardBornDay">-</div>
             </div>
-
             <div class="result-card">
-              <h3>Astro Profile</h3>
-              <div class="ms-list">
-                <div class="ms-item"><span>Sun Sign</span> <strong id="resZod">-</strong></div>
-                <div class="ms-item"><span>Element</span> <strong id="resElement">-</strong></div>
-                <div class="ms-item"><span>Planet</span> <strong id="resPlanet">-</strong></div>
-                <div class="ms-item"><span>Lucky No</span> <strong id="resLucky">-</strong></div>
-              </div>
+              <h3>Turning Age</h3>
+              <div class="result-value" id="cardTurningAge">-</div>
             </div>
-
-            <div class="result-card span-2">
-              <h3>Upcoming Milestones</h3>
-              <div class="ms-list" id="resMilestones"></div>
+            <div class="result-card">
+              <h3>Zodiac Sign</h3>
+              <div class="result-value" id="cardZodiac">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Half-Birthday</h3>
+              <div class="result-value" id="cardHalfBday">-</div>
             </div>
           </div>
-        </div>
 
-        <aside>
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="copyResultBtn" type="button"><i class="fas fa-copy"></i> Copy Birthday Summary</button>
+            <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+          </div>
+        </article>
+
+        <aside class="sidebar">
           <div class="sidebar-card">
-            <h3>Fast Access</h3>
+            <h3>Related Tools</h3>
             <ul class="link-list">
-              <li><a href="agecalculator.html"><span>Exact Age Analzyer</span> <i class="fas fa-chevron-right"></i></a>
-              </li>
-              <li><a href="dayscalculator.html"><span>Days Difference</span> <i class="fas fa-chevron-right"></i></a>
-              </li>
-              <li><a href="weekcalculator.html"><span>Week Counter</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="agecalculator.html"><span>Age Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="dayscalculator.html"><span>Days Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="weekcalculator.html"><span>Week Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
             </ul>
           </div>
         </aside>
       </div>
-    </section>
+    </div>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© 2026 InstaCalc.in — Built for celebrations.</p>
-      <div class="footer-links">
-        <a href="../aboutus.html">About Us</a>
-        <a href="../privacypolicy.html">Privacy Policy</a>
-      </div>
+      <p>© 2026 InstaCalc.in — Precision Birthday & Chronological Analytics.</p>
     </div>
   </footer>
 
   <script>
     (function () {
-      const menuToggle = document.getElementById("menuToggle");
-      const mainNav = document.getElementById("mainNav");
-      menuToggle.onclick = () => mainNav.classList.toggle("open");
+      const $ = id => document.getElementById(id);
+      let lastSummary = '';
 
-      const els = {
-        inp: document.getElementById('birthDate'),
-        days: document.getElementById('cdDays'),
-        hrs: document.getElementById('cdHrs'),
-        min: document.getElementById('cdMin'),
-        nextDate: document.getElementById('resNextDate'),
-        nextAge: document.getElementById('resNextAge'),
-        bornDay: document.getElementById('resBornDay'),
-        stone: document.getElementById('resStone'),
-        flower: document.getElementById('resFlower'),
-        chinese: document.getElementById('resChinese'),
-        zod: document.getElementById('resZod'),
-        ele: document.getElementById('resElement'),
-        planet: document.getElementById('resPlanet'),
-        lucky: document.getElementById('resLucky'),
-        mils: document.getElementById('resMilestones')
-      };
-
-      const stones = ["Garnet", "Amethyst", "Aquamarine", "Diamond", "Emerald", "Pearl", "Ruby", "Peridot", "Sapphire", "Opal", "Topaz", "Turquoise"];
-      const flowers = ["Carnation", "Violet", "Daffodil", "Daisy", "Lily of the Valley", "Rose", "Larkspur", "Gladiolus", "Aster", "Marigold", "Chrysanthemum", "Narcissus"];
-      const elements = ["Earth", "Air", "Water", "Fire", "Earth", "Air", "Water", "Fire", "Earth", "Air", "Water", "Fire"];
-      const planets = ["Saturn", "Uranus", "Neptune", "Mars", "Venus", "Mercury", "Moon", "Sun", "Mercury", "Venus", "Pluto", "Jupiter"];
-      const animals = ["Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"];
-      const zodes = [["Cap", 20, 0], ["Aqu", 19, 1], ["Pis", 20, 2], ["Ari", 20, 3], ["Tau", 21, 4], ["Gem", 21, 5], ["Can", 23, 6], ["Leo", 23, 7], ["Vir", 23, 8], ["Lib", 23, 9], ["Sco", 22, 10], ["Sag", 22, 11], ["Cap", 31, 11]];
-
-      const def = new Date();
-      def.setFullYear(def.getFullYear() - 25);
-      els.inp.value = def.toISOString().split('T')[0];
-
-      function update() {
-        const b = new Date(els.inp.value);
-        if (isNaN(b)) return;
-        const n = new Date();
-
-        let nextB = new Date(n.getFullYear(), b.getMonth(), b.getDate());
-        if (nextB < n) nextB.setFullYear(n.getFullYear() + 1);
-
-        const diff = nextB - n;
-        els.days.textContent = Math.floor(diff / 86400000);
-        els.hrs.textContent = Math.floor((diff % 86400000) / 3600000);
-        els.min.textContent = Math.floor((diff % 3600000) / 60000);
-
-        els.nextDate.textContent = nextB.toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' });
-        els.nextAge.textContent = `Turning ${nextB.getFullYear() - b.getFullYear()} on a ${nextB.toLocaleDateString(undefined, { weekday: 'long' })}`;
-
-        els.bornDay.textContent = b.toLocaleDateString(undefined, { weekday: 'long' });
-        const m = b.getMonth();
-        els.stone.textContent = stones[m];
-        els.flower.textContent = flowers[m];
-        els.ele.textContent = elements[m];
-        els.planet.textContent = planets[m];
-        els.lucky.textContent = Math.floor(Math.random() * 9 + 1);
-        els.chinese.textContent = animals[(b.getFullYear() - 4) % 12];
-
-        for (let z of zodes) if (b.getMonth() < z[2] || (b.getMonth() === z[2] && b.getDate() <= z[1])) { els.zod.textContent = z[0]; break; }
-
-        let milHtml = '';
-        const bigs = [30, 40, 50, 60, 100];
-        bigs.forEach(year => {
-          const d = new Date(b.getFullYear() + year, b.getMonth(), b.getDate());
-          milHtml += `<div class="ms-item"><span>Turning ${year}</span> <strong>${d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })} (${d.toLocaleDateString(undefined, { weekday: 'short' })})</strong></div>`;
-        });
-        const gold = new Date(b.getFullYear() + b.getDate(), b.getMonth(), b.getDate());
-        milHtml += `<div class="ms-item" style="border-top:2px solid var(--accent); margin-top:0.4rem;"><span>Golden Birthday (Age ${b.getDate()})</span> <strong>${gold.toLocaleDateString(undefined, { year: 'numeric' })}</strong></div>`;
-        els.mils.innerHTML = milHtml;
+      function getZodiac(m, d) {
+        const signs = [
+          { name: 'Capricorn ♑', end: [1, 19] }, { name: 'Aquarius ♒', end: [2, 18] },
+          { name: 'Pisces ♓', end: [3, 20] }, { name: 'Aries ♈', end: [4, 19] },
+          { name: 'Taurus ♉', end: [5, 20] }, { name: 'Gemini ♊', end: [6, 20] },
+          { name: 'Cancer ♋', end: [7, 22] }, { name: 'Leo ♌', end: [8, 22] },
+          { name: 'Virgo ♍', end: [9, 22] }, { name: 'Libra ♎', end: [10, 22] },
+          { name: 'Scorpio ♏', end: [11, 21] }, { name: 'Sagittarius ♐', end: [12, 21] },
+          { name: 'Capricorn ♑', end: [12, 31] }
+        ];
+        for (let s of signs) {
+          if (m === s.end[0] && d <= s.end[1]) return s.name;
+          if (m === s.end[0] - 1 && d > signs[signs.indexOf(s) - 1]?.end[1]) return s.name;
+        }
+        return 'Taurus ♉';
       }
 
-      els.inp.oninput = update;
-      update();
+      function calculate() {
+        const parts = $('birthDate').value.split('-').map(Number);
+        if (parts.length < 3 || isNaN(parts[0])) return;
+
+        const bDate = new Date(parts[0], parts[1] - 1, parts[2]);
+        const today = new Date();
+
+        const bornWeekday = bDate.toLocaleDateString(undefined, { weekday: 'long' });
+        $('bornDayPreview').textContent = `Born on a ${bornWeekday}`;
+
+        let nextBday = new Date(today.getFullYear(), parts[1] - 1, parts[2]);
+        if (nextBday < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
+          nextBday.setFullYear(today.getFullYear() + 1);
+        }
+
+        const msDiff = nextBday.getTime() - new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+        const daysLeft = Math.round(msDiff / (1000 * 60 * 60 * 24));
+        const nextWeekday = nextBday.toLocaleDateString(undefined, { weekday: 'long' });
+        const turningAge = nextBday.getFullYear() - bDate.getFullYear();
+
+        const halfBday = new Date(bDate.getTime());
+        halfBday.setMonth(bDate.getMonth() + 6);
+        const halfBdayStr = halfBday.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+
+        const zodiac = getZodiac(parts[1], parts[2]);
+
+        $('heroEyebrow').textContent = daysLeft === 0 ? '🎉 Happy Birthday Today!' : 'Next Birthday Countdown';
+        $('heroValue').textContent = daysLeft === 0 ? 'Today! 🎂' : `In ${daysLeft} Days (${nextWeekday})`;
+        $('heroDesc').textContent = `You will turn ${turningAge} on ${nextBday.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })} • Born on a ${bornWeekday}`;
+
+        if ($('mobileSummaryVal')) {
+          $('mobileSummaryVal').textContent = `${daysLeft} Days (${nextWeekday})`;
+        }
+
+        $('cardDaysUntil').textContent = `${daysLeft} Days`;
+        $('cardNextDay').textContent = nextWeekday;
+        $('cardBornDay').textContent = bornWeekday;
+        $('cardTurningAge').textContent = `${turningAge} Yrs Old`;
+        $('cardZodiac').textContent = zodiac;
+        $('cardHalfBday').textContent = halfBdayStr;
+
+        lastSummary = `Birthday Details:\nBorn: ${bDate.toLocaleDateString()} (${bornWeekday})\nNext Birthday: ${nextBday.toLocaleDateString()} in ${daysLeft} Days (${nextWeekday})\nTurning Age: ${turningAge}\nZodiac: ${zodiac}`;
+      }
+
+      function syncUI() {
+        $('birthDate').addEventListener('input', calculate);
+
+        document.querySelectorAll('.chips-wrap .chip[data-age]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const a = parseInt(btn.dataset.age, 10);
+            const d = new Date();
+            d.setFullYear(d.getFullYear() - a);
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            $('birthDate').value = `${d.getFullYear()}-${m}-${day}`;
+            calculate();
+          });
+        });
+
+        function copySummary(btn) {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(lastSummary).then(() => {
+              const orig = btn.innerHTML;
+              btn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+              setTimeout(() => btn.innerHTML = orig, 1800);
+            });
+          }
+        }
+
+        $('copyResultBtn')?.addEventListener('click', function () { copySummary(this); });
+        $('copyHeroBtn')?.addEventListener('click', function () { copySummary(this); });
+
+        $('resetBtn')?.addEventListener('click', () => {
+          $('birthDate').value = '1998-05-15';
+          calculate();
+        });
+      }
+
+      syncUI();
+      calculate();
     })();
   </script>
 </body>

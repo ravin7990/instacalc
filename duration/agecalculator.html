@@ -15,7 +15,7 @@
   })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Age Calculator – Calculate Age from Date of Birth Online</title>
+  <title>Age Calculator – Calculate Age from Date of Birth Online (Exact Years, Months, Days)</title>
   <meta name="description"
     content="Free online age calculator to find your exact age in years, months & days from date of birth. Calculate age for government jobs in India, school admissions & more.">
   <meta name="keywords"
@@ -34,886 +34,529 @@
     href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
 
   <style>
-    :root {
-      --bg: #f2f6f8;
-      --text: #132a3b;
-      --text-soft: #334d60;
-      --accent: #007f8b;
-      --accent-strong: #005f73;
-      --accent-2: #ee9f2e;
-      --line: #d3e1ea;
-      --card: #ffffff;
-      --success: #1f9f67;
-      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
-      --radius-xl: 26px;
-      --radius-lg: 20px;
-      --radius-md: 15px;
-      --radius-sm: 11px;
-    }
-
+    /* Ultra-Responsive Mobile Viewport Styles for Age Calculator */
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      font-family: "Public Sans", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
-        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
-        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.22;
-      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
-      background-size: 100% 36px;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
+    
     .container {
-      width: min(1180px, 92vw);
+      width: min(1240px, 92vw);
       margin: 0 auto;
-    }
-
-    .section {
-      padding: 3.2rem 0;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 55;
-      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
-      background: rgba(242, 246, 248, 0.92);
-      backdrop-filter: blur(10px);
-    }
-
-    .header-inner {
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.8rem;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: "Sora", sans-serif;
-      font-weight: 700;
-      color: var(--accent-strong);
-      letter-spacing: -0.02em;
-    }
-
-    .brand img {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 2px solid rgba(0, 95, 115, 0.15);
-      background: #ffffff;
-    }
-
-    .menu-toggle {
-      width: 42px;
-      height: 42px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      border-radius: 12px;
-      background: #ffffff;
-      color: var(--accent-strong);
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .site-nav {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 4vw;
-      right: 4vw;
-      display: none;
-      flex-direction: column;
-      gap: 0.4rem;
-      padding: 0.7rem;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: #ffffff;
-      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
-    }
-
-    .site-nav.open {
-      display: flex;
-    }
-
-    .site-nav a {
-      min-height: 40px;
-      display: inline-flex;
-      align-items: center;
-      padding: 0.45rem 0.8rem;
-      border-radius: 10px;
-      font-weight: 600;
-      color: var(--text-soft);
-    }
-
-    .site-nav a:hover,
-    .site-nav a.active {
-      color: var(--accent-strong);
-      background: rgba(0, 127, 139, 0.12);
-    }
-
-    .hero {
-      padding: 3.3rem 0 2.4rem;
-    }
-
-    .hero-grid {
-      display: grid;
-      gap: 1.1rem;
-    }
-
-    .hero-copy {
-      border: 1px solid rgba(0, 95, 115, 0.16);
-      border-radius: var(--radius-xl);
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
-      box-shadow: var(--shadow);
-      padding: 1.35rem;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.32rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: rgba(255, 255, 255, 0.74);
-      color: var(--accent-strong);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      font-size: 0.78rem;
-    }
-
-    .hero-copy h1 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(2rem, 5vw, 3.05rem);
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      margin-top: 0.9rem;
-      max-width: 16ch;
-    }
-
-    .hero-copy p {
-      margin-top: 0.95rem;
-      color: var(--text-soft);
-      font-size: clamp(1rem, 2.2vw, 1.1rem);
-      max-width: 56ch;
-    }
-
-    .hero-panel {
-      border-radius: var(--radius-xl);
-      padding: 1.15rem;
-      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
-      color: #f8fcff;
-      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
-      display: grid;
-      gap: 0.6rem;
-      align-content: start;
-    }
-
-    .hero-panel h2 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.18rem;
-    }
-
-    .hero-point {
-      border-radius: 11px;
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      background: rgba(255, 255, 255, 0.11);
-      padding: 0.63rem 0.72rem;
-      font-size: 0.93rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.46rem;
+      padding: 0 0.5rem;
     }
 
     .calc-layout {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.95rem;
-    }
-
-    .calculator-shell,
-    .feature-card,
-    .content-card,
-    .faq-card,
-    .sidebar-card {
-      border: 1px solid rgba(0, 95, 115, 0.15);
-      background: rgba(255, 255, 255, 0.89);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+      grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
+      gap: 1.75rem;
+      align-items: start;
+      width: 100%;
     }
 
     .calculator-shell {
-      padding: 1rem;
-      display: grid;
-      gap: 0.95rem;
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-lg);
+      box-shadow: var(--ic-shadow-md);
+      padding: 1.75rem;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
     }
 
-    .mode-switch {
+    .calculator-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--ic-border);
+      width: 100%;
+    }
+
+    .toggle-group {
       display: inline-flex;
-      border: 1px solid rgba(0, 95, 115, 0.22);
-      border-radius: 12px;
-      padding: 0.26rem;
-      background: #ffffff;
-      width: fit-content;
+      background: var(--ic-bg-subtle);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 0.25rem;
       gap: 0.25rem;
     }
 
-    .mode-switch a {
-      min-height: 38px;
-      padding: 0.42rem 0.76rem;
-      border-radius: 9px;
+    .toggle-btn {
+      padding: 0.5rem 0.95rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      color: var(--text-soft);
+      border-radius: var(--ic-radius-sm);
+      border: none;
+      background: transparent;
+      color: var(--ic-text-muted);
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      font-size: 0.92rem;
+      gap: 0.4rem;
+      text-decoration: none;
+      transition: all 0.2s;
     }
 
-    .mode-switch a.active {
-      color: #ffffff;
-      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    .toggle-btn.active {
+      background: #ffffff;
+      color: var(--ic-primary-dark);
+      box-shadow: var(--ic-shadow-sm);
     }
 
-    .input-grid {
+    /* Hero Result Card */
+    .hero-result-card {
+      background: linear-gradient(135deg, #f0fdfa 0%, #e6f7f6 100%);
+      border: 1px solid rgba(0, 127, 139, 0.25);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      position: relative;
+    }
+
+    .hero-result-card .label-group {
       display: grid;
-      gap: 0.7rem;
-      grid-template-columns: 1fr;
+      gap: 0.25rem;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .hero-result-card .res-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ic-primary-dark);
+    }
+
+    .hero-result-card .res-val {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.45rem, 4vw, 2.2rem);
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      line-height: 1.2;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .hero-result-card .res-desc {
+      font-size: 0.85rem;
+      color: var(--ic-text-muted);
+      word-break: break-word;
+    }
+
+    .hero-result-card .quick-copy-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 127, 139, 0.25);
+      background: #ffffff;
+      color: var(--ic-primary-dark);
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .hero-result-card .quick-copy-btn:hover {
+      background: var(--ic-primary-dark);
+      color: #ffffff;
+      transform: translateY(-2px);
     }
 
     .field-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-      display: grid;
-      gap: 0.54rem;
+      background: var(--ic-bg-subtle);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1rem;
+      margin-bottom: 0.85rem;
+      width: 100%;
     }
 
     .field-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 0.6rem;
+      font-weight: 700;
+      font-size: 0.92rem;
       gap: 0.5rem;
     }
 
-    .field-head label {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    input {
+    .field-card input[type="date"],
+    .field-card input[type="text"],
+    .field-card select {
       width: 100%;
-      min-height: 42px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 0.48rem 0.62rem;
-      font: inherit;
-      color: var(--text);
-      background: #ffffff;
-      outline: none;
-    }
-
-    .result-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.62rem;
-    }
-
-    .result-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-    }
-
-    .result-card h3 {
-      color: var(--text-soft);
-      font-size: 0.85rem;
+      height: 48px;
+      padding: 0.65rem 1rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      margin-bottom: 0.22rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
+      color: var(--ic-text);
+      background: #ffffff;
+      border: 1.5px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      outline: none;
+      transition: all 0.2s ease;
     }
 
-    .result-value {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
-      line-height: 1.3;
-      color: var(--text);
+    .field-card input[type="date"]:focus {
+      border-color: var(--ic-primary);
+      box-shadow: 0 0 0 3.5px var(--ic-primary-light);
+    }
+
+    .chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+      width: 100%;
+    }
+
+    .chip {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border-radius: 999px;
+      border: 1px solid var(--ic-border);
+      background: #ffffff;
+      color: var(--ic-text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .chip:hover, .chip.active {
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      border-color: var(--ic-primary);
+    }
+
+    /* Section Subheads */
+    .section-subtitle {
+      font-family: 'Sora', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ic-text);
+      margin: 1.5rem 0 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-subtitle i {
+      color: var(--ic-primary);
+    }
+
+    /* Metric grids */
+    .metrics-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.65rem;
+      width: 100%;
+    }
+
+    .metric-card {
+      background: var(--ic-bg-subtle);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 0.85rem;
+      text-align: center;
+      min-width: 0;
+    }
+
+    .metric-card .m-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--ic-text-muted);
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .metric-card .m-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
       word-break: break-word;
     }
 
-    .result-card.positive {
-      background: rgba(31, 159, 103, 0.08);
-      border-color: rgba(31, 159, 103, 0.26);
-    }
-
-    .planet-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-
-    .planet-box {
-      text-align: center;
-      border: 1px solid var(--line);
-      padding: 0.5rem;
-      border-radius: 10px;
-      background: #fff;
-    }
-
-    .planet-box .pn {
-      font-size: 0.7rem;
-      font-weight: 800;
-      color: var(--accent);
-      text-transform: uppercase;
-    }
-
-    .planet-box .pv {
-      font-weight: 700;
-      font-size: 0.9rem;
+    /* Profile List */
+    .profile-list-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1rem;
+      margin-top: 0.85rem;
     }
 
     .ms-list {
       display: grid;
-      gap: 0.4rem;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
     }
 
     .ms-item {
       display: flex;
       justify-content: space-between;
-      padding: 0.4rem 0;
-      border-bottom: 1px solid var(--line);
-      font-size: 0.85rem;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      background: var(--ic-bg-subtle);
+      border-radius: var(--ic-radius-sm);
+      font-size: 0.88rem;
     }
 
     .ms-item span {
+      color: var(--ic-text-muted);
       font-weight: 600;
-      color: var(--text-soft);
     }
 
     .ms-item strong {
+      color: var(--ic-text);
       font-weight: 700;
-      color: var(--accent-strong);
     }
 
-    .sidebar-card {
-      padding: 1rem;
+    /* Planet Grid */
+    .planet-grid {
       display: grid;
-      gap: 0.5rem;
-      align-content: start;
+      grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+      gap: 0.65rem;
+      margin-top: 0.75rem;
+      width: 100%;
     }
 
-    .sidebar-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.05rem;
-    }
-
-    .link-list {
-      list-style: none;
-      display: grid;
-      gap: 0.45rem;
-    }
-
-    .link-list a {
-      min-height: 41px;
-      border-radius: 10px;
-      border: 1px solid rgba(0, 95, 115, 0.13);
+    .planet-card {
       background: #ffffff;
-      padding: 0.48rem 0.62rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.4rem;
-      color: var(--text);
-      font-size: 0.9rem;
-      font-weight: 600;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 0.85rem 0.5rem;
+      text-align: center;
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
-    .link-list a:hover {
-      border-color: rgba(0, 127, 139, 0.4);
-      transform: translateY(-1px);
+    .planet-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--ic-primary);
     }
 
-    @media (min-width: 640px) {
-      .input-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .result-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .span-2 {
-        grid-column: span 2;
-      }
+    .planet-card .pn {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
-    @media (min-width: 940px) {
-      .hero-grid {
-        grid-template-columns: 1.5fr 1fr;
-      }
-
-      .calc-layout {
-        grid-template-columns: 1.751fr 1fr;
-        align-items: start;
-      }
-
-      .site-nav {
-        position: static;
-        display: flex;
-        flex-direction: row;
-        background: none;
-        border: none;
-        box-shadow: none;
-        padding: 0;
-      }
-
-      .menu-toggle {
-        display: none;
-      }
+    .planet-card .p-icon {
+      font-size: 1.2rem;
+      margin: 0.35rem 0;
+      color: var(--ic-primary);
     }
 
-    .site-footer {
-      margin-top: 1rem;
-      border-top: 1px solid rgba(0, 95, 115, 0.14);
-      background: rgba(238, 246, 250, 0.86);
-      padding: 1.4rem 0 2.3rem;
+    .planet-card .pv {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
     }
 
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 0.78rem;
-      color: var(--text-soft);
+    .planet-card .p-sub {
+      font-size: 0.7rem;
+      color: var(--ic-text-light);
     }
 
-    .footer-links {
+    /* Actions */
+    .calculator-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-      font-weight: 600;
-    }
-
-    /* SEO & Article Styles */
-    .article-card {
-      background: var(--card);
-      border: 1px solid rgba(0, 95, 115, 0.15);
-      border-radius: var(--radius-xl);
-      padding: 2.2rem;
-      box-shadow: var(--shadow);
-      margin-bottom: 2rem;
-      color: var(--text);
-    }
-    
-    .article-card h2 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.4rem, 3vw, 1.8rem);
-      color: var(--accent-strong);
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      letter-spacing: -0.02em;
-    }
-    
-    .article-card h2:first-of-type {
-      margin-top: 0;
-    }
-    
-    .article-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.1rem, 2vw, 1.3rem);
-      color: var(--text);
-      margin-top: 1.5rem;
-      margin-bottom: 0.8rem;
-    }
-    
-    .article-card p {
-      color: var(--text-soft);
-      font-size: 1.02rem;
-      line-height: 1.7;
-      margin-bottom: 1.2rem;
-    }
-    
-    .article-card ul, .article-card ol {
-      color: var(--text-soft);
-      padding-left: 1.5rem;
-      margin-bottom: 1.2rem;
-    }
-    
-    .article-card li {
-      margin-bottom: 0.5rem;
-      line-height: 1.6;
-    }
-    
-    .toc-card {
-      background: #f0f6f8;
-      border-radius: var(--radius-md);
-      padding: 1.4rem;
-      border-left: 4px solid var(--accent);
-      margin-bottom: 2rem;
-    }
-    
-    .toc-card strong {
-      font-family: "Sora", sans-serif;
-      color: var(--accent-strong);
-      display: block;
-      margin-bottom: 0.8rem;
-      font-size: 1.1rem;
-    }
-    
-    .toc-list {
-      list-style-type: none !important;
-      padding-left: 0 !important;
-      display: grid;
-      grid-template-columns: 1fr;
       gap: 0.5rem;
-    }
-    @media (min-width: 640px) {
-      .toc-list {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem 1.5rem;
-      }
-    }
-    
-    .toc-list a {
-      color: var(--text);
-      font-weight: 600;
-      font-size: 0.94rem;
-      transition: color 0.2s ease;
-    }
-    
-    .toc-list a:hover {
-      color: var(--accent);
-      text-decoration: underline;
-    }
-    
-    .highlight-box {
-      background: rgba(0, 127, 139, 0.06);
-      border-left: 4px solid var(--accent);
-      border-radius: var(--radius-sm);
-      padding: 1.2rem;
-      margin: 1.5rem 0;
-    }
-    
-    .highlight-box strong {
-      color: var(--accent-strong);
-    }
-    
-    .warning-box {
-      background: #fff8eb;
-      border-left: 4px solid var(--accent-2);
-      border-radius: var(--radius-sm);
-      padding: 1.2rem;
-      margin: 1.5rem 0;
-    }
-    
-    .warning-box strong {
-      color: #b27300;
-    }
-    
-    /* SEO Table Styles */
-    .seo-table-wrapper {
-      overflow-x: auto;
-      margin: 1.5rem 0;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--line);
-    }
-    
-    .seo-table {
+      margin-top: 1.25rem;
       width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.96rem;
-    }
-    
-    .seo-table th {
-      background: var(--accent-strong);
-      color: #ffffff;
-      padding: 0.9rem 1.1rem;
-      font-weight: 600;
-      font-family: "Sora", sans-serif;
-    }
-    
-    .seo-table td {
-      padding: 0.9rem 1.1rem;
-      border-bottom: 1px solid var(--line);
-      color: var(--text-soft);
-    }
-    
-    .seo-table tr:last-child td {
-      border-bottom: none;
-    }
-    
-    .seo-table tr:nth-child(even) {
-      background: rgba(242, 246, 248, 0.5);
     }
 
-    /* FAQ Accordion Styles */
-    .faq-wrapper {
-      margin-top: 2rem;
-    }
-    
-    .faq-item {
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      background: var(--card);
-      margin-bottom: 0.8rem;
-      overflow: hidden;
-      transition: border-color 0.25s ease;
-    }
-    
-    .faq-item:hover {
-      border-color: rgba(0, 127, 139, 0.4);
-    }
-    
-    .faq-header {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.1rem 1.4rem;
-      background: none;
-      border: none;
-      text-align: left;
-      font-family: "Sora", sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text);
-      cursor: pointer;
-      outline: none;
-    }
-    
-    .faq-header i {
-      color: var(--accent);
-      transition: transform 0.25s ease;
-    }
-    
-    .faq-item.active .faq-header i {
-      transform: rotate(180deg);
-    }
-    
-    .faq-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.25s cubic-bezier(0, 1, 0, 1);
-    }
-    
-    .faq-body {
-      padding: 0 1.4rem 1.3rem;
-      color: var(--text-soft);
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-
-    /* Mobile & Tablet Responsiveness Adjustments */
-    @media (max-width: 768px) {
-      .seo-section {
-        padding: 1.25rem 0;
-      }
-      .article-card {
-        padding: 1.25rem 1rem;
-        border-radius: var(--radius-lg);
-        margin-bottom: 1rem;
-      }
-      .article-card h1 {
-        font-size: 1.55rem !important;
-        margin-bottom: 1rem !important;
-      }
-      .article-card h2 {
-        font-size: 1.32rem !important;
-        margin-top: 1.5rem !important;
-        margin-bottom: 0.75rem !important;
-      }
-      .article-card h3 {
-        font-size: 1.12rem !important;
-        margin-top: 1.2rem !important;
-        margin-bottom: 0.6rem !important;
-      }
-      .article-card p, .article-card li {
-        font-size: 0.95rem !important;
-        line-height: 1.6 !important;
-        margin-bottom: 0.9rem !important;
-      }
-      .toc-card {
-        padding: 1rem !important;
-        margin-bottom: 1.5rem !important;
-      }
-      .toc-list {
+    /* Mobile media query (320px - 640px) */
+    @media (max-width: 640px) {
+      .calc-layout {
         grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+      
+      .calculator-shell {
+        padding: 1rem 0.75rem !important;
+        border-radius: var(--ic-radius-md) !important;
+      }
+
+      .calculator-header-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.5rem !important;
+      }
+
+      .toggle-group {
+        display: flex !important;
+        width: 100% !important;
+      }
+
+      .toggle-group .toggle-btn {
+        flex: 1 !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 0.55rem 0.4rem !important;
+        font-size: 0.82rem !important;
+      }
+
+      .hero-result-card {
+        padding: 1rem 0.85rem !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.5rem !important;
+      }
+
+      .hero-result-card .quick-copy-btn {
+        position: absolute !important;
+        top: 0.75rem !important;
+        right: 0.75rem !important;
+        width: 38px !important;
+        height: 38px !important;
+      }
+
+      .hero-result-card .res-val {
+        font-size: clamp(1.35rem, 6vw, 1.75rem) !important;
+        max-width: calc(100% - 44px) !important;
+      }
+
+      .hero-result-card .res-desc {
+        font-size: 0.8rem !important;
+        line-height: 1.35 !important;
+      }
+
+      .metrics-summary-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+      }
+
+      .ms-list {
+        grid-template-columns: 1fr !important;
+      }
+
+      .planet-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.45rem !important;
+      }
+
+      .planet-card {
+        padding: 0.65rem 0.35rem !important;
+      }
+
+      .planet-card .pv {
+        font-size: 0.95rem !important;
+      }
+
+      .calculator-actions {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
         gap: 0.4rem !important;
       }
-      .toc-list a {
-        font-size: 0.88rem !important;
-      }
-      .highlight-box, .warning-box {
-        padding: 0.9rem !important;
-        margin: 1.1rem 0 !important;
-      }
-      .seo-table th, .seo-table td {
-        padding: 0.75rem 0.85rem !important;
-        font-size: 0.86rem !important;
-      }
-      .faq-header {
-        padding: 0.95rem 1rem !important;
-        font-size: 0.96rem !important;
-      }
-      .faq-body {
-        padding: 0 1rem 1rem !important;
-        font-size: 0.9rem !important;
-      }
-    }
 
-    @media (max-width: 480px) {
-      .planet-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-      }
-      .hero-copy h1 {
-        font-size: 1.7rem !important;
+      .calculator-actions .btn:first-child,
+      .calculator-actions .btn-primary {
+        grid-column: span 2 !important;
       }
     }
-    .lang-switch{margin-left:auto;margin-right:1rem;display:inline-flex;align-items:center}.lang-switch select{min-height:36px;padding:.2rem .5rem;font-size:.85rem;font-weight:600;color:var(--accent-strong);background:#fff;border:1px solid rgba(0,95,115,.22);border-radius:8px;cursor:pointer;outline:none;transition:border-color .2s}.lang-switch select:focus{border-color:var(--accent)}
-    @media(max-width:939px){.lang-switch{margin-right:0.5rem}}
   </style>
-<!-- Schema Markup: FAQPage -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How do I calculate my exact age from date of birth?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "To calculate your exact age, subtract your birth date from today's date (or a specific reference date). Adjust for leap years and different month lengths. If using an online age calculator, simply select your birth date and the tool computes it instantly."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is age calculated for government job eligibility in India?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "For Indian government job exams (like UPSC, SSC CGL, Railways, Banking), eligibility is determined by your age on a specific cutoff date stated in the official exam notification. Use our calculator, select your DOB, and set the reference date to the cutoff date."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the chronological age calculation formula?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The chronological age formula is: Age = Today's Date - Date of Birth. Subtract the years, months, and days separately. If the days are negative, borrow from the previous month; if the months are negative, subtract 1 from the years and add 12 to the months."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is my date of birth data private and safe on this website?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, completely. Our age calculator executes entirely in your browser using JavaScript. No date of birth inputs or personal information are sent to our servers or third parties."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the minimum age for school admission in India under RTE?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Under the Right to Education (RTE) Act and National Education Policy (NEP) guidelines in India, the minimum age for admission to Class 1 is 6 years as of the designated cut-off date (usually 31 March or 1 June) of the academic year."
-      }
-    }
-  ]
-}
-</script>
 
-<!-- Schema Markup: BreadcrumbList -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://instacalc.in/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Age Calculator",
-      "item": "https://instacalc.in/duration/agecalculator.html"
-    }
-  ]
-}
-</script>
+  <!-- Schema Markup: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I calculate my exact age from date of birth?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "To calculate your exact age, subtract your birth date from today's date (or a specific reference date). Adjust for leap years and different month lengths. If using an online age calculator, simply select your birth date and the tool computes it instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is age calculated for government job eligibility in India?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For Indian government job exams (like UPSC, SSC CGL, Railways, Banking), eligibility is determined by your age on a specific cutoff date stated in the official exam notification. Use our calculator, select your DOB, and set the reference date to the cutoff date."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the chronological age calculation formula?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The chronological age formula is: Age = Today's Date - Date of Birth. Subtract the years, months, and days separately. If the days are negative, borrow from the previous month; if the months are negative, subtract 1 from the years and add 12 to the months."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my date of birth data private and safe on this website?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, completely. Our age calculator executes entirely in your browser using JavaScript. No date of birth inputs or personal information are sent to our servers or third parties."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the minimum age for school admission in India under RTE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Under the Right to Education (RTE) Act and National Education Policy (NEP) guidelines in India, the minimum age for admission to Class 1 is 6 years as of the designated cut-off date (usually 31 March or 1 June) of the academic year."
+        }
+      }
+    ]
+  }
+  </script>
 
-<!-- Schema Markup: HowTo -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  "name": "How to Calculate Age from Date of Birth Online",
-  "description": "Calculate your precise age in years, months, and days using a free online age calculator.",
-  "step": [
-    {
-      "@type": "HowToStep",
-      "name": "Enter your Date of Birth",
-      "text": "Select your birth year, month, and day in the input field."
-    },
-    {
-      "@type": "HowToStep",
-      "name": "Define the target date",
-      "text": "Keep today's date or select a target reference date for future/past age calculation."
-    },
-    {
-      "@type": "HowToStep",
-      "name": "View exact age instantly",
-      "text": "The age calculation parses automatically and shows your exact age in years, months, days, and biological stats."
-    }
-  ]
-}
-</script>
-
+  <!-- Schema Markup: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://instacalc.in/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Age Calculator",
+        "item": "https://instacalc.in/duration/agecalculator.html"
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="../index.html" class="brand">
-        <img src="../logo.png" alt="InstaCalc">
+      <a href="../index.html" class="brand" aria-label="InstaCalc Home">
+        <img src="../logo.png" alt="InstaCalc Logo">
         <span>InstaCalc.in</span>
       </a>
       <div class="lang-switch">
@@ -923,7 +566,7 @@
           <option value="ja">日本語</option>
         </select>
       </div>
-      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
       <nav class="site-nav" id="mainNav">
         <a href="../index.html">Home</a>
         <a href="../aboutus.html">About Us</a>
@@ -936,16 +579,16 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow"><i class="fas fa-history"></i> Life Analysis</span>
-          <h1>Advanced Age & Lifecycle Tracker</h1>
-          <p>Discover your exact age down to the second, track biological lifecycle stats, and see your maturity
-            progress across the solar system.</p>
+          <span class="eyebrow"><i class="fas fa-cake-candles"></i> Chronology & Age Analysis</span>
+          <h1>Age Calculator – Calculate Exact Age from Date of Birth</h1>
+          <p>Find your precise age in years, months, and days down to the second. Check eligibility cutoffs for government jobs, school admissions, and explore your life milestones.</p>
         </div>
         <aside class="hero-panel">
           <h2>Precision Insights</h2>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Exact Age & Birthday Count</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Interplanetary Maturity Index</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Bio-Life Metrics (Heart/Blinks)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Exact Years, Months & Days</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Cutoff Date Eligibility Check</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Next Birthday Countdown</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Biological & Planetary Age</div>
         </aside>
       </div>
     </section>
@@ -953,73 +596,183 @@
     <section class="section">
       <div class="container calc-layout">
         <div class="calculator-shell">
-          <div class="mode-switch">
-            <a href="#" class="active">Age Analysis</a>
+          <!-- Mobile Sticky Summary Pill -->
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label" id="mobileSummaryLabel">Calculated Age</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="calculator-header-row">
+            <div class="toggle-group" aria-label="Calculator Mode">
+              <a href="agecalculator.html" class="toggle-btn active"><i class="fas fa-cake-candles"></i> Age Calculator</a>
+              <a href="dayscalculator.html" class="toggle-btn"><i class="fas fa-calendar-days"></i> Days Counter</a>
+            </div>
+            <button id="todayBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-calendar-day"></i>
+              <span>Set Target to Today</span>
+            </button>
+          </div>
+
+          <!-- Hero Live Result Card -->
+          <div class="hero-result-card">
+            <div class="label-group">
+              <span class="res-eyebrow">Exact Chronological Age</span>
+              <div class="res-val" id="resAgeHero">-</div>
+              <div class="res-desc" id="resAgeDesc">-</div>
+            </div>
+            <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary">
+              <i class="fas fa-copy"></i>
+            </button>
           </div>
 
           <div class="input-grid">
             <div class="field-card">
-              <div class="field-head"><label for="dob">Date of Birth</label></div>
-              <input type="datetime-local" id="dob">
+              <div class="field-head">
+                <label for="dob"><i class="fas fa-baby" style="color:var(--ic-primary);"></i> Date of Birth</label>
+                <span id="dobDayName">Select DOB</span>
+              </div>
+              <input type="date" id="dob" required>
+              <div class="chips-wrap" id="presetDobChips">
+                <button type="button" class="chip" data-age="18">18 Yrs</button>
+                <button type="button" class="chip" data-age="21">21 Yrs</button>
+                <button type="button" class="chip" data-age="25">25 Yrs</button>
+                <button type="button" class="chip" data-age="30">30 Yrs</button>
+                <button type="button" class="chip" data-age="40">40 Yrs</button>
+                <button type="button" class="chip" data-age="50">50 Yrs</button>
+                <button type="button" class="chip" data-age="60">60 Yrs</button>
+              </div>
             </div>
+
             <div class="field-card">
-              <div class="field-head"><label for="now">Age as of Date</label></div>
-              <input type="datetime-local" id="now">
+              <div class="field-head">
+                <label for="now"><i class="fas fa-calendar-check" style="color:var(--ic-primary);"></i> Age as of Date (Reference / Cutoff)</label>
+                <span id="nowDayName">Today</span>
+              </div>
+              <input type="date" id="now" required>
+              <div class="chips-wrap" id="presetCutoffChips">
+                <button type="button" class="chip" id="chipSetToday">Today</button>
+                <button type="button" class="chip" data-cutoff="08-01">1 Aug (UPSC / SSC)</button>
+                <button type="button" class="chip" data-cutoff="01-01">1 Jan (New Year)</button>
+                <button type="button" class="chip" data-cutoff="03-31">31 Mar (School / Fin)</button>
+              </div>
             </div>
           </div>
 
-          <div class="result-grid">
-            <div class="result-card positive span-2">
-              <h3>Calculated Natural Age</h3>
-              <div class="result-value" id="resAge">-- Years, -- Months</div>
-              <div style="font-size: 0.82rem; font-weight:700; color:var(--accent-strong); margin-top:0.4rem;"
-                id="resSubAge"></div>
-            </div>
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i> Recalculate
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i> Reset Defaults (25 Yrs)
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i> Copy Full Summary
+            </button>
+          </div>
 
-            <div class="result-card">
-              <h3>Journey Profile</h3>
-              <div class="ms-list">
-                <div class="ms-item"><span>Born Day</span> <strong id="resDay">-</strong></div>
-                <div class="ms-item"><span>Next B-Day</span> <strong id="resNext">-</strong></div>
-                <div class="ms-item"><span>Zodiac</span> <strong id="resZod">-</strong></div>
-                <div class="ms-item"><span>Birthstone</span> <strong id="resStone">-</strong></div>
-              </div>
+          <!-- Detailed Time Breakdown -->
+          <div class="section-subtitle"><i class="fas fa-clock"></i> Comprehensive Time Breakdown</div>
+          <div class="metrics-summary-grid">
+            <div class="metric-card">
+              <div class="m-label">Total Months</div>
+              <div class="m-val" id="resTotalMonths">-</div>
             </div>
-
-            <div class="result-card">
-              <h3>Biological Stats</h3>
-              <div class="ms-list">
-                <div class="ms-item"><span>Heartbeats</span> <strong id="resHeart"
-                    style="color:var(--success);">-</strong></div>
-                <div class="ms-item"><span>Breaths</span> <strong id="resBreaths"
-                    style="color:var(--success);">-</strong></div>
-                <div class="ms-item"><span>Sleep Hours</span> <strong id="resSleep"
-                    style="color:var(--success);">-</strong></div>
-              </div>
+            <div class="metric-card">
+              <div class="m-label">Total Weeks</div>
+              <div class="m-val" id="resTotalWeeks">-</div>
             </div>
+            <div class="metric-card">
+              <div class="m-label">Total Days</div>
+              <div class="m-val" id="resTotalDays">-</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Total Hours</div>
+              <div class="m-val" id="resTotalHours">-</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Total Minutes</div>
+              <div class="m-val" id="resTotalMins">-</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Total Seconds</div>
+              <div class="m-val" id="resTotalSecs">-</div>
+            </div>
+          </div>
 
-            <div class="result-card span-2">
-              <h3>Interplanetary Maturity</h3>
-              <div class="planet-grid">
-                <div class="planet-box"><span class="pn">Mercury</span>
-                  <div class="pv" id="pMerc">--</div>
-                </div>
-                <div class="planet-box"><span class="pn">Venus</span>
-                  <div class="pv" id="pVen">--</div>
-                </div>
-                <div class="planet-box"><span class="pn">Mars</span>
-                  <div class="pv" id="pMars">--</div>
-                </div>
-                <div class="planet-box"><span class="pn">Jupiter</span>
-                  <div class="pv" id="pJup">--</div>
-                </div>
-                <div class="planet-box"><span class="pn">Saturn</span>
-                  <div class="pv" id="pSat">--</div>
-                </div>
-                <div class="planet-box"><span class="pn">Neptune</span>
-                  <div class="pv" id="pNep">--</div>
-                </div>
-              </div>
+          <!-- Birthday & Astrology Profile -->
+          <div class="section-subtitle"><i class="fas fa-sparkles"></i> Life & Astrological Profile</div>
+          <div class="profile-list-card">
+            <div class="ms-list">
+              <div class="ms-item"><span>Born Day of Week</span> <strong id="resDayOfWeek">-</strong></div>
+              <div class="ms-item"><span>Next Birthday In</span> <strong id="resNextBday">-</strong></div>
+              <div class="ms-item"><span>Next Birthday Day</span> <strong id="resNextBdayDay">-</strong></div>
+              <div class="ms-item"><span>Half-Birthday</span> <strong id="resHalfBday">-</strong></div>
+              <div class="ms-item"><span>Zodiac Sign</span> <strong id="resZodiac">-</strong></div>
+              <div class="ms-item"><span>Chinese Zodiac</span> <strong id="resChineseZod">-</strong></div>
+              <div class="ms-item"><span>Birthstone</span> <strong id="resBirthstone">-</strong></div>
+              <div class="ms-item"><span>Leap Years Lived</span> <strong id="resLeapYears">-</strong></div>
+            </div>
+          </div>
+
+          <!-- Biological Stats -->
+          <div class="section-subtitle"><i class="fas fa-heart-pulse"></i> Estimated Biological Metrics</div>
+          <div class="metrics-summary-grid">
+            <div class="metric-card">
+              <div class="m-label">Heartbeats (~72 bpm)</div>
+              <div class="m-val" id="resHeartbeats" style="color:#e11d48;">-</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Breaths (~16 / min)</div>
+              <div class="m-val" id="resBreaths" style="color:#0284c7;">-</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Sleep Logged (~8h/d)</div>
+              <div class="m-val" id="resSleepHours" style="color:#8b5cf6;">-</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Laughter (~15 / d)</div>
+              <div class="m-val" id="resLaughter" style="color:#10b981;">-</div>
+            </div>
+          </div>
+
+          <!-- Interplanetary Maturity -->
+          <div class="section-subtitle"><i class="fas fa-globe"></i> Interplanetary Maturity</div>
+          <div class="planet-grid">
+            <div class="planet-card">
+              <div class="pn">Mercury</div>
+              <div class="p-icon"><i class="fas fa-meteor"></i></div>
+              <div class="pv" id="pMerc">--</div>
+              <div class="p-sub">88 Earth days/yr</div>
+            </div>
+            <div class="planet-card">
+              <div class="pn">Venus</div>
+              <div class="p-icon"><i class="fas fa-sun"></i></div>
+              <div class="pv" id="pVen">--</div>
+              <div class="p-sub">225 Earth days/yr</div>
+            </div>
+            <div class="planet-card">
+              <div class="pn">Mars</div>
+              <div class="p-icon"><i class="fas fa-rocket"></i></div>
+              <div class="pv" id="pMars">--</div>
+              <div class="p-sub">687 Earth days/yr</div>
+            </div>
+            <div class="planet-card">
+              <div class="pn">Jupiter</div>
+              <div class="p-icon"><i class="fas fa-ring"></i></div>
+              <div class="pv" id="pJup">--</div>
+              <div class="p-sub">11.86 Earth yrs</div>
+            </div>
+            <div class="planet-card">
+              <div class="pn">Saturn</div>
+              <div class="p-icon"><i class="fas fa-satellite"></i></div>
+              <div class="pv" id="pSat">--</div>
+              <div class="p-sub">29.45 Earth yrs</div>
+            </div>
+            <div class="planet-card">
+              <div class="pn">Neptune</div>
+              <div class="p-icon"><i class="fas fa-star"></i></div>
+              <div class="pv" id="pNep">--</div>
+              <div class="p-sub">164.8 Earth yrs</div>
             </div>
           </div>
         </div>
@@ -1028,9 +781,20 @@
           <div class="sidebar-card">
             <h3>Related Tools</h3>
             <ul class="link-list">
-              <li><a href="dayscalculator.html"><span>Days Calculator</span> <i class="fas fa-chevron-right"></i></a>
-              </li>
+              <li><a href="dayscalculator.html"><span>Days Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
               <li><a href="hourcalculator.html"><span>Hour Tracker</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="../catagecalculator.html"><span>Cat Age Converter</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="../sipcalculator.html"><span>SIP Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="../epfcalculator.html"><span>EPF Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+            </ul>
+          </div>
+
+          <div class="feature-card">
+            <h3>Age Calculation Rules</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-check"></i> Accounts for exact leap years (29 Feb).</li>
+              <li><i class="fas fa-circle-check"></i> Accurately handles 28, 30, and 31-day months using chronological subtraction borrowing.</li>
+              <li><i class="fas fa-circle-check"></i> Standardized for UPSC, SSC, IBPS, and school admissions in India.</li>
             </ul>
           </div>
         </aside>
@@ -1040,374 +804,45 @@
     <!-- SEO Content Section -->
     <section class="section seo-section" style="padding-top: 0;">
       <div class="container">
-        <div class="article-card">
+        <div class="content-card">
           <!-- Breadcrumb List UI -->
-          <nav aria-label="breadcrumb" style="margin-bottom: 20px; font-size: 0.9rem; font-weight: 600; color: var(--text-soft);">
-            <a href="../index.html" style="color: var(--accent);">Home</a> &raquo; 
-            <span style="color: var(--text-soft);">Age Calculator</span>
+          <nav aria-label="breadcrumb" style="margin-bottom: 20px; font-size: 0.9rem; font-weight: 600; color: var(--ic-text-muted);">
+            <a href="../index.html" style="color: var(--ic-primary);">Home</a> &raquo; 
+            <span style="color: var(--ic-text-muted);">Age Calculator</span>
           </nav>
 
-          <!-- H1 heading -->
-          <h1 style="font-family: 'Sora', sans-serif; font-size: clamp(1.8rem, 4vw, 2.5rem); color: var(--accent-strong); margin-bottom: 1.5rem; letter-spacing: -0.03em; line-height: 1.2;">
+          <h2 style="font-family: 'Sora', sans-serif; font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--ic-text); margin-bottom: 1.25rem;">
             Age Calculator – Calculate Age from Date of Birth Online
-          </h1>
+          </h2>
 
-          <!-- Table of Contents -->
-          <div class="toc-card">
-            <strong>&#128209; Table of Contents</strong>
-            <ul class="toc-list">
-              <li><a href="#what-is">What Is an Age Calculator?</a></li>
-              <li><a href="#why-important">Why Is Knowing Your Exact Age Important?</a></li>
-              <li><a href="#benefits">Key Benefits of Using Our Age Calculator</a></li>
-              <li><a href="#how-works">How Does the Age Calculator Work?</a></li>
-              <li><a href="#step-by-step">Step-by-Step Guide to Calculate Your Age</a></li>
-              <li><a href="#formula">How to Calculate Age from Date of Birth: Formula & Rules</a></li>
-              <li><a href="#example">Example: How to Calculate Age with Numbers</a></li>
-              <li><a href="#govt-jobs">Age Calculator for Government Jobs in India</a></li>
-              <li><a href="#school">Age for School Admission in India</a></li>
-              <li><a href="#mistakes">Common Mistakes When Calculating Age</a></li>
-              <li><a href="#tips">Expert Tips & Best Practices</a></li>
-              <li><a href="#key-takeaways">Key Takeaways</a></li>
-              <li><a href="#conclusion">Conclusion</a></li>
-              <li><a href="#faqs">Frequently Asked Questions (FAQs)</a></li>
-            </ul>
-          </div>
+          <p>To <strong>calculate age from date of birth</strong>, simply subtract your birth date from the current date or any target reference date. The resulting calculation yields your exact chronological age in years, months, and days. For instance, if your date of birth is 15 August 1997, your age as of 31 May 2026 is exactly 28 years, 9 months, and 16 days. Our free online <strong>age calculator</strong> computes this instantly, helping you check exam eligibility, fill school admission forms, or track important life milestones.</p>
 
-          <!-- Featured Snippet Paragraph -->
-          <div class="introduction highlight-box" style="margin-top: 20px;">
-            <p style="margin-bottom: 0;">To <strong>calculate age from date of birth</strong>, simply subtract your birth date from the current date or any target reference date. The resulting calculation yields your exact chronological age in years, months, and days. For instance, if your date of birth is 15 August 1997, your age as of 31 May 2026 is exactly 28 years, 9 months, and 16 days. Our free online <strong>age calculator</strong> computes this instantly, helping you check exam eligibility, fill school admission forms, or track important life milestones.</p>
-          </div>
+          <br>
+          <h3>Age for Government Exams & Job Eligibility in India</h3>
+          <p>In India, competitive exams enforce strict age cutoff windows. For example, UPSC Civil Services requires candidates to be between 21 and 32 years as of 1 August of the examination year. Similarly, SSC CGL, IBPS Banking, and Railway Recruitment Boards specify explicit cutoff dates. Use our tool by selecting your DOB and setting the "Age as of Date" to the official notification's cutoff date to guarantee 100% compliance.</p>
+        </div>
 
-          <p>Whether you need to compute your precise age for a competitive government exam (such as UPSC, SSC, Banking, or Railways), verify a school admission cutoff, fill out a passport application, or you are simply curious about how many hours, minutes, and seconds you've spent on this planet—this advanced utility tool has you covered. By automating the variable days in different calendar months and factoring in leap years, our tool provides 100% accurate, error-free results in seconds.</p>
-
-          <!-- What Is an Age Calculator? -->
-          <div id="what-is">
-            <h2>What Is an Age Calculator?</h2>
-            <p>An online <strong>age calculator</strong> is a digital utility tool designed to determine the precise chronological age of an individual from their date of birth to a designated end date. Unlike human mental math, which often rounds off or overlooks key variables like leap years, this tool calculates your exact age down to the exact year, month, day, and even biological metrics.</p>
-            <p>Your chronological age is the literal time that has elapsed from the moment of your birth to the present moment. Legal systems, employment boards, medical institutions, and educational authorities universally rely on chronological age to verify identities, establish eligibility, and ensure compliance with regulatory standards. By inputting your details into the calculator, you convert a static date of birth into a comprehensive time profile.</p>
-          </div>
-
-          <!-- Why Is Knowing Your Exact Age Important? -->
-          <div id="why-important">
-            <h2>Why Is Knowing Your Exact Age Important?</h2>
-            <p>Knowing your precise age is far more than a simple novelty. In many spheres of life, a difference of even a single day can be the deciding factor between an opportunity secured or lost. Here is why precision matters:</p>
-            <ul>
-              <li><strong>Government Exam Cutoffs:</strong> Public sector recruitment in India operates under extremely strict age windows. If an exam requires a candidate to be "not older than 30 years as of 1 August," being 30 years and 1 day old will disqualify you.</li>
-              <li><strong>School Admissions:</strong> To secure admissions under CBSE, ICSE, or State Boards, children must meet specific age limits by dates like 31 March or 1 June of the admission year.</li>
-              <li><strong>Financial Products & Insurance:</strong> Life insurance premium rates are determined based on your age. Many policies use the "Age Nearer Birthday" or "Age Last Birthday" method to price premiums.</li>
-              <li><strong>Legal & Travel Documents:</strong> Applying for a passport, voter ID, driving license, or pension benefits demands precise date documentation and age verification.</li>
-            </ul>
-          </div>
-
-          <!-- Key Benefits of Using Our Age Calculator -->
-          <div id="benefits">
-            <h2>Key Benefits of Using Our Age Calculator</h2>
-            <p>While you can attempt to calculate your age manually using subtraction, our automated tool offers distinct advantages designed for modern internet users:</p>
-            <ul>
-              <li><strong>Zero Margin of Error:</strong> The tool accounts for 28, 29, 30, and 31-day months seamlessly. No more second-guessing if your subtraction carried over correctly!</li>
-              <li><strong>Leap Year Compliance:</strong> Feeds in February 29 leap years automatically, ensuring calculations remain absolutely true over decades.</li>
-              <li><strong>Instant Cutoff Verification:</strong> Change the "Age as of Date" to any past or future date to instantly know how old you will be when a specific exam or application window closes.</li>
-              <li><strong>Deep Biological Metrics:</strong> Discover fun and deep bio-data, including your total heartbeats, total breaths taken, and how much sleep you've logged based on standard averages.</li>
-              <li><strong>Interplanetary Maturity:</strong> See your age converted into the orbits of Mercury, Venus, Mars, Jupiter, Saturn, and Neptune for a planetary perspective!</li>
-            </ul>
-          </div>
-
-          <!-- How Does the Age Calculator Work? -->
-          <div id="how-works">
-            <h2>How Does the Age Calculator Work?</h2>
-            <p>The backend of the tool relies on high-precision browser-based JavaScript calculations. When you select a date of birth and a target reference date, the script parses both dates into standard timestamp components (milliseconds elapsed since January 1, 1970). It then performs step-by-step subtraction across the year, month, and day nodes.</p>
-            <p>If the day difference is negative, the script dynamically "borrows" days from the preceding month, accurately referencing the exact number of days that month contained. If the month difference is negative, it borrows 12 months from the year node. All these steps execute in milliseconds right in your web browser, ensuring your private inputs are never sent to external servers.</p>
-          </div>
-
-          <!-- Step-by-Step Guide to Calculate Your Age -->
-          <div id="step-by-step">
-            <h2>Step-by-Step Guide to Calculate Your Age</h2>
-            <p>Using our advanced calculator is incredibly simple and takes less than 5 seconds:</p>
-            <ol>
-              <li><strong>Step 1: Enter your Date of Birth:</strong> Click the "Date of Birth" field and select your birth year, month, and day. You can also specify the exact time if known.</li>
-              <li><strong>Step 2: Set the Target Date:</strong> The "Age as of Date" defaults to today's current date and time. If you want to check your age on a future cutoff date, change this field accordingly.</li>
-              <li><strong>Step 3: View Results:</strong> The tool instantly outputs your exact age in years, months, and days in the primary result card. Below, you will find your zodiac, birthstone, total seconds alive, biological stats, and planetary age.</li>
-            </ol>
-          </div>
-
-          <!-- How to Calculate Age from Date of Birth: Formula & Rules -->
-          <div id="formula">
-            <h2>How to Calculate Age from Date of Birth: Formula & Rules</h2>
-            <p>To <strong>calculate age from date of birth</strong> manually, you must follow the Borrowing Subtraction Rule. The core formula is:</p>
-            <div class="highlight-box" style="text-align: center;">
-              <strong style="font-size: 1.2rem; color: var(--accent-strong);">Age = Target Date - Date of Birth</strong>
-            </div>
-            <p>Follow these manual steps to calculate your age using pen and paper:</p>
-            <ol>
-              <li><strong>Align Dates:</strong> Write down the Target Date (Year, Month, Day) on top, and your Date of Birth (Year, Month, Day) below it.</li>
-              <li><strong>Subtract Days:</strong> If the Target Day is smaller than the Birth Day, borrow 1 month from the Target Month column. Add the number of days in the previous month (e.g., 30 or 31) to the Target Day, then subtract.</li>
-              <li><strong>Subtract Months:</strong> Subtract the months. If the Target Month is now smaller than the Birth Month, borrow 1 year (12 months) from the Target Year column. Add 12 to the Target Month, then subtract.</li>
-              <li><strong>Subtract Years:</strong> Subtract the years to get the final year count.</li>
-            </ol>
-          </div>
-
-          <!-- Example: How to Calculate Age with Numbers -->
-          <div id="example">
-            <h2>Example: How to Calculate Age with Numbers</h2>
-            <p>Let's run a practical example of manual age calculation using the borrow method. Suppose we want to calculate the age of an individual born on <strong>25 November 1998</strong> as of <strong>15 May 2026</strong>.</p>
-            <div class="highlight-box">
-              <p><strong>Step 1: Set up the columns:</strong><br>
-              Target Date: 2026 Year, 05 Month, 15 Day<br>
-              Birth Date: 1998 Year, 11 Month, 25 Day</p>
-              
-              <p><strong>Step 2: Subtract the Days column (15 - 25):</strong><br>
-              Since 15 is smaller than 25, we borrow 1 month from the Month column. May (Month 05) becomes April (Month 04). April has 30 days. We add 30 to our 15 days, making it 45 days.<br>
-              Now: <strong>45 days - 25 days = 20 days</strong>.</p>
-              
-              <p><strong>Step 3: Subtract the Months column (04 - 11):</strong><br>
-              Since our Target Month is now 04, and 04 is smaller than 11, we borrow 1 year from the Year column. 2026 becomes 2025. We add 12 months to our 4 months, making it 16 months.<br>
-              Now: <strong>16 months - 11 months = 5 months</strong>.</p>
-              
-              <p><strong>Step 4: Subtract the Years column (2025 - 1998):</strong><br>
-              Now: <strong>2025 - 1998 = 27 years</strong>.</p>
-              
-              <p><strong>Final Calculated Age:</strong> 27 Years, 5 Months, and 20 Days.</p>
-            </div>
-          </div>
-
-          <!-- Age Calculator for Government Jobs in India -->
-          <div id="govt-jobs">
-            <h2>Age Calculator for Government Jobs in India</h2>
-            <p>In India, securing a government job (Sarkari Job) is highly competitive, and age criteria are strictly enforced. Recruiting bodies like the Union Public Service Commission (UPSC), Staff Selection Commission (SSC), Institute of Banking Personnel Selection (IBPS), and Indian Railways set absolute age thresholds. Let's look at the standard age limits for major government exams:</p>
-            
-            <div class="seo-table-wrapper">
-              <table class="seo-table">
-                <thead>
-                  <tr>
-                    <th>Exam / Board</th>
-                    <th>Standard Age Limit (General Category)</th>
-                    <th>Typical Reference / Cutoff Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>UPSC Civil Services (IAS/IPS)</strong></td>
-                    <td>21 to 32 Years</td>
-                    <td>1 August of the exam year</td>
-                  </tr>
-                  <tr>
-                    <td><strong>SSC CGL (Graduate Level)</strong></td>
-                    <td>18 to 32 Years (varies by post)</td>
-                    <td>1 August or 1 January of the exam year</td>
-                  </tr>
-                  <tr>
-                    <td><strong>IBPS PO / SBI PO (Banking)</strong></td>
-                    <td>20 to 30 Years</td>
-                    <td>Date of the official notification</td>
-                  </tr>
-                  <tr>
-                    <td><strong>RRB NTPC (Railways)</strong></td>
-                    <td>18 to 33 Years (undergraduate/graduate)</td>
-                    <td>1 July of the exam year</td>
-                  </tr>
-                  <tr>
-                    <td><strong>NDA (National Defence Academy)</strong></td>
-                    <td>16.5 to 19.5 Years</td>
-                    <td>Course commencement date</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="warning-box">
-              <p><strong>&#9888; Note on Age Relaxations:</strong> Reserved categories (OBC, SC, ST, PwD, and Ex-Servicemen) receive age relaxations in accordance with Indian government norms. OBC candidates typically get 3 years of relaxation, while SC/ST candidates get 5 years. Always use our online age calculator to check your age on the exact notification cutoff date before submitting your online application.</p>
-            </div>
-          </div>
-
-          <!-- Age for School Admission in India -->
-          <div id="school">
-            <h2>Age for School Admission in India</h2>
-            <p>Under the Right to Education (RTE) Act and the National Education Policy (NEP) guidelines, the Ministry of Education has standardized the minimum age limit for school admissions in India. For Class 1 admission, a child must have completed <strong>6 years of age</strong> as of the cutoff date set by the respective state or board (often 31 March or 1 June of the academic year).</p>
-            <p>Below is a general guideline for school admissions in India based on age completed:</p>
-            
-            <div class="seo-table-wrapper">
-              <table class="seo-table">
-                <thead>
-                  <tr>
-                    <th>Grade / Class</th>
-                    <th>Required Completed Age (As of Cutoff Date)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Nursery / Pre-KG</strong></td>
-                    <td>3+ Years</td>
-                  </tr>
-                  <tr>
-                    <td><strong>LKG (Lower Kindergarten)</strong></td>
-                    <td>4+ Years</td>
-                  </tr>
-                  <tr>
-                    <td><strong>UKG (Upper Kindergarten)</strong></td>
-                    <td>5+ Years</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Class 1 (First Grade)</strong></td>
-                    <td>6+ Years (NEP Standardized)</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Class 2 (Second Grade)</strong></td>
-                    <td>7+ Years</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <p>Using our age calculator helps parents quickly verify if their child meets the exact date parameters, avoiding stressful application rejections during school admission drives.</p>
-          </div>
-
-          <!-- Common Mistakes When Calculating Age -->
-          <div id="mistakes">
-            <h2>Common Mistakes When Calculating Age</h2>
-            <p>When calculating chronological age manually or setting inputs, avoid these frequent errors:</p>
-            <ul>
-              <li><strong>Confusing the Cutoff Date:</strong> Many candidates mistakenly compute their age as of the *application submission date* rather than the official *exam cutoff date* specified in the government notification.</li>
-              <li><strong>Assuming a Fixed 30-Day Month:</strong> Approximating that every month has 30 days leads to errors of 1 to 2 days over a year. Our calculator dynamically tracks whether a month has 28, 29, 30, or 31 days.</li>
-              <li><strong>Ignoring Leap Years:</strong> Leap years (adding February 29) occur every four years. Over 20 years, ignoring leap years introduces a 5-day error in your chronological age calculation.</li>
-              <li><strong>Incorrect Date Format:</strong> Make sure you do not transpose the day and month (e.g., confusing 05/09 as 5 September in DD/MM format vs 9 May in MM/DD format).</li>
-            </ul>
-          </div>
-
-          <!-- Expert Tips & Best Practices -->
-          <div id="tips">
-            <h2>Expert Tips & Best Practices</h2>
-            <ul>
-              <li><strong>Verify with Official Certificates:</strong> Always use the exact date of birth written on your Matriculation (Class 10) certificate or birth certificate. This is the only legally accepted DOB for government jobs and passports in India.</li>
-              <li><strong>Plan Admissions in Advance:</strong> If you are planning for your child's nursery admission, set the reference date in the calculator to 31 March of the upcoming year to see if they will cross the 3-year threshold.</li>
-              <li><strong>Screen Capture Your Results:</strong> When checking age limits for multiple jobs, take a quick screenshot of the result screen showing the specific target cutoff date calculation for easy reference.</li>
-              <li><strong>Bookmark InstaCalc:</strong> Keep this calculator handy on your phone or desktop home screen to quickly compute age profiles, days, and times without searching.</li>
-            </ul>
-          </div>
-
-          <!-- Key Takeaways -->
-          <div id="key-takeaways" class="highlight-box">
-            <h2 style="margin-top: 0; color: var(--accent-strong);">Key Takeaways</h2>
-            <ul style="margin-bottom: 0;">
-              <li>Chronological age is the exact calendar duration from birth to the present moment.</li>
-              <li>Leap years, different month lengths, and borrow rules make manual age calculations highly prone to errors.</li>
-              <li>In India, government exams (UPSC, SSC CGL) and school boards (NEP) apply absolute cutoff dates that require day-exact eligibility.</li>
-              <li>Our advanced tool automates the entire process, running fully in your browser with complete privacy.</li>
-            </ul>
-          </div>
-
-          <!-- Conclusion -->
-          <div id="conclusion">
-            <h2>Conclusion</h2>
-            <p>Being able to <strong>calculate age from date of birth</strong> with 100% precision is a critical everyday utility. Whether you are a student double-checking eligibility for UPSC or SSC CGL recruitment, a parent navigating school admissions under the new NEP rules, or a professional filling legal paperwork, our online age calculator eliminates manual errors and saves you time.</p>
-            <p>By processing variable days, leap cycles, and calendar intricacies instantly, InstaCalc.in offers a premium, modern experience. Keep this page bookmarked, share it with candidates applying for competitive exams, and use it as a reliable resource for all your future date calculations!</p>
-          </div>
-
-          <!-- Collapsible Interactive FAQs -->
-          <div id="faqs" class="faq-wrapper">
-            <h2>Frequently Asked Questions (FAQs)</h2>
-            <p>Find quick, reliable answers to the most common queries regarding chronological age, calculator accuracy, and admission eligibility.</p>
-            
-            <!-- FAQ 1 -->
-            <div class="faq-item">
-              <button class="faq-header" type="button">How do I calculate my exact age from date of birth? <i class="fas fa-chevron-down"></i></button>
-              <div class="faq-content">
-                <div class="faq-body">
-                  To calculate your exact age, enter your birth year, month, and day in the designated field. By default, the current date represents the end date. The calculator automatically subtracts the values, adjusts for month lengths and leap years, and shows your age in years, months, and days.
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 2 -->
-            <div class="faq-item">
-              <button class="faq-header" type="button">How is age calculated for competitive exams in India? <i class="fas fa-chevron-down"></i></button>
-              <div class="faq-content">
-                <div class="faq-body">
-                  Indian government exams specify a strict cutoff date (e.g., 1 August of the exam year). To verify eligibility, enter your date of birth in the first field, and set the "Age as of Date" field to the official cutoff date. The calculator will show your exact age on that day.
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 3 -->
-            <div class="faq-item">
-              <button class="faq-header" type="button">What is chronological age vs. biological age? <i class="fas fa-chevron-down"></i></button>
-              <div class="faq-content">
-                <div class="faq-body">
-                  Chronological age is the exact amount of calendar time that has passed since your birth. Biological age refers to how old your cells and organs are, which is affected by genetics and lifestyle. This calculator computes your official chronological age.
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 4 -->
-            <div class="faq-item">
-              <button class="faq-header" type="button">What is the formula used by the online age calculator? <i class="fas fa-chevron-down"></i></button>
-              <div class="faq-content">
-                <div class="faq-body">
-                  The calculator uses the standard Date Subtraction Formula: <code>Age = Reference Date - Date of Birth</code>. When days or months yield negative results, the JavaScript engine borrows days from the preceding calendar month and years from the year column to achieve day-exact accuracy.
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 5 -->
-            <div class="faq-item">
-              <button class="faq-header" type="button">How old am I today if I was born in 2000? <i class="fas fa-chevron-down"></i></button>
-              <div class="faq-content">
-                <div class="faq-body">
-                  If you were born in the year 2000, your age as of 2026 is either 25 or 26 years. The exact age depends on whether your birth date has passed in the current year. Enter your specific birth month and day into our tool to see your precise age.
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 6 -->
-            <div class="faq-item">
-              <button class="faq-header" type="button">What is the minimum age for Class 1 admission in India? <i class="fas fa-chevron-down"></i></button>
-              <div class="faq-content">
-                <div class="faq-body">
-                  Under the National Education Policy (NEP) guidelines, a child must have completed at least <strong>6 years of age</strong> as of the respective school board's cutoff date (typically 31 March or 1 June) to be eligible for Class 1 admission.
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 7 -->
-            <div class="faq-item">
-              <button class="faq-header" type="button">Does this tool handle leap years automatically? <i class="fas fa-chevron-down"></i></button>
-              <div class="faq-content">
-                <div class="faq-body">
-                  Yes. Our online age calculator features full Gregorian calendar leap year compliance. It recognizes February 29 dates and dynamically adjusts year-to-day conversions so your age remains perfectly accurate.
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 8 -->
-            <div class="faq-item">
-              <button class="faq-header" type="button">Is my personal birth date information secure? <i class="fas fa-chevron-down"></i></button>
-              <div class="faq-content">
-                <div class="faq-body">
-                  Completely. The tool executes entirely on your device using client-side JavaScript. No data is sent to external databases or stored on our servers. Your calculation is fully private and safe.
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 9 -->
-            <div class="faq-item">
-              <button class="faq-header" type="button">Can I calculate my age at a past date? <i class="fas fa-chevron-down"></i></button>
-              <div class="faq-content">
-                <div class="faq-body">
-                  Yes, you can calculate your age at any target date, whether past or future. Simply change the target date in the "Age as of Date" field to the date you want to check, and the tool will show how old you were or will be.
-                </div>
-              </div>
-            </div>
-
-            <!-- FAQ 10 -->
-            <div class="faq-item">
-              <button class="faq-header" type="button">Why is there a discrepancy in age when using different tools? <i class="fas fa-chevron-down"></i></button>
-              <div class="faq-content">
-                <div class="faq-body">
-                  Some basic calculators rely on a standard 365-day year and 30-day month approximation, which leads to slight variations. InstaCalc.in uses high-precision native JavaScript Date objects that reflect exact historical calendar dates.
-                </div>
-              </div>
-            </div>
-
-          </div>
-
+        <div class="faq-list" style="margin-top: 1.5rem;">
+          <details class="faq-card" open>
+            <summary>How do I calculate my exact age from date of birth? <i class="fas fa-chevron-down"></i></summary>
+            <p>To calculate your exact age, subtract your birth date from today's date (or a specific reference date). Adjust for leap years and different month lengths. If using an online age calculator, simply select your birth date and the tool computes it instantly.</p>
+          </details>
+          <details class="faq-card">
+            <summary>How is age calculated for government job eligibility in India? <i class="fas fa-chevron-down"></i></summary>
+            <p>For Indian government job exams (like UPSC, SSC CGL, Railways, Banking), eligibility is determined by your age on a specific cutoff date stated in the official exam notification. Use our calculator, select your DOB, and set the reference date to the cutoff date.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What is the chronological age calculation formula? <i class="fas fa-chevron-down"></i></summary>
+            <p>The chronological age formula is: Age = Today's Date - Date of Birth. Subtract the years, months, and days separately. If the days are negative, borrow from the previous month; if the months are negative, subtract 1 from the years and add 12 to the months.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Is my date of birth data private and safe on this website? <i class="fas fa-chevron-down"></i></summary>
+            <p>Yes, completely. Our age calculator executes entirely in your browser using JavaScript. No date of birth inputs or personal information are sent to our servers or third parties.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What is the minimum age for school admission in India under RTE? <i class="fas fa-chevron-down"></i></summary>
+            <p>Under the Right to Education (RTE) Act and National Education Policy (NEP) guidelines in India, the minimum age for admission to Class 1 is 6 years as of the designated cut-off date (usually 31 March or 1 June) of the academic year.</p>
+          </details>
         </div>
       </div>
     </section>
@@ -1415,8 +850,9 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© 2026 InstaCalc.in — Precision Time Utilities.</p>
+      <p>© 2026 InstaCalc.in — Precision Time & Math Utilities.</p>
       <div class="footer-links">
+        <a href="../index.html">Home</a>
         <a href="../aboutus.html">About Us</a>
         <a href="../privacypolicy.html">Privacy Policy</a>
       </div>
@@ -1427,7 +863,12 @@
     (function () {
       const menuToggle = document.getElementById("menuToggle");
       const mainNav = document.getElementById("mainNav");
-      menuToggle.onclick = () => mainNav.classList.toggle("open");
+      if (menuToggle && mainNav) {
+        menuToggle.addEventListener("click", () => {
+          const isOpen = mainNav.classList.toggle("open");
+          menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+      }
 
       const langSelect = document.getElementById('langSelect');
       if (langSelect) {
@@ -1443,95 +884,262 @@
         });
       }
 
-      const inputs = { dob: document.getElementById('dob'), now: document.getElementById('now') };
-      const res = {
-        age: document.getElementById('resAge'),
-        sub: document.getElementById('resSubAge'),
-        day: document.getElementById('resDay'),
-        next: document.getElementById('resNext'),
-        zod: document.getElementById('resZod'),
-        stone: document.getElementById('resStone'),
-        heart: document.getElementById('resHeart'),
-        breaths: document.getElementById('resBreaths'),
-        sleep: document.getElementById('resSleep'),
-        pm: document.getElementById('pMerc'),
-        pv: document.getElementById('pVen'),
-        pa: document.getElementById('pMars'),
-        pj: document.getElementById('pJup'),
-        ps: document.getElementById('pSat'),
-        pn: document.getElementById('pNep')
-      };
+      const dobInput = document.getElementById('dob');
+      const nowInput = document.getElementById('now');
+      const dobDayName = document.getElementById('dobDayName');
+      const nowDayName = document.getElementById('nowDayName');
 
-      const nowD = new Date();
-      inputs.now.value = nowD.toISOString().slice(0, 16);
-      const defB = new Date(nowD.getFullYear() - 25, nowD.getMonth(), nowD.getDate(), 9, 0);
-      inputs.dob.value = defB.toISOString().slice(0, 16);
+      const heroAge = document.getElementById('resAgeHero');
+      const heroDesc = document.getElementById('resAgeDesc');
+      const mobileVal = document.getElementById('mobileSummaryVal');
+      const copyHeroBtn = document.getElementById('copyHeroBtn');
+      const copySummaryBtn = document.getElementById('copySummaryBtn');
 
-      const stones = ["Garnet", "Amethyst", "Aquamarine", "Diamond", "Emerald", "Pearl", "Ruby", "Peridot", "Sapphire", "Opal", "Topaz", "Turquoise"];
-      const zodes = [["Cap", 20, 0], ["Aqu", 19, 1], ["Pis", 20, 2], ["Ari", 20, 3], ["Tau", 21, 4], ["Gem", 21, 5], ["Can", 23, 6], ["Leo", 23, 7], ["Vir", 23, 8], ["Lib", 23, 9], ["Sco", 22, 10], ["Sag", 22, 11], ["Cap", 31, 11]];
+      const elMonths = document.getElementById('resTotalMonths');
+      const elWeeks = document.getElementById('resTotalWeeks');
+      const elDays = document.getElementById('resTotalDays');
+      const elHours = document.getElementById('resTotalHours');
+      const elMins = document.getElementById('resTotalMins');
+      const elSecs = document.getElementById('resTotalSecs');
 
-      function update() {
-        const b = new Date(inputs.dob.value);
-        const n = new Date(inputs.now.value);
-        if (isNaN(b) || isNaN(n)) return;
+      const elDayOfWeek = document.getElementById('resDayOfWeek');
+      const elNextBday = document.getElementById('resNextBday');
+      const elNextBdayDay = document.getElementById('resNextBdayDay');
+      const elHalfBday = document.getElementById('resHalfBday');
+      const elZodiac = document.getElementById('resZodiac');
+      const elChineseZod = document.getElementById('resChineseZod');
+      const elBirthstone = document.getElementById('resBirthstone');
+      const elLeapYears = document.getElementById('resLeapYears');
 
-        const diffMs = n - b;
-        const totalSecs = Math.floor(diffMs / 1000);
-        const totalMins = Math.floor(totalSecs / 60);
-        const totalHrs = Math.floor(totalMins / 60);
-        const totalDays = Math.floor(totalHrs / 24);
+      const elHeartbeats = document.getElementById('resHeartbeats');
+      const elBreaths = document.getElementById('resBreaths');
+      const elSleepHours = document.getElementById('resSleepHours');
+      const elLaughter = document.getElementById('resLaughter');
 
-        let y = n.getFullYear() - b.getFullYear();
-        let mon = n.getMonth() - b.getMonth();
-        let d = n.getDate() - b.getDate();
-        if (d < 0) { mon--; d += new Date(n.getFullYear(), n.getMonth(), 0).getDate(); }
-        if (mon < 0) { y--; mon += 12; }
+      const elMerc = document.getElementById('pMerc');
+      const elVen = document.getElementById('pVen');
+      const elMars = document.getElementById('pMars');
+      const elJup = document.getElementById('pJup');
+      const elSat = document.getElementById('pSat');
+      const elNep = document.getElementById('pNep');
 
-        res.age.textContent = `${y} Years, ${mon} Months, ${d} Days`;
-        res.sub.textContent = `${totalSecs.toLocaleString()} total seconds alive`;
-
-        res.day.textContent = b.toLocaleDateString(undefined, { weekday: 'short' });
-        let next = new Date(n.getFullYear(), b.getMonth(), b.getDate());
-        if (next < n) next.setFullYear(n.getFullYear() + 1);
-        res.next.textContent = Math.ceil((next - n) / 86400000) + "d";
-        res.stone.textContent = stones[b.getMonth()];
-        for (let z of zodes) { if (b.getMonth() < z[2] || (b.getMonth() === z[2] && b.getDate() <= z[1])) { res.zod.textContent = z[0]; break; } }
-
-        res.heart.textContent = (totalMins * 72).toLocaleString();
-        res.breaths.textContent = (totalMins * 12).toLocaleString();
-        res.sleep.textContent = (totalDays * 8).toLocaleString();
-
-        res.pm.textContent = (totalDays / 88).toFixed(1);
-        res.pv.textContent = (totalDays / 225).toFixed(1);
-        res.pa.textContent = (totalDays / 687).toFixed(1);
-        res.pj.textContent = (totalDays / 4333).toFixed(1);
-        res.ps.textContent = (totalDays / 10759).toFixed(1);
-        res.pn.textContent = (totalDays / 60190).toFixed(2);
+      // Default Initialization (Local Timezone Safe)
+      function formatDateToLocal(d) {
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}-${m}-${day}`;
       }
 
-      inputs.dob.oninput = update;
-      inputs.now.oninput = update;
-      update();
+      const today = new Date();
+      nowInput.value = formatDateToLocal(today);
 
-      // Collapsible FAQ Accordion Logic
-      document.querySelectorAll('.faq-header').forEach(button => {
-        button.addEventListener('click', () => {
-          const faqItem = button.parentElement;
-          const faqContent = faqItem.querySelector('.faq-content');
-          const isActive = faqItem.classList.contains('active');
-          
-          // Close all FAQ items
-          document.querySelectorAll('.faq-item').forEach(item => {
-            item.classList.remove('active');
-            item.querySelector('.faq-content').style.maxHeight = null;
-          });
-          
-          if (!isActive) {
-            faqItem.classList.add('active');
-            faqContent.style.maxHeight = faqContent.scrollHeight + "px";
-          }
+      const defaultDob = new Date(today.getFullYear() - 25, today.getMonth(), today.getDate());
+      dobInput.value = formatDateToLocal(defaultDob);
+
+      const stones = ["Garnet (Jan)", "Amethyst (Feb)", "Aquamarine (Mar)", "Diamond (Apr)", "Emerald (May)", "Pearl (Jun)", "Ruby (Jul)", "Peridot (Aug)", "Sapphire (Sep)", "Opal (Oct)", "Topaz (Nov)", "Turquoise (Dec)"];
+      const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const chineseZodiacs = ["Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"];
+
+      function getZodiac(month, day) {
+        // month: 1-12, day: 1-31
+        if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) return "Aquarius ♒";
+        if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) return "Pisces ♓";
+        if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) return "Aries ♈";
+        if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) return "Taurus ♉";
+        if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) return "Gemini ♊";
+        if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) return "Cancer ♋";
+        if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) return "Leo ♌";
+        if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) return "Virgo ♍";
+        if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) return "Libra ♎";
+        if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) return "Scorpio ♏";
+        if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) return "Sagittarius ♐";
+        return "Capricorn ♑";
+      }
+
+      function countLeapYears(startYear, endYear) {
+        let count = 0;
+        for (let yr = startYear; yr <= endYear; yr++) {
+          if ((yr % 4 === 0 && yr % 100 !== 0) || (yr % 400 === 0)) count++;
+        }
+        return count;
+      }
+
+      let lastSummary = "";
+
+      function calculateAge() {
+        if (!dobInput.value || !nowInput.value) return;
+
+        const [bY, bM, bD] = dobInput.value.split('-').map(Number);
+        const [nY, nM, nD] = nowInput.value.split('-').map(Number);
+
+        const birthDate = new Date(bY, bM - 1, bD);
+        const refDate = new Date(nY, nM - 1, nD);
+
+        if (isNaN(birthDate.getTime()) || isNaN(refDate.getTime())) return;
+
+        if (refDate < birthDate) {
+          heroAge.textContent = "Date of Birth is in the future";
+          heroDesc.textContent = "Please select a Date of Birth earlier than the reference date.";
+          if (mobileVal) mobileVal.textContent = "Invalid DOB";
+          return;
+        }
+
+        dobDayName.textContent = daysOfWeek[birthDate.getDay()];
+        nowDayName.textContent = daysOfWeek[refDate.getDay()];
+
+        // Chronological Exact Borrowing Subtraction
+        let years = nY - bY;
+        let months = nM - bM;
+        let days = nD - bD;
+
+        if (days < 0) {
+          months--;
+          // Days in the previous month before reference month
+          const prevMonthDays = new Date(nY, nM - 1, 0).getDate();
+          days += prevMonthDays;
+        }
+
+        if (months < 0) {
+          years--;
+          months += 12;
+        }
+
+        // Total Elapsed Time Calculations
+        const diffMs = refDate.getTime() - birthDate.getTime();
+        const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        const totalWeeks = (totalDays / 7).toFixed(1);
+        const totalMonthsExact = (years * 12 + months + (days / 30.4375)).toFixed(1);
+        const totalHours = totalDays * 24;
+        const totalMins = totalHours * 60;
+        const totalSecs = totalMins * 60;
+
+        // Next Birthday calculation
+        let nextBday = new Date(nY, bM - 1, bD);
+        if (nextBday < refDate) {
+          nextBday = new Date(nY + 1, bM - 1, bD);
+        }
+        const nextBdayDays = Math.ceil((nextBday.getTime() - refDate.getTime()) / (1000 * 60 * 60 * 24));
+        const nextBdayDayName = daysOfWeek[nextBday.getDay()];
+
+        // Half Birthday
+        const halfBday = new Date(bY, (bM - 1 + 6) % 12, bD);
+        const halfBdayFormatted = halfBday.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+
+        // Astrology & Stones
+        const zodiac = getZodiac(bM, bD);
+        const chineseZod = chineseZodiacs[(bY - 4) % 12];
+        const birthstone = stones[bM - 1];
+        const leapCount = countLeapYears(bY, nY);
+
+        // Biological
+        const heartbeats = Math.floor(totalMins * 72);
+        const breaths = Math.floor(totalMins * 16);
+        const sleepHours = Math.floor(totalDays * 8);
+        const laughs = Math.floor(totalDays * 15);
+
+        // Update UI
+        const ageString = `${years} Years, ${months} Months, ${days} Days`;
+        heroAge.textContent = ageString;
+        heroDesc.textContent = `${totalDays.toLocaleString()} days alive • Born on a ${daysOfWeek[birthDate.getDay()]} • Next birthday in ${nextBdayDays} days (${nextBdayDayName})`;
+        
+        if (mobileVal) mobileVal.textContent = `${years}y ${months}m ${days}d`;
+
+        elMonths.textContent = Number(totalMonthsExact).toLocaleString();
+        elWeeks.textContent = Number(totalWeeks).toLocaleString();
+        elDays.textContent = totalDays.toLocaleString();
+        elHours.textContent = totalHours.toLocaleString();
+        elMins.textContent = totalMins.toLocaleString();
+        elSecs.textContent = totalSecs.toLocaleString();
+
+        elDayOfWeek.textContent = daysOfWeek[birthDate.getDay()];
+        elNextBday.textContent = `${nextBdayDays} Days`;
+        elNextBdayDay.textContent = nextBdayDayName;
+        elHalfBday.textContent = halfBdayFormatted;
+        elZodiac.textContent = zodiac;
+        elChineseZod.textContent = chineseZod;
+        elBirthstone.textContent = birthstone;
+        elLeapYears.textContent = `${leapCount} Years`;
+
+        elHeartbeats.textContent = heartbeats.toLocaleString();
+        elBreaths.textContent = breaths.toLocaleString();
+        elSleepHours.textContent = sleepHours.toLocaleString() + ' hrs';
+        elLaughter.textContent = laughs.toLocaleString();
+
+        // Planetary Ages
+        elMerc.textContent = (totalDays / 87.97).toFixed(1) + ' yrs';
+        elVen.textContent = (totalDays / 224.7).toFixed(1) + ' yrs';
+        elMars.textContent = (totalDays / 686.98).toFixed(1) + ' yrs';
+        elJup.textContent = (totalDays / 4332.59).toFixed(2) + ' yrs';
+        elSat.textContent = (totalDays / 10759.22).toFixed(2) + ' yrs';
+        elNep.textContent = (totalDays / 60190.03).toFixed(3) + ' yrs';
+
+        lastSummary = `Age Summary from InstaCalc.in:\nExact Age: ${ageString}\nTotal Days: ${totalDays.toLocaleString()} Days\nBorn on: ${daysOfWeek[birthDate.getDay()]}\nNext Birthday: in ${nextBdayDays} days (${nextBdayDayName})\nZodiac: ${zodiac} | Birthstone: ${birthstone}`;
+      }
+
+      // Event Listeners
+      dobInput.addEventListener('input', calculateAge);
+      nowInput.addEventListener('input', calculateAge);
+
+      // Preset Chips Logic
+      document.querySelectorAll('#presetDobChips .chip').forEach(chip => {
+        chip.addEventListener('click', function() {
+          const ageYears = Number(this.getAttribute('data-age'));
+          const currentRef = nowInput.value ? new Date(nowInput.value) : new Date();
+          const targetBday = new Date(currentRef.getFullYear() - ageYears, currentRef.getMonth(), currentRef.getDate());
+          dobInput.value = formatDateToLocal(targetBday);
+          calculateAge();
         });
       });
+
+      document.querySelectorAll('#presetCutoffChips .chip').forEach(chip => {
+        chip.addEventListener('click', function() {
+          const cutoff = this.getAttribute('data-cutoff');
+          const currentRefYear = nowInput.value ? new Date(nowInput.value).getFullYear() : new Date().getFullYear();
+          if (cutoff) {
+            nowInput.value = `${currentRefYear}-${cutoff}`;
+          } else {
+            nowInput.value = formatDateToLocal(new Date());
+          }
+          calculateAge();
+        });
+      });
+
+      document.getElementById('todayBtn').addEventListener('click', () => {
+        nowInput.value = formatDateToLocal(new Date());
+        calculateAge();
+      });
+
+      document.getElementById('recalculateBtn').addEventListener('click', calculateAge);
+
+      document.getElementById('resetBtn').addEventListener('click', () => {
+        const cur = new Date();
+        nowInput.value = formatDateToLocal(cur);
+        const def = new Date(cur.getFullYear() - 25, cur.getMonth(), cur.getDate());
+        dobInput.value = formatDateToLocal(def);
+        calculateAge();
+      });
+
+      // Quick Copy
+      function copyText(text, btn) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => btn.innerHTML = orig, 1800);
+          });
+        }
+      }
+
+      if (copyHeroBtn) {
+        copyHeroBtn.addEventListener('click', () => copyText(lastSummary, copyHeroBtn));
+      }
+      if (copySummaryBtn) {
+        copySummaryBtn.addEventListener('click', () => copyText(lastSummary, copySummaryBtn));
+      }
+
+      // Initial Calculation
+      calculateAge();
     })();
   </script>
 </body>

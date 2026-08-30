@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Minutes to Hours Converter | Precision Time Transformer</title>
+  <title>Minutes to Hours Converter – Decimal & HMS Time Transformer</title>
   <meta name="description"
-    content="The ultimate minutes to hours converter. Convert between mins and hrs with decimal and HMS precision. Features binge-time equivalent and conversion history.">
+    content="Convert minutes to hours and decimal hours (e.g. 510 mins = 8.5 hrs). High-precision HMS, fractional breakdown, and conversion table.">
   <meta name="keywords"
-    content="minutes to hours, mins to hrs, time converter, decimal hours, hms format, minutes in hour, hours to minutes, time extraction">
+    content="minutes to hours converter, mins to hrs, decimal hours converter, convert minutes, time converter">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#005f73">
@@ -23,426 +23,53 @@
     href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
 
   <style>
-    :root {
-      --bg: #f2f6f8;
-      --text: #132a3b;
-      --text-soft: #334d60;
-      --accent: #007f8b;
-      --accent-strong: #005f73;
-      --accent-2: #ee9f2e;
-      --line: #d3e1ea;
-      --card: #ffffff;
-      --success: #1f9f67;
-      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
-      --radius-xl: 26px;
-      --radius-lg: 20px;
-      --radius-md: 15px;
-      --radius-sm: 11px;
-    }
+    * { box-sizing: border-box; }
+    .container { width: min(1240px, 92vw); margin: 0 auto; padding: 0 0.5rem; }
+    .calc-layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem; gap: 1.75rem; align-items: start; width: 100%; }
+    .calculator-shell { background: #ffffff; border: 1px solid var(--ic-border); border-radius: var(--ic-radius-lg); box-shadow: var(--ic-shadow-md); padding: 1.75rem; width: 100%; max-width: 100%; overflow: hidden; }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    .nav-pills-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; padding-bottom: 0.85rem; border-bottom: 1px solid var(--ic-border); width: 100%; }
+    .mode-pill-btn { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.5rem 0.85rem; font-size: 0.84rem; font-weight: 700; border-radius: var(--ic-radius-full); border: 1px solid var(--ic-border); background: #ffffff; color: var(--ic-text-muted); cursor: pointer; transition: all 0.2s ease; white-space: nowrap; }
+    .mode-pill-btn:hover { border-color: var(--ic-primary); color: var(--ic-primary-dark); background: var(--ic-bg-subtle); }
+    .mode-pill-btn.active { background: linear-gradient(135deg, var(--ic-primary-dark), var(--ic-primary)); color: #ffffff; border-color: var(--ic-primary-dark); box-shadow: 0 3px 8px rgba(0, 127, 139, 0.25); }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    .hero-result-card { background: linear-gradient(135deg, #f0fdfa 0%, #e6f7f6 100%); border: 1px solid rgba(0, 127, 139, 0.25); border-radius: var(--ic-radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; width: 100%; position: relative; }
+    .hero-result-card .label-group { display: grid; gap: 0.25rem; width: 100%; min-width: 0; }
+    .hero-result-card .res-eyebrow { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ic-primary-dark); }
+    .hero-result-card .res-val { font-family: 'Sora', sans-serif; font-size: clamp(1.45rem, 4vw, 2.2rem); font-weight: 800; color: var(--ic-primary-dark); line-height: 1.2; word-break: break-word; }
+    .hero-result-card .res-desc { font-size: 0.85rem; color: var(--ic-text-muted); word-break: break-word; }
+    .hero-result-card .quick-copy-btn { width: 42px; height: 42px; border-radius: 12px; border: 1px solid rgba(0, 127, 139, 0.25); background: #ffffff; color: var(--ic-primary-dark); font-size: 1.05rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0; }
+    .hero-result-card .quick-copy-btn:hover { background: var(--ic-primary-dark); color: #ffffff; transform: translateY(-2px); }
 
-    body {
-      min-height: 100vh;
-      font-family: "Public Sans", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
-        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
-        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    .field-card { background: var(--ic-bg-subtle); border: 1px solid var(--ic-border); border-radius: var(--ic-radius-md); padding: 1rem; margin-bottom: 0.85rem; width: 100%; }
+    .field-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; font-weight: 700; font-size: 0.92rem; gap: 0.5rem; }
+    .field-head span { color: var(--ic-primary-dark); font-family: 'Sora', sans-serif; font-size: 0.95rem; }
+    .field-card input { width: 100%; height: 48px; padding: 0.65rem 1rem; font-size: 1.05rem; font-weight: 700; color: var(--ic-text); background: #ffffff; border: 1.5px solid var(--ic-border); border-radius: var(--ic-radius-md); outline: none; transition: all 0.2s ease; }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.22;
-      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
-      background-size: 100% 36px;
-    }
+    .chips-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; width: 100%; }
+    .chip { padding: 0.35rem 0.75rem; font-size: 0.82rem; font-weight: 700; border-radius: 999px; border: 1px solid var(--ic-border); background: #ffffff; color: var(--ic-text-muted); cursor: pointer; white-space: nowrap; transition: all 0.15s ease; }
+    .chip:hover, .chip.active { color: var(--ic-primary-dark); background: var(--ic-primary-light); border-color: var(--ic-primary); }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+    .result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 0.75rem; margin-top: 1.25rem; width: 100%; }
+    .result-card { background: #ffffff; border: 1px solid var(--ic-border); border-radius: var(--ic-radius-md); padding: 0.85rem; min-width: 0; overflow: hidden; }
+    .result-card h3 { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ic-text-muted); font-weight: 700; margin-bottom: 0.25rem; }
+    .result-value { font-family: 'Sora', sans-serif; font-size: clamp(1.1rem, 3.5vw, 1.35rem); font-weight: 800; color: var(--ic-text); word-break: break-word; }
+    .result-card.highlight { background: #f8fafc; border-color: rgba(0, 127, 139, 0.3); }
+    .result-card.highlight .result-value { color: var(--ic-primary-dark); }
+    .result-card.positive .result-value { color: #1f9f67; }
 
-    .container {
-      width: min(1180px, 92vw);
-      margin: 0 auto;
-    }
+    .calculator-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; width: 100%; }
 
-    .section {
-      padding: 3.2rem 0;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 55;
-      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
-      background: rgba(242, 246, 248, 0.92);
-      backdrop-filter: blur(10px);
-    }
-
-    .header-inner {
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.8rem;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: "Sora", sans-serif;
-      font-weight: 700;
-      color: var(--accent-strong);
-      letter-spacing: -0.02em;
-    }
-
-    .brand img {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 2px solid rgba(0, 95, 115, 0.15);
-      background: #ffffff;
-    }
-
-    .menu-toggle {
-      width: 42px;
-      height: 42px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      border-radius: 12px;
-      background: #ffffff;
-      color: var(--accent-strong);
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .site-nav {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 4vw;
-      right: 4vw;
-      display: none;
-      flex-direction: column;
-      gap: 0.4rem;
-      padding: 0.7rem;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: #ffffff;
-      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
-    }
-
-    .site-nav.open {
-      display: flex;
-    }
-
-    .site-nav a {
-      min-height: 40px;
-      display: inline-flex;
-      align-items: center;
-      padding: 0.45rem 0.8rem;
-      border-radius: 10px;
-      font-weight: 600;
-      color: var(--text-soft);
-    }
-
-    .site-nav a:hover,
-    .site-nav a.active {
-      color: var(--accent-strong);
-      background: rgba(0, 127, 139, 0.12);
-    }
-
-    .hero {
-      padding: 3.3rem 0 2.4rem;
-    }
-
-    .hero-grid {
-      display: grid;
-      gap: 1.1rem;
-    }
-
-    .hero-copy {
-      border: 1px solid rgba(0, 95, 115, 0.16);
-      border-radius: var(--radius-xl);
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
-      box-shadow: var(--shadow);
-      padding: 1.35rem;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.32rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: rgba(255, 255, 255, 0.74);
-      color: var(--accent-strong);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      font-size: 0.78rem;
-    }
-
-    .hero-copy h1 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(2rem, 5vw, 3.05rem);
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      margin-top: 0.9rem;
-      max-width: 17ch;
-    }
-
-    .hero-copy p {
-      margin-top: 0.95rem;
-      color: var(--text-soft);
-      font-size: clamp(1rem, 2.2vw, 1.1rem);
-      max-width: 56ch;
-    }
-
-    .hero-panel {
-      border-radius: var(--radius-xl);
-      padding: 1.15rem;
-      background: linear-gradient(165deg, var(--accent-strong), #0ca4b4);
-      color: #f8fcff;
-      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
-      display: grid;
-      gap: 0.6rem;
-      align-content: start;
-    }
-
-    .hero-panel h2 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.18rem;
-    }
-
-    .hero-point {
-      border-radius: 11px;
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      background: rgba(255, 255, 255, 0.11);
-      padding: 0.63rem 0.72rem;
-      font-size: 0.93rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.46rem;
-    }
-
-    .calc-layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.95rem;
-    }
-
-    .calculator-shell,
-    .sidebar-card,
-    .grid-card {
-      border: 1px solid rgba(0, 95, 115, 0.15);
-      background: rgba(255, 255, 255, 0.89);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
-    }
-
-    .calculator-shell {
-      padding: 1rem;
-      display: grid;
-      gap: 0.95rem;
-    }
-
-    .input-grid {
-      display: grid;
-      gap: 0.7rem;
-      grid-template-columns: 1fr;
-    }
-
-    .field-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-      display: grid;
-      gap: 0.44rem;
-    }
-
-    .field-head label {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    input {
-      width: 100%;
-      min-height: 42px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 0.48rem 0.62rem;
-      font: inherit;
-      outline: none;
-    }
-
-    .result-grid {
-      display: grid;
-      gap: 0.62rem;
-      margin-top: 0.5rem;
-    }
-
-    .result-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-    }
-
-    .result-card h3 {
-      color: var(--text-soft);
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      margin-bottom: 0.2rem;
-    }
-
-    .result-value {
-      font-family: Sora;
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--text);
-    }
-
-    .result-card.primary {
-      background: rgba(31, 159, 103, 0.08);
-      border-color: rgba(31, 159, 103, 0.26);
-    }
-
-    .ms-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.45rem 0;
-      border-bottom: 1px solid var(--line);
-      font-size: 0.88rem;
-    }
-
-    .ms-item span {
-      color: var(--text-soft);
-      font-weight: 600;
-    }
-
-    .ms-item strong {
-      color: var(--accent-strong);
-      font-weight: 700;
-    }
-
-    .sidebar-card {
-      padding: 1rem;
-      display: grid;
-      gap: 0.5rem;
-      align-content: start;
-    }
-
-    .sidebar-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.05rem;
-    }
-
-    .link-list {
-      list-style: none;
-      display: grid;
-      gap: 0.4rem;
-    }
-
-    .link-list a {
-      min-height: 41px;
-      border-radius: 10px;
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      background: #fff;
-      padding: 0.5rem 0.75rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .link-list a:hover {
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    @media (min-width: 640px) {
-      .input-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .result-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .span-2 {
-        grid-column: span 2;
-      }
-    }
-
-    @media (min-width: 940px) {
-      .hero-grid {
-        grid-template-columns: 1.5fr 1fr;
-      }
-
-      .calc-layout {
-        grid-template-columns: 1.751fr 1fr;
-        align-items: start;
-      }
-
-      .site-nav {
-        position: static;
-        display: flex;
-        flex-direction: row;
-        gap: 0.3rem;
-        background: none;
-        border: none;
-        box-shadow: none;
-        padding: 0;
-      }
-
-      .menu-toggle {
-        display: none;
-      }
-    }
-
-    .site-footer {
-      margin-top: 1rem;
-      border-top: 1px solid rgba(0, 95, 115, 0.14);
-      background: rgba(238, 246, 250, 0.86);
-      padding: 1.4rem 0 2.3rem;
-    }
-
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 0.78rem;
-      text-align: left;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-      font-weight: 600;
+    @media (max-width: 640px) {
+      .calc-layout { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+      .calculator-shell { padding: 1rem 0.75rem !important; border-radius: var(--ic-radius-md) !important; }
+      .hero-result-card { padding: 1rem 0.85rem !important; flex-direction: column !important; align-items: flex-start !important; gap: 0.5rem !important; }
+      .hero-result-card .quick-copy-btn { position: absolute !important; top: 0.75rem !important; right: 0.75rem !important; width: 38px !important; height: 38px !important; }
+      .hero-result-card .res-val { font-size: clamp(1.35rem, 6.5vw, 1.85rem) !important; max-width: calc(100% - 44px) !important; }
+      .result-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.5rem !important; }
     }
   </style>
 </head>
@@ -450,15 +77,16 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="../index.html" class="brand">
-        <img src="../logo.png" alt="InstaCalc">
+      <a href="../index.html" class="brand" aria-label="InstaCalc Home">
+        <img src="../logo.png" alt="InstaCalc Logo" width="38" height="38">
         <span>InstaCalc.in</span>
       </a>
-      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
       <nav class="site-nav" id="mainNav">
         <a href="../index.html">Home</a>
-        <a href="../aboutus.html">About Us</a>
-        <a href="../privacypolicy.html">Privacy Policy</a>
+        <a href="minutes-hourscalculator.html" class="active">Min to Hours</a>
+        <a href="hourcalculator.html">Hours Tool</a>
+        <a href="dayscalculator.html">Days Tool</a>
       </nav>
     </div>
   </header>
@@ -467,157 +95,177 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow"><i class="fas fa-hourglass-half"></i> Precision Conversion</span>
-          <h1>Ultimate Minutes & Hours Transformer</h1>
-          <p>The standard for time extraction. Convert between minutes and hours with decimal, HMS, and real-world
-            fractional precision instantly.</p>
+          <span class="eyebrow"><i class="fas fa-stopwatch-20"></i> Precision Time Transformer</span>
+          <h1>Minutes to Hours Converter – Decimal & HMS Format</h1>
+          <p>Instantly convert <strong>minutes into decimal hours, standard hours & minutes, seconds</strong>, and simplified fractional hours.</p>
         </div>
         <aside class="hero-panel">
-          <h2>Time Intelligence</h2>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> HMS (H:M:S) Precision Extraction</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Simplified Fractional Breakdown</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Binge-Time Media Estimator</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Decimal Conversion Matrix</div>
+          <h2>Conversion Features</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Standard Hours & Minutes (e.g. 8h 30m)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Decimal Payroll Hours (e.g. 8.50 hrs)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Simplified Fraction Representation</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 1-Tap Time Interval Presets</div>
         </aside>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container calc-layout">
-        <div class="calculator-shell">
-          <div class="input-grid">
-            <div class="field-card">
-              <div class="field-head"><label for="iMin">Input Minutes</label></div>
-              <input type="number" id="iMin" placeholder="e.g. 95">
+    <div class="container" id="calculator">
+      <div class="calc-layout">
+        <article class="calculator-shell">
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label" id="mobileSummaryLabel">Converted Time</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="hero-result-card">
+            <div class="label-group">
+              <span class="res-eyebrow" id="heroEyebrow">Converted Duration</span>
+              <div class="res-val" id="heroValue">-</div>
+              <div class="res-desc" id="heroDesc">-</div>
             </div>
-            <div class="field-card">
-              <div class="field-head"><label for="iHrs">Input Hours (Decimal)</label></div>
-              <input type="number" id="iHrs" placeholder="e.g. 1.5">
+            <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+
+          <div class="field-card">
+            <div class="field-head">
+              <label for="inpMins">Enter Minutes</label>
+              <span id="previewMins">510 Mins</span>
+            </div>
+            <input type="number" id="inpMins" value="510" min="0" step="any">
+            <div class="chips-wrap">
+              <button type="button" class="chip" data-val="15">15 Min (0.25h)</button>
+              <button type="button" class="chip" data-val="30">30 Min (0.50h)</button>
+              <button type="button" class="chip" data-val="45">45 Min (0.75h)</button>
+              <button type="button" class="chip" data-val="90">90 Min (1.5h)</button>
+              <button type="button" class="chip" data-val="120">120 Min (2h)</button>
+              <button type="button" class="chip" data-val="480">480 Min (8h Shift)</button>
+              <button type="button" class="chip" data-val="1440">1440 Min (24h)</button>
             </div>
           </div>
 
           <div class="result-grid">
-            <div class="result-card primary span-2">
-              <h3>Standard Breakdown</h3>
-              <div class="result-value" id="resHMS">0h 00m 00s</div>
-              <div style="font-size:0.88rem; font-weight:700; color:var(--accent-strong); margin-top:0.4rem;"
-                id="resDec">0.00 decimal hours</div>
+            <div class="result-card highlight">
+              <h3>Decimal Hours</h3>
+              <div class="result-value" id="resDecimal">-</div>
             </div>
-
+            <div class="result-card positive">
+              <h3>Hours & Minutes</h3>
+              <div class="result-value" id="resHM">-</div>
+            </div>
             <div class="result-card">
-              <h3>Fractional View</h3>
-              <div class="ms-list">
-                <div class="ms-item"><span>Clock Fraction</span> <strong id="resFrac">0/1</strong></div>
-                <div class="ms-item"><span>Percent of Hour</span> <strong id="resPerc">0%</strong></div>
-              </div>
+              <h3>HMS String</h3>
+              <div class="result-value" id="resHMS">-</div>
             </div>
-
             <div class="result-card">
-              <h3>Binge Estimator</h3>
-              <div class="ms-list">
-                <div class="ms-item"><span>TV Episodes (42m)</span> <strong id="resTV">0.0</strong></div>
-                <div class="ms-item"><span>Short Films (15m)</span> <strong id="resFilm">0.0</strong></div>
-              </div>
+              <h3>Total Seconds</h3>
+              <div class="result-value" id="resSeconds">-</div>
             </div>
-
-            <div class="result-card span-2">
-              <h3>Recent Conversions</h3>
-              <div class="ms-list" id="resHistory"></div>
+            <div class="result-card">
+              <h3>Decimal Days</h3>
+              <div class="result-value" id="resDays">-</div>
+            </div>
+            <div class="result-card">
+              <h3>Binge Equivalent</h3>
+              <div class="result-value" id="resEpisodes">-</div>
             </div>
           </div>
-        </div>
 
-        <aside>
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="copyResultBtn" type="button"><i class="fas fa-copy"></i> Copy Converted Time</button>
+            <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset Defaults</button>
+          </div>
+        </article>
+
+        <aside class="sidebar">
           <div class="sidebar-card">
             <h3>Related Tools</h3>
             <ul class="link-list">
-              <li><a href="hourcalculator.html"><span>Hour Diff Tracker</span> <i class="fas fa-chevron-right"></i></a>
-              </li>
-              <li><a href="weekcalculator.html"><span>Week Analyzer</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="dayscalculator.html"><span>Days Calculator</span> <i class="fas fa-chevron-right"></i></a>
-              </li>
+              <li><a href="hourcalculator.html"><span>Hours Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="timedurationcalculator.html"><span>Duration Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="dayscalculator.html"><span>Days Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
             </ul>
           </div>
         </aside>
       </div>
-    </section>
+    </div>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© 2026 InstaCalc.in — Your time is valuable.</p>
-      <div class="footer-links">
-        <a href="../aboutus.html">About Us</a>
-        <a href="../privacypolicy.html">Privacy Policy</a>
-      </div>
+      <p>© 2026 InstaCalc.in — Precision Time Converter Tools.</p>
     </div>
   </footer>
 
   <script>
     (function () {
-      const menuToggle = document.getElementById("menuToggle");
-      const mainNav = document.getElementById("mainNav");
-      menuToggle.onclick = () => mainNav.classList.toggle("open");
+      const $ = id => document.getElementById(id);
+      let lastSummary = '';
 
-      const els = {
-        min: document.getElementById('iMin'),
-        hrs: document.getElementById('iHrs'),
-        hms: document.getElementById('resHMS'),
-        dec: document.getElementById('resDec'),
-        frac: document.getElementById('resFrac'),
-        perc: document.getElementById('resPerc'),
-        tv: document.getElementById('resTV'),
-        film: document.getElementById('resFilm'),
-        hist: document.getElementById('resHistory')
-      };
+      function calculate() {
+        const totalM = parseFloat($('inpMins').value) || 0;
+        $('previewMins').textContent = `${totalM} Mins`;
 
-      let history = [];
+        const totalSecs = Math.round(totalM * 60);
+        const decHours = (totalM / 60).toFixed(2);
+        const h = Math.floor(totalM / 60);
+        const remM = Math.floor(totalM % 60);
+        const s = totalSecs % 60;
 
-      function gcd(a, b) { return b ? gcd(b, a % b) : a; }
-      function toFrac(dec) {
-        const den = 60;
-        const num = Math.round(dec * 60);
-        const divisor = gcd(num, den);
-        return `${num / divisor}/${den / divisor}`;
-      }
+        const hms = `${String(h).padStart(2, '0')}:${String(remM).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        const decDays = (totalM / 1440).toFixed(2);
+        const episodes = (totalM / 45).toFixed(1);
 
-      function update(source) {
-        let totalMins = 0;
-        if (source === 'min') {
-          totalMins = parseFloat(els.min.value) || 0;
-          els.hrs.value = (totalMins / 60).toFixed(2);
-        } else {
-          totalMins = (parseFloat(els.hrs.value) || 0) * 60;
-          els.min.value = totalMins.toFixed(0);
+        $('heroEyebrow').textContent = `${totalM} Minutes Equals`;
+        $('heroValue').textContent = `${h} Hours, ${remM} Minutes`;
+        $('heroDesc').textContent = `${decHours} Decimal Hours • ${hms} (HH:MM:SS) • ${totalSecs.toLocaleString()} Seconds`;
+
+        if ($('mobileSummaryVal')) {
+          $('mobileSummaryVal').textContent = `${decHours} Hrs (${h}h ${remM}m)`;
         }
 
-        const h = Math.floor(Math.abs(totalMins) / 60);
-        const m = Math.floor(Math.abs(totalMins) % 60);
-        const s = Math.round((Math.abs(totalMins) % 1) * 60);
+        $('resDecimal').textContent = `${decHours} Hrs`;
+        $('resHM').textContent = `${h}h ${remM}m`;
+        $('resHMS').textContent = hms;
+        $('resSeconds').textContent = `${totalSecs.toLocaleString()}s`;
+        $('resDays').textContent = `${decDays} Days`;
+        $('resEpisodes').textContent = `~ ${episodes} Episodes`;
 
-        els.hms.textContent = `${totalMins < 0 ? '-' : ''}${h}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
-        els.dec.textContent = `${(totalMins / 60).toFixed(2)} decimal hours`;
-        els.frac.textContent = toFrac((totalMins % 60) / 60);
-        els.perc.textContent = Math.round(((totalMins % 60) / 60) * 100) + "%";
-        els.tv.textContent = (totalMins / 42).toFixed(1);
-        els.film.textContent = (totalMins / 15).toFixed(1);
+        lastSummary = `${totalM} Minutes = ${h} Hours ${remM} Minutes (${decHours} Decimal Hours / ${totalSecs} Seconds)`;
       }
 
-      function log() {
-        const val = els.min.value;
-        if (!val || val == 0) return;
-        history.unshift(`${val}m → ${els.hms.textContent}`);
-        if (history.length > 5) history.pop();
-        els.hist.innerHTML = history.map(h => `<div class="ms-item"><span>Log Entry</span> <strong>${h}</strong></div>`).join('');
+      function syncUI() {
+        $('inpMins').addEventListener('input', calculate);
+
+        document.querySelectorAll('.chips-wrap .chip').forEach(btn => {
+          btn.addEventListener('click', () => {
+            $('inpMins').value = btn.dataset.val;
+            calculate();
+          });
+        });
+
+        function copySummary(btn) {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(lastSummary).then(() => {
+              const orig = btn.innerHTML;
+              btn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+              setTimeout(() => btn.innerHTML = orig, 1800);
+            });
+          }
+        }
+
+        $('copyResultBtn')?.addEventListener('click', function () { copySummary(this); });
+        $('copyHeroBtn')?.addEventListener('click', function () { copySummary(this); });
+
+        $('resetBtn')?.addEventListener('click', () => {
+          $('inpMins').value = 510;
+          calculate();
+        });
       }
 
-      els.min.oninput = () => update('min');
-      els.hrs.oninput = () => update('hrs');
-      els.min.onblur = log;
-      els.hrs.onblur = log;
-
-      els.min.value = 90;
-      update('min');
+      syncUI();
+      calculate();
     })();
   </script>
 </body>
