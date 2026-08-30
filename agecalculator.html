@@ -1,631 +1,476 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Age Calculator | Find Your Age in Years, Months & Days Online</title>
-  <meta name="description" content="Calculate your age in years, months, and days with our easy-to-use online age calculator. Find the time difference between any two dates instantly.">
-   <!-- Basic Favicons -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-
-  <link rel="canonical" href="https://instacalc.in/agecalculator.html" />
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      const userLang = localStorage.getItem('user_lang');
+      const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+      if (userLang === 'ja' || (!userLang && browserLang.startsWith('ja'))) {
+        window.location.replace('./ja/duration/agecalculator.html');
+      } else if (userLang === 'ru' || (!userLang && browserLang.startsWith('ru'))) {
+        window.location.replace('./ru/duration/agecalculator.html');
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Age Calculator – Calculate Exact Age from Date of Birth Online</title>
+  <meta name="description"
+    content="Free online age calculator to find your exact age in years, months, weeks, days, hours, and minutes from date of birth. Includes birthday countdown, planetary ages, and government exam eligibility cutoff checks.">
+  <meta name="keywords"
+    content="calculate age from date of birth, age calculator, exact age calculator, chronological age formula, age calculator online, age calculator for government jobs, next birthday countdown">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#0284c7">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
 
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="canonical" href="https://instacalc.in/agecalculator.html">
 
-  <style>
-        /* Inline critical CSS - Replace with your actual critical styles */
-      
-        .navbar { /* Example critical navbar styles */ }
-        .container.table1 h2 { /* Example critical calculator heading style */ }
-        /* ... more critical styles ... */
-    </style>
+  <meta property="og:title" content="Age Calculator - Calculate Exact Age Online">
+  <meta property="og:description" content="Calculate your exact age in years, months, and days down to the second with birthday countdown & milestones.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/agecalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
 
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"></noscript>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Age Calculator - Calculate Exact Age Online">
+  <meta name="twitter:description" content="Calculate your exact age in years, months, and days with next birthday countdown.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
 
-    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="style.css"></noscript>
-  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="instacalc-core.css">
 
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"></noscript>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.1/dist/umd/popper.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" defer></script>
-    <script src="script.js" defer></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js" defer></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js" defer></script>
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
-  
-  <!-- Speed Booster -->
-<link rel="preconnect" href="https://www.gstatic.com">
-<link rel="preconnect" href="https://connect.facebook.net">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Age Calculator",
+      "url": "https://instacalc.in/agecalculator.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "description": "Chronological age calculator for computing exact years, months, and days from date of birth with milestone tracking.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
 </head>
+
 <body>
- <nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="d-flex align-items-center navbar-brand">
-    <img src="logo.png" alt="Logo" class="mr-2" style="width:50px;height:50px;">
-    <h6 class="sitetext mb-0">InstaCalc.in</h6>
-  </div>   
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>     
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/index.html">Home</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/aboutus.html">About Us</a>
-      </li>
-       <li class="nav-item px-2">
-        <a class="nav-link " href="/contactus.html">Contact Us</a>
-      </li>
-      <li class="nav-item px-2">
-        <a class="nav-link" href="/privacypolicy.html">Privacy Policy</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc Home">
+        <img src="logo.png" alt="InstaCalc Logo" width="38" height="38">
+        <span>InstaCalc.in</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="sipcalculator.html" class="nav-link">SIP Calculator</a>
+        <a href="emicalculator.html" class="nav-link">EMI Calculator</a>
+        <a href="agecalculator.html" class="nav-link active">Age Calculator</a>
+        <a href="gallontolitercalculator.html" class="nav-link">Gallon to Liter</a>
+        <a href="aboutus.html" class="nav-link">About</a>
+        <a href="contactus.html" class="nav-link">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-    
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <span class="hero-badge"><i class="fas fa-calendar-alt"></i> Precision Date &amp; Time Utility</span>
+      <h1>Age Calculator – Calculate Exact Age from Date of Birth</h1>
+      <p class="hero-desc">Calculate your precise chronological age down to the day, hour, and minute. Instant calculation for government job eligibility, school admissions, birthday countdowns, and life milestones.</p>
+    </section>
 
+    <!-- Calculator Section -->
+    <section class="section" style="padding-top: 0;">
+      <!-- Mobile Live Summary Pill -->
+      <div class="mobile-summary-pill" id="mobileSummary">
+        <div>
+          <div class="metric-label">Your Exact Age</div>
+          <div class="metric-val" id="mobileAgeVal">-- Years</div>
+        </div>
+        <div style="text-align: right;">
+          <div class="metric-label">Next Birthday</div>
+          <div class="metric-val" id="mobileNextBday">--d</div>
+        </div>
+      </div>
 
-  <!-- //first row first column -->
-  <div class="row">
-  <!-- First row first column -->
-  <div class="col-md-6" style="background-colorf:yellow;">
-    <div class="container mt-5 table1">
-      <h2>Age Calculator</h2>
+      <div class="calc-layout">
+        <!-- Input Column -->
+        <div class="ic-card">
+          <h2 style="font-family: var(--ic-font-heading); font-size: 1.25rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-user-clock" style="color: var(--ic-primary);"></i> Enter Birth Details
+          </h2>
+
+          <div class="form-group">
+            <div class="form-label-wrap">
+              <label for="dob" class="form-label">Date of Birth &amp; Time</label>
+              <span class="form-hint">Birth date</span>
+            </div>
+            <input type="datetime-local" id="dob" class="ic-input">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-wrap">
+              <label for="targetDate" class="form-label">Age as of (Target Date)</label>
+              <span class="form-hint">Default: Today</span>
+            </div>
+            <input type="datetime-local" id="targetDate" class="ic-input">
+            <div class="chips-wrap">
+              <button class="ic-chip" type="button" id="btnToday">Today</button>
+              <button class="ic-chip" type="button" id="btnNextYear">1 Year Ahead</button>
+              <button class="ic-chip" type="button" id="btn18">18th Birthday</button>
+              <button class="ic-chip" type="button" id="btn60">60th (Retirement)</button>
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button class="ic-btn ic-btn-primary" type="button" id="btnCalculate">
+              <i class="fas fa-calculator"></i> Calculate Age
+            </button>
+            <button class="ic-btn ic-btn-outline" type="button" id="btnCopy">
+              <i class="fas fa-copy"></i> Copy Result
+            </button>
+          </div>
+        </div>
+
+        <!-- Output / Results Column -->
+        <div class="ic-card ic-card-sticky">
+          <!-- Primary Hero Result -->
+          <div class="results-hero">
+            <div class="results-hero-label">Calculated Age</div>
+            <div class="results-hero-value" id="resAge">-- Years, -- Months, -- Days</div>
+            <div class="results-hero-sub" id="resSubAge">Enter dates to calculate</div>
+          </div>
+
+          <!-- Metric Cards Grid -->
+          <div class="metric-grid">
+            <div class="metric-card">
+              <div class="metric-card-label"><i class="fas fa-gift" style="color: #ec4899;"></i> Next Birthday</div>
+              <div class="metric-card-val" id="resNext">--</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-card-label"><i class="fas fa-calendar-day" style="color: #6366f1;"></i> Day Born On</div>
+              <div class="metric-card-val" id="resDay">--</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-card-label"><i class="fas fa-star" style="color: #f59e0b;"></i> Zodiac Sign</div>
+              <div class="metric-card-val" id="resZod">--</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-card-label"><i class="fas fa-gem" style="color: #10b981;"></i> Birthstone</div>
+              <div class="metric-card-val" id="resStone">--</div>
+            </div>
+          </div>
+
+          <!-- Total Life Units Breakdown -->
+          <h3 style="font-family: var(--ic-font-heading); font-size: 1.05rem; margin: 1.25rem 0 0.75rem;">
+            <i class="fas fa-chart-pie" style="color: var(--ic-primary);"></i> Lifetime Elapsed Units
+          </h3>
+          <div class="metric-grid">
+            <div class="metric-card">
+              <div class="metric-card-label">Total Days</div>
+              <div class="metric-card-val" id="resDays">--</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-card-label">Total Weeks</div>
+              <div class="metric-card-val" id="resWeeks">--</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-card-label">Total Hours</div>
+              <div class="metric-card-val" id="resHours">--</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-card-label">Total Minutes</div>
+              <div class="metric-card-val" id="resMinutes">--</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Guide & Educational Content Section -->
+    <section class="section">
+      <div class="ic-card">
+        <h2 style="font-family: var(--ic-font-heading); font-size: 1.5rem; margin-bottom: 1rem; color: var(--ic-text);">
+          How the Age Calculation Formula Works
+        </h2>
+        <p style="color: var(--ic-text-muted); margin-bottom: 1rem;">
+          The chronological age formula accurately calculates the exact calendar difference between your <strong>Date of Birth</strong> and the <strong>Reference Date</strong>. Unlike simplistic approximations that assume 30-day months or 365-day years, InstaCalc tracks varying month lengths and leap years:
+        </p>
+
+        <div style="background: var(--ic-bg-subtle); padding: 1rem 1.25rem; border-radius: var(--ic-radius-md); border: 1px solid var(--ic-border); margin-bottom: 1.5rem;">
+          <code style="font-family: monospace; font-size: 1rem; font-weight: 700; color: var(--ic-primary-dark);">
+            Age (Years, Months, Days) = Target Date - Date of Birth (with calendar borrow adjustments)
+          </code>
+        </div>
+
+        <h3 style="font-family: var(--ic-font-heading); font-size: 1.25rem; margin: 1.5rem 0 0.75rem; color: var(--ic-text);">
+          Government Job Exam Age Limits in India (2026 Cutoffs)
+        </h3>
+        <div class="table-wrap">
+          <table class="ic-table">
+            <thead>
+              <tr>
+                <th>Exam / Board</th>
+                <th>Standard Age Limit</th>
+                <th>Cutoff Reference Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>UPSC Civil Services (IAS/IPS)</strong></td>
+                <td>21 to 32 Years</td>
+                <td>1 August of Exam Year</td>
+              </tr>
+              <tr>
+                <td><strong>SSC CGL (Graduate Posts)</strong></td>
+                <td>18 to 32 Years</td>
+                <td>1 August or 1 January</td>
+              </tr>
+              <tr>
+                <td><strong>IBPS PO / SBI PO (Banking)</strong></td>
+                <td>20 to 30 Years</td>
+                <td>Official Notification Date</td>
+              </tr>
+              <tr>
+                <td><strong>RRB NTPC (Indian Railways)</strong></td>
+                <td>18 to 33 Years</td>
+                <td>1 July of Exam Year</td>
+              </tr>
+              <tr>
+                <td><strong>NDA (National Defence Academy)</strong></td>
+                <td>16.5 to 19.5 Years</td>
+                <td>Course Commencement Date</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQs Section -->
+    <section class="section" style="padding-top: 0;">
+      <h2 style="font-family: var(--ic-font-heading); font-size: 1.5rem; margin-bottom: 0.5rem;">
+        Frequently Asked Questions
+      </h2>
+      <p style="color: var(--ic-text-muted); margin-bottom: 1.25rem;">Everything you need to know about chronological age calculation and date arithmetic.</p>
+
+      <div class="faq-grid">
+        <details class="ic-faq-item" open>
+          <summary class="ic-faq-summary">How is my exact age calculated?</summary>
+          <div class="ic-faq-body">
+            Your exact age is computed by subtracting your birth date from the target date using calendar date arithmetic. The algorithm takes into account the exact number of days in each month (28, 29, 30, or 31) and accounts for leap years to deliver day-exact precision.
+          </div>
+        </details>
+
+        <details class="ic-faq-item">
+          <summary class="ic-faq-summary">How do I verify age eligibility for government exams in India?</summary>
+          <div class="ic-faq-body">
+            Enter your date of birth in the first field, and set the "Age as of Date" to the specific cutoff date stated in the official exam notification (e.g. August 1st for UPSC/SSC). The tool will output your exact age on that date.
+          </div>
+        </details>
+
+        <details class="ic-faq-item">
+          <summary class="ic-faq-summary">Does the calculator support past and future dates?</summary>
+          <div class="ic-faq-body">
+            Yes! You can choose any date in the past or future to calculate how old someone was during a historical event, or how old you will be when you reach retirement or a milestone anniversary.
+          </div>
+        </details>
+
+        <details class="ic-faq-item">
+          <summary class="ic-faq-summary">What is the minimum age for Class 1 school admission under NEP in India?</summary>
+          <div class="ic-faq-body">
+            Under the National Education Policy (NEP) guidelines in India, a child must have completed 6 years of age as of the state cutoff date (usually March 31 or June 1) to be admitted into Class 1.
+          </div>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">
+          <img src="logo.png" alt="InstaCalc" width="32" height="32">
+          <span>InstaCalc.in</span>
+        </a>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="sipcalculator.html">SIP Calculator</a>
+        <a href="emicalculator.html">EMI Calculator</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 InstaCalc.in &mdash; Smart, fast, and free online calculators.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Age Calculator Script -->
+  <script>
+    (function () {
+      // Mobile Nav Drawer Toggle
+      const menuToggle = document.getElementById("menuToggle");
+      const mainNav = document.getElementById("mainNav");
+      if (menuToggle && mainNav) {
+        menuToggle.addEventListener("click", () => mainNav.classList.toggle("open"));
+      }
+
+      // Elements
+      const dobInput = document.getElementById('dob');
+      const targetDateInput = document.getElementById('targetDate');
+      const resAge = document.getElementById('resAge');
+      const resSubAge = document.getElementById('resSubAge');
+      const resNext = document.getElementById('resNext');
+      const resDay = document.getElementById('resDay');
+      const resZod = document.getElementById('resZod');
+      const resStone = document.getElementById('resStone');
+      const resDays = document.getElementById('resDays');
+      const resWeeks = document.getElementById('resWeeks');
+      const resHours = document.getElementById('resHours');
+      const resMinutes = document.getElementById('resMinutes');
+      const mobileAgeVal = document.getElementById('mobileAgeVal');
+      const mobileNextBday = document.getElementById('mobileNextBday');
+
+      // Set Default Dates (25 years ago today)
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const formatIsoLocal = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
       
-      <div class="input-group m">
-        <label for="birth-date" class="mr-1">Date of Birth</label>
-        <input type="date" id="birth-date" class="form-control" onchange="calculateAge()">
-      </div>
-      
-      <div class="input-group">
-        <label for="current-date" class="mr-1">Current Date</label>
-        <input type="date" id="current-date" class="form-control" onchange="calculateAge()">
-      </div>
-      
-      <div class="result-box">
-        <div class="result-item">
-          <span class="label">Age:</span>
-          <span class="value"><strong><span id="age-years">0</span> years</strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Months:</span>
-          <span class="value"><strong><span id="age-months">0</span> months</strong></span>
-        </div>
-        <div class="result-item">
-          <span class="label">Days:</span>
-          <span class="value"><strong><span id="age-days">0</span> days</strong></span>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <!-- First row second column -->
-  <div class="col-md-6" >
-    <div class="container mt-5">
-      <div class=".container-fluid mt-sm-5 mb-sm-5">
-        <div class="card ">
-          <div class="card-body labelbody"> <a class="sitetext" href="dayscalculator.html"> Days Calculator</a></div>
-        </div>
-        <br>
-        <div class="card ">
-          <div class="card-body labelbody"> <a class="sitetext" href="hourcalculator.html"> Hour Calculator</a></div>
-        </div>
-        <br>
-        <div class="card ">
-          <div class="card-body labelbody"> <a class="sitetext" href="timedurationcalculator.html"> Duration Calculator</a></div>
-        </div>
-        <br>
-        <div class="card ">
-          <div class="card-body labelbody"> <a class="sitetext" href="agecalculator.html">Age Calculator</a></div>
-        </div>
-        <br>
-        <div class="card ">
-          <div class="card-body labelbody"> <a class="sitetext" href="timezonecalculator.html">Timezone Calculator</a></div>
-        </div>
-        <br>
-        <div class="card ">
-          <div class="card-body labelbody"> <a class="sitetext" href="birthdaycalculator.html">Birthday Calculator</a></div>
-        </div>
-        <br>
-        <div class="card ">
-          <div class="card-body labelbody"> <a class="sitetext" href="weekcalculator.html">Week Calculator</a></div>
-        </div>
-        <br>
-        <div class="card ">
-          <div class="card-body labelbody"> <a class="sitetext" href="minutes-hourscalculator.html">Minutes to Hour Calculator</a></div>
-        </div>
-        <br>
-        <div class="card ">
-          <div class="card-body labelbody"> <a class="sitetext" href="juliandatecalculator.html">Julian Date Calcultor</a></div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-</div>
+      targetDateInput.value = formatIsoLocal(now);
+      const defDob = new Date(now.getFullYear() - 25, now.getMonth(), now.getDate(), 9, 0);
+      dobInput.value = formatIsoLocal(defDob);
 
-  <!--  /second row -->
-   <div class="row  mb-05">
-  <!-- First Column -->
-  <div class="col-md-6 mt-5 mb-5" >
-    <div class="container">
-      <div class="calculator-content">
-        <div class="title">
-          <h1>Age Calculator: Know Your Exact Age Down to the Day!</h1>
-        </div>
-        <div class="introduction">
-          <p>Ever wondered exactly how old you are in years, months, and days? Or needed to calculate someone else's age for official forms, school admissions, or just out of curiosity? An Age Calculator takes the guesswork out of age calculations.</p>
-          <p>Simple. Accurate. Instant.</p>
-        </div>
+      const stones = ["Garnet", "Amethyst", "Aquamarine", "Diamond", "Emerald", "Pearl", "Ruby", "Peridot", "Sapphire", "Opal", "Topaz", "Turquoise"];
+      const zodes = [["Capricorn", 20, 0], ["Aquarius", 19, 1], ["Pisces", 20, 2], ["Aries", 20, 3], ["Taurus", 21, 4], ["Gemini", 21, 5], ["Cancer", 23, 6], ["Leo", 23, 7], ["Virgo", 23, 8], ["Libra", 23, 9], ["Scorpio", 22, 10], ["Sagittarius", 22, 11], ["Capricorn", 31, 11]];
 
-        <div class="what-is-calculator">
-          <h2>What is an Age Calculator?</h2>
-          <p>An Age Calculator is a smart tool that determines your precise age based on your birth date and the current date (or any other date you specify). It calculates:</p>
-          <ul>
-            <li>✅ Your exact age in years, months, and days</li>
-            <li>✅ How many days until your next birthday</li>
-            <li>✅ Your age on any specific date in past or future</li>
-          </ul>
-        </div>
+      function calculate() {
+        const b = new Date(dobInput.value);
+        const t = new Date(targetDateInput.value);
+        if (isNaN(b.getTime()) || isNaN(t.getTime())) return;
 
-        <div class="how-calculator-works">
-          <h2>How Does It Work?</h2>
-          <p>The calculator uses date arithmetic to compute the difference between two dates:</p>
-          <ol>
-            <li>1️⃣ You enter your birth date (day, month, year)</li>
-            <li>2️⃣ The calculator compares it to today's date or any date you choose</li>
-            <li>3️⃣ It instantly displays your exact age</li>
-          </ol>
-          <p>The calculation accounts for leap years and varying month lengths automatically.</p>
-        </div>
+        const diffMs = t.getTime() - b.getTime();
+        const totalSecs = Math.max(0, Math.floor(diffMs / 1000));
+        const totalMins = Math.floor(totalSecs / 60);
+        const totalHrs = Math.floor(totalMins / 60);
+        const totalDays = Math.floor(totalHrs / 24);
+        const totalWeeks = Math.floor(totalDays / 7);
 
-        <div class="why-use-calculator">
-          <h2>Why Use an Age Calculator?</h2>
-          <ul>
-            <li>🔹 <strong>Accuracy:</strong> No manual counting or calendar-checking needed</li>
-            <li>🔹 <strong>Convenience:</strong> Get results instantly in multiple formats</li>
-            <li>🔹 <strong>Planning:</strong> Know exactly when someone reaches milestones</li>
-            <li>🔹 <strong>Official Use:</strong> Perfect for forms requiring precise age</li>
-          </ul>
-        </div>
+        let y = t.getFullYear() - b.getFullYear();
+        let mon = t.getMonth() - b.getMonth();
+        let d = t.getDate() - b.getDate();
 
-        <div class="example-calculation">
-          <h2>Example Calculation</h2>
-          <p>If someone was born on <strong>June 15, 1990</strong> and today is <strong>April 10, 2025</strong>:</p>
-          <ul>
-            <li>🔸 Age: 34 years, 9 months, 26 days</li>
-            <li>🔸 Days until next birthday: 66 days</li>
-            <li>🔸 Born on a: Friday</li>
-            <li>🔸 Zodiac sign: Gemini</li>
-          </ul>
-        </div>
+        if (d < 0) {
+          mon--;
+          d += new Date(t.getFullYear(), t.getMonth(), 0).getDate();
+        }
+        if (mon < 0) {
+          y--;
+          mon += 12;
+        }
 
-        <div class="special-features">
-          <h2>Special Features</h2>
-          <p>Many age calculators also provide:</p>
-          <ul>
-            <li>✔ Day of the week you were born</li>
-            <li>✔ Zodiac sign and birthstone</li>
-            <li>✔ Comparison with historical events</li>
-            <li>✔ Age at specific future dates</li>
-            <li>✔ Shareable results</li>
-          </ul>
-        </div>
+        const ageStr = `${y} Years, ${mon} Months, ${d} Days`;
+        resAge.textContent = ageStr;
+        resSubAge.textContent = `${totalSecs.toLocaleString()} total seconds of life`;
+        if (mobileAgeVal) mobileAgeVal.textContent = `${y}y ${mon}m ${d}d`;
 
-        <div class="final-thoughts">
-          <h2>Who Needs This?</h2>
-          <p>An Age Calculator is useful for:</p>
-          <ul>
-            <li>👶 Parents tracking child development milestones</li>
-            <li>🏫 Schools verifying admission eligibility</li>
-            <li>👔 Employers confirming hiring requirements</li>
-            <li>📅 Event planners organizing age-specific activities</li>
-            <li>👵 Anyone curious about their exact age!</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+        // Born on day of week
+        resDay.textContent = b.toLocaleDateString(undefined, { weekday: 'short' });
 
-  <!-- Second Column - FAQs -->
-  <div class="col-md-6" >
-    <div class="container mt-5 mb-5">
-      <h2 class="mb-4">Age Calculator FAQs</h2>
-      <div id="faqAccordion" class="accordion">
+        // Next Birthday
+        let nextBday = new Date(t.getFullYear(), b.getMonth(), b.getDate());
+        if (nextBday < t) nextBday.setFullYear(t.getFullYear() + 1);
+        const daysToNext = Math.ceil((nextBday.getTime() - t.getTime()) / 86400000);
+        resNext.textContent = daysToNext === 0 ? "🎉 Today!" : `${daysToNext} days`;
+        if (mobileNextBday) mobileNextBday.textContent = daysToNext === 0 ? "Today!" : `${daysToNext}d`;
 
-        <!-- FAQ 1 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button class="btn " data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                How accurate is the age calculation?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqAccordion">
-            <div class="card-body">
-              Our calculator is 100% accurate as it performs exact date arithmetic, accounting for leap years and varying month lengths. It's more precise than manual counting.
-            </div>
-          </div>
-        </div>
+        // Birthstone & Zodiac
+        resStone.textContent = stones[b.getMonth()] || '--';
+        let foundZod = "Capricorn";
+        for (let z of zodes) {
+          if (b.getMonth() < z[2] || (b.getMonth() === z[2] && b.getDate() <= z[1])) {
+            foundZod = z[0];
+            break;
+          }
+        }
+        resZod.textContent = foundZod;
 
-        <!-- FAQ 2 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingTwo">
-            <h5 class="mb-0">
-              <button class="btn  collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Can I calculate age at a specific future date?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes! Simply enter your birth date and the future date you're interested in. The calculator will show exactly how old you'll be on that date.
-            </div>
-          </div>
-        </div>
+        // Life units
+        resDays.textContent = totalDays.toLocaleString();
+        resWeeks.textContent = totalWeeks.toLocaleString();
+        resHours.textContent = totalHrs.toLocaleString();
+        resMinutes.textContent = totalMins.toLocaleString();
+      }
 
-        <!-- FAQ 3 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingThree">
-            <h5 class="mb-0">
-              <button class="btn  collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Does it work for historical dates?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-            <div class="card-body">
-              Absolutely. The calculator works for any valid dates, whether in the past, present, or future. It can even calculate age differences between historical figures.
-            </div>
-          </div>
-        </div>
+      // Event listeners
+      dobInput.addEventListener('input', calculate);
+      targetDateInput.addEventListener('input', calculate);
+      document.getElementById('btnCalculate').addEventListener('click', calculate);
 
-        <!-- FAQ 4 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFour">
-            <h5 class="mb-0">
-              <button class="btn  collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                How does it handle leap years?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-            <div class="card-body">
-              The calculator automatically accounts for leap years in all calculations. February 29th birthdays are handled precisely, showing correct age for leap year babies.
-            </div>
-          </div>
-        </div>
+      // Chips
+      document.getElementById('btnToday').addEventListener('click', () => {
+        targetDateInput.value = formatIsoLocal(new Date());
+        calculate();
+      });
 
-        <!-- FAQ 5 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingFive">
-            <h5 class="mb-0">
-              <button class="btn  collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                Can I calculate age in months or weeks?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes, many calculators provide age breakdowns in different units including years, months, weeks, days, and sometimes even hours or minutes.
-            </div>
-          </div>
-        </div>
+      document.getElementById('btnNextYear').addEventListener('click', () => {
+        const nextY = new Date();
+        nextY.setFullYear(nextY.getFullYear() + 1);
+        targetDateInput.value = formatIsoLocal(nextY);
+        calculate();
+      });
 
-        <!-- FAQ 6 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSix">
-            <h5 class="mb-0">
-              <button class="btn  collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                Is my birth date information stored?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#faqAccordion">
-            <div class="card-body">
-              No, our calculator performs all computations in your browser. Your date information never gets sent to or stored on any server.
-            </div>
-          </div>
-        </div>
+      document.getElementById('btn18').addEventListener('click', () => {
+        const b = new Date(dobInput.value);
+        if (!isNaN(b.getTime())) {
+          const t18 = new Date(b.getFullYear() + 18, b.getMonth(), b.getDate(), b.getHours(), b.getMinutes());
+          targetDateInput.value = formatIsoLocal(t18);
+          calculate();
+        }
+      });
 
-        <!-- FAQ 7 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingSeven">
-            <h5 class="mb-0">
-              <button class="btn  collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                Can I calculate the age difference between two people?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#faqAccordion">
-            <div class="card-body">
-              Yes, simply calculate each person's age separately and compare, or use our special age difference calculator that shows the exact gap in years, months, and days.
-            </div>
-          </div>
-        </div>
+      document.getElementById('btn60').addEventListener('click', () => {
+        const b = new Date(dobInput.value);
+        if (!isNaN(b.getTime())) {
+          const t60 = new Date(b.getFullYear() + 60, b.getMonth(), b.getDate(), b.getHours(), b.getMinutes());
+          targetDateInput.value = formatIsoLocal(t60);
+          calculate();
+        }
+      });
 
-        <!-- FAQ 8 -->
-        <div class="card labelbody">
-          <div class="card-header" id="headingEight">
-            <h5 class="mb-0">
-              <button class="btn  collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                What's the oldest/newest date I can enter?
-              </button>
-            </h5>
-          </div>
-          <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#faqAccordion">
-            <div class="card-body">
-              Our calculator can handle dates from year 1 AD to 9999 AD, covering virtually all practical needs. Some calculators may have different limits based on their programming.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-  <!--   //third row -->
-     <div  class="row navbar-dark bg-dark  mt-5 footer2 container-fluid" >
-  <!--        //third row first column -->
-       <div class="col-sm-12 " >
-         <div class=" text-center" style="margin-bottom:0">
-         <p id="backToTopBtn" style="color:white;">
+      // Copy Button
+      document.getElementById('btnCopy').addEventListener('click', () => {
+        const text = `My Age: ${resAge.textContent} | Next Birthday: ${resNext.textContent} | Total Days: ${resDays.textContent} (Calculated with InstaCalc.in)`;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(() => {
+            alert('Age details copied to clipboard!');
+          });
+        }
+      });
 
-              Back To Home
-
-             </p>
-       </div>
-
-         </div>
-  <!--      //third row second column -->
-       <div class="col-sm-0 " style="background-color:pink;">    </div>
-      </div>
-      <script>
-          
-          // age calculator 
-          
-// Set default dates when page loads
-  window.onload = function() {
-    const today = new Date();
-    const currentDateInput = document.getElementById('current-date');
-    
-    // Format today's date as YYYY-MM-DD
-    const formattedToday = today.toISOString().split('T')[0];
-    currentDateInput.value = formattedToday;
-    
-    // Calculate date 10 years ago
-    const birthDate = new Date(today);
-    birthDate.setFullYear(birthDate.getFullYear() - 10);
-    const formattedBirthDate = birthDate.toISOString().split('T')[0];
-    document.getElementById('birth-date').value = formattedBirthDate;
-    
-    // Calculate age initially
-    calculateAge();
-  };
-  
-  function calculateAge() {
-    const birthDate = new Date(document.getElementById('birth-date').value);
-    const currentDate = new Date(document.getElementById('current-date').value);
-    
-    if (isNaN(birthDate.getTime()) || isNaN(currentDate.getTime())) {
-      return; // Invalid dates
-    }
-    
-    let years = currentDate.getFullYear() - birthDate.getFullYear();
-    let months = currentDate.getMonth() - birthDate.getMonth();
-    let days = currentDate.getDate() - birthDate.getDate();
-    
-    if (days < 0) {
-      months--;
-      // Get the last day of the previous month
-      const lastDayOfMonth = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        0
-      ).getDate();
-      days += lastDayOfMonth;
-    }
-    
-    if (months < 0) {
-      years--;
-      months += 12;
-    }
-    
-    document.getElementById('age-years').textContent = years;
-    document.getElementById('age-months').textContent = months;
-    document.getElementById('age-days').textContent = days;
-  }          
-          
-          
-          
-        //age end  
-          
-          
-          
-          
-              function syncInputs(id, isManual = false) {
-                  const slider = document.getElementById(`${id}-slider`);
-                  const numberInput = document.getElementById(id);
-                  if (isManual) {
-                      slider.value = numberInput.value;
-                  } else {
-                      numberInput.value = slider.value;
-                  }
-                  calculateSIP();
-              }
-function formatNumberInIndianFormat(num) {
-    // Convert the number to a string and split into whole and decimal parts
-    let parts = num.toString().split(".");
-    let wholePart = parts[0];
-    let decimalPart = parts.length > 1 ? "." + parts[1] : "";
-
-    // Add commas in Indian numbering system format
-    let lastThree = wholePart.slice(-3);
-    let otherNumbers = wholePart.slice(0, -3);
-    if (otherNumbers !== "") {
-        lastThree = "," + lastThree;
-    }
-    let result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree + decimalPart;
-
-    return result;
-}
-          
-          
-          
-       function calculateSIP() {
-    // Get input values
-    const P = parseFloat(document.getElementById("amount").value); // Principal
-    const annualRate = parseFloat(document.getElementById("rate").value); // Annual rate
-    const t = parseInt(document.getElementById("years").value); // Years
-
-    // FD Formula with quarterly compounding (common in India):
-    // M = P × (1 + r/(4×100))^(n×4)
-    // Where:
-    // r = annual interest rate
-    // n = number of years
-    // 4 = quarterly compounding
-
-    const quarterlyRate = annualRate / 4;
-    const totalQuarters = t * 4;
-    const maturityAmount = P * Math.pow(1 + quarterlyRate / 100, totalQuarters);
-    const interestEarned = maturityAmount - P;
-
-    // Format the numbers in Indian format
-    const formattedInvestedAmount = formatNumberInIndianFormat(P.toFixed(2));
-    const formattedInterestEarned = formatNumberInIndianFormat(interestEarned.toFixed(2));
-    const formattedMaturityAmount = formatNumberInIndianFormat(maturityAmount.toFixed(2));
-
-    // Update UI
-    document.getElementById("invested").textContent = formattedInvestedAmount;
-    document.getElementById("returns").textContent = formattedInterestEarned;
-    document.getElementById("total").textContent = formattedMaturityAmount;
-
-    // Update chart (if needed)
- //   updateChart(P, interestEarned);
-}
-          
-          
-          
-
-
-          // Get the button
-const backToTopBtn = document.getElementById("backToTopBtn");
-
-// When the user scrolls down 20px from the top, show the button
-window.onscroll = function () {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    backToTopBtn.style.display = "block";
-  } else {
-    backToTopBtn.style.display = "none";
-  }
-};
-
-// When the user clicks the button, scroll to the top of the page
-backToTopBtn.addEventListener("click", function () {
-  document.body.scrollTop = 0; // For Safari
-  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
-});
-          
-
-          
-          </script>
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
-    authDomain: "instacalc-40640.firebaseapp.com",
-    projectId: "instacalc-40640",
-    storageBucket: "instacalc-40640.firebasestorage.app",
-    messagingSenderId: "720029503645",
-    appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
-    measurementId: "G-J0ZWXR3T5P"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
-      <style>
-             
-              img {
-  border-radius: 50%;
-}
-              .container {
-                  background: white;
-                  padding: 20px;
-                  border-radius: 10px;
-                  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                  max-width: 500px;
-                  width: 100%;
-              }
-              .input-group {
-                  margin-bottom: 15px;
-              }
-              .input-group label {
-                  display: block;
-                  margin-bottom: 5px;
-              }
-
-              .footer1 {
-                  display: block;
-                  margin-top: 10px;
-                  height: 50px;
-              }
-              .slider-container {
-                  display: flex;
-                  align-items: center;
-                  gap: 10px;
-              }
-              .slider-container input[type="number"] {
-                  width: 80px;
-                  text-align: center;
-              }
-              .result-box {
-                  background: #eef;
-                  padding: 10px;
-                  border-radius: 5px;
-                  margin-top: 20px;
-              }
-              .chart-container {
-                  width: 300px;
-                  margin: 20px auto;
-              }
-
-              // for faq
-              .faq-header {
-              cursor: pointer;
-              transition: background-color 0.3s;
-            }
-            .faq-header:hover {
-              background-color: #f8f9fa;
-            }
-            .card {
-              margin-bottom: 8px;
-              border: 1px solid rgba(0,0,0,.125);
-            }
-            .bi-chevron-down {
-              transition: transform 0.3s;
-            }
-            .collapsed .bi-chevron-down {
-              transform: rotate(0deg); /* Down arrow */
-            }
-            .bi-chevron-down:not(.collapsed) {
-              transform: rotate(180deg); /* Up arrow */
-
-
-          </style>
+      // Initial run
+      calculate();
+    })();
+  </script>
 </body>
+
 </html>

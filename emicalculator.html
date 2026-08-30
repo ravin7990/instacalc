@@ -128,841 +128,274 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
   </noscript>
 
+  <link rel="stylesheet" href="instacalc-core.css">
   <style>
-    :root {
-      --bg: #f2f6f8;
-      --text: #132a3b;
-      --text-soft: #334d60;
-      --accent: #007f8b;
-      --accent-strong: #005f73;
-      --accent-2: #ee9f2e;
-      --line: #d3e1ea;
-      --line-strong: #bfd2dd;
-      --card: #ffffff;
-      --success: #1f9f67;
-      --warn: #d8891d;
-      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
-      --radius-xl: 26px;
-      --radius-lg: 20px;
-      --radius-md: 15px;
-      --radius-sm: 11px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      font-family: "Public Sans", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
-        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
-        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.22;
-      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
-      background-size: 100% 36px;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .container {
-      width: min(1180px, 92vw);
-      margin: 0 auto;
-    }
-
-    .section {
-      padding: 3.2rem 0;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.32rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: rgba(255, 255, 255, 0.74);
-      color: var(--accent-strong);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      font-size: 0.78rem;
-    }
-
-    .section-head {
-      max-width: 720px;
-      margin-bottom: 1.25rem;
-    }
-
-    .section-head h2 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin: 0.45rem 0 0.7rem;
-    }
-
-    .section-head p {
-      color: var(--text-soft);
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 55;
-      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
-      background: rgba(242, 246, 248, 0.92);
-      backdrop-filter: blur(10px);
-    }
-
-    .header-inner {
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.8rem;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: "Sora", sans-serif;
-      font-weight: 700;
-      color: var(--accent-strong);
-      letter-spacing: -0.02em;
-    }
-
-    .brand img {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 2px solid rgba(0, 95, 115, 0.15);
-      background: #ffffff;
-    }
-
-    .menu-toggle {
-      width: 42px;
-      height: 42px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      border-radius: 12px;
-      background: #ffffff;
-      color: var(--accent-strong);
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .site-nav {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 4vw;
-      right: 4vw;
-      display: none;
-      flex-direction: column;
-      gap: 0.4rem;
-      padding: 0.7rem;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: #ffffff;
-      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
-    }
-
-    .site-nav.open {
-      display: flex;
-    }
-
-    .site-nav a {
-      min-height: 40px;
-      display: inline-flex;
-      align-items: center;
-      padding: 0.45rem 0.8rem;
-      border-radius: 10px;
-      font-weight: 600;
-      color: var(--text-soft);
-      transition: background-color 0.25s ease, color 0.25s ease;
-    }
-
-    .site-nav a:hover,
-    .site-nav a.active {
-      color: var(--accent-strong);
-      background: rgba(0, 127, 139, 0.12);
-    }
-
-    .hero {
-      padding: 3.3rem 0 2.4rem;
-    }
-
-    .hero-grid {
-      display: grid;
-      gap: 1.1rem;
-    }
-
-    .hero-copy {
-      border: 1px solid rgba(0, 95, 115, 0.16);
-      border-radius: var(--radius-xl);
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
-      box-shadow: var(--shadow);
-      padding: 1.35rem;
-    }
-
-    .hero-copy h1 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(2rem, 5vw, 3.05rem);
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      margin-top: 0.9rem;
-      max-width: 16ch;
-    }
-
-    .hero-copy p {
-      margin-top: 0.95rem;
-      color: var(--text-soft);
-      font-size: clamp(1rem, 2.2vw, 1.1rem);
-      max-width: 56ch;
-    }
-
-    .hero-actions {
-      margin-top: 1.2rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }
-
-    .btn {
-      min-height: 42px;
-      padding: 0.55rem 1rem;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.45rem;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      font: inherit;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      color: #ffffff;
-      background: linear-gradient(110deg, var(--accent), #00a1b2);
-      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
-    }
-
-    .btn-ghost {
-      color: var(--accent-strong);
-      border: 1px solid rgba(0, 95, 115, 0.25);
-      background: rgba(255, 255, 255, 0.75);
-    }
-
-    .hero-panel {
-      border-radius: var(--radius-xl);
-      padding: 1.15rem;
-      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
-      color: #f8fcff;
-      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
-      display: grid;
-      gap: 0.6rem;
-      align-content: start;
-    }
-
-    .hero-panel h2 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.18rem;
-    }
-
-    .hero-point {
-      border-radius: 11px;
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      background: rgba(255, 255, 255, 0.11);
-      padding: 0.63rem 0.72rem;
-      font-size: 0.93rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.46rem;
-    }
-
+    /* EMI Calculator Specific Layout & Modern Polish */
     .calc-layout {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.95rem;
+      grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
+      gap: 1.75rem;
+      align-items: start;
     }
-
-    .calculator-shell,
-    .feature-card,
-    .content-card,
-    .faq-card,
-    .sidebar-card {
-      border: 1px solid rgba(0, 95, 115, 0.15);
-      background: rgba(255, 255, 255, 0.89);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
-    }
-
-    .calculator-shell {
-      padding: 1rem;
-      display: grid;
-      gap: 0.95rem;
-    }
-
-    .mode-switch {
-      display: inline-flex;
-      border: 1px solid rgba(0, 95, 115, 0.22);
-      border-radius: 12px;
-      padding: 0.26rem;
-      background: #ffffff;
-      width: fit-content;
-      gap: 0.25rem;
-    }
-
-    .mode-switch a {
-      min-height: 38px;
-      padding: 0.42rem 0.76rem;
-      border-radius: 9px;
-      font-weight: 700;
-      color: var(--text-soft);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s ease, color 0.2s ease;
-      font-size: 0.92rem;
-    }
-
-    .mode-switch a.active {
-      color: #ffffff;
-      background: linear-gradient(110deg, var(--accent), #00a1b2);
-    }
-
-    .input-grid {
-      display: grid;
-      gap: 0.7rem;
-      grid-template-columns: 1fr;
-    }
-
-    .field-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-      display: grid;
-      gap: 0.54rem;
-    }
-
-    .field-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .field-head label {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .field-head span {
-      font-size: 0.82rem;
-      color: var(--text-soft);
-    }
-
-    .range-row {
-      display: grid;
-      gap: 0.55rem;
-      grid-template-columns: 1fr;
-    }
-
-    input[type="range"] {
-      width: 100%;
-      accent-color: var(--accent);
-    }
-
-    input[type="number"],
-    select {
-      width: 100%;
-      min-height: 42px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 0.48rem 0.62rem;
-      font: inherit;
-      color: var(--text);
-      background: #ffffff;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    input[type="number"]:focus,
-    select:focus {
-      border-color: rgba(0, 127, 139, 0.62);
-      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
-    }
-
-    .inline-grid {
-      display: grid;
-      gap: 0.7rem;
-      grid-template-columns: 1fr;
-    }
-
-    .calculator-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-    }
-
-    .result-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.62rem;
-    }
-
-    .result-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-    }
-
-    .result-card h3 {
-      color: var(--text-soft);
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-bottom: 0.22rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-
-    .result-value {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
-      line-height: 1.3;
-      color: var(--text);
-      word-break: break-word;
-    }
-
-    .result-card.positive {
-      background: rgba(31, 159, 103, 0.08);
-      border-color: rgba(31, 159, 103, 0.26);
-    }
-
-    .goal-status {
-      border: 1px solid rgba(0, 95, 115, 0.14);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-      display: grid;
-      gap: 0.5rem;
-    }
-
-    .goal-meta {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.45rem;
-      color: var(--text-soft);
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .goal-progress {
-      height: 10px;
-      border-radius: 999px;
-      background: #e5eef3;
-      overflow: hidden;
-    }
-
-    .goal-progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(110deg, var(--accent), #00a1b2);
-      transition: width 0.3s ease;
-    }
-
-    .chart-grid {
-      display: grid;
-      gap: 0.75rem;
-      grid-template-columns: 1fr;
-    }
-
-    .chart-card {
-      border: 1px solid rgba(0, 95, 115, 0.14);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.7rem;
-    }
-
-    .chart-card h3 {
-      font-size: 0.93rem;
-      color: var(--text-soft);
-      margin-bottom: 0.42rem;
-      font-weight: 700;
-    }
-
-    .chart-wrap {
-      height: 290px;
-      position: relative;
-    }
-
-    .chart-wrap.small {
-      height: 240px;
-    }
-
-    .table-tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .table-shell {
-      overflow: auto;
-      border: 1px solid rgba(0, 95, 115, 0.14);
-      border-radius: 12px;
-      background: #ffffff;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 640px;
-    }
-
-    th,
-    td {
-      padding: 0.54rem 0.65rem;
-      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
-      text-align: left;
-      font-size: 0.88rem;
-      vertical-align: middle;
-    }
-
-    th {
-      position: sticky;
-      top: 0;
-      background: #f4fafc;
-      font-weight: 700;
-      color: var(--text);
-      z-index: 1;
-    }
-
-    tbody tr:nth-child(even) {
-      background: rgba(0, 127, 139, 0.04);
-    }
-
-    .feature-card {
-      padding: 1rem;
-      display: grid;
-      gap: 0.55rem;
-    }
-
-    .feature-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.05rem;
-    }
-
-    .feature-list,
-    .link-list {
-      list-style: none;
-      display: grid;
-      gap: 0.45rem;
-    }
-
-    .feature-list li {
-      color: var(--text-soft);
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      font-weight: 600;
-      font-size: 0.92rem;
-    }
-
-    .feature-list i {
-      color: var(--accent-strong);
-      margin-top: 0.12rem;
-    }
-
-    .sidebar-card {
-      padding: 1rem;
-      display: grid;
-      gap: 0.5rem;
-      align-content: start;
-    }
-
-    .sidebar-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.05rem;
-    }
-
-    .link-list a {
-      min-height: 41px;
-      border-radius: 10px;
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      background: #ffffff;
-      padding: 0.48rem 0.62rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.4rem;
-      color: var(--text);
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .link-list a:hover {
-      border-color: rgba(0, 127, 139, 0.4);
-      transform: translateY(-1px);
-    }
-
-    .content-card {
-      padding: 1rem;
-    }
-
-    .content-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.08rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .content-card p {
-      color: var(--text-soft);
-    }
-
-
-    .faq-list {
-      display: grid;
-      gap: 0.62rem;
-    }
-
-    .faq-card {
-      overflow: hidden;
-    }
-
-    .faq-card summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 0.85rem 0.95rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.7rem;
-      font-weight: 700;
-      color: var(--text);
-      font-size: 0.95rem;
-    }
-
-    .faq-card summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .faq-card p {
-      color: var(--text-soft);
-      padding: 0 0.95rem 0.9rem;
-      font-size: 0.92rem;
-    }
-
-    .faq-card i {
-      color: var(--accent-strong);
-      transition: transform 0.2s ease;
-    }
-
-    .faq-card[open] i {
-      transform: rotate(180deg);
-    }
-
-    .site-footer {
-      margin-top: 1rem;
-      border-top: 1px solid rgba(0, 95, 115, 0.14);
-      background: rgba(238, 246, 250, 0.86);
-      padding: 1.4rem 0 2.3rem;
-    }
-
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 0.78rem;
-      color: var(--text-soft);
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-      font-weight: 600;
-    }
-
-    .footer-links a:hover {
-      color: var(--accent-strong);
-    }
-
-    .back-to-top {
-      position: fixed;
-      right: 1rem;
-      bottom: 1rem;
-      width: 42px;
-      height: 42px;
-      border: none;
-      border-radius: 13px;
-      background: linear-gradient(130deg, var(--accent), #0ca4b4);
-      color: #ffffff;
-      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
-      cursor: pointer;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(9px);
-      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
-      z-index: 48;
-    }
-
-    .back-to-top.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    @media (min-width: 640px) {
-      .range-row {
-        grid-template-columns: 1fr 120px;
-        align-items: center;
-      }
-
-      .inline-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .result-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-    }
-
-    @media (min-width: 940px) {
-      .menu-toggle {
-        display: none;
-      }
-
-      .site-nav {
-        position: static;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 0.3rem;
-        padding: 0;
-        border: none;
-        background: transparent;
-        box-shadow: none;
-      }
-
-      .hero-grid {
-        grid-template-columns: 1.45fr 1fr;
-        align-items: stretch;
-      }
-
+    @media (max-width: 960px) {
       .calc-layout {
-        grid-template-columns: 1.72fr 1fr;
-        align-items: start;
-      }
-
-      .chart-grid {
-        grid-template-columns: 1.4fr 1fr;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
       }
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      .btn,
-      .link-list a,
-      .faq-card i,
-      .back-to-top {
-        transition: none;
-      }
-    }
-
-    /* Simple vs Advanced Toggle Styles */
     .calculator-header-row {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 0.75rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--ic-border);
     }
-
-    .btn-sm {
-      min-height: 36px !important;
-      padding: 0.4rem 0.8rem !important;
-      font-size: 0.85rem !important;
+    .range-row {
+      display: grid;
+      grid-template-columns: 1fr 130px;
+      gap: 0.75rem;
+      align-items: center;
     }
-
-    .advanced-only {
+    @media (max-width: 480px) {
+      .range-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    .advanced-only-section {
       display: none;
+      border-top: 1px dashed var(--ic-border);
+      padding-top: 1.25rem;
+      margin-top: 1rem;
     }
-
-    .calculator-shell.advanced-mode .advanced-only {
+    .calculator-shell.advanced-mode .advanced-only-section {
       display: block;
     }
-
-    #toggleViewBtn.active {
-      background: var(--accent-strong);
-      color: #fff;
+    .calculator-shell.advanced-mode .advanced-only {
+      display: block !important;
     }
-
-    .lang-switch {
-      margin-left: auto;
-      margin-right: 1rem;
-      display: inline-flex;
-      align-items: center;
+    .advanced-only {
+      display: none !important;
+    }
+    .chart-box {
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto 1.25rem;
     }
     .lang-switch select {
       min-height: 36px;
-      padding: 0.2rem 0.5rem;
+      padding: 0.25rem 0.6rem;
       font-size: 0.85rem;
       font-weight: 600;
-      color: var(--accent-strong);
+      color: var(--ic-text);
       background: #ffffff;
-      border: 1px solid rgba(0, 95, 115, 0.22);
-      border-radius: 8px;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-sm);
       cursor: pointer;
       outline: none;
-      transition: border-color 0.2s ease;
     }
-    .lang-switch select:focus {
-      border-color: var(--accent);
+  
+    /* ==========================================================================
+       Fintech Interactive Studio 2-Column Desktop Grid
+       ========================================================================== */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
     }
-    @media (max-width: 940px) {
-      .lang-switch {
-        margin-right: 0.5rem;
+
+    .studio-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .studio-outcome {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+
+    .legend-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+
+    .legend-val.positive {
+      color: #10b981;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+
+    .growth-timeline-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+    }
+
+    .chart-wrap-timeline {
+      position: relative;
+      width: 100%;
+      height: 280px;
+    }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell {
+        border: 0;
+        background: transparent;
+        overflow: visible;
+      }
+
+      .projection-table,
+      .projection-table tbody,
+      .projection-table tr,
+      .projection-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .projection-table thead {
+        display: none;
+      }
+
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+
+      .projection-table td:nth-child(odd):not(.projection-year) {
+        border-right: 1px solid var(--ic-border);
+      }
+
+      .projection-table td:nth-last-child(-n + 2) {
+        border-bottom: 0;
+      }
+
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .projection-table .projection-year::before {
+        display: none;
       }
     }
+
+    @media (max-width: 960px) {
+      .fin-studio-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -1034,240 +467,304 @@
       </div>
     </section>
 
-    <section id="emi-planner" class="section">
+        <section id="emi-planner" class="section">
       <div class="container calc-layout">
         <div class="calculator-shell">
           <div class="calculator-header-row">
-            <div class="mode-switch" aria-label="Calculator mode">
-              <a href="emicalculator.html" class="active">EMI</a>
+            <div class="toggle-group" aria-label="Calculator mode">
+              <a href="emicalculator.html" class="toggle-btn active"><i class="fas fa-house-chimney"></i> EMI Calculator</a>
+              <a href="fdcalculator.html" class="toggle-btn"><i class="fas fa-vault"></i> FD</a>
+              <a href="rdcalculator.html" class="toggle-btn"><i class="fas fa-piggy-bank"></i> RD</a>
+              <a href="sipcalculator.html" class="toggle-btn"><i class="fas fa-calendar-alt"></i> SIP</a>
             </div>
             <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
               <i class="fas fa-sliders"></i>
-              <span>Advanced Mode: Off</span>
+              <span>Advanced Controls: Off</span>
             </button>
           </div>
 
-          <div class="input-grid">
-            <div class="inline-grid advanced-only">
+          <!-- Mobile Sticky Summary Pill -->
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label" id="mobileSummaryLabel">Monthly EMI</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
 
+          <!-- Desktop Interactive 2-Column Grid -->
+          <div class="fin-studio-grid">
+            <!-- Left Inputs Column -->
+            <div class="studio-inputs">
               <div class="field-card">
                 <div class="field-head">
-                  <label for="repaymentMode">Prepayment Strategy</label>
+                  <label for="loanAmount">Loan Amount (Principal)</label>
+                  <span class="field-preview-badge" id="loanAmountPreview">₹30,00,000</span>
                 </div>
-                <select id="repaymentMode">
-                  <option value="reduce_tenure" selected>Keep EMI, reduce tenure</option>
-                  <option value="reduce_emi">Keep tenure, reduce EMI</option>
-                </select>
+                <div class="range-row">
+                  <input type="range" id="loanAmountRange" min="10000" max="20000000" step="10000" value="3000000">
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">₹</span>
+                    <input type="number" id="loanAmount" min="10000" max="20000000" step="10000" value="3000000" class="has-prefix">
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="loanAmount" data-range="loanAmountRange">
+                  <button type="button" class="chip" data-val="1000000">₹10 Lakh</button>
+                  <button type="button" class="chip" data-val="2500000">₹25 Lakh</button>
+                  <button type="button" class="chip" data-val="5000000">₹50 Lakh</button>
+                  <button type="button" class="chip" data-val="7500000">₹75 Lakh</button>
+                  <button type="button" class="chip" data-val="10000000">₹1 Crore</button>
+                </div>
               </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="targetInterestSaving">Target Interest Saving (percent)</label>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="annualRate">Interest Rate (% p.a.)</label>
+                    <span class="field-preview-badge" id="annualRatePreview">8.5%</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="annualRateRange" min="0" max="25" step="0.1" value="8.5">
+                    <div class="input-with-adornment">
+                      <input type="number" id="annualRate" min="0" max="25" step="0.1" value="8.5" class="has-suffix">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                  <div class="chips-wrap" data-target="annualRate" data-range="annualRateRange" style="margin-top:0.5rem;">
+                    <button type="button" class="chip" data-val="8.5">8.5% (Home)</button>
+                    <button type="button" class="chip" data-val="9.5">9.5% (Car)</button>
+                    <button type="button" class="chip" data-val="12">12% (Personal)</button>
+                  </div>
                 </div>
-                <input type="number" id="targetInterestSaving" min="0" max="100" step="1" value="20">
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="tenureYears">Loan Tenure (Years)</label>
+                    <span class="field-preview-badge" id="tenureYearsPreview">20 Yrs</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="tenureYearsRange" min="1" max="40" step="1" value="20">
+                    <div class="input-with-adornment">
+                      <input type="number" id="tenureYears" min="1" max="40" step="1" value="20" class="has-suffix">
+                      <span class="input-suffix">Yrs</span>
+                    </div>
+                  </div>
+                  <div class="chips-wrap" data-target="tenureYears" data-range="tenureYearsRange" style="margin-top:0.5rem;">
+                    <button type="button" class="chip" data-val="5">5 Yrs</button>
+                    <button type="button" class="chip" data-val="10">10 Yrs</button>
+                    <button type="button" class="chip" data-val="15">15 Yrs</button>
+                    <button type="button" class="chip" data-val="20">20 Yrs</button>
+                    <button type="button" class="chip" data-val="30">30 Yrs</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="advanced-only-section" id="advancedFields">
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="repaymentMode">Prepayment Strategy</label>
+                    </div>
+                    <select id="repaymentMode">
+                      <option value="reduce_tenure" selected>Keep EMI, reduce tenure (Max Savings)</option>
+                      <option value="reduce_emi">Keep tenure, reduce EMI (Cashflow Relief)</option>
+                    </select>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="tenureExtraMonths">Extra Tenure (Months)</label>
+                    </div>
+                    <input type="number" id="tenureExtraMonths" min="0" max="11" step="1" value="0" placeholder="0">
+                  </div>
+                </div>
+
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="oneTimePrepayMonth">One-time Prepay Month</label>
+                    </div>
+                    <input type="number" id="oneTimePrepayMonth" min="0" max="600" step="1" value="24" placeholder="Month number">
+                  </div>
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="oneTimePrepayAmount">One-time Prepayment (₹)</label>
+                    </div>
+                    <input type="number" id="oneTimePrepayAmount" min="0" step="5000" value="0" placeholder="0">
+                  </div>
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="annualPrepayAmount">Annual Prepayment (₹)</label>
+                    </div>
+                    <input type="number" id="annualPrepayAmount" min="0" step="5000" value="0" placeholder="0">
+                  </div>
+                </div>
+
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="processingFeePercent">Processing Fee (%)</label>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="processingFeePercentRange" min="0" max="5" step="0.05" value="0.5">
+                      <div class="input-with-adornment">
+                        <input type="number" id="processingFeePercent" min="0" max="5" step="0.05" value="0.5" class="has-suffix">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="upfrontCharges">Other Charges / Admin (₹)</label>
+                    </div>
+                    <input type="number" id="upfrontCharges" min="0" step="500" value="0" placeholder="0">
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="emiStepupPercent">Annual EMI Step-up (%)</label>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="emiStepupPercentRange" min="0" max="20" step="0.5" value="0">
+                      <div class="input-with-adornment">
+                        <input type="number" id="emiStepupPercent" min="0" max="20" step="0.5" value="0" class="has-suffix">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="rateChangeMonth">Rate Change Month</label>
+                    </div>
+                    <input type="number" id="rateChangeMonth" min="0" max="600" step="1" value="0" placeholder="0 (disabled)">
+                  </div>
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="newAnnualRate">New Interest Rate (%)</label>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="newAnnualRateRange" min="0" max="25" step="0.1" value="9">
+                      <div class="input-with-adornment">
+                        <input type="number" id="newAnnualRate" min="0" max="25" step="0.1" value="9" class="has-suffix">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="targetInterestSaving">Target Interest Saving (%)</label>
+                    </div>
+                    <input type="hidden" id="maxSimulationMonths" value="720">
+                  <input type="number" id="targetInterestSaving" min="0" max="100" step="1" value="20">
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="field-card">
-              <div class="field-head">
-                <label for="loanAmount">Loan Amount</label>
-                <span id="loanAmountPreview">300000</span>
+            <!-- Right Visual Outcome Column -->
+            <div class="studio-outcome">
+              <!-- Hero Outcome Card -->
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-coins"></i> Monthly Loan EMI</span>
+                  <div class="res-val" id="corpusHeroValue">-</div>
+                  <div class="res-desc" id="corpusHeroDesc">Principal: - | Total Interest: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary">
+                  <i class="fas fa-copy"></i>
+                </button>
               </div>
-              <div class="range-row">
-                <input type="range" id="loanAmountRange" min="1000" max="10000000" step="1000" value="300000">
-                <input type="number" id="loanAmount" min="1000" max="10000000" step="1000" value="300000">
-              </div>
-            </div>
 
-            <div class="inline-grid">
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="annualRate">Interest Rate (percent p.a.)</label>
-                  <span id="annualRatePreview">8.0%</span>
+              <!-- Doughnut Split Visualizer -->
+              <div class="outcome-chart-box">
+                <div class="chart-wrap-doughnut">
+                  <canvas id="splitChart"></canvas>
                 </div>
-                <div class="range-row">
-                  <input type="range" id="annualRateRange" min="0" max="25" step="0.1" value="8">
-                  <input type="number" id="annualRate" min="0" max="25" step="0.1" value="8">
-                </div>
-              </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="tenureYears">Tenure (years)</label>
-                  <span id="tenureYearsPreview">10</span>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="tenureYearsRange" min="1" max="40" step="1" value="10">
-                  <input type="number" id="tenureYears" min="1" max="40" step="1" value="10">
+                <div class="legend-stats-row">
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-invested"></span> Principal Amount</div>
+                    <div class="legend-val" id="resPrincipalHero">-</div>
+                  </div>
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-returns"></span> Total Interest</div>
+                    <div class="legend-val positive" id="totalInterestValue">-</div>
+                  </div>
                 </div>
               </div>
-              <div class="field-card advanced-only">
-                <div class="field-head">
-                  <label for="tenureExtraMonths">Extra Months</label>
-                </div>
-                <input type="number" id="tenureExtraMonths" min="0" max="11" step="1" value="0">
-              </div>
-            </div>
 
-            <div class="inline-grid advanced-only">
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="processingFeePercent">Processing Fee (%)</label>
+              <!-- Key Metrics Grid -->
+              <div class="result-grid">
+                <div class="result-card positive">
+                  <h3>Monthly EMI</h3>
+                  <div class="result-value" id="emiValue">-</div>
                 </div>
-                <div class="range-row">
-                  <input type="range" id="processingFeePercentRange" min="0" max="5" step="0.05" value="1">
-                  <input type="number" id="processingFeePercent" min="0" max="5" step="0.05" value="1">
+                <div class="result-card">
+                  <h3>Total Loan Cost</h3>
+                  <div class="result-value" id="totalCostValue">-</div>
+                </div>
+                <div class="result-card">
+                  <h3>Payoff Time</h3>
+                  <div class="result-value" id="payoffTimeValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>Interest Saved vs Base</h3>
+                  <div class="result-value" id="interestSavedValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>Tenure Saved</h3>
+                  <div class="result-value" id="tenureSavedValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>Fees + Upfront Charges</h3>
+                  <div class="result-value" id="feesValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>Total Prepayment</h3>
+                  <div class="result-value" id="totalPrepayValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>Effective Borrowing APR</h3>
+                  <div class="result-value" id="effectiveAprValue">-</div>
                 </div>
               </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="upfrontCharges">Other Charges</label>
-                </div>
-                <input type="number" id="upfrontCharges" min="0" step="100" value="500">
-              </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="emiStepupPercent">Annual Step-up (%)</label>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="emiStepupPercentRange" min="0" max="20" step="0.5" value="0">
-                  <input type="number" id="emiStepupPercent" min="0" max="20" step="0.5" value="0">
-                </div>
-              </div>
-            </div>
 
-            <div class="inline-grid advanced-only">
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="oneTimePrepayMonth">One-time Month</label>
+              <div class="goal-status advanced-only">
+                <div class="goal-meta">
+                  <span id="goalStatusText">Interest saving progress appears here.</span>
+                  <strong id="goalPercentText">0%</strong>
                 </div>
-                <input type="number" id="oneTimePrepayMonth" min="0" max="600" step="1" value="24">
-              </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="oneTimePrepayAmount">One-time Amount</label>
+                <div class="goal-progress">
+                  <div class="goal-progress-bar" id="goalProgressBar"></div>
                 </div>
-                <input type="number" id="oneTimePrepayAmount" min="0" step="100" value="10000">
               </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="annualPrepayAmount">Annual Prepay</label>
-                </div>
-                <input type="number" id="annualPrepayAmount" min="0" step="100" value="0">
-              </div>
-            </div>
 
-            <div class="inline-grid advanced-only">
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="rateChangeMonth">Rate Change Month</label>
-                </div>
-                <input type="number" id="rateChangeMonth" min="0" max="600" step="1" value="0">
-              </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="newAnnualRate">New Rate (%)</label>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="newAnnualRateRange" min="0" max="25" step="0.1" value="9">
-                  <input type="number" id="newAnnualRate" min="0" max="25" step="0.1" value="9">
-                </div>
-              </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="maxSimulationMonths">Sim Months</label>
-                </div>
-                <input type="number" id="maxSimulationMonths" min="12" max="1200" step="12" value="720">
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
               </div>
             </div>
           </div>
 
-          <div class="calculator-actions">
-            <button class="btn btn-primary" id="recalculateBtn" type="button">
-              <i class="fas fa-bolt"></i>
-              Recalculate
-            </button>
-            <button class="btn btn-ghost" id="resetBtn" type="button">
-              <i class="fas fa-rotate-left"></i>
-              Reset Defaults
-            </button>
-            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
-              <i class="fas fa-copy"></i>
-              Copy Summary
-            </button>
-          </div>
-
-          <div class="result-grid">
-            <div class="result-card positive">
-              <h3>Monthly EMI</h3>
-              <div class="result-value" id="emiValue">-</div>
+          <!-- Bottom Full-Width Compounding Growth Area Chart -->
+          <div class="growth-timeline-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-chart-line" style="color:var(--ic-primary);"></i> Loan Balance Amortization Payoff Curve</h3>
+              <span style="font-size:0.85rem; color:var(--ic-text-muted);">Base Balance vs Prepayment Strategy Balance</span>
             </div>
-            <div class="result-card">
-              <h3>Total Interest</h3>
-              <div class="result-value" id="totalInterestValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Total Loan Cost</h3>
-              <div class="result-value" id="totalCostValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Fees + Upfront Charges</h3>
-              <div class="result-value" id="feesValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Total Prepayment</h3>
-              <div class="result-value" id="totalPrepayValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Payoff Time</h3>
-              <div class="result-value" id="payoffTimeValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Interest Saved vs Base</h3>
-              <div class="result-value" id="interestSavedValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Tenure Saved</h3>
-              <div class="result-value" id="tenureSavedValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Effective Borrowing APR (Approx)</h3>
-              <div class="result-value" id="effectiveAprValue">-</div>
+            <div class="chart-wrap-timeline">
+              <canvas id="growthChart"></canvas>
             </div>
           </div>
 
-          <div class="goal-status">
-            <div class="goal-meta">
-              <span id="goalStatusText">Interest saving progress appears here.</span>
-              <strong id="goalPercentText">0%</strong>
-            </div>
-            <div class="goal-progress">
-              <div class="goal-progress-bar" id="goalProgressBar"></div>
-            </div>
-          </div>
-
-          <div class="chart-grid">
-            <div class="chart-card">
-              <h3>Outstanding Balance: Base vs Optimized</h3>
-              <div class="chart-wrap">
-                <canvas id="growthChart"></canvas>
-              </div>
-            </div>
-            <div class="chart-card">
-              <h3>Payment Composition</h3>
-              <div class="chart-wrap small">
-                <canvas id="splitChart"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="table-tools">
-            <h3>Year-wise Amortization</h3>
-            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
-              <i class="fas fa-file-csv"></i>
-              Download CSV
-            </button>
+          <!-- Year-Wise Amortization Projection Table -->
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Year-wise Loan Amortization Schedule</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
           </div>
           <div class="table-shell">
-            <table>
+            <table class="projection-table">
               <thead>
                 <tr>
                   <th>Year</th>
@@ -1283,7 +780,7 @@
           </div>
         </div>
 
-        <aside class="section-head" style="margin-bottom:0;">
+        <aside class="sidebar">
           <div class="feature-card">
             <h3>Planning Notes</h3>
             <ul class="feature-list">
@@ -1314,7 +811,7 @@
     </section>
 
     <section class="section">
-      <div class="container calc-layout">
+      <div class="container content-grid">
         <article class="content-card">
           <h3>How this advanced EMI calculator works</h3>
           <p>This tool simulates your loan month-by-month using amortization logic. It calculates EMI, splits each
@@ -1381,7 +878,7 @@
     </section>
 
     <section class="section">
-      <div class="container calc-layout">
+      <div class="container content-grid">
         <article class="content-card">
           <h3>EMI Planning in Practice</h3>
           <p>Effective loan planning combines affordability with cost optimization. A lower EMI may feel comfortable
@@ -1871,12 +1368,12 @@
         elements.projectionTableBody.innerHTML = yearSummary.map(function (row) {
           return (
             "<tr>" +
-            "<td>Year " + row.year + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.opening, currencyCode) + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.principalPaid, currencyCode) + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.interestPaid, currencyCode) + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.prepayment, currencyCode) + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.closing, currencyCode) + "</td>" +
+            "<td class=\"projection-year\">Year " + row.year + "</td>" +
+            "<td data-label=\"Opening Balance\">" + formatCurrencyWithUnits(row.opening, currencyCode) + "</td>" +
+            "<td data-label=\"Principal Paid\">" + formatCurrencyWithUnits(row.principalPaid, currencyCode) + "</td>" +
+            "<td data-label=\"Interest Paid\">" + formatCurrencyWithUnits(row.interestPaid, currencyCode) + "</td>" +
+            "<td data-label=\"Prepayment\">" + formatCurrencyWithUnits(row.prepayment, currencyCode) + "</td>" +
+            "<td data-label=\"Closing Balance\">" + formatCurrencyWithUnits(row.closing, currencyCode) + "</td>" +
             "</tr>"
           );
         }).join("");
@@ -1903,28 +1400,38 @@
         if (growthChartInstance) {
           growthChartInstance.destroy();
         }
-        growthChartInstance = new Chart(elements.growthChart.getContext("2d"), {
+        const growthCtx = elements.growthChart.getContext("2d");
+        const corpusGrad = growthCtx.createLinearGradient(0, 0, 0, 300);
+        corpusGrad.addColorStop(0, "rgba(2, 132, 199, 0.28)");
+        corpusGrad.addColorStop(1, "rgba(2, 132, 199, 0.015)");
+
+        growthChartInstance = new Chart(growthCtx, {
           type: "line",
           data: {
             labels: labels,
             datasets: [
               {
-                label: "Base Balance",
-                data: baseData,
-                borderColor: "#d8891d",
-                backgroundColor: "rgba(216, 137, 29, 0.1)",
-                fill: false,
-                tension: 0.18,
-                pointRadius: 2
+                label: "Loan Balance",
+                data: optData,
+                borderColor: "#0284c7",
+                backgroundColor: corpusGrad,
+                fill: true,
+                tension: 0.25,
+                borderWidth: 3,
+                pointRadius: 0,
+                pointHoverRadius: 5
               },
               {
-                label: "Optimized Balance",
-                data: optData,
-                borderColor: "#007f8b",
-                backgroundColor: "rgba(0, 127, 139, 0.12)",
-                fill: true,
+                label: "Base Balance (No Prepayment)",
+                data: baseData,
+                borderColor: "#10b981",
+                backgroundColor: "transparent",
+                fill: false,
                 tension: 0.18,
-                pointRadius: 2
+                borderWidth: 2,
+                borderDash: [6, 4],
+                pointRadius: 0,
+                pointHoverRadius: 4
               }
             ]
           },
@@ -1963,7 +1470,7 @@
             datasets: [
               {
                 data: [optimized.principal, optimized.totalInterest, optimized.totalPrepayment, optimized.upfrontTotal],
-                backgroundColor: ["#007f8b", "#1f9f67", "#ee9f2e", "#6b7f8e"],
+                backgroundColor: ["#0284c7", "#10b981", "#f59e0b", "#64748b"],
                 borderWidth: 1
               }
             ]
@@ -2014,12 +1521,26 @@
         elements.emiValue.textContent = formatCurrencyWithUnits(optimized.startingEmi, inputs.currencyCode);
         elements.totalInterestValue.textContent = formatCurrencyWithUnits(optimized.totalInterest, inputs.currencyCode);
         elements.totalCostValue.textContent = formatCurrencyWithUnits(optimized.totalCost, inputs.currencyCode);
+
+        const heroVal = document.getElementById("corpusHeroValue");
+        const heroDesc = document.getElementById("corpusHeroDesc");
+        const resPrinHero = document.getElementById("resPrincipalHero");
+        if (heroVal) heroVal.textContent = formatCurrencyWithUnits(optimized.startingEmi, inputs.currencyCode) + " / mo";
+        if (heroDesc) {
+          heroDesc.textContent = "Principal: " + formatCurrencyWithUnits(inputs.loanAmount, inputs.currencyCode) + " • Interest: " + formatCurrencyWithUnits(optimized.totalInterest, inputs.currencyCode);
+        }
+        if (resPrinHero) resPrinHero.textContent = formatCurrencyWithUnits(inputs.loanAmount, inputs.currencyCode);
         elements.feesValue.textContent = formatCurrencyWithUnits(optimized.upfrontTotal, inputs.currencyCode);
         elements.totalPrepayValue.textContent = formatCurrencyWithUnits(optimized.totalPrepayment, inputs.currencyCode);
         elements.payoffTimeValue.textContent = monthsToLabel(optimized.payoffMonths);
         elements.interestSavedValue.textContent = formatCurrencyWithUnits(interestSaved, inputs.currencyCode);
         elements.tenureSavedValue.textContent = monthsToLabel(tenureSaved);
         elements.effectiveAprValue.textContent = effectiveApr === null ? "N/A" : effectiveApr.toFixed(2) + "%";
+
+        const mobVal = document.getElementById("mobileSummaryVal");
+        if (mobVal) {
+          mobVal.textContent = formatCurrencyWithUnits(optimized.startingEmi, inputs.currencyCode) + "/mo";
+        }
 
         const target = Math.max(0, inputs.targetInterestSaving);
         const progressPercent = target > 0 ? (savingPercent / target) * 100 : 0;
@@ -2124,6 +1645,20 @@
         syncPair(elements.emiStepupPercentRange, elements.emiStepupPercent);
         syncPair(elements.newAnnualRateRange, elements.newAnnualRate);
 
+        // Preset Chips Handling
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function() {
+            const wrap = this.parentElement;
+            if (wrap.dataset.target) {
+              const targetInput = document.getElementById(wrap.dataset.target);
+              const targetRange = document.getElementById(wrap.dataset.range);
+              if (targetInput) targetInput.value = this.dataset.val;
+              if (targetRange) targetRange.value = this.dataset.val;
+              calculateAndRender();
+            }
+          });
+        });
+
         [
           elements.currencyCode,
           elements.repaymentMode,
@@ -2179,6 +1714,34 @@
 
       toggleNav();
       setupBackToTop();
+      
+        const copyHero = document.getElementById("copyHeroBtn");
+        if (copyHero) {
+          copyHero.addEventListener("click", function() {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(lastSummaryText).then(() => {
+                const orig = copyHero.innerHTML;
+                copyHero.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+                setTimeout(() => copyHero.innerHTML = orig, 1800);
+              });
+            }
+          });
+        }
+        
+        // Preset Chips
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function() {
+            const wrap = this.parentElement;
+            if (wrap.dataset.target) {
+              const targetInput = document.getElementById(wrap.dataset.target);
+              const targetRange = document.getElementById(wrap.dataset.range);
+              if (targetInput) targetInput.value = this.dataset.val;
+              if (targetRange) targetRange.value = this.dataset.val;
+              calculateAndRender();
+            }
+          });
+        });
+
       wireEvents();
       calculateAndRender();
     })();

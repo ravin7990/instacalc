@@ -128,841 +128,229 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
   </noscript>
 
+    <link rel="stylesheet" href="instacalc-core.css">
   <style>
-    :root {
-      --bg: #f2f6f8;
-      --text: #132a3b;
-      --text-soft: #334d60;
-      --accent: #007f8b;
-      --accent-strong: #005f73;
-      --accent-2: #ee9f2e;
-      --line: #d3e1ea;
-      --line-strong: #bfd2dd;
-      --card: #ffffff;
-      --success: #1f9f67;
-      --warn: #d8891d;
-      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
-      --radius-xl: 26px;
-      --radius-lg: 20px;
-      --radius-md: 15px;
-      --radius-sm: 11px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      font-family: "Public Sans", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
-        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
-        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.22;
-      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
-      background-size: 100% 36px;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .container {
-      width: min(1180px, 92vw);
-      margin: 0 auto;
-    }
-
-    .section {
-      padding: 3.2rem 0;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.32rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: rgba(255, 255, 255, 0.74);
-      color: var(--accent-strong);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      font-size: 0.78rem;
-    }
-
-    .section-head {
-      max-width: 720px;
-      margin-bottom: 1.25rem;
-    }
-
-    .section-head h2 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin: 0.45rem 0 0.7rem;
-    }
-
-    .section-head p {
-      color: var(--text-soft);
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 55;
-      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
-      background: rgba(242, 246, 248, 0.92);
-      backdrop-filter: blur(10px);
-    }
-
-    .header-inner {
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.8rem;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: "Sora", sans-serif;
-      font-weight: 700;
-      color: var(--accent-strong);
-      letter-spacing: -0.02em;
-    }
-
-    .brand img {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 2px solid rgba(0, 95, 115, 0.15);
-      background: #ffffff;
-    }
-
-    .menu-toggle {
-      width: 42px;
-      height: 42px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      border-radius: 12px;
-      background: #ffffff;
-      color: var(--accent-strong);
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .site-nav {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 4vw;
-      right: 4vw;
+    .advanced-only-section {
       display: none;
+      border-top: 1px dashed var(--ic-border);
+      padding-top: 1.25rem;
+      margin-top: 1rem;
+    }
+    .calculator-shell.advanced-mode .advanced-only-section {
+      display: block;
+    }
+    .calculator-shell.advanced-mode .advanced-only {
+      display: block !important;
+    }
+    .advanced-only {
+      display: none !important;
+    }
+    .chart-box {
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto 1.25rem;
+    }
+    
+  
+    /* ==========================================================================
+       Fintech Interactive Studio 2-Column Desktop Grid
+       ========================================================================== */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+
+    .studio-inputs {
+      display: flex;
       flex-direction: column;
-      gap: 0.4rem;
-      padding: 0.7rem;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(0, 95, 115, 0.2);
+      gap: 0.85rem;
+    }
+
+    .studio-outcome {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    .outcome-chart-box {
       background: #ffffff;
-      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
-    }
-
-    .site-nav.open {
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
       display: flex;
-    }
-
-    .site-nav a {
-      min-height: 40px;
-      display: inline-flex;
+      flex-direction: column;
       align-items: center;
-      padding: 0.45rem 0.8rem;
-      border-radius: 10px;
-      font-weight: 600;
-      color: var(--text-soft);
-      transition: background-color 0.25s ease, color 0.25s ease;
+      gap: 1rem;
     }
 
-    .site-nav a:hover,
-    .site-nav a.active {
-      color: var(--accent-strong);
-      background: rgba(0, 127, 139, 0.12);
-    }
-
-    .hero {
-      padding: 3.3rem 0 2.4rem;
-    }
-
-    .hero-grid {
-      display: grid;
-      gap: 1.1rem;
-    }
-
-    .hero-copy {
-      border: 1px solid rgba(0, 95, 115, 0.16);
-      border-radius: var(--radius-xl);
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
-      box-shadow: var(--shadow);
-      padding: 1.35rem;
-    }
-
-    .hero-copy h1 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(2rem, 5vw, 3.05rem);
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      margin-top: 0.9rem;
-      max-width: 16ch;
-    }
-
-    .hero-copy p {
-      margin-top: 0.95rem;
-      color: var(--text-soft);
-      font-size: clamp(1rem, 2.2vw, 1.1rem);
-      max-width: 56ch;
-    }
-
-    .hero-actions {
-      margin-top: 1.2rem;
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }
-
-    .btn {
-      min-height: 42px;
-      padding: 0.55rem 1rem;
-      border-radius: 12px;
-      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.45rem;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      font: inherit;
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      color: #ffffff;
-      background: linear-gradient(110deg, var(--accent), #00a1b2);
-      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
-    }
-
-    .btn-ghost {
-      color: var(--accent-strong);
-      border: 1px solid rgba(0, 95, 115, 0.25);
-      background: rgba(255, 255, 255, 0.75);
-    }
-
-    .hero-panel {
-      border-radius: var(--radius-xl);
-      padding: 1.15rem;
-      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
-      color: #f8fcff;
-      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
+    .legend-stats-row {
       display: grid;
-      gap: 0.6rem;
-      align-content: start;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
     }
 
-    .hero-panel h2 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.18rem;
-    }
-
-    .hero-point {
-      border-radius: 11px;
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      background: rgba(255, 255, 255, 0.11);
-      padding: 0.63rem 0.72rem;
-      font-size: 0.93rem;
+    .legend-stat {
       display: flex;
-      align-items: flex-start;
-      gap: 0.46rem;
+      flex-direction: column;
+      gap: 0.2rem;
     }
 
-    .calc-layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.95rem;
-    }
-
-    .calculator-shell,
-    .feature-card,
-    .content-card,
-    .faq-card,
-    .sidebar-card {
-      border: 1px solid rgba(0, 95, 115, 0.15);
-      background: rgba(255, 255, 255, 0.89);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
-    }
-
-    .calculator-shell {
-      padding: 1rem;
-      display: grid;
-      gap: 0.95rem;
-    }
-
-    .mode-switch {
-      display: inline-flex;
-      border: 1px solid rgba(0, 95, 115, 0.22);
-      border-radius: 12px;
-      padding: 0.26rem;
-      background: #ffffff;
-      width: fit-content;
-      gap: 0.25rem;
-    }
-
-    .mode-switch a {
-      min-height: 38px;
-      padding: 0.42rem 0.76rem;
-      border-radius: 9px;
-      font-weight: 700;
-      color: var(--text-soft);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s ease, color 0.2s ease;
-      font-size: 0.92rem;
-    }
-
-    .mode-switch a.active {
-      color: #ffffff;
-      background: linear-gradient(110deg, var(--accent), #00a1b2);
-    }
-
-    .input-grid {
-      display: grid;
-      gap: 0.7rem;
-      grid-template-columns: 1fr;
-    }
-
-    .field-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-      display: grid;
-      gap: 0.54rem;
-    }
-
-    .field-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .field-head label {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .field-head span {
+    .legend-label {
       font-size: 0.82rem;
-      color: var(--text-soft);
-    }
-
-    .range-row {
-      display: grid;
-      gap: 0.55rem;
-      grid-template-columns: 1fr;
-    }
-
-    input[type="range"] {
-      width: 100%;
-      accent-color: var(--accent);
-    }
-
-    input[type="number"],
-    select {
-      width: 100%;
-      min-height: 42px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 0.48rem 0.62rem;
-      font: inherit;
-      color: var(--text);
-      background: #ffffff;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    input[type="number"]:focus,
-    select:focus {
-      border-color: rgba(0, 127, 139, 0.62);
-      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
-    }
-
-    .inline-grid {
-      display: grid;
-      gap: 0.7rem;
-      grid-template-columns: 1fr;
-    }
-
-    .calculator-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-    }
-
-    .result-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.62rem;
-    }
-
-    .result-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-    }
-
-    .result-card h3 {
-      color: var(--text-soft);
-      font-size: 0.85rem;
       font-weight: 700;
-      margin-bottom: 0.22rem;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
       text-transform: uppercase;
       letter-spacing: 0.03em;
     }
 
-    .result-value {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
-      line-height: 1.3;
-      color: var(--text);
-      word-break: break-word;
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
     }
 
-    .result-card.positive {
-      background: rgba(31, 159, 103, 0.08);
-      border-color: rgba(31, 159, 103, 0.26);
+    .legend-val.positive {
+      color: #10b981;
     }
 
-    .goal-status {
-      border: 1px solid rgba(0, 95, 115, 0.14);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-      display: grid;
-      gap: 0.5rem;
-    }
-
-    .goal-meta {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.45rem;
-      color: var(--text-soft);
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .goal-progress {
+    .dot {
+      width: 10px;
       height: 10px;
-      border-radius: 999px;
-      background: #e5eef3;
-      overflow: hidden;
+      border-radius: 50%;
+      display: inline-block;
     }
 
-    .goal-progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(110deg, var(--accent), #00a1b2);
-      transition: width 0.3s ease;
-    }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
 
-    .chart-grid {
-      display: grid;
-      gap: 0.75rem;
-      grid-template-columns: 1fr;
-    }
-
-    .chart-card {
-      border: 1px solid rgba(0, 95, 115, 0.14);
-      border-radius: 12px;
+    .growth-timeline-card {
       background: #ffffff;
-      padding: 0.7rem;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
     }
 
-    .chart-card h3 {
-      font-size: 0.93rem;
-      color: var(--text-soft);
-      margin-bottom: 0.42rem;
-      font-weight: 700;
-    }
-
-    .chart-wrap {
-      height: 290px;
+    .chart-wrap-timeline {
       position: relative;
-    }
-
-    .chart-wrap.small {
-      height: 240px;
-    }
-
-    .table-tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .table-shell {
-      overflow: auto;
-      border: 1px solid rgba(0, 95, 115, 0.14);
-      border-radius: 12px;
-      background: #ffffff;
-    }
-
-    table {
       width: 100%;
-      border-collapse: collapse;
-      min-width: 640px;
+      height: 280px;
     }
 
-    th,
-    td {
-      padding: 0.54rem 0.65rem;
-      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
-      text-align: left;
-      font-size: 0.88rem;
-      vertical-align: middle;
-    }
-
-    th {
-      position: sticky;
-      top: 0;
-      background: #f4fafc;
-      font-weight: 700;
-      color: var(--text);
-      z-index: 1;
-    }
-
-    tbody tr:nth-child(even) {
-      background: rgba(0, 127, 139, 0.04);
-    }
-
-    .feature-card {
-      padding: 1rem;
-      display: grid;
-      gap: 0.55rem;
-    }
-
-    .feature-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.05rem;
-    }
-
-    .feature-list,
-    .link-list {
-      list-style: none;
-      display: grid;
-      gap: 0.45rem;
-    }
-
-    .feature-list li {
-      color: var(--text-soft);
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      font-weight: 600;
-      font-size: 0.92rem;
-    }
-
-    .feature-list i {
-      color: var(--accent-strong);
-      margin-top: 0.12rem;
-    }
-
-    .sidebar-card {
-      padding: 1rem;
-      display: grid;
-      gap: 0.5rem;
-      align-content: start;
-    }
-
-    .sidebar-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.05rem;
-    }
-
-    .link-list a {
-      min-height: 41px;
-      border-radius: 10px;
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      background: #ffffff;
-      padding: 0.48rem 0.62rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.4rem;
-      color: var(--text);
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .link-list a:hover {
-      border-color: rgba(0, 127, 139, 0.4);
-      transform: translateY(-1px);
-    }
-
-    .content-card {
-      padding: 1rem;
-    }
-
-    .content-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.08rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .content-card p {
-      color: var(--text-soft);
-    }
-
-
-    .faq-list {
-      display: grid;
-      gap: 0.62rem;
-    }
-
-    .faq-card {
-      overflow: hidden;
-    }
-
-    .faq-card summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 0.85rem 0.95rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.7rem;
-      font-weight: 700;
-      color: var(--text);
-      font-size: 0.95rem;
-    }
-
-    .faq-card summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .faq-card p {
-      color: var(--text-soft);
-      padding: 0 0.95rem 0.9rem;
-      font-size: 0.92rem;
-    }
-
-    .faq-card i {
-      color: var(--accent-strong);
-      transition: transform 0.2s ease;
-    }
-
-    .faq-card[open] i {
-      transform: rotate(180deg);
-    }
-
-    .site-footer {
-      margin-top: 1rem;
-      border-top: 1px solid rgba(0, 95, 115, 0.14);
-      background: rgba(238, 246, 250, 0.86);
-      padding: 1.4rem 0 2.3rem;
-    }
-
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 0.78rem;
-      color: var(--text-soft);
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-      font-weight: 600;
-    }
-
-    .footer-links a:hover {
-      color: var(--accent-strong);
-    }
-
-    .back-to-top {
-      position: fixed;
-      right: 1rem;
-      bottom: 1rem;
-      width: 42px;
-      height: 42px;
-      border: none;
-      border-radius: 13px;
-      background: linear-gradient(130deg, var(--accent), #0ca4b4);
-      color: #ffffff;
-      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
-      cursor: pointer;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(9px);
-      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
-      z-index: 48;
-    }
-
-    .back-to-top.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    @media (min-width: 640px) {
-      .range-row {
-        grid-template-columns: 1fr 120px;
-        align-items: center;
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell {
+        border: 0;
+        background: transparent;
+        overflow: visible;
       }
 
-      .inline-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+      .projection-table,
+      .projection-table tbody,
+      .projection-table tr,
+      .projection-table td {
+        display: block;
+        width: 100%;
       }
 
-      .result-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-    }
-
-    @media (min-width: 940px) {
-      .menu-toggle {
+      .projection-table thead {
         display: none;
       }
 
-      .site-nav {
-        position: static;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 0.3rem;
-        padding: 0;
-        border: none;
-        background: transparent;
-        box-shadow: none;
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
       }
 
-      .hero-grid {
-        grid-template-columns: 1.45fr 1fr;
-        align-items: stretch;
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
       }
 
-      .calc-layout {
-        grid-template-columns: 1.72fr 1fr;
-        align-items: start;
+      .projection-table td:nth-child(odd):not(.projection-year) {
+        border-right: 1px solid var(--ic-border);
       }
 
-      .chart-grid {
-        grid-template-columns: 1.4fr 1fr;
+      .projection-table td:nth-last-child(-n + 2) {
+        border-bottom: 0;
+      }
+
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .projection-table .projection-year::before {
+        display: none;
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      .btn,
-      .link-list a,
-      .faq-card i,
-      .back-to-top {
-        transition: none;
+    @media (max-width: 960px) {
+      .fin-studio-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
       }
     }
 
-    /* Simple vs Advanced Toggle Styles */
-    .calculator-header-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-    }
-
-    .btn-sm {
-      min-height: 36px !important;
-      padding: 0.4rem 0.8rem !important;
-      font-size: 0.85rem !important;
-    }
-
-    .advanced-only {
-      display: none;
-    }
-
-    .calculator-shell.advanced-mode .advanced-only {
-      display: block;
-    }
-
-    #toggleViewBtn.active {
-      background: var(--accent-strong);
-      color: #fff;
-    }
-
-    .lang-switch {
-      margin-left: auto;
-      margin-right: 1rem;
-      display: inline-flex;
-      align-items: center;
-    }
-    .lang-switch select {
-      min-height: 36px;
-      padding: 0.2rem 0.5rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--accent-strong);
-      background: #ffffff;
-      border: 1px solid rgba(0, 95, 115, 0.22);
-      border-radius: 8px;
-      cursor: pointer;
-      outline: none;
-      transition: border-color 0.2s ease;
-    }
-    .lang-switch select:focus {
-      border-color: var(--accent);
-    }
-    @media (max-width: 940px) {
-      .lang-switch {
-        margin-right: 0.5rem;
-      }
-    }
   </style>
 </head>
 
@@ -1031,255 +419,324 @@
       </div>
     </section>
 
-    <section id="compound-planner" class="section">
+        <section id="compound-planner" class="section">
       <div class="container calc-layout">
         <div class="calculator-shell">
           <div class="calculator-header-row">
-            <div class="mode-switch" aria-label="Calculator mode">
-              <a href="compoundinterest.html" class="active">Compound Interest</a>
-              <a href="cargcalculator.html">CAGR</a>
+            <div class="toggle-group" aria-label="Calculator mode">
+              <a href="compoundinterest.html" class="toggle-btn active"><i class="fas fa-chart-line"></i> Compound Interest</a>
+              <a href="simpleinterestcalculator.html" class="toggle-btn"><i class="fas fa-percent"></i> Simple Interest</a>
+              <a href="cargcalculator.html" class="toggle-btn"><i class="fas fa-arrow-trend-up"></i> CAGR</a>
+              <a href="sipcalculator.html" class="toggle-btn"><i class="fas fa-calendar-alt"></i> SIP</a>
             </div>
             <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
               <i class="fas fa-sliders"></i>
-              <span>Advanced Mode: Off</span>
+              <span>Advanced Controls: Off</span>
             </button>
           </div>
 
-          <div class="input-grid">
-            <div class="inline-grid advanced-only">
+          <!-- Mobile Sticky Summary Pill -->
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label" id="mobileSummaryLabel">Estimated Future Value</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
 
+          <!-- Desktop Interactive 2-Column Grid -->
+          <div class="fin-studio-grid">
+            <!-- Left Inputs Column -->
+            <div class="studio-inputs">
               <div class="field-card">
                 <div class="field-head">
-                  <label for="rateScenario">Rate Scenario</label>
-                </div>
-                <select id="rateScenario">
-                  <option value="lower">Lower (-1%)</option>
-                  <option value="base" selected>Base (as entered)</option>
-                  <option value="higher">Higher (+1%)</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="initialPrincipal">Initial Principal</label>
-                <span id="initialPrincipalPreview">25000</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="initialPrincipalRange" min="0" max="5000000" step="500" value="25000">
-                <input type="number" id="initialPrincipal" min="0" max="5000000" step="500" value="25000">
-              </div>
-            </div>
-
-            <div class="inline-grid">
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="compoundingFrequency">Compounding Frequency</label>
-                </div>
-                <select id="compoundingFrequency">
-                  <option value="1">Yearly</option>
-                  <option value="4">Quarterly</option>
-                  <option value="12" selected>Monthly</option>
-                  <option value="365">Daily</option>
-                </select>
-              </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="annualRate">Expected Return (%)</label>
-                  <span id="annualRatePreview">8.0%</span>
+                  <label for="initialPrincipal">Initial Principal Investment</label>
+                  <span class="field-preview-badge" id="initialPrincipalPreview">₹1,00,000</span>
                 </div>
                 <div class="range-row">
-                  <input type="range" id="annualRateRange" min="0" max="30" step="0.1" value="8">
-                  <input type="number" id="annualRate" min="0" max="30" step="0.1" value="8">
+                  <input type="range" id="initialPrincipalRange" min="1000" max="100000000" step="5000" value="100000">
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">₹</span>
+                    <input type="number" id="initialPrincipal" min="1000" max="100000000" step="5000" value="100000" class="has-prefix">
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="initialPrincipal" data-range="initialPrincipalRange">
+                  <button type="button" class="chip" data-val="25000">₹25K</button>
+                  <button type="button" class="chip" data-val="50000">₹50K</button>
+                  <button type="button" class="chip" data-val="100000">₹1 Lakh</button>
+                  <button type="button" class="chip" data-val="500000">₹5 Lakh</button>
+                  <button type="button" class="chip" data-val="1000000">₹10 Lakh</button>
+                  <button type="button" class="chip" data-val="2500000">₹25 Lakh</button>
                 </div>
               </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="annualRate">Expected Return Rate (% p.a.)</label>
+                    <span class="field-preview-badge" id="annualRatePreview">8.0%</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="annualRateRange" min="0" max="30" step="0.1" value="8">
+                    <div class="input-with-adornment">
+                      <input type="number" id="annualRate" min="0" max="30" step="0.1" value="8" class="has-suffix">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="compoundingFrequency">Compounding Frequency</label>
+                  </div>
+                  <select id="compoundingFrequency">
+                    <option value="12" selected>Monthly (Standard)</option>
+                    <option value="4">Quarterly</option>
+                    <option value="1">Yearly / Annually</option>
+                    <option value="365">Daily</option>
+                  </select>
+                </div>
+              </div>
+
               <div class="field-card">
                 <div class="field-head">
-                  <label for="years">Period (years)</label>
-                  <span id="yearsPreview">20</span>
+                  <label for="years">Investment Period (Years)</label>
+                  <span class="field-preview-badge" id="yearsPreview">10 Yrs</span>
                 </div>
                 <div class="range-row">
-                  <input type="range" id="yearsRange" min="1" max="50" step="1" value="20">
-                  <input type="number" id="years" min="1" max="50" step="1" value="20">
+                  <input type="range" id="yearsRange" min="1" max="40" step="1" value="10">
+                  <div class="input-with-adornment">
+                    <input type="number" id="years" min="1" max="40" step="1" value="10" class="has-suffix">
+                    <span class="input-suffix">Yrs</span>
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="years" data-range="yearsRange">
+                  <button type="button" class="chip" data-val="3">3 Yrs</button>
+                  <button type="button" class="chip" data-val="5">5 Yrs</button>
+                  <button type="button" class="chip" data-val="10">10 Yrs</button>
+                  <button type="button" class="chip" data-val="15">15 Yrs</button>
+                  <button type="button" class="chip" data-val="20">20 Yrs</button>
+                  <button type="button" class="chip" data-val="30">30 Yrs</button>
+                </div>
+              </div>
+
+              <div class="advanced-only-section" id="advancedFields">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="contributionAmount">Recurring Periodic Contribution</label>
+                    <span class="field-preview-badge" id="contributionAmountPreview">₹500</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="contributionAmountRange" min="0" max="100000" step="100" value="500">
+                    <div class="input-with-adornment">
+                      <span class="input-prefix">₹</span>
+                      <input type="number" id="contributionAmount" min="0" max="100000" step="100" value="500" class="has-prefix">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="contributionFrequency">Contribution Frequency</label>
+                    </div>
+                    <select id="contributionFrequency">
+                      <option value="monthly" selected>Monthly</option>
+                      <option value="quarterly">Quarterly</option>
+                      <option value="yearly">Yearly</option>
+                    </select>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="contributionTiming">Contribution Timing</label>
+                    </div>
+                    <select id="contributionTiming">
+                      <option value="end" selected>End of period</option>
+                      <option value="start">Beginning of period</option>
+                    </select>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="annualStepup">Annual Step-up (%)</label>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="annualStepupRange" min="0" max="25" step="0.5" value="3">
+                      <div class="input-with-adornment">
+                        <input type="number" id="annualStepup" min="0" max="25" step="0.5" value="3" class="has-suffix">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="rateScenario">Rate Scenario</label>
+                    </div>
+                    <select id="rateScenario">
+                      <option value="lower">Lower (-1.0%)</option>
+                      <option value="base" selected>Base (as entered)</option>
+                      <option value="higher">Higher (+1.0%)</option>
+                    </select>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="inflation">Expected Inflation (%)</label>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="inflationRange" min="0" max="12" step="0.1" value="3">
+                      <div class="input-with-adornment">
+                        <input type="number" id="inflation" min="0" max="12" step="0.1" value="3" class="has-suffix">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="annualFee">Annual Fee / Expense Drag (%)</label>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="annualFeeRange" min="0" max="5" step="0.05" value="0.5">
+                      <div class="input-with-adornment">
+                        <input type="number" id="annualFee" min="0" max="5" step="0.05" value="0.5" class="has-suffix">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="taxRate">Tax on Gains at Exit (%)</label>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="taxRateRange" min="0" max="40" step="0.5" value="15">
+                      <div class="input-with-adornment">
+                        <input type="number" id="taxRate" min="0" max="40" step="0.5" value="15" class="has-suffix">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="targetAmount">Target Future Value Goal (₹)</label>
+                    </div>
+                    <input type="number" id="targetAmount" min="0" step="10000" value="500000" placeholder="Example: 500000">
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="field-card advanced-only">
-              <div class="field-head">
-                <label for="inflation">Expected Inflation (%)</label>
+            <!-- Right Visual Outcome Column -->
+            <div class="studio-outcome">
+              <!-- Hero Outcome Card -->
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-coins"></i> Total Projected Future Value</span>
+                  <div class="res-val" id="corpusHeroValue">-</div>
+                  <div class="res-desc" id="corpusHeroDesc">Invested: - | Compound Growth: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary">
+                  <i class="fas fa-copy"></i>
+                </button>
               </div>
-              <div class="range-row">
-                <input type="range" id="inflationRange" min="0" max="12" step="0.1" value="3">
-                <input type="number" id="inflation" min="0" max="12" step="0.1" value="3">
-              </div>
-            </div>
 
-            <div class="field-card advanced-only">
-              <div class="field-head">
-                <label for="contributionAmount">Monthly/Unit Contribution</label>
-                <span id="contributionAmountPreview">500</span>
+              <!-- Doughnut Split Visualizer -->
+              <div class="outcome-chart-box">
+                <div class="chart-wrap-doughnut">
+                  <canvas id="splitChart"></canvas>
+                </div>
+                <div class="legend-stats-row">
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-invested"></span> Total Contributed</div>
+                    <div class="legend-val" id="totalContributedValue">-</div>
+                  </div>
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-returns"></span> Net Compound Growth</div>
+                    <div class="legend-val positive" id="totalInterestValue">-</div>
+                  </div>
+                </div>
               </div>
-              <div class="range-row">
-                <input type="range" id="contributionAmountRange" min="0" max="100000" step="50" value="500">
-                <input type="number" id="contributionAmount" min="0" max="100000" step="50" value="500">
-              </div>
-            </div>
 
-            <div class="inline-grid advanced-only">
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="contributionFrequency">Contribution Frequency</label>
+              <!-- Key Metrics Grid -->
+              <div class="result-grid">
+                <div class="result-card">
+                  <h3>Gross Future Value</h3>
+                  <div class="result-value" id="grossFutureValue">-</div>
                 </div>
-                <select id="contributionFrequency">
-                  <option value="monthly" selected>Monthly</option>
-                  <option value="quarterly">Quarterly</option>
-                  <option value="yearly">Yearly</option>
-                </select>
+                <div class="result-card positive">
+                  <h3>Net Future Value</h3>
+                  <div class="result-value" id="netFutureValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>Fee Drag Estimate</h3>
+                  <div class="result-value" id="feeDragValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>Estimated Tax Drag</h3>
+                  <div class="result-value" id="taxValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>Inflation-Adjusted Net</h3>
+                  <div class="result-value" id="inflationAdjustedValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>Required Contribution</h3>
+                  <div class="result-value" id="requiredContributionValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>Effective Net CAGR</h3>
+                  <div class="result-value" id="effectiveYieldValue">-</div>
+                </div>
               </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="contributionTiming">Contribution Timing</label>
-                </div>
-                <select id="contributionTiming">
-                  <option value="end" selected>End of period</option>
-                  <option value="start">Start of period</option>
-                </select>
-              </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="annualStepup">Annual Contribution Step-up (percent)</label>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="annualStepupRange" min="0" max="25" step="0.5" value="3">
-                  <input type="number" id="annualStepup" min="0" max="25" step="0.5" value="3">
-                </div>
-              </div>
-            </div>
 
-            <div class="inline-grid advanced-only">
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="annualFee">Annual Fee Drag (percent)</label>
+              <div class="goal-status advanced-only">
+                <div class="goal-meta">
+                  <span id="goalStatusText">Add target amount to see progress.</span>
+                  <strong id="goalPercentText">0%</strong>
                 </div>
-                <div class="range-row">
-                  <input type="range" id="annualFeeRange" min="0" max="5" step="0.05" value="0.5">
-                  <input type="number" id="annualFee" min="0" max="5" step="0.05" value="0.5">
-                </div>
-              </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="taxRate">Tax on Gains at Exit (percent)</label>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="taxRateRange" min="0" max="40" step="0.5" value="15">
-                  <input type="number" id="taxRate" min="0" max="40" step="0.5" value="15">
+                <div class="goal-progress">
+                  <div class="goal-progress-bar" id="goalProgressBar"></div>
                 </div>
               </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="targetAmount">Target Future Value</label>
-                </div>
-                <input type="number" id="targetAmount" min="0" step="1000" value="500000">
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
               </div>
             </div>
           </div>
 
-          <div class="calculator-actions">
-            <button class="btn btn-primary" id="recalculateBtn" type="button">
-              <i class="fas fa-bolt"></i>
-              Recalculate
-            </button>
-            <button class="btn btn-ghost" id="resetBtn" type="button">
-              <i class="fas fa-rotate-left"></i>
-              Reset Defaults
-            </button>
-            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
-              <i class="fas fa-copy"></i>
-              Copy Summary
-            </button>
-          </div>
-
-          <div class="result-grid">
-            <div class="result-card">
-              <h3>Total Contributed</h3>
-              <div class="result-value" id="totalContributedValue">-</div>
+          <!-- Bottom Full-Width 3-Line Compounding Growth Area Chart -->
+          <div class="growth-timeline-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-chart-line" style="color:var(--ic-primary);"></i> Compound Growth Wealth Trajectory</h3>
+              <span style="font-size:0.85rem; color:var(--ic-text-muted);">Gross Value vs Net Value vs Total Contributed</span>
             </div>
-            <div class="result-card positive">
-              <h3>Gross Future Value</h3>
-              <div class="result-value" id="grossFutureValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Total Growth (Pre-Tax)</h3>
-              <div class="result-value" id="totalInterestValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Fee Drag Estimate</h3>
-              <div class="result-value" id="feeDragValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Estimated Tax</h3>
-              <div class="result-value" id="taxValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Net Future Value</h3>
-              <div class="result-value" id="netFutureValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Inflation-Adjusted Net</h3>
-              <div class="result-value" id="inflationAdjustedValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Required Contribution</h3>
-              <div class="result-value" id="requiredContributionValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Effective Net CAGR</h3>
-              <div class="result-value" id="effectiveYieldValue">-</div>
+            <div class="chart-wrap-timeline">
+              <canvas id="growthChart"></canvas>
             </div>
           </div>
 
-          <div class="goal-status">
-            <div class="goal-meta">
-              <span id="goalStatusText">Add target amount to see progress.</span>
-              <strong id="goalPercentText">0%</strong>
-            </div>
-            <div class="goal-progress">
-              <div class="goal-progress-bar" id="goalProgressBar"></div>
-            </div>
-          </div>
-
-          <div class="chart-grid">
-            <div class="chart-card">
-              <h3>Gross vs Net Growth</h3>
-              <div class="chart-wrap">
-                <canvas id="growthChart"></canvas>
-              </div>
-            </div>
-            <div class="chart-card">
-              <h3>Portfolio Components</h3>
-              <div class="chart-wrap small">
-                <canvas id="splitChart"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="table-tools">
-            <h3>Year-wise Projection</h3>
-            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
-              <i class="fas fa-file-csv"></i>
-              Download CSV
-            </button>
+          <!-- Year-Wise Amortization Projection Table -->
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Year-wise Compounding Growth Schedule</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
           </div>
           <div class="table-shell">
-            <table>
+            <table class="projection-table">
               <thead>
                 <tr>
                   <th>Year</th>
                   <th>Total Contributed</th>
                   <th>Gross Value</th>
                   <th>Cumulative Fees</th>
-                  <th>Estimated Net</th>
+                  <th>Estimated Net Value</th>
                 </tr>
               </thead>
               <tbody id="projectionTableBody"></tbody>
@@ -1287,7 +744,7 @@
           </div>
         </div>
 
-        <aside class="section-head" style="margin-bottom:0;">
+        <aside class="sidebar">
           <div class="feature-card">
             <h3>Planning Notes</h3>
             <ul class="feature-list">
@@ -1318,7 +775,7 @@
     </section>
 
     <section class="section">
-      <div class="container calc-layout">
+      <div class="container content-grid">
         <article class="content-card">
           <h3>How this compound interest calculator works</h3>
           <p>The calculator simulates growth month-by-month using your selected annual return and compounding frequency.
@@ -1386,7 +843,7 @@
     </section>
 
     <section class="section">
-      <div class="container calc-layout">
+      <div class="container content-grid">
         <article class="content-card">
           <h3>Compound Growth Planning in Practice</h3>
           <p>Long-term growth planning works best when you track contributions, growth, and deductions together. Looking
@@ -1816,11 +1273,11 @@
         elements.projectionTableBody.innerHTML = projection.map(function (row) {
           return (
             "<tr>" +
-            "<td>Year " + row.year + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.totalContributed, currencyCode) + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.grossValue, currencyCode) + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.cumulativeFees, currencyCode) + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.netValue, currencyCode) + "</td>" +
+            "<td class=\"projection-year\">Year " + row.year + "</td>" +
+            "<td data-label=\"Total Contributed\">" + formatCurrencyWithUnits(row.totalContributed, currencyCode) + "</td>" +
+            "<td data-label=\"Gross Value\">" + formatCurrencyWithUnits(row.grossValue, currencyCode) + "</td>" +
+            "<td data-label=\"Cumulative Fees\">" + formatCurrencyWithUnits(row.cumulativeFees, currencyCode) + "</td>" +
+            "<td data-label=\"Estimated Net\">" + formatCurrencyWithUnits(row.netValue, currencyCode) + "</td>" +
             "</tr>"
           );
         }).join("");
@@ -1839,37 +1296,49 @@
         if (growthChartInstance) {
           growthChartInstance.destroy();
         }
-        growthChartInstance = new Chart(elements.growthChart.getContext("2d"), {
+        const growthCtx = elements.growthChart.getContext("2d");
+        const corpusGrad = growthCtx.createLinearGradient(0, 0, 0, 300);
+        corpusGrad.addColorStop(0, "rgba(2, 132, 199, 0.28)");
+        corpusGrad.addColorStop(1, "rgba(2, 132, 199, 0.015)");
+
+        growthChartInstance = new Chart(growthCtx, {
           type: "line",
           data: {
             labels: labels,
             datasets: [
               {
-                label: "Gross Value",
+                label: "Gross Future Value",
                 data: grossData,
-                borderColor: "#007f8b",
-                backgroundColor: "rgba(0, 127, 139, 0.12)",
+                borderColor: "#0284c7",
+                backgroundColor: corpusGrad,
                 fill: true,
-                tension: 0.18,
-                pointRadius: 2
+                tension: 0.25,
+                borderWidth: 3,
+                pointRadius: 0,
+                pointHoverRadius: 5
               },
               {
-                label: "Net Value",
+                label: "Estimated Net Value",
                 data: netData,
-                borderColor: "#1f9f67",
-                backgroundColor: "rgba(31, 159, 103, 0.1)",
+                borderColor: "#10b981",
+                backgroundColor: "transparent",
                 fill: false,
-                tension: 0.16,
-                pointRadius: 2
+                tension: 0.18,
+                borderWidth: 2.5,
+                pointRadius: 0,
+                pointHoverRadius: 4
               },
               {
                 label: "Total Contributed",
                 data: contribData,
-                borderColor: "#ee9f2e",
-                backgroundColor: "rgba(238, 159, 46, 0.1)",
+                borderColor: "#64748b",
+                backgroundColor: "transparent",
                 fill: false,
                 tension: 0.12,
-                pointRadius: 2
+                borderWidth: 2,
+                borderDash: [6, 4],
+                pointRadius: 0,
+                pointHoverRadius: 4
               }
             ]
           },
@@ -1912,7 +1381,7 @@
             datasets: [
               {
                 data: [Math.max(inputs.initialPrincipal, 0), recurringContribution, netGrowth, deductions],
-                backgroundColor: ["#6b7f8e", "#007f8b", "#1f9f67", "#d8891d"],
+                backgroundColor: ["#64748b", "#0284c7", "#10b981", "#f59e0b"],
                 borderWidth: 1
               }
             ]
@@ -1962,6 +1431,14 @@
         elements.feeDragValue.textContent = formatCurrencyWithUnits(result.feeDragEstimate, inputs.currencyCode);
         elements.taxValue.textContent = formatCurrencyWithUnits(result.taxAmount, inputs.currencyCode);
         elements.netFutureValue.textContent = formatCurrencyWithUnits(result.netFutureValue, inputs.currencyCode);
+
+        const heroVal = document.getElementById("corpusHeroValue");
+        const heroDesc = document.getElementById("corpusHeroDesc");
+        if (heroVal) heroVal.textContent = formatCurrencyWithUnits(result.netFutureValue, inputs.currencyCode);
+        if (heroDesc) heroDesc.textContent = "Invested: " + formatCurrencyWithUnits(result.totalContributed, inputs.currencyCode) + " • Growth: " + formatCurrencyWithUnits(result.totalGrowth, inputs.currencyCode);
+
+        const mobVal = document.getElementById("mobileSummaryVal");
+        if (mobVal) mobVal.textContent = formatCurrencyWithUnits(result.netFutureValue, inputs.currencyCode);
         elements.inflationAdjustedValue.textContent = formatCurrencyWithUnits(inflationAdjustedNet, inputs.currencyCode);
         elements.requiredContributionValue.textContent = requiredContribution === null
           ? "Target too high"
@@ -2058,6 +1535,23 @@
       }
 
       function wireEvents() {
+
+      // Preset Chips Handling
+      document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+        btn.addEventListener("click", function() {
+          const wrap = this.parentElement;
+          if (wrap.dataset.target) {
+            const targetInput = document.getElementById(wrap.dataset.target);
+            const targetRange = document.getElementById(wrap.dataset.range);
+            if (targetInput) targetInput.value = this.dataset.val;
+            if (targetRange) targetRange.value = this.dataset.val;
+            if (typeof calculateAndRender === 'function') calculateAndRender();
+            else if (typeof calculate === 'function') calculate();
+            else if (typeof updateCalculation === 'function') updateCalculation();
+          }
+        });
+      });
+
         const toggleBtn = document.getElementById("toggleViewBtn");
         if (toggleBtn) {
           toggleBtn.addEventListener("click", function () {
@@ -2125,6 +1619,34 @@
 
       toggleNav();
       setupBackToTop();
+      
+        const copyHero = document.getElementById("copyHeroBtn");
+        if (copyHero) {
+          copyHero.addEventListener("click", function() {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(lastSummaryText).then(() => {
+                const orig = copyHero.innerHTML;
+                copyHero.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+                setTimeout(() => copyHero.innerHTML = orig, 1800);
+              });
+            }
+          });
+        }
+        
+        // Preset Chips
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function() {
+            const wrap = this.parentElement;
+            if (wrap.dataset.target) {
+              const targetInput = document.getElementById(wrap.dataset.target);
+              const targetRange = document.getElementById(wrap.dataset.range);
+              if (targetInput) targetInput.value = this.dataset.val;
+              if (targetRange) targetRange.value = this.dataset.val;
+              calculateAndRender();
+            }
+          });
+        });
+
       wireEvents();
       calculateAndRender();
     })();

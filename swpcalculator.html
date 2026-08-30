@@ -192,852 +192,575 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
   </noscript>
 
+    <link rel="stylesheet" href="instacalc-core.css">
   <style>
-    :root {
-      --bg: #f2f6f8;
-      --text: #132a3b;
-      --text-soft: #334d60;
-      --accent: #007f8b;
-      --accent-strong: #005f73;
-      --accent-2: #ee9f2e;
-      --line: #d3e1ea;
-      --line-strong: #bfd2dd;
-      --card: #ffffff;
-      --success: #1f9f67;
-      --warn: #d8891d;
-      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
-      --radius-xl: 26px;
-      --radius-lg: 20px;
-      --radius-md: 15px;
-      --radius-sm: 11px;
-    }
-
+    /* ==========================================================================
+       Ultra-Responsive Mobile Viewport Styles (Prevents clipping / cutoffs)
+       ========================================================================== */
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      font-family: "Public Sans", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
-        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
-        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.22;
-      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
-      background-size: 100% 36px;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
+    
     .container {
-      width: min(1180px, 92vw);
+      width: min(1240px, 92vw);
       margin: 0 auto;
-    }
-
-    .section {
-      padding: 3.2rem 0;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.32rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: rgba(255, 255, 255, 0.74);
-      color: var(--accent-strong);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      font-size: 0.78rem;
-    }
-
-    .section-head {
-      max-width: 720px;
-      margin-bottom: 1.25rem;
-    }
-
-    .section-head h2 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.55rem, 2.3vw, 2.25rem);
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin: 0.45rem 0 0.7rem;
-    }
-
-    .section-head p {
-      color: var(--text-soft);
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 55;
-      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
-      background: rgba(242, 246, 248, 0.92);
-      backdrop-filter: blur(10px);
-    }
-
-    .header-inner {
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.8rem;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: "Sora", sans-serif;
-      font-weight: 700;
-      color: var(--accent-strong);
-      letter-spacing: -0.02em;
-    }
-
-    .brand img {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 2px solid rgba(0, 95, 115, 0.15);
-      background: #ffffff;
-    }
-
-    .menu-toggle {
-      width: 42px;
-      height: 42px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      border-radius: 12px;
-      background: #ffffff;
-      color: var(--accent-strong);
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .site-nav {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 4vw;
-      right: 4vw;
-      display: none;
-      flex-direction: column;
-      gap: 0.4rem;
-      padding: 0.7rem;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: #ffffff;
-      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
-    }
-
-    .site-nav.open {
-      display: flex;
-    }
-
-    .site-nav a {
-      min-height: 40px;
-      display: inline-flex;
-      align-items: center;
-      padding: 0.45rem 0.8rem;
-      border-radius: 10px;
-      font-weight: 600;
-      color: var(--text-soft);
-      transition: background-color 0.25s ease, color 0.25s ease;
-    }
-
-    .site-nav a:hover,
-    .site-nav a.active {
-      color: var(--accent-strong);
-      background: rgba(0, 127, 139, 0.12);
-    }
-
-    .hero {
-      padding: 3.3rem 0 2.4rem;
-    }
-
-    .hero-grid {
-      display: grid;
-      gap: 1.1rem;
-    }
-
-    .hero-copy {
-      border: 1px solid rgba(0, 95, 115, 0.16);
-      border-radius: var(--radius-xl);
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
-      box-shadow: var(--shadow);
-      padding: 1.35rem;
-    }
-
-    .hero-copy h1 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(2rem, 5vw, 3.05rem);
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      margin-top: 0.9rem;
-      max-width: 16ch;
-    }
-
-    .hero-copy p {
-      margin-top: 0.95rem;
-      color: var(--text-soft);
-      font-size: clamp(1rem, 2.2vw, 1.1rem);
-      max-width: 56ch;
-    }
-
-    .hero-actions {
-      margin-top: 1.2rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }
-
-    .btn {
-      min-height: 42px;
-      padding: 0.55rem 1rem;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.45rem;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      font: inherit;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      color: #ffffff;
-      background: linear-gradient(110deg, var(--accent), #00a1b2);
-      box-shadow: 0 12px 24px rgba(0, 127, 139, 0.27);
-    }
-
-    .btn-ghost {
-      color: var(--accent-strong);
-      border: 1px solid rgba(0, 95, 115, 0.25);
-      background: rgba(255, 255, 255, 0.75);
-    }
-
-    .hero-panel {
-      border-radius: var(--radius-xl);
-      padding: 1.15rem;
-      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
-      color: #f8fcff;
-      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
-      display: grid;
-      gap: 0.6rem;
-      align-content: start;
-    }
-
-    .hero-panel h2 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.18rem;
-    }
-
-    .hero-point {
-      border-radius: 11px;
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      background: rgba(255, 255, 255, 0.11);
-      padding: 0.63rem 0.72rem;
-      font-size: 0.93rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.46rem;
+      padding: 0 0.5rem;
     }
 
     .calc-layout {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.95rem;
-    }
-
-    .calculator-shell,
-    .feature-card,
-    .content-card,
-    .faq-card,
-    .sidebar-card {
-      border: 1px solid rgba(0, 95, 115, 0.15);
-      background: rgba(255, 255, 255, 0.89);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+      grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
+      gap: 1.75rem;
+      align-items: start;
+      width: 100%;
     }
 
     .calculator-shell {
-      padding: 1rem;
-      display: grid;
-      gap: 0.95rem;
-    }
-
-    .mode-switch {
-      display: inline-flex;
-      border: 1px solid rgba(0, 95, 115, 0.22);
-      border-radius: 12px;
-      padding: 0.26rem;
       background: #ffffff;
-      width: fit-content;
-      gap: 0.25rem;
-    }
-
-    .mode-switch a {
-      min-height: 38px;
-      padding: 0.42rem 0.76rem;
-      border-radius: 9px;
-      font-weight: 700;
-      color: var(--text-soft);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s ease, color 0.2s ease;
-      font-size: 0.92rem;
-    }
-
-    .mode-switch a.active {
-      color: #ffffff;
-      background: linear-gradient(110deg, var(--accent), #00a1b2);
-    }
-
-    .input-grid {
-      display: grid;
-      gap: 0.7rem;
-      grid-template-columns: 1fr;
-    }
-
-    .field-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-      display: grid;
-      gap: 0.54rem;
-    }
-
-    .field-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .field-head label {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .field-head span {
-      font-size: 0.82rem;
-      color: var(--text-soft);
-    }
-
-    .range-row {
-      display: grid;
-      gap: 0.55rem;
-      grid-template-columns: 1fr;
-    }
-
-    input[type="range"] {
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-lg);
+      box-shadow: var(--ic-shadow-md);
+      padding: 1.75rem;
       width: 100%;
-      accent-color: var(--accent);
-    }
-
-    input[type="number"],
-    select {
-      width: 100%;
-      min-height: 42px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 0.48rem 0.62rem;
-      font: inherit;
-      color: var(--text);
-      background: #ffffff;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    input[type="number"]:focus,
-    select:focus {
-      border-color: rgba(0, 127, 139, 0.62);
-      box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
-    }
-
-    .inline-grid {
-      display: grid;
-      gap: 0.7rem;
-      grid-template-columns: 1fr;
-    }
-
-    .calculator-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-    }
-
-    .result-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.62rem;
-    }
-
-    .result-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-    }
-
-    .result-card h3 {
-      color: var(--text-soft);
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-bottom: 0.22rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-
-    .result-value {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
-      line-height: 1.3;
-      color: var(--text);
-      word-break: break-word;
-    }
-
-    .result-card.positive {
-      background: rgba(31, 159, 103, 0.08);
-      border-color: rgba(31, 159, 103, 0.26);
-    }
-
-    .goal-status {
-      border: 1px solid rgba(0, 95, 115, 0.14);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-      display: grid;
-      gap: 0.5rem;
-    }
-
-    .goal-meta {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.45rem;
-      color: var(--text-soft);
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .goal-progress {
-      height: 10px;
-      border-radius: 999px;
-      background: #e5eef3;
+      max-width: 100%;
       overflow: hidden;
     }
 
-    .goal-progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(110deg, var(--accent), #00a1b2);
-      transition: width 0.3s ease;
-    }
-
-    .chart-grid {
-      display: grid;
-      gap: 0.75rem;
-      grid-template-columns: 1fr;
-    }
-
-    .chart-card {
-      border: 1px solid rgba(0, 95, 115, 0.14);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.7rem;
-    }
-
-    .chart-card h3 {
-      font-size: 0.93rem;
-      color: var(--text-soft);
-      margin-bottom: 0.42rem;
-      font-weight: 700;
-    }
-
-    .chart-wrap {
-      height: 290px;
-      position: relative;
-    }
-
-    .chart-wrap.small {
-      height: 240px;
-    }
-
-    .table-tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .table-shell {
-      overflow: auto;
-      border: 1px solid rgba(0, 95, 115, 0.14);
-      border-radius: 12px;
-      background: #ffffff;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 640px;
-    }
-
-    th,
-    td {
-      padding: 0.54rem 0.65rem;
-      border-bottom: 1px solid rgba(0, 95, 115, 0.1);
-      text-align: left;
-      font-size: 0.88rem;
-      vertical-align: middle;
-    }
-
-    th {
-      position: sticky;
-      top: 0;
-      background: #f4fafc;
-      font-weight: 700;
-      color: var(--text);
-      z-index: 1;
-    }
-
-    tbody tr:nth-child(even) {
-      background: rgba(0, 127, 139, 0.04);
-    }
-
-    .feature-card {
-      padding: 1rem;
-      display: grid;
-      gap: 0.55rem;
-    }
-
-    .feature-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.05rem;
-    }
-
-    .feature-list,
-    .link-list {
-      list-style: none;
-      display: grid;
-      gap: 0.45rem;
-    }
-
-    .feature-list li {
-      color: var(--text-soft);
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      font-weight: 600;
-      font-size: 0.92rem;
-    }
-
-    .feature-list i {
-      color: var(--accent-strong);
-      margin-top: 0.12rem;
-    }
-
-    .sidebar-card {
-      padding: 1rem;
-      display: grid;
-      gap: 0.5rem;
-      align-content: start;
-    }
-
-    .sidebar-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.05rem;
-    }
-
-    .link-list a {
-      min-height: 41px;
-      border-radius: 10px;
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      background: #ffffff;
-      padding: 0.48rem 0.62rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.4rem;
-      color: var(--text);
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .link-list a:hover {
-      border-color: rgba(0, 127, 139, 0.4);
-      transform: translateY(-1px);
-    }
-
-    .content-card {
-      padding: 1rem;
-    }
-
-    .content-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.08rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .content-card p {
-      color: var(--text-soft);
-    }
-
-
-    .faq-list {
-      display: grid;
-      gap: 0.62rem;
-    }
-
-    .faq-card {
-      overflow: hidden;
-    }
-
-    .faq-card summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 0.85rem 0.95rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.7rem;
-      font-weight: 700;
-      color: var(--text);
-      font-size: 0.95rem;
-    }
-
-    .faq-card summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .faq-card p {
-      color: var(--text-soft);
-      padding: 0 0.95rem 0.9rem;
-      font-size: 0.92rem;
-    }
-
-    .faq-card i {
-      color: var(--accent-strong);
-      transition: transform 0.2s ease;
-    }
-
-    .faq-card[open] i {
-      transform: rotate(180deg);
-    }
-
-    .site-footer {
-      margin-top: 1rem;
-      border-top: 1px solid rgba(0, 95, 115, 0.14);
-      background: rgba(238, 246, 250, 0.86);
-      padding: 1.4rem 0 2.3rem;
-    }
-
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 0.78rem;
-      color: var(--text-soft);
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-      font-weight: 600;
-    }
-
-    .footer-links a:hover {
-      color: var(--accent-strong);
-    }
-
-    .back-to-top {
-      position: fixed;
-      right: 1rem;
-      bottom: 1rem;
-      width: 42px;
-      height: 42px;
-      border: none;
-      border-radius: 13px;
-      background: linear-gradient(130deg, var(--accent), #0ca4b4);
-      color: #ffffff;
-      box-shadow: 0 15px 25px rgba(0, 95, 115, 0.3);
-      cursor: pointer;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(9px);
-      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
-      z-index: 48;
-    }
-
-    .back-to-top.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    @media (min-width: 640px) {
-      .range-row {
-        grid-template-columns: 1fr 120px;
-        align-items: center;
-      }
-
-      .inline-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .result-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-    }
-
-    @media (min-width: 940px) {
-      .menu-toggle {
-        display: none;
-      }
-
-      .site-nav {
-        position: static;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 0.3rem;
-        padding: 0;
-        border: none;
-        background: transparent;
-        box-shadow: none;
-      }
-
-      .hero-grid {
-        grid-template-columns: 1.45fr 1fr;
-        align-items: stretch;
-      }
-
-      .calc-layout {
-        grid-template-columns: 1.72fr 1fr;
-        align-items: start;
-      }
-
-      .chart-grid {
-        grid-template-columns: 1.4fr 1fr;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      .btn,
-      .link-list a,
-      .faq-card i,
-      .back-to-top {
-        transition: none;
-      }
-    }
-
-    /* Simple vs Advanced Toggle Styles */
     .calculator-header-row {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 0.75rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--ic-border);
+      width: 100%;
     }
 
-    .btn-sm {
-      min-height: 36px;
-      padding: 0.4rem 0.8rem;
+    .toggle-group {
+      display: inline-flex;
+      background: var(--ic-bg-subtle);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 0.25rem;
+      gap: 0.25rem;
+    }
+
+    .toggle-btn {
+      padding: 0.5rem 0.95rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      border-radius: var(--ic-radius-sm);
+      border: none;
+      background: transparent;
+      color: var(--ic-text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .toggle-btn.active {
+      background: #ffffff;
+      color: var(--ic-primary-dark);
+      box-shadow: var(--ic-shadow-sm);
+    }
+
+    /* Hero Result Card */
+    .hero-result-card {
+      background: linear-gradient(135deg, #f0fdfa 0%, #e6f7f6 100%);
+      border: 1px solid rgba(0, 127, 139, 0.25);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      position: relative;
+    }
+
+    .hero-result-card .label-group {
+      display: grid;
+      gap: 0.25rem;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .hero-result-card .res-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ic-primary-dark);
+    }
+
+    .hero-result-card .res-val {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.45rem, 4vw, 2.2rem);
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      line-height: 1.2;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .hero-result-card .res-desc {
       font-size: 0.85rem;
+      color: var(--ic-text-muted);
+      word-break: break-word;
+    }
+
+    .hero-result-card .quick-copy-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 127, 139, 0.25);
+      background: #ffffff;
+      color: var(--ic-primary-dark);
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .hero-result-card .quick-copy-btn:hover {
+      background: var(--ic-primary-dark);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* Range row & inputs */
+    .range-row {
+      display: grid;
+      grid-template-columns: 1fr 130px;
+      gap: 0.75rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    .field-card {
+      background: var(--ic-bg-subtle);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1rem;
+      margin-bottom: 0.85rem;
+      width: 100%;
+    }
+
+    .field-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+      font-weight: 700;
+      font-size: 0.92rem;
+      gap: 0.5rem;
+    }
+
+    .field-head span {
+      color: var(--ic-primary-dark);
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+    }
+
+    .chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+      width: 100%;
+    }
+
+    .chip {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border-radius: 999px;
+      border: 1px solid var(--ic-border);
+      background: #ffffff;
+      color: var(--ic-text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .chip:hover, .chip.active {
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      border-color: var(--ic-primary);
+    }
+
+    .inline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
     }
 
     .advanced-only-section {
       display: none;
-      border-top: 1px dashed var(--line);
-      padding-top: 1rem;
-      margin-top: 0.5rem;
-      gap: 0.7rem;
-    }
-
-    .advanced-only {
-      display: none;
+      border-top: 1px dashed var(--ic-border);
+      padding-top: 1.25rem;
+      margin-top: 1rem;
     }
 
     .calculator-shell.advanced-mode .advanced-only-section {
-      display: grid;
+      display: block;
     }
 
     .calculator-shell.advanced-mode .advanced-only {
-      display: block;
+      display: block !important;
     }
 
-    .calculator-shell.advanced-mode .result-card.advanced-only {
-      display: block;
+    .advanced-only {
+      display: none !important;
     }
 
-    #toggleViewBtn.active {
-      background: var(--accent-strong);
-      color: #fff;
+    /* Results Grid */
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      width: 100%;
     }
 
-    .lang-switch {
-      margin-left: auto;
-      margin-right: 1rem;
-      display: inline-flex;
-      align-items: center;
-    }
-    .lang-switch select {
-      min-height: 36px;
-      padding: 0.2rem 0.5rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--accent-strong);
+    .result-card {
       background: #ffffff;
-      border: 1px solid rgba(0, 95, 115, 0.22);
-      border-radius: 8px;
-      cursor: pointer;
-      outline: none;
-      transition: border-color 0.2s ease;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 0.85rem;
+      min-width: 0;
+      overflow: hidden;
     }
-    .lang-switch select:focus {
-      border-color: var(--accent);
+
+    .result-card h3 {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--ic-text-muted);
+      font-weight: 700;
+      margin-bottom: 0.3rem;
     }
+
+    .result-value {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+      font-weight: 800;
+      color: var(--ic-text);
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .result-card.positive .result-value {
+      color: #1f9f67;
+    }
+
+    /* Actions */
+    .calculator-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+      width: 100%;
+    }
+
+    /* Charts */
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+      width: 100%;
+    }
+
+    .chart-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1rem;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+      height: 250px;
+    }
+
+    /* Table */
+    .table-shell {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      margin-top: 0.75rem;
+      background: #ffffff;
+    }
+
+    .table-shell table {
+      width: 100%;
+      min-width: 520px;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    /* MOBILE SPECIFIC MEDIA QUERIES (320px - 640px) */
+    @media (max-width: 640px) {
+      .calc-layout {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+      
+      .calculator-shell {
+        padding: 1rem 0.75rem !important;
+        border-radius: var(--ic-radius-md) !important;
+      }
+
+      .calculator-header-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.5rem !important;
+      }
+
+      .toggle-group {
+        display: flex !important;
+        width: 100% !important;
+      }
+
+      .toggle-group .toggle-btn {
+        flex: 1 !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 0.55rem 0.4rem !important;
+        font-size: 0.82rem !important;
+      }
+
+      #toggleViewBtn {
+        width: 100% !important;
+        justify-content: center !important;
+        min-height: 40px !important;
+      }
+
+      .hero-result-card {
+        padding: 1rem 0.85rem !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.5rem !important;
+      }
+
+      .hero-result-card .quick-copy-btn {
+        position: absolute !important;
+        top: 0.75rem !important;
+        right: 0.75rem !important;
+        width: 38px !important;
+        height: 38px !important;
+      }
+
+      .hero-result-card .res-val {
+        font-size: clamp(1.35rem, 6.5vw, 1.85rem) !important;
+        max-width: calc(100% - 44px) !important;
+      }
+
+      .hero-result-card .res-desc {
+        font-size: 0.8rem !important;
+        line-height: 1.35 !important;
+      }
+
+      .range-row {
+        grid-template-columns: 1fr !important;
+        gap: 0.45rem !important;
+      }
+
+      .inline-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.5rem !important;
+      }
+
+      .field-card {
+        padding: 0.85rem 0.75rem !important;
+      }
+
+      .field-head {
+        font-size: 0.88rem !important;
+      }
+
+      .chips-wrap {
+        gap: 0.35rem !important;
+      }
+
+      .chip {
+        padding: 0.3rem 0.6rem !important;
+        font-size: 0.78rem !important;
+        min-height: 30px !important;
+      }
+
+      .calculator-actions {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 0.4rem !important;
+      }
+
+      .calculator-actions #recalculateBtn {
+        grid-column: span 2 !important;
+      }
+
+      .result-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+      }
+
+      .result-card {
+        padding: 0.75rem 0.65rem !important;
+      }
+
+      .result-card h3 {
+        font-size: 0.72rem !important;
+      }
+
+      .result-value {
+        font-size: 1.05rem !important;
+      }
+
+      .chart-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .chart-wrap {
+        height: 220px !important;
+      }
+    }
+
+  
+    /* ==========================================================================
+       Projection Table - Card Grid on Mobile & Clean Table on Desktop
+       ========================================================================== */
+    .table-shell {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      background: #ffffff;
+      margin-top: 1rem;
+    }
+
+    .projection-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    .projection-table th {
+      background: #f8fafc;
+      padding: 0.85rem 1rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      border-bottom: 1px solid var(--ic-border);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .projection-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--ic-border);
+      color: var(--ic-text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .projection-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .projection-table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    @media (max-width: 640px) {
+      .table-shell {
+        border: 0;
+        background: transparent;
+        overflow: visible;
+      }
+
+      .projection-table,
+      .projection-table tbody,
+      .projection-table tr,
+      .projection-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .projection-table thead {
+        display: none;
+      }
+
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+
+      .projection-table td:nth-child(odd):not(.projection-year) {
+        border-right: 1px solid var(--ic-border);
+      }
+
+      .projection-table td:nth-last-child(-n + 2) {
+        border-bottom: 0;
+      }
+
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .projection-table .projection-year::before {
+        display: none;
+      }
+    }
+
   </style>
 </head>
 
@@ -1102,8 +825,10 @@
       <div class="container calc-layout">
         <div class="calculator-shell" id="calcTarget">
           <div class="calculator-header-row">
-            <div class="mode-switch" aria-label="Calculator mode">
-              <a href="#" class="active">SWP Planner</a>
+            <div class="toggle-group" aria-label="Calculator mode">
+              <a href="swpcalculator.html" class="toggle-btn active"><i class="fas fa-hand-holding-dollar"></i> SWP Planner</a>
+              <a href="sipcalculator.html" class="toggle-btn"><i class="fas fa-calendar-alt"></i> SIP</a>
+              <a href="mutualfundreturncalculator.html" class="toggle-btn"><i class="fas fa-chart-pie"></i> Mutual Fund</a>
             </div>
             <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
               <i class="fas fa-sliders"></i>
@@ -1111,112 +836,193 @@
             </button>
           </div>
 
-          <div class="input-grid">
-            <div class="field-card">
-              <div class="field-head">
-                <label for="totalInvestment">Total Investment</label>
-                <span id="investmentPreview">10,00,000</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="investmentRange" min="50000" max="50000000" step="10000" value="1000000">
-                <input type="number" id="totalInvestment" min="50000" max="50000000" step="10000" value="1000000">
-              </div>
-            </div>
+          <!-- Mobile Sticky Summary Pill -->
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label" id="mobileSummaryLabel">Final Estimated Balance</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
 
-            <div class="field-card">
-              <div class="field-head">
-                <label for="withdrawal">Monthly Withdrawal</label>
-                <span id="withdrawalPreview">10,000</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="withdrawalRange" min="500" max="250000" step="500" value="10000">
-                <input type="number" id="withdrawal" min="500" max="250000" step="500" value="10000">
-              </div>
-            </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="returnRate">Expected ROI (% p.a.)</label>
-                <span id="returnPreview">10%</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="returnRange" min="5" max="20" step="0.5" value="10">
-                <input type="number" id="returnRate" min="5" max="20" step="0.5" value="10">
-              </div>
-            </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="tenure">Tenure (Years)</label>
-                <span id="tenurePreview">10 Years</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="tenureRange" min="1" max="50" step="1" value="10">
-                <input type="number" id="tenure" min="1" max="50" step="1" value="10">
-              </div>
-            </div>
-
-            <div class="advanced-only-section" id="advancedFields">
+          <!-- Desktop Interactive 2-Column Grid -->
+          <div class="fin-studio-grid">
+            <!-- Left Inputs Column -->
+            <div class="studio-inputs">
               <div class="field-card">
                 <div class="field-head">
-                  <label for="inflation"
-                    title="Increases your monthly withdrawal amount every year by this percentage to combat inflation and rising living costs.">Annual
-                    Withdrawal Increase (%) <i class="fas fa-circle-question"
-                      style="color:var(--text-soft); opacity: 0.6; font-size: 0.85em; cursor: help;"></i></label>
+                  <label for="totalInvestment">Total Investment Corpus</label>
+                  <span class="field-preview-badge" id="investmentPreview">₹10,00,000</span>
                 </div>
                 <div class="range-row">
-                  <input type="range" id="inflationRange" min="0" max="10" step="0.5" value="0">
-                  <input type="number" id="inflation" min="0" max="10" step="0.5" value="0">
+                  <input type="range" id="investmentRange" min="50000" max="50000000" step="25000" value="1000000">
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">₹</span>
+                    <input type="number" id="totalInvestment" min="50000" max="50000000" step="25000" value="1000000" class="has-prefix">
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="totalInvestment" data-range="investmentRange">
+                  <button type="button" class="chip" data-val="500000">₹5 Lakh</button>
+                  <button type="button" class="chip" data-val="1000000">₹10 Lakh</button>
+                  <button type="button" class="chip" data-val="2500000">₹25 Lakh</button>
+                  <button type="button" class="chip" data-val="5000000">₹50 Lakh</button>
+                  <button type="button" class="chip" data-val="10000000">₹1 Crore</button>
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="withdrawal">Monthly Withdrawal Amount</label>
+                  <span class="field-preview-badge" id="withdrawalPreview">₹10,000</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="withdrawalRange" min="500" max="500000" step="500" value="10000">
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">₹</span>
+                    <input type="number" id="withdrawal" min="500" max="500000" step="500" value="10000" class="has-prefix">
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="withdrawal" data-range="withdrawalRange">
+                  <button type="button" class="chip" data-val="5000">₹5,000</button>
+                  <button type="button" class="chip" data-val="10000">₹10,000</button>
+                  <button type="button" class="chip" data-val="25000">₹25,000</button>
+                  <button type="button" class="chip" data-val="50000">₹50,000</button>
+                  <button type="button" class="chip" data-val="100000">₹1 Lakh</button>
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="returnRate">Expected Annual Return</label>
+                  <span class="field-preview-badge" id="returnPreview">10.0%</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="returnRange" min="3" max="25" step="0.1" value="10">
+                  <div class="input-with-adornment">
+                    <input type="number" id="returnRate" min="3" max="25" step="0.1" value="10" class="has-suffix">
+                    <span class="input-suffix">%</span>
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="returnRate" data-range="returnRange">
+                  <button type="button" class="chip" data-val="7">7% (Debt Fund)</button>
+                  <button type="button" class="chip" data-val="10">10% (Hybrid/Balanced)</button>
+                  <button type="button" class="chip" data-val="12">12% (Equity Fund)</button>
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="tenure">Withdrawal Horizon</label>
+                  <span class="field-preview-badge" id="tenurePreview">10 Yrs</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="tenureRange" min="1" max="40" step="1" value="10">
+                  <div class="input-with-adornment">
+                    <input type="number" id="tenure" min="1" max="40" step="1" value="10" class="has-suffix">
+                    <span class="input-suffix">Yrs</span>
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="tenure" data-range="tenureRange">
+                  <button type="button" class="chip" data-val="5">5 Yrs</button>
+                  <button type="button" class="chip" data-val="10">10 Yrs</button>
+                  <button type="button" class="chip" data-val="15">15 Yrs</button>
+                  <button type="button" class="chip" data-val="20">20 Yrs</button>
+                  <button type="button" class="chip" data-val="25">25 Yrs</button>
+                </div>
+              </div>
+
+              <div class="advanced-only-section" id="advancedFields">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="inflation">Annual Withdrawal Increase (Inflation %)</label>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="inflationRange" min="0" max="15" step="0.5" value="0">
+                    <div class="input-with-adornment">
+                      <input type="number" id="inflation" min="0" max="15" step="0.5" value="0" class="has-suffix">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="calculator-actions">
-            <button class="btn btn-primary" id="recalculateBtn" type="button">
-              <i class="fas fa-bolt"></i> Recalculate
-            </button>
-            <button class="btn btn-ghost" id="resetBtn" type="button">
-              <i class="fas fa-rotate-left"></i> Reset Defaults
-            </button>
-            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
-              <i class="fas fa-copy"></i> Copy Summary
-            </button>
-          </div>
+            <!-- Right Visual Outcome Column -->
+            <div class="studio-outcome">
+              <!-- Hero Outcome Card -->
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-wallet"></i> Final Remaining Balance</span>
+                  <div class="res-val" id="corpusHeroValue">-</div>
+                  <div class="res-desc" id="corpusHeroDesc">Invested: - | Total Withdrawn: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
 
-          <div class="result-grid">
-            <div class="result-card">
-              <h3>Total Invested Amount</h3>
-              <div class="result-value" id="resInvested">-</div>
-            </div>
-            <div class="result-card positive">
-              <h3>Total Withdrawal</h3>
-              <div class="result-value" id="resWithdrawalText">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Final Estimated Balance</h3>
-              <div class="result-value" id="resFinalBalance">-</div>
-            </div>
-          </div>
+              <!-- Doughnut Split Visualizer -->
+              <div class="outcome-chart-box">
+                <div class="chart-wrap-doughnut">
+                  <canvas id="splitChart"></canvas>
+                </div>
+                <div class="legend-stats-row">
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-returns"></span> Total Withdrawn</div>
+                    <div class="legend-val positive" id="resWithdrawalText">-</div>
+                  </div>
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-invested"></span> Remaining Corpus</div>
+                    <div class="legend-val" id="resFinalBalance">-</div>
+                  </div>
+                </div>
+              </div>
 
-          <div class="chart-grid" style="margin-top:20px;">
-            <div class="chart-card">
-              <h3>Corpus Over Time</h3>
-              <div class="chart-wrap">
-                <canvas id="swpChart"></canvas>
+              <div class="result-grid">
+                <div class="result-card">
+                  <h3>Total Invested Principal</h3>
+                  <div class="result-value" id="resInvested">-</div>
+                </div>
+                <div class="result-card positive">
+                  <h3>Total Cashflow Paid Out</h3>
+                  <div class="result-value" id="resTotalPayout">-</div>
+                </div>
+                <div class="result-card">
+                  <h3>Total Growth / Gains</h3>
+                  <div class="result-value" id="resTotalGains">-</div>
+                </div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
               </div>
             </div>
           </div>
 
-          <div class="table-shell" style="margin-top:20px;">
-            <table>
+          <!-- Bottom Full-Width 2-Line Compounding Growth Area Chart -->
+          <div class="growth-timeline-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-chart-area" style="color:var(--ic-primary);"></i> SWP Cashflow & Corpus Longevity Trajectory</h3>
+              <span style="font-size:0.85rem; color:var(--ic-text-muted);">Remaining Balance vs Cumulative Withdrawn</span>
+            </div>
+            <div class="chart-wrap-timeline">
+              <canvas id="swpChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Year-Wise Amortization Projection Table -->
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Year-wise Cashflow Breakdown</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
               <thead>
                 <tr>
                   <th>Year</th>
                   <th>Opening Balance</th>
                   <th>Total Withdrawal</th>
                   <th>Interest Added</th>
-                  <th>Final Balance</th>
+                  <th>Closing Balance</th>
                 </tr>
               </thead>
               <tbody id="projectionTable"></tbody>
@@ -1224,7 +1030,7 @@
           </div>
         </div>
 
-        <aside class="section-head" style="margin-bottom:0;">
+        <aside class="sidebar">
           <div class="sidebar-card">
             <h3>Similar Utility Tools</h3>
             <ul class="link-list">
@@ -1242,7 +1048,7 @@
     </section>
 
     <section class="section">
-      <div class="container calc-layout">
+      <div class="container content-grid">
         <article class="content-card">
           <h2>How SWP Works?</h2>
           <p>A <strong>Systematic Withdrawal Plan (SWP)</strong> allows you to withdraw a fixed amount of money from
@@ -1400,20 +1206,32 @@
         returnPreview: document.getElementById("returnPreview"),
         tenurePreview: document.getElementById("tenurePreview"),
 
+        corpusHeroValue: document.getElementById("corpusHeroValue"),
+        corpusHeroDesc: document.getElementById("corpusHeroDesc"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
         resInvested: document.getElementById("resInvested"),
         resWithdrawal: document.getElementById("resWithdrawalText"),
         resFinalBalance: document.getElementById("resFinalBalance"),
+        resTotalPayout: document.getElementById("resTotalPayout"),
+        resTotalGains: document.getElementById("resTotalGains"),
 
         swpChart: document.getElementById("swpChart"),
+        splitChart: document.getElementById("splitChart"),
         projectionTable: document.getElementById("projectionTable"),
         toggleViewBtn: document.getElementById("toggleViewBtn"),
         calcTarget: document.getElementById("calcTarget"),
         recalculateBtn: document.getElementById("recalculateBtn"),
         resetBtn: document.getElementById("resetBtn"),
-        copySummaryBtn: document.getElementById("copySummaryBtn")
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
       };
 
-      let chartInstance = null;
+      let swpChartInstance = null;
+      let splitChartInstance = null;
+      let lastYearlyData = [];
+      let lastSummaryText = "";
 
       function parseNumeric(input, fallback) {
         const value = Number(input);
@@ -1422,12 +1240,19 @@
 
       function syncPair(rangeEl, numberEl) {
         if (!rangeEl || !numberEl) return;
-        rangeEl.addEventListener("input", () => { numberEl.value = rangeEl.value; calculate(); });
-        numberEl.addEventListener("input", () => { rangeEl.value = numberEl.value; calculate(); });
+        rangeEl.addEventListener("input", () => {
+          numberEl.value = rangeEl.value;
+          calculate();
+        });
+        numberEl.addEventListener("input", () => {
+          rangeEl.value = numberEl.value;
+          calculate();
+        });
       }
 
       function setupToggleAdvanced() {
         let isAdvancedMode = false;
+        if (!elements.toggleViewBtn || !elements.calcTarget) return;
         elements.toggleViewBtn.addEventListener("click", () => {
           isAdvancedMode = !isAdvancedMode;
           elements.calcTarget.classList.toggle("advanced-mode", isAdvancedMode);
@@ -1437,21 +1262,24 @@
       }
 
       function calculate() {
-        let currentBalance = parseNumeric(elements.investment.value, defaults.investment);
+        let initialCorpus = parseNumeric(elements.investment.value, defaults.investment);
         let monthlyWithdrawal = parseNumeric(elements.withdrawal.value, defaults.withdrawal);
         const annualRate = parseNumeric(elements.rate.value, defaults.rate) / 100;
         const years = parseNumeric(elements.tenure.value, defaults.tenure);
         const withdrawalInflation = parseNumeric(elements.inflation.value, defaults.inflation) / 100;
 
-        elements.investmentPreview.textContent = formatWithUnits(currentBalance);
-        elements.withdrawalPreview.textContent = formatWithUnits(monthlyWithdrawal);
+        elements.investmentPreview.textContent = formatWithUnits(initialCorpus);
+        elements.withdrawalPreview.textContent = formatWithUnits(monthlyWithdrawal) + "/mo";
         elements.returnPreview.textContent = (annualRate * 100).toFixed(1) + "%";
-        elements.tenurePreview.textContent = years + " Years";
+        elements.tenurePreview.textContent = years + " Yrs";
 
+        let currentBalance = initialCorpus;
         let totalWithdrawal = 0;
+        let totalInterestEarned = 0;
         const yearlyData = [];
         const labels = ["Start"];
-        const values = [currentBalance];
+        const balanceValues = [initialCorpus];
+        const cumulativeWithdrawals = [0];
 
         const monthlyRate = annualRate / 12;
 
@@ -1466,18 +1294,18 @@
               continue;
             }
 
-            // Withdrawal usually happens at start of month
             let actualWithdrawal = Math.min(monthlyWithdrawal, currentBalance);
             currentBalance -= actualWithdrawal;
             yearWithdrawal += actualWithdrawal;
 
-            // Balance grows
             let mInterest = currentBalance * monthlyRate;
             currentBalance += mInterest;
             yearInterest += mInterest;
           }
 
           totalWithdrawal += yearWithdrawal;
+          totalInterestEarned += yearInterest;
+
           yearlyData.push({
             year: y,
             opening: opening,
@@ -1486,56 +1314,183 @@
             closing: currentBalance
           });
           labels.push("Year " + y);
-          values.push(currentBalance);
+          balanceValues.push(currentBalance);
+          cumulativeWithdrawals.push(totalWithdrawal);
 
-          // Adjust withdrawal for inflation if advanced mode is on
           monthlyWithdrawal *= (1 + withdrawalInflation);
         }
 
-        elements.resInvested.textContent = formatWithUnits(parseNumeric(elements.investment.value, defaults.investment));
-        elements.resWithdrawal.textContent = formatWithUnits(totalWithdrawal);
-        elements.resFinalBalance.textContent = formatWithUnits(currentBalance);
+        lastYearlyData = yearlyData;
 
-        elements.projectionTable.innerHTML = "";
-        yearlyData.forEach(row => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `<td>${row.year}</td><td>${formatWithUnits(row.opening)}</td><td>${formatWithUnits(row.withdrawal)}</td><td>${formatWithUnits(row.interest)}</td><td>${formatWithUnits(row.closing)}</td>`;
-          elements.projectionTable.appendChild(tr);
-        });
+        if (elements.corpusHeroValue) elements.corpusHeroValue.textContent = formatWithUnits(currentBalance);
+        if (elements.corpusHeroDesc) {
+          elements.corpusHeroDesc.textContent = "Invested: " + formatWithUnits(initialCorpus) + " • Total Withdrawn: " + formatWithUnits(totalWithdrawal);
+        }
+        if (elements.mobileSummaryVal) elements.mobileSummaryVal.textContent = formatWithUnits(currentBalance);
 
-        drawChart(labels, values);
+        if (elements.resInvested) elements.resInvested.textContent = formatWithUnits(initialCorpus);
+        if (elements.resWithdrawal) elements.resWithdrawal.textContent = formatWithUnits(totalWithdrawal);
+        if (elements.resFinalBalance) elements.resFinalBalance.textContent = formatWithUnits(currentBalance);
+        if (elements.resTotalPayout) elements.resTotalPayout.textContent = formatWithUnits(totalWithdrawal);
+        if (elements.resTotalGains) elements.resTotalGains.textContent = formatWithUnits(totalInterestEarned);
+
+        if (elements.projectionTable) {
+          elements.projectionTable.innerHTML = yearlyData.map(row => (
+            "<tr>" +
+            "<td class=\"projection-year\">Year " + row.year + "</td>" +
+            "<td data-label=\"Opening Balance\">" + formatWithUnits(row.opening) + "</td>" +
+            "<td data-label=\"Total Withdrawal\">" + formatWithUnits(row.withdrawal) + "</td>" +
+            "<td data-label=\"Interest Added\">" + formatWithUnits(row.interest) + "</td>" +
+            "<td data-label=\"Closing Balance\">" + formatWithUnits(row.closing) + "</td>" +
+            "</tr>"
+          )).join("");
+        }
+
+        renderCharts(labels, balanceValues, cumulativeWithdrawals, initialCorpus, totalWithdrawal, currentBalance);
+
+                lastSummaryText = [
+          "SWP Plan Summary:",
+          "Initial Corpus: " + formatWithUnits(initialCorpus),
+          "Monthly Withdrawal: " + elements.withdrawalPreview.textContent,
+          "Expected Return: " + (annualRate * 100).toFixed(1) + "% p.a.",
+          "Tenure: " + years + " Years",
+          "Total Withdrawn: " + formatWithUnits(totalWithdrawal),
+          "Total Gains Earned: " + formatWithUnits(totalInterestEarned),
+          "Final Remaining Balance: " + formatWithUnits(currentBalance)
+        ].join("\n");
       }
 
-      function drawChart(labels, values) {
-        const ctx = elements.swpChart.getContext("2d");
-        if (chartInstance) chartInstance.destroy();
+      function renderCharts(labels, balanceValues, cumulativeWithdrawals, initialCorpus, totalWithdrawal, currentBalance) {
+        if (!window.Chart) return;
 
-        chartInstance = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: 'Corpus Balance',
-              data: values,
-              borderColor: '#007f8b',
-              backgroundColor: 'rgba(0, 127, 139, 0.1)',
-              fill: true,
-              tension: 0.2
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              y: { ticks: { callback: (v) => compactCurrency(v) } }
+        // 1. Line/Area Chart for SWP Trajectory
+        if (elements.swpChart) {
+          if (swpChartInstance) swpChartInstance.destroy();
+          swpChartInstance = new Chart(elements.swpChart.getContext("2d"), {
+            type: "line",
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: "Remaining Balance",
+                  data: balanceValues,
+                  borderColor: "#0284c7",
+                  backgroundColor: "rgba(2, 132, 199, 0.12)",
+                  fill: true,
+                  tension: 0.18,
+                  pointRadius: 2
+                },
+                {
+                  label: "Cumulative Withdrawn",
+                  data: cumulativeWithdrawals,
+                  borderColor: "#10b981",
+                  backgroundColor: "rgba(16, 185, 129, 0.08)",
+                  fill: false,
+                  tension: 0.18,
+                  pointRadius: 2
+                }
+              ]
             },
-            plugins: {
-              legend: { display: false },
-              tooltip: {
-                callbacks: { label: (ctx) => ` Balance: ${formatWithUnits(ctx.raw)}` }
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { position: "top" },
+                tooltip: {
+                  callbacks: {
+                    label: function (ctx) {
+                      return ctx.dataset.label + ": " + formatWithUnits(ctx.parsed.y);
+                    }
+                  }
+                }
+              },
+              scales: {
+                y: {
+                  ticks: {
+                    callback: function (v) { return compactCurrency(v); }
+                  }
+                }
               }
             }
-          }
+          });
+        }
+
+        // 2. Doughnut Chart for Split
+        if (elements.splitChart) {
+          if (splitChartInstance) splitChartInstance.destroy();
+          splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+            type: "doughnut",
+            data: {
+              labels: ["Total Withdrawn", "Remaining Balance"],
+              datasets: [
+                {
+                  data: [Math.max(totalWithdrawal, 0), Math.max(currentBalance, 0)],
+                  backgroundColor: ["#10b981", "#0284c7"],
+                  borderWidth: 1
+                }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { position: "bottom" },
+                tooltip: {
+                  callbacks: {
+                    label: function (ctx) {
+                      return ctx.label + ": " + formatWithUnits(ctx.parsed);
+                    }
+                  }
+                }
+              }
+            }
+          });
+        }
+      }
+
+      function downloadCsv() {
+        if (!lastYearlyData || lastYearlyData.length === 0) return;
+        const headers = ["Year", "Opening Balance", "Total Withdrawal", "Interest Added", "Closing Balance"];
+        const rows = lastYearlyData.map(r => [
+          "Year " + r.year,
+          Math.round(r.opening),
+          Math.round(r.withdrawal),
+          Math.round(r.interest),
+          Math.round(r.closing)
+        ].join(","));
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "swp-projection.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function wireChips() {
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function () {
+            const wrap = this.parentElement;
+            if (wrap.dataset.target) {
+              const targetInput = document.getElementById(wrap.dataset.target);
+              const targetRange = document.getElementById(wrap.dataset.range);
+              if (targetInput) targetInput.value = this.dataset.val;
+              if (targetRange) targetRange.value = this.dataset.val;
+              calculate();
+            }
+          });
+        });
+      }
+
+      function copyText(btn) {
+        if (!navigator.clipboard || !navigator.clipboard.writeText) return;
+        navigator.clipboard.writeText(lastSummaryText).then(() => {
+          const orig = btn.innerHTML;
+          btn.innerHTML = '<i class="fas fa-check" style="color:#10b981"></i> Copied!';
+          setTimeout(() => { btn.innerHTML = orig; }, 1800);
         });
       }
 
@@ -1545,39 +1500,42 @@
       syncPair(elements.tenureRange, elements.tenure);
       syncPair(elements.inflationRange, elements.inflation);
 
-      elements.recalculateBtn.addEventListener("click", calculate);
-      if (window.currencyManager) { window.currencyManager.onChange(calculate); };
-      elements.resetBtn.addEventListener("click", () => {
-        elements.investment.value = defaults.investment; elements.investmentRange.value = defaults.investment;
-        elements.withdrawal.value = defaults.withdrawal; elements.withdrawalRange.value = defaults.withdrawal;
-        elements.rate.value = defaults.rate; elements.rateRange.value = defaults.rate;
-        elements.tenure.value = defaults.tenure; elements.tenureRange.value = defaults.tenure;
-        elements.inflation.value = defaults.inflation; elements.inflationRange.value = defaults.inflation;
-        calculate();
-      });
+      if (elements.recalculateBtn) elements.recalculateBtn.addEventListener("click", calculate);
+      if (elements.downloadCsvBtn) elements.downloadCsvBtn.addEventListener("click", downloadCsv);
+      if (elements.copySummaryBtn) elements.copySummaryBtn.addEventListener("click", function() { copyText(this); });
+      if (elements.copyHeroBtn) elements.copyHeroBtn.addEventListener("click", function() { copyText(this); });
 
-      elements.copySummaryBtn.addEventListener("click", () => {
-        const s = `SWP Plan Summary:\n` +
-          `Initial Corpus: ${elements.investmentPreview.textContent}\n` +
-          `Monthly Withdrawal: ${elements.withdrawalPreview.textContent}\n` +
-          `Tenure: ${elements.tenure.value} Years\n` +
-          `Final Corpus: ${elements.resFinalBalance.textContent}`;
-        navigator.clipboard.writeText(s).then(() => {
-          const ot = elements.copySummaryBtn.innerHTML;
-          elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-          setTimeout(() => elements.copySummaryBtn.innerHTML = ot, 2000);
+      if (elements.resetBtn) {
+        elements.resetBtn.addEventListener("click", () => {
+          elements.investment.value = defaults.investment;
+          elements.investmentRange.value = defaults.investment;
+          elements.withdrawal.value = defaults.withdrawal;
+          elements.withdrawalRange.value = defaults.withdrawal;
+          elements.rate.value = defaults.rate;
+          elements.rateRange.value = defaults.rate;
+          elements.tenure.value = defaults.tenure;
+          elements.tenureRange.value = defaults.tenure;
+          elements.inflation.value = defaults.inflation;
+          elements.inflationRange.value = defaults.inflation;
+          calculate();
         });
-      });
+      }
 
-      // Nav toggle
-      document.getElementById("menuToggle").addEventListener("click", () => {
-        document.getElementById("mainNav").classList.toggle("open");
-      });
+      if (window.currencyManager) {
+        window.currencyManager.onChange(calculate);
+      }
 
-      // Language switch dropdown handler
+      const menuToggle = document.getElementById("menuToggle");
+      const mainNav = document.getElementById("mainNav");
+      if (menuToggle && mainNav) {
+        menuToggle.addEventListener("click", () => {
+          mainNav.classList.toggle("open");
+        });
+      }
+
       const langSelect = document.getElementById('langSelect');
       if (langSelect) {
-        langSelect.addEventListener('change', function() {
+        langSelect.addEventListener('change', function () {
           if (this.value === 'ja') {
             localStorage.setItem('user_lang', 'ja');
             window.location.href = './ja/swpcalculator.html';
@@ -1586,10 +1544,10 @@
       }
 
       setupToggleAdvanced();
+      wireChips();
       calculate();
     })();
   </script>
-
 </body>
 
 </html>
