@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FIRE Calculator | Financial Independence Retire Early & 4% Rule Planner</title>
+  <meta name="description" content="Calculate your FIRE Number (Lean, Regular, Fat FIRE), years to financial independence, 4% Safe Withdrawal Rate (SWR), and Coast FIRE milestones.">
+  <meta name="keywords" content="fire calculator, financial independence retire early, 4 percent rule calculator, lean fire, fat fire, coast fire calculator, safe withdrawal rate">
+  <meta name="author" content="InstaCalc USA">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/us/fire-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Studio Grid & Chart styles */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
+    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+    .legend-val.positive { color: #10b981; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+    .growth-timeline-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+    }
+    .chart-wrap-timeline { position: relative; width: 100%; height: 280px; }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell { border: 0; background: transparent; overflow: visible; }
+      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
+      .projection-table thead { display: none; }
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
+      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .projection-table .projection-year::before { display: none; }
+    }
+    @media (max-width: 960px) {
+      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    }
+  </style>
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/fire-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "FIRE (Financial Independence Retire Early) Calculator",
+      "url": "https://instacalc.in/us/fire-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "Calculate your FIRE number based on the 4% Safe Withdrawal Rule and Trinity Study.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the 4% Rule in FIRE?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The 4% Rule states that if you withdraw 4% of your investment portfolio in your first year of retirement and adjust that dollar amount for inflation each subsequent year, your portfolio has an extremely high probability of lasting 30+ years without depleting."
+          }
+        },\n        {
+          "@type": "Question",
+          "name": "What is the difference between Lean FIRE and Fat FIRE?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lean FIRE refers to achieving financial independence on a minimalist budget (typically under $45,000/year), while Fat FIRE accommodates a higher spending lifestyle ($100,000+/year)."
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="us" selected>United States ($ USD)</option>
+          <option value="in">India (₹ INR)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">All US Tools</a>
+        <a href="retirement-calculator.html">Retirement</a>
+        <a href="fire-calculator.html">FIRE (4% Rule)</a>
+        <a href="401k-calculator.html">401(k)</a>
+        <a href="roth-ira-calculator.html">Roth IRA</a>
+        <a href="mortgage-calculator.html">Mortgage</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-fire" style="color:#f59e0b;"></i> Early Retirement</span>
+          <h1>FIRE Calculator (4% Safe Withdrawal Rule)</h1>
+          <p>Determine your Financial Independence number, years until early retirement, and safe annual withdrawal amounts based on the Trinity Study.</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>FIRE Milestones</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Standard FIRE Number: <code>25 × Annual Expenses</code> (4% Rule)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Lean FIRE (75% budget) vs Fat FIRE (130% budget)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Coast FIRE milestone progression</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="calculator-header-row">
+            <div class="toggle-group">
+              <a href="fire-calculator.html" class="toggle-btn active"><i class="fas fa-fire"></i> FIRE Planner</a>
+              <a href="retirement-calculator.html" class="toggle-btn"><i class="fas fa-umbrella-beach"></i> Standard Retirement</a>
+              <a href="monthly-investment-calculator.html" class="toggle-btn"><i class="fas fa-chart-line"></i> DCA / Index</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i> <span>Withdrawal Rates & Lean/Fat FIRE: Off</span>
+            </button>
+          </div>
+
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label">Target FIRE Number</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="fin-studio-grid">
+            <div class="studio-inputs">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="annualExpenses">Target Annual Retirement Spending ($)</label>
+                  <span class="field-preview-badge" id="expensesPreview">$60,000/yr</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="annualExpensesRange" min="20000" max="250000" step="2500" value="60000">
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">$</span>
+                    <input type="number" id="annualExpenses" min="20000" max="500000" step="2500" value="60000" class="has-prefix">
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="annualExpenses" data-range="annualExpensesRange">
+                  <button type="button" class="chip" data-val="40000">$40K (Lean)</button>
+                  <button type="button" class="chip" data-val="60000">$60K (Standard)</button>
+                  <button type="button" class="chip" data-val="80000">$80K</button>
+                  <button type="button" class="chip" data-val="120000">$120K (Fat)</button>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="currentNetWorth">Current Invested Portfolio ($)</label>
+                    <span class="field-preview-badge" id="netWorthPreview">$150,000</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="currentNetWorthRange" min="0" max="1500000" step="10000" value="150000">
+                    <div class="input-with-adornment">
+                      <span class="input-prefix">$</span>
+                      <input type="number" id="currentNetWorth" min="0" max="5000000" step="10000" value="150000" class="has-prefix">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="annualSavings">Annual Savings Rate ($/yr)</label>
+                    <span class="field-preview-badge" id="savingsPreview">$30,000/yr</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="annualSavingsRange" min="5000" max="150000" step="2500" value="30000">
+                    <div class="input-with-adornment">
+                      <span class="input-prefix">$</span>
+                      <input type="number" id="annualSavings" min="5000" max="250000" step="2500" value="30000" class="has-prefix">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="swrRate">Safe Withdrawal Rate (SWR %)</label>
+                    <span class="field-preview-badge" id="swrPreview">4.0% (25x)</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="swrRateRange" min="2.5" max="6.0" step="0.1" value="4.0">
+                    <div class="input-with-adornment">
+                      <input type="number" id="swrRate" min="2.5" max="6.0" step="0.1" value="4.0" class="has-suffix">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="realReturn">Real Return after Inflation (%)</label>
+                    <span class="field-preview-badge" id="returnPreview">7.0%</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="realReturnRange" min="2" max="12" step="0.1" value="7.0">
+                    <div class="input-with-adornment">
+                      <input type="number" id="realReturn" min="2" max="12" step="0.1" value="7.0" class="has-suffix">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="advanced-only-section" id="advancedFields">
+                <div class="field-card">
+                  <div class="field-head"><label>FIRE Tier Multipliers</label></div>
+                  <p style="font-size:0.85rem; color:var(--ic-text-muted);">
+                    <strong>Lean FIRE:</strong> 75% of baseline spending (Frugal independence).<br>
+                    <strong>Fat FIRE:</strong> 130% of baseline spending (Luxurious lifestyle).
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="studio-outcome">
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-fire" style="color:#f59e0b;"></i> Target FIRE Number (Portfolio Goal)</span>
+                  <div class="res-val" id="corpusHeroValue">-</div>
+                  <div class="res-desc" id="corpusHeroDesc">Years to FIRE: - | Progress: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
+              </div>
+
+              <div class="outcome-chart-box">
+                <div class="chart-wrap-doughnut"><canvas id="splitChart"></canvas></div>
+                <div class="legend-stats-row">
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-invested"></span> Current Portfolio</div>
+                    <div class="legend-val" id="resCurrentHero">-</div>
+                  </div>
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-returns"></span> Remaining to FIRE</div>
+                    <div class="legend-val positive" id="resRemainingHero">-</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card positive"><h3>Standard FIRE Target</h3><div class="result-value" id="resStandardFire">-</div></div>
+                <div class="result-card"><h3>Years to FIRE</h3><div class="result-value" id="resYearsToFire">-</div></div>
+                <div class="result-card"><h3>Safe Monthly Drawdown</h3><div class="result-value" id="resMonthlyDrawdown">-</div></div>
+                <div class="result-card advanced-only"><h3>Lean FIRE Target</h3><div class="result-value" id="resLeanFire">-</div></div>
+                <div class="result-card advanced-only"><h3>Fat FIRE Target</h3><div class="result-value" id="resFatFire">-</div></div>
+                <div class="result-card advanced-only"><h3>Portfolio Progress</h3><div class="result-value" id="resProgressPct">-</div></div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="growth-timeline-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-chart-line" style="color:var(--ic-primary);"></i> FIRE Net Worth Journey</h3>
+              <span style="font-size:0.85rem; color:var(--ic-text-muted);">Portfolio Growth vs Target FIRE Number</span>
+            </div>
+            <div class="chart-wrap-timeline"><canvas id="growthChart"></canvas></div>
+          </div>
+
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> FIRE Trajectory Schedule</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Starting Portfolio</th>
+                  <th>Annual Savings</th>
+                  <th>Investment Returns</th>
+                  <th>Ending Net Worth</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>US Wealth Tools</h3>
+            <ul class="link-list">
+              <li><a href="retirement-calculator.html"><span>Standard Retirement</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="monthly-investment-calculator.html"><span>DCA Index Fund Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="roth-ira-calculator.html"><span>Roth IRA</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="401k-calculator.html"><span>401(k) Planner</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {
+      const formatUSD = (v) => "$" + Math.round(v).toLocaleString("en-US");
+      const formatCompact = (v) => {
+        if (v >= 1e6) return "$" + (v / 1e6).toFixed(2) + "M";
+        if (v >= 1e3) return "$" + (v / 1e3).toFixed(1) + "K";
+        return "$" + Math.round(v);
+      };
+
+      const elements = {
+        expenses: document.getElementById("annualExpenses"),
+        expensesRange: document.getElementById("annualExpensesRange"),
+        netWorth: document.getElementById("currentNetWorth"),
+        netWorthRange: document.getElementById("currentNetWorthRange"),
+        savings: document.getElementById("annualSavings"),
+        savingsRange: document.getElementById("annualSavingsRange"),
+        swr: document.getElementById("swrRate"),
+        swrRange: document.getElementById("swrRateRange"),
+        realReturn: document.getElementById("realReturn"),
+        realReturnRange: document.getElementById("realReturnRange"),
+
+        expensesPreview: document.getElementById("expensesPreview"),
+        netWorthPreview: document.getElementById("netWorthPreview"),
+        savingsPreview: document.getElementById("savingsPreview"),
+        swrPreview: document.getElementById("swrPreview"),
+        returnPreview: document.getElementById("returnPreview"),
+
+        corpusHeroValue: document.getElementById("corpusHeroValue"),
+        corpusHeroDesc: document.getElementById("corpusHeroDesc"),
+        resCurrentHero: document.getElementById("resCurrentHero"),
+        resRemainingHero: document.getElementById("resRemainingHero"),
+        resStandardFire: document.getElementById("resStandardFire"),
+        resYearsToFire: document.getElementById("resYearsToFire"),
+        resMonthlyDrawdown: document.getElementById("resMonthlyDrawdown"),
+        resLeanFire: document.getElementById("resLeanFire"),
+        resFatFire: document.getElementById("resFatFire"),
+        resProgressPct: document.getElementById("resProgressPct"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        splitChart: document.getElementById("splitChart"),
+        growthChart: document.getElementById("growthChart"),
+        projectionTable: document.getElementById("projectionTable"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        calcTarget: document.getElementById("calcTarget"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
+      };
+
+      let splitChartInstance = null;
+      let timelineChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function sync(r, n) {
+        if (!r || !n) return;
+        r.addEventListener("input", () => { n.value = r.value; calculate(); });
+        n.addEventListener("input", () => { r.value = r.value; calculate(); });
+      }
+
+      function setupToggleAdvanced() {
+        let isAdv = false;
+        elements.toggleViewBtn.addEventListener("click", () => {
+          isAdv = !isAdv;
+          elements.calcTarget.classList.toggle("advanced-mode", isAdv);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdv ? "Withdrawal Rates & Tiers: On" : "Withdrawal Rates & Tiers: Off";
+        });
+      }
+
+      function calculate() {
+        const exp = Number(elements.expenses.value) || 60000;
+        const curNw = Number(elements.netWorth.value) || 150000;
+        const annSav = Number(elements.savings.value) || 30000;
+        const swrPct = (Number(elements.swr.value) || 4.0) / 100;
+        const r = (Number(elements.realReturn.value) || 7.0) / 100;
+
+        elements.expensesPreview.textContent = formatUSD(exp) + "/yr";
+        elements.netWorthPreview.textContent = formatUSD(curNw);
+        elements.savingsPreview.textContent = formatUSD(annSav) + "/yr";
+        elements.swrPreview.textContent = (swrPct * 100).toFixed(1) + "% (" + (1 / swrPct).toFixed(0) + "x)";
+        elements.returnPreview.textContent = (r * 100).toFixed(1) + "%";
+
+        const standardFireNumber = exp / swrPct;
+        const leanFireNumber = (exp * 0.75) / swrPct;
+        const fatFireNumber = (exp * 1.30) / swrPct;
+
+        let balance = curNw;
+        let yearsToFire = 0;
+        const maxSim = 45;
+        const yearlyData = [];
+        const labels = ["Year 0"];
+        const balanceSeries = [curNw];
+
+        for (let y = 1; y <= maxSim; y++) {
+          const yearOpening = balance;
+          const returns = (balance + annSav / 2) * r;
+          balance += annSav + returns;
+
+          yearlyData.push({
+            year: y,
+            opening: yearOpening,
+            savings: annSav,
+            returns: returns,
+            closing: balance
+          });
+
+          labels.push("Year " + y);
+          balanceSeries.push(balance);
+
+          if (balance >= standardFireNumber && yearsToFire === 0) {
+            yearsToFire = y;
+          }
+          if (balance >= standardFireNumber * 1.2 && y >= 10) break;
+        }
+
+        const remainingToFire = Math.max(0, standardFireNumber - curNw);
+        const progressPercent = Math.min(100, (curNw / standardFireNumber) * 100);
+
+        elements.corpusHeroValue.textContent = formatUSD(standardFireNumber);
+        elements.corpusHeroDesc.textContent = "Estimated Time: " + (yearsToFire > 0 ? yearsToFire + " Years" : "Achieved!") + " • Progress: " + progressPercent.toFixed(1) + "%";
+        elements.resCurrentHero.textContent = formatUSD(curNw);
+        elements.resRemainingHero.textContent = formatUSD(remainingToFire);
+        elements.resStandardFire.textContent = formatUSD(standardFireNumber);
+        elements.resYearsToFire.textContent = yearsToFire > 0 ? yearsToFire + " Years" : "Achieved 🎉";
+        elements.resMonthlyDrawdown.textContent = formatUSD((standardFireNumber * swrPct) / 12) + " / mo";
+        if (elements.resLeanFire) elements.resLeanFire.textContent = formatUSD(leanFireNumber);
+        if (elements.resFatFire) elements.resFatFire.textContent = formatUSD(fatFireNumber);
+        if (elements.resProgressPct) elements.resProgressPct.textContent = progressPercent.toFixed(1) + "%";
+        elements.mobileSummaryVal.textContent = formatUSD(standardFireNumber);
+
+        lastProjection = yearlyData;
+
+        // Render Table
+        elements.projectionTable.innerHTML = yearlyData.map(row => `
+          <tr>
+            <td class="projection-year">Year ${row.year}</td>
+            <td data-label="Starting Portfolio">${formatUSD(row.opening)}</td>
+            <td data-label="Annual Savings">${formatUSD(row.savings)}</td>
+            <td data-label="Investment Returns">${formatUSD(row.returns)}</td>
+            <td data-label="Ending Net Worth">${formatUSD(row.closing)}</td>
+          </tr>
+        `).join("");
+
+        renderCharts(labels, balanceSeries, standardFireNumber, curNw, remainingToFire);
+
+        lastSummaryText = [
+          "FIRE (Financial Independence) Summary",
+          "Annual Retirement Spending: " + formatUSD(exp),
+          "Safe Withdrawal Rate: " + (swrPct * 100).toFixed(1) + "%",
+          "Target FIRE Number: " + formatUSD(standardFireNumber),
+          "Current Portfolio: " + formatUSD(curNw),
+          "Estimated Time to FIRE: " + (yearsToFire > 0 ? yearsToFire + " Years" : "Achieved")
+        ].join("\n");
+      }
+
+      function renderCharts(labels, balanceSeries, fireTarget, curNw, remaining) {
+        if (!window.Chart) return;
+        if (splitChartInstance) splitChartInstance.destroy();
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Current Portfolio", "Remaining to Goal"],
+            datasets: [{
+              data: [curNw, remaining],
+              backgroundColor: ["#0284c7", "#f59e0b"],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: { callbacks: { label: (c) => c.label + ": " + formatUSD(c.parsed) } }
+            }
+          }
+        });
+
+        if (timelineChartInstance) timelineChartInstance.destroy();
+        const ctx = elements.growthChart.getContext("2d");
+        const grad = ctx.createLinearGradient(0, 0, 0, 300);
+        grad.addColorStop(0, "rgba(2, 132, 199, 0.28)");
+        grad.addColorStop(1, "rgba(2, 132, 199, 0.015)");
+
+        const fireLine = labels.map(() => fireTarget);
+
+        timelineChartInstance = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Projected Net Worth",
+                data: balanceSeries,
+                borderColor: "#0284c7",
+                backgroundColor: grad,
+                fill: true,
+                tension: 0.25,
+                borderWidth: 3,
+                pointRadius: 0,
+                pointHoverRadius: 5
+              },
+              {
+                label: "Target FIRE Number",
+                data: fireLine,
+                borderColor: "#10b981",
+                backgroundColor: "transparent",
+                fill: false,
+                borderWidth: 2,
+                borderDash: [6, 4],
+                pointRadius: 0,
+                pointHoverRadius: 4
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { y: { ticks: { callback: (v) => formatCompact(v) } } },
+            plugins: {
+              legend: { position: "top" },
+              tooltip: { callbacks: { label: (c) => c.dataset.label + ": " + formatUSD(c.parsed.y) } }
+            }
+          }
+        });
+      }
+
+      function wireEvents() {
+        sync(elements.expensesRange, elements.expenses);
+        sync(elements.netWorthRange, elements.netWorth);
+        sync(elements.savingsRange, elements.savings);
+        sync(elements.swrRange, elements.swr);
+        sync(elements.realReturnRange, elements.realReturn);
+
+        elements.recalculateBtn.addEventListener("click", calculate);
+
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function () {
+            const wrap = this.parentElement;
+            const tInput = document.getElementById(wrap.dataset.target);
+            const tRange = document.getElementById(wrap.dataset.range);
+            if (tInput) tInput.value = this.dataset.val;
+            if (tRange) tRange.value = this.dataset.val;
+            calculate();
+          });
+        });
+
+        elements.resetBtn.addEventListener("click", () => {
+          elements.expenses.value = 60000; elements.expensesRange.value = 60000;
+          elements.netWorth.value = 150000; elements.netWorthRange.value = 150000;
+          elements.savings.value = 30000; elements.savingsRange.value = 30000;
+          elements.swr.value = 4.0; elements.swrRange.value = 4.0;
+          elements.realReturn.value = 7.0; elements.realReturnRange.value = 7.0;
+          calculate();
+        });
+
+        elements.copySummaryBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+          });
+        });
+
+        elements.copyHeroBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            const orig = elements.copyHeroBtn.innerHTML;
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+          });
+        });
+
+        elements.downloadCsvBtn.addEventListener("click", () => {
+          if (!lastProjection.length) return;
+          const headers = ["Year", "Starting Portfolio", "Annual Savings", "Investment Returns", "Ending Net Worth"];
+          const rows = lastProjection.map(r => [r.year, Math.round(r.opening), Math.round(r.savings), Math.round(r.returns), Math.round(r.closing)].join(","));
+          const csv = [headers.join(","), rows.join("\n")].join("\n");
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "fire-schedule.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+
+        setupToggleAdvanced();
+      }
+
+      wireEvents();
+      calculate();
+    })();
+  </script>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial calculators and planning tools for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+</body>
+</html>

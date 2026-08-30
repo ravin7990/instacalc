@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>401(k) Calculator | Plan Your Retirement Savings & Employer Match</title>
+  <meta name="description" content="Calculate your 401(k) balance at retirement with employer matching, salary growth, annual IRS contribution limits ($23,000), and compounding interest curve.">
+  <meta name="keywords" content="401k calculator, 401k retirement calculator, 401k employer match, 403b calculator, retirement nest egg planner, 401k growth calculator">
+  <meta name="author" content="InstaCalc USA">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/us/401k-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Studio Grid & Chart styles */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
+    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+    .legend-val.positive { color: #10b981; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+    .growth-timeline-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+    }
+    .chart-wrap-timeline { position: relative; width: 100%; height: 280px; }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell { border: 0; background: transparent; overflow: visible; }
+      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
+      .projection-table thead { display: none; }
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
+      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .projection-table .projection-year::before { display: none; }
+    }
+    @media (max-width: 960px) {
+      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    }
+  </style>
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/401k-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "401(k) Retirement Calculator",
+      "url": "https://instacalc.in/us/401k-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "Calculate your 401(k) retirement balance with employer match, salary growth, and IRS contribution limits ($23,000/yr).",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the 2026 401(k) contribution limit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The IRS 401(k) annual employee contribution limit is $23,000 for workers under age 50, with an additional $7,500 catch-up contribution for individuals aged 50 and older (totaling $30,500)."
+          }
+        },\n        {
+          "@type": "Question",
+          "name": "How does 401(k) employer matching work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Employers often match a percentage of employee contributions up to a salary cap, such as 50% of contributions up to 6% of salary, which is essentially guaranteed free compensation."
+          }
+        },\n        {
+          "@type": "Question",
+          "name": "What is the difference between Traditional and Roth 401(k)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Traditional 401(k) contributions are pre-tax and lower current taxable income, with taxes paid upon withdrawal. Roth 401(k) contributions are made with after-tax dollars and grow 100% tax-free in retirement."
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="us" selected>United States ($ USD)</option>
+          <option value="in">India (₹ INR)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">All US Tools</a>
+        <a href="401k-calculator.html">401(k) Planner</a>
+        <a href="roth-ira-calculator.html">Roth IRA</a>
+        <a href="mortgage-calculator.html">Mortgage</a>
+        <a href="monthly-investment-calculator.html">DCA / Index</a>
+        <a href="cd-calculator.html">CD Rates</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-piggy-bank"></i> US Retirement Plan</span>
+          <h1>401(k) Retirement Calculator</h1>
+          <p>Estimate how your 401(k) account will grow by retirement with your contributions, employer match, and compounding market returns.</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>401(k) Benefits</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Free employer match money</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 2026 IRS Limit: $23,000/year ($30,500 for age 50+)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Pre-tax tax deduction or Roth tax-free growth</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="calculator-header-row">
+            <div class="toggle-group">
+              <a href="401k-calculator.html" class="toggle-btn active"><i class="fas fa-landmark"></i> 401(k) Planner</a>
+              <a href="roth-ira-calculator.html" class="toggle-btn"><i class="fas fa-coins"></i> Roth IRA</a>
+              <a href="monthly-investment-calculator.html" class="toggle-btn"><i class="fas fa-chart-line"></i> DCA / Index</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i> <span>Advanced Controls: Off</span>
+            </button>
+          </div>
+
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label">Estimated 401(k) Balance</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="fin-studio-grid">
+            <div class="studio-inputs">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="annualSalary">Annual Salary</label>
+                  <span class="field-preview-badge" id="salaryPreview">$85,000</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="salaryRange" min="20000" max="500000" step="5000" value="85000">
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">$</span>
+                    <input type="number" id="annualSalary" min="20000" max="500000" step="5000" value="85000" class="has-prefix">
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="annualSalary" data-range="salaryRange">
+                  <button type="button" class="chip" data-val="50000">$50K</button>
+                  <button type="button" class="chip" data-val="75000">$75K</button>
+                  <button type="button" class="chip" data-val="100000">$100K</button>
+                  <button type="button" class="chip" data-val="150000">$150K</button>
+                  <button type="button" class="chip" data-val="200000">$200K</button>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="contributionPercent">Your Contribution (%)</label>
+                    <span class="field-preview-badge" id="contributionPreview">8%</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="contributionRange" min="1" max="40" step="1" value="8">
+                    <div class="input-with-adornment">
+                      <input type="number" id="contributionPercent" min="1" max="40" step="1" value="8" class="has-suffix">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="employerMatchPercent">Employer Match (%)</label>
+                    <span class="field-preview-badge" id="matchPreview">50% up to 6%</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="employerMatchRange" min="0" max="100" step="10" value="50">
+                    <div class="input-with-adornment">
+                      <input type="number" id="employerMatchPercent" min="0" max="100" step="5" value="50" class="has-suffix">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="currentAge">Current Age</label>
+                    <span class="field-preview-badge" id="currentAgePreview">30 Yrs</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="currentAgeRange" min="18" max="75" step="1" value="30">
+                    <div class="input-with-adornment">
+                      <input type="number" id="currentAge" min="18" max="75" step="1" value="30" class="has-suffix">
+                      <span class="input-suffix">Age</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="retireAge">Retirement Age</label>
+                    <span class="field-preview-badge" id="retireAgePreview">65 Yrs</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="retireAgeRange" min="40" max="80" step="1" value="65">
+                    <div class="input-with-adornment">
+                      <input type="number" id="retireAge" min="40" max="80" step="1" value="65" class="has-suffix">
+                      <span class="input-suffix">Age</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="advanced-only-section" id="advancedFields">
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head"><label for="currentBalance">Current 401(k) Balance ($)</label></div>
+                    <input type="number" id="currentBalance" min="0" step="5000" value="25000" placeholder="0">
+                  </div>
+                  <div class="field-card">
+                    <div class="field-head"><label for="matchLimitPercent">Employer Match Salary Cap (%)</label></div>
+                    <input type="number" id="matchLimitPercent" min="0" max="20" step="1" value="6">
+                  </div>
+                </div>
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head"><label for="expectedReturn">Expected Annual Return (%)</label></div>
+                    <input type="number" id="expectedReturn" min="1" max="18" step="0.5" value="8">
+                  </div>
+                  <div class="field-card">
+                    <div class="field-head"><label for="salaryGrowth">Annual Salary Increase (%)</label></div>
+                    <input type="number" id="salaryGrowth" min="0" max="15" step="0.5" value="3">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="studio-outcome">
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-coins"></i> Total 401(k) Balance at Age <span id="heroRetireAge">65</span></span>
+                  <div class="res-val" id="corpusHeroValue">-</div>
+                  <div class="res-desc" id="corpusHeroDesc">Contributions: - | Growth: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
+              </div>
+
+              <div class="outcome-chart-box">
+                <div class="chart-wrap-doughnut"><canvas id="splitChart"></canvas></div>
+                <div class="legend-stats-row">
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-invested"></span> Total Contributed</div>
+                    <div class="legend-val" id="resContributed">-</div>
+                  </div>
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-returns"></span> Investment Growth</div>
+                    <div class="legend-val positive" id="resGrowth">-</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card positive"><h3>Total 401(k) Balance</h3><div class="result-value" id="resTotalCorpus">-</div></div>
+                <div class="result-card"><h3>Employer Match Added</h3><div class="result-value" id="resEmployerTotal">-</div></div>
+                <div class="result-card"><h3>Your Contributions</h3><div class="result-value" id="resEmployeeTotal">-</div></div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="growth-timeline-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-chart-line" style="color:var(--ic-primary);"></i> 401(k) Wealth Accumulation Curve</h3>
+              <span style="font-size:0.85rem; color:var(--ic-text-muted);">Total Balance vs Total Deposits</span>
+            </div>
+            <div class="chart-wrap-timeline"><canvas id="growthChart"></canvas></div>
+          </div>
+
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Year-by-Year 401(k) Growth Schedule</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Year (Age)</th>
+                  <th>Salary</th>
+                  <th>Your Contribution</th>
+                  <th>Employer Match</th>
+                  <th>Total Balance</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>Popular US Calculators</h3>
+            <ul class="link-list">
+              <li><a href="roth-ira-calculator.html"><span>Roth IRA Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mortgage-calculator.html"><span>Mortgage Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="cd-calculator.html"><span>CD Rate Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="monthly-investment-calculator.html"><span>DCA Index Fund Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="sales-tax-calculator.html"><span>Sales Tax Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {
+      const formatUSD = (v) => "$" + Math.round(v).toLocaleString("en-US");
+      const formatCompact = (v) => {
+        if (v >= 1e6) return "$" + (v / 1e6).toFixed(2) + "M";
+        if (v >= 1e3) return "$" + (v / 1e3).toFixed(1) + "K";
+        return "$" + Math.round(v);
+      };
+
+      const elements = {
+        salary: document.getElementById("annualSalary"),
+        salaryRange: document.getElementById("salaryRange"),
+        contribution: document.getElementById("contributionPercent"),
+        contributionRange: document.getElementById("contributionRange"),
+        employerMatch: document.getElementById("employerMatchPercent"),
+        employerMatchRange: document.getElementById("employerMatchRange"),
+        currentAge: document.getElementById("currentAge"),
+        currentAgeRange: document.getElementById("currentAgeRange"),
+        retireAge: document.getElementById("retireAge"),
+        retireAgeRange: document.getElementById("retireAgeRange"),
+        currentBalance: document.getElementById("currentBalance"),
+        matchLimit: document.getElementById("matchLimitPercent"),
+        expectedReturn: document.getElementById("expectedReturn"),
+        salaryGrowth: document.getElementById("salaryGrowth"),
+
+        salaryPreview: document.getElementById("salaryPreview"),
+        contributionPreview: document.getElementById("contributionPreview"),
+        matchPreview: document.getElementById("matchPreview"),
+        currentAgePreview: document.getElementById("currentAgePreview"),
+        retireAgePreview: document.getElementById("retireAgePreview"),
+        heroRetireAge: document.getElementById("heroRetireAge"),
+
+        corpusHeroValue: document.getElementById("corpusHeroValue"),
+        corpusHeroDesc: document.getElementById("corpusHeroDesc"),
+        resContributed: document.getElementById("resContributed"),
+        resGrowth: document.getElementById("resGrowth"),
+        resTotalCorpus: document.getElementById("resTotalCorpus"),
+        resEmployerTotal: document.getElementById("resEmployerTotal"),
+        resEmployeeTotal: document.getElementById("resEmployeeTotal"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        splitChart: document.getElementById("splitChart"),
+        growthChart: document.getElementById("growthChart"),
+        projectionTable: document.getElementById("projectionTable"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        calcTarget: document.getElementById("calcTarget"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
+      };
+
+      let splitChartInstance = null;
+      let timelineChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function sync(r, n) {
+        if (!r || !n) return;
+        r.addEventListener("input", () => { n.value = r.value; calculate(); });
+        n.addEventListener("input", () => { r.value = r.value; calculate(); });
+      }
+
+      function setupToggleAdvanced() {
+        let isAdv = false;
+        elements.toggleViewBtn.addEventListener("click", () => {
+          isAdv = !isAdv;
+          elements.calcTarget.classList.toggle("advanced-mode", isAdv);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdv ? "Advanced Controls: On" : "Advanced Controls: Off";
+        });
+      }
+
+      function calculate() {
+        let salary = Number(elements.salary.value) || 85000;
+        const contribPct = (Number(elements.contribution.value) || 8) / 100;
+        const matchPct = (Number(elements.employerMatch.value) || 50) / 100;
+        const matchLimit = (Number(elements.matchLimit.value) || 6) / 100;
+        const curAge = Number(elements.currentAge.value) || 30;
+        const retAge = Math.max(curAge + 1, Number(elements.retireAge.value) || 65);
+        const initBal = Number(elements.currentBalance.value) || 0;
+        const retRate = (Number(elements.expectedReturn.value) || 8) / 100;
+        const salGrowth = (Number(elements.salaryGrowth.value) || 3) / 100;
+
+        elements.salaryPreview.textContent = formatUSD(salary);
+        elements.contributionPreview.textContent = (contribPct * 100).toFixed(0) + "%";
+        elements.matchPreview.textContent = (matchPct * 100).toFixed(0) + "% up to " + (matchLimit * 100).toFixed(0) + "%";
+        elements.currentAgePreview.textContent = curAge + " Yrs";
+        elements.retireAgePreview.textContent = retAge + " Yrs";
+        elements.heroRetireAge.textContent = retAge;
+
+        const totalYears = retAge - curAge;
+        let balance = initBal;
+        let totalEmployee = initBal;
+        let totalEmployer = 0;
+
+        const yearlyData = [];
+        const labels = ["Age " + curAge];
+        const balanceSeries = [initBal];
+        const depositSeries = [initBal];
+
+        for (let y = 1; y <= totalYears; y++) {
+          const age = curAge + y;
+          // Annual employee contrib (subject to IRS max ~ $23,000 + inflation)
+          const irsLimit = 23000 * Math.pow(1.02, y - 1);
+          const empContrib = Math.min(salary * contribPct, irsLimit);
+          
+          // Employer matching logic
+          const eligibleSalaryForMatch = Math.min(salary * matchLimit, salary * contribPct);
+          const emplyrMatch = eligibleSalaryForMatch * matchPct;
+
+          const totalAnnualDeposit = empContrib + emplyrMatch;
+          totalEmployee += empContrib;
+          totalEmployer += emplyrMatch;
+
+          // Compounding growth
+          const growth = (balance + totalAnnualDeposit / 2) * retRate;
+          balance += totalAnnualDeposit + growth;
+
+          yearlyData.push({
+            year: y,
+            age: age,
+            salary: salary,
+            employee: empContrib,
+            employer: emplyrMatch,
+            totalDeposit: totalAnnualDeposit,
+            growth: growth,
+            balance: balance
+          });
+
+          labels.push("Age " + age);
+          balanceSeries.push(balance);
+          depositSeries.push(totalEmployee + totalEmployer);
+
+          salary *= (1 + salGrowth);
+        }
+
+        const totalDeposits = totalEmployee + totalEmployer;
+        const totalGrowth = Math.max(0, balance - totalDeposits);
+
+        elements.corpusHeroValue.textContent = formatUSD(balance);
+        elements.corpusHeroDesc.textContent = "Deposits: " + formatUSD(totalDeposits) + " • Growth: " + formatUSD(totalGrowth);
+        elements.resContributed.textContent = formatUSD(totalDeposits);
+        elements.resGrowth.textContent = formatUSD(totalGrowth);
+        elements.resTotalCorpus.textContent = formatUSD(balance);
+        elements.resEmployerTotal.textContent = formatUSD(totalEmployer);
+        elements.resEmployeeTotal.textContent = formatUSD(totalEmployee);
+        elements.mobileSummaryVal.textContent = formatUSD(balance);
+
+        lastProjection = yearlyData;
+
+        // Render Table
+        elements.projectionTable.innerHTML = yearlyData.map(r => `
+          <tr>
+            <td class="projection-year">Year ${r.year} (Age ${r.age})</td>
+            <td data-label="Salary">${formatUSD(r.salary)}</td>
+            <td data-label="Your Contribution">${formatUSD(r.employee)}</td>
+            <td data-label="Employer Match">${formatUSD(r.employer)}</td>
+            <td data-label="Total Balance">${formatUSD(r.balance)}</td>
+          </tr>
+        `).join("");
+
+        renderCharts(labels, balanceSeries, depositSeries, totalDeposits, totalGrowth);
+
+        lastSummaryText = [
+          "401(k) Retirement Plan Summary",
+          "Retirement Age: " + retAge,
+          "Total 401(k) Balance: " + formatUSD(balance),
+          "Your Contributions: " + formatUSD(totalEmployee),
+          "Employer Match Added: " + formatUSD(totalEmployer),
+          "Investment Growth: " + formatUSD(totalGrowth)
+        ].join("\n");
+      }
+
+      function renderCharts(labels, balanceSeries, depositSeries, deposits, growth) {
+        if (!window.Chart) return;
+        if (splitChartInstance) splitChartInstance.destroy();
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Total Deposits (You + Match)", "Investment Growth"],
+            datasets: [{
+              data: [deposits, growth],
+              backgroundColor: ["#0284c7", "#10b981"],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: { callbacks: { label: (c) => c.label + ": " + formatUSD(c.parsed) } }
+            }
+          }
+        });
+
+        if (timelineChartInstance) timelineChartInstance.destroy();
+        const ctx = elements.growthChart.getContext("2d");
+        const grad = ctx.createLinearGradient(0, 0, 0, 300);
+        grad.addColorStop(0, "rgba(2, 132, 199, 0.28)");
+        grad.addColorStop(1, "rgba(2, 132, 199, 0.015)");
+
+        timelineChartInstance = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "401(k) Balance",
+                data: balanceSeries,
+                borderColor: "#0284c7",
+                backgroundColor: grad,
+                fill: true,
+                tension: 0.25,
+                borderWidth: 3,
+                pointRadius: 0,
+                pointHoverRadius: 5
+              },
+              {
+                label: "Cumulative Contributions",
+                data: depositSeries,
+                borderColor: "#10b981",
+                backgroundColor: "transparent",
+                fill: false,
+                borderWidth: 2,
+                borderDash: [6, 4],
+                pointRadius: 0,
+                pointHoverRadius: 4
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { y: { ticks: { callback: (v) => formatCompact(v) } } },
+            plugins: {
+              legend: { position: "top" },
+              tooltip: { callbacks: { label: (c) => c.dataset.label + ": " + formatUSD(c.parsed.y) } }
+            }
+          }
+        });
+      }
+
+      function wireEvents() {
+        sync(elements.salaryRange, elements.salary);
+        sync(elements.contributionRange, elements.contribution);
+        sync(elements.employerMatchRange, elements.employerMatch);
+        sync(elements.currentAgeRange, elements.currentAge);
+        sync(elements.retireAgeRange, elements.retireAge);
+
+        elements.currentBalance.addEventListener("input", calculate);
+        elements.matchLimit.addEventListener("input", calculate);
+        elements.expectedReturn.addEventListener("input", calculate);
+        elements.salaryGrowth.addEventListener("input", calculate);
+        elements.recalculateBtn.addEventListener("click", calculate);
+
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function () {
+            const wrap = this.parentElement;
+            const tInput = document.getElementById(wrap.dataset.target);
+            const tRange = document.getElementById(wrap.dataset.range);
+            if (tInput) tInput.value = this.dataset.val;
+            if (tRange) tRange.value = this.dataset.val;
+            calculate();
+          });
+        });
+
+        elements.resetBtn.addEventListener("click", () => {
+          elements.salary.value = 85000; elements.salaryRange.value = 85000;
+          elements.contribution.value = 8; elements.contributionRange.value = 8;
+          elements.employerMatch.value = 50; elements.employerMatchRange.value = 50;
+          elements.currentAge.value = 30; elements.currentAgeRange.value = 30;
+          elements.retireAge.value = 65; elements.retireAgeRange.value = 65;
+          elements.currentBalance.value = 25000;
+          calculate();
+        });
+
+        elements.copySummaryBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+          });
+        });
+
+        elements.copyHeroBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            const orig = elements.copyHeroBtn.innerHTML;
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+          });
+        });
+
+        elements.downloadCsvBtn.addEventListener("click", () => {
+          if (!lastProjection.length) return;
+          const headers = ["Year", "Age", "Salary", "Your Contribution", "Employer Match", "Total Balance"];
+          const rows = lastProjection.map(r => [r.year, r.age, Math.round(r.salary), Math.round(r.employee), Math.round(r.employer), Math.round(r.balance)].join(","));
+          const csv = [headers.join(","), rows.join("\n")].join("\n");
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "401k-schedule.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+
+        setupToggleAdvanced();
+      }
+
+      wireEvents();
+      calculate();
+    })();
+  </script>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial calculators and planning tools for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gallon to Liter Calculator (US) | US Liquid & Dry Gal to L Converter</title>
+  <meta name="description" content="Convert US liquid gallons to liters (1 gal = 3.78541 L), dry gallons, UK imperial gallons, fluid ounces, pints, and quarts with price-per-gallon comparisons.">
+  <meta name="keywords" content="gallon to liter, gallon to liter calculator, us gallon to litre, gal to l, gallons to liters converter, gas price per gallon to liter, fluid ounces to liters">
+  <meta name="author" content="InstaCalc USA">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/us/gallon-to-liter-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Studio Grid & Chart styles */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
+    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+    .legend-val.positive { color: #10b981; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+    
+    /* Mode Pill Switcher */
+    .shape-nav-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--ic-border);
+      width: 100%;
+    }
+    .mode-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      border-radius: var(--ic-radius-full);
+      border: 1px solid var(--ic-border);
+      background: #ffffff;
+      color: var(--ic-text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .mode-pill-btn:hover {
+      border-color: var(--ic-primary);
+      color: var(--ic-primary-dark);
+    }
+    .mode-pill-btn.active {
+      background: var(--ic-primary);
+      color: #ffffff;
+      border-color: var(--ic-primary);
+      box-shadow: 0 2px 8px rgba(0, 95, 115, 0.25);
+    }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell { border: 0; background: transparent; overflow: visible; }
+      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
+      .projection-table thead { display: none; }
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
+      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .projection-table .projection-year::before { display: none; }
+    }
+    @media (max-width: 960px) {
+      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    }
+    
+  </style>
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/gallon-to-liter-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="us" selected>United States ($ USD)</option>
+          <option value="in">India (₹ INR)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">All US Tools</a>
+        <a href="diagonal-calculator.html">Diagonal</a>
+        <a href="gallon-to-liter-calculator.html">Gallon to Liter</a>
+        <a href="concrete-calculator.html">Concrete</a>
+        <a href="triangle-calculator.html">Triangle</a>
+        <a href="mortgage-calculator.html">Mortgage</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-flask"></i> US Volume Conversions</span>
+          <h1>Gallon to Liter Calculator (US)</h1>
+          <p>Instantly convert between US liquid gallons, liters, dry gallons, imperial gallons, and fluid ounces with real-time fuel and price comparisons.</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>Standard US Values</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>1 US Liquid Gallon</strong> = 3.78541 Liters (128 fl oz)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>1 US Dry Gallon</strong> = 4.40488 Liters</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>1 UK Imperial Gallon</strong> = 4.54609 Liters (160 fl oz)</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="shape-nav-wrap">
+            <button type="button" class="mode-pill-btn active" data-dir="gal-to-l"><i class="fas fa-arrow-right-arrow-left"></i> Gallons → Liters</button>
+            <button type="button" class="mode-pill-btn" data-dir="l-to-gal"><i class="fas fa-arrow-right-arrow-left"></i> Liters → Gallons</button>
+          </div>
+
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label">Converted Volume</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="fin-studio-grid">
+            <div class="studio-inputs">
+              <!-- Gallon Standard -->
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="gallonType"><i class="fas fa-filter"></i> Gallon Standard</label>
+                </div>
+                <select id="gallonType" style="font-weight:700;">
+                  <option value="us-liquid" selected>US Liquid Gallon (1 gal = 3.78541 L)</option>
+                  <option value="us-dry">US Dry Gallon (1 gal = 4.40488 L)</option>
+                  <option value="uk-imperial">UK / Imperial Gallon (1 gal = 4.54609 L)</option>
+                </select>
+              </div>
+
+              <!-- Main Input Volume -->
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="inputVol" id="inputLabel">Volume in Gallons (gal)</label>
+                  <span class="field-preview-badge" id="volPreview">5 Gallons</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="rangeVol" min="0.5" max="100" step="0.5" value="5">
+                  <div class="input-with-adornment">
+                    <input type="number" id="inputVol" min="0.01" max="100000" step="0.1" value="5" class="has-suffix">
+                    <span class="input-suffix" id="inputUnitSuffix">gal</span>
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="inputVol" data-range="rangeVol" id="chipsVol">
+                  <button type="button" class="chip" data-val="1">1 Gal (Jug)</button>
+                  <button type="button" class="chip" data-val="2">2 Gal</button>
+                  <button type="button" class="chip" data-val="5">5 Gal (Bucket)</button>
+                  <button type="button" class="chip" data-val="15">15 Gal (Tank)</button>
+                  <button type="button" class="chip" data-val="55">55 Gal (Drum)</button>
+                </div>
+              </div>
+
+              <!-- Optional Price Comparison -->
+              <div class="field-card" style="background:#f8fafc;">
+                <div class="field-head">
+                  <label for="pricePerUnit"><i class="fas fa-gas-pump"></i> Gas / Fuel Price ($ per Gallon)</label>
+                  <span class="field-preview-badge" id="pricePreview">$3.50/gal</span>
+                </div>
+                <div class="input-with-adornment">
+                  <span class="input-prefix">$</span>
+                  <input type="number" id="pricePerUnit" min="0" max="50" step="0.05" value="3.50" class="has-prefix">
+                </div>
+              </div>
+            </div>
+
+            <div class="studio-outcome">
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-flask"></i> Converted Volume</span>
+                  <div class="res-val" id="resHeroConverted">-</div>
+                  <div class="res-desc" id="resHeroDesc">Equivalent to -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card positive"><h3>Liters (L)</h3><div class="result-value" id="resLiters">-</div></div>
+                <div class="result-card"><h3>Fluid Ounces (fl oz)</h3><div class="result-value" id="resFlOz">-</div></div>
+                <div class="result-card"><h3>US Quarts (qt)</h3><div class="result-value" id="resQuarts">-</div></div>
+                <div class="result-card"><h3>US Pints (pt)</h3><div class="result-value" id="resPints">-</div></div>
+                <div class="result-card"><h3>Equivalent $/Liter</h3><div class="result-value" id="resPricePerLiter">-</div></div>
+                <div class="result-card"><h3>Total Fill Cost</h3><div class="result-value" id="resTotalCost">-</div></div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Quick Reference Conversion Chart</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Gallons (gal)</th>
+                  <th>Liters (L)</th>
+                  <th>Fluid Ounces (fl oz)</th>
+                  <th>Quarts (qt)</th>
+                  <th>Pints (pt)</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>US Unit & Construction Tools</h3>
+            <ul class="link-list">
+              <li><a href="concrete-calculator.html"><span>Concrete Calculator (Yds)</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="diagonal-calculator.html"><span>Diagonal Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="triangle-calculator.html"><span>Triangle Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="sales-tax-calculator.html"><span>US Sales Tax</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Gallon to Liter Calculator (US)",
+    "url": "https://instacalc.in/us/gallon-to-liter-calculator.html",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "description": "Convert US liquid gallons to liters, dry gallons, imperial gallons, quarts, pints, and fluid ounces.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many liters are in 1 US gallon?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "1 US liquid gallon equals exactly 3.785411784 liters (approximately 3.785 L). In contrast, 1 UK imperial gallon equals 4.54609 liters."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How many fluid ounces are in a US gallon?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "There are 128 US fluid ounces (fl oz) in 1 US liquid gallon. It also equals 4 quarts, 8 pints, or 16 cups."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you convert gas price per gallon to price per liter?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Divide the price per gallon by 3.7854. For example, if gasoline costs $3.50 per gallon in the US, the equivalent cost per liter is $3.50 / 3.7854 = $0.925 per liter."
+        }
+      }
+    ]
+  }
+  </script>
+  <script>
+    (function () {
+      let direction = "gal-to-l";
+      let lastSummaryText = "";
+      let lastChartRows = [];
+
+      const elements = {
+        gallonType: document.getElementById("gallonType"),
+        inputVol: document.getElementById("inputVol"),
+        rangeVol: document.getElementById("rangeVol"),
+        inputLabel: document.getElementById("inputLabel"),
+        inputUnitSuffix: document.getElementById("inputUnitSuffix"),
+        volPreview: document.getElementById("volPreview"),
+        pricePerUnit: document.getElementById("pricePerUnit"),
+        pricePreview: document.getElementById("pricePreview"),
+
+        resHeroConverted: document.getElementById("resHeroConverted"),
+        resHeroDesc: document.getElementById("resHeroDesc"),
+        resLiters: document.getElementById("resLiters"),
+        resFlOz: document.getElementById("resFlOz"),
+        resQuarts: document.getElementById("resQuarts"),
+        resPints: document.getElementById("resPints"),
+        resPricePerLiter: document.getElementById("resPricePerLiter"),
+        resTotalCost: document.getElementById("resTotalCost"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        projectionTable: document.getElementById("projectionTable"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
+      };
+
+      const factors = {
+        "us-liquid": 3.785411784,
+        "us-dry": 4.40488377,
+        "uk-imperial": 4.54609
+      };
+
+      function sync(r, n) {
+        if (!r || !n) return;
+        r.addEventListener("input", () => { n.value = r.value; calculate(); });
+        n.addEventListener("input", () => { r.value = r.value; calculate(); });
+      }
+
+      function setupDirectionToggle() {
+        document.querySelectorAll(".mode-pill-btn").forEach(btn => {
+          btn.addEventListener("click", function () {
+            document.querySelectorAll(".mode-pill-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            direction = this.dataset.dir;
+            if (direction === "l-to-gal") {
+              elements.inputLabel.textContent = "Volume in Liters (L)";
+              elements.inputUnitSuffix.textContent = "L";
+              elements.inputVol.value = 20; elements.rangeVol.value = 20;
+            } else {
+              elements.inputLabel.textContent = "Volume in Gallons (gal)";
+              elements.inputUnitSuffix.textContent = "gal";
+              elements.inputVol.value = 5; elements.rangeVol.value = 5;
+            }
+            calculate();
+          });
+        });
+      }
+
+      function calculate() {
+        const factor = factors[elements.gallonType.value] || 3.78541;
+        const val = Number(elements.inputVol.value) || 0;
+        const price = Number(elements.pricePerUnit ? elements.pricePerUnit.value : 3.50) || 0;
+
+        let gal = 0;
+        let lit = 0;
+
+        if (direction === "l-to-gal") {
+          lit = val;
+          gal = lit / factor;
+          elements.volPreview.textContent = lit.toFixed(1) + " Liters";
+          elements.resHeroConverted.textContent = gal.toFixed(3) + " Gallons";
+          elements.resHeroDesc.textContent = "Based on " + lit + " Liters (" + elements.gallonType.options[elements.gallonType.selectedIndex].text + ")";
+          elements.mobileSummaryVal.textContent = gal.toFixed(2) + " Gal";
+        } else {
+          gal = val;
+          lit = gal * factor;
+          elements.volPreview.textContent = gal.toFixed(1) + " Gallons";
+          elements.resHeroConverted.textContent = lit.toFixed(3) + " Liters";
+          elements.resHeroDesc.textContent = "Based on " + gal + " Gallons (" + elements.gallonType.options[elements.gallonType.selectedIndex].text + ")";
+          elements.mobileSummaryVal.textContent = lit.toFixed(2) + " L";
+        }
+
+        const flOz = gal * 128;
+        const quarts = gal * 4;
+        const pints = gal * 8;
+        const pricePerL = price > 0 ? (price / factor) : 0;
+        const totalCost = gal * price;
+
+        elements.pricePreview.textContent = "$" + price.toFixed(2) + "/gal";
+        elements.resLiters.textContent = lit.toFixed(3) + " L";
+        elements.resFlOz.textContent = flOz.toFixed(1) + " fl oz";
+        elements.resQuarts.textContent = quarts.toFixed(2) + " qt";
+        elements.resPints.textContent = pints.toFixed(1) + " pt";
+        elements.resPricePerLiter.textContent = pricePerL > 0 ? "$" + pricePerL.toFixed(3) + "/L" : "$0.00";
+        elements.resTotalCost.textContent = "$" + totalCost.toFixed(2);
+
+        renderReferenceTable(factor);
+
+        lastSummaryText = [
+          "Gallon to Liter Conversion Summary",
+          "Gallon Standard: " + elements.gallonType.options[elements.gallonType.selectedIndex].text,
+          "Volume: " + gal.toFixed(3) + " gal = " + lit.toFixed(3) + " Liters",
+          "Fluid Ounces: " + flOz.toFixed(1) + " fl oz",
+          "Quarts: " + quarts.toFixed(2) + " qt",
+          "Total Cost (@ $" + price.toFixed(2) + "/gal): $" + totalCost.toFixed(2)
+        ].join("\n");
+      }
+
+      function renderReferenceTable(factor) {
+        const presets = [0.5, 1, 2, 3, 5, 10, 15, 20, 55, 100];
+        lastChartRows = presets.map(g => {
+          const l = g * factor;
+          const fo = g * 128;
+          const q = g * 4;
+          const p = g * 8;
+          return { g: g + " gal", l: l.toFixed(2) + " L", fo: fo.toFixed(0) + " fl oz", q: q.toFixed(1) + " qt", p: p.toFixed(1) + " pt" };
+        });
+
+        elements.projectionTable.innerHTML = lastChartRows.map(r => `
+          <tr>
+            <td class="projection-year">${r.g}</td>
+            <td data-label="Liters">${r.l}</td>
+            <td data-label="Fluid Ounces">${r.fo}</td>
+            <td data-label="Quarts">${r.q}</td>
+            <td data-label="Pints">${r.p}</td>
+          </tr>
+        `).join("");
+      }
+
+      function wireEvents() {
+        sync(elements.rangeVol, elements.inputVol);
+        if (elements.pricePerUnit) elements.pricePerUnit.addEventListener("input", calculate);
+        elements.gallonType.addEventListener("change", calculate);
+        elements.recalculateBtn.addEventListener("click", calculate);
+
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function () {
+            const wrap = this.parentElement;
+            const tInput = document.getElementById(wrap.dataset.target);
+            const tRange = document.getElementById(wrap.dataset.range);
+            if (tInput) tInput.value = this.dataset.val;
+            if (tRange) tRange.value = this.dataset.val;
+            calculate();
+          });
+        });
+
+        elements.resetBtn.addEventListener("click", () => {
+          elements.inputVol.value = 5; elements.rangeVol.value = 5;
+          if (elements.pricePerUnit) elements.pricePerUnit.value = 3.50;
+          elements.gallonType.value = "us-liquid";
+          calculate();
+        });
+
+        elements.copySummaryBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+          });
+        });
+
+        elements.copyHeroBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            const orig = elements.copyHeroBtn.innerHTML;
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+          });
+        });
+
+        elements.downloadCsvBtn.addEventListener("click", () => {
+          if (!lastChartRows.length) return;
+          const headers = ["Gallons", "Liters", "Fluid Ounces", "Quarts", "Pints"];
+          const rows = lastChartRows.map(r => [r.g, r.l, r.fo, r.q, r.p].join(","));
+          const csv = [headers.join(","), rows.join("\n")].join("\n");
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "gallon-to-liter-conversion-chart.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+
+        setupDirectionToggle();
+      }
+
+      wireEvents();
+      calculate();
+    })();
+  </script>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial, math, and construction calculators for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+</body>
+</html>

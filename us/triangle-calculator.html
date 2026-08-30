@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Triangle Calculator (US) | Right Triangle, SSS, SAS, Angles & Area</title>
+  <meta name="description" content="Calculate right triangles (Pythagorean Theorem), SSS Heron's formula, SAS, Law of Sines & Cosines, perimeter, angles, and area in inches and feet.">
+  <meta name="keywords" content="triangle calculator, right triangle calculator, pythagorean theorem calculator, sss triangle calculator, triangle area calculator, hypotenuse calculator, law of sines">
+  <meta name="author" content="InstaCalc USA">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/us/triangle-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Studio Grid & Chart styles */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
+    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+    .legend-val.positive { color: #10b981; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+    
+    /* Mode Pill Switcher */
+    .shape-nav-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--ic-border);
+      width: 100%;
+    }
+    .mode-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      border-radius: var(--ic-radius-full);
+      border: 1px solid var(--ic-border);
+      background: #ffffff;
+      color: var(--ic-text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .mode-pill-btn:hover {
+      border-color: var(--ic-primary);
+      color: var(--ic-primary-dark);
+    }
+    .mode-pill-btn.active {
+      background: var(--ic-primary);
+      color: #ffffff;
+      border-color: var(--ic-primary);
+      box-shadow: 0 2px 8px rgba(0, 95, 115, 0.25);
+    }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell { border: 0; background: transparent; overflow: visible; }
+      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
+      .projection-table thead { display: none; }
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
+      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .projection-table .projection-year::before { display: none; }
+    }
+    @media (max-width: 960px) {
+      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    }
+    
+    .geo-canvas-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+    }
+    .svg-geo-wrap { width: 100%; max-width: 440px; height: 220px; }
+    
+  </style>
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/triangle-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="us" selected>United States ($ USD)</option>
+          <option value="in">India (₹ INR)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">All US Tools</a>
+        <a href="diagonal-calculator.html">Diagonal</a>
+        <a href="gallon-to-liter-calculator.html">Gallon to Liter</a>
+        <a href="concrete-calculator.html">Concrete</a>
+        <a href="triangle-calculator.html">Triangle</a>
+        <a href="mortgage-calculator.html">Mortgage</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-shapes"></i> Trigonometry & Geometry</span>
+          <h1>Triangle Calculator (US)</h1>
+          <p>Solve any triangle: Right triangles (Pythagorean theorem), SSS, SAS, and ASA geometry with full angle, area, and perimeter solutions.</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>Triangle Laws</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>Right Triangle</strong>: <code>a² + b² = c²</code></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>SSS / Heron's Formula</strong>: <code>A = √(s(s-a)(s-b)(s-c))</code></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>Law of Cosines</strong>: <code>c² = a² + b² - 2ab cos(C)</code></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="shape-nav-wrap">
+            <button type="button" class="mode-pill-btn active" data-solve="right"><i class="fas fa-play" style="transform:rotate(-90deg)"></i> Right Triangle</button>
+            <button type="button" class="mode-pill-btn" data-solve="sss"><i class="fas fa-draw-polygon"></i> SSS (3 Sides)</button>
+            <button type="button" class="mode-pill-btn" data-solve="sas"><i class="fas fa-vector-square"></i> SAS (2 Sides + Angle)</button>
+          </div>
+
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label">Triangle Area</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="fin-studio-grid">
+            <div class="studio-inputs">
+              <!-- Unit Selector -->
+              <div class="field-card" style="background:#f8fafc;">
+                <div class="field-head">
+                  <label for="unitSelect"><i class="fas fa-ruler"></i> Measurement Unit</label>
+                </div>
+                <select id="unitSelect" style="font-weight:700;">
+                  <option value="in" selected>Inches (in)</option>
+                  <option value="ft">Feet (ft)</option>
+                  <option value="yd">Yards (yd)</option>
+                  <option value="cm">Centimeters (cm)</option>
+                  <option value="m">Meters (m)</option>
+                </select>
+              </div>
+
+              <!-- Side A -->
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="sideA" id="labelSideA">Side a (Leg a)</label>
+                  <span class="field-preview-badge" id="previewSideA">30 in</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="sideARange" min="1" max="100" step="0.5" value="30">
+                  <div class="input-with-adornment">
+                    <input type="number" id="sideA" min="0.1" max="10000" step="0.1" value="30" class="has-suffix">
+                    <span class="input-suffix unit-label">in</span>
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="sideA" data-range="sideARange">
+                  <button type="button" class="chip" data-val="3">3 (3-4-5)</button>
+                  <button type="button" class="chip" data-val="6">6</button>
+                  <button type="button" class="chip" data-val="12">12"</button>
+                  <button type="button" class="chip" data-val="30">30"</button>
+                </div>
+              </div>
+
+              <!-- Side B -->
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="sideB" id="labelSideB">Side b (Leg b)</label>
+                  <span class="field-preview-badge" id="previewSideB">40 in</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="sideBRange" min="1" max="100" step="0.5" value="40">
+                  <div class="input-with-adornment">
+                    <input type="number" id="sideB" min="0.1" max="10000" step="0.1" value="40" class="has-suffix">
+                    <span class="input-suffix unit-label">in</span>
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="sideB" data-range="sideBRange">
+                  <button type="button" class="chip" data-val="4">4 (3-4-5)</button>
+                  <button type="button" class="chip" data-val="8">8</button>
+                  <button type="button" class="chip" data-val="16">16"</button>
+                  <button type="button" class="chip" data-val="40">40"</button>
+                </div>
+              </div>
+
+              <!-- Side C / Angle C -->
+              <div class="field-card" id="fieldCardC">
+                <div class="field-head">
+                  <label for="inputC" id="labelInputC">Side c (Hypotenuse)</label>
+                  <span class="field-preview-badge" id="previewInputC">50 in</span>
+                </div>
+                <div class="range-row" id="rangeRowC">
+                  <input type="range" id="inputCRange" min="1" max="150" step="0.5" value="50">
+                  <div class="input-with-adornment">
+                    <input type="number" id="inputC" min="0.1" max="10000" step="0.1" value="50" class="has-suffix">
+                    <span class="input-suffix" id="suffixC">in</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="studio-outcome">
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-shapes"></i> Triangle Area & Hypotenuse</span>
+                  <div class="res-val" id="resHeroArea">-</div>
+                  <div class="res-desc" id="resHeroDesc">Hypotenuse: - | Perimeter: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
+              </div>
+
+              <div class="geo-canvas-card">
+                <svg id="geoSvg" class="svg-geo-wrap" viewBox="0 0 400 200">
+                  <!-- Rendered via JS -->
+                </svg>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card positive"><h3>Total Area</h3><div class="result-value" id="resArea">-</div></div>
+                <div class="result-card"><h3>Perimeter</h3><div class="result-value" id="resPerimeter">-</div></div>
+                <div class="result-card"><h3>Side c (Hypotenuse)</h3><div class="result-value" id="resSideC">-</div></div>
+                <div class="result-card"><h3>Angle α (A)</h3><div class="result-value" id="resAngleA">-</div></div>
+                <div class="result-card"><h3>Angle β (B)</h3><div class="result-value" id="resAngleB">-</div></div>
+                <div class="result-card"><h3>Angle γ (C)</h3><div class="result-value" id="resAngleC">-</div></div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Triangle Geometry Parameters</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Property</th>
+                  <th>Value</th>
+                  <th>Formula / Rule</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>US Construction Tools</h3>
+            <ul class="link-list">
+              <li><a href="diagonal-calculator.html"><span>Diagonal Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="concrete-calculator.html"><span>Concrete Calculator (Yds)</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="gallon-to-liter-calculator.html"><span>Gallon to Liter</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mortgage-calculator.html"><span>Mortgage Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Triangle Calculator (US)",
+    "url": "https://instacalc.in/us/triangle-calculator.html",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "description": "Calculate triangle area, hypotenuse, angles, and perimeter using Pythagorean Theorem, SSS, and SAS trigonometry.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How to calculate the area of a right triangle?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The area of a right triangle is half the product of its two legs: Area = 0.5 × a × b."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is Heron's formula for triangle area?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Heron's formula calculates the area of any triangle when all three sides (a, b, c) are known: Area = sqrt(s(s-a)(s-b)(s-c)), where s = (a + b + c) / 2 is the semi-perimeter."
+        }
+      }
+    ]
+  }
+  </script>
+  <script>
+    (function () {
+      let solverMode = "right";
+      let lastSummaryText = "";
+      let lastProps = [];
+
+      const elements = {
+        unitSelect: document.getElementById("unitSelect"),
+        sideA: document.getElementById("sideA"),
+        sideARange: document.getElementById("sideARange"),
+        labelSideA: document.getElementById("labelSideA"),
+        previewSideA: document.getElementById("previewSideA"),
+
+        sideB: document.getElementById("sideB"),
+        sideBRange: document.getElementById("sideBRange"),
+        labelSideB: document.getElementById("labelSideB"),
+        previewSideB: document.getElementById("previewSideB"),
+
+        inputC: document.getElementById("inputC"),
+        inputCRange: document.getElementById("inputCRange"),
+        labelInputC: document.getElementById("labelInputC"),
+        previewInputC: document.getElementById("previewInputC"),
+        suffixC: document.getElementById("suffixC"),
+        fieldCardC: document.getElementById("fieldCardC"),
+
+        resHeroArea: document.getElementById("resHeroArea"),
+        resHeroDesc: document.getElementById("resHeroDesc"),
+        resArea: document.getElementById("resArea"),
+        resPerimeter: document.getElementById("resPerimeter"),
+        resSideC: document.getElementById("resSideC"),
+        resAngleA: document.getElementById("resAngleA"),
+        resAngleB: document.getElementById("resAngleB"),
+        resAngleC: document.getElementById("resAngleC"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        geoSvg: document.getElementById("geoSvg"),
+        projectionTable: document.getElementById("projectionTable"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
+      };
+
+      function sync(r, n) {
+        if (!r || !n) return;
+        r.addEventListener("input", () => { n.value = r.value; calculate(); });
+        n.addEventListener("input", () => { r.value = r.value; calculate(); });
+      }
+
+      function setupModeNav() {
+        document.querySelectorAll(".mode-pill-btn").forEach(btn => {
+          btn.addEventListener("click", function () {
+            document.querySelectorAll(".mode-pill-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            solverMode = this.dataset.solve;
+            updateModeUI();
+            calculate();
+          });
+        });
+      }
+
+      function updateModeUI() {
+        const u = elements.unitSelect.value;
+        if (solverMode === "right") {
+          elements.labelSideA.textContent = "Leg a";
+          elements.labelSideB.textContent = "Leg b";
+          elements.fieldCardC.style.display = "none";
+        } else if (solverMode === "sss") {
+          elements.labelSideA.textContent = "Side a";
+          elements.labelSideB.textContent = "Side b";
+          elements.labelInputC.textContent = "Side c";
+          elements.suffixC.textContent = u;
+          elements.fieldCardC.style.display = "block";
+          elements.inputC.value = 50; elements.inputCRange.value = 50;
+        } else if (solverMode === "sas") {
+          elements.labelSideA.textContent = "Side a";
+          elements.labelSideB.textContent = "Side b";
+          elements.labelInputC.textContent = "Included Angle γ (deg)";
+          elements.suffixC.textContent = "°";
+          elements.fieldCardC.style.display = "block";
+          elements.inputC.value = 60; elements.inputCRange.value = 60;
+        }
+      }
+
+      function calculate() {
+        const u = elements.unitSelect.value;
+        document.querySelectorAll(".unit-label").forEach(el => el.textContent = u);
+
+        const a = Number(elements.sideA.value) || 30;
+        const b = Number(elements.sideB.value) || 40;
+        const cVal = Number(elements.inputC.value) || 50;
+
+        elements.previewSideA.textContent = a + " " + u;
+        elements.previewSideB.textContent = b + " " + u;
+        elements.previewInputC.textContent = cVal + (solverMode === "sas" ? "°" : " " + u);
+
+        let c = 0;
+        let angleA = 0, angleB = 0, angleC = 90;
+        let area = 0;
+
+        if (solverMode === "right") {
+          c = Math.sqrt(a * a + b * b);
+          angleA = (Math.atan2(a, b) * 180) / Math.PI;
+          angleB = 90 - angleA;
+          angleC = 90;
+          area = 0.5 * a * b;
+        } else if (solverMode === "sss") {
+          c = cVal;
+          // Triangle inequality validation
+          if (a + b <= c || a + c <= b || b + c <= a) {
+            elements.resHeroArea.textContent = "Invalid Triangle (a+b > c violated)";
+            return;
+          }
+          const s = (a + b + c) / 2;
+          area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+          angleA = Math.acos((b * b + c * c - a * a) / (2 * b * c)) * (180 / Math.PI);
+          angleB = Math.acos((a * a + c * c - b * b) / (2 * a * c)) * (180 / Math.PI);
+          angleC = 180 - angleA - angleB;
+        } else if (solverMode === "sas") {
+          angleC = cVal;
+          const radC = (angleC * Math.PI) / 180;
+          c = Math.sqrt(a * a + b * b - 2 * a * b * Math.cos(radC));
+          area = 0.5 * a * b * Math.sin(radC);
+          angleA = Math.asin((a * Math.sin(radC)) / c) * (180 / Math.PI);
+          angleB = 180 - angleA - angleC;
+        }
+
+        const perim = a + b + c;
+
+        elements.resHeroArea.textContent = area.toFixed(2) + " sq " + u;
+        elements.resHeroDesc.textContent = "Side c: " + c.toFixed(2) + " " + u + " • Perimeter: " + perim.toFixed(2) + " " + u;
+        elements.resArea.textContent = area.toFixed(2) + " sq " + u;
+        elements.resPerimeter.textContent = perim.toFixed(2) + " " + u;
+        elements.resSideC.textContent = c.toFixed(2) + " " + u;
+        elements.resAngleA.textContent = angleA.toFixed(1) + "°";
+        elements.resAngleB.textContent = angleB.toFixed(1) + "°";
+        elements.resAngleC.textContent = angleC.toFixed(1) + "°";
+        elements.mobileSummaryVal.textContent = area.toFixed(2) + " sq " + u;
+
+        drawSvg(a, b, c, angleA, angleB, angleC);
+        renderTable(a, b, c, angleA, angleB, angleC, area, perim, u);
+
+        lastSummaryText = [
+          "Triangle Calculation Summary (" + solverMode.toUpperCase() + ")",
+          "Sides: a=" + a + " " + u + ", b=" + b + " " + u + ", c=" + c.toFixed(2) + " " + u,
+          "Angles: A=" + angleA.toFixed(1) + "°, B=" + angleB.toFixed(1) + "°, C=" + angleC.toFixed(1) + "°",
+          "Area: " + area.toFixed(2) + " sq " + u,
+          "Perimeter: " + perim.toFixed(2) + " " + u
+        ].join("\n");
+      }
+
+      function drawSvg(a, b, c, aA, aB, aC) {
+        const svg = elements.geoSvg;
+        const maxW = 320, maxH = 150;
+        const scale = maxW / Math.max(a, b, c, 1);
+        const p1 = { x: 40, y: 170 };
+        const p2 = { x: 40 + Math.min(maxW, b * scale), y: 170 };
+        const p3 = { x: 40 + (solverMode === "right" ? Math.min(maxW, b * scale) : Math.min(maxW, b * scale * 0.6)), y: 170 - Math.min(maxH, a * scale) };
+
+        svg.innerHTML = `
+          <polygon points="${p1.x},${p1.y} ${p2.x},${p2.y} ${p3.x},${p3.y}" fill="#e0f2fe" stroke="#0284c7" stroke-width="2" />
+          <text x="${(p1.x + p2.x) / 2}" y="${p1.y + 16}" font-size="12" fill="#0369a1" font-weight="bold" text-anchor="middle">b = ${b}</text>
+          <text x="${(p2.x + p3.x) / 2 + 10}" y="${(p2.y + p3.y) / 2}" font-size="12" fill="#0369a1" font-weight="bold">a = ${a}</text>
+          <text x="${(p1.x + p3.x) / 2 - 14}" y="${(p1.y + p3.y) / 2}" font-size="12" fill="#dc2626" font-weight="bold">c = ${c.toFixed(1)}</text>
+        `;
+      }
+
+      function renderTable(a, b, c, aA, aB, aC, area, perim, u) {
+        lastProps = [
+          { prop: "Side a", val: a + " " + u, rule: "Given Input", desc: "Base or Leg A" },
+          { prop: "Side b", val: b + " " + u, rule: "Given Input", desc: "Base or Leg B" },
+          { prop: "Side c (Hypotenuse)", val: c.toFixed(2) + " " + u, rule: "c = √(a² + b²) / Cosines", desc: "Opposite to Angle C" },
+          { prop: "Total Area", val: area.toFixed(2) + " sq " + u, rule: "0.5 × a × b × sin(C)", desc: "Enclosed surface area" },
+          { prop: "Perimeter", val: perim.toFixed(2) + " " + u, rule: "P = a + b + c", desc: "Boundary perimeter length" },
+          { prop: "Interior Angles", val: aA.toFixed(1) + "°, " + aB.toFixed(1) + "°, " + aC.toFixed(1) + "°", rule: "Sum of angles = 180°", desc: "All 3 interior vertices" }
+        ];
+
+        elements.projectionTable.innerHTML = lastProps.map(r => `
+          <tr>
+            <td class="projection-year">${r.prop}</td>
+            <td data-label="Value">${r.val}</td>
+            <td data-label="Formula">${r.rule}</td>
+            <td data-label="Details">${r.desc}</td>
+          </tr>
+        `).join("");
+      }
+
+      function wireEvents() {
+        sync(elements.sideARange, elements.sideA);
+        sync(elements.sideBRange, elements.sideB);
+        sync(elements.inputCRange, elements.inputC);
+
+        elements.unitSelect.addEventListener("change", calculate);
+        elements.recalculateBtn.addEventListener("click", calculate);
+
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function () {
+            const wrap = this.parentElement;
+            const tInput = document.getElementById(wrap.dataset.target);
+            const tRange = document.getElementById(wrap.dataset.range);
+            if (tInput) tInput.value = this.dataset.val;
+            if (tRange) tRange.value = this.dataset.val;
+            calculate();
+          });
+        });
+
+        elements.resetBtn.addEventListener("click", () => {
+          elements.sideA.value = 30; elements.sideARange.value = 30;
+          elements.sideB.value = 40; elements.sideBRange.value = 40;
+          elements.inputC.value = 50; elements.inputCRange.value = 50;
+          calculate();
+        });
+
+        elements.copySummaryBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+          });
+        });
+
+        elements.copyHeroBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            const orig = elements.copyHeroBtn.innerHTML;
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+          });
+        });
+
+        elements.downloadCsvBtn.addEventListener("click", () => {
+          if (!lastProps.length) return;
+          const headers = ["Property", "Value", "Formula / Rule", "Details"];
+          const rows = lastProps.map(r => [r.prop, r.val, r.rule, r.desc].join(","));
+          const csv = [headers.join(","), rows.join("\n")].join("\n");
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "triangle-calculations.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+
+        setupModeNav();
+      }
+
+      wireEvents();
+      calculate();
+    })();
+  </script>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial, math, and construction calculators for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+</body>
+</html>

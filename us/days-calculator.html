@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Days Calculator (US) | Days Between Dates & US Business Days Counter</title>
+  <meta name="description" content="Calculate exact days between dates, US business days (excluding weekends and US Federal Holidays), and add or subtract days with full date arithmetic.">
+  <meta name="keywords" content="days calculator, date difference calculator, business days calculator usa, work days between dates, add days to date, us federal holidays calculator, days until date">
+  <meta name="author" content="InstaCalc USA">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/us/days-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Studio Grid & Chart styles */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
+    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+    .legend-val.positive { color: #10b981; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+    
+    /* Mode Pill Switcher */
+    .shape-nav-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--ic-border);
+      width: 100%;
+    }
+    .mode-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      border-radius: var(--ic-radius-full);
+      border: 1px solid var(--ic-border);
+      background: #ffffff;
+      color: var(--ic-text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .mode-pill-btn:hover {
+      border-color: var(--ic-primary);
+      color: var(--ic-primary-dark);
+    }
+    .mode-pill-btn.active {
+      background: var(--ic-primary);
+      color: #ffffff;
+      border-color: var(--ic-primary);
+      box-shadow: 0 2px 8px rgba(0, 95, 115, 0.25);
+    }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell { border: 0; background: transparent; overflow: visible; }
+      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
+      .projection-table thead { display: none; }
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
+      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .projection-table .projection-year::before { display: none; }
+    }
+    @media (max-width: 960px) {
+      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    }
+    
+  </style>
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/days-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="us" selected>United States ($ USD)</option>
+          <option value="in">India (₹ INR)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">All US Tools</a>
+        <a href="diagonal-calculator.html">Diagonal</a>
+        <a href="gallon-to-liter-calculator.html">Gallon to Liter</a>
+        <a href="concrete-calculator.html">Concrete</a>
+        <a href="triangle-calculator.html">Triangle</a>
+        <a href="mortgage-calculator.html">Mortgage</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-calendar-day"></i> Calendar & Business Days</span>
+          <h1>Days Calculator (US)</h1>
+          <p>Calculate exact calendar days, business days (excluding weekends & US Federal Holidays), and date additions in standard US format (MM/DD/YYYY).</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>US Federal Features</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Standard US Federal Holidays exclusion</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Business Days vs Weekend vs Holiday split</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Date addition and subtraction arithmetic</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="shape-nav-wrap">
+            <button type="button" class="mode-pill-btn active" data-mode="diff"><i class="fas fa-calendar-days"></i> Days Between Two Dates</button>
+            <button type="button" class="mode-pill-btn" data-mode="add"><i class="fas fa-plus-minus"></i> Add / Subtract Days to Date</button>
+          </div>
+
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label">Total Duration</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="fin-studio-grid">
+            <div class="studio-inputs">
+              <!-- Diff Mode Inputs -->
+              <div id="diffInputs">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="startDate">Start Date</label>
+                    <button type="button" class="btn btn-ghost btn-sm" id="setTodayStartBtn" style="padding:2px 8px; font-size:0.75rem;">Today</button>
+                  </div>
+                  <input type="date" id="startDate" style="font-weight:700;">
+                </div>
+
+                <div class="field-card" style="margin-top:0.75rem;">
+                  <div class="field-head">
+                    <label for="endDate">End Date</label>
+                    <button type="button" class="btn btn-ghost btn-sm" id="setEoyBtn" style="padding:2px 8px; font-size:0.75rem;">End of Year</button>
+                  </div>
+                  <input type="date" id="endDate" style="font-weight:700;">
+                </div>
+
+                <div class="field-card" style="margin-top:0.75rem; background:#f8fafc;">
+                  <div class="field-head">
+                    <label><i class="fas fa-filter"></i> Calculation Options</label>
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.9rem;">
+                    <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                      <input type="checkbox" id="includeEndDay" checked> Include End Date in Calculation (+1 day)
+                    </label>
+                    <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                      <input type="checkbox" id="skipHolidays" checked> Exclude US Federal Holidays
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Add/Sub Mode Inputs -->
+              <div id="addInputs" style="display:none;">
+                <div class="field-card">
+                  <div class="field-head"><label for="baseDate">Base Starting Date</label></div>
+                  <input type="date" id="baseDate" style="font-weight:700;">
+                </div>
+
+                <div class="inline-grid" style="margin-top:0.75rem;">
+                  <div class="field-card">
+                    <div class="field-head"><label for="opType">Operation</label></div>
+                    <select id="opType">
+                      <option value="add" selected>Add (+)</option>
+                      <option value="sub">Subtract (-)</option>
+                    </select>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head"><label for="countType">Count Type</label></div>
+                    <select id="countType">
+                      <option value="calendar" selected>Calendar Days</option>
+                      <option value="business">Business Days Only</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="field-card" style="margin-top:0.75rem;">
+                  <div class="field-head">
+                    <label for="daysCount">Number of Days</label>
+                    <span class="field-preview-badge" id="daysCountPreview">30 Days</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="daysCountRange" min="1" max="365" step="1" value="30">
+                    <input type="number" id="daysCount" min="1" max="10000" step="1" value="30">
+                  </div>
+                  <div class="chips-wrap" data-target="daysCount" data-range="daysCountRange" style="margin-top:0.5rem;">
+                    <button type="button" class="chip" data-val="7">7 Days</button>
+                    <button type="button" class="chip" data-val="14">14 Days</button>
+                    <button type="button" class="chip" data-val="30">30 Days</button>
+                    <button type="button" class="chip" data-val="60">60 Days</button>
+                    <button type="button" class="chip" data-val="90">90 Days</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="studio-outcome">
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-calendar-check"></i> Total Calendar Duration</span>
+                  <div class="res-val" id="resHeroDays">-</div>
+                  <div class="res-desc" id="resHeroDesc">Business Days: - | Weekends: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
+              </div>
+
+              <div class="outcome-chart-box" id="chartBox">
+                <div class="chart-wrap-doughnut"><canvas id="splitChart"></canvas></div>
+                <div class="legend-stats-row">
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-invested"></span> Business Days</div>
+                    <div class="legend-val" id="resBusinessHero">-</div>
+                  </div>
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-returns" style="background:#f59e0b;"></span> Weekend Days</div>
+                    <div class="legend-val" id="resWeekendHero">-</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card positive"><h3>Total Calendar Days</h3><div class="result-value" id="resTotalDays">-</div></div>
+                <div class="result-card"><h3>US Business Days</h3><div class="result-value" id="resBusinessDays">-</div></div>
+                <div class="result-card"><h3>Weekend Days</h3><div class="result-value" id="resWeekendDays">-</div></div>
+                <div class="result-card"><h3>US Federal Holidays</h3><div class="result-value" id="resHolidays">-</div></div>
+                <div class="result-card"><h3>Total Weeks</h3><div class="result-value" id="resWeeks">-</div></div>
+                <div class="result-card"><h3>Total Hours</h3><div class="result-value" id="resHours">-</div></div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Breakdown & Milestones</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Time Unit</th>
+                  <th>Quantity</th>
+                  <th>Percentage of Total</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>US Time & Duration Tools</h3>
+            <ul class="link-list">
+              <li><a href="age-calculator.html"><span>Age & Retirement Milestones</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="hour-calculator.html"><span>Work Hours & Timesheet</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="time-zone-calculator.html"><span>US Time Zone Converter</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="time-duration-calculator.html"><span>Time Duration Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Days Calculator (US)",
+    "url": "https://instacalc.in/us/days-calculator.html",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "description": "Calculate exact days between dates, US business days excluding weekends and Federal holidays, and date arithmetic.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many business days are in a typical year?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A typical year has approximately 260 to 262 weekdays. After subtracting the 11 standard US Federal Holidays, there are usually 249 to 251 working business days per year."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which US Federal Holidays are observed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The US recognizes 11 annual federal holidays: New Year's Day, MLK Day, Washington's Birthday (Presidents Day), Memorial Day, Juneteenth, Independence Day, Labor Day, Columbus Day / Indigenous Peoples' Day, Veterans Day, Thanksgiving, and Christmas Day."
+        }
+      }
+    ]
+  }
+  </script>
+  <script>
+    (function () {
+      let mode = "diff";
+      let splitChartInstance = null;
+      let lastSummaryText = "";
+      let lastTableRows = [];
+
+      const elements = {
+        startDate: document.getElementById("startDate"),
+        endDate: document.getElementById("endDate"),
+        includeEndDay: document.getElementById("includeEndDay"),
+        skipHolidays: document.getElementById("skipHolidays"),
+        setTodayStartBtn: document.getElementById("setTodayStartBtn"),
+        setEoyBtn: document.getElementById("setEoyBtn"),
+
+        baseDate: document.getElementById("baseDate"),
+        opType: document.getElementById("opType"),
+        countType: document.getElementById("countType"),
+        daysCount: document.getElementById("daysCount"),
+        daysCountRange: document.getElementById("daysCountRange"),
+        daysCountPreview: document.getElementById("daysCountPreview"),
+
+        diffInputs: document.getElementById("diffInputs"),
+        addInputs: document.getElementById("addInputs"),
+        chartBox: document.getElementById("chartBox"),
+
+        resHeroDays: document.getElementById("resHeroDays"),
+        resHeroDesc: document.getElementById("resHeroDesc"),
+        resBusinessHero: document.getElementById("resBusinessHero"),
+        resWeekendHero: document.getElementById("resWeekendHero"),
+        resTotalDays: document.getElementById("resTotalDays"),
+        resBusinessDays: document.getElementById("resBusinessDays"),
+        resWeekendDays: document.getElementById("resWeekendDays"),
+        resHolidays: document.getElementById("resHolidays"),
+        resWeeks: document.getElementById("resWeeks"),
+        resHours: document.getElementById("resHours"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        splitChart: document.getElementById("splitChart"),
+        projectionTable: document.getElementById("projectionTable"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
+      };
+
+      // Standard US Federal Holidays (month is 0-indexed)
+      function isUsFederalHoliday(d) {
+        const y = d.getFullYear();
+        const m = d.getMonth();
+        const day = d.getDate();
+        const dow = d.getDay();
+
+        // 1. New Year's Day (Jan 1)
+        if (m === 0 && day === 1) return true;
+        // 2. MLK Day (3rd Monday in Jan)
+        if (m === 0 && dow === 1 && day >= 15 && day <= 21) return true;
+        // 3. Washington's Birthday (3rd Monday in Feb)
+        if (m === 1 && dow === 1 && day >= 15 && day <= 21) return true;
+        // 4. Memorial Day (Last Monday in May)
+        if (m === 4 && dow === 1 && day >= 25) return true;
+        // 5. Juneteenth (June 19)
+        if (m === 5 && day === 19) return true;
+        // 6. Independence Day (July 4)
+        if (m === 6 && day === 4) return true;
+        // 7. Labor Day (1st Monday in Sep)
+        if (m === 8 && dow === 1 && day <= 7) return true;
+        // 8. Columbus Day (2nd Monday in Oct)
+        if (m === 9 && dow === 1 && day >= 8 && day <= 14) return true;
+        // 9. Veterans Day (Nov 11)
+        if (m === 10 && day === 11) return true;
+        // 10. Thanksgiving (4th Thursday in Nov)
+        if (m === 10 && dow === 4 && day >= 22 && day <= 28) return true;
+        // 11. Christmas Day (Dec 25)
+        if (m === 11 && day === 25) return true;
+
+        return false;
+      }
+
+      function formatDateUS(d) {
+        return (d.getMonth() + 1).toString().padStart(2, "0") + "/" +
+               d.getDate().toString().padStart(2, "0") + "/" +
+               d.getFullYear();
+      }
+
+      function initDates() {
+        const today = new Date();
+        const endYear = new Date(today.getFullYear(), 11, 31);
+        const toISO = (d) => d.toISOString().split("T")[0];
+
+        elements.startDate.value = toISO(today);
+        elements.endDate.value = toISO(endYear);
+        elements.baseDate.value = toISO(today);
+      }
+
+      function setupModeNav() {
+        document.querySelectorAll(".mode-pill-btn").forEach(btn => {
+          btn.addEventListener("click", function () {
+            document.querySelectorAll(".mode-pill-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            mode = this.dataset.mode;
+            if (mode === "add") {
+              elements.diffInputs.style.display = "none";
+              elements.addInputs.style.display = "block";
+              elements.chartBox.style.display = "none";
+            } else {
+              elements.diffInputs.style.display = "block";
+              elements.addInputs.style.display = "none";
+              elements.chartBox.style.display = "flex";
+            }
+            calculate();
+          });
+        });
+      }
+
+      function calculate() {
+        if (mode === "add") {
+          calculateAddSub();
+        } else {
+          calculateDiff();
+        }
+      }
+
+      function calculateDiff() {
+        const s = new Date(elements.startDate.value + "T00:00:00");
+        const e = new Date(elements.endDate.value + "T00:00:00");
+        const inclEnd = elements.includeEndDay.checked;
+        const skipHol = elements.skipHolidays.checked;
+
+        if (isNaN(s.getTime()) || isNaN(e.getTime())) return;
+
+        let cur = new Date(s);
+        let end = new Date(e);
+
+        if (cur > end) {
+          const tmp = cur; cur = end; end = tmp;
+        }
+
+        let totalDays = Math.round((end - cur) / (1000 * 60 * 60 * 24));
+        if (inclEnd) totalDays += 1;
+
+        let businessDays = 0;
+        let weekendDays = 0;
+        let holidayDays = 0;
+
+        let iterDate = new Date(cur);
+        const loopCount = inclEnd ? totalDays : totalDays;
+
+        for (let i = 0; i < loopCount; i++) {
+          const dow = iterDate.getDay();
+          const isWknd = (dow === 0 || dow === 6);
+          const isHol = skipHol && isUsFederalHoliday(iterDate);
+
+          if (isWknd) {
+            weekendDays++;
+          } else if (isHol) {
+            holidayDays++;
+          } else {
+            businessDays++;
+          }
+          iterDate.setDate(iterDate.getDate() + 1);
+        }
+
+        const totalWeeks = (totalDays / 7).toFixed(1);
+        const totalHours = (totalDays * 24).toLocaleString("en-US");
+
+        elements.resHeroDays.textContent = totalDays + " Days";
+        elements.resHeroDesc.textContent = businessDays + " Business Days • " + weekendDays + " Weekend Days • " + holidayDays + " US Holidays";
+        elements.resBusinessHero.textContent = businessDays + " Days";
+        elements.resWeekendHero.textContent = weekendDays + " Days";
+        elements.resTotalDays.textContent = totalDays + " Days";
+        elements.resBusinessDays.textContent = businessDays + " Days";
+        elements.resWeekendDays.textContent = weekendDays + " Days";
+        elements.resHolidays.textContent = holidayDays + " Days";
+        elements.resWeeks.textContent = totalWeeks + " Weeks";
+        elements.resHours.textContent = totalHours + " Hours";
+        elements.mobileSummaryVal.textContent = totalDays + " Days";
+
+        renderChart(businessDays, weekendDays, holidayDays);
+        renderTable(totalDays, businessDays, weekendDays, holidayDays, totalWeeks);
+
+        lastSummaryText = [
+          "US Date Difference Calculation Summary",
+          "From: " + formatDateUS(s) + " To: " + formatDateUS(e),
+          "Total Calendar Days: " + totalDays + " Days",
+          "US Business Days: " + businessDays + " Days",
+          "Weekend Days: " + weekendDays + " Days",
+          "US Federal Holidays: " + holidayDays + " Days"
+        ].join("\n");
+      }
+
+      function calculateAddSub() {
+        const b = new Date(elements.baseDate.value + "T00:00:00");
+        const op = elements.opType.value;
+        const cType = elements.countType.value;
+        const num = Number(elements.daysCount.value) || 30;
+
+        elements.daysCountPreview.textContent = num + " Days";
+
+        if (isNaN(b.getTime())) return;
+
+        let resDate = new Date(b);
+        const dir = op === "add" ? 1 : -1;
+
+        if (cType === "business") {
+          let added = 0;
+          while (added < num) {
+            resDate.setDate(resDate.getDate() + dir);
+            const dow = resDate.getDay();
+            if (dow !== 0 && dow !== 6 && !isUsFederalHoliday(resDate)) {
+              added++;
+            }
+          }
+        } else {
+          resDate.setDate(resDate.getDate() + (num * dir));
+        }
+
+        const formattedTarget = formatDateUS(resDate);
+        const dayName = resDate.toLocaleDateString("en-US", { weekday: "long" });
+
+        elements.resHeroDays.textContent = formattedTarget;
+        elements.resHeroDesc.textContent = dayName + " • " + (op === "add" ? "Added " : "Subtracted ") + num + " " + (cType === "business" ? "business" : "calendar") + " days";
+        elements.resTotalDays.textContent = num + " Days";
+        elements.resBusinessDays.textContent = cType === "business" ? num + " Days" : "-";
+        elements.resWeekendDays.textContent = "-";
+        elements.resHolidays.textContent = "-";
+        elements.resWeeks.textContent = (num / 7).toFixed(1) + " Weeks";
+        elements.resHours.textContent = (num * 24).toLocaleString("en-US") + " Hours";
+        elements.mobileSummaryVal.textContent = formattedTarget;
+
+        elements.projectionTable.innerHTML = `
+          <tr>
+            <td class="projection-year">Target Date</td>
+            <td data-label="Date">${formattedTarget}</td>
+            <td data-label="Day">${dayName}</td>
+            <td data-label="Operation">${op.toUpperCase()} ${num} ${cType.toUpperCase()} DAYS</td>
+          </tr>
+        `;
+
+        lastSummaryText = [
+          "Date Arithmetic Result",
+          "Base Date: " + formatDateUS(b),
+          "Operation: " + op.toUpperCase() + " " + num + " " + cType.toUpperCase() + " DAYS",
+          "Result Date: " + formattedTarget + " (" + dayName + ")"
+        ].join("\n");
+      }
+
+      function renderChart(biz, wknd, hol) {
+        if (!window.Chart) return;
+        if (splitChartInstance) splitChartInstance.destroy();
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Business Days", "Weekend Days", "Federal Holidays"],
+            datasets: [{
+              data: [biz, wknd, hol],
+              backgroundColor: ["#0284c7", "#f59e0b", "#dc2626"],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: { callbacks: { label: (c) => c.label + ": " + c.parsed + " days" } }
+            }
+          }
+        });
+      }
+
+      function renderTable(tot, biz, wknd, hol, wks) {
+        lastTableRows = [
+          { unit: "Calendar Days", qty: tot + " Days", pct: "100%", desc: "Total elapsed calendar duration" },
+          { unit: "US Working Business Days", qty: biz + " Days", pct: ((biz / tot) * 100).toFixed(1) + "%", desc: "Monday through Friday (excl. US holidays)" },
+          { unit: "Weekend Days", qty: wknd + " Days", pct: ((wknd / tot) * 100).toFixed(1) + "%", desc: "Saturdays & Sundays" },
+          { unit: "US Federal Holidays", qty: hol + " Days", pct: ((hol / tot) * 100).toFixed(1) + "%", desc: "Official US Government Holidays" },
+          { unit: "Weeks Equivalent", qty: wks + " Weeks", pct: "-", desc: "7-day complete calendar blocks" }
+        ];
+
+        elements.projectionTable.innerHTML = lastTableRows.map(r => `
+          <tr>
+            <td class="projection-year">${r.unit}</td>
+            <td data-label="Quantity">${r.qty}</td>
+            <td data-label="Percentage">${r.pct}</td>
+            <td data-label="Description">${r.desc}</td>
+          </tr>
+        `).join("");
+      }
+
+      function wireEvents() {
+        elements.startDate.addEventListener("change", calculate);
+        elements.endDate.addEventListener("change", calculate);
+        elements.includeEndDay.addEventListener("change", calculate);
+        elements.skipHolidays.addEventListener("change", calculate);
+
+        elements.baseDate.addEventListener("change", calculate);
+        elements.opType.addEventListener("change", calculate);
+        elements.countType.addEventListener("change", calculate);
+        elements.daysCount.addEventListener("input", () => { elements.daysCountRange.value = elements.daysCount.value; calculate(); });
+        elements.daysCountRange.addEventListener("input", () => { elements.daysCount.value = elements.daysCountRange.value; calculate(); });
+
+        elements.setTodayStartBtn.addEventListener("click", () => {
+          elements.startDate.value = new Date().toISOString().split("T")[0];
+          calculate();
+        });
+
+        elements.setEoyBtn.addEventListener("click", () => {
+          const y = new Date().getFullYear();
+          elements.endDate.value = y + "-12-31";
+          calculate();
+        });
+
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function () {
+            const wrap = this.parentElement;
+            const tInput = document.getElementById(wrap.dataset.target);
+            const tRange = document.getElementById(wrap.dataset.range);
+            if (tInput) tInput.value = this.dataset.val;
+            if (tRange) tRange.value = this.dataset.val;
+            calculate();
+          });
+        });
+
+        elements.recalculateBtn.addEventListener("click", calculate);
+        elements.resetBtn.addEventListener("click", () => {
+          initDates();
+          elements.includeEndDay.checked = true;
+          elements.skipHolidays.checked = true;
+          elements.daysCount.value = 30; elements.daysCountRange.value = 30;
+          calculate();
+        });
+
+        elements.copySummaryBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+          });
+        });
+
+        elements.copyHeroBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            const orig = elements.copyHeroBtn.innerHTML;
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+          });
+        });
+
+        elements.downloadCsvBtn.addEventListener("click", () => {
+          if (!lastTableRows.length) return;
+          const headers = ["Time Unit", "Quantity", "Percentage of Total", "Description"];
+          const rows = lastTableRows.map(r => [r.unit, r.qty, r.pct, r.desc].join(","));
+          const csv = [headers.join(","), rows.join("\n")].join("\n");
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "us-days-calculation-breakdown.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+
+        setupModeNav();
+      }
+
+      initDates();
+      wireEvents();
+      calculate();
+    })();
+  </script>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial, math, and construction calculators for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+</body>
+</html>

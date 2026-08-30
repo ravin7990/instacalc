@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diagonal Calculator (US) | Rectangle, TV Screen, Square & 3-4-5 Carpentry</title>
+  <meta name="description" content="Calculate diagonal of a rectangle, TV/monitor screen size, square, 3D box, and 3-4-5 carpentry squaring in inches, feet, and yards with visual geometry breakdown.">
+  <meta name="keywords" content="diagonal calculator, rectangle diagonal calculator, tv screen size calculator, screen diagonal, 3 4 5 rule calculator, square diagonal, hypotenuse calculator, room squaring calculator">
+  <meta name="author" content="InstaCalc USA">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/us/diagonal-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Studio Grid & Chart styles */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
+    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+    .legend-val.positive { color: #10b981; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+    
+    /* Mode Pill Switcher */
+    .shape-nav-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--ic-border);
+      width: 100%;
+    }
+    .mode-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      border-radius: var(--ic-radius-full);
+      border: 1px solid var(--ic-border);
+      background: #ffffff;
+      color: var(--ic-text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .mode-pill-btn:hover {
+      border-color: var(--ic-primary);
+      color: var(--ic-primary-dark);
+    }
+    .mode-pill-btn.active {
+      background: var(--ic-primary);
+      color: #ffffff;
+      border-color: var(--ic-primary);
+      box-shadow: 0 2px 8px rgba(0, 95, 115, 0.25);
+    }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell { border: 0; background: transparent; overflow: visible; }
+      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
+      .projection-table thead { display: none; }
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
+      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .projection-table .projection-year::before { display: none; }
+    }
+    @media (max-width: 960px) {
+      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    }
+    
+    .geo-canvas-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+    }
+    .svg-geo-wrap { width: 100%; max-width: 440px; height: 220px; }
+    
+  </style>
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/diagonal-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="us" selected>United States ($ USD)</option>
+          <option value="in">India (₹ INR)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">All US Tools</a>
+        <a href="diagonal-calculator.html">Diagonal</a>
+        <a href="gallon-to-liter-calculator.html">Gallon to Liter</a>
+        <a href="concrete-calculator.html">Concrete</a>
+        <a href="triangle-calculator.html">Triangle</a>
+        <a href="mortgage-calculator.html">Mortgage</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-ruler-combined"></i> Geometry & Carpentry</span>
+          <h1>Diagonal Calculator (US)</h1>
+          <p>Quickly calculate the diagonal of rectangles, TV screens, square layouts, right triangles (Pythagorean 3-4-5), and 3D boxes in inches, feet, and yards.</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>US Customary Units</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Standard Inches (in), Feet (ft), Yards (yd) & Metric</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> TV & Monitor aspect ratio calculations (16:9, 21:9, 4:3)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 3-4-5 Framing & Construction Squaring check</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="shape-nav-wrap">
+            <button type="button" class="mode-pill-btn active" data-mode="rectangle"><i class="fas fa-vector-square"></i> Rectangle / TV</button>
+            <button type="button" class="mode-pill-btn" data-mode="square"><i class="fas fa-square"></i> Square</button>
+            <button type="button" class="mode-pill-btn" data-mode="triangle"><i class="fas fa-play" style="transform:rotate(-90deg)"></i> 3-4-5 / Hypotenuse</button>
+            <button type="button" class="mode-pill-btn" data-mode="box3d"><i class="fas fa-cube"></i> 3D Box / Room</button>
+          </div>
+
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label">Diagonal Length</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="fin-studio-grid">
+            <div class="studio-inputs">
+              <!-- Unit Selector -->
+              <div class="field-card" style="background:#f8fafc;">
+                <div class="field-head">
+                  <label for="unitSelect"><i class="fas fa-ruler"></i> Measurement Unit</label>
+                </div>
+                <select id="unitSelect" style="font-weight:700;">
+                  <option value="in" selected>Inches (in)</option>
+                  <option value="ft">Feet (ft)</option>
+                  <option value="yd">Yards (yd)</option>
+                  <option value="cm">Centimeters (cm)</option>
+                  <option value="m">Meters (m)</option>
+                  <option value="mm">Millimeters (mm)</option>
+                </select>
+              </div>
+
+              <!-- Input A: Length / Width -->
+              <div class="field-card" id="fieldCardA">
+                <div class="field-head">
+                  <label for="inputA" id="labelA">Width / Length (a)</label>
+                  <span class="field-preview-badge" id="previewA">48 in</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="rangeA" min="1" max="240" step="0.5" value="48">
+                  <div class="input-with-adornment">
+                    <input type="number" id="inputA" min="0.1" max="10000" step="0.1" value="48" class="has-suffix">
+                    <span class="input-suffix unit-label">in</span>
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="inputA" data-range="rangeA" id="chipsA">
+                  <button type="button" class="chip" data-val="12">12"</button>
+                  <button type="button" class="chip" data-val="24">24"</button>
+                  <button type="button" class="chip" data-val="48">48"</button>
+                  <button type="button" class="chip" data-val="65">65"</button>
+                  <button type="button" class="chip" data-val="120">120"</button>
+                </div>
+              </div>
+
+              <!-- Input B: Height / Width -->
+              <div class="field-card" id="fieldCardB">
+                <div class="field-head">
+                  <label for="inputB" id="labelB">Height / Depth (b)</label>
+                  <span class="field-preview-badge" id="previewB">27 in</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="rangeB" min="1" max="240" step="0.5" value="27">
+                  <div class="input-with-adornment">
+                    <input type="number" id="inputB" min="0.1" max="10000" step="0.1" value="27" class="has-suffix">
+                    <span class="input-suffix unit-label">in</span>
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="inputB" data-range="rangeB" id="chipsB">
+                  <button type="button" class="chip" data-val="16">16"</button>
+                  <button type="button" class="chip" data-val="27">27"</button>
+                  <button type="button" class="chip" data-val="36">36"</button>
+                  <button type="button" class="chip" data-val="72">72"</button>
+                </div>
+              </div>
+
+              <!-- Input C: 3D Depth / Height (Box only) -->
+              <div class="field-card" id="fieldCardC" style="display:none;">
+                <div class="field-head">
+                  <label for="inputC" id="labelC">Depth / Height (c)</label>
+                  <span class="field-preview-badge" id="previewC">18 in</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="rangeC" min="1" max="240" step="0.5" value="18">
+                  <div class="input-with-adornment">
+                    <input type="number" id="inputC" min="0.1" max="10000" step="0.1" value="18" class="has-suffix">
+                    <span class="input-suffix unit-label">in</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="studio-outcome">
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-ruler-combined"></i> Calculated Diagonal Length (d)</span>
+                  <div class="res-val" id="resHeroDiagonal">-</div>
+                  <div class="res-desc" id="resHeroFormula">Formula: d = √(a² + b²)</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
+              </div>
+
+              <div class="geo-canvas-card">
+                <svg id="geoSvg" class="svg-geo-wrap" viewBox="0 0 400 200">
+                  <!-- Dynamic SVG rendering via JS -->
+                </svg>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card positive"><h3>Diagonal (d)</h3><div class="result-value" id="resDiagonal">-</div></div>
+                <div class="result-card"><h3>Surface Area</h3><div class="result-value" id="resArea">-</div></div>
+                <div class="result-card"><h3>Perimeter</h3><div class="result-value" id="resPerimeter">-</div></div>
+                <div class="result-card"><h3>Diagonal Angle (θ)</h3><div class="result-value" id="resAngle">-</div></div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Standard Dimensional & Unit Conversions</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Unit</th>
+                  <th>Diagonal Length</th>
+                  <th>Side A (Width)</th>
+                  <th>Side B (Height)</th>
+                  <th>Area</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>US Construction & Math Tools</h3>
+            <ul class="link-list">
+              <li><a href="triangle-calculator.html"><span>Triangle Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="concrete-calculator.html"><span>Concrete Calculator (Yds)</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="gallon-to-liter-calculator.html"><span>Gallon to Liter</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mortgage-calculator.html"><span>Mortgage Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Diagonal Calculator (US)",
+    "url": "https://instacalc.in/us/diagonal-calculator.html",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "description": "Calculate diagonal length for rectangles, TV screens, squares, right triangles, and 3D boxes in inches, feet, and yards.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How to calculate the diagonal of a rectangle?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The diagonal is calculated using the Pythagorean theorem: d = sqrt(width² + height²). For example, a 36-inch by 48-inch rectangle has a diagonal of 60 inches."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the 3-4-5 rule in carpentry and squaring?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The 3-4-5 rule states that if one side of a corner measures 3 feet, the perpendicular side measures 4 feet, and the diagonal between them measures exactly 5 feet, the corner is a perfect 90-degree right angle."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How are TV screen sizes measured?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Television and computer monitor sizes (e.g. 55-inch or 65-inch) are measured diagonally from the top-left corner to the bottom-right corner of the viewable display panel."
+        }
+      }
+    ]
+  }
+  </script>
+  <script>
+    (function () {
+      let currentMode = "rectangle";
+      let lastSummaryText = "";
+      let lastTableData = [];
+
+      const elements = {
+        unitSelect: document.getElementById("unitSelect"),
+        inputA: document.getElementById("inputA"),
+        rangeA: document.getElementById("rangeA"),
+        labelA: document.getElementById("labelA"),
+        previewA: document.getElementById("previewA"),
+        chipsA: document.getElementById("chipsA"),
+
+        inputB: document.getElementById("inputB"),
+        rangeB: document.getElementById("rangeB"),
+        labelB: document.getElementById("labelB"),
+        previewB: document.getElementById("previewB"),
+        chipsB: document.getElementById("chipsB"),
+        fieldCardB: document.getElementById("fieldCardB"),
+
+        inputC: document.getElementById("inputC"),
+        rangeC: document.getElementById("rangeC"),
+        labelC: document.getElementById("labelC"),
+        previewC: document.getElementById("previewC"),
+        fieldCardC: document.getElementById("fieldCardC"),
+
+        resHeroDiagonal: document.getElementById("resHeroDiagonal"),
+        resHeroFormula: document.getElementById("resHeroFormula"),
+        resDiagonal: document.getElementById("resDiagonal"),
+        resArea: document.getElementById("resArea"),
+        resPerimeter: document.getElementById("resPerimeter"),
+        resAngle: document.getElementById("resAngle"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        geoSvg: document.getElementById("geoSvg"),
+        projectionTable: document.getElementById("projectionTable"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
+      };
+
+      function sync(r, n) {
+        if (!r || !n) return;
+        r.addEventListener("input", () => { n.value = r.value; calculate(); });
+        n.addEventListener("input", () => { r.value = r.value; calculate(); });
+      }
+
+      function setupModes() {
+        document.querySelectorAll(".mode-pill-btn").forEach(btn => {
+          btn.addEventListener("click", function () {
+            document.querySelectorAll(".mode-pill-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            currentMode = this.dataset.mode;
+            updateModeUI();
+            calculate();
+          });
+        });
+      }
+
+      function updateModeUI() {
+        if (currentMode === "square") {
+          elements.labelA.textContent = "Square Side (s)";
+          elements.fieldCardB.style.display = "none";
+          elements.fieldCardC.style.display = "none";
+        } else if (currentMode === "box3d") {
+          elements.labelA.textContent = "Length (l)";
+          elements.labelB.textContent = "Width (w)";
+          elements.labelC.textContent = "Height (h)";
+          elements.fieldCardB.style.display = "block";
+          elements.fieldCardC.style.display = "block";
+        } else if (currentMode === "triangle") {
+          elements.labelA.textContent = "Leg A (Base)";
+          elements.labelB.textContent = "Leg B (Perpendicular)";
+          elements.fieldCardB.style.display = "block";
+          elements.fieldCardC.style.display = "none";
+        } else {
+          elements.labelA.textContent = "Width / Length (a)";
+          elements.labelB.textContent = "Height / Depth (b)";
+          elements.fieldCardB.style.display = "block";
+          elements.fieldCardC.style.display = "none";
+        }
+      }
+
+      function calculate() {
+        const u = elements.unitSelect.value;
+        document.querySelectorAll(".unit-label").forEach(el => el.textContent = u);
+
+        const a = Number(elements.inputA.value) || 48;
+        const b = Number(elements.inputB.value) || 27;
+        const c = Number(elements.inputC.value) || 18;
+
+        elements.previewA.textContent = a + " " + u;
+        elements.previewB.textContent = b + " " + u;
+        elements.previewC.textContent = c + " " + u;
+
+        let diag = 0;
+        let area = 0;
+        let perim = 0;
+        let angleDeg = 0;
+        let formulaText = "";
+
+        if (currentMode === "square") {
+          diag = a * Math.SQRT2;
+          area = a * a;
+          perim = 4 * a;
+          angleDeg = 45;
+          formulaText = "Formula: d = s × √2 = " + a + " × 1.4142";
+        } else if (currentMode === "box3d") {
+          diag = Math.sqrt(a * a + b * b + c * c);
+          area = 2 * (a * b + b * c + a * c);
+          perim = 4 * (a + b + c);
+          angleDeg = (Math.atan2(c, Math.sqrt(a * a + b * b)) * 180) / Math.PI;
+          formulaText = "Formula: d = √(l² + w² + h²)";
+        } else if (currentMode === "triangle") {
+          diag = Math.sqrt(a * a + b * b);
+          area = 0.5 * a * b;
+          perim = a + b + diag;
+          angleDeg = (Math.atan2(b, a) * 180) / Math.PI;
+          formulaText = "Formula: Hypotenuse c = √(a² + b²)";
+        } else {
+          diag = Math.sqrt(a * a + b * b);
+          area = a * b;
+          perim = 2 * (a + b);
+          angleDeg = (Math.atan2(b, a) * 180) / Math.PI;
+          formulaText = "Formula: d = √(width² + height²)";
+        }
+
+        const diagStr = diag.toFixed(2) + " " + u;
+        elements.resHeroDiagonal.textContent = diagStr;
+        elements.resHeroFormula.textContent = formulaText;
+        elements.resDiagonal.textContent = diagStr;
+        elements.resArea.textContent = area.toFixed(2) + " " + (currentMode === "box3d" ? "sq " + u + " (SA)" : "sq " + u);
+        elements.resPerimeter.textContent = perim.toFixed(2) + " " + u;
+        elements.resAngle.textContent = angleDeg.toFixed(1) + "°";
+        elements.mobileSummaryVal.textContent = diagStr;
+
+        drawSvg(a, currentMode === "square" ? a : b, diag, currentMode);
+        renderConversions(diag, a, b, area, u);
+
+        lastSummaryText = [
+          "Diagonal Calculation Summary (" + currentMode.toUpperCase() + ")",
+          "Unit: " + u,
+          "Side A: " + a + " " + u,
+          currentMode !== "square" ? "Side B: " + b + " " + u : "",
+          currentMode === "box3d" ? "Side C: " + c + " " + u : "",
+          "Diagonal: " + diagStr,
+          "Area: " + area.toFixed(2) + " sq " + u,
+          "Perimeter: " + perim.toFixed(2) + " " + u
+        ].filter(Boolean).join("\n");
+      }
+
+      function drawSvg(w, h, d, mode) {
+        const svg = elements.geoSvg;
+        const maxW = 340, maxH = 160;
+        const aspect = w / (h || 1);
+        let renderW = maxW, renderH = maxW / aspect;
+        if (renderH > maxH) { renderH = maxH; renderW = maxH * aspect; }
+        const offsetX = (400 - renderW) / 2;
+        const offsetY = (200 - renderH) / 2;
+
+        if (mode === "triangle") {
+          svg.innerHTML = `
+            <polygon points="${offsetX},${offsetY + renderH} ${offsetX + renderW},${offsetY + renderH} ${offsetX + renderW},${offsetY}" fill="#e0f2fe" stroke="#0284c7" stroke-width="2" />
+            <line x1="${offsetX}" y1="${offsetY + renderH}" x2="${offsetX + renderW}" y2="${offsetY}" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="5,4" />
+            <text x="${offsetX + renderW / 2}" y="${offsetY + renderH + 16}" font-size="12" fill="#0369a1" font-weight="bold" text-anchor="middle">Base: ${w}</text>
+            <text x="${offsetX + renderW + 12}" y="${offsetY + renderH / 2}" font-size="12" fill="#0369a1" font-weight="bold" text-anchor="start">Height: ${h}</text>
+            <text x="${offsetX + renderW / 2 - 10}" y="${offsetY + renderH / 2 - 8}" font-size="13" fill="#dc2626" font-weight="800">d = ${d.toFixed(1)}</text>
+          `;
+        } else {
+          svg.innerHTML = `
+            <rect x="${offsetX}" y="${offsetY}" width="${renderW}" height="${renderH}" fill="#e0f2fe" stroke="#0284c7" stroke-width="2" rx="4" />
+            <line x1="${offsetX}" y1="${offsetY + renderH}" x2="${offsetX + renderW}" y2="${offsetY}" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="5,4" />
+            <text x="${offsetX + renderW / 2}" y="${offsetY + renderH + 16}" font-size="12" fill="#0369a1" font-weight="bold" text-anchor="middle">${w}</text>
+            <text x="${offsetX - 8}" y="${offsetY + renderH / 2}" font-size="12" fill="#0369a1" font-weight="bold" text-anchor="end">${h}</text>
+            <text x="${offsetX + renderW / 2 - 10}" y="${offsetY + renderH / 2 - 8}" font-size="13" fill="#dc2626" font-weight="800">d = ${d.toFixed(1)}</text>
+          `;
+        }
+      }
+
+      function renderConversions(dInUnit, aInUnit, bInUnit, areaInUnit, curU) {
+        // Convert to inches first
+        const toInches = { "in": 1, "ft": 12, "yd": 36, "cm": 0.393701, "m": 39.3701, "mm": 0.0393701 };
+        const dIn = dInUnit * toInches[curU];
+        const aIn = aInUnit * toInches[curU];
+        const bIn = bInUnit * toInches[curU];
+
+        const units = [
+          { name: "Inches (in)", factor: 1, sym: "in", areaSym: "sq in" },
+          { name: "Feet (ft)", factor: 1 / 12, sym: "ft", areaSym: "sq ft" },
+          { name: "Yards (yd)", factor: 1 / 36, sym: "yd", areaSym: "sq yd" },
+          { name: "Centimeters (cm)", factor: 2.54, sym: "cm", areaSym: "sq cm" },
+          { name: "Meters (m)", factor: 0.0254, sym: "m", areaSym: "sq m" }
+        ];
+
+        lastTableData = units.map(u => {
+          const dVal = (dIn * u.factor).toFixed(2) + " " + u.sym;
+          const aVal = (aIn * u.factor).toFixed(2) + " " + u.sym;
+          const bVal = (bIn * u.factor).toFixed(2) + " " + u.sym;
+          const arVal = ((aIn * u.factor) * (bIn * u.factor)).toFixed(2) + " " + u.areaSym;
+          return { name: u.name, d: dVal, a: aVal, b: bVal, area: arVal };
+        });
+
+        elements.projectionTable.innerHTML = lastTableData.map(r => `
+          <tr>
+            <td class="projection-year">${r.name}</td>
+            <td data-label="Diagonal Length">${r.d}</td>
+            <td data-label="Side A">${r.a}</td>
+            <td data-label="Side B">${r.b}</td>
+            <td data-label="Area">${r.area}</td>
+          </tr>
+        `).join("");
+      }
+
+      function wireEvents() {
+        sync(elements.rangeA, elements.inputA);
+        sync(elements.rangeB, elements.inputB);
+        sync(elements.rangeC, elements.inputC);
+
+        elements.unitSelect.addEventListener("change", calculate);
+        elements.recalculateBtn.addEventListener("click", calculate);
+
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function () {
+            const wrap = this.parentElement;
+            const tInput = document.getElementById(wrap.dataset.target);
+            const tRange = document.getElementById(wrap.dataset.range);
+            if (tInput) tInput.value = this.dataset.val;
+            if (tRange) tRange.value = this.dataset.val;
+            calculate();
+          });
+        });
+
+        elements.resetBtn.addEventListener("click", () => {
+          elements.inputA.value = 48; elements.rangeA.value = 48;
+          elements.inputB.value = 27; elements.rangeB.value = 27;
+          elements.inputC.value = 18; elements.rangeC.value = 18;
+          elements.unitSelect.value = "in";
+          calculate();
+        });
+
+        elements.copySummaryBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+          });
+        });
+
+        elements.copyHeroBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            const orig = elements.copyHeroBtn.innerHTML;
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+          });
+        });
+
+        elements.downloadCsvBtn.addEventListener("click", () => {
+          if (!lastTableData.length) return;
+          const headers = ["Unit", "Diagonal Length", "Side A", "Side B", "Area"];
+          const rows = lastTableData.map(r => [r.name, r.d, r.a, r.b, r.area].join(","));
+          const csv = [headers.join(","), rows.join("\n")].join("\n");
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "diagonal-measurements.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+
+        setupModes();
+      }
+
+      wireEvents();
+      calculate();
+    })();
+  </script>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial, math, and construction calculators for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+</body>
+</html>

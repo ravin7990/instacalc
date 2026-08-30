@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Age Calculator (US) | Chronological Age & US Retirement Milestones</title>
+  <meta name="description" content="Calculate exact chronological age in years, months, days, hours, and discover key US retirement age milestones (Age 59½, Medicare 65, Social Security 67 & 70).">
+  <meta name="keywords" content="age calculator, chronological age calculator, how old am i, birthday countdown, medicare eligibility age, social security age 67, 401k age 59 and a half">
+  <meta name="author" content="InstaCalc USA">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/us/age-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Studio Grid & Chart styles */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
+    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+    .legend-val.positive { color: #10b981; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+    
+    /* Mode Pill Switcher */
+    .shape-nav-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--ic-border);
+      width: 100%;
+    }
+    .mode-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      border-radius: var(--ic-radius-full);
+      border: 1px solid var(--ic-border);
+      background: #ffffff;
+      color: var(--ic-text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .mode-pill-btn:hover {
+      border-color: var(--ic-primary);
+      color: var(--ic-primary-dark);
+    }
+    .mode-pill-btn.active {
+      background: var(--ic-primary);
+      color: #ffffff;
+      border-color: var(--ic-primary);
+      box-shadow: 0 2px 8px rgba(0, 95, 115, 0.25);
+    }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell { border: 0; background: transparent; overflow: visible; }
+      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
+      .projection-table thead { display: none; }
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
+      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .projection-table .projection-year::before { display: none; }
+    }
+    @media (max-width: 960px) {
+      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    }
+    
+  </style>
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/age-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="us" selected>United States ($ USD)</option>
+          <option value="in">India (₹ INR)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">All US Tools</a>
+        <a href="diagonal-calculator.html">Diagonal</a>
+        <a href="gallon-to-liter-calculator.html">Gallon to Liter</a>
+        <a href="concrete-calculator.html">Concrete</a>
+        <a href="triangle-calculator.html">Triangle</a>
+        <a href="mortgage-calculator.html">Mortgage</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-cake-candles"></i> Chronological Age & Life Milestones</span>
+          <h1>Age Calculator (US)</h1>
+          <p>Calculate your exact chronological age in years, months, and days, and track critical US legal and retirement milestones (401k 59½, Medicare 65, Social Security 67 & 70).</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>Key US Milestones</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>Age 59½</strong>: Penalty-free 401(k) / IRA withdrawals</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>Age 65</strong>: Medicare Part A & B eligibility</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>Age 67</strong>: Full Retirement Age (FRA) Social Security</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label">Exact Age</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="fin-studio-grid">
+            <div class="studio-inputs">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="birthDate"><i class="fas fa-cake-candles"></i> Date of Birth (MM/DD/YYYY)</label>
+                </div>
+                <input type="date" id="birthDate" value="1995-06-15" style="font-weight:700;">
+              </div>
+
+              <div class="field-card" style="margin-top:0.75rem;">
+                <div class="field-head">
+                  <label for="asOfDate"><i class="fas fa-calendar-check"></i> Calculate Age As Of</label>
+                  <button type="button" class="btn btn-ghost btn-sm" id="setTodayAsOfBtn" style="padding:2px 8px; font-size:0.75rem;">Today</button>
+                </div>
+                <input type="date" id="asOfDate" style="font-weight:700;">
+              </div>
+            </div>
+
+            <div class="studio-outcome">
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-user-clock"></i> Your Exact Age</span>
+                  <div class="res-val" id="resHeroAge">-</div>
+                  <div class="res-desc" id="resHeroDesc">Next Birthday: - • Born on a -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card positive"><h3>Total Months Lived</h3><div class="result-value" id="resTotalMonths">-</div></div>
+                <div class="result-card"><h3>Total Weeks Lived</h3><div class="result-value" id="resTotalWeeks">-</div></div>
+                <div class="result-card"><h3>Total Days Lived</h3><div class="result-value" id="resTotalDays">-</div></div>
+                <div class="result-card"><h3>Next Birthday In</h3><div class="result-value" id="resNextBday">-</div></div>
+                <div class="result-card"><h3>Generation</h3><div class="result-value" id="resGen">-</div></div>
+                <div class="result-card"><h3>Days Until Age 65</h3><div class="result-value" id="resMedicareDays">-</div></div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> US Legal & Retirement Milestone Roadmap</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Milestone</th>
+                  <th>Target Age</th>
+                  <th>Target Date</th>
+                  <th>Status / Time Remaining</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>US Time & Financial Tools</h3>
+            <ul class="link-list">
+              <li><a href="days-calculator.html"><span>Days & Business Days</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="hour-calculator.html"><span>Work Hours Timesheet</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="retirement-calculator.html"><span>US Retirement Planner</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="401k-calculator.html"><span>401(k) Planner</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Age Calculator (US)",
+    "url": "https://instacalc.in/us/age-calculator.html",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "description": "Calculate exact chronological age and track US retirement milestones like 401k penalty-free age 59½, Medicare 65, and Social Security 67.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the Full Retirement Age (FRA) in the United States?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For individuals born in 1960 or later, the Full Retirement Age for 100% Social Security retirement benefits is age 67."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When can I withdraw from my 401(k) without a penalty?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Under IRS guidelines, you can begin taking penalty-free distributions from traditional 401(k) and IRA accounts starting at age 59½."
+        }
+      }
+    ]
+  }
+  </script>
+  <script>
+    (function () {
+      let lastSummaryText = "";
+      let lastMilestoneRows = [];
+
+      const elements = {
+        birthDate: document.getElementById("birthDate"),
+        asOfDate: document.getElementById("asOfDate"),
+        setTodayAsOfBtn: document.getElementById("setTodayAsOfBtn"),
+
+        resHeroAge: document.getElementById("resHeroAge"),
+        resHeroDesc: document.getElementById("resHeroDesc"),
+        resTotalMonths: document.getElementById("resTotalMonths"),
+        resTotalWeeks: document.getElementById("resTotalWeeks"),
+        resTotalDays: document.getElementById("resTotalDays"),
+        resNextBday: document.getElementById("resNextBday"),
+        resGen: document.getElementById("resGen"),
+        resMedicareDays: document.getElementById("resMedicareDays"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        projectionTable: document.getElementById("projectionTable"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
+      };
+
+      function formatDateUS(d) {
+        return (d.getMonth() + 1).toString().padStart(2, "0") + "/" +
+               d.getDate().toString().padStart(2, "0") + "/" +
+               d.getFullYear();
+      }
+
+      function initDates() {
+        const today = new Date();
+        elements.asOfDate.value = today.toISOString().split("T")[0];
+      }
+
+      function getGeneration(year) {
+        if (year >= 2013) return "Gen Alpha";
+        if (year >= 1997) return "Gen Z";
+        if (year >= 1981) return "Millennial (Gen Y)";
+        if (year >= 1965) return "Gen X";
+        if (year >= 1946) return "Baby Boomer";
+        return "Silent Generation";
+      }
+
+      function calculate() {
+        const b = new Date(elements.birthDate.value + "T00:00:00");
+        const a = new Date(elements.asOfDate.value + "T00:00:00");
+
+        if (isNaN(b.getTime()) || isNaN(a.getTime())) return;
+        if (b > a) {
+          elements.resHeroAge.textContent = "Birth date must be in the past";
+          return;
+        }
+
+        let y = a.getFullYear() - b.getFullYear();
+        let m = a.getMonth() - b.getMonth();
+        let d = a.getDate() - b.getDate();
+
+        if (d < 0) {
+          m--;
+          const prevMonthLastDay = new Date(a.getFullYear(), a.getMonth(), 0).getDate();
+          d += prevMonthLastDay;
+        }
+        if (m < 0) {
+          y--;
+          m += 12;
+        }
+
+        const totalDays = Math.round((a - b) / (1000 * 60 * 60 * 24));
+        const totalWeeks = (totalDays / 7).toFixed(1);
+        const totalMonths = (y * 12 + m);
+        const birthDayOfWeek = b.toLocaleDateString("en-US", { weekday: "long" });
+
+        // Next Birthday
+        let nextBday = new Date(a.getFullYear(), b.getMonth(), b.getDate());
+        if (nextBday < a) {
+          nextBday = new Date(a.getFullYear() + 1, b.getMonth(), b.getDate());
+        }
+        const daysToNextBday = Math.round((nextBday - a) / (1000 * 60 * 60 * 24));
+
+        // Medicare (Age 65)
+        const medDate = new Date(b.getFullYear() + 65, b.getMonth(), b.getDate());
+        const daysToMed = Math.round((medDate - a) / (1000 * 60 * 60 * 24));
+
+        const ageStr = y + " Yrs, " + m + " Mos, " + d + " Days";
+        elements.resHeroAge.textContent = ageStr;
+        elements.resHeroDesc.textContent = "Born on a " + birthDayOfWeek + " • Next Birthday in " + daysToNextBday + " days";
+        elements.resTotalMonths.textContent = totalMonths.toLocaleString("en-US") + " Months";
+        elements.resTotalWeeks.textContent = totalWeeks + " Weeks";
+        elements.resTotalDays.textContent = totalDays.toLocaleString("en-US") + " Days";
+        elements.resNextBday.textContent = daysToNextBday + " Days";
+        elements.resGen.textContent = getGeneration(b.getFullYear());
+        elements.resMedicareDays.textContent = daysToMed > 0 ? daysToMed.toLocaleString("en-US") + " Days" : "Eligible 🎉";
+        elements.mobileSummaryVal.textContent = y + " Yrs Old";
+
+        renderMilestones(b, a);
+
+        lastSummaryText = [
+          "US Age Calculation Summary",
+          "Date of Birth: " + formatDateUS(b) + " (" + birthDayOfWeek + ")",
+          "Exact Age: " + ageStr,
+          "Total Days Lived: " + totalDays.toLocaleString("en-US") + " Days",
+          "Generation: " + getGeneration(b.getFullYear()),
+          "Next Birthday: in " + daysToNextBday + " days"
+        ].join("\n");
+      }
+
+      function renderMilestones(b, a) {
+        const milestones = [
+          { name: "US Driver's License Eligibility", age: 16, note: "State driving test age" },
+          { name: "US Adulthood & Voting Rights", age: 18, note: "Full legal adulthood" },
+          { name: "Legal Alcohol & Cannabis Age", age: 21, note: "21st Amendment laws" },
+          { name: "Rental Car Standard Age (No fee)", age: 25, note: "Underage driver surcharge drops" },
+          { name: "Catch-Up 401(k) / IRA Contributions", age: 50, note: "Additional $7,500 401k catch-up" },
+          { name: "Penalty-Free 401(k) / IRA Withdrawals", age: 59.5, note: "No 10% early withdrawal tax" },
+          { name: "Early Social Security Eligibility", age: 62, note: "Permanent 30% reduction" },
+          { name: "Medicare Part A & B Health Coverage", age: 65, note: "Federal senior healthcare" },
+          { name: "Full Retirement Age (FRA) Social Security", age: 67, note: "100% Full retirement benefits" },
+          { name: "Maximum Social Security Benefit Cap", age: 70, note: "Delayed credits cap at +24%" }
+        ];
+
+        lastMilestoneRows = milestones.map(m => {
+          const mDate = new Date(b);
+          mDate.setFullYear(b.getFullYear() + Math.floor(m.age));
+          if (m.age % 1 !== 0) {
+            mDate.setMonth(mDate.getMonth() + 6);
+          }
+
+          const diffDays = Math.round((mDate - a) / (1000 * 60 * 60 * 24));
+          let status = "";
+          if (diffDays <= 0) {
+            status = "Achieved (Age " + m.age + ")";
+          } else {
+            status = "In " + (diffDays / 365.25).toFixed(1) + " Yrs (" + diffDays.toLocaleString("en-US") + " days)";
+          }
+
+          return { name: m.name, age: "Age " + m.age, date: formatDateUS(mDate), status: status };
+        });
+
+        elements.projectionTable.innerHTML = lastMilestoneRows.map(r => `
+          <tr>
+            <td class="projection-year">${r.name}</td>
+            <td data-label="Target Age">${r.age}</td>
+            <td data-label="Target Date">${r.date}</td>
+            <td data-label="Status">${r.status}</td>
+          </tr>
+        `).join("");
+      }
+
+      function wireEvents() {
+        elements.birthDate.addEventListener("change", calculate);
+        elements.asOfDate.addEventListener("change", calculate);
+        elements.setTodayAsOfBtn.addEventListener("click", () => {
+          elements.asOfDate.value = new Date().toISOString().split("T")[0];
+          calculate();
+        });
+        elements.recalculateBtn.addEventListener("click", calculate);
+
+        elements.resetBtn.addEventListener("click", () => {
+          elements.birthDate.value = "1995-06-15";
+          initDates();
+          calculate();
+        });
+
+        elements.copySummaryBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+          });
+        });
+
+        elements.copyHeroBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            const orig = elements.copyHeroBtn.innerHTML;
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+          });
+        });
+
+        elements.downloadCsvBtn.addEventListener("click", () => {
+          if (!lastMilestoneRows.length) return;
+          const headers = ["Milestone", "Target Age", "Target Date", "Status / Time Remaining"];
+          const rows = lastMilestoneRows.map(r => [r.name, r.age, r.date, r.status].join(","));
+          const csv = [headers.join(","), rows.join("\n")].join("\n");
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "us-age-retirement-milestones.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+      }
+
+      initDates();
+      wireEvents();
+      calculate();
+    })();
+  </script>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial, math, and construction calculators for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+</body>
+</html>

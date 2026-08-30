@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roth IRA Calculator | Tax-Free Retirement Growth Estimator</title>
+  <meta name="description" content="Calculate your Roth IRA balance at retirement with annual IRS contributions ($7,000/yr), compound market returns, and 100% tax-free withdrawals.">
+  <meta name="keywords" content="roth ira calculator, ira growth calculator, traditional vs roth ira, roth ira contribution limits 2026, tax free retirement calculator">
+  <meta name="author" content="InstaCalc USA">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/us/roth-ira-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Studio Grid & Chart styles */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
+    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+    .legend-val.positive { color: #10b981; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+    .growth-timeline-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+    }
+    .chart-wrap-timeline { position: relative; width: 100%; height: 280px; }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell { border: 0; background: transparent; overflow: visible; }
+      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
+      .projection-table thead { display: none; }
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
+      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .projection-table .projection-year::before { display: none; }
+    }
+    @media (max-width: 960px) {
+      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    }
+  </style>
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/roth-ira-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Roth IRA Calculator",
+      "url": "https://instacalc.in/us/roth-ira-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "Calculate 100% tax-free retirement growth with annual Roth IRA contributions up to $7,000/year.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the annual Roth IRA contribution limit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The annual contribution limit for a Roth IRA is $7,000 for individuals under age 50, and $8,000 for those aged 50 and older."
+          }
+        },\n        {
+          "@type": "Question",
+          "name": "Are Roth IRA withdrawals tax-free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Qualified withdrawals of both contributions and investment earnings taken after age 59½ and after the account has been open for at least 5 years are 100% federal and state income tax-free."
+          }
+        },\n        {
+          "@type": "Question",
+          "name": "Can I withdraw my Roth IRA contributions anytime?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. You can withdraw your original direct contributions to a Roth IRA at any time, for any reason, with zero taxes and zero early withdrawal penalties."
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="us" selected>United States ($ USD)</option>
+          <option value="in">India (₹ INR)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">All US Tools</a>
+        <a href="401k-calculator.html">401(k) Planner</a>
+        <a href="roth-ira-calculator.html">Roth IRA</a>
+        <a href="mortgage-calculator.html">Mortgage</a>
+        <a href="monthly-investment-calculator.html">DCA / Index</a>
+        <a href="cd-calculator.html">CD Rates</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-coins"></i> Tax-Free Growth</span>
+          <h1>Roth IRA Calculator</h1>
+          <p>Estimate how your Roth IRA will grow into a 100% tax-free retirement fortune through the power of compounding index fund returns.</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>Roth IRA Rules</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 100% Tax-Free withdrawals after age 59½</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 2026 Limit: $7,000/yr ($8,000 for age 50+)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> No Required Minimum Distributions (RMDs)</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="calculator-header-row">
+            <div class="toggle-group">
+              <a href="roth-ira-calculator.html" class="toggle-btn active"><i class="fas fa-coins"></i> Roth IRA</a>
+              <a href="401k-calculator.html" class="toggle-btn"><i class="fas fa-landmark"></i> 401(k)</a>
+              <a href="monthly-investment-calculator.html" class="toggle-btn"><i class="fas fa-chart-line"></i> DCA / Index</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i> <span>Advanced Controls: Off</span>
+            </button>
+          </div>
+
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label">Estimated Tax-Free Balance</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="fin-studio-grid">
+            <div class="studio-inputs">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="annualContrib">Annual Contribution ($)</label>
+                  <span class="field-preview-badge" id="contribPreview">$7,000</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="annualContribRange" min="500" max="8000" step="250" value="7000">
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">$</span>
+                    <input type="number" id="annualContrib" min="500" max="8000" step="250" value="7000" class="has-prefix">
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="annualContrib" data-range="annualContribRange">
+                  <button type="button" class="chip" data-val="3000">$3,000</button>
+                  <button type="button" class="chip" data-val="5000">$5,000</button>
+                  <button type="button" class="chip" data-val="6000">$500/mo</button>
+                  <button type="button" class="chip" data-val="7000">$7,000 (Max Limit)</button>
+                  <button type="button" class="chip" data-val="8000">$8,000 (50+ Catch-up)</button>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="expectedReturn">Expected Return (% p.a.)</label>
+                    <span class="field-preview-badge" id="ratePreview">8.5%</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="expectedReturnRange" min="2" max="15" step="0.1" value="8.5">
+                    <div class="input-with-adornment">
+                      <input type="number" id="expectedReturn" min="2" max="15" step="0.1" value="8.5" class="has-suffix">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                  <div class="chips-wrap" data-target="expectedReturn" data-range="expectedReturnRange" style="margin-top:0.5rem;">
+                    <button type="button" class="chip" data-val="7.0">7.0% (Conservative)</button>
+                    <button type="button" class="chip" data-val="8.5">8.5% (Balanced)</button>
+                    <button type="button" class="chip" data-val="10.0">10% (S&P 500 Avg)</button>
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="investmentYears">Investment Horizon (Years)</label>
+                    <span class="field-preview-badge" id="yearsPreview">30 Yrs</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="investmentYearsRange" min="1" max="50" step="1" value="30">
+                    <div class="input-with-adornment">
+                      <input type="number" id="investmentYears" min="1" max="50" step="1" value="30" class="has-suffix">
+                      <span class="input-suffix">Yrs</span>
+                    </div>
+                  </div>
+                  <div class="chips-wrap" data-target="investmentYears" data-range="investmentYearsRange" style="margin-top:0.5rem;">
+                    <button type="button" class="chip" data-val="15">15 Yrs</button>
+                    <button type="button" class="chip" data-val="20">20 Yrs</button>
+                    <button type="button" class="chip" data-val="25">25 Yrs</button>
+                    <button type="button" class="chip" data-val="30">30 Yrs</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="advanced-only-section" id="advancedFields">
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head"><label for="currentBalance">Starting Balance ($)</label></div>
+                    <input type="number" id="currentBalance" min="0" step="1000" value="10000" placeholder="0">
+                  </div>
+                  <div class="field-card">
+                    <div class="field-head"><label for="contribTiming">Contribution Timing</label></div>
+                    <select id="contribTiming">
+                      <option value="start" selected>Lump Sum (Beginning of Year / Jan)</option>
+                      <option value="month">Monthly Dollar-Cost Averaging ($583/mo)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="studio-outcome">
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-coins"></i> Total Tax-Free Roth IRA Fortune</span>
+                  <div class="res-val" id="corpusHeroValue">-</div>
+                  <div class="res-desc" id="corpusHeroDesc">Contributed: - | Tax-Free Earnings: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
+              </div>
+
+              <div class="outcome-chart-box">
+                <div class="chart-wrap-doughnut"><canvas id="splitChart"></canvas></div>
+                <div class="legend-stats-row">
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-invested"></span> Principal Contributed</div>
+                    <div class="legend-val" id="resContributed">-</div>
+                  </div>
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-returns"></span> Tax-Free Growth</div>
+                    <div class="legend-val positive" id="resGrowth">-</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card positive"><h3>Total Tax-Free Balance</h3><div class="result-value" id="resTotalCorpus">-</div></div>
+                <div class="result-card"><h3>Total Contributed</h3><div class="result-value" id="resContributedGrid">-</div></div>
+                <div class="result-card"><h3>Tax-Free Gains</h3><div class="result-value" id="resGrowthGrid">-</div></div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="growth-timeline-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-chart-line" style="color:var(--ic-primary);"></i> Roth IRA Wealth Accumulation Trajectory</h3>
+              <span style="font-size:0.85rem; color:var(--ic-text-muted);">Total Value vs Total Contributions</span>
+            </div>
+            <div class="chart-wrap-timeline"><canvas id="growthChart"></canvas></div>
+          </div>
+
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Year-wise Roth IRA Growth Schedule</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Opening Balance</th>
+                  <th>Contribution</th>
+                  <th>Annual Growth</th>
+                  <th>Ending Balance</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>Similar US Planners</h3>
+            <ul class="link-list">
+              <li><a href="401k-calculator.html"><span>401(k) Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="monthly-investment-calculator.html"><span>DCA Index Fund Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="compound-interest-calculator.html"><span>Compound Interest</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mortgage-calculator.html"><span>Mortgage Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {
+      const formatUSD = (v) => "$" + Math.round(v).toLocaleString("en-US");
+      const formatCompact = (v) => {
+        if (v >= 1e6) return "$" + (v / 1e6).toFixed(2) + "M";
+        if (v >= 1e3) return "$" + (v / 1e3).toFixed(1) + "K";
+        return "$" + Math.round(v);
+      };
+
+      const elements = {
+        contrib: document.getElementById("annualContrib"),
+        contribRange: document.getElementById("annualContribRange"),
+        rate: document.getElementById("expectedReturn"),
+        rateRange: document.getElementById("expectedReturnRange"),
+        years: document.getElementById("investmentYears"),
+        yearsRange: document.getElementById("investmentYearsRange"),
+        currentBalance: document.getElementById("currentBalance"),
+        contribTiming: document.getElementById("contribTiming"),
+
+        contribPreview: document.getElementById("contribPreview"),
+        ratePreview: document.getElementById("ratePreview"),
+        yearsPreview: document.getElementById("yearsPreview"),
+
+        corpusHeroValue: document.getElementById("corpusHeroValue"),
+        corpusHeroDesc: document.getElementById("corpusHeroDesc"),
+        resContributed: document.getElementById("resContributed"),
+        resGrowth: document.getElementById("resGrowth"),
+        resTotalCorpus: document.getElementById("resTotalCorpus"),
+        resContributedGrid: document.getElementById("resContributedGrid"),
+        resGrowthGrid: document.getElementById("resGrowthGrid"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        splitChart: document.getElementById("splitChart"),
+        growthChart: document.getElementById("growthChart"),
+        projectionTable: document.getElementById("projectionTable"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        calcTarget: document.getElementById("calcTarget"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
+      };
+
+      let splitChartInstance = null;
+      let timelineChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function sync(r, n) {
+        if (!r || !n) return;
+        r.addEventListener("input", () => { n.value = r.value; calculate(); });
+        n.addEventListener("input", () => { r.value = r.value; calculate(); });
+      }
+
+      function setupToggleAdvanced() {
+        let isAdv = false;
+        elements.toggleViewBtn.addEventListener("click", () => {
+          isAdv = !isAdv;
+          elements.calcTarget.classList.toggle("advanced-mode", isAdv);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdv ? "Advanced Controls: On" : "Advanced Controls: Off";
+        });
+      }
+
+      function calculate() {
+        const annualContrib = Number(elements.contrib.value) || 7000;
+        const r = (Number(elements.rate.value) || 8.5) / 100;
+        const totalYears = Number(elements.years.value) || 30;
+        const initBal = Number(elements.currentBalance.value) || 0;
+        const timing = elements.contribTiming ? elements.contribTiming.value : "start";
+
+        elements.contribPreview.textContent = formatUSD(annualContrib);
+        elements.ratePreview.textContent = (r * 100).toFixed(1) + "%";
+        elements.yearsPreview.textContent = totalYears + " Yrs";
+
+        let balance = initBal;
+        let totalInvested = initBal;
+
+        const yearlyData = [];
+        const labels = ["Year 0"];
+        const balanceSeries = [initBal];
+        const depositSeries = [initBal];
+
+        for (let y = 1; y <= totalYears; y++) {
+          const opening = balance;
+          let yearGrowth = 0;
+
+          if (timing === "start") {
+            balance += annualContrib;
+            yearGrowth = balance * r;
+            balance += yearGrowth;
+          } else {
+            const monthly = annualContrib / 12;
+            let running = opening;
+            let mGrowth = 0;
+            for (let m = 1; m <= 12; m++) {
+              running += monthly;
+              mGrowth += (running * r) / 12;
+            }
+            yearGrowth = mGrowth;
+            balance = opening + annualContrib + yearGrowth;
+          }
+
+          totalInvested += annualContrib;
+
+          yearlyData.push({
+            year: y,
+            opening: opening,
+            contrib: annualContrib,
+            growth: yearGrowth,
+            closing: balance
+          });
+
+          labels.push("Year " + y);
+          balanceSeries.push(balance);
+          depositSeries.push(totalInvested);
+        }
+
+        const totalGrowth = Math.max(0, balance - totalInvested);
+
+        elements.corpusHeroValue.textContent = formatUSD(balance);
+        elements.corpusHeroDesc.textContent = "Contributed: " + formatUSD(totalInvested) + " • Tax-Free Growth: " + formatUSD(totalGrowth);
+        elements.resContributed.textContent = formatUSD(totalInvested);
+        elements.resGrowth.textContent = formatUSD(totalGrowth);
+        elements.resTotalCorpus.textContent = formatUSD(balance);
+        elements.resContributedGrid.textContent = formatUSD(totalInvested);
+        elements.resGrowthGrid.textContent = formatUSD(totalGrowth);
+        elements.mobileSummaryVal.textContent = formatUSD(balance);
+
+        lastProjection = yearlyData;
+
+        // Render Table
+        elements.projectionTable.innerHTML = yearlyData.map(r => `
+          <tr>
+            <td class="projection-year">Year ${r.year}</td>
+            <td data-label="Opening Balance">${formatUSD(r.opening)}</td>
+            <td data-label="Contribution">${formatUSD(r.contrib)}</td>
+            <td data-label="Annual Growth">${formatUSD(r.growth)}</td>
+            <td data-label="Ending Balance">${formatUSD(r.closing)}</td>
+          </tr>
+        `).join("");
+
+        renderCharts(labels, balanceSeries, depositSeries, totalInvested, totalGrowth);
+
+        lastSummaryText = [
+          "Roth IRA Growth Summary",
+          "Annual Contribution: " + formatUSD(annualContrib),
+          "Expected Return: " + (r * 100).toFixed(1) + "%",
+          "Horizon: " + totalYears + " Years",
+          "Total Contributed: " + formatUSD(totalInvested),
+          "Tax-Free Growth: " + formatUSD(totalGrowth),
+          "Total Tax-Free Balance: " + formatUSD(balance)
+        ].join("\n");
+      }
+
+      function renderCharts(labels, balanceSeries, depositSeries, deposits, growth) {
+        if (!window.Chart) return;
+        if (splitChartInstance) splitChartInstance.destroy();
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Total Contributed", "Tax-Free Growth"],
+            datasets: [{
+              data: [deposits, growth],
+              backgroundColor: ["#0284c7", "#10b981"],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: { callbacks: { label: (c) => c.label + ": " + formatUSD(c.parsed) } }
+            }
+          }
+        });
+
+        if (timelineChartInstance) timelineChartInstance.destroy();
+        const ctx = elements.growthChart.getContext("2d");
+        const grad = ctx.createLinearGradient(0, 0, 0, 300);
+        grad.addColorStop(0, "rgba(2, 132, 199, 0.28)");
+        grad.addColorStop(1, "rgba(2, 132, 199, 0.015)");
+
+        timelineChartInstance = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Roth IRA Balance",
+                data: balanceSeries,
+                borderColor: "#0284c7",
+                backgroundColor: grad,
+                fill: true,
+                tension: 0.25,
+                borderWidth: 3,
+                pointRadius: 0,
+                pointHoverRadius: 5
+              },
+              {
+                label: "Total Contributed",
+                data: depositSeries,
+                borderColor: "#10b981",
+                backgroundColor: "transparent",
+                fill: false,
+                borderWidth: 2,
+                borderDash: [6, 4],
+                pointRadius: 0,
+                pointHoverRadius: 4
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { y: { ticks: { callback: (v) => formatCompact(v) } } },
+            plugins: {
+              legend: { position: "top" },
+              tooltip: { callbacks: { label: (c) => c.dataset.label + ": " + formatUSD(c.parsed.y) } }
+            }
+          }
+        });
+      }
+
+      function wireEvents() {
+        sync(elements.contribRange, elements.contrib);
+        sync(elements.rateRange, elements.rate);
+        sync(elements.yearsRange, elements.years);
+
+        elements.currentBalance.addEventListener("input", calculate);
+        if (elements.contribTiming) elements.contribTiming.addEventListener("change", calculate);
+        elements.recalculateBtn.addEventListener("click", calculate);
+
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function () {
+            const wrap = this.parentElement;
+            const tInput = document.getElementById(wrap.dataset.target);
+            const tRange = document.getElementById(wrap.dataset.range);
+            if (tInput) tInput.value = this.dataset.val;
+            if (tRange) tRange.value = this.dataset.val;
+            calculate();
+          });
+        });
+
+        elements.resetBtn.addEventListener("click", () => {
+          elements.contrib.value = 7000; elements.contribRange.value = 7000;
+          elements.rate.value = 8.5; elements.rateRange.value = 8.5;
+          elements.years.value = 30; elements.yearsRange.value = 30;
+          elements.currentBalance.value = 10000;
+          calculate();
+        });
+
+        elements.copySummaryBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+          });
+        });
+
+        elements.copyHeroBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            const orig = elements.copyHeroBtn.innerHTML;
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+          });
+        });
+
+        elements.downloadCsvBtn.addEventListener("click", () => {
+          if (!lastProjection.length) return;
+          const headers = ["Year", "Opening Balance", "Contribution", "Annual Growth", "Ending Balance"];
+          const rows = lastProjection.map(r => [r.year, Math.round(r.opening), Math.round(r.contrib), Math.round(r.growth), Math.round(r.closing)].join(","));
+          const csv = [headers.join(","), rows.join("\n")].join("\n");
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "roth-ira-schedule.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+
+        setupToggleAdvanced();
+      }
+
+      wireEvents();
+      calculate();
+    })();
+  </script>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial calculators and planning tools for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+</body>
+</html>

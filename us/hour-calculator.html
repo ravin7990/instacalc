@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hours Calculator (US) | Work Timesheet, Overtime & Decimal Hours</title>
+  <meta name="description" content="Calculate work shift hours and minutes, subtract unpaid lunch breaks, convert to payroll decimal hours, and calculate 40-hour weekly overtime pay.">
+  <meta name="keywords" content="hours calculator, work hours calculator, timesheet calculator, decimal hours calculator, payroll hours calculator, overtime calculator 1.5x, time card calculator">
+  <meta name="author" content="InstaCalc USA">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/us/hour-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Studio Grid & Chart styles */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
+    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+    .legend-val.positive { color: #10b981; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+    
+    /* Mode Pill Switcher */
+    .shape-nav-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--ic-border);
+      width: 100%;
+    }
+    .mode-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      border-radius: var(--ic-radius-full);
+      border: 1px solid var(--ic-border);
+      background: #ffffff;
+      color: var(--ic-text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .mode-pill-btn:hover {
+      border-color: var(--ic-primary);
+      color: var(--ic-primary-dark);
+    }
+    .mode-pill-btn.active {
+      background: var(--ic-primary);
+      color: #ffffff;
+      border-color: var(--ic-primary);
+      box-shadow: 0 2px 8px rgba(0, 95, 115, 0.25);
+    }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell { border: 0; background: transparent; overflow: visible; }
+      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
+      .projection-table thead { display: none; }
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
+      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .projection-table .projection-year::before { display: none; }
+    }
+    @media (max-width: 960px) {
+      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    }
+    
+  </style>
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/hour-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="us" selected>United States ($ USD)</option>
+          <option value="in">India (₹ INR)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">All US Tools</a>
+        <a href="diagonal-calculator.html">Diagonal</a>
+        <a href="gallon-to-liter-calculator.html">Gallon to Liter</a>
+        <a href="concrete-calculator.html">Concrete</a>
+        <a href="triangle-calculator.html">Triangle</a>
+        <a href="mortgage-calculator.html">Mortgage</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-clock"></i> Work Shifts & Timesheets</span>
+          <h1>Hours Calculator (US)</h1>
+          <p>Calculate exact shift hours and minutes, deduct unpaid meal breaks, convert to payroll decimal hours, and compute 40-hour overtime earnings.</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>US Payroll Standards</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Standard Decimal Hours (e.g. 8 hrs 45 min = 8.75 hrs)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Overtime (1.5x) for hours worked over 40 hrs/week</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> 12-Hour AM/PM and 24-Hour Military Time</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label">Total Paid Hours</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="fin-studio-grid">
+            <div class="studio-inputs">
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="startTime">Start Time (Clock In)</label>
+                  </div>
+                  <input type="time" id="startTime" value="09:00" style="font-weight:700;">
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="endTime">End Time (Clock Out)</label>
+                  </div>
+                  <input type="time" id="endTime" value="17:30" style="font-weight:700;">
+                </div>
+              </div>
+
+              <div class="field-card" style="margin-top:0.75rem;">
+                <div class="field-head">
+                  <label for="breakMinutes">Unpaid Lunch / Break (Minutes)</label>
+                  <span class="field-preview-badge" id="breakPreview">30 Mins</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="breakMinutesRange" min="0" max="120" step="5" value="30">
+                  <div class="input-with-adornment">
+                    <input type="number" id="breakMinutes" min="0" max="300" step="5" value="30" class="has-suffix">
+                    <span class="input-suffix">min</span>
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="breakMinutes" data-range="breakMinutesRange">
+                  <button type="button" class="chip" data-val="0">No Break</button>
+                  <button type="button" class="chip" data-val="30">30 Min (Standard)</button>
+                  <button type="button" class="chip" data-val="45">45 Min</button>
+                  <button type="button" class="chip" data-val="60">1 Hour</button>
+                </div>
+              </div>
+
+              <div class="inline-grid" style="margin-top:0.75rem;">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="hourlyRate">Hourly Wage ($/hr)</label>
+                    <span class="field-preview-badge" id="wagePreview">$25.00/hr</span>
+                  </div>
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">$</span>
+                    <input type="number" id="hourlyRate" min="0" max="500" step="0.5" value="25" class="has-prefix">
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="daysPerWeek">Days Worked / Week</label>
+                  </div>
+                  <select id="daysPerWeek">
+                    <option value="5" selected>5 Days (Standard Full-Time)</option>
+                    <option value="4">4 Days (10-hr shifts)</option>
+                    <option value="6">6 Days</option>
+                    <option value="7">7 Days</option>
+                    <option value="1">1 Day (Single Shift)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="studio-outcome">
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-business-time"></i> Total Daily Paid Hours</span>
+                  <div class="res-val" id="resHeroHours">-</div>
+                  <div class="res-desc" id="resHeroDesc">Decimal: - | Daily Gross: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card positive"><h3>Decimal Hours (Payroll)</h3><div class="result-value" id="resDecimalHours">-</div></div>
+                <div class="result-card"><h3>Gross Daily Pay</h3><div class="result-value" id="resDailyPay">-</div></div>
+                <div class="result-card"><h3>Weekly Hours</h3><div class="result-value" id="resWeeklyHours">-</div></div>
+                <div class="result-card"><h3>Overtime Hours (1.5x)</h3><div class="result-value" id="resOtHours">-</div></div>
+                <div class="result-card"><h3>Weekly Gross Pay</h3><div class="result-value" id="resWeeklyPay">-</div></div>
+                <div class="result-card"><h3>Annual Gross (52 Wks)</h3><div class="result-value" id="resAnnualPay">-</div></div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Timesheet & Pay Breakdown</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Hours (HH:MM)</th>
+                  <th>Decimal Hours</th>
+                  <th>Pay Rate</th>
+                  <th>Total Pay</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>US Time & Finance Tools</h3>
+            <ul class="link-list">
+              <li><a href="days-calculator.html"><span>Days & Business Days</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="time-zone-calculator.html"><span>US Time Zone Converter</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="time-duration-calculator.html"><span>Time Duration Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="sales-tax-calculator.html"><span>US Sales Tax</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Hours Calculator (US)",
+    "url": "https://instacalc.in/us/hour-calculator.html",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "description": "Calculate work shift hours, unpaid breaks, payroll decimal hours, and overtime pay under US labor standards.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How are minutes converted to decimal hours for payroll?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Divide the minutes by 60. For example, 15 minutes = 0.25 hours, 30 minutes = 0.50 hours, and 45 minutes = 0.75 hours."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the overtime rate under US Federal Fair Labor Standards Act (FLSA)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Under FLSA, covered non-exempt employees must receive overtime pay for hours worked over 40 in a workweek at a rate not less than time and one-half (1.5x) their regular rate of pay."
+        }
+      }
+    ]
+  }
+  </script>
+  <script>
+    (function () {
+      let lastSummaryText = "";
+      let lastRows = [];
+
+      const elements = {
+        startTime: document.getElementById("startTime"),
+        endTime: document.getElementById("endTime"),
+        breakMinutes: document.getElementById("breakMinutes"),
+        breakMinutesRange: document.getElementById("breakMinutesRange"),
+        hourlyRate: document.getElementById("hourlyRate"),
+        daysPerWeek: document.getElementById("daysPerWeek"),
+
+        breakPreview: document.getElementById("breakPreview"),
+        wagePreview: document.getElementById("wagePreview"),
+
+        resHeroHours: document.getElementById("resHeroHours"),
+        resHeroDesc: document.getElementById("resHeroDesc"),
+        resDecimalHours: document.getElementById("resDecimalHours"),
+        resDailyPay: document.getElementById("resDailyPay"),
+        resWeeklyHours: document.getElementById("resWeeklyHours"),
+        resOtHours: document.getElementById("resOtHours"),
+        resWeeklyPay: document.getElementById("resWeeklyPay"),
+        resAnnualPay: document.getElementById("resAnnualPay"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        projectionTable: document.getElementById("projectionTable"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
+      };
+
+      function sync(r, n) {
+        if (!r || !n) return;
+        r.addEventListener("input", () => { n.value = r.value; calculate(); });
+        n.addEventListener("input", () => { r.value = r.value; calculate(); });
+      }
+
+      function calculate() {
+        const sTime = elements.startTime.value || "09:00";
+        const eTime = elements.endTime.value || "17:30";
+        const brk = Number(elements.breakMinutes.value) || 0;
+        const wage = Number(elements.hourlyRate.value) || 25;
+        const days = Number(elements.daysPerWeek.value) || 5;
+
+        elements.breakPreview.textContent = brk + " Mins";
+        elements.wagePreview.textContent = "$" + wage.toFixed(2) + "/hr";
+
+        const [sH, sM] = sTime.split(":").map(Number);
+        const [eH, eM] = eTime.split(":").map(Number);
+
+        let startMins = sH * 60 + sM;
+        let endMins = eH * 60 + eM;
+
+        if (endMins < startMins) {
+          endMins += 24 * 60; // Overnight shift
+        }
+
+        let grossDailyMins = endMins - startMins;
+        let netDailyMins = Math.max(0, grossDailyMins - brk);
+
+        const dailyH = Math.floor(netDailyMins / 60);
+        const dailyM = netDailyMins % 60;
+        const dailyDecimal = netDailyMins / 60;
+
+        const totalWeeklyDecimal = dailyDecimal * days;
+        const regularWeeklyH = Math.min(40, totalWeeklyDecimal);
+        const otWeeklyH = Math.max(0, totalWeeklyDecimal - 40);
+
+        const regularWeeklyPay = regularWeeklyH * wage;
+        const otWeeklyPay = otWeeklyH * (wage * 1.5);
+        const totalWeeklyPay = regularWeeklyPay + otWeeklyPay;
+        const dailyPay = totalWeeklyPay / days;
+        const annualPay = totalWeeklyPay * 52;
+
+        const dailyStr = dailyH + " hrs " + dailyM + " mins";
+        elements.resHeroHours.textContent = dailyStr;
+        elements.resHeroDesc.textContent = dailyDecimal.toFixed(2) + " Decimal Hours • Gross Daily Pay: $" + dailyPay.toFixed(2);
+        elements.resDecimalHours.textContent = dailyDecimal.toFixed(2) + " hrs";
+        elements.resDailyPay.textContent = "$" + dailyPay.toFixed(2);
+        elements.resWeeklyHours.textContent = totalWeeklyDecimal.toFixed(2) + " hrs";
+        elements.resOtHours.textContent = otWeeklyH > 0 ? otWeeklyH.toFixed(2) + " hrs" : "0.00 hrs";
+        elements.resWeeklyPay.textContent = "$" + totalWeeklyPay.toFixed(2);
+        elements.resAnnualPay.textContent = "$" + Math.round(annualPay).toLocaleString("en-US");
+        elements.mobileSummaryVal.textContent = dailyDecimal.toFixed(2) + " hrs";
+
+        renderTable(dailyDecimal, regularWeeklyH, otWeeklyH, wage, regularWeeklyPay, otWeeklyPay, totalWeeklyPay);
+
+        lastSummaryText = [
+          "US Work Shift & Hours Summary",
+          "Shift Time: " + sTime + " to " + eTime + " (Break: " + brk + " mins)",
+          "Daily Paid Time: " + dailyStr + " (" + dailyDecimal.toFixed(2) + " decimal hrs)",
+          "Weekly Total: " + totalWeeklyDecimal.toFixed(2) + " hrs (" + days + " days/wk)",
+          "Overtime (1.5x): " + otWeeklyH.toFixed(2) + " hrs",
+          "Weekly Gross Pay: $" + totalWeeklyPay.toFixed(2) + " (@ $" + wage.toFixed(2) + "/hr)",
+          "Annual Gross: $" + Math.round(annualPay).toLocaleString("en-US")
+        ].join("\n");
+      }
+
+      function renderTable(dailyDec, regWk, otWk, wage, regPay, otPay, totPay) {
+        lastRows = [
+          { cat: "Regular Straight-Time Hours", hhmm: Math.floor(regWk) + "h " + Math.round((regWk % 1) * 60) + "m", dec: regWk.toFixed(2) + " hrs", rate: "$" + wage.toFixed(2) + " / hr", total: "$" + regPay.toFixed(2) },
+          { cat: "Overtime Hours (> 40 hrs/wk at 1.5x)", hhmm: Math.floor(otWk) + "h " + Math.round((otWk % 1) * 60) + "m", dec: otWk.toFixed(2) + " hrs", rate: "$" + (wage * 1.5).toFixed(2) + " / hr", total: "$" + otPay.toFixed(2) },
+          { cat: "Total Weekly Gross Earnings", hhmm: Math.floor(regWk + otWk) + "h " + Math.round(((regWk + otWk) % 1) * 60) + "m", dec: (regWk + otWk).toFixed(2) + " hrs", rate: "-", total: "$" + totPay.toFixed(2) }
+        ];
+
+        elements.projectionTable.innerHTML = lastRows.map(r => `
+          <tr>
+            <td class="projection-year">${r.cat}</td>
+            <td data-label="Hours (HH:MM)">${r.hhmm}</td>
+            <td data-label="Decimal Hours">${r.dec}</td>
+            <td data-label="Pay Rate">${r.rate}</td>
+            <td data-label="Total Pay">${r.total}</td>
+          </tr>
+        `).join("");
+      }
+
+      function wireEvents() {
+        sync(elements.breakMinutesRange, elements.breakMinutes);
+        elements.startTime.addEventListener("change", calculate);
+        elements.endTime.addEventListener("change", calculate);
+        elements.hourlyRate.addEventListener("input", calculate);
+        elements.daysPerWeek.addEventListener("change", calculate);
+        elements.recalculateBtn.addEventListener("click", calculate);
+
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function () {
+            const wrap = this.parentElement;
+            const tInput = document.getElementById(wrap.dataset.target);
+            const tRange = document.getElementById(wrap.dataset.range);
+            if (tInput) tInput.value = this.dataset.val;
+            if (tRange) tRange.value = this.dataset.val;
+            calculate();
+          });
+        });
+
+        elements.resetBtn.addEventListener("click", () => {
+          elements.startTime.value = "09:00";
+          elements.endTime.value = "17:30";
+          elements.breakMinutes.value = 30; elements.breakMinutesRange.value = 30;
+          elements.hourlyRate.value = 25;
+          elements.daysPerWeek.value = "5";
+          calculate();
+        });
+
+        elements.copySummaryBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+          });
+        });
+
+        elements.copyHeroBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            const orig = elements.copyHeroBtn.innerHTML;
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+          });
+        });
+
+        elements.downloadCsvBtn.addEventListener("click", () => {
+          if (!lastRows.length) return;
+          const headers = ["Category", "Hours (HH:MM)", "Decimal Hours", "Pay Rate", "Total Pay"];
+          const rows = lastRows.map(r => [r.cat, r.hhmm, r.dec, r.rate, r.total].join(","));
+          const csv = [headers.join(","), rows.join("\n")].join("\n");
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "work-hours-timesheet.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+      }
+
+      wireEvents();
+      calculate();
+    })();
+  </script>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial, math, and construction calculators for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+</body>
+</html>

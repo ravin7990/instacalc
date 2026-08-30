@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Concrete Calculator (US) | Cubic Yards, 60lb & 80lb Bags, Slabs & Cost</title>
+  <meta name="description" content="Calculate concrete in cubic yards (yd³) and cubic feet (ft³), estimate 80lb and 60lb Quikrete / Sakrete bags, and project ready-mix delivery cost in US dollars.">
+  <meta name="keywords" content="concrete calculator, cubic yards of concrete, how many bags of concrete, concrete slab calculator, concrete cost estimator, 80 lb bags concrete, concrete footing calculator">
+  <meta name="author" content="InstaCalc USA">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/us/concrete-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Studio Grid & Chart styles */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
+    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+    .legend-val.positive { color: #10b981; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+    
+    /* Mode Pill Switcher */
+    .shape-nav-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--ic-border);
+      width: 100%;
+    }
+    .mode-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      border-radius: var(--ic-radius-full);
+      border: 1px solid var(--ic-border);
+      background: #ffffff;
+      color: var(--ic-text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .mode-pill-btn:hover {
+      border-color: var(--ic-primary);
+      color: var(--ic-primary-dark);
+    }
+    .mode-pill-btn.active {
+      background: var(--ic-primary);
+      color: #ffffff;
+      border-color: var(--ic-primary);
+      box-shadow: 0 2px 8px rgba(0, 95, 115, 0.25);
+    }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell { border: 0; background: transparent; overflow: visible; }
+      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
+      .projection-table thead { display: none; }
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
+      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .projection-table .projection-year::before { display: none; }
+    }
+    @media (max-width: 960px) {
+      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    }
+    
+  </style>
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/concrete-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="us" selected>United States ($ USD)</option>
+          <option value="in">India (₹ INR)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">All US Tools</a>
+        <a href="diagonal-calculator.html">Diagonal</a>
+        <a href="gallon-to-liter-calculator.html">Gallon to Liter</a>
+        <a href="concrete-calculator.html">Concrete</a>
+        <a href="triangle-calculator.html">Triangle</a>
+        <a href="mortgage-calculator.html">Mortgage</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-trowel-bricks"></i> Masonry & Construction</span>
+          <h1>Concrete Calculator (US)</h1>
+          <p>Accurately estimate concrete in <strong>Cubic Yards (yd³)</strong>, <strong>80 lb & 60 lb bags</strong>, and project costs for slabs, driveways, footings, and round sonotubes.</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>US Industry Standards</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>1 Cubic Yard</strong> = 27 Cubic Feet = 45 × 80lb Bags</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>1 × 60lb Bag</strong> yields 0.45 cu ft (60 bags per yd³)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Built-in 10% standard concrete waste margin</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="shape-nav-wrap">
+            <button type="button" class="mode-pill-btn active" data-shape="slab"><i class="fas fa-square"></i> Slab / Patio / Driveway</button>
+            <button type="button" class="mode-pill-btn" data-shape="footing"><i class="fas fa-border-all"></i> Wall / Footing</button>
+            <button type="button" class="mode-pill-btn" data-shape="column"><i class="fas fa-circle"></i> Round Column / Sonotube</button>
+          </div>
+
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label">Total Concrete Required</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="fin-studio-grid">
+            <div class="studio-inputs">
+              <!-- Slab Dimensions -->
+              <div id="slabInputs">
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="slabLength">Length (Feet)</label>
+                      <span class="field-preview-badge" id="lengthPreview">20 ft</span>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="slabLengthRange" min="1" max="100" step="0.5" value="20">
+                      <div class="input-with-adornment">
+                        <input type="number" id="slabLength" min="0.5" max="1000" step="0.5" value="20" class="has-suffix">
+                        <span class="input-suffix">ft</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="slabWidth">Width (Feet)</label>
+                      <span class="field-preview-badge" id="widthPreview">10 ft</span>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="slabWidthRange" min="1" max="100" step="0.5" value="10">
+                      <div class="input-with-adornment">
+                        <input type="number" id="slabWidth" min="0.5" max="1000" step="0.5" value="10" class="has-suffix">
+                        <span class="input-suffix">ft</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field-card" style="margin-top:0.75rem;">
+                  <div class="field-head">
+                    <label for="slabThick">Thickness (Inches)</label>
+                    <span class="field-preview-badge" id="thickPreview">4 in</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="slabThickRange" min="2" max="24" step="0.5" value="4">
+                    <div class="input-with-adornment">
+                      <input type="number" id="slabThick" min="1" max="60" step="0.5" value="4" class="has-suffix">
+                      <span class="input-suffix">in</span>
+                    </div>
+                  </div>
+                  <div class="chips-wrap" data-target="slabThick" data-range="slabThickRange">
+                    <button type="button" class="chip" data-val="3.5">3.5" (Walkway)</button>
+                    <button type="button" class="chip" data-val="4.0">4" (Standard Patio)</button>
+                    <button type="button" class="chip" data-val="6.0">6" (Heavy Driveway)</button>
+                    <button type="button" class="chip" data-val="8.0">8" (Commercial)</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Column Inputs -->
+              <div id="columnInputs" style="display:none;">
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="colDiameter">Diameter (Inches)</label>
+                      <span class="field-preview-badge" id="colDiamPreview">12 in</span>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="colDiameterRange" min="4" max="48" step="1" value="12">
+                      <div class="input-with-adornment">
+                        <input type="number" id="colDiameter" min="2" max="100" step="1" value="12" class="has-suffix">
+                        <span class="input-suffix">in</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="colHeight">Height / Depth (Feet)</label>
+                      <span class="field-preview-badge" id="colHeightPreview">4 ft</span>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="colHeightRange" min="1" max="20" step="0.5" value="4">
+                      <div class="input-with-adornment">
+                        <input type="number" id="colHeight" min="0.5" max="50" step="0.5" value="4" class="has-suffix">
+                        <span class="input-suffix">ft</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field-card" style="margin-top:0.75rem;">
+                  <div class="field-head">
+                    <label for="colCount">Number of Columns / Sonotubes</label>
+                  </div>
+                  <input type="number" id="colCount" min="1" max="100" step="1" value="4">
+                </div>
+              </div>
+
+              <!-- Waste & Cost Factors -->
+              <div class="inline-grid" style="margin-top:0.75rem;">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="wasteMargin">Waste Contingency (%)</label>
+                    <span class="field-preview-badge" id="wastePreview">10%</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="wasteMarginRange" min="0" max="25" step="1" value="10">
+                    <div class="input-with-adornment">
+                      <input type="number" id="wasteMargin" min="0" max="50" step="1" value="10" class="has-suffix">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="costPerYard">Ready-Mix Cost ($/yd³)</label>
+                    <span class="field-preview-badge" id="costPreview">$145/yd³</span>
+                  </div>
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">$</span>
+                    <input type="number" id="costPerYard" min="50" max="400" step="5" value="145" class="has-prefix">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="studio-outcome">
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-trowel-bricks"></i> Total Concrete Needed (with Waste)</span>
+                  <div class="res-val" id="resHeroYards">-</div>
+                  <div class="res-desc" id="resHeroDesc">Cubic Feet: - | Bags: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
+              </div>
+
+              <div class="outcome-chart-box">
+                <div class="chart-wrap-doughnut"><canvas id="splitChart"></canvas></div>
+                <div class="legend-stats-row">
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-invested"></span> Net Concrete</div>
+                    <div class="legend-val" id="resNetYards">-</div>
+                  </div>
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-returns"></span> Waste Allowance</div>
+                    <div class="legend-val positive" id="resWasteYards">-</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card positive"><h3>Cubic Yards (yd³)</h3><div class="result-value" id="resTotalYards">-</div></div>
+                <div class="result-card"><h3>80 lb Bags Needed</h3><div class="result-value" id="resBags80">-</div></div>
+                <div class="result-card"><h3>60 lb Bags Needed</h3><div class="result-value" id="resBags60">-</div></div>
+                <div class="result-card"><h3>50 lb Bags Needed</h3><div class="result-value" id="resBags50">-</div></div>
+                <div class="result-card"><h3>Total Volume (ft³)</h3><div class="result-value" id="resTotalCuFt">-</div></div>
+                <div class="result-card"><h3>Estimated Ready-Mix Cost</h3><div class="result-value" id="resEstCost">-</div></div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Bag & Ready-Mix Quantity Breakdown</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Material / Bag Type</th>
+                  <th>Quantity Required</th>
+                  <th>Unit Volume</th>
+                  <th>Estimated Price / Unit</th>
+                  <th>Total Cost</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>US Construction Tools</h3>
+            <ul class="link-list">
+              <li><a href="diagonal-calculator.html"><span>Diagonal & 3-4-5 Squaring</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="triangle-calculator.html"><span>Triangle Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="gallon-to-liter-calculator.html"><span>Gallon to Liter</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mortgage-calculator.html"><span>Mortgage Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Concrete Calculator (US)",
+    "url": "https://instacalc.in/us/concrete-calculator.html",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "description": "Calculate concrete volume in cubic yards, 80lb/60lb bags, slabs, footings, and estimated project costs.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How many 80 lb bags of concrete are in a cubic yard?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It takes exactly 45 bags of 80 lb concrete mix to yield one cubic yard (27 cubic feet) of poured concrete. For 60 lb bags, it takes 60 bags per cubic yard."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you calculate cubic yards for a slab?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Multiply Length (ft) × Width (ft) × Thickness (ft), then divide by 27. For example, a 10 ft × 10 ft slab that is 4 inches (0.333 ft) thick: (10 × 10 × 0.333) ÷ 27 = 1.23 cubic yards."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much extra concrete should I order for waste?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It is recommended to add 10% to 15% to your concrete calculation to account for subgrade settling, uneven ground depths, and form spillage."
+        }
+      }
+    ]
+  }
+  </script>
+  <script>
+    (function () {
+      let shapeMode = "slab";
+      let splitChartInstance = null;
+      let lastSummaryText = "";
+      let lastTableData = [];
+
+      const elements = {
+        slabLength: document.getElementById("slabLength"),
+        slabLengthRange: document.getElementById("slabLengthRange"),
+        slabWidth: document.getElementById("slabWidth"),
+        slabWidthRange: document.getElementById("slabWidthRange"),
+        slabThick: document.getElementById("slabThick"),
+        slabThickRange: document.getElementById("slabThickRange"),
+
+        colDiameter: document.getElementById("colDiameter"),
+        colDiameterRange: document.getElementById("colDiameterRange"),
+        colHeight: document.getElementById("colHeight"),
+        colHeightRange: document.getElementById("colHeightRange"),
+        colCount: document.getElementById("colCount"),
+
+        wasteMargin: document.getElementById("wasteMargin"),
+        wasteMarginRange: document.getElementById("wasteMarginRange"),
+        costPerYard: document.getElementById("costPerYard"),
+
+        lengthPreview: document.getElementById("lengthPreview"),
+        widthPreview: document.getElementById("widthPreview"),
+        thickPreview: document.getElementById("thickPreview"),
+        colDiamPreview: document.getElementById("colDiamPreview"),
+        colHeightPreview: document.getElementById("colHeightPreview"),
+        wastePreview: document.getElementById("wastePreview"),
+        costPreview: document.getElementById("costPreview"),
+
+        slabInputs: document.getElementById("slabInputs"),
+        columnInputs: document.getElementById("columnInputs"),
+
+        resHeroYards: document.getElementById("resHeroYards"),
+        resHeroDesc: document.getElementById("resHeroDesc"),
+        resNetYards: document.getElementById("resNetYards"),
+        resWasteYards: document.getElementById("resWasteYards"),
+        resTotalYards: document.getElementById("resTotalYards"),
+        resBags80: document.getElementById("resBags80"),
+        resBags60: document.getElementById("resBags60"),
+        resBags50: document.getElementById("resBags50"),
+        resTotalCuFt: document.getElementById("resTotalCuFt"),
+        resEstCost: document.getElementById("resEstCost"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        splitChart: document.getElementById("splitChart"),
+        projectionTable: document.getElementById("projectionTable"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
+      };
+
+      function sync(r, n) {
+        if (!r || !n) return;
+        r.addEventListener("input", () => { n.value = r.value; calculate(); });
+        n.addEventListener("input", () => { r.value = r.value; calculate(); });
+      }
+
+      function setupShapeNav() {
+        document.querySelectorAll(".mode-pill-btn").forEach(btn => {
+          btn.addEventListener("click", function () {
+            document.querySelectorAll(".mode-pill-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            shapeMode = this.dataset.shape;
+            if (shapeMode === "column") {
+              elements.slabInputs.style.display = "none";
+              elements.columnInputs.style.display = "block";
+            } else {
+              elements.slabInputs.style.display = "block";
+              elements.columnInputs.style.display = "none";
+            }
+            calculate();
+          });
+        });
+      }
+
+      function calculate() {
+        const wastePct = (Number(elements.wasteMargin.value) || 10) / 100;
+        const yardCost = Number(elements.costPerYard.value) || 145;
+
+        elements.wastePreview.textContent = (wastePct * 100).toFixed(0) + "%";
+        elements.costPreview.textContent = "$" + yardCost.toFixed(0) + "/yd³";
+
+        let netCuFt = 0;
+
+        if (shapeMode === "column") {
+          const dIn = Number(elements.colDiameter.value) || 12;
+          const hFt = Number(elements.colHeight.value) || 4;
+          const count = Number(elements.colCount ? elements.colCount.value : 1) || 1;
+          const radiusFt = (dIn / 2) / 12;
+          netCuFt = Math.PI * Math.pow(radiusFt, 2) * hFt * count;
+
+          elements.colDiamPreview.textContent = dIn + " in";
+          elements.colHeightPreview.textContent = hFt + " ft";
+        } else {
+          const lFt = Number(elements.slabLength.value) || 20;
+          const wFt = Number(elements.slabWidth.value) || 10;
+          const tIn = Number(elements.slabThick.value) || 4;
+          netCuFt = lFt * wFt * (tIn / 12);
+
+          elements.lengthPreview.textContent = lFt + " ft";
+          elements.widthPreview.textContent = wFt + " ft";
+          elements.thickPreview.textContent = tIn + " in";
+        }
+
+        const netYards = netCuFt / 27;
+        const wasteYards = netYards * wastePct;
+        const totalYards = netYards + wasteYards;
+        const totalCuFt = totalYards * 27;
+
+        // Bag yields: 80lb = 0.60 cu ft, 60lb = 0.45 cu ft, 50lb = 0.375 cu ft
+        const bags80 = Math.ceil(totalCuFt / 0.60);
+        const bags60 = Math.ceil(totalCuFt / 0.45);
+        const bags50 = Math.ceil(totalCuFt / 0.375);
+        const totalReadyMixCost = totalYards * yardCost;
+
+        elements.resHeroYards.textContent = totalYards.toFixed(2) + " Cubic Yards";
+        elements.resHeroDesc.textContent = totalCuFt.toFixed(1) + " cu ft • " + bags80 + " × 80lb Bags • Est. Ready-Mix: $" + Math.round(totalReadyMixCost);
+        elements.resNetYards.textContent = netYards.toFixed(2) + " yd³";
+        elements.resWasteYards.textContent = wasteYards.toFixed(2) + " yd³";
+        elements.resTotalYards.textContent = totalYards.toFixed(2) + " yd³";
+        elements.resBags80.textContent = bags80 + " Bags";
+        elements.resBags60.textContent = bags60 + " Bags";
+        elements.resBags50.textContent = bags50 + " Bags";
+        elements.resTotalCuFt.textContent = totalCuFt.toFixed(1) + " ft³";
+        elements.resEstCost.textContent = "$" + Math.round(totalReadyMixCost);
+        elements.mobileSummaryVal.textContent = totalYards.toFixed(2) + " yd³";
+
+        renderChart(netYards, wasteYards);
+        renderTable(totalYards, bags80, bags60, bags50, yardCost);
+
+        lastSummaryText = [
+          "Concrete Calculation Summary (" + shapeMode.toUpperCase() + ")",
+          "Total Concrete Volume: " + totalYards.toFixed(2) + " Cubic Yards (" + totalCuFt.toFixed(1) + " cu ft)",
+          "Net Volume: " + netYards.toFixed(2) + " yd³ • Waste Margin: " + (wastePct * 100).toFixed(0) + "%",
+          "80 lb Bags Needed: " + bags80 + " Bags",
+          "60 lb Bags Needed: " + bags60 + " Bags",
+          "Estimated Ready-Mix Cost: $" + Math.round(totalReadyMixCost)
+        ].join("\n");
+      }
+
+      function renderChart(net, waste) {
+        if (!window.Chart) return;
+        if (splitChartInstance) splitChartInstance.destroy();
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Net Concrete", "Waste Margin"],
+            datasets: [{
+              data: [net, waste],
+              backgroundColor: ["#0284c7", "#f59e0b"],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: { callbacks: { label: (c) => c.label + ": " + c.parsed.toFixed(2) + " yd³" } }
+            }
+          }
+        });
+      }
+
+      function renderTable(yds, b80, b60, b50, yardCost) {
+        lastTableData = [
+          { item: "Ready-Mix Concrete (Truck Delivery)", qty: yds.toFixed(2) + " yd³", unitVol: "27.0 cu ft / yd³", unitPrice: "$" + yardCost.toFixed(0) + " / yd³", total: "$" + Math.round(yds * yardCost) },
+          { item: "80 lb Premix Bags (Quikrete / Sakrete)", qty: b80 + " Bags", unitVol: "0.60 cu ft / bag", unitPrice: "~$6.50 / bag", total: "$" + Math.round(b80 * 6.50) },
+          { item: "60 lb Premix Bags", qty: b60 + " Bags", unitVol: "0.45 cu ft / bag", unitPrice: "~$5.25 / bag", total: "$" + Math.round(b60 * 5.25) },
+          { item: "50 lb Fast-Setting Concrete Bags", qty: b50 + " Bags", unitVol: "0.375 cu ft / bag", unitPrice: "~$6.75 / bag", total: "$" + Math.round(b50 * 6.75) }
+        ];
+
+        elements.projectionTable.innerHTML = lastTableData.map(r => `
+          <tr>
+            <td class="projection-year">${r.item}</td>
+            <td data-label="Quantity">${r.qty}</td>
+            <td data-label="Unit Volume">${r.unitVol}</td>
+            <td data-label="Unit Price">${r.unitPrice}</td>
+            <td data-label="Total Cost">${r.total}</td>
+          </tr>
+        `).join("");
+      }
+
+      function wireEvents() {
+        sync(elements.slabLengthRange, elements.slabLength);
+        sync(elements.slabWidthRange, elements.slabWidth);
+        sync(elements.slabThickRange, elements.slabThick);
+        sync(elements.colDiameterRange, elements.colDiameter);
+        sync(elements.colHeightRange, elements.colHeight);
+        sync(elements.wasteMarginRange, elements.wasteMargin);
+
+        if (elements.colCount) elements.colCount.addEventListener("input", calculate);
+        if (elements.costPerYard) elements.costPerYard.addEventListener("input", calculate);
+        elements.recalculateBtn.addEventListener("click", calculate);
+
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function () {
+            const wrap = this.parentElement;
+            const tInput = document.getElementById(wrap.dataset.target);
+            const tRange = document.getElementById(wrap.dataset.range);
+            if (tInput) tInput.value = this.dataset.val;
+            if (tRange) tRange.value = this.dataset.val;
+            calculate();
+          });
+        });
+
+        elements.resetBtn.addEventListener("click", () => {
+          elements.slabLength.value = 20; elements.slabLengthRange.value = 20;
+          elements.slabWidth.value = 10; elements.slabWidthRange.value = 10;
+          elements.slabThick.value = 4; elements.slabThickRange.value = 4;
+          elements.wasteMargin.value = 10; elements.wasteMarginRange.value = 10;
+          calculate();
+        });
+
+        elements.copySummaryBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+          });
+        });
+
+        elements.copyHeroBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            const orig = elements.copyHeroBtn.innerHTML;
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+          });
+        });
+
+        elements.downloadCsvBtn.addEventListener("click", () => {
+          if (!lastTableData.length) return;
+          const headers = ["Material / Bag Type", "Quantity Required", "Unit Volume", "Estimated Price / Unit", "Total Cost"];
+          const rows = lastTableData.map(r => [r.item, r.qty, r.unitVol, r.unitPrice, r.total].join(","));
+          const csv = [headers.join(","), rows.join("\n")].join("\n");
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "concrete-materials-estimate.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+
+        setupShapeNav();
+      }
+
+      wireEvents();
+      calculate();
+    })();
+  </script>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial, math, and construction calculators for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>US Time Zone Converter | Eastern, Central, Mountain, Pacific & Meeting Planner</title>
+  <meta name="description" content="Convert time across all US time zones (EST, CST, MST, PST, AKST, HST) with automatic Daylight Saving Time (DST) and multi-city meeting planning.">
+  <meta name="keywords" content="time zone converter, us time zone calculator, est to pst converter, cst to est, pst to cst, pacific time to eastern time, daylight saving time calculator">
+  <meta name="author" content="InstaCalc USA">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/us/time-zone-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Studio Grid & Chart styles */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
+    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+    .legend-val.positive { color: #10b981; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+    
+    /* Mode Pill Switcher */
+    .shape-nav-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--ic-border);
+      width: 100%;
+    }
+    .mode-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      border-radius: var(--ic-radius-full);
+      border: 1px solid var(--ic-border);
+      background: #ffffff;
+      color: var(--ic-text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .mode-pill-btn:hover {
+      border-color: var(--ic-primary);
+      color: var(--ic-primary-dark);
+    }
+    .mode-pill-btn.active {
+      background: var(--ic-primary);
+      color: #ffffff;
+      border-color: var(--ic-primary);
+      box-shadow: 0 2px 8px rgba(0, 95, 115, 0.25);
+    }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell { border: 0; background: transparent; overflow: visible; }
+      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
+      .projection-table thead { display: none; }
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
+      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .projection-table .projection-year::before { display: none; }
+    }
+    @media (max-width: 960px) {
+      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    }
+    
+  </style>
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/time-zone-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="us" selected>United States ($ USD)</option>
+          <option value="in">India (₹ INR)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">All US Tools</a>
+        <a href="diagonal-calculator.html">Diagonal</a>
+        <a href="gallon-to-liter-calculator.html">Gallon to Liter</a>
+        <a href="concrete-calculator.html">Concrete</a>
+        <a href="triangle-calculator.html">Triangle</a>
+        <a href="mortgage-calculator.html">Mortgage</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-globe"></i> US Time Zones</span>
+          <h1>US Time Zone Converter</h1>
+          <p>Instantly convert time across all US time zones (Eastern, Central, Mountain, Pacific, Alaska, Hawaii) with automatic Daylight Saving Time (DST) adjustment.</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>US Time Zones</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>Eastern (ET)</strong>: New York, Miami, Atlanta (UTC-5 / UTC-4)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>Central (CT)</strong>: Chicago, Dallas, Houston (ET - 1 hr)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>Mountain (MT)</strong>: Denver, Phoenix (ET - 2 hrs)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>Pacific (PT)</strong>: Los Angeles, Seattle, SF (ET - 3 hrs)</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label">Converted Pacific Time</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="fin-studio-grid">
+            <div class="studio-inputs">
+              <div class="field-card">
+                <div class="field-head"><label for="sourceZone">Source Time Zone</label></div>
+                <select id="sourceZone" style="font-weight:700;">
+                  <option value="America/New_York" selected>Eastern Time (ET) - New York, Atlanta, DC</option>
+                  <option value="America/Chicago">Central Time (CT) - Chicago, Dallas, Houston</option>
+                  <option value="America/Denver">Mountain Time (MT) - Denver, Salt Lake City</option>
+                  <option value="America/Phoenix">Mountain Standard Time (MST - Arizona No DST)</option>
+                  <option value="America/Los_Angeles">Pacific Time (PT) - Los Angeles, Seattle, SF</option>
+                  <option value="America/Anchorage">Alaska Time (AKT) - Anchorage</option>
+                  <option value="Pacific/Honolulu">Hawaii-Aleutian (HST) - Honolulu</option>
+                  <option value="UTC">UTC / GMT Universal Coordinated Time</option>
+                </select>
+              </div>
+
+              <div class="inline-grid" style="margin-top:0.75rem;">
+                <div class="field-card">
+                  <div class="field-head"><label for="inputTime">Time (HH:MM)</label></div>
+                  <input type="time" id="inputTime" value="12:00" style="font-weight:700;">
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head"><label for="inputDate">Date</label></div>
+                  <input type="date" id="inputDate" style="font-weight:700;">
+                </div>
+              </div>
+
+              <div class="field-card" style="margin-top:0.75rem;">
+                <div class="field-head"><label for="targetZone">Target Time Zone</label></div>
+                <select id="targetZone" style="font-weight:700;">
+                  <option value="America/Los_Angeles" selected>Pacific Time (PT) - Los Angeles, Seattle, SF</option>
+                  <option value="America/New_York">Eastern Time (ET) - New York, Atlanta, DC</option>
+                  <option value="America/Chicago">Central Time (CT) - Chicago, Dallas, Houston</option>
+                  <option value="America/Denver">Mountain Time (MT) - Denver, Salt Lake City</option>
+                  <option value="America/Phoenix">Mountain Standard Time (MST - Arizona)</option>
+                  <option value="America/Anchorage">Alaska Time (AKT) - Anchorage</option>
+                  <option value="Pacific/Honolulu">Hawaii-Aleutian (HST) - Honolulu</option>
+                  <option value="UTC">UTC / GMT Universal Coordinated Time</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="studio-outcome">
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-clock"></i> Target Converted Time</span>
+                  <div class="res-val" id="resHeroTz">-</div>
+                  <div class="res-desc" id="resHeroDesc">Offset Difference: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card positive"><h3>Eastern (ET)</h3><div class="result-value" id="resEt">-</div></div>
+                <div class="result-card"><h3>Central (CT)</h3><div class="result-value" id="resCt">-</div></div>
+                <div class="result-card"><h3>Mountain (MT)</h3><div class="result-value" id="resMt">-</div></div>
+                <div class="result-card"><h3>Pacific (PT)</h3><div class="result-value" id="resPt">-</div></div>
+                <div class="result-card"><h3>Alaska (AKT)</h3><div class="result-value" id="resAkt">-</div></div>
+                <div class="result-card"><h3>Hawaii (HST)</h3><div class="result-value" id="resHst">-</div></div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> US Multi-City Meeting Planner Schedule</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>City / Region</th>
+                  <th>Zone Code</th>
+                  <th>Local Time (12-Hr)</th>
+                  <th>Local Time (24-Hr)</th>
+                  <th>Business Hours Status</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>US Time & Duration Tools</h3>
+            <ul class="link-list">
+              <li><a href="days-calculator.html"><span>Days & Business Days</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="hour-calculator.html"><span>Work Hours Timesheet</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="time-duration-calculator.html"><span>Time Duration Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="age-calculator.html"><span>Age & Retirement Milestones</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "US Time Zone Converter",
+    "url": "https://instacalc.in/us/time-zone-calculator.html",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "description": "Convert times between Eastern, Central, Mountain, Pacific, Alaska, and Hawaii time zones with automatic Daylight Saving Time adjustments.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the time difference between New York (ET) and Los Angeles (PT)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "New York is in the Eastern Time Zone (ET), which is exactly 3 hours ahead of Los Angeles in the Pacific Time Zone (PT). When it is 12:00 PM in New York, it is 9:00 AM in Los Angeles."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Arizona observe Daylight Saving Time (DST)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most of Arizona does not observe Daylight Saving Time and remains on Mountain Standard Time (MST / UTC-7) year-round (except for the Navajo Nation in northeastern Arizona)."
+        }
+      }
+    ]
+  }
+  </script>
+  <script>
+    (function () {
+      let lastSummaryText = "";
+      let lastCityRows = [];
+
+      const elements = {
+        sourceZone: document.getElementById("sourceZone"),
+        targetZone: document.getElementById("targetZone"),
+        inputTime: document.getElementById("inputTime"),
+        inputDate: document.getElementById("inputDate"),
+
+        resHeroTz: document.getElementById("resHeroTz"),
+        resHeroDesc: document.getElementById("resHeroDesc"),
+        resEt: document.getElementById("resEt"),
+        resCt: document.getElementById("resCt"),
+        resMt: document.getElementById("resMt"),
+        resPt: document.getElementById("resPt"),
+        resAkt: document.getElementById("resAkt"),
+        resHst: document.getElementById("resHst"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        projectionTable: document.getElementById("projectionTable"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
+      };
+
+      const cityZones = [
+        { city: "New York, NY", zone: "America/New_York", code: "ET" },
+        { city: "Chicago, IL", zone: "America/Chicago", code: "CT" },
+        { city: "Denver, CO", zone: "America/Denver", code: "MT" },
+        { city: "Phoenix, AZ (No DST)", zone: "America/Phoenix", code: "MST" },
+        { city: "Los Angeles, CA", zone: "America/Los_Angeles", code: "PT" },
+        { city: "Anchorage, AK", zone: "America/Anchorage", code: "AKT" },
+        { city: "Honolulu, HI", zone: "Pacific/Honolulu", code: "HST" },
+        { city: "London, UK", zone: "Europe/London", code: "GMT/BST" },
+        { city: "UTC Universal Time", zone: "UTC", code: "UTC" }
+      ];
+
+      function initDate() {
+        elements.inputDate.value = new Date().toISOString().split("T")[0];
+      }
+
+      function calculate() {
+        const dStr = elements.inputDate.value || new Date().toISOString().split("T")[0];
+        const tStr = elements.inputTime.value || "12:00";
+        const src = elements.sourceZone.value;
+        const tgt = elements.targetZone.value;
+
+        // Parse user source time into a UTC Date object using Intl
+        const [hh, mm] = tStr.split(":").map(Number);
+        const [y, m, d] = dStr.split("-").map(Number);
+
+        // Approximate reference in UTC
+        const refDate = new Date(Date.UTC(y, m - 1, d, hh, mm));
+
+        // Format for all US zones
+        const fmt12 = (zone) => new Intl.DateTimeFormat("en-US", { timeZone: zone, hour: "numeric", minute: "2-digit", hour12: true }).format(refDate);
+        const fmt24 = (zone) => new Intl.DateTimeFormat("en-US", { timeZone: zone, hour: "2-digit", minute: "2-digit", hour12: false }).format(refDate);
+        const fmtDate = (zone) => new Intl.DateTimeFormat("en-US", { timeZone: zone, month: "2-digit", day: "2-digit", year: "numeric" }).format(refDate);
+
+        const targetTimeStr = fmt12(tgt);
+        const targetDateStr = fmtDate(tgt);
+
+        elements.resHeroTz.textContent = targetTimeStr;
+        elements.resHeroDesc.textContent = targetDateStr + " (" + elements.targetZone.options[elements.targetZone.selectedIndex].text + ")";
+        elements.resEt.textContent = fmt12("America/New_York");
+        elements.resCt.textContent = fmt12("America/Chicago");
+        elements.resMt.textContent = fmt12("America/Denver");
+        elements.resPt.textContent = fmt12("America/Los_Angeles");
+        elements.resAkt.textContent = fmt12("America/Anchorage");
+        elements.resHst.textContent = fmt12("Pacific/Honolulu");
+        elements.mobileSummaryVal.textContent = targetTimeStr;
+
+        lastCityRows = cityZones.map(cz => {
+          const t12 = fmt12(cz.zone);
+          const t24 = fmt24(cz.zone);
+          const hourNum = parseInt(t24.split(":")[0], 10);
+          const isBiz = (hourNum >= 9 && hourNum < 17) ? "Within Business Hours (9am-5pm)" : (hourNum >= 17 && hourNum < 22) ? "Evening" : "Off-Hours / Sleeping";
+
+          return { city: cz.city, code: cz.code, t12: t12, t24: t24, status: isBiz };
+        });
+
+        elements.projectionTable.innerHTML = lastCityRows.map(r => `
+          <tr>
+            <td class="projection-year">${r.city}</td>
+            <td data-label="Zone Code">${r.code}</td>
+            <td data-label="12-Hour">${r.t12}</td>
+            <td data-label="24-Hour">${r.t24}</td>
+            <td data-label="Business Status">${r.status}</td>
+          </tr>
+        `).join("");
+
+        lastSummaryText = [
+          "US Time Zone Conversion Summary",
+          "Source: " + tStr + " (" + elements.sourceZone.options[elements.sourceZone.selectedIndex].text + ")",
+          "Target: " + targetTimeStr + " (" + elements.targetZone.options[elements.targetZone.selectedIndex].text + ")",
+          "Eastern (NY): " + fmt12("America/New_York"),
+          "Central (Chicago): " + fmt12("America/Chicago"),
+          "Mountain (Denver): " + fmt12("America/Denver"),
+          "Pacific (LA): " + fmt12("America/Los_Angeles")
+        ].join("\n");
+      }
+
+      function wireEvents() {
+        elements.sourceZone.addEventListener("change", calculate);
+        elements.targetZone.addEventListener("change", calculate);
+        elements.inputTime.addEventListener("input", calculate);
+        elements.inputDate.addEventListener("change", calculate);
+        elements.recalculateBtn.addEventListener("click", calculate);
+
+        elements.resetBtn.addEventListener("click", () => {
+          elements.sourceZone.value = "America/New_York";
+          elements.targetZone.value = "America/Los_Angeles";
+          elements.inputTime.value = "12:00";
+          initDate();
+          calculate();
+        });
+
+        elements.copySummaryBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+          });
+        });
+
+        elements.copyHeroBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            const orig = elements.copyHeroBtn.innerHTML;
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+          });
+        });
+
+        elements.downloadCsvBtn.addEventListener("click", () => {
+          if (!lastCityRows.length) return;
+          const headers = ["City / Region", "Zone Code", "Local Time (12-Hr)", "Local Time (24-Hr)", "Business Hours Status"];
+          const rows = lastCityRows.map(r => [r.city, r.code, r.t12, r.t24, r.status].join(","));
+          const csv = [headers.join(","), rows.join("\n")].join("\n");
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "us-timezone-planner.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+      }
+
+      initDate();
+      wireEvents();
+      calculate();
+    })();
+  </script>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial, math, and construction calculators for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+</body>
+</html>

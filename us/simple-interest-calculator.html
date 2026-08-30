@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple Interest Calculator (US) | Quick Loan & Deposit APR Calculator</title>
+  <meta name="description" content="Calculate simple interest ($I = P \times r \times t$) for personal loans, short-term promissory notes, auto financing, and fixed return deposits.">
+  <meta name="keywords" content="simple interest calculator, loan interest calculator, promissory note interest, short term loan calculator usa">
+  <meta name="author" content="InstaCalc USA">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/us/simple-interest-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Studio Grid & Chart styles */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
+    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+    .legend-val.positive { color: #10b981; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+    .growth-timeline-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+    }
+    .chart-wrap-timeline { position: relative; width: 100%; height: 280px; }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell { border: 0; background: transparent; overflow: visible; }
+      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
+      .projection-table thead { display: none; }
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
+      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .projection-table .projection-year::before { display: none; }
+    }
+    @media (max-width: 960px) {
+      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    }
+  </style>
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/simple-interest-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Simple Interest Calculator (US)",
+      "url": "https://instacalc.in/us/simple-interest-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "Calculate linear simple interest (I = P x r x t) for promissory notes and loans.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the formula for simple interest?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The formula is I = P x r x t, where P is the principal amount, r is the annual interest rate as a decimal, and t is the time period in years."
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="us" selected>United States ($ USD)</option>
+          <option value="in">India (₹ INR)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">All US Tools</a>
+        <a href="401k-calculator.html">401(k)</a>
+        <a href="roth-ira-calculator.html">Roth IRA</a>
+        <a href="mortgage-calculator.html">Mortgage</a>
+        <a href="monthly-investment-calculator.html">DCA / Index</a>
+        <a href="compound-interest-calculator.html">Compound Interest</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-percent"></i> Financial Mathematics</span>
+          <h1>Simple Interest Calculator (US)</h1>
+          <p>Instantly compute linear simple interest and total payoff for loans, promissory notes, and short-term debt.</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>Formula & Rules</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Standard Formula: <code>I = P × r × t</code></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Monthly & Annual interest payment schedules</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Clean, linear amortization curve</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="calculator-header-row">
+            <div class="toggle-group">
+              <a href="simple-interest-calculator.html" class="toggle-btn active"><i class="fas fa-percent"></i> Simple Interest</a>
+              <a href="compound-interest-calculator.html" class="toggle-btn"><i class="fas fa-chart-line"></i> Compound Interest</a>
+              <a href="cd-calculator.html" class="toggle-btn"><i class="fas fa-vault"></i> CD Rates</a>
+            </div>
+          </div>
+
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label">Total Repayment / Future Value</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="fin-studio-grid">
+            <div class="studio-inputs">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="principal">Principal Amount ($)</label>
+                  <span class="field-preview-badge" id="principalPreview">$10,000</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="principalRange" min="100" max="100000" step="100" value="10000">
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">$</span>
+                    <input type="number" id="principal" min="100" max="100000" step="100" value="10000" class="has-prefix">
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="principal" data-range="principalRange">
+                  <button type="button" class="chip" data-val="2500">$2,500</button>
+                  <button type="button" class="chip" data-val="5000">$5,000</button>
+                  <button type="button" class="chip" data-val="10000">$10,000</button>
+                  <button type="button" class="chip" data-val="25000">$25,000</button>
+                  <button type="button" class="chip" data-val="50000">$50,000</button>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="rate">Annual Interest Rate (APR %)</label>
+                    <span class="field-preview-badge" id="ratePreview">7.5%</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="rateRange" min="0.5" max="30" step="0.1" value="7.5">
+                    <div class="input-with-adornment">
+                      <input type="number" id="rate" min="0.5" max="30" step="0.1" value="7.5" class="has-suffix">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                  <div class="chips-wrap" data-target="rate" data-range="rateRange" style="margin-top:0.5rem;">
+                    <button type="button" class="chip" data-val="5.0">5.0%</button>
+                    <button type="button" class="chip" data-val="7.5">7.5%</button>
+                    <button type="button" class="chip" data-val="10.0">10.0%</button>
+                    <button type="button" class="chip" data-val="12.0">12.0%</button>
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="duration">Duration (Years)</label>
+                    <span class="field-preview-badge" id="durationPreview">3 Years</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="durationRange" min="1" max="30" step="1" value="3">
+                    <div class="input-with-adornment">
+                      <input type="number" id="duration" min="1" max="30" step="1" value="3" class="has-suffix">
+                      <span class="input-suffix">Yrs</span>
+                    </div>
+                  </div>
+                  <div class="chips-wrap" data-target="duration" data-range="durationRange" style="margin-top:0.5rem;">
+                    <button type="button" class="chip" data-val="1">1 Yr</button>
+                    <button type="button" class="chip" data-val="3">3 Yrs</button>
+                    <button type="button" class="chip" data-val="5">5 Yrs</button>
+                    <button type="button" class="chip" data-val="10">10 Yrs</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="studio-outcome">
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-coins"></i> Total Repayment (Principal + Interest)</span>
+                  <div class="res-val" id="corpusHeroValue">-</div>
+                  <div class="res-desc" id="corpusHeroDesc">Principal: - | Interest: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
+              </div>
+
+              <div class="outcome-chart-box">
+                <div class="chart-wrap-doughnut"><canvas id="splitChart"></canvas></div>
+                <div class="legend-stats-row">
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-invested"></span> Principal</div>
+                    <div class="legend-val" id="resPrincipalHero">-</div>
+                  </div>
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-returns"></span> Simple Interest</div>
+                    <div class="legend-val positive" id="resInterestHero">-</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card positive"><h3>Total Future Amount</h3><div class="result-value" id="resTotalAmount">-</div></div>
+                <div class="result-card"><h3>Total Simple Interest</h3><div class="result-value" id="resTotalInterest">-</div></div>
+                <div class="result-card"><h3>Monthly Interest</h3><div class="result-value" id="resMonthlyInterest">-</div></div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="growth-timeline-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-chart-line" style="color:var(--ic-primary);"></i> Linear Interest Accrual Curve</h3>
+              <span style="font-size:0.85rem; color:var(--ic-text-muted);">Total Repayment Balance vs Principal</span>
+            </div>
+            <div class="chart-wrap-timeline"><canvas id="growthChart"></canvas></div>
+          </div>
+
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Year-by-Year Simple Interest Schedule</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Opening Principal</th>
+                  <th>Annual Interest</th>
+                  <th>Cumulative Interest</th>
+                  <th>Total Balance</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>US Financial Tools</h3>
+            <ul class="link-list">
+              <li><a href="compound-interest-calculator.html"><span>Compound Interest</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="cd-calculator.html"><span>CD Rates</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="mortgage-calculator.html"><span>Mortgage Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="monthly-investment-calculator.html"><span>DCA Index Fund Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {
+      const formatUSD = (v) => "$" + Math.round(v).toLocaleString("en-US");
+      const formatCompact = (v) => {
+        if (v >= 1e6) return "$" + (v / 1e6).toFixed(2) + "M";
+        if (v >= 1e3) return "$" + (v / 1e3).toFixed(1) + "K";
+        return "$" + Math.round(v);
+      };
+
+      const elements = {
+        principal: document.getElementById("principal"),
+        principalRange: document.getElementById("principalRange"),
+        rate: document.getElementById("rate"),
+        rateRange: document.getElementById("rateRange"),
+        duration: document.getElementById("duration"),
+        durationRange: document.getElementById("durationRange"),
+
+        principalPreview: document.getElementById("principalPreview"),
+        ratePreview: document.getElementById("ratePreview"),
+        durationPreview: document.getElementById("durationPreview"),
+
+        corpusHeroValue: document.getElementById("corpusHeroValue"),
+        corpusHeroDesc: document.getElementById("corpusHeroDesc"),
+        resPrincipalHero: document.getElementById("resPrincipalHero"),
+        resInterestHero: document.getElementById("resInterestHero"),
+        resTotalAmount: document.getElementById("resTotalAmount"),
+        resTotalInterest: document.getElementById("resTotalInterest"),
+        resMonthlyInterest: document.getElementById("resMonthlyInterest"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        splitChart: document.getElementById("splitChart"),
+        growthChart: document.getElementById("growthChart"),
+        projectionTable: document.getElementById("projectionTable"),
+        calcTarget: document.getElementById("calcTarget"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
+      };
+
+      let splitChartInstance = null;
+      let timelineChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function sync(r, n) {
+        if (!r || !n) return;
+        r.addEventListener("input", () => { n.value = r.value; calculate(); });
+        n.addEventListener("input", () => { r.value = r.value; calculate(); });
+      }
+
+      function calculate() {
+        const p = Number(elements.principal.value) || 10000;
+        const r = (Number(elements.rate.value) || 7.5) / 100;
+        const t = Number(elements.duration.value) || 3;
+
+        elements.principalPreview.textContent = formatUSD(p);
+        elements.ratePreview.textContent = (r * 100).toFixed(1) + "%";
+        elements.durationPreview.textContent = t + " Years";
+
+        const totalInterest = p * r * t;
+        const totalAmount = p + totalInterest;
+        const annualInterest = p * r;
+        const monthlyInterest = annualInterest / 12;
+
+        const yearlyData = [];
+        const labels = ["Year 0"];
+        const balanceSeries = [p];
+
+        for (let y = 1; y <= t; y++) {
+          const cumInterest = annualInterest * y;
+          const currentTotal = p + cumInterest;
+
+          yearlyData.push({
+            year: y,
+            principal: p,
+            annualInterest: annualInterest,
+            cumInterest: cumInterest,
+            total: currentTotal
+          });
+
+          labels.push("Year " + y);
+          balanceSeries.push(currentTotal);
+        }
+
+        elements.corpusHeroValue.textContent = formatUSD(totalAmount);
+        elements.corpusHeroDesc.textContent = "Principal: " + formatUSD(p) + " • Total Interest: " + formatUSD(totalInterest);
+        elements.resPrincipalHero.textContent = formatUSD(p);
+        elements.resInterestHero.textContent = formatUSD(totalInterest);
+        elements.resTotalAmount.textContent = formatUSD(totalAmount);
+        elements.resTotalInterest.textContent = formatUSD(totalInterest);
+        elements.resMonthlyInterest.textContent = formatUSD(monthlyInterest) + " / mo";
+        elements.mobileSummaryVal.textContent = formatUSD(totalAmount);
+
+        lastProjection = yearlyData;
+
+        // Render Table
+        elements.projectionTable.innerHTML = yearlyData.map(row => `
+          <tr>
+            <td class="projection-year">Year ${row.year}</td>
+            <td data-label="Opening Principal">${formatUSD(row.principal)}</td>
+            <td data-label="Annual Interest">${formatUSD(row.annualInterest)}</td>
+            <td data-label="Cumulative Interest">${formatUSD(row.cumInterest)}</td>
+            <td data-label="Total Balance">${formatUSD(row.total)}</td>
+          </tr>
+        `).join("");
+
+        renderCharts(labels, balanceSeries, p, totalInterest);
+
+        lastSummaryText = [
+          "Simple Interest Calculation Summary",
+          "Principal Amount: " + formatUSD(p),
+          "Interest Rate: " + (r * 100).toFixed(2) + "% APR",
+          "Duration: " + t + " Years",
+          "Total Simple Interest: " + formatUSD(totalInterest),
+          "Total Future Amount: " + formatUSD(totalAmount)
+        ].join("\n");
+      }
+
+      function renderCharts(labels, balanceSeries, p, interest) {
+        if (!window.Chart) return;
+        if (splitChartInstance) splitChartInstance.destroy();
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Principal", "Simple Interest"],
+            datasets: [{
+              data: [p, interest],
+              backgroundColor: ["#0284c7", "#10b981"],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: { callbacks: { label: (c) => c.label + ": " + formatUSD(c.parsed) } }
+            }
+          }
+        });
+
+        if (timelineChartInstance) timelineChartInstance.destroy();
+        const ctx = elements.growthChart.getContext("2d");
+        const grad = ctx.createLinearGradient(0, 0, 0, 300);
+        grad.addColorStop(0, "rgba(2, 132, 199, 0.28)");
+        grad.addColorStop(1, "rgba(2, 132, 199, 0.015)");
+
+        timelineChartInstance = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [{
+              label: "Total Balance",
+              data: balanceSeries,
+              borderColor: "#0284c7",
+              backgroundColor: grad,
+              fill: true,
+              tension: 0,
+              borderWidth: 3,
+              pointRadius: 0,
+              pointHoverRadius: 5
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { y: { ticks: { callback: (v) => formatCompact(v) } } },
+            plugins: {
+              legend: { position: "top" },
+              tooltip: { callbacks: { label: (c) => c.dataset.label + ": " + formatUSD(c.parsed.y) } }
+            }
+          }
+        });
+      }
+
+      function wireEvents() {
+        sync(elements.principalRange, elements.principal);
+        sync(elements.rateRange, elements.rate);
+        sync(elements.durationRange, elements.duration);
+
+        elements.recalculateBtn.addEventListener("click", calculate);
+
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function () {
+            const wrap = this.parentElement;
+            const tInput = document.getElementById(wrap.dataset.target);
+            const tRange = document.getElementById(wrap.dataset.range);
+            if (tInput) tInput.value = this.dataset.val;
+            if (tRange) tRange.value = this.dataset.val;
+            calculate();
+          });
+        });
+
+        elements.resetBtn.addEventListener("click", () => {
+          elements.principal.value = 10000; elements.principalRange.value = 10000;
+          elements.rate.value = 7.5; elements.rateRange.value = 7.5;
+          elements.duration.value = 3; elements.durationRange.value = 3;
+          calculate();
+        });
+
+        elements.copySummaryBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+          });
+        });
+
+        elements.copyHeroBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            const orig = elements.copyHeroBtn.innerHTML;
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+          });
+        });
+
+        elements.downloadCsvBtn.addEventListener("click", () => {
+          if (!lastProjection.length) return;
+          const headers = ["Year", "Opening Principal", "Annual Interest", "Cumulative Interest", "Total Balance"];
+          const rows = lastProjection.map(r => [r.year, Math.round(r.principal), Math.round(r.annualInterest), Math.round(r.cumInterest), Math.round(r.total)].join(","));
+          const csv = [headers.join(","), rows.join("\n")].join("\n");
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "simple-interest-schedule.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+      }
+
+      wireEvents();
+      calculate();
+    })();
+  </script>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial calculators and planning tools for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+</body>
+</html>

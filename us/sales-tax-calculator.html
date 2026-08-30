@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>US Sales Tax Calculator | State, County & Local City Tax Rates</title>
+  <meta name="description" content="Calculate sales tax for all 50 US states (California, Texas, Florida, New York, Washington, etc.) with state, county, and local city tax rates.">
+  <meta name="keywords" content="sales tax calculator, us sales tax calculator, california sales tax, texas sales tax, florida sales tax, state tax calculator">
+  <meta name="author" content="InstaCalc USA">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/us/sales-tax-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Studio Grid & Chart styles */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
+    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+    .legend-val.positive { color: #10b981; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+    .growth-timeline-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+    }
+    .chart-wrap-timeline { position: relative; width: 100%; height: 280px; }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell { border: 0; background: transparent; overflow: visible; }
+      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
+      .projection-table thead { display: none; }
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
+      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .projection-table .projection-year::before { display: none; }
+    }
+    @media (max-width: 960px) {
+      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    }
+  </style>
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/sales-tax-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "US Sales Tax Calculator",
+      "url": "https://instacalc.in/us/sales-tax-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "Calculate state, county, and city sales tax rates with tax-inclusive and tax-exclusive modes.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Which US states have no state sales tax?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Five states have no statewide sales tax: Alaska, Delaware, Montana, New Hampshire, and Oregon (often remembered as NOMAD)."
+          }
+        },\n        {
+          "@type": "Question",
+          "name": "How do combined sales tax rates work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The total sales tax you pay in a store is typically the sum of the state sales tax rate plus local county, municipal, and special district transit surtaxes."
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="us" selected>United States ($ USD)</option>
+          <option value="in">India (₹ INR)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">All US Tools</a>
+        <a href="401k-calculator.html">401(k) Planner</a>
+        <a href="roth-ira-calculator.html">Roth IRA</a>
+        <a href="mortgage-calculator.html">Mortgage</a>
+        <a href="monthly-investment-calculator.html">DCA / Index</a>
+        <a href="cd-calculator.html">CD Rates</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-percent"></i> US State Taxes</span>
+          <h1>US Sales Tax Calculator</h1>
+          <p>Quickly calculate total sales tax, subtotal, and final price across US states with combined state, county, and city rates.</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>Sales Tax Highlights</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> State-by-state preset rates</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Tax-exclusive vs Tax-inclusive calculations</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Custom local/city surtax adjustments</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="calculator-header-row">
+            <div class="toggle-group">
+              <a href="sales-tax-calculator.html" class="toggle-btn active"><i class="fas fa-percent"></i> Sales Tax</a>
+              <a href="cd-calculator.html" class="toggle-btn"><i class="fas fa-vault"></i> CD Rates</a>
+              <a href="mortgage-calculator.html" class="toggle-btn"><i class="fas fa-house-chimney"></i> Mortgage</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i> <span>Custom Surtax: Off</span>
+            </button>
+          </div>
+
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label">Final Total Price</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="fin-studio-grid">
+            <div class="studio-inputs">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="baseAmount">Amount / Purchase Price ($)</label>
+                  <span class="field-preview-badge" id="amountPreview">$100.00</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="baseAmountRange" min="1" max="10000" step="5" value="100">
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">$</span>
+                    <input type="number" id="baseAmount" min="1" max="100000" step="1" value="100" class="has-prefix">
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="baseAmount" data-range="baseAmountRange">
+                  <button type="button" class="chip" data-val="50">$50</button>
+                  <button type="button" class="chip" data-val="100">$100</button>
+                  <button type="button" class="chip" data-val="250">$250</button>
+                  <button type="button" class="chip" data-val="500">$500</button>
+                  <button type="button" class="chip" data-val="1000">$1,000</button>
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="stateSelect">Select US State Preset</label>
+                </div>
+                <select id="stateSelect">
+                  <option value="7.25" selected>California (7.25% Base State)</option>
+                  <option value="6.25">Texas (6.25% Base State)</option>
+                  <option value="6.00">Florida (6.00% Base State)</option>
+                  <option value="4.00">New York (4.00% Base State)</option>
+                  <option value="6.50">Washington (6.50% Base State)</option>
+                  <option value="6.25">Illinois (6.25% Base State)</option>
+                  <option value="6.00">Pennsylvania (6.00% Base State)</option>
+                  <option value="5.60">Arizona (5.60% Base State)</option>
+                  <option value="0.00">Oregon / Delaware / Montana / NH (0.00% No Sales Tax)</option>
+                  <option value="custom">Custom Rate (%)</option>
+                </select>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="taxRate">Combined Sales Tax Rate (%)</label>
+                    <span class="field-preview-badge" id="ratePreview">7.25%</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="taxRateRange" min="0" max="15" step="0.05" value="7.25">
+                    <div class="input-with-adornment">
+                      <input type="number" id="taxRate" min="0" max="15" step="0.05" value="7.25" class="has-suffix">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head"><label for="calcMode">Calculation Mode</label></div>
+                  <select id="calcMode">
+                    <option value="exclusive" selected>Add Tax to Price (Exclusive)</option>
+                    <option value="inclusive">Price Includes Tax (Inclusive)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="advanced-only-section" id="advancedFields">
+                <div class="field-card">
+                  <div class="field-head"><label for="localSurtax">Local County / City Surtax (%)</label></div>
+                  <input type="number" id="localSurtax" min="0" max="8" step="0.25" value="0" placeholder="0">
+                </div>
+              </div>
+            </div>
+
+            <div class="studio-outcome">
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-receipt"></i> Total Final Amount</span>
+                  <div class="res-val" id="corpusHeroValue">-</div>
+                  <div class="res-desc" id="corpusHeroDesc">Net Price: - | Sales Tax: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
+              </div>
+
+              <div class="outcome-chart-box">
+                <div class="chart-wrap-doughnut"><canvas id="splitChart"></canvas></div>
+                <div class="legend-stats-row">
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-invested"></span> Net Price</div>
+                    <div class="legend-val" id="resNetPrice">-</div>
+                  </div>
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-returns"></span> Sales Tax</div>
+                    <div class="legend-val positive" id="resTaxAmount">-</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card positive"><h3>Total Final Price</h3><div class="result-value" id="resFinalTotal">-</div></div>
+                <div class="result-card"><h3>Net Pre-Tax Price</h3><div class="result-value" id="resNetPriceGrid">-</div></div>
+                <div class="result-card"><h3>Total Tax Amount</h3><div class="result-value" id="resTaxAmountGrid">-</div></div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>US Financial Tools</h3>
+            <ul class="link-list">
+              <li><a href="mortgage-calculator.html"><span>Mortgage Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="401k-calculator.html"><span>401(k) Planner</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="cd-calculator.html"><span>CD Rates</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="monthly-investment-calculator.html"><span>DCA Index Fund Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {
+      const formatUSD = (v) => "$" + Number(v).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      const elements = {
+        amount: document.getElementById("baseAmount"),
+        amountRange: document.getElementById("baseAmountRange"),
+        stateSelect: document.getElementById("stateSelect"),
+        taxRate: document.getElementById("taxRate"),
+        taxRateRange: document.getElementById("taxRateRange"),
+        calcMode: document.getElementById("calcMode"),
+        localSurtax: document.getElementById("localSurtax"),
+
+        amountPreview: document.getElementById("amountPreview"),
+        ratePreview: document.getElementById("ratePreview"),
+
+        corpusHeroValue: document.getElementById("corpusHeroValue"),
+        corpusHeroDesc: document.getElementById("corpusHeroDesc"),
+        resNetPrice: document.getElementById("resNetPrice"),
+        resTaxAmount: document.getElementById("resTaxAmount"),
+        resFinalTotal: document.getElementById("resFinalTotal"),
+        resNetPriceGrid: document.getElementById("resNetPriceGrid"),
+        resTaxAmountGrid: document.getElementById("resTaxAmountGrid"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        splitChart: document.getElementById("splitChart"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        calcTarget: document.getElementById("calcTarget"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn")
+      };
+
+      let splitChartInstance = null;
+      let lastSummaryText = "";
+
+      function sync(r, n) {
+        if (!r || !n) return;
+        r.addEventListener("input", () => { n.value = r.value; calculate(); });
+        n.addEventListener("input", () => { r.value = r.value; calculate(); });
+      }
+
+      function setupToggleAdvanced() {
+        let isAdv = false;
+        elements.toggleViewBtn.addEventListener("click", () => {
+          isAdv = !isAdv;
+          elements.calcTarget.classList.toggle("advanced-mode", isAdv);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdv ? "Custom Surtax: On" : "Custom Surtax: Off";
+        });
+      }
+
+      function calculate() {
+        const inputAmount = Number(elements.amount.value) || 100;
+        const stateRate = Number(elements.taxRate.value) || 0;
+        const surtax = Number(elements.localSurtax.value) || 0;
+        const totalTaxRate = (stateRate + surtax) / 100;
+        const mode = elements.calcMode.value;
+
+        elements.amountPreview.textContent = formatUSD(inputAmount);
+        elements.ratePreview.textContent = ((stateRate + surtax)).toFixed(2) + "%";
+
+        let netPrice = 0;
+        let taxAmount = 0;
+        let finalTotal = 0;
+
+        if (mode === "exclusive") {
+          netPrice = inputAmount;
+          taxAmount = netPrice * totalTaxRate;
+          finalTotal = netPrice + taxAmount;
+        } else {
+          finalTotal = inputAmount;
+          netPrice = finalTotal / (1 + totalTaxRate);
+          taxAmount = finalTotal - netPrice;
+        }
+
+        elements.corpusHeroValue.textContent = formatUSD(finalTotal);
+        elements.corpusHeroDesc.textContent = "Net Price: " + formatUSD(netPrice) + " • Sales Tax: " + formatUSD(taxAmount);
+        elements.resNetPrice.textContent = formatUSD(netPrice);
+        elements.resTaxAmount.textContent = formatUSD(taxAmount);
+        elements.resFinalTotal.textContent = formatUSD(finalTotal);
+        elements.resNetPriceGrid.textContent = formatUSD(netPrice);
+        elements.resTaxAmountGrid.textContent = formatUSD(taxAmount);
+        elements.mobileSummaryVal.textContent = formatUSD(finalTotal);
+
+        renderCharts(netPrice, taxAmount);
+
+        lastSummaryText = [
+          "US Sales Tax Summary",
+          "Mode: " + (mode === "exclusive" ? "Tax Exclusive (Add-on)" : "Tax Inclusive"),
+          "Tax Rate: " + (totalTaxRate * 100).toFixed(2) + "%",
+          "Pre-Tax Amount: " + formatUSD(netPrice),
+          "Sales Tax: " + formatUSD(taxAmount),
+          "Total Price: " + formatUSD(finalTotal)
+        ].join("\n");
+      }
+
+      function renderCharts(net, tax) {
+        if (!window.Chart) return;
+        if (splitChartInstance) splitChartInstance.destroy();
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Net Price", "Sales Tax"],
+            datasets: [{
+              data: [net, tax],
+              backgroundColor: ["#0284c7", "#10b981"],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: { callbacks: { label: (c) => c.label + ": " + formatUSD(c.parsed) } }
+            }
+          }
+        });
+      }
+
+      function wireEvents() {
+        sync(elements.amountRange, elements.amount);
+        sync(elements.taxRateRange, elements.taxRate);
+
+        elements.stateSelect.addEventListener("change", function () {
+          if (this.value !== "custom") {
+            elements.taxRate.value = this.value;
+            elements.taxRateRange.value = this.value;
+            calculate();
+          }
+        });
+
+        elements.calcMode.addEventListener("change", calculate);
+        elements.localSurtax.addEventListener("input", calculate);
+        elements.recalculateBtn.addEventListener("click", calculate);
+
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function () {
+            const wrap = this.parentElement;
+            const tInput = document.getElementById(wrap.dataset.target);
+            const tRange = document.getElementById(wrap.dataset.range);
+            if (tInput) tInput.value = this.dataset.val;
+            if (tRange) tRange.value = this.dataset.val;
+            calculate();
+          });
+        });
+
+        elements.resetBtn.addEventListener("click", () => {
+          elements.amount.value = 100; elements.amountRange.value = 100;
+          elements.stateSelect.value = "7.25";
+          elements.taxRate.value = 7.25; elements.taxRateRange.value = 7.25;
+          elements.localSurtax.value = 0;
+          calculate();
+        });
+
+        elements.copySummaryBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+          });
+        });
+
+        elements.copyHeroBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            const orig = elements.copyHeroBtn.innerHTML;
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+          });
+        });
+
+        setupToggleAdvanced();
+      }
+
+      wireEvents();
+      calculate();
+    })();
+  </script>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial calculators and planning tools for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>US Retirement Calculator | Nest Egg, Social Security & Spending Planner</title>
+  <meta name="description" content="Calculate your required retirement nest egg, projected 401(k) and IRA corpus, Social Security offset, and sustainable monthly retirement income.">
+  <meta name="keywords" content="retirement calculator, us retirement planner, nest egg calculator, 401k retirement corpus, social security retirement calculator, retirement gap">
+  <meta name="author" content="InstaCalc USA">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/us/retirement-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Studio Grid & Chart styles */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
+    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+    .legend-val.positive { color: #10b981; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+    .growth-timeline-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+    }
+    .chart-wrap-timeline { position: relative; width: 100%; height: 280px; }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell { border: 0; background: transparent; overflow: visible; }
+      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
+      .projection-table thead { display: none; }
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
+      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .projection-table .projection-year::before { display: none; }
+    }
+    @media (max-width: 960px) {
+      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    }
+  </style>
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/retirement-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "US Retirement Planner & Nest Egg Calculator",
+      "url": "https://instacalc.in/us/retirement-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "Calculate your target retirement nest egg, Social Security benefit offset, and sustainable monthly spending.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much money do I need to retire in the United States?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A common benchmark is accumulating 25 to 30 times your estimated annual living expenses in retirement, or replacing approximately 70% to 85% of your pre-retirement annual income."
+          }
+        },\n        {
+          "@type": "Question",
+          "name": "When should I claim Social Security retirement benefits?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can claim as early as age 62 (at a permanent 30% reduction), at Full Retirement Age (FRA 67 for full benefits), or delay until age 70 to earn an additional 8% per year in delayed retirement credits (+24% total)."
+          }
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="us" selected>United States ($ USD)</option>
+          <option value="in">India (₹ INR)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">All US Tools</a>
+        <a href="retirement-calculator.html">Retirement</a>
+        <a href="fire-calculator.html">FIRE (4% Rule)</a>
+        <a href="401k-calculator.html">401(k)</a>
+        <a href="roth-ira-calculator.html">Roth IRA</a>
+        <a href="mortgage-calculator.html">Mortgage</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-umbrella-beach"></i> Retirement Planning</span>
+          <h1>US Retirement Planner & Nest Egg Calculator</h1>
+          <p>Estimate how much money you need to retire comfortably in the US, factoring in inflation, Social Security, 401(k) savings, and portfolio drawdown.</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>Key Highlights</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Social Security monthly offset integration</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Inflation-adjusted lifestyle expense modeling</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Retirement Surplus / Shortfall diagnosis</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="calculator-header-row">
+            <div class="toggle-group">
+              <a href="retirement-calculator.html" class="toggle-btn active"><i class="fas fa-umbrella-beach"></i> Retirement Planner</a>
+              <a href="fire-calculator.html" class="toggle-btn"><i class="fas fa-fire"></i> FIRE (4% Rule)</a>
+              <a href="401k-calculator.html" class="toggle-btn"><i class="fas fa-landmark"></i> 401(k)</a>
+              <a href="roth-ira-calculator.html" class="toggle-btn"><i class="fas fa-coins"></i> Roth IRA</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i> <span>Social Security & Assumptions: Off</span>
+            </button>
+          </div>
+
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label">Projected Retirement Corpus</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="fin-studio-grid">
+            <div class="studio-inputs">
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="currentAge">Current Age</label>
+                    <span class="field-preview-badge" id="currentAgePreview">32 Yrs</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="currentAgeRange" min="18" max="75" step="1" value="32">
+                    <div class="input-with-adornment">
+                      <input type="number" id="currentAge" min="18" max="75" step="1" value="32" class="has-suffix">
+                      <span class="input-suffix">Age</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="retireAge">Desired Retirement Age</label>
+                    <span class="field-preview-badge" id="retireAgePreview">65 Yrs</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="retireAgeRange" min="40" max="80" step="1" value="65">
+                    <div class="input-with-adornment">
+                      <input type="number" id="retireAge" min="40" max="80" step="1" value="65" class="has-suffix">
+                      <span class="input-suffix">Age</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="annualExpenses">Current Annual Living Expenses ($)</label>
+                  <span class="field-preview-badge" id="expensesPreview">$65,000/yr</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="annualExpensesRange" min="20000" max="300000" step="2500" value="65000">
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">$</span>
+                    <input type="number" id="annualExpenses" min="20000" max="500000" step="2500" value="65000" class="has-prefix">
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="annualExpenses" data-range="annualExpensesRange">
+                  <button type="button" class="chip" data-val="40000">$40K/yr</button>
+                  <button type="button" class="chip" data-val="65000">$65K/yr</button>
+                  <button type="button" class="chip" data-val="85000">$85K/yr</button>
+                  <button type="button" class="chip" data-val="120000">$120K/yr</button>
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="monthlySavings">Monthly Retirement Savings ($)</label>
+                  <span class="field-preview-badge" id="savingsPreview">$1,200/mo</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="monthlySavingsRange" min="100" max="15000" step="50" value="1200">
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">$</span>
+                    <input type="number" id="monthlySavings" min="100" max="15000" step="50" value="1200" class="has-prefix">
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="monthlySavings" data-range="monthlySavingsRange">
+                  <button type="button" class="chip" data-val="500">$500/mo</button>
+                  <button type="button" class="chip" data-val="1000">$1,000/mo</button>
+                  <button type="button" class="chip" data-val="1500">$1,500/mo</button>
+                  <button type="button" class="chip" data-val="2500">$2,500/mo</button>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="currentSavings">Existing Savings (401k/IRA/Stocks)</label>
+                    <span class="field-preview-badge" id="currentSavingsPreview">$75,000</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="currentSavingsRange" min="0" max="1000000" step="5000" value="75000">
+                    <div class="input-with-adornment">
+                      <span class="input-prefix">$</span>
+                      <input type="number" id="currentSavings" min="0" max="2500000" step="5000" value="75000" class="has-prefix">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="preReturn">Pre-Retirement Return (%)</label>
+                    <span class="field-preview-badge" id="returnPreview">8.5%</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="preReturnRange" min="3" max="15" step="0.1" value="8.5">
+                    <div class="input-with-adornment">
+                      <input type="number" id="preReturn" min="3" max="15" step="0.1" value="8.5" class="has-suffix">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="advanced-only-section" id="advancedFields">
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head"><label for="socialSecurityMonthly">Estimated Social Security ($/mo)</label></div>
+                    <input type="number" id="socialSecurityMonthly" min="0" step="100" value="2200" placeholder="2200">
+                  </div>
+                  <div class="field-card">
+                    <div class="field-head"><label for="lifeExpectancy">Life Expectancy (Age)</label></div>
+                    <input type="number" id="lifeExpectancy" min="70" max="105" step="1" value="90">
+                  </div>
+                </div>
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head"><label for="postReturn">Post-Retirement Return (%)</label></div>
+                    <input type="number" id="postReturn" min="1" max="10" step="0.1" value="5.5">
+                  </div>
+                  <div class="field-card">
+                    <div class="field-head"><label for="inflationRate">Expected Inflation (%)</label></div>
+                    <input type="number" id="inflationRate" min="1" max="8" step="0.1" value="2.8">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="studio-outcome">
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-umbrella-beach"></i> Projected Retirement Corpus at Age <span id="heroRetireAge">65</span></span>
+                  <div class="res-val" id="corpusHeroValue">-</div>
+                  <div class="res-desc" id="corpusHeroDesc">Invested: - | Compound Growth: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
+              </div>
+
+              <div class="outcome-chart-box">
+                <div class="chart-wrap-doughnut"><canvas id="splitChart"></canvas></div>
+                <div class="legend-stats-row">
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-invested"></span> Total Contributed</div>
+                    <div class="legend-val" id="resContributed">-</div>
+                  </div>
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-returns"></span> Compounded Growth</div>
+                    <div class="legend-val positive" id="resGrowth">-</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card positive"><h3>Required Target Nest Egg</h3><div class="result-value" id="resTargetCorpus">-</div></div>
+                <div class="result-card"><h3>Projected Corpus</h3><div class="result-value" id="resProjectedCorpus">-</div></div>
+                <div class="result-card"><h3>Retirement Status</h3><div class="result-value" id="resGapStatus">-</div></div>
+                <div class="result-card advanced-only"><h3>First-Year Retirement Expense</h3><div class="result-value" id="resFirstYearExp">-</div></div>
+                <div class="result-card advanced-only"><h3>Social Security (Annual)</h3><div class="result-value" id="resSsAnnual">-</div></div>
+                <div class="result-card advanced-only"><h3>Sustainable Monthly Drawdown</h3><div class="result-value" id="resMonthlyDrawdown">-</div></div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="growth-timeline-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-chart-line" style="color:var(--ic-primary);"></i> Pre-Retirement Wealth Accumulation Trajectory</h3>
+              <span style="font-size:0.85rem; color:var(--ic-text-muted);">Projected Corpus vs Target Required Nest Egg</span>
+            </div>
+            <div class="chart-wrap-timeline"><canvas id="growthChart"></canvas></div>
+          </div>
+
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Year-by-Year Accumulation Schedule</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Year (Age)</th>
+                  <th>Opening Balance</th>
+                  <th>Annual Additions</th>
+                  <th>Investment Growth</th>
+                  <th>Ending Corpus</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>Related US Tools</h3>
+            <ul class="link-list">
+              <li><a href="fire-calculator.html"><span>FIRE (4% Rule) Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="401k-calculator.html"><span>401(k) Planner</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="roth-ira-calculator.html"><span>Roth IRA</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="monthly-investment-calculator.html"><span>DCA Index Fund Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {
+      const formatUSD = (v) => "$" + Math.round(v).toLocaleString("en-US");
+      const formatCompact = (v) => {
+        if (v >= 1e6) return "$" + (v / 1e6).toFixed(2) + "M";
+        if (v >= 1e3) return "$" + (v / 1e3).toFixed(1) + "K";
+        return "$" + Math.round(v);
+      };
+
+      const elements = {
+        curAge: document.getElementById("currentAge"),
+        curAgeRange: document.getElementById("currentAgeRange"),
+        retAge: document.getElementById("retireAge"),
+        retAgeRange: document.getElementById("retireAgeRange"),
+        expenses: document.getElementById("annualExpenses"),
+        expensesRange: document.getElementById("annualExpensesRange"),
+        savings: document.getElementById("monthlySavings"),
+        savingsRange: document.getElementById("monthlySavingsRange"),
+        currentSavings: document.getElementById("currentSavings"),
+        currentSavingsRange: document.getElementById("currentSavingsRange"),
+        preReturn: document.getElementById("preReturn"),
+        preReturnRange: document.getElementById("preReturnRange"),
+        ssMonthly: document.getElementById("socialSecurityMonthly"),
+        lifeExp: document.getElementById("lifeExpectancy"),
+        postReturn: document.getElementById("postReturn"),
+        inflation: document.getElementById("inflationRate"),
+
+        currentAgePreview: document.getElementById("currentAgePreview"),
+        retireAgePreview: document.getElementById("retireAgePreview"),
+        expensesPreview: document.getElementById("expensesPreview"),
+        savingsPreview: document.getElementById("savingsPreview"),
+        currentSavingsPreview: document.getElementById("currentSavingsPreview"),
+        returnPreview: document.getElementById("returnPreview"),
+        heroRetireAge: document.getElementById("heroRetireAge"),
+
+        corpusHeroValue: document.getElementById("corpusHeroValue"),
+        corpusHeroDesc: document.getElementById("corpusHeroDesc"),
+        resContributed: document.getElementById("resContributed"),
+        resGrowth: document.getElementById("resGrowth"),
+        resTargetCorpus: document.getElementById("resTargetCorpus"),
+        resProjectedCorpus: document.getElementById("resProjectedCorpus"),
+        resGapStatus: document.getElementById("resGapStatus"),
+        resFirstYearExp: document.getElementById("resFirstYearExp"),
+        resSsAnnual: document.getElementById("resSsAnnual"),
+        resMonthlyDrawdown: document.getElementById("resMonthlyDrawdown"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        splitChart: document.getElementById("splitChart"),
+        growthChart: document.getElementById("growthChart"),
+        projectionTable: document.getElementById("projectionTable"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+        calcTarget: document.getElementById("calcTarget"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
+      };
+
+      let splitChartInstance = null;
+      let timelineChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function sync(r, n) {
+        if (!r || !n) return;
+        r.addEventListener("input", () => { n.value = r.value; calculate(); });
+        n.addEventListener("input", () => { r.value = r.value; calculate(); });
+      }
+
+      function setupToggleAdvanced() {
+        let isAdv = false;
+        elements.toggleViewBtn.addEventListener("click", () => {
+          isAdv = !isAdv;
+          elements.calcTarget.classList.toggle("advanced-mode", isAdv);
+          elements.toggleViewBtn.querySelector("span").textContent = isAdv ? "Social Security & Assumptions: On" : "Social Security & Assumptions: Off";
+        });
+      }
+
+      function calculate() {
+        const cAge = Number(elements.curAge.value) || 32;
+        const rAge = Math.max(cAge + 1, Number(elements.retAge.value) || 65);
+        const curExp = Number(elements.expenses.value) || 65000;
+        const mSavings = Number(elements.savings.value) || 1200;
+        const initSavings = Number(elements.currentSavings.value) || 75000;
+        const preR = (Number(elements.preReturn.value) || 8.5) / 100;
+        const postR = (Number(elements.postReturn ? elements.postReturn.value : 5.5) || 5.5) / 100;
+        const infl = (Number(elements.inflation ? elements.inflation.value : 2.8) || 2.8) / 100;
+        const ssMo = Number(elements.ssMonthly ? elements.ssMonthly.value : 2200) || 0;
+        const lExp = Math.max(rAge + 1, Number(elements.lifeExp ? elements.lifeExp.value : 90) || 90);
+
+        elements.currentAgePreview.textContent = cAge + " Yrs";
+        elements.retireAgePreview.textContent = rAge + " Yrs";
+        elements.expensesPreview.textContent = formatUSD(curExp) + "/yr";
+        elements.savingsPreview.textContent = formatUSD(mSavings) + "/mo";
+        elements.currentSavingsPreview.textContent = formatUSD(initSavings);
+        elements.returnPreview.textContent = (preR * 100).toFixed(1) + "%";
+        elements.heroRetireAge.textContent = rAge;
+
+        const accumYears = rAge - cAge;
+        const postYears = lExp - rAge;
+
+        // 1. Pre-Retirement Accumulation
+        let balance = initSavings;
+        let totalInvested = initSavings;
+        const yearlyData = [];
+        const labels = ["Age " + cAge];
+        const balanceSeries = [initSavings];
+        const investedSeries = [initSavings];
+
+        for (let y = 1; y <= accumYears; y++) {
+          const age = cAge + y;
+          const yearOpening = balance;
+          const annualAddition = mSavings * 12;
+          const growth = (balance + annualAddition / 2) * preR;
+          balance += annualAddition + growth;
+          totalInvested += annualAddition;
+
+          yearlyData.push({
+            year: y,
+            age: age,
+            opening: yearOpening,
+            additions: annualAddition,
+            growth: growth,
+            closing: balance
+          });
+
+          labels.push("Age " + age);
+          balanceSeries.push(balance);
+          investedSeries.push(totalInvested);
+        }
+
+        const totalGrowth = Math.max(0, balance - totalInvested);
+
+        // 2. Post-Retirement Target Corpus Calculation
+        const firstYearExpense = curExp * Math.pow(1 + infl, accumYears);
+        const ssAnnual = ssMo * 12;
+        const netFirstYearNeed = Math.max(0, firstYearExpense - ssAnnual);
+
+        // Annuity present value for target corpus
+        let targetCorpus = 0;
+        const realPostRate = (1 + postR) / (1 + infl) - 1;
+        if (Math.abs(realPostRate) > 0.0001) {
+          targetCorpus = netFirstYearNeed * ((1 - Math.pow(1 + realPostRate, -postYears)) / realPostRate);
+        } else {
+          targetCorpus = netFirstYearNeed * postYears;
+        }
+
+        const surplusGap = balance - targetCorpus;
+        const isSurplus = surplusGap >= 0;
+
+        elements.corpusHeroValue.textContent = formatUSD(balance);
+        elements.corpusHeroDesc.textContent = "Contributed: " + formatUSD(totalInvested) + " • Market Growth: " + formatUSD(totalGrowth);
+        elements.resContributed.textContent = formatUSD(totalInvested);
+        elements.resGrowth.textContent = formatUSD(totalGrowth);
+        elements.resTargetCorpus.textContent = formatUSD(targetCorpus);
+        elements.resProjectedCorpus.textContent = formatUSD(balance);
+        elements.resGapStatus.textContent = isSurplus ? "Surplus +" + formatUSD(surplusGap) : "Shortfall -" + formatUSD(Math.abs(surplusGap));
+        elements.resGapStatus.className = isSurplus ? "result-value positive" : "result-value";
+        if (elements.resFirstYearExp) elements.resFirstYearExp.textContent = formatUSD(firstYearExpense) + "/yr";
+        if (elements.resSsAnnual) elements.resSsAnnual.textContent = formatUSD(ssAnnual) + "/yr";
+        if (elements.resMonthlyDrawdown) elements.resMonthlyDrawdown.textContent = formatUSD((balance * 0.04) / 12 + ssMo) + "/mo";
+        elements.mobileSummaryVal.textContent = formatUSD(balance);
+
+        lastProjection = yearlyData;
+
+        // Render Table
+        elements.projectionTable.innerHTML = yearlyData.map(r => `
+          <tr>
+            <td class="projection-year">Year ${r.year} (Age ${r.age})</td>
+            <td data-label="Opening Balance">${formatUSD(r.opening)}</td>
+            <td data-label="Annual Additions">${formatUSD(r.additions)}</td>
+            <td data-label="Investment Growth">${formatUSD(r.growth)}</td>
+            <td data-label="Ending Corpus">${formatUSD(r.closing)}</td>
+          </tr>
+        `).join("");
+
+        renderCharts(labels, balanceSeries, investedSeries, targetCorpus, totalInvested, totalGrowth);
+
+        lastSummaryText = [
+          "US Retirement Plan Summary",
+          "Target Retirement Age: " + rAge,
+          "Required Target Nest Egg: " + formatUSD(targetCorpus),
+          "Projected Retirement Corpus: " + formatUSD(balance),
+          "Status: " + (isSurplus ? "Surplus of " + formatUSD(surplusGap) : "Gap of " + formatUSD(Math.abs(surplusGap))),
+          "Total Contributed: " + formatUSD(totalInvested),
+          "Total Growth: " + formatUSD(totalGrowth)
+        ].join("\n");
+      }
+
+      function renderCharts(labels, balanceSeries, investedSeries, target, deposits, growth) {
+        if (!window.Chart) return;
+        if (splitChartInstance) splitChartInstance.destroy();
+        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Total Contributions", "Investment Growth"],
+            datasets: [{
+              data: [deposits, growth],
+              backgroundColor: ["#0284c7", "#10b981"],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" },
+              tooltip: { callbacks: { label: (c) => c.label + ": " + formatUSD(c.parsed) } }
+            }
+          }
+        });
+
+        if (timelineChartInstance) timelineChartInstance.destroy();
+        const ctx = elements.growthChart.getContext("2d");
+        const grad = ctx.createLinearGradient(0, 0, 0, 300);
+        grad.addColorStop(0, "rgba(2, 132, 199, 0.28)");
+        grad.addColorStop(1, "rgba(2, 132, 199, 0.015)");
+
+        const targetLine = labels.map(() => target);
+
+        timelineChartInstance = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Projected Corpus",
+                data: balanceSeries,
+                borderColor: "#0284c7",
+                backgroundColor: grad,
+                fill: true,
+                tension: 0.25,
+                borderWidth: 3,
+                pointRadius: 0,
+                pointHoverRadius: 5
+              },
+              {
+                label: "Required Nest Egg Target",
+                data: targetLine,
+                borderColor: "#f59e0b",
+                backgroundColor: "transparent",
+                fill: false,
+                borderWidth: 2,
+                borderDash: [6, 4],
+                pointRadius: 0,
+                pointHoverRadius: 4
+              },
+              {
+                label: "Cumulative Contributions",
+                data: investedSeries,
+                borderColor: "#10b981",
+                backgroundColor: "transparent",
+                fill: false,
+                borderWidth: 2,
+                borderDash: [2, 2],
+                pointRadius: 0,
+                pointHoverRadius: 4
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: { y: { ticks: { callback: (v) => formatCompact(v) } } },
+            plugins: {
+              legend: { position: "top" },
+              tooltip: { callbacks: { label: (c) => c.dataset.label + ": " + formatUSD(c.parsed.y) } }
+            }
+          }
+        });
+      }
+
+      function wireEvents() {
+        sync(elements.curAgeRange, elements.curAge);
+        sync(elements.retAgeRange, elements.retAge);
+        sync(elements.expensesRange, elements.expenses);
+        sync(elements.savingsRange, elements.savings);
+        sync(elements.currentSavingsRange, elements.currentSavings);
+        sync(elements.preReturnRange, elements.preReturn);
+
+        if (elements.ssMonthly) elements.ssMonthly.addEventListener("input", calculate);
+        if (elements.lifeExp) elements.lifeExp.addEventListener("input", calculate);
+        if (elements.postReturn) elements.postReturn.addEventListener("input", calculate);
+        if (elements.inflation) elements.inflation.addEventListener("input", calculate);
+        elements.recalculateBtn.addEventListener("click", calculate);
+
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function () {
+            const wrap = this.parentElement;
+            const tInput = document.getElementById(wrap.dataset.target);
+            const tRange = document.getElementById(wrap.dataset.range);
+            if (tInput) tInput.value = this.dataset.val;
+            if (tRange) tRange.value = this.dataset.val;
+            calculate();
+          });
+        });
+
+        elements.resetBtn.addEventListener("click", () => {
+          elements.curAge.value = 32; elements.curAgeRange.value = 32;
+          elements.retAge.value = 65; elements.retAgeRange.value = 65;
+          elements.expenses.value = 65000; elements.expensesRange.value = 65000;
+          elements.savings.value = 1200; elements.savingsRange.value = 1200;
+          elements.currentSavings.value = 75000; elements.currentSavingsRange.value = 75000;
+          elements.preReturn.value = 8.5; elements.preReturnRange.value = 8.5;
+          calculate();
+        });
+
+        elements.copySummaryBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+          });
+        });
+
+        elements.copyHeroBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            const orig = elements.copyHeroBtn.innerHTML;
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+          });
+        });
+
+        elements.downloadCsvBtn.addEventListener("click", () => {
+          if (!lastProjection.length) return;
+          const headers = ["Year", "Age", "Opening Balance", "Annual Additions", "Investment Growth", "Ending Corpus"];
+          const rows = lastProjection.map(r => [r.year, r.age, Math.round(r.opening), Math.round(r.additions), Math.round(r.growth), Math.round(r.closing)].join(","));
+          const csv = [headers.join(","), rows.join("\n")].join("\n");
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "retirement-schedule.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+
+        setupToggleAdvanced();
+      }
+
+      wireEvents();
+      calculate();
+    })();
+  </script>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial calculators and planning tools for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+</body>
+</html>

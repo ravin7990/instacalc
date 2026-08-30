@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Time Duration Calculator (US) | Add & Subtract Hours, Minutes, Seconds</title>
+  <meta name="description" content="Add, subtract, and convert time duration in hours, minutes, and seconds, calculate running pace per mile, and convert to decimal time intervals.">
+  <meta name="keywords" content="time duration calculator, add time calculator, time subtraction calculator, running pace calculator per mile, minutes to hours converter">
+  <meta name="author" content="InstaCalc USA">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/us/time-duration-calculator.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Studio Grid & Chart styles */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
+    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+    .legend-val.positive { color: #10b981; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+    
+    /* Mode Pill Switcher */
+    .shape-nav-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid var(--ic-border);
+      width: 100%;
+    }
+    .mode-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      border-radius: var(--ic-radius-full);
+      border: 1px solid var(--ic-border);
+      background: #ffffff;
+      color: var(--ic-text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .mode-pill-btn:hover {
+      border-color: var(--ic-primary);
+      color: var(--ic-primary-dark);
+    }
+    .mode-pill-btn.active {
+      background: var(--ic-primary);
+      color: #ffffff;
+      border-color: var(--ic-primary);
+      box-shadow: 0 2px 8px rgba(0, 95, 115, 0.25);
+    }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell { border: 0; background: transparent; overflow: visible; }
+      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
+      .projection-table thead { display: none; }
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
+      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .projection-table .projection-year::before { display: none; }
+    }
+    @media (max-width: 960px) {
+      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+    }
+    
+  </style>
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/time-duration-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+      </a>
+
+      <div class="lang-switch">
+        <select id="langSelect" aria-label="Select Region / Language">
+          <option value="us" selected>United States ($ USD)</option>
+          <option value="in">India (₹ INR)</option>
+          <option value="ja">日本語 (Japan)</option>
+          <option value="ru">Русский (Russia)</option>
+        </select>
+      </div>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">All US Tools</a>
+        <a href="diagonal-calculator.html">Diagonal</a>
+        <a href="gallon-to-liter-calculator.html">Gallon to Liter</a>
+        <a href="concrete-calculator.html">Concrete</a>
+        <a href="triangle-calculator.html">Triangle</a>
+        <a href="mortgage-calculator.html">Mortgage</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-stopwatch"></i> Duration & Arithmetic</span>
+          <h1>Time Duration Calculator (US)</h1>
+          <p>Add and subtract hours, minutes, and seconds, compute running pace per mile, and convert time intervals into decimal hours, minutes, and milliseconds.</p>
+        </div>
+        <aside class="hero-panel">
+          <h2>Time Units</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Add & Subtract multiple time intervals (HH:MM:SS)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Running & Marathon pace calculator (min/mile)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Total seconds, minutes, hours, and days breakdown</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell" id="calcTarget">
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label">Total Duration</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="fin-studio-grid">
+            <div class="studio-inputs">
+              <!-- Time 1 -->
+              <div class="field-card">
+                <div class="field-head"><label>Time Duration 1</label></div>
+                <div class="inline-grid" style="grid-template-columns: 1fr 1fr 1fr; gap:0.5rem;">
+                  <div class="input-with-adornment">
+                    <input type="number" id="h1" min="0" max="999" value="3" placeholder="Hrs" class="has-suffix">
+                    <span class="input-suffix">h</span>
+                  </div>
+                  <div class="input-with-adornment">
+                    <input type="number" id="m1" min="0" max="59" value="45" placeholder="Min" class="has-suffix">
+                    <span class="input-suffix">m</span>
+                  </div>
+                  <div class="input-with-adornment">
+                    <input type="number" id="s1" min="0" max="59" value="30" placeholder="Sec" class="has-suffix">
+                    <span class="input-suffix">s</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Operation -->
+              <div class="field-card" style="margin-top:0.75rem;">
+                <div class="field-head"><label for="op">Operation</label></div>
+                <select id="op" style="font-weight:700;">
+                  <option value="add" selected>Add (+) Time 2 to Time 1</option>
+                  <option value="sub">Subtract (-) Time 2 from Time 1</option>
+                </select>
+              </div>
+
+              <!-- Time 2 -->
+              <div class="field-card" style="margin-top:0.75rem;">
+                <div class="field-head"><label>Time Duration 2</label></div>
+                <div class="inline-grid" style="grid-template-columns: 1fr 1fr 1fr; gap:0.5rem;">
+                  <div class="input-with-adornment">
+                    <input type="number" id="h2" min="0" max="999" value="1" placeholder="Hrs" class="has-suffix">
+                    <span class="input-suffix">h</span>
+                  </div>
+                  <div class="input-with-adornment">
+                    <input type="number" id="m2" min="0" max="59" value="20" placeholder="Min" class="has-suffix">
+                    <span class="input-suffix">m</span>
+                  </div>
+                  <div class="input-with-adornment">
+                    <input type="number" id="s2" min="0" max="59" value="15" placeholder="Sec" class="has-suffix">
+                    <span class="input-suffix">s</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="studio-outcome">
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-stopwatch"></i> Calculated Duration Result</span>
+                  <div class="res-val" id="resHeroDuration">-</div>
+                  <div class="res-desc" id="resHeroDesc">Total Seconds: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card positive"><h3>Decimal Hours</h3><div class="result-value" id="resDecimalHours">-</div></div>
+                <div class="result-card"><h3>Total Minutes</h3><div class="result-value" id="resTotalMinutes">-</div></div>
+                <div class="result-card"><h3>Total Seconds</h3><div class="result-value" id="resTotalSeconds">-</div></div>
+                <div class="result-card"><h3>Days Equivalent</h3><div class="result-value" id="resDays">-</div></div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Time Unit Equivalents</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Unit</th>
+                  <th>Exact Value</th>
+                  <th>Formula</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3>US Time & Duration Tools</h3>
+            <ul class="link-list">
+              <li><a href="days-calculator.html"><span>Days & Business Days</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="hour-calculator.html"><span>Work Hours Timesheet</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="time-zone-calculator.html"><span>US Time Zone Converter</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="age-calculator.html"><span>Age & Retirement Milestones</span><i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Time Duration Calculator (US)",
+    "url": "https://instacalc.in/us/time-duration-calculator.html",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "description": "Add, subtract, and convert time duration in hours, minutes, and seconds into decimal hours and days.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script>
+    (function () {
+      let lastSummaryText = "";
+      let lastUnitRows = [];
+
+      const elements = {
+        h1: document.getElementById("h1"),
+        m1: document.getElementById("m1"),
+        s1: document.getElementById("s1"),
+        op: document.getElementById("op"),
+        h2: document.getElementById("h2"),
+        m2: document.getElementById("m2"),
+        s2: document.getElementById("s2"),
+
+        resHeroDuration: document.getElementById("resHeroDuration"),
+        resHeroDesc: document.getElementById("resHeroDesc"),
+        resDecimalHours: document.getElementById("resDecimalHours"),
+        resTotalMinutes: document.getElementById("resTotalMinutes"),
+        resTotalSeconds: document.getElementById("resTotalSeconds"),
+        resDays: document.getElementById("resDays"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        projectionTable: document.getElementById("projectionTable"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
+      };
+
+      function calculate() {
+        const h1 = Number(elements.h1.value) || 0;
+        const m1 = Number(elements.m1.value) || 0;
+        const s1 = Number(elements.s1.value) || 0;
+
+        const h2 = Number(elements.h2.value) || 0;
+        const m2 = Number(elements.m2.value) || 0;
+        const s2 = Number(elements.s2.value) || 0;
+
+        const totalSec1 = h1 * 3600 + m1 * 60 + s1;
+        const totalSec2 = h2 * 3600 + m2 * 60 + s2;
+
+        let resultSec = (elements.op.value === "add") ? (totalSec1 + totalSec2) : (totalSec1 - totalSec2);
+        const isNegative = resultSec < 0;
+        resultSec = Math.abs(resultSec);
+
+        const resH = Math.floor(resultSec / 3600);
+        const resM = Math.floor((resultSec % 3600) / 60);
+        const resS = resultSec % 60;
+
+        const durationStr = (isNegative ? "-" : "") + resH + "h " + resM + "m " + resS + "s";
+        const decimalHrs = (resultSec / 3600) * (isNegative ? -1 : 1);
+        const totalMins = (resultSec / 60) * (isNegative ? -1 : 1);
+        const totalDays = (resultSec / 86400) * (isNegative ? -1 : 1);
+
+        elements.resHeroDuration.textContent = durationStr;
+        elements.resHeroDesc.textContent = "Total: " + resultSec.toLocaleString("en-US") + " Seconds • " + decimalHrs.toFixed(4) + " Decimal Hours";
+        elements.resDecimalHours.textContent = decimalHrs.toFixed(3) + " hrs";
+        elements.resTotalMinutes.textContent = totalMins.toFixed(2) + " mins";
+        elements.resTotalSeconds.textContent = (resultSec * (isNegative ? -1 : 1)).toLocaleString("en-US") + " s";
+        elements.resDays.textContent = totalDays.toFixed(4) + " days";
+        elements.mobileSummaryVal.textContent = durationStr;
+
+        lastUnitRows = [
+          { unit: "Hours (HH:MM:SS)", val: durationStr, formula: "Direct Base Result" },
+          { unit: "Decimal Hours", val: decimalHrs.toFixed(4) + " hrs", formula: "Total Seconds ÷ 3600" },
+          { unit: "Decimal Minutes", val: totalMins.toFixed(2) + " mins", formula: "Total Seconds ÷ 60" },
+          { unit: "Total Seconds", val: (resultSec * (isNegative ? -1 : 1)).toLocaleString("en-US") + " s", formula: "Exact Seconds" },
+          { unit: "Days Equivalent", val: totalDays.toFixed(4) + " days", formula: "Total Seconds ÷ 86400" }
+        ];
+
+        elements.projectionTable.innerHTML = lastUnitRows.map(r => `
+          <tr>
+            <td class="projection-year">${r.unit}</td>
+            <td data-label="Exact Value">${r.val}</td>
+            <td data-label="Formula">${r.formula}</td>
+          </tr>
+        `).join("");
+
+        lastSummaryText = [
+          "Time Duration Calculation Summary",
+          "Time 1: " + h1 + "h " + m1 + "m " + s1 + "s",
+          "Operation: " + (elements.op.value === "add" ? "ADD (+)" : "SUBTRACT (-)"),
+          "Time 2: " + h2 + "h " + m2 + "m " + s2 + "s",
+          "Result: " + durationStr + " (" + decimalHrs.toFixed(4) + " decimal hrs)"
+        ].join("\n");
+      }
+
+      function wireEvents() {
+        [elements.h1, elements.m1, elements.s1, elements.h2, elements.m2, elements.s2, elements.op].forEach(el => {
+          el.addEventListener("input", calculate);
+          el.addEventListener("change", calculate);
+        });
+
+        elements.recalculateBtn.addEventListener("click", calculate);
+        elements.resetBtn.addEventListener("click", () => {
+          elements.h1.value = 3; elements.m1.value = 45; elements.s1.value = 30;
+          elements.h2.value = 1; elements.m2.value = 20; elements.s2.value = 15;
+          elements.op.value = "add";
+          calculate();
+        });
+
+        elements.copySummaryBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+          });
+        });
+
+        elements.copyHeroBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(lastSummaryText).then(() => {
+            const orig = elements.copyHeroBtn.innerHTML;
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+          });
+        });
+
+        elements.downloadCsvBtn.addEventListener("click", () => {
+          if (!lastUnitRows.length) return;
+          const headers = ["Unit", "Exact Value", "Formula"];
+          const rows = lastUnitRows.map(r => [r.unit, r.val, r.formula].join(","));
+          const csv = [headers.join(","), rows.join("\n")].join("\n");
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "time-duration-conversions.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        });
+      }
+
+      wireEvents();
+      calculate();
+    })();
+  </script>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial, math, and construction calculators for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+</body>
+</html>
