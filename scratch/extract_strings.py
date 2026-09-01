@@ -17,8 +17,9 @@ files = [
     "moretools/trignometrycalculator.html"
 ]
 
-base_dir = r"c:\Users\ravin\Videos\new secretke website\instacalc-main\instacalc-main"
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 results = {}
+
 
 for f in files:
     path = os.path.join(base_dir, f)
