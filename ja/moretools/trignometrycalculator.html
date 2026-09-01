@@ -3,104 +3,235 @@
 
 <head>
   <meta charset="UTF-8">
-  <script>
-  (function() {
-    const pref = localStorage.getItem('user_lang');
-    const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-    if (pref === 'ru' || (!pref && browserLang.startsWith('ru'))) {
-      window.location.replace('../ru/moretools/trignometrycalculator.html');
-    } else if (pref === 'ja' || (!pref && browserLang.startsWith('ja'))) {
-      window.location.replace('../ja/moretools/trignometrycalculator.html');
-    } else if (pref === 'ko' || (!pref && browserLang.startsWith('ko'))) {
-      window.location.replace('../ko/moretools/trignometrycalculator.html');
-    }
-  })();
-  </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Triangle Calculator – Sides, Angles, Area, Hypotenuse & Trigonometry</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>三角形計算機・三角比 | 直角三角形・ピタゴラス・斜辺計算 - InstaCalc</title>
   <meta name="description"
-    content="Free online Triangle Calculator. Solve right triangles (Pythagorean theorem & hypotenuse), SSS, SAS, and ASA triangles. Calculates sides, angles, area, perimeter, sin, cos, and tan.">
+    content="直角三角形の斜辺・底辺・高さ・角度を瞬時に計算。sin（サイン）、cos（コサイン）、tan（タンジェント）、逆三角関数（arcsin, arccos, arctan）、度数法（°）と弧度法（ラジアン/rad）の相互変換、屋根・道路の勾配％計算まで完全対応。">
   <meta name="keywords"
-    content="triangle calculator, right triangle calculator, hypotenuse calculator, trigonometry calculator, sss triangle calculator, sas triangle solver, area of triangle, pythagorean theorem">
+    content="三角関数 計算, sin cos tan 計算機, 直角三角形 角度 計算, 斜辺 計算, 逆三角関数 計算, 弧度法 度数法 変換, 勾配 計算 パーセント, 三角比 早見表">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+  <link rel="canonical" href="https://instacalc.in/ja/moretools/trignometrycalculator.html">
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+  <link rel="icon" type="image/webp" href="../../favicon.webp">
+  <link rel="alternate" hreflang="ja" href="https://instacalc.in/ja/moretools/trignometrycalculator.html">
+  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/moretools/trignometrycalculator.html">
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/triangle-calculator.html">
+  <link rel="alternate" hreflang="en" href="https://instacalc.in/moretools/trignometrycalculator.html">
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/moretools/trignometrycalculator.html">
+  <link rel="alternate" hreflang="ru" href="https://instacalc.in/ru/moretools/trignometrycalculator.html">
+  <link rel="alternate" hreflang="ko" href="https://instacalc.in/ko/moretools/trignometrycalculator.html">
+  <link rel="alternate" hreflang="ko-KR" href="https://instacalc.in/ko/moretools/trignometrycalculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/moretools/trignometrycalculator.html">
 
-  <link rel="icon" type="image/x-icon" href="../../favicon.webp">
-  <link rel="canonical" href="https://instacalc.in/moretools/trignometrycalculator.html">
 
-  <meta property="og:title" content="Triangle Calculator - Solve Sides, Angles & Trig Ratios">
+
+
+
+
+
+<meta property="og:title" content="三角形計算機・三角比 | 直角三角形・ピタゴラス・斜辺計算 - InstaCalc">
   <meta property="og:description"
-    content="Solve any triangle using SSS, SAS, ASA, or Right Angle methods. Automatically calculates hypotenuse, area, perimeter, sin, cos, and tan.">
+    content="直角三角形の斜辺、角度、sin/cos/tan、度数・ラジアン変換、勾配％を公式と図面付きで簡単計算。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://instacalc.in/moretools/trignometrycalculator.html">
+  <meta property="og:url" content="https://instacalc.in/ja/moretools/trignometrycalculator.html">
   <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="三角形計算機・三角比 | 直角三角形・ピタゴラス・斜辺計算 - InstaCalc">
+  <meta name="twitter:description"
+    content="無料の三角関数・直角三角形計算機。sin・cos・tan、角度、斜辺、勾配を瞬時に算出。">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "三角関数（sin・cos・tan）・斜辺角度計算機",
+      "url": "https://instacalc.in/ja/moretools/trignometrycalculator.html",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "description": "直角三角形の辺の長さと角度からsin, cos, tan, 逆三角関数、度数法・弧度法ラジアン、勾配を計算するツール。",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "sin（サイン）、cos（コサイン）、tan（タンジェント）の定義とは？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "直角三角形において、底辺を a、高さを b、斜辺を c、底辺と斜辺の挟む角を θ とすると：sin θ ＝ 高さ÷斜辺（b/c）、cos θ ＝ 底辺÷斜辺（a/c）、tan θ ＝ 高さ÷底辺（b/a）と定義されます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "「度数法（°）」と「弧度法（ラジアン/rad）」の違いと換算方法は？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "円を360等分した角度を表すのが『度数法（°）』、円の半径と等しい長さの円弧に対する中心角を1とするのが『弧度法（ラジアン）』です。換算式：180° ＝ π rad（約3.14159 rad）、1° ＝ π/180 rad（約0.01745 rad）、1 rad ＝ 180/π °（約57.2958°）となります。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "建築や道路で使われる「勾配（％・寸）」はどう計算しますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "道路やスロープの勾配（％）は『tan θ × 100 ＝ (高さ÷水平距離) × 100』で計算されます（例：水平100mで5m上がる道は5%勾配）。日本の木造建築の屋根で使われる『寸勾配』は、水平10寸に対する高さの寸数を表します（例：4寸勾配 ＝ tan θ ＝ 0.4 ≒ 21.8度）。"
+          }
+        }
+      ]
+    }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
+  <link rel="preload"
     href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
   <link rel="stylesheet" href="../../instacalc-core.css">
-
   <style>
-    * { box-sizing: border-box; }
-    .container { width: min(1240px, 92vw); margin: 0 auto; padding: 0 0.5rem; }
-    .calc-layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem; gap: 1.75rem; align-items: start; width: 100%; }
-    .calculator-shell { background: #ffffff; border: 1px solid var(--ic-border); border-radius: var(--ic-radius-lg); box-shadow: var(--ic-shadow-md); padding: 1.75rem; width: 100%; max-width: 100%; overflow: hidden; }
-
-    .nav-pills-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; padding-bottom: 0.85rem; border-bottom: 1px solid var(--ic-border); width: 100%; }
-    .mode-pill-btn { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.5rem 0.85rem; font-size: 0.84rem; font-weight: 700; border-radius: var(--ic-radius-full); border: 1px solid var(--ic-border); background: #ffffff; color: var(--ic-text-muted); cursor: pointer; transition: all 0.2s ease; white-space: nowrap; }
-    .mode-pill-btn:hover { border-color: var(--ic-primary); color: var(--ic-primary-dark); background: var(--ic-bg-subtle); }
-    .mode-pill-btn.active { background: linear-gradient(135deg, var(--ic-primary-dark), var(--ic-primary)); color: #ffffff; border-color: var(--ic-primary-dark); box-shadow: 0 3px 8px rgba(0, 127, 139, 0.25); }
-
-    .hero-result-card { background: linear-gradient(135deg, #f0fdfa 0%, #e6f7f6 100%); border: 1px solid rgba(0, 127, 139, 0.25); border-radius: var(--ic-radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; width: 100%; position: relative; }
-    .hero-result-card .label-group { display: grid; gap: 0.25rem; width: 100%; min-width: 0; }
-    .hero-result-card .res-eyebrow { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ic-primary-dark); }
-    .hero-result-card .res-val { font-family: 'Sora', sans-serif; font-size: clamp(1.45rem, 4vw, 2.2rem); font-weight: 800; color: var(--ic-primary-dark); line-height: 1.2; word-break: break-word; }
-    .hero-result-card .res-desc { font-size: 0.85rem; color: var(--ic-text-muted); word-break: break-word; }
-    .hero-result-card .quick-copy-btn { width: 42px; height: 42px; border-radius: 12px; border: 1px solid rgba(0, 127, 139, 0.25); background: #ffffff; color: var(--ic-primary-dark); font-size: 1.05rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0; }
-    .hero-result-card .quick-copy-btn:hover { background: var(--ic-primary-dark); color: #ffffff; transform: translateY(-2px); }
-
-    .field-card { background: var(--ic-bg-subtle); border: 1px solid var(--ic-border); border-radius: var(--ic-radius-md); padding: 1rem; margin-bottom: 0.85rem; width: 100%; }
-    .field-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; font-weight: 700; font-size: 0.92rem; gap: 0.5rem; }
-    .field-head span { color: var(--ic-primary-dark); font-family: 'Sora', sans-serif; font-size: 0.95rem; }
-    .field-card input, .field-card select { width: 100%; height: 48px; padding: 0.65rem 1rem; font-size: 1.05rem; font-weight: 700; color: var(--ic-text); background: #ffffff; border: 1.5px solid var(--ic-border); border-radius: var(--ic-radius-md); outline: none; transition: all 0.2s ease; }
-    .field-card input:focus, .field-card select:focus { border-color: var(--ic-primary); box-shadow: 0 0 0 3.5px var(--ic-primary-light); }
-
-    .chips-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; width: 100%; }
-    .chip { padding: 0.35rem 0.75rem; font-size: 0.82rem; font-weight: 700; border-radius: 999px; border: 1px solid var(--ic-border); background: #ffffff; color: var(--ic-text-muted); cursor: pointer; white-space: nowrap; transition: all 0.15s ease; }
-    .chip:hover, .chip.active { color: var(--ic-primary-dark); background: var(--ic-primary-light); border-color: var(--ic-primary); }
-
-    .inline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem; }
-    .tool-panel { display: none; }
-    .tool-panel.active { display: block; }
-
-    .result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 0.75rem; margin-top: 1.25rem; width: 100%; }
-    .result-card { background: #ffffff; border: 1px solid var(--ic-border); border-radius: var(--ic-radius-md); padding: 0.85rem; min-width: 0; overflow: hidden; }
-    .result-card h3 { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ic-text-muted); font-weight: 700; margin-bottom: 0.25rem; }
-    .result-value { font-family: 'Sora', sans-serif; font-size: clamp(1.1rem, 3.5vw, 1.35rem); font-weight: 800; color: var(--ic-text); word-break: break-word; }
-    .result-card.highlight { background: #f8fafc; border-color: rgba(0, 127, 139, 0.3); }
-    .result-card.highlight .result-value { color: var(--ic-primary-dark); }
-    .result-card.positive .result-value { color: #1f9f67; }
-
-    .visual-studio-card { background: #ffffff; border: 1px solid var(--ic-border); border-radius: var(--ic-radius-md); padding: 1rem; margin-top: 1.25rem; text-align: center; }
-    .svg-canvas-wrap { width: 100%; height: 180px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #f8fafc 0%, #edf2f7 100%); border-radius: var(--ic-radius-sm); overflow: hidden; margin-top: 0.5rem; }
-
-    .calculator-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; width: 100%; }
-
+    /* Japanese Trigonometry Studio Styling */
+    .japanese-trig-hero {
+      background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
+      border: 1.5px solid rgba(2, 132, 199, 0.25);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--ic-shadow-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.25rem;
+    }
     @media (max-width: 640px) {
-      .calc-layout { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
-      .calculator-shell { padding: 1rem 0.75rem !important; border-radius: var(--ic-radius-md) !important; }
-      .nav-pills-wrap { gap: 0.3rem !important; }
-      .mode-pill-btn { padding: 0.45rem 0.65rem !important; font-size: 0.78rem !important; }
-      .hero-result-card { padding: 1rem 0.85rem !important; flex-direction: column !important; align-items: flex-start !important; gap: 0.5rem !important; }
-      .hero-result-card .quick-copy-btn { position: absolute !important; top: 0.75rem !important; right: 0.75rem !important; width: 38px !important; height: 38px !important; }
-      .hero-result-card .res-val { font-size: clamp(1.35rem, 6.5vw, 1.85rem) !important; max-width: calc(100% - 44px) !important; }
-      .inline-grid { grid-template-columns: 1fr !important; gap: 0.5rem !important; }
-      .result-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.5rem !important; }
+      .japanese-trig-hero {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.25rem;
+      }
+    }
+    .japanese-trig-hero .banner-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .japanese-trig-hero .banner-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #0369a1;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .japanese-trig-hero .main-trig {
+      font-family: var(--ic-font-heading, "Sora", sans-serif);
+      font-size: clamp(2rem, 4.5vw, 2.75rem);
+      font-weight: 800;
+      color: #0284c7;
+      line-height: 1.15;
+    }
+    .japanese-trig-hero .main-trig-sub {
+      font-size: 0.95rem;
+      color: #475569;
+      font-weight: 700;
+    }
+
+    /* Preset Chips */
+    .chips-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.6rem;
+    }
+    .chip-btn {
+      padding: 0.35rem 0.65rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chip-btn:hover {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0369a1;
+    }
+    .chip-btn.active {
+      background: #0284c7;
+      border-color: #0284c7;
+      color: #ffffff;
+    }
+
+    /* Diagram Wrap */
+    .svg-diagram-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-top: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .svg-diagram-card svg {
+      width: 100%;
+      max-width: 440px;
+      height: 220px;
+    }
+
+    /* Trig Ratio Table */
+    .trig-pill-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    @media (max-width: 640px) {
+      .trig-pill-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .trig-pill-box {
+      background: #f8fafc;
+      border: 1px solid var(--ic-border);
+      border-radius: 10px;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .trig-pill-box strong {
+      font-family: var(--ic-font-heading, "Sora", sans-serif);
+      font-size: 1.2rem;
+      color: #0284c7;
     }
   </style>
 </head>
@@ -108,25 +239,23 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="../../index.html" class="brand" aria-label="InstaCalc Home">
-        <img src="../../logo.png" alt="InstaCalc Logo" width="38" height="38">
+      <a href="../index.html" class="brand" aria-label="InstaCalc ホーム">
+        <img src="../../logo.png" alt="InstaCalc ロゴ">
         <span>InstaCalc.in</span>
       </a>
-      <div class="lang-switch">
-        <select id="langSelect" aria-label="Select Language">
-          <option value="en">English</option>
-          <option value="ru">Русский</option>
-          <option value="ja" selected>日本語</option>
-          <option value="ko">한국어</option>
-        </select>
-      </div>
-      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="メニュー開閉" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
       <nav class="site-nav" id="mainNav">
-        <a href="../../index.html">Home</a>
-        <a href="trignometrycalculator.html" class="active">Triangle Tool</a>
-        <a href="diagonalcalculator.html">Diagonal Tool</a>
-        <a href="concretecalculator.html">Concrete Tool</a>
-        <a href="../../sipcalculator.html">SIP Planner</a>
+        <a href="../index.html">ホーム</a>
+        <a href="trignometrycalculator.html" class="active">三角関数計算</a>
+        <a href="diagonalcalculator.html">対角線計算</a>
+        <a href="concretecalculator.html">生コン立米計算</a>
+        <a href="../aboutus.html">運営者情報</a>
+        <a href="../contactus.html">お問い合わせ</a>
       </nav>
     </div>
   </header>
@@ -135,473 +264,567 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow"><i class="fas fa-shapes"></i> Geometry & Trigonometry Solver</span>
-          <h1>Triangle Calculator – Sides, Angles, Area & Hypotenuse</h1>
-          <p>Solve any triangle using <strong>Right Triangle (Pythagorean theorem)</strong>, <strong>SSS (3 sides)</strong>, <strong>SAS</strong>, or <strong>ASA</strong> theorems. Compute hypotenuse, angles, area, perimeter, and sin/cos/tan ratios.</p>
+          <span class="eyebrow">
+            <i class="fas fa-drafting-compass"></i>
+            直角三角形・三角比・角度マスター
+          </span>
+          <h1>三角関数（sin・cos・tan）・斜辺角度計算機 — 直角三角形＆勾配計算</h1>
+          <p>直角三角形の2辺の長さ、または1辺と角度を入力するだけで、斜辺・底辺・高さ、sin（正弦）・cos（余弦）・tan（正接）、逆三角関数（arcsin/arccos/arctan）、度数法（°）と弧度法（rad）、道路・屋根の勾配％を瞬時に完全算出します。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#trig-planner">
+              <i class="fas fa-calculator"></i>
+              三角関数計算を開始
+            </a>
+            <a class="btn btn-ghost" href="../index.html">
+              <i class="fas fa-house"></i>
+              全ツール一覧へ
+            </a>
+          </div>
         </div>
+
         <aside class="hero-panel">
-          <h2>Geometry Features</h2>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Pythagorean Hypotenuse (c = √(a²+b²))</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Heron's Area & Semi-Perimeter (s)</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Law of Sines & Cosines</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Trigonometric Ratios (sin, cos, tan)</div>
+          <h2><i class="fas fa-calculator" style="color: #38bdf8;"></i> 三角関数計算の充実機能</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>直角三角形の全辺（a, b, c）＆全角（θ, α）</strong>を自動算出</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>sin・cos・tan ＆ 逆三角関数（arcsin/arccos/arctan）</strong></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>度数法（°） $\leftrightarrow$ 弧度法（ラジアン/rad）</strong>の即時換算</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>道路勾配（%）＆建築の屋根勾配（寸勾配）</strong>計算対応</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>リアルタイム幾何図面 ＆ 有名角三角比早見表</strong></div>
         </aside>
       </div>
     </section>
 
-    <div class="container" id="calculator">
-      <div class="calc-layout">
-        <article class="calculator-shell">
-          <div class="mobile-summary-pill" id="mobileSummaryPill">
-            <span class="metric-label" id="mobileSummaryLabel">Triangle Area</span>
-            <span class="metric-val" id="mobileSummaryVal">-</span>
-          </div>
-
-          <div class="nav-pills-wrap" aria-label="Select Theorem">
-            <button type="button" class="mode-pill-btn active" data-mode="right"><i class="fas fa-play" style="transform:rotate(90deg);"></i> Right Triangle (90°)</button>
-            <button type="button" class="mode-pill-btn" data-mode="sss"><i class="fas fa-draw-polygon"></i> SSS (3 Sides)</button>
-            <button type="button" class="mode-pill-btn" data-mode="sas"><i class="fas fa-shapes"></i> SAS (Side-Angle-Side)</button>
-            <button type="button" class="mode-pill-btn" data-mode="asa"><i class="fas fa-ruler-combined"></i> ASA (Angle-Side-Angle)</button>
-          </div>
-
-          <div class="hero-result-card">
-            <div class="label-group">
-              <span class="res-eyebrow" id="heroEyebrow">Calculated Triangle Area</span>
-              <div class="res-val" id="heroValue">-</div>
-              <div class="res-desc" id="heroDesc">-</div>
+    <section id="trig-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="計算モード">
+              <button type="button" class="btn btn-primary btn-sm mode-btn active" data-mode="two_sides"><i class="fas fa-ruler-combined"></i> 2辺から計算 (a, b $\to$ c, θ)</button>
+              <button type="button" class="btn btn-ghost btn-sm mode-btn" data-mode="side_angle"><i class="fas fa-draw-polygon"></i> 1辺と角度から計算 (c, θ $\to$ a, b)</button>
+              <button type="button" class="btn btn-ghost btn-sm mode-btn" data-mode="angle_only"><i class="fas fa-compass"></i> 角度から三角比算出 (θ $\to$ sin,cos,tan)</button>
             </div>
-            <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary">
-              <i class="fas fa-copy"></i>
+          </div>
+
+          <!-- Hero Main Outcome Banner -->
+          <div class="japanese-trig-hero">
+            <div class="banner-text">
+              <span class="banner-tag"><i class="fas fa-square-root-variable"></i> 計算結果サマリー</span>
+              <div class="main-trig" id="heroTrigVal">斜辺 c: 5.000 | θ: 36.87°</div>
+              <div class="main-trig-sub" id="heroTrigSub">sin θ: 0.6000 | cos θ: 0.8000 | tan θ: 0.7500</div>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" id="copyHeroBtn" title="結果をコピー">
+              <i class="fas fa-copy"></i> 結果をコピー
             </button>
           </div>
 
-          <!-- Panel 1: Right Triangle -->
-          <div class="tool-panel active" id="panel_right">
-            <div class="inline-grid">
+          <!-- Input Controls Grid -->
+          <div class="input-grid">
+            <!-- Mode 1: Two Sides (a, b) -->
+            <div id="twoSidesInputs" class="mode-input-group" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
               <div class="field-card">
-                <div class="field-head"><label for="rt_a">Leg a (Opposite)</label></div>
-                <input type="number" id="rt_a" value="3" min="0.01" step="0.1">
+                <div class="field-head"><label for="sideA">底辺 a (隣辺)</label></div>
+                <input type="number" id="sideA" min="0.001" step="0.1" value="4" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700;">
               </div>
               <div class="field-card">
-                <div class="field-head"><label for="rt_b">Leg b (Adjacent)</label></div>
-                <input type="number" id="rt_b" value="4" min="0.01" step="0.1">
+                <div class="field-head"><label for="sideB">高さ b (対辺)</label></div>
+                <input type="number" id="sideB" min="0.001" step="0.1" value="3" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700;">
               </div>
             </div>
-            <div class="chips-wrap">
-              <button type="button" class="chip" data-a="3" data-b="4">3 - 4 (Hyp = 5)</button>
-              <button type="button" class="chip" data-a="5" data-b="12">5 - 12 (Hyp = 13)</button>
-              <button type="button" class="chip" data-a="6" data-b="8">6 - 8 (Hyp = 10)</button>
-              <button type="button" class="chip" data-a="8" data-b="15">8 - 15 (Hyp = 17)</button>
-              <button type="button" class="chip" data-a="1" data-b="1">1 - 1 (45°-45°-90°)</button>
-            </div>
-          </div>
 
-          <!-- Panel 2: SSS -->
-          <div class="tool-panel" id="panel_sss">
-            <div class="inline-grid">
+            <!-- Mode 2: Side and Angle -->
+            <div id="sideAngleInputs" class="mode-input-group" style="grid-column: 1 / -1; display: none; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
               <div class="field-card">
-                <div class="field-head"><label for="sss_a">Side a</label></div>
-                <input type="number" id="sss_a" value="5" min="0.01" step="0.1">
+                <div class="field-head"><label for="hypotC">斜辺 c (または底辺 a)</label></div>
+                <input type="number" id="hypotC" min="0.001" step="0.1" value="10" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700;">
               </div>
               <div class="field-card">
-                <div class="field-head"><label for="sss_b">Side b</label></div>
-                <input type="number" id="sss_b" value="6" min="0.01" step="0.1">
-              </div>
-              <div class="field-card">
-                <div class="field-head"><label for="sss_c">Side c</label></div>
-                <input type="number" id="sss_c" value="7" min="0.01" step="0.1">
+                <div class="field-head"><label for="angleInput">角度 θ (度数法 °)</label></div>
+                <input type="number" id="angleInput" min="0.01" max="89.99" step="0.5" value="30" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700;">
               </div>
             </div>
-            <div class="chips-wrap">
-              <button type="button" class="chip" data-sa="5" data-sb="5" data-sc="5">5-5-5 (Equilateral)</button>
-              <button type="button" class="chip" data-sa="5" data-sb="5" data-sc="8">5-5-8 (Isosceles)</button>
-              <button type="button" class="chip" data-sa="7" data-sb="8" data-sc="9">7-8-9 (Scalene)</button>
-            </div>
-          </div>
 
-          <!-- Panel 3: SAS -->
-          <div class="tool-panel" id="panel_sas">
-            <div class="inline-grid">
+            <!-- Mode 3: Angle Only -->
+            <div id="angleOnlyInputs" class="mode-input-group" style="grid-column: 1 / -1; display: none; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
               <div class="field-card">
-                <div class="field-head"><label for="sas_a">Side a</label></div>
-                <input type="number" id="sas_a" value="5" min="0.01" step="0.1">
+                <div class="field-head"><label for="pureAngle">角度</label></div>
+                <input type="number" id="pureAngle" step="1" value="45" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700;">
               </div>
               <div class="field-card">
-                <div class="field-head"><label for="sas_angC">Included Angle C (°)</label></div>
-                <input type="number" id="sas_angC" value="45" min="0.1" max="179.9" step="0.1">
+                <div class="field-head"><label for="angleUnit">角度の単位</label></div>
+                <select id="angleUnit" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">
+                  <option value="deg" selected>度数法 (° / Degree)</option>
+                  <option value="rad">弧度法 (rad / Radian)</option>
+                </select>
               </div>
-              <div class="field-card">
-                <div class="field-head"><label for="sas_b">Side b</label></div>
-                <input type="number" id="sas_b" value="7" min="0.01" step="0.1">
+            </div>
+
+            <!-- Common Famous Angles Chips -->
+            <div class="field-card" style="grid-column: 1 / -1;">
+              <div class="field-head"><label>有名角プリセット</label></div>
+              <div class="chips-group">
+                <button type="button" class="chip-btn" data-angle-preset="30">30° (π/6 rad)</button>
+                <button type="button" class="chip-btn" data-angle-preset="45">45° (π/4 rad / 1:1:√2)</button>
+                <button type="button" class="chip-btn" data-angle-preset="60">60° (π/3 rad / 1:2:√3)</button>
+                <button type="button" class="chip-btn active" data-angle-preset="345">3:4:5 直角三角形 (約36.87°)</button>
+                <button type="button" class="chip-btn" data-angle-preset="roof">4寸屋根勾配 (約21.80°)</button>
               </div>
             </div>
           </div>
 
-          <!-- Panel 4: ASA -->
-          <div class="tool-panel" id="panel_asa">
-            <div class="inline-grid">
-              <div class="field-card">
-                <div class="field-head"><label for="asa_angA">Angle A (°)</label></div>
-                <input type="number" id="asa_angA" value="40" min="0.1" max="179.9" step="0.1">
-              </div>
-              <div class="field-card">
-                <div class="field-head"><label for="asa_c">Included Side c</label></div>
-                <input type="number" id="asa_c" value="10" min="0.01" step="0.1">
-              </div>
-              <div class="field-card">
-                <div class="field-head"><label for="asa_angB">Angle B (°)</label></div>
-                <input type="number" id="asa_angB" value="60" min="0.1" max="179.9" step="0.1">
-              </div>
-            </div>
-          </div>
-
-          <!-- Visual Studio SVG Canvas -->
-          <div class="visual-studio-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; font-weight:700; color:var(--ic-text-muted);">
-              <span><i class="fas fa-vector-square"></i> Geometry Visualization</span>
-              <span id="shapeClassification" style="color:var(--ic-primary-dark);">Right Scalene</span>
-            </div>
-            <div class="svg-canvas-wrap">
-              <svg id="liveSvgTriangle" viewBox="0 0 320 180" width="100%" height="100%"></svg>
-            </div>
-          </div>
-
-          <div class="result-grid">
-            <div class="result-card highlight">
-              <h3>Triangle Area</h3>
-              <div class="result-value" id="resArea">-</div>
-            </div>
-            <div class="result-card positive">
-              <h3>Perimeter</h3>
-              <div class="result-value" id="resPerim">-</div>
-            </div>
-            <div class="result-card">
-              <h3 id="resSideLabel">Hypotenuse c</h3>
-              <div class="result-value" id="resSideVal">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Angle A</h3>
-              <div class="result-value" id="resAngleA">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Angle B</h3>
-              <div class="result-value" id="resAngleB">-</div>
-            </div>
-            <div class="result-card">
-              <h3>Trig Ratios</h3>
-              <div class="result-value" id="resTrig" style="font-size:0.95rem;">-</div>
-            </div>
-          </div>
-
+          <!-- Buttons -->
           <div class="calculator-actions">
-            <button class="btn btn-primary" id="copyResultBtn" type="button"><i class="fas fa-copy"></i> Copy Triangle Summary</button>
-            <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset Defaults</button>
+            <button id="recalculateBtn" class="btn btn-primary" type="button"><i class="fas fa-arrows-rotate"></i> 再計算する</button>
+            <button id="resetBtn" class="btn btn-ghost" type="button"><i class="fas fa-rotate-left"></i> 初期設定に戻す</button>
           </div>
-        </article>
 
+          <!-- Interactive SVG Triangle Diagram -->
+          <div class="svg-diagram-card">
+            <svg id="trigSvg" viewBox="0 0 400 200">
+              <!-- Dynamically drawn in JS -->
+            </svg>
+            <span style="font-size:0.82rem; color:#64748b; margin-top:0.4rem;" id="svgCaption">直角三角形（底辺 a・高さ b・斜辺 c・角度 θ）幾何図面</span>
+          </div>
+
+          <!-- Trig Function Values Pill Grid -->
+          <div class="trig-pill-grid">
+            <div class="trig-pill-box">
+              <span style="font-size:0.78rem; font-weight:700; color:#64748b;">sin θ (正弦)</span>
+              <strong id="sinVal">0.6000</strong>
+              <small style="font-size:0.75rem; color:#94a3b8;">b / c (高さ ÷ 斜辺)</small>
+            </div>
+            <div class="trig-pill-box">
+              <span style="font-size:0.78rem; font-weight:700; color:#64748b;">cos θ (余弦)</span>
+              <strong id="cosVal">0.8000</strong>
+              <small style="font-size:0.75rem; color:#94a3b8;">a / c (底辺 ÷ 斜辺)</small>
+            </div>
+            <div class="trig-pill-box">
+              <span style="font-size:0.78rem; font-weight:700; color:#64748b;">tan θ (正接 / 勾配)</span>
+              <strong id="tanVal">0.7500</strong>
+              <small style="font-size:0.75rem; color:#94a3b8;">b / a (高さ ÷ 底辺)</small>
+            </div>
+          </div>
+
+          <!-- Result Grid Cards -->
+          <div class="result-grid" style="grid-template-columns: repeat(2, 1fr); margin-top:1.25rem;">
+            <div class="result-card positive">
+              <h3>斜辺 c (Hypotenuse)</h3>
+              <div id="hypotResultVal" class="result-value" style="color:#0284c7;">5.000</div>
+              <div class="val-sub">√(a² + b²)</div>
+            </div>
+
+            <div class="result-card">
+              <h3>角度 θ (度数法 & 弧度法)</h3>
+              <div id="angleResultVal" class="result-value">36.87 °</div>
+              <div class="val-sub" id="radSubVal">約 0.6435 rad</div>
+            </div>
+
+            <div class="result-card">
+              <h3>三角形の面積</h3>
+              <div id="areaResultVal" class="result-value">6.000</div>
+              <div class="val-sub">(a × b) ÷ 2</div>
+            </div>
+
+            <div class="result-card" style="background:#f0fdfa; border-color:#0284c7;">
+              <h3 style="color:#0369a1;">道路勾配 (パーセント ％)</h3>
+              <div id="gradientPercentVal" class="result-value" style="color:#0284c7;">75.00 %</div>
+              <div class="val-sub">tan θ × 100</div>
+            </div>
+          </div>
+
+          <!-- Breakdown Table -->
+          <div class="table-tools" style="margin-top: 1.5rem;">
+            <h3><i class="fas fa-table-list" style="color: var(--ic-primary);"></i> 有名角の三角比早見表 (0° 〜 180°)</h3>
+            <button id="downloadCsvBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-file-csv"></i> CSVファイルを保存
+            </button>
+          </div>
+
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>度数法 (θ)</th>
+                  <th>弧度法 (rad)</th>
+                  <th>sin θ</th>
+                  <th>cos θ</th>
+                  <th>tan θ</th>
+                </tr>
+              </thead>
+              <tbody id="trigTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="calculator-actions" style="margin-top: 1rem;">
+            <button id="copySummaryBtn" class="btn btn-ghost" type="button">
+              <i class="fas fa-copy"></i> 計算結果をコピー
+            </button>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
         <aside class="sidebar">
           <div class="sidebar-card">
-            <h3>Recent Solves</h3>
-            <div id="calcLog" class="link-list">
-              <div style="font-size: 0.85rem; color: var(--ic-text-muted); text-align: center; padding: 1rem;">No history logged.</div>
-            </div>
-            <button class="btn btn-ghost" style="width:100%; font-size:0.8rem; min-height:36px; margin-top:0.5rem;" id="clearLog" type="button">Clear History</button>
+            <h3><i class="fas fa-drafting-compass" style="color: var(--ic-primary);"></i> 三角比の基本公式</h3>
+            <ul style="line-height: 1.7; font-size:0.88rem; padding-left: 1.2rem; color: #334155; margin:0;">
+              <li><strong>sin θ = 高さ / 斜辺</strong></li>
+              <li><strong>cos θ = 底辺 / 斜辺</strong></li>
+              <li><strong>tan θ = 高さ / 底辺</strong></li>
+              <li><strong>sin²θ + cos²θ = 1</strong></li>
+            </ul>
           </div>
 
-          <div class="sidebar-card">
-            <h3>Related Tools</h3>
-            <ul class="link-list">
-              <li><a href="diagonalcalculator.html"><span>Diagonal Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="concretecalculator.html"><span>Concrete Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../../gallontolitercalculator.html"><span>Gallon to Liter</span> <i class="fas fa-chevron-right"></i></a></li>
-            </ul>
+          <div class="sidebar-card" style="background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%); border-color: #bae6fd;">
+            <h3><i class="fas fa-road" style="color: #0284c7;"></i> 道路・屋根勾配の目安</h3>
+            <p style="font-size: 0.88rem; line-height: 1.55; color: #334155; margin: 0;">
+              道路標識の「10%勾配」は<strong>100m進んで10m上がる（約5.71度）</strong>傾斜です。一般的な住宅の屋根は<strong>4寸勾配（約21.8度）</strong>が多く採用されています。
+            </p>
           </div>
         </aside>
       </div>
-    </div>
+    </section>
 
+    <!-- Comprehensive Japanese Educational Article -->
     <section class="section">
-      <div class="container content-card">
-        <h2 style="font-family: 'Sora', sans-serif; font-size: clamp(1.4rem, 3vw, 1.85rem); margin-bottom: 1rem; color: var(--ic-text);">
-          Key Triangle Theorems & Trigonometry Formulas
-        </h2>
-        <div class="input-grid">
-          <article>
-            <h3 style="font-family: 'Sora', sans-serif; margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--ic-primary-dark);">Pythagorean Theorem</h3>
-            <p style="color: var(--ic-text-muted); font-size: 0.95rem; line-height: 1.6;">
-              For any right-angled triangle with legs <code>a</code> and <code>b</code> and hypotenuse <code>c</code>: <strong>c² = a² + b²</strong>.
-            </p>
-          </article>
-          <article>
-            <h3 style="font-family: 'Sora', sans-serif; margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--ic-primary-dark);">Heron's Formula</h3>
-            <p style="color: var(--ic-text-muted); font-size: 0.95rem; line-height: 1.6;">
-              Given three sides a, b, c and semi-perimeter s = (a+b+c)/2: <strong>Area = √(s(s-a)(s-b)(s-c))</strong>.
-            </p>
-          </article>
-        </div>
+      <div class="container">
+        <article class="content-card">
+          <h2>三角関数（サイン・コサイン・タンジェント）の仕組みと応用</h2>
+          <p>
+            三角関数（Trigonometry）は、直角三角形の<strong>「辺の長さの比率」と「角度」の関係</strong>を定義した数学の基礎概念です。
+            測量、CGプログラミング、建築設計、物理学の波動解析など現代技術の根幹を支えています。
+          </p>
+        </article>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© 2026 InstaCalc.in — Precision Geometry & Mathematical Tools.</p>
+      <p>InstaCalc.in - 日常のあらゆる計算を速く、正確に、シンプルにする無料計算ツール群</p>
+      <div class="footer-links">
+        <a href="../index.html">ホーム</a>
+        <a href="../aboutus.html">運営者情報</a>
+        <a href="../contactus.html">お問い合わせ</a>
+        <a href="../privacypolicy.html">プライバシーポリシー</a>
+        <a href="../../terms.html">利用規約</a>
+      </div>
     </div>
   </footer>
 
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="ページ上部へ戻る">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
   <script>
     (function () {
-      const $ = id => document.getElementById(id);
-      let currentMode = 'right';
-      let lastSummary = '';
+      let currentMode = "two_sides";
 
-      const toRad = deg => deg * (Math.PI / 180);
-      const toDeg = rad => rad * (180 / Math.PI);
+      const famousAngles = [
+        { deg: 0, rad: "0", sin: "0", cos: "1", tan: "0" },
+        { deg: 30, rad: "π/6 (0.524)", sin: "1/2 (0.500)", cos: "√3/2 (0.866)", tan: "1/√3 (0.577)" },
+        { deg: 45, rad: "π/4 (0.785)", sin: "1/√2 (0.707)", cos: "1/√2 (0.707)", tan: "1.000" },
+        { deg: 60, rad: "π/3 (1.047)", sin: "√3/2 (0.866)", cos: "1/2 (0.500)", tan: "√3 (1.732)" },
+        { deg: 90, rad: "π/2 (1.571)", sin: "1.000", cos: "0.000", tan: "定義なし (∞)" },
+        { deg: 120, rad: "2π/3 (2.094)", sin: "√3/2 (0.866)", cos: "-1/2 (-0.500)", tan: "-√3 (-1.732)" },
+        { deg: 135, rad: "3π/4 (2.356)", sin: "1/√2 (0.707)", cos: "-1/√2 (-0.707)", tan: "-1.000" },
+        { deg: 150, rad: "5π/6 (2.618)", sin: "1/2 (0.500)", cos: "-√3/2 (-0.866)", tan: "-1/√3 (-0.577)" },
+        { deg: 180, rad: "π (3.142)", sin: "0.000", cos: "-1.000", tan: "0.000" }
+      ];
 
-      function fmt(n) { return Number(n).toFixed(2); }
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
 
-      function calculateRight() {
-        const a = parseFloat($('rt_a').value) || 0;
-        const b = parseFloat($('rt_b').value) || 0;
-        if (a <= 0 || b <= 0) return;
+        modeButtons: document.querySelectorAll(".mode-btn"),
+        twoSidesInputs: document.getElementById("twoSidesInputs"),
+        sideAngleInputs: document.getElementById("sideAngleInputs"),
+        angleOnlyInputs: document.getElementById("angleOnlyInputs"),
 
-        const c = Math.hypot(a, b);
-        const angA = toDeg(Math.atan(a / b));
-        const angB = 90 - angA;
-        const area = 0.5 * a * b;
-        const perim = a + b + c;
+        sideA: document.getElementById("sideA"),
+        sideB: document.getElementById("sideB"),
+        hypotC: document.getElementById("hypotC"),
+        angleInput: document.getElementById("angleInput"),
+        pureAngle: document.getElementById("pureAngle"),
+        angleUnit: document.getElementById("angleUnit"),
 
-        const sinA = (a / c).toFixed(3);
-        const cosA = (b / c).toFixed(3);
-        const tanA = (a / b).toFixed(3);
+        heroTrigVal: document.getElementById("heroTrigVal"),
+        heroTrigSub: document.getElementById("heroTrigSub"),
 
-        $('heroEyebrow').textContent = 'Right Triangle Geometry';
-        $('heroValue').textContent = `Area: ${fmt(area)} sq units`;
-        $('heroDesc').textContent = `Hypotenuse c = ${fmt(c)} • Perimeter = ${fmt(perim)} • Angles: ${fmt(angA)}°, ${fmt(angB)}°, 90°`;
+        sinVal: document.getElementById("sinVal"),
+        cosVal: document.getElementById("cosVal"),
+        tanVal: document.getElementById("tanVal"),
 
-        if ($('mobileSummaryVal')) $('mobileSummaryVal').textContent = `${fmt(area)} Area (c=${fmt(c)})`;
+        hypotResultVal: document.getElementById("hypotResultVal"),
+        angleResultVal: document.getElementById("angleResultVal"),
+        radSubVal: document.getElementById("radSubVal"),
+        areaResultVal: document.getElementById("areaResultVal"),
+        gradientPercentVal: document.getElementById("gradientPercentVal"),
 
-        $('resArea').textContent = `${fmt(area)}`;
-        $('resPerim').textContent = `${fmt(perim)}`;
-        $('resSideLabel').textContent = 'Hypotenuse c';
-        $('resSideVal').textContent = `${fmt(c)}`;
-        $('resAngleA').textContent = `${fmt(angA)}°`;
-        $('resAngleB').textContent = `${fmt(angB)}°`;
-        $('resTrig').textContent = `sin=${sinA} cos=${cosA} tan=${tanA}`;
-        $('shapeClassification').textContent = (a === b) ? 'Right Isosceles (45°-45°-90°)' : 'Right Scalene';
+        trigSvg: document.getElementById("trigSvg"),
+        svgCaption: document.getElementById("svgCaption"),
+        trigTableBody: document.getElementById("trigTableBody")
+      };
 
-        drawSVG(a, b, c, angA, angB, 90);
-        lastSummary = `Right Triangle: a=${a}, b=${b}, Hypotenuse c=${fmt(c)}, Area=${fmt(area)}, Perimeter=${fmt(perim)}, Angles=${fmt(angA)}°, ${fmt(angB)}°`;
+      let lastSummaryText = "";
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) return;
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 960) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
       }
 
-      function calculateSSS() {
-        const a = parseFloat($('sss_a').value) || 0;
-        const b = parseFloat($('sss_b').value) || 0;
-        const c = parseFloat($('sss_c').value) || 0;
-
-        if (a <= 0 || b <= 0 || c <= 0 || (a + b <= c) || (a + c <= b) || (b + c <= a)) {
-          $('heroValue').textContent = 'Invalid Triangle (a+b>c violated)';
-          return;
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) return;
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
         }
-
-        const s = (a + b + c) / 2;
-        const area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
-        const perim = a + b + c;
-
-        const angA = toDeg(Math.acos((b*b + c*c - a*a) / (2*b*c)));
-        const angB = toDeg(Math.acos((a*a + c*c - b*b) / (2*a*c)));
-        const angC = 180 - angA - angB;
-
-        $('heroEyebrow').textContent = 'SSS Triangle Solution';
-        $('heroValue').textContent = `Area: ${fmt(area)} sq units`;
-        $('heroDesc').textContent = `Perimeter = ${fmt(perim)} • Angles: ${fmt(angA)}°, ${fmt(angB)}°, ${fmt(angC)}°`;
-
-        if ($('mobileSummaryVal')) $('mobileSummaryVal').textContent = `${fmt(area)} Area`;
-
-        $('resArea').textContent = `${fmt(area)}`;
-        $('resPerim').textContent = `${fmt(perim)}`;
-        $('resSideLabel').textContent = 'Semi-Perim (s)';
-        $('resSideVal').textContent = `${fmt(s)}`;
-        $('resAngleA').textContent = `${fmt(angA)}°`;
-        $('resAngleB').textContent = `${fmt(angB)}°`;
-        $('resTrig').textContent = `Angle C: ${fmt(angC)}°`;
-
-        let type = 'Scalene';
-        if (a === b && b === c) type = 'Equilateral';
-        else if (a === b || b === c || a === c) type = 'Isosceles';
-        $('shapeClassification').textContent = type;
-
-        drawSVG(a, b, c, angA, angB, angC);
-        lastSummary = `SSS Triangle: a=${a}, b=${b}, c=${c}, Area=${fmt(area)}, Perimeter=${fmt(perim)}, Angles: A=${fmt(angA)}°, B=${fmt(angB)}°, C=${fmt(angC)}°`;
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
       }
 
-      function calculateSAS() {
-        const a = parseFloat($('sas_a').value) || 0;
-        const angC = parseFloat($('sas_angC').value) || 0;
-        const b = parseFloat($('sas_b').value) || 0;
-
-        if (a <= 0 || b <= 0 || angC <= 0 || angC >= 180) return;
-
-        const c = Math.sqrt(a*a + b*b - 2*a*b*Math.cos(toRad(angC)));
-        const area = 0.5 * a * b * Math.sin(toRad(angC));
-        const perim = a + b + c;
-
-        const angA = toDeg(Math.asin((a * Math.sin(toRad(angC))) / c));
-        const angB = 180 - angA - angC;
-
-        $('heroEyebrow').textContent = 'SAS Triangle Solution';
-        $('heroValue').textContent = `Area: ${fmt(area)} sq units`;
-        $('heroDesc').textContent = `Missing Side c = ${fmt(c)} • Perimeter = ${fmt(perim)} • Angles: ${fmt(angA)}°, ${fmt(angB)}°, ${fmt(angC)}°`;
-
-        if ($('mobileSummaryVal')) $('mobileSummaryVal').textContent = `${fmt(area)} Area (c=${fmt(c)})`;
-
-        $('resArea').textContent = `${fmt(area)}`;
-        $('resPerim').textContent = `${fmt(perim)}`;
-        $('resSideLabel').textContent = 'Calculated Side c';
-        $('resSideVal').textContent = `${fmt(c)}`;
-        $('resAngleA').textContent = `${fmt(angA)}°`;
-        $('resAngleB').textContent = `${fmt(angB)}°`;
-        $('resTrig').textContent = `Angle C: ${fmt(angC)}°`;
-
-        drawSVG(a, b, c, angA, angB, angC);
-        lastSummary = `SAS Triangle: a=${a}, b=${b}, c=${fmt(c)}, Area=${fmt(area)}, Perimeter=${fmt(perim)}`;
+      function parseNum(input, fallback) {
+        const val = Number(input);
+        return Number.isFinite(val) ? val : fallback;
       }
 
-      function calculateASA() {
-        const angA = parseFloat($('asa_angA').value) || 0;
-        const c = parseFloat($('asa_c').value) || 0;
-        const angB = parseFloat($('asa_angB').value) || 0;
+      function renderSvg(a, b, c, deg) {
+        if (!elements.trigSvg) return;
+        const maxW = 260;
+        const maxH = 140;
+        const scale = Math.min(maxW / Math.max(1, a), maxH / Math.max(1, b));
+        const drawA = Math.max(50, a * scale);
+        const drawB = Math.max(30, b * scale);
+        const startX = 70;
+        const startY = 30 + (maxH - drawB);
 
-        if (angA <= 0 || angB <= 0 || c <= 0 || (angA + angB >= 180)) return;
-
-        const angC = 180 - angA - angB;
-        const a = (c * Math.sin(toRad(angA))) / Math.sin(toRad(angC));
-        const b = (c * Math.sin(toRad(angB))) / Math.sin(toRad(angC));
-
-        const area = 0.5 * a * b * Math.sin(toRad(angC));
-        const perim = a + b + c;
-
-        $('heroEyebrow').textContent = 'ASA Triangle Solution';
-        $('heroValue').textContent = `Area: ${fmt(area)} sq units`;
-        $('heroDesc').textContent = `Side a = ${fmt(a)} • Side b = ${fmt(b)} • Angle C = ${fmt(angC)}°`;
-
-        if ($('mobileSummaryVal')) $('mobileSummaryVal').textContent = `${fmt(area)} Area`;
-
-        $('resArea').textContent = `${fmt(area)}`;
-        $('resPerim').textContent = `${fmt(perim)}`;
-        $('resSideLabel').textContent = 'Calculated Side a';
-        $('resSideVal').textContent = `${fmt(a)}`;
-        $('resAngleA').textContent = `${fmt(angA)}°`;
-        $('resAngleB').textContent = `${fmt(angB)}°`;
-        $('resTrig').textContent = `Side b: ${fmt(b)}`;
-
-        drawSVG(a, b, c, angA, angB, angC);
-        lastSummary = `ASA Triangle: a=${fmt(a)}, b=${fmt(b)}, c=${c}, Area=${fmt(area)}, Angles: ${angA}°, ${angB}°, ${fmt(angC)}°`;
-      }
-
-      function drawSVG(a, b, c, angA, angB, angC) {
-        const svg = $('liveSvgTriangle');
-        if (!svg) return;
-        const W = 320, H = 180, P = 30;
-
-        let scale = Math.min((W - 2*P) / Math.max(c, b, 1), (H - 2*P) / Math.max(a, 1));
-        let p1x = P, p1y = H - P;
-        let p2x = P + (b * scale || 140), p2y = H - P;
-        let p3x = P + (b * scale || 140), p3y = H - P - (a * scale || 100);
-
-        svg.innerHTML = `
-          <polygon points="${p1x},${p1y} ${p2x},${p2y} ${p3x},${p3y}" fill="rgba(0,127,139,0.2)" stroke="#007f8b" stroke-width="2.5" stroke-linejoin="round"/>
-          <text x="${(p1x+p2x)/2}" y="${p1y+18}" font-size="11" font-weight="700" fill="#0f172a" text-anchor="middle">b = ${fmt(b)}</text>
-          <text x="${p2x+8}" y="${(p2y+p3y)/2}" font-size="11" font-weight="700" fill="#0f172a">a = ${fmt(a)}</text>
-          <text x="${(p1x+p3x)/2 - 10}" y="${(p1y+p3y)/2 - 6}" font-size="11" font-weight="700" fill="#007f8b" text-anchor="end">c = ${fmt(c)}</text>
+        elements.trigSvg.innerHTML = `
+          <!-- Triangle fill and stroke -->
+          <polygon points="${startX},${startY + drawB} ${startX + drawA},${startY + drawB} ${startX + drawA},${startY}" fill="rgba(2, 132, 199, 0.08)" stroke="#0284c7" stroke-width="2.5" stroke-linejoin="round"/>
+          <!-- Right angle mark -->
+          <rect x="${startX + drawA - 14}" y="${startY + drawB - 14}" width="14" height="14" fill="none" stroke="#64748b" stroke-width="1.5"/>
+          <!-- Labels -->
+          <text x="${startX + drawA / 2}" y="${startY + drawB + 18}" text-anchor="middle" font-size="12" font-weight="700" fill="#475569">底辺 a: ${a.toFixed(2)}</text>
+          <text x="${startX + drawA + 10}" y="${startY + drawB / 2}" text-anchor="start" font-size="12" font-weight="700" fill="#475569">高さ b: ${b.toFixed(2)}</text>
+          <text x="${startX + drawA / 2 - 12}" y="${startY + drawB / 2 - 6}" text-anchor="end" font-size="13" font-weight="800" fill="#dc2626">斜辺 c: ${c.toFixed(2)}</text>
+          <text x="${startX + 22}" y="${startY + drawB - 6}" text-anchor="start" font-size="12" font-weight="800" fill="#0284c7">θ: ${deg.toFixed(1)}°</text>
         `;
       }
 
-      function calculate() {
-        if (currentMode === 'right') calculateRight();
-        else if (currentMode === 'sss') calculateSSS();
-        else if (currentMode === 'sas') calculateSAS();
-        else if (currentMode === 'asa') calculateASA();
+      function renderFamousTable() {
+        if (!elements.trigTableBody) return;
+        elements.trigTableBody.innerHTML = famousAngles.map(item => `
+          <tr>
+            <td><strong>${item.deg}°</strong></td>
+            <td style="color:#64748b;">${item.rad}</td>
+            <td style="font-weight:700; color:#0284c7;">${item.sin}</td>
+            <td style="font-weight:700; color:#059669;">${item.cos}</td>
+            <td style="font-weight:700; color:#d97706;">${item.tan}</td>
+          </tr>
+        `).join("");
       }
 
-      function syncUI() {
-        document.querySelectorAll('.mode-pill-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            document.querySelectorAll('.mode-pill-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentMode = btn.dataset.mode;
-            document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
-            $(`panel_${currentMode}`).classList.add('active');
-            calculate();
-          });
-        });
+      function calculateAndRender() {
+        let a = 4, b = 3, c = 5, deg = 36.87, rad = 0.6435;
+        let s = 0.6, co = 0.8, ta = 0.75, area = 6, gradPct = 75;
 
-        // Right triangle presets
-        document.querySelectorAll('#panel_right .chip').forEach(btn => {
-          btn.addEventListener('click', () => {
-            $('rt_a').value = btn.dataset.a;
-            $('rt_b').value = btn.dataset.b;
-            calculate();
-          });
-        });
-
-        // SSS presets
-        document.querySelectorAll('#panel_sss .chip').forEach(btn => {
-          btn.addEventListener('click', () => {
-            $('sss_a').value = btn.dataset.sa;
-            $('sss_b').value = btn.dataset.sb;
-            $('sss_c').value = btn.dataset.sc;
-            calculate();
-          });
-        });
-
-        document.querySelectorAll('input').forEach(el => el.addEventListener('input', calculate));
-
-        function copySummary(btn) {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(lastSummary).then(() => {
-              const orig = btn.innerHTML;
-              btn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
-              setTimeout(() => btn.innerHTML = orig, 1800);
-            });
+        if (currentMode === "two_sides") {
+          a = Math.max(0.001, parseNum(elements.sideA.value, 4));
+          b = Math.max(0.001, parseNum(elements.sideB.value, 3));
+          c = Math.sqrt(a * a + b * b);
+          rad = Math.atan2(b, a);
+          deg = rad * (180 / Math.PI);
+        } else if (currentMode === "side_angle") {
+          c = Math.max(0.001, parseNum(elements.hypotC.value, 10));
+          deg = Math.min(89.99, Math.max(0.01, parseNum(elements.angleInput.value, 30)));
+          rad = deg * (Math.PI / 180);
+          a = c * Math.cos(rad);
+          b = c * Math.sin(rad);
+        } else if (currentMode === "angle_only") {
+          const rawAngle = parseNum(elements.pureAngle.value, 45);
+          const u = elements.angleUnit.value;
+          if (u === "rad") {
+            rad = rawAngle;
+            deg = rad * (180 / Math.PI);
+          } else {
+            deg = rawAngle;
+            rad = deg * (Math.PI / 180);
           }
+          c = 10;
+          a = Math.abs(c * Math.cos(rad));
+          b = Math.abs(c * Math.sin(rad));
         }
 
-        $('copyResultBtn')?.addEventListener('click', function () { copySummary(this); });
-        $('copyHeroBtn')?.addEventListener('click', function () { copySummary(this); });
+        s = Math.sin(rad);
+        co = Math.cos(rad);
+        ta = Math.tan(rad);
+        area = (a * b) / 2;
+        gradPct = Math.tan(deg * (Math.PI / 180)) * 100;
 
-        $('resetBtn')?.addEventListener('click', () => {
-          $('rt_a').value = 3;
-          $('rt_b').value = 4;
-          $('sss_a').value = 5;
-          $('sss_b').value = 6;
-          $('sss_c').value = 7;
-          calculate();
-        });
+        // Top Hero
+        elements.heroTrigVal.textContent = `斜辺 c: ${c.toFixed(3)} | θ: ${deg.toFixed(2)}°`;
+        elements.heroTrigSub.textContent = `sin θ: ${s.toFixed(4)} | cos θ: ${co.toFixed(4)} | tan θ: ${Math.abs(ta) > 9999 ? '∞' : ta.toFixed(4)}`;
+
+        // Trig Pill Grid
+        elements.sinVal.textContent = s.toFixed(4);
+        elements.cosVal.textContent = co.toFixed(4);
+        elements.tanVal.textContent = Math.abs(ta) > 9999 ? "∞" : ta.toFixed(4);
+
+        // Results Grid
+        elements.hypotResultVal.textContent = c.toFixed(3);
+        elements.angleResultVal.textContent = `${deg.toFixed(2)} °`;
+        elements.radSubVal.textContent = `約 ${rad.toFixed(4)} rad`;
+        elements.areaResultVal.textContent = area.toFixed(3);
+        elements.gradientPercentVal.textContent = `${gradPct.toFixed(2)} %`;
+
+        renderSvg(a, b, c, deg);
+        elements.svgCaption.textContent = `直角三角形図面 (底辺: ${a.toFixed(2)} / 高さ: ${b.toFixed(2)} / 斜辺: ${c.toFixed(2)} / θ: ${deg.toFixed(1)}°)`;
+
+        // Summary Text
+        lastSummaryText = [
+          `【三角関数・直角三角形 計算結果】`,
+          `角度 θ: ${deg.toFixed(2)}° (${rad.toFixed(4)} rad)`,
+          `斜辺 c: ${c.toFixed(3)} (底辺 a: ${a.toFixed(3)} / 高さ b: ${b.toFixed(3)})`,
+          `---------------------------------`,
+          `sin θ: ${s.toFixed(4)}`,
+          `cos θ: ${co.toFixed(4)}`,
+          `tan θ: ${ta.toFixed(4)}`,
+          `道路勾配: ${gradPct.toFixed(2)} %`,
+          `三角形面積: ${area.toFixed(3)}`,
+          `---------------------------------`,
+          `計算元: InstaCalc (https://instacalc.in/ja/moretools/trignometrycalculator.html)`
+        ].join('\n');
       }
 
-      const langSelect = $('langSelect');
-      if (langSelect) {
-        langSelect.value = 'ja';
-        langSelect.addEventListener('change', function () {
-          if (this.value === 'ru') {
-            localStorage.setItem('user_lang', 'ru');
-            window.location.href = '../ru/moretools/trignometrycalculator.html';
-          } else if (this.value === 'ja') {
-            localStorage.setItem('user_lang', 'ja');
-            window.location.href = '../ja/moretools/trignometrycalculator.html';
-          } else if (this.value === 'ko') {
-            localStorage.setItem('user_lang', 'ko');
-            window.location.href = '../ko/moretools/trignometrycalculator.html';
-          }
+      function wireEvents() {
+        elements.modeButtons.forEach(btn => {
+          btn.addEventListener("click", function () {
+            elements.modeButtons.forEach(b => {
+              b.classList.remove("btn-primary", "active");
+              b.classList.add("btn-ghost");
+            });
+            this.classList.add("btn-primary", "active");
+            this.classList.remove("btn-ghost");
+
+            currentMode = this.getAttribute("data-mode");
+            elements.twoSidesInputs.style.display = currentMode === "two_sides" ? "grid" : "none";
+            elements.sideAngleInputs.style.display = currentMode === "side_angle" ? "grid" : "none";
+            elements.angleOnlyInputs.style.display = currentMode === "angle_only" ? "grid" : "none";
+            calculateAndRender();
+          });
         });
+
+        // Inputs change
+        const allInputs = [
+          elements.sideA, elements.sideB, elements.hypotC,
+          elements.angleInput, elements.pureAngle, elements.angleUnit
+        ];
+        allInputs.forEach(inp => {
+          if (inp) inp.addEventListener("input", calculateAndRender);
+          if (inp && inp.tagName === "SELECT") inp.addEventListener("change", calculateAndRender);
+        });
+
+        // Famous Angles Presets
+        document.querySelectorAll(".chips-group button[data-angle-preset]").forEach(btn => {
+          btn.addEventListener("click", function () {
+            this.parentElement.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            const p = this.getAttribute("data-angle-preset");
+
+            if (p === "345") {
+              elements.modeButtons[0].click();
+              elements.sideA.value = 4;
+              elements.sideB.value = 3;
+            } else if (p === "roof") {
+              elements.modeButtons[0].click();
+              elements.sideA.value = 10;
+              elements.sideB.value = 4;
+            } else {
+              elements.modeButtons[1].click();
+              elements.hypotC.value = 10;
+              elements.angleInput.value = p;
+            }
+            calculateAndRender();
+          });
+        });
+
+        if (elements.recalculateBtn) elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        if (elements.resetBtn) {
+          elements.resetBtn.addEventListener("click", function () {
+            elements.modeButtons[0].click();
+            elements.sideA.value = 4;
+            elements.sideB.value = 3;
+            calculateAndRender();
+          });
+        }
+
+        // Copy Text
+        function copyText(text, btnEl) {
+          if (!navigator.clipboard || !text) return;
+          navigator.clipboard.writeText(text).then(() => {
+            const orig = btnEl.innerHTML;
+            btnEl.innerHTML = `<i class="fas fa-check"></i> コピー完了！`;
+            setTimeout(() => { btnEl.innerHTML = orig; }, 1800);
+          });
+        }
+
+        if (elements.copySummaryBtn) elements.copySummaryBtn.addEventListener("click", () => copyText(lastSummaryText, elements.copySummaryBtn));
+        if (elements.copyHeroBtn) elements.copyHeroBtn.addEventListener("click", () => copyText(lastSummaryText, elements.copyHeroBtn));
+
+        // CSV Export
+        if (elements.downloadCsvBtn) {
+          elements.downloadCsvBtn.addEventListener("click", function () {
+            const headers = ["度数法(θ)", "弧度法(rad)", "sin θ", "cos θ", "tan θ"];
+            const rows = famousAngles.map(item => [
+              `${item.deg}°`,
+              item.rad,
+              item.sin,
+              item.cos,
+              item.tan
+            ]);
+
+            const csvContent = [headers.join(",")].concat(rows.map(r => r.join(","))).join("\n");
+            const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `三角関数_有名角早見表_${new Date().toISOString().slice(0, 10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          });
+        }
       }
 
-      syncUI();
-      calculate();
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      renderFamousTable();
+      calculateAndRender();
     })();
   </script>
+  <script type="module" src="../../firebase.js"></script>
   <script defer src="../../fullscreen-mode.js"></script>
+  <script src="../../language-dialog.js" defer></script>
 </body>
 
 </html>

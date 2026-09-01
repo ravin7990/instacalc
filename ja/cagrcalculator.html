@@ -1,95 +1,183 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 
 <head>
-  <script>
-    (function () {
-      const userLang = localStorage.getItem('user_lang');
-      const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-      if (userLang === 'ja' || (!userLang && browserLang.startsWith('ja'))) {
-        window.location.replace('./ja/cagrcalculator.html');
-      } else if (userLang === 'ru' || (!userLang && browserLang.startsWith('ru'))) {
-        window.location.replace('./ru/cagrcalculator.html');
-      }
-    })();
-  </script>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CAGR Calculator – Calculate Compound Annual Growth Rate Online</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CAGR（年平均成長率）計算ツール | 投資信託・売上成長率・複利シミュレーター【無料】 - InstaCalc</title>
   <meta name="description"
-    content="Free online CAGR Calculator to compute Compound Annual Growth Rate, reverse CAGR, future investment value, and duration for mutual funds, stocks, and business returns.">
+    content="初期投資額（または期初売上）と最終額、経過年数からCAGR（年平均成長率）やトータルリターン（総収益率）、資産倍率を瞬時に計算。投資信託・株式運用の利回り分析や企業売上の事業計画策定、目標金額から必要なCAGRの逆算に対応。">
   <meta name="keywords"
-    content="cagr calculator, compound annual growth rate calculator, calculate cagr online, cagr formula, mutual fund cagr calculator, reverse cagr calculator, future value cagr">
+    content="CAGR 計算, 年平均成長率 計算, 投資信託 利回り 計算, 複利 成長率, 売上成長率 CAGR, 逆算 CAGR, 目標利回り 計算, トータルリターン CAGR 違い">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+  <link rel="canonical" href="https://instacalc.in/ja/cagrcalculator.html">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="icon" type="image/webp" href="../favicon.webp">
+  <link rel="alternate" hreflang="ja" href="https://instacalc.in/ja/cagrcalculator.html">
+  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/cagrcalculator.html">
+  <link rel="alternate" hreflang="en" href="https://instacalc.in/cagrcalculator.html">
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/cagrcalculator.html">
+  <link rel="alternate" hreflang="ru" href="https://instacalc.in/ru/cagrcalculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/cagrcalculator.html">
 
-  <link rel="icon" type="image/x-icon" href="../favicon.webp">
-  <link rel="canonical" href="https://instacalc.in/cagrcalculator.html">
 
-  <meta property="og:title" content="CAGR Calculator - Calculate Compound Annual Growth Rate Online">
+
+
+
+
+<meta property="og:title" content="CAGR（年平均成長率）計算ツール | 投資信託・売上成長率・複利シミュレーター【無料】">
   <meta property="og:description"
-    content="Free online CAGR calculator to compute Compound Annual Growth Rate, reverse CAGR, and future investment values accurately.">
+    content="初期値・最終値・年数からCAGR（年平均成長率）を簡単計算。投資信託の実質利回りや企業の売上成長率の分析に最適。">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://instacalc.in/cagrcalculator.html">
+  <meta property="og:url" content="https://instacalc.in/ja/cagrcalculator.html">
   <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CAGR（年平均成長率）計算ツール | 投資信託・売上成長率・複利シミュレーター">
+  <meta name="twitter:description"
+    content="無料のCAGR計算機。年平均成長率・将来価値予測・目標達成に必要なCAGR逆算に対応。">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "CAGR（年平均成長率）計算ツール",
+      "url": "https://instacalc.in/ja/cagrcalculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "description": "初期値、最終値、期間からCAGR（年平均成長率）や複利運用実績を正確に算出する高機能オンライン計算ツール。",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "CAGR（年平均成長率）とは何ですか？単純な平均利回りと何が違いますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CAGR（Compound Annual Growth Rate）とは、複数年にわたる投資や売上などの成長を「毎年一定の複利ペースで成長した」と仮定した場合の年平均幾何リターンです。単純平均（算術平均）では複利効果や下落時の影響を正しく評価できませんが、CAGRなら実際の実質的な成長スピードを正確に把握できます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "CAGRの計算式はどのようになりますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CAGR ＝ (最終金額 ÷ 初期金額) ^ (1 ÷ 年数) － 1 で計算されます。例えば、100万円が5年後に150万円になった場合、(150÷100)^(1/5) - 1 ＝ 約8.45% が年平均成長率となります。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "投資信託（オルカンやS&P500）の過去のCAGR目安はどのくらいですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "過去20〜30年の円建て実績では、全世界株式（オルカン等）が年率約5%〜8%、米国株式（S&P500等）が年率約7%〜11%、日経平均株価が年率約3%〜6%程度で推移しています。ただし、年度ごとの変動（ボラティリティ）がある点に留意が必要です。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "ビジネスや企業の売上計画でCAGRはどう活用されますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "過去数年間の売上高や営業利益の年平均成長ペースの把握、または「3年後に売上10億円を達成するために必要な年間成長率（目標CAGR）」を逆算してKPI設定を行う際などに広く利用されます。"
+          }
+        }
+      ]
+    }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
+  <link rel="preload"
     href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
   <link rel="stylesheet" href="../instacalc-core.css">
-
   <style>
-    /* Ultra-Responsive Modern CAGR Calculator Styles */
-    * {
-      box-sizing: border-box;
-    }
-    
-    .container {
-      width: min(1240px, 92vw);
-      margin: 0 auto;
-      padding: 0 0.5rem;
-    }
-
-    .calc-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
-      gap: 1.75rem;
-      align-items: start;
-      width: 100%;
-    }
-
-    .calculator-shell {
-      background: #ffffff;
-      border: 1px solid var(--ic-border);
+    /* Japanese Hero Indicator Banner */
+    .japanese-cagr-hero-banner {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      border: 1.5px solid rgba(2, 132, 199, 0.25);
       border-radius: var(--ic-radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
       box-shadow: var(--ic-shadow-md);
-      padding: 1.75rem;
-      width: 100%;
-      max-width: 100%;
-      overflow: hidden;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    @media (max-width: 640px) {
+      .japanese-cagr-hero-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.25rem;
+      }
+    }
+    .japanese-cagr-hero-banner .banner-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .japanese-cagr-hero-banner .banner-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #0369a1;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .japanese-cagr-hero-banner .main-rate {
+      font-family: var(--ic-font-heading, "Sora", sans-serif);
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 800;
+      color: #0284c7;
+      line-height: 1.15;
+    }
+    .japanese-cagr-hero-banner .main-rate-sub {
+      font-size: 0.92rem;
+      color: #475569;
+      font-weight: 600;
     }
 
     /* Mode Pill Switcher */
-    .cagr-nav-wrap {
+    .cagr-tabs {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
+      gap: 0.5rem;
       margin-bottom: 1.25rem;
-      padding-bottom: 0.85rem;
       border-bottom: 1px solid var(--ic-border);
-      width: 100%;
+      padding-bottom: 0.85rem;
     }
-
-    .mode-pill-btn {
+    .cagr-tab-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      padding: 0.5rem 0.85rem;
+      padding: 0.5rem 0.95rem;
       font-size: 0.84rem;
       font-weight: 700;
       border-radius: var(--ic-radius-full);
@@ -98,385 +186,118 @@
       color: var(--ic-text-muted);
       cursor: pointer;
       transition: all 0.2s ease;
-      white-space: nowrap;
     }
-
-    .mode-pill-btn:hover {
+    .cagr-tab-btn:hover {
+      background: #f8fafc;
       border-color: var(--ic-primary);
-      color: var(--ic-primary-dark);
-      background: var(--ic-bg-subtle);
+      color: var(--ic-primary);
     }
-
-    .mode-pill-btn.active {
-      background: linear-gradient(135deg, var(--ic-primary-dark), var(--ic-primary));
+    .cagr-tab-btn.active {
+      background: var(--ic-primary);
+      border-color: var(--ic-primary);
       color: #ffffff;
-      border-color: var(--ic-primary-dark);
-      box-shadow: 0 3px 8px rgba(0, 127, 139, 0.25);
+      box-shadow: var(--ic-shadow-sm);
     }
 
-    /* Hero Live Result Card */
-    .hero-result-card {
-      background: linear-gradient(135deg, #f0fdfa 0%, #e6f7f6 100%);
-      border: 1px solid rgba(0, 127, 139, 0.25);
-      border-radius: var(--ic-radius-lg);
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      width: 100%;
-      position: relative;
-    }
-
-    .hero-result-card .label-group {
-      display: grid;
-      gap: 0.25rem;
-      width: 100%;
-      min-width: 0;
-    }
-
-    .hero-result-card .res-eyebrow {
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--ic-primary-dark);
-    }
-
-    .hero-result-card .res-val {
-      font-family: 'Sora', sans-serif;
-      font-size: clamp(1.45rem, 4vw, 2.2rem);
-      font-weight: 800;
-      color: var(--ic-primary-dark);
-      line-height: 1.2;
-      word-break: break-word;
-      overflow-wrap: break-word;
-    }
-
-    .hero-result-card .res-desc {
-      font-size: 0.85rem;
-      color: var(--ic-text-muted);
-      word-break: break-word;
-    }
-
-    .hero-result-card .quick-copy-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 1px solid rgba(0, 127, 139, 0.25);
-      background: #ffffff;
-      color: var(--ic-primary-dark);
-      font-size: 1.05rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-    }
-
-    .hero-result-card .quick-copy-btn:hover {
-      background: var(--ic-primary-dark);
-      color: #ffffff;
-      transform: translateY(-2px);
-    }
-
-    /* Form Fields */
-    .field-card {
-      background: var(--ic-bg-subtle);
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 1rem;
-      margin-bottom: 0.85rem;
-      width: 100%;
-    }
-
-    .field-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.6rem;
-      font-weight: 700;
-      font-size: 0.92rem;
-      gap: 0.5rem;
-    }
-
-    .field-head span {
-      color: var(--ic-primary-dark);
-      font-family: 'Sora', sans-serif;
-      font-size: 0.95rem;
-    }
-
-    .range-row {
-      display: grid;
-      grid-template-columns: 1fr 130px;
-      gap: 0.75rem;
-      align-items: center;
-      width: 100%;
-    }
-
-    .chips-wrap {
+    /* Preset Chips */
+    .chips-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
+      gap: 0.45rem;
       margin-top: 0.6rem;
-      width: 100%;
     }
-
-    .chip {
-      padding: 0.35rem 0.75rem;
-      font-size: 0.82rem;
+    .chip-btn {
+      padding: 0.35rem 0.65rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      border-radius: 999px;
-      border: 1px solid var(--ic-border);
-      background: #ffffff;
-      color: var(--ic-text-muted);
+      color: #0f172a;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
       cursor: pointer;
-      white-space: nowrap;
       transition: all 0.15s ease;
     }
-
-    .chip:hover, .chip.active {
-      color: var(--ic-primary-dark);
-      background: var(--ic-primary-light);
-      border-color: var(--ic-primary);
+    .chip-btn:hover {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0369a1;
+    }
+    .chip-btn.active {
+      background: #0284c7;
+      border-color: #0284c7;
+      color: #ffffff;
     }
 
-    /* Panels */
-    .cagr-panel {
-      display: none;
-    }
-
-    .cagr-panel.active {
-      display: block;
-    }
-
-    /* Result grid */
-    .result-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
-      gap: 0.75rem;
-      margin-top: 1.25rem;
-      width: 100%;
-    }
-
-    .result-card {
-      background: #ffffff;
-      border: 1px solid var(--ic-border);
+    /* Reference Index Card */
+    .benchmark-card {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 1px solid #cbd5e1;
       border-radius: var(--ic-radius-md);
-      padding: 0.85rem;
-      min-width: 0;
-      overflow: hidden;
+      padding: 1.25rem;
+      margin-top: 1.5rem;
     }
-
-    .result-card h3 {
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--ic-text-muted);
-      font-weight: 700;
-      margin-bottom: 0.25rem;
-    }
-
-    .result-value {
-      font-family: 'Sora', sans-serif;
-      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+    .benchmark-header {
+      font-size: 0.92rem;
       font-weight: 800;
-      color: var(--ic-text);
-      word-break: break-word;
-    }
-
-    .result-card.highlight {
-      background: #f8fafc;
-      border-color: rgba(0, 127, 139, 0.3);
-    }
-
-    .result-card.highlight .result-value {
-      color: var(--ic-primary-dark);
-    }
-
-    .result-card.positive .result-value {
-      color: #1f9f67;
-    }
-
-    /* Visual Studio SVG Card */
-    .visual-studio-card {
-      background: #ffffff;
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 1rem;
-      margin-top: 1.25rem;
-    }
-
-    .svg-curve-wrap {
-      width: 100%;
-      height: 180px;
-      margin-top: 0.5rem;
-      background: radial-gradient(circle at center, #f8fafc 0%, #edf2f7 100%);
-      border-radius: var(--ic-radius-sm);
-      overflow: hidden;
-    }
-
-    /* Actions */
-    .calculator-actions {
+      color: #0f172a;
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
       gap: 0.5rem;
-      margin-top: 1.25rem;
-      width: 100%;
+      margin-bottom: 0.75rem;
     }
-
-    /* Mobile media queries (320px - 640px) */
-    @media (max-width: 640px) {
-      .calc-layout {
-        grid-template-columns: 1fr !important;
-        gap: 1.25rem !important;
+    .benchmark-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+    @media (max-width: 768px) {
+      .benchmark-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
-      
-      .calculator-shell {
-        padding: 1rem 0.75rem !important;
-        border-radius: var(--ic-radius-md) !important;
-      }
-
-      .cagr-nav-wrap {
-        gap: 0.3rem !important;
-      }
-
-      .mode-pill-btn {
-        padding: 0.45rem 0.65rem !important;
-        font-size: 0.78rem !important;
-      }
-
-      .hero-result-card {
-        padding: 1rem 0.85rem !important;
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 0.5rem !important;
-      }
-
-      .hero-result-card .quick-copy-btn {
-        position: absolute !important;
-        top: 0.75rem !important;
-        right: 0.75rem !important;
-        width: 38px !important;
-        height: 38px !important;
-      }
-
-      .hero-result-card .res-val {
-        font-size: clamp(1.35rem, 6.5vw, 1.85rem) !important;
-        max-width: calc(100% - 44px) !important;
-      }
-
-      .hero-result-card .res-desc {
-        font-size: 0.8rem !important;
-        line-height: 1.35 !important;
-      }
-
-      .range-row {
-        grid-template-columns: 1fr !important;
-        gap: 0.45rem !important;
-      }
-
-      .result-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 0.5rem !important;
-      }
-
-      .result-card {
-        padding: 0.75rem 0.65rem !important;
-      }
-
-      .result-value {
-        font-size: 1.05rem !important;
-      }
-
-      .calculator-actions {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 0.4rem !important;
-      }
-
-      .calculator-actions .btn:first-child,
-      .calculator-actions .btn-primary {
-        grid-column: span 2 !important;
-      }
+    }
+    .bench-item {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0.65rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .bench-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #64748b;
+    }
+    .bench-val {
+      font-family: var(--ic-font-heading, "Sora", sans-serif);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0284c7;
     }
   </style>
-
-  <!-- Schema Markup: FAQPage -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is CAGR and how is it calculated?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "CAGR, or Compound Annual Growth Rate, measures the constant rate at which an investment grows annually over a specified time period, assuming the gains compound. It is calculated as: CAGR = (Ending Value / Beginning Value)^(1 / Years) - 1."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the difference between CAGR and Absolute Return?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Absolute return measures the total percentage gain or loss of an investment without considering the holding duration. CAGR converts this growth into an annualized average rate, accounting for the effect of time and compounding, making it better for long-term evaluations."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How does CAGR differ from XIRR and IRR?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "CAGR is used strictly for point-to-point (lump sum) calculations with a single initial investment and a single final value. IRR and XIRR are used for complex transactions with multiple cash flows at regular or irregular intervals, such as mutual fund SIPs."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I use CAGR for Systematic Investment Plans (SIP)?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No, CAGR is mathematically designed for single one-time lump sum investments. Because SIPs involve staggered monthly cash flows, you must use XIRR (Extended Internal Rate of Return) to get an accurate representation of your annualized returns."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is a good CAGR for stock market and mutual funds in India?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Historically, the broader Nifty 50 index in India has delivered an annualized CAGR of 12% to 14% over a 10-year period. A long-term CAGR of 12% to 15% is generally considered excellent for active mutual funds and stock portfolios."
-        }
-      }
-    ]
-  }
-  </script>
 </head>
 
 <body>
-  <header class="site-header" id="siteHeader">
+  <header class="site-header">
     <div class="container header-inner">
-      <a href="../index.html" class="brand" aria-label="InstaCalc home">
-        <img src="../logo.png" alt="InstaCalc logo" width="42" height="42">
+      <a href="index.html" class="brand" aria-label="InstaCalc ホーム">
+        <img src="../logo.png" alt="InstaCalc ロゴ">
         <span>InstaCalc.in</span>
       </a>
 
-      <div class="lang-switch">
-        <select id="langSelect" aria-label="Select Language">
-          <option value="en">English</option>
-          <option value="ja" selected>日本語</option>
-          <option value="ru">Русский</option>
-        </select>
-      </div>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="メニュー開閉" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
 
-      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
       <nav class="site-nav" id="mainNav">
-        <a href="../index.html">Home</a>
-        <a href="../sipcalculator.html">SIP Planner</a>
-        <a href="../emicalculator.html">EMI Tool</a>
-        <a href="../aboutus.html">About Us</a>
+        <a href="index.html">ホーム</a>
+        <a href="cagrcalculator.html" class="active">CAGR計算</a>
+        <a href="sipcalculator.html">積立シミュレーション</a>
+        <a href="emicalculator.html">住宅ローン計算</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
       </nav>
     </div>
   </header>
@@ -485,694 +306,767 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow"><i class="fas fa-chart-line"></i> Compounding & Growth Analytics</span>
-          <h1>CAGR Calculator – Compound Annual Growth Rate</h1>
-          <p>Compute precise <strong>Compound Annual Growth Rate (CAGR)</strong>, project future investment wealth, calculate reverse CAGR, and estimate growth duration for mutual funds and equities.</p>
+          <span class="eyebrow">
+            <i class="fas fa-chart-line"></i>
+            年平均成長率・複利利回り分析
+          </span>
+          <h1>CAGR（年平均成長率）計算ツール — 投資利回り・売上成長率シミュレーター</h1>
+          <p>初期投資額（または期初売上）と最終額、経過年数を入力するだけで、年平均成長率（CAGR）、トータルリターン（総収益率）、資産倍率を即座に計算。投資信託・株式運用の実績検証や、目標金額を達成するために必要なCAGRの逆算にも完全対応しています。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#cagr-planner">
+              <i class="fas fa-calculator"></i>
+              計算を開始する
+            </a>
+            <a class="btn btn-ghost" href="sipcalculator.html">
+              <i class="fas fa-coins"></i>
+              新NISA積立計算へ
+            </a>
+          </div>
         </div>
+
         <aside class="hero-panel">
-          <h2>Calculator Modes</h2>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>Find CAGR:</strong> Point-to-point annual growth rate</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>Future Value:</strong> Project wealth at expected CAGR</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>Reverse CAGR:</strong> Target investment capital needed</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>Time Duration:</strong> Years required to hit goal</div>
+          <h2><i class="fas fa-chart-pie" style="color: #38bdf8;"></i> CAGR計算ツールの強み</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>幾何平均による正確な複利年率</strong>を瞬時に算出</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>目標金額からの必要CAGR逆算</strong>に対応</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>トータルリターン（総収益率%）と資産倍率</strong>を同時表示</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>日本の通貨単位（万円・億円）</strong>で分かりやすく表示</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>年次資産推移グラフ＆CSVデータ保存</strong>機能付き</div>
         </aside>
       </div>
     </section>
 
-    <section class="section" id="calculator">
+    <section id="cagr-planner" class="section">
       <div class="container calc-layout">
-        <article class="calculator-shell">
-          <!-- Mobile Sticky Summary Pill -->
-          <div class="mobile-summary-pill" id="mobileSummaryPill">
-            <span class="metric-label" id="mobileSummaryLabel">Calculated CAGR</span>
-            <span class="metric-val" id="mobileSummaryVal">-</span>
-          </div>
-
-          <!-- Mode Navigation Pills -->
-          <div class="cagr-nav-wrap" aria-label="Select Calculation Mode">
-            <button type="button" class="mode-pill-btn active" data-mode="cagr"><i class="fas fa-chart-line"></i> Find CAGR</button>
-            <button type="button" class="mode-pill-btn" data-mode="fv"><i class="fas fa-sack-dollar"></i> Future Value</button>
-            <button type="button" class="mode-pill-btn" data-mode="pv"><i class="fas fa-hand-holding-dollar"></i> Initial Inv. (Reverse)</button>
-            <button type="button" class="mode-pill-btn" data-mode="time"><i class="fas fa-hourglass-half"></i> Time Required</button>
-          </div>
-
-          <!-- Hero Live Result Card -->
-          <div class="hero-result-card">
-            <div class="label-group">
-              <span class="res-eyebrow" id="heroLabel">Compound Annual Growth Rate</span>
-              <div class="res-val" id="heroValue">-</div>
-              <div class="res-desc" id="heroDesc">-</div>
-            </div>
-            <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary">
-              <i class="fas fa-copy"></i>
+        <div class="calculator-shell">
+          <!-- Mode Tabs -->
+          <div class="cagr-tabs" role="tablist">
+            <button type="button" class="cagr-tab-btn active" data-calc-mode="standard">
+              <i class="fas fa-calculator"></i> 1. CAGR計算（初期値・最終値から）
+            </button>
+            <button type="button" class="cagr-tab-btn" data-calc-mode="future_value">
+              <i class="fas fa-chart-line"></i> 2. 将来価値予測（CAGRから最終額を算出）
+            </button>
+            <button type="button" class="cagr-tab-btn" data-calc-mode="reverse">
+              <i class="fas fa-bullseye"></i> 3. 目標CAGR逆算（目標達成に必要な年利）
             </button>
           </div>
 
-          <!-- Panel 1: Find CAGR -->
-          <div class="cagr-panel active" id="panel_cagr">
-            <div class="field-card">
+          <!-- Hero Rate Result Card -->
+          <div class="japanese-cagr-hero-banner">
+            <div class="banner-text">
+              <span class="banner-tag" id="heroRateTag"><i class="fas fa-arrow-trend-up"></i> 年平均成長率（CAGR）</span>
+              <div class="main-rate" id="heroCagrValue">+0.00% / 年</div>
+              <div class="main-rate-sub" id="heroCagrSub">トータルリターン: +0.0% | 資産倍率: 0.00 倍</div>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" id="copyHeroBtn" title="結果をコピー">
+              <i class="fas fa-copy"></i> 結果をコピー
+            </button>
+          </div>
+
+          <!-- Dynamic Input Grid -->
+          <div class="input-grid">
+            <!-- Initial Value Input -->
+            <div class="field-card" id="cardInitialVal">
               <div class="field-head">
-                <label for="cagrPV">Beginning Value (Initial Investment)</label>
-                <span id="cagrPV_preview">₹1,00,000</span>
+                <label for="initialVal" id="labelInitialVal">初期金額 (投資元本 / 期初売上)</label>
+                <span id="initialValPreview" style="font-weight: 800; color: var(--ic-primary-dark);">100 万円</span>
               </div>
               <div class="range-row">
-                <input type="range" id="cagrPV_range" min="5000" max="5000000" step="5000" value="100000">
-                <input type="number" id="cagrPV" value="100000" min="1" step="1000">
+                <input type="range" id="initialValRange" min="100000" max="50000000" step="100000" value="1000000">
+                <input type="number" id="initialVal" min="1000" max="1000000000" step="100000" value="1000000">
               </div>
-              <div class="chips-wrap" data-target="cagrPV" data-range="cagrPV_range">
-                <button type="button" class="chip" data-val="25000">₹25,000</button>
-                <button type="button" class="chip" data-val="50000">₹50,000</button>
-                <button type="button" class="chip" data-val="100000">₹1 Lakh</button>
-                <button type="button" class="chip" data-val="500000">₹5 Lakh</button>
-                <button type="button" class="chip" data-val="1000000">₹10 Lakh</button>
+              <div class="chips-group">
+                <button type="button" class="chip-btn active" data-init-chip="1000000">100万円</button>
+                <button type="button" class="chip-btn" data-init-chip="3000000">300万円</button>
+                <button type="button" class="chip-btn" data-init-chip="5000000">500万円</button>
+                <button type="button" class="chip-btn" data-init-chip="10000000">1,000万円</button>
+                <button type="button" class="chip-btn" data-init-chip="50000000">5,000万円</button>
               </div>
             </div>
 
-            <div class="field-card">
+            <!-- Final Value Input (Mode 1 & 3) -->
+            <div class="field-card" id="cardFinalVal">
               <div class="field-head">
-                <label for="cagrFV">Ending Value (Final Accumulated Amount)</label>
-                <span id="cagrFV_preview">₹2,50,000</span>
+                <label for="finalVal" id="labelFinalVal">最終金額 (現在資産 / 期末売上 / 目標金額)</label>
+                <span id="finalValPreview" style="font-weight: 800; color: var(--ic-primary-dark);">200 万円</span>
               </div>
               <div class="range-row">
-                <input type="range" id="cagrFV_range" min="10000" max="20000000" step="10000" value="250000">
-                <input type="number" id="cagrFV" value="250000" min="1" step="5000">
+                <input type="range" id="finalValRange" min="100000" max="100000000" step="500000" value="2000000">
+                <input type="number" id="finalVal" min="1000" max="2000000000" step="500000" value="2000000">
               </div>
-              <div class="chips-wrap" data-target="cagrFV" data-range="cagrFV_range">
-                <button type="button" class="chip" data-val="200000">₹2 Lakh</button>
-                <button type="button" class="chip" data-val="250000">₹2.5 Lakh</button>
-                <button type="button" class="chip" data-val="500000">₹5 Lakh</button>
-                <button type="button" class="chip" data-val="1000000">₹10 Lakh</button>
-                <button type="button" class="chip" data-val="2500000">₹25 Lakh</button>
+              <div class="chips-group">
+                <button type="button" class="chip-btn" data-final-chip="1500000">150万円</button>
+                <button type="button" class="chip-btn active" data-final-chip="2000000">200万円 (2倍)</button>
+                <button type="button" class="chip-btn" data-final-chip="5000000">500万円</button>
+                <button type="button" class="chip-btn" data-final-chip="10000000">1,000万円</button>
+                <button type="button" class="chip-btn" data-final-chip="20000000">2,000万円 (老後2000万)</button>
               </div>
             </div>
 
-            <div class="field-card">
+            <!-- Expected CAGR Rate Input (Mode 2 Only) -->
+            <div class="field-card" id="cardCagrRate" style="display: none;">
               <div class="field-head">
-                <label for="cagrYears">Time Duration (Years)</label>
-                <span id="cagrYears_preview">5.0 Years</span>
+                <label for="cagrRateInput">想定年平均成長率（年利％）</label>
+                <span id="cagrRatePreview" style="font-weight: 800; color: var(--ic-primary-dark);">7.0% (S&P500目安)</span>
               </div>
               <div class="range-row">
-                <input type="range" id="cagrYears_range" min="0.5" max="30" step="0.5" value="5">
-                <input type="number" id="cagrYears" value="5" min="0.1" max="50" step="0.1">
+                <input type="range" id="cagrRateRange" min="-20" max="50" step="0.1" value="7.0">
+                <input type="number" id="cagrRateInput" min="-50" max="100" step="0.1" value="7.0">
               </div>
-              <div class="chips-wrap" data-target="cagrYears" data-range="cagrYears_range">
-                <button type="button" class="chip" data-val="3">3 Yrs</button>
-                <button type="button" class="chip" data-val="5">5 Yrs</button>
-                <button type="button" class="chip" data-val="7">7 Yrs</button>
-                <button type="button" class="chip" data-val="10">10 Yrs</button>
-                <button type="button" class="chip" data-val="15">15 Yrs</button>
+              <div class="chips-group">
+                <button type="button" class="chip-btn" data-rate-chip="3.0">3% (国内債券/安定)</button>
+                <button type="button" class="chip-btn" data-rate-chip="5.0">5% (オルカン目安)</button>
+                <button type="button" class="chip-btn active" data-rate-chip="7.0">7% (S&P500目安)</button>
+                <button type="button" class="chip-btn" data-rate-chip="10.0">10% (積極・NASDAQ)</button>
+              </div>
+            </div>
+
+            <!-- Period Years -->
+            <div class="field-card">
+              <div class="field-head">
+                <label for="tenureYears">運用・経過期間（年数）</label>
+                <span id="tenureYearsPreview" style="font-weight: 800; color: var(--ic-primary-dark);">5 年</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="tenureYearsRange" min="1" max="50" step="1" value="5">
+                <input type="number" id="tenureYears" min="1" max="50" step="1" value="5">
+              </div>
+              <div class="chips-group">
+                <button type="button" class="chip-btn" data-year-chip="3">3年 (中期)</button>
+                <button type="button" class="chip-btn active" data-year-chip="5">5年 (標準)</button>
+                <button type="button" class="chip-btn" data-year-chip="10">10年 (中長期)</button>
+                <button type="button" class="chip-btn" data-year-chip="20">20年 (NISA長期)</button>
               </div>
             </div>
           </div>
 
-          <!-- Panel 2: Future Value -->
-          <div class="cagr-panel" id="panel_fv">
-            <div class="field-card">
-              <div class="field-head">
-                <label for="fvPV">Initial Investment Amount</label>
-                <span id="fvPV_preview">₹1,00,000</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="fvPV_range" min="5000" max="5000000" step="5000" value="100000">
-                <input type="number" id="fvPV" value="100000" min="1" step="1000">
-              </div>
-              <div class="chips-wrap" data-target="fvPV" data-range="fvPV_range">
-                <button type="button" class="chip" data-val="50000">₹50,000</button>
-                <button type="button" class="chip" data-val="100000">₹1 Lakh</button>
-                <button type="button" class="chip" data-val="500000">₹5 Lakh</button>
-                <button type="button" class="chip" data-val="1000000">₹10 Lakh</button>
-              </div>
-            </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="fvRate">Expected Annual CAGR (%)</label>
-                <span id="fvRate_preview">15.0%</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="fvRate_range" min="1" max="40" step="0.5" value="15">
-                <input type="number" id="fvRate" value="15" min="0.1" step="0.1">
-              </div>
-              <div class="chips-wrap" data-target="fvRate" data-range="fvRate_range">
-                <button type="button" class="chip" data-val="8">8% (FD/Debt)</button>
-                <button type="button" class="chip" data-val="12">12% (Nifty Index)</button>
-                <button type="button" class="chip" data-val="15">15% (Active MF)</button>
-                <button type="button" class="chip" data-val="20">20% (Aggressive)</button>
-              </div>
-            </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="fvYears">Holding Period (Years)</label>
-                <span id="fvYears_preview">10.0 Years</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="fvYears_range" min="1" max="30" step="1" value="10">
-                <input type="number" id="fvYears" value="10" min="0.1" max="50" step="0.1">
-              </div>
-              <div class="chips-wrap" data-target="fvYears" data-range="fvYears_range">
-                <button type="button" class="chip" data-val="5">5 Yrs</button>
-                <button type="button" class="chip" data-val="10">10 Yrs</button>
-                <button type="button" class="chip" data-val="15">15 Yrs</button>
-                <button type="button" class="chip" data-val="20">20 Yrs</button>
-              </div>
-            </div>
+          <!-- Buttons -->
+          <div class="calculator-actions">
+            <button id="recalculateBtn" class="btn btn-primary" type="button"><i class="fas fa-arrows-rotate"></i> 再計算する</button>
+            <button id="resetBtn" class="btn btn-ghost" type="button"><i class="fas fa-rotate-left"></i> 初期設定に戻す</button>
           </div>
 
-          <!-- Panel 3: Reverse CAGR (PV) -->
-          <div class="cagr-panel" id="panel_pv">
-            <div class="field-card">
-              <div class="field-head">
-                <label for="pvFV">Target Future Corpus</label>
-                <span id="pvFV_preview">₹10,00,000</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="pvFV_range" min="50000" max="50000000" step="50000" value="1000000">
-                <input type="number" id="pvFV" value="1000000" min="1000" step="10000">
-              </div>
-              <div class="chips-wrap" data-target="pvFV" data-range="pvFV_range">
-                <button type="button" class="chip" data-val="500000">₹5 Lakh</button>
-                <button type="button" class="chip" data-val="1000000">₹10 Lakh</button>
-                <button type="button" class="chip" data-val="2500000">₹25 Lakh</button>
-                <button type="button" class="chip" data-val="5000000">₹50 Lakh</button>
-                <button type="button" class="chip" data-val="10000000">₹1 Crore</button>
-              </div>
+          <!-- Result Grid Cards -->
+          <div class="result-grid" style="margin-top: 1.5rem;">
+            <div class="result-card">
+              <h3>初期投資額（期初額）</h3>
+              <div id="resInitialVal" class="result-value">-</div>
             </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="pvRate">Expected Annual CAGR (%)</label>
-                <span id="pvRate_preview">12.0%</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="pvRate_range" min="1" max="30" step="0.5" value="12">
-                <input type="number" id="pvRate" value="12" min="0.1" step="0.1">
-              </div>
-              <div class="chips-wrap" data-target="pvRate" data-range="pvRate_range">
-                <button type="button" class="chip" data-val="10">10%</button>
-                <button type="button" class="chip" data-val="12">12%</button>
-                <button type="button" class="chip" data-val="15">15%</button>
-              </div>
-            </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="pvYears">Time Horizon (Years)</label>
-                <span id="pvYears_preview">10.0 Years</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="pvYears_range" min="1" max="30" step="1" value="10">
-                <input type="number" id="pvYears" value="10" min="0.1" max="50" step="0.1">
-              </div>
-              <div class="chips-wrap" data-target="pvYears" data-range="pvYears_range">
-                <button type="button" class="chip" data-val="5">5 Yrs</button>
-                <button type="button" class="chip" data-val="10">10 Yrs</button>
-                <button type="button" class="chip" data-val="15">15 Yrs</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Panel 4: Time Duration -->
-          <div class="cagr-panel" id="panel_time">
-            <div class="field-card">
-              <div class="field-head">
-                <label for="timePV">Initial Investment Amount</label>
-                <span id="timePV_preview">₹1,00,000</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="timePV_range" min="5000" max="5000000" step="5000" value="100000">
-                <input type="number" id="timePV" value="100000" min="1" step="1000">
-              </div>
-            </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="timeFV">Target Future Value</label>
-                <span id="timeFV_preview">₹5,00,000</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="timeFV_range" min="10000" max="20000000" step="10000" value="500000">
-                <input type="number" id="timeFV" value="500000" min="1" step="5000">
-              </div>
-            </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="timeRate">Expected Annual CAGR (%)</label>
-                <span id="timeRate_preview">15.0%</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="timeRate_range" min="1" max="30" step="0.5" value="15">
-                <input type="number" id="timeRate" value="15" min="0.1" step="0.1">
-              </div>
-            </div>
-          </div>
-
-          <!-- Core Metric Result Cards -->
-          <div class="result-grid">
-            <div class="result-card highlight">
-              <h3>Annualized CAGR</h3>
-              <div class="result-value" id="cardCagr">-</div>
+            <div class="result-card">
+              <h3>最終金額（期末額）</h3>
+              <div id="resFinalVal" class="result-value">-</div>
             </div>
             <div class="result-card positive">
-              <h3>Total Wealth Gain</h3>
-              <div class="result-value" id="cardProfit">-</div>
+              <h3>総増加額（絶対利益）</h3>
+              <div id="resTotalGain" class="result-value">-</div>
             </div>
             <div class="result-card">
-              <h3>Absolute Return</h3>
-              <div class="result-value" id="cardAbsReturn">-</div>
+              <h3>トータルリターン（総収益率）</h3>
+              <div id="resTotalReturn" class="result-value">-</div>
             </div>
             <div class="result-card">
-              <h3>Growth Multiplier</h3>
-              <div class="result-value" id="cardMultiplier">-</div>
+              <h3>資産倍率</h3>
+              <div id="resMultiple" class="result-value">-</div>
+            </div>
+            <div class="result-card">
+              <h3>72の法則（2倍化年数目安）</h3>
+              <div id="resRule72" class="result-value">-</div>
             </div>
           </div>
 
-          <!-- Visual Studio SVG Growth Curve -->
-          <div class="visual-studio-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; font-weight:700; color:var(--ic-text-muted);">
-              <span><i class="fas fa-chart-area"></i> Compounding Trajectory</span>
-              <span style="color:var(--ic-primary-dark);" id="chartBadge">Exponential Curve</span>
+          <!-- Reference Benchmark Index Comparison -->
+          <div class="benchmark-card">
+            <div class="benchmark-header">
+              <i class="fas fa-scale-balanced" style="color: var(--ic-primary);"></i>
+              <span>主要資産クラスの歴史的年平均成長率（CAGR目安）</span>
             </div>
-            <div class="svg-curve-wrap">
-              <svg id="liveSvgChart" viewBox="0 0 400 180" width="100%" height="100%" preserveAspectRatio="none"></svg>
+            <div class="benchmark-grid">
+              <div class="bench-item">
+                <span class="bench-name">全世界株式 (オルカン)</span>
+                <span class="bench-val">年 5.0 〜 8.0%</span>
+              </div>
+              <div class="bench-item">
+                <span class="bench-name">米国株式 (S&P500)</span>
+                <span class="bench-val">年 7.0 〜 10.5%</span>
+              </div>
+              <div class="bench-item">
+                <span class="bench-name">日経平均株価</span>
+                <span class="bench-val">年 3.5 〜 6.5%</span>
+              </div>
+              <div class="bench-item">
+                <span class="bench-name">国内債券・定期預金</span>
+                <span class="bench-val">年 0.3 〜 1.0%</span>
+              </div>
             </div>
           </div>
 
-          <div class="calculator-actions">
-            <button class="btn btn-primary" id="copyResultBtn" type="button"><i class="fas fa-copy"></i> Copy Calculation Summary</button>
-            <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset Defaults</button>
+          <!-- Growth Curve Chart -->
+          <div class="chart-card" style="margin-top: 1.5rem;">
+            <h3><i class="fas fa-chart-line" style="color: var(--ic-primary);"></i> 年次資産成長推移（幾何平均カーブ）</h3>
+            <div class="chart-wrap">
+              <canvas id="cagrGrowthChart"></canvas>
+            </div>
           </div>
-        </article>
 
+          <!-- Projection Table -->
+          <div class="table-tools">
+            <h3><i class="fas fa-table-list" style="color: var(--ic-primary);"></i> 年次別の資産推移詳細</h3>
+            <button id="downloadCsvBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-file-csv"></i> CSVファイルを保存
+            </button>
+          </div>
+
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>経過年数</th>
+                  <th>想定資産額</th>
+                  <th>前年比増加額</th>
+                  <th>初期比成長率</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="calculator-actions" style="margin-top: 1rem;">
+            <button id="copySummaryBtn" class="btn btn-ghost" type="button">
+              <i class="fas fa-copy"></i> シミュレーション結果をコピー
+            </button>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
         <aside class="sidebar">
           <div class="sidebar-card">
-            <h3>Recent Estimates</h3>
-            <div id="calcLog" class="link-list">
-              <div style="font-size: 0.85rem; color: var(--ic-text-muted); text-align: center; padding: 1rem;">No history logged.</div>
+            <h3><i class="fas fa-calculator" style="color: var(--ic-primary);"></i> 関連する金融計算ツール</h3>
+            <div class="link-list">
+              <a href="sipcalculator.html"><i class="fas fa-arrow-right"></i> 新NISA・毎月積立シミュレーション</a>
+              <a href="sipcalculatorlumpsump.html"><i class="fas fa-arrow-right"></i> 一括投資・成長投資枠計算</a>
+              <a href="emicalculator.html"><i class="fas fa-arrow-right"></i> 住宅ローン返済シミュレーション</a>
+              <a href="compoundinterest.html"><i class="fas fa-arrow-right"></i> 複利計算シミュレーター</a>
+              <a href="retirementcalculator.html"><i class="fas fa-arrow-right"></i> 老後資金シミュレーター</a>
             </div>
-            <button class="btn btn-ghost" style="width:100%; font-size:0.8rem; min-height:36px; margin-top:0.5rem;" id="clearLog" type="button">Clear History</button>
           </div>
 
-          <div class="sidebar-card">
-            <h3>Related Calculators</h3>
-            <ul class="link-list">
-              <li><a href="../sipcalculator.html"><span>SIP Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../sipcalculatorlumpsump.html"><span>Lumpsum Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../mutualfundreturncalculator.html"><span>Mutual Fund Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../swpcalculator.html"><span>SWP Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../epfcalculator.html"><span>EPF Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
-            </ul>
+          <div class="sidebar-card" style="background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%); border-color: #bae6fd;">
+            <h3><i class="fas fa-lightbulb" style="color: #0284c7;"></i> CAGRの豆知識</h3>
+            <p style="font-size: 0.88rem; line-height: 1.55; color: #334155; margin: 0;">
+              例えば1年目に+50%、2年目に-50%となった場合、単純平均は0%ですが、実際の資産は100万 $\to$ 150万 $\to$ 75万円（-25%）となります。CAGRを算出することで、このようなボラティリティによる実質損失を正確に捉えられます。
+            </p>
           </div>
         </aside>
       </div>
     </section>
 
-    <!-- SEO Content Section -->
-    <section class="section seo-section" style="padding-top: 0;">
+    <!-- Comprehensive Japanese Educational Article -->
+    <section class="section">
       <div class="container">
-        <div class="content-card">
-          <h2 style="font-family: 'Sora', sans-serif; font-size: clamp(1.4rem, 3vw, 1.85rem); margin-bottom: 1rem; color: var(--ic-text);">
-            What is Compound Annual Growth Rate (CAGR)?
-          </h2>
-          <p style="color: var(--ic-text-muted); font-size: 0.95rem; line-height: 1.6;">
-            The <strong>Compound Annual Growth Rate (CAGR)</strong> is the mean annual growth rate of an investment over a specified period of time longer than one year. It represents the geometric progression ratio that provides a constant rate of return, smoothing out market volatility and showing what an investment yielded on an annually compounded basis.
+        <article class="content-card">
+          <h2>CAGR（年平均成長率）の基礎知識と正しい使い方</h2>
+          <p>
+            CAGR（Compound Annual Growth Rate：年平均成長率）は、投資信託や株式の運用実績、あるいは企業の売上・利益の成長性を評価する際に最も広く利用される指標です。
+            複数年にわたる成長を<strong>「毎年一定の複利ペースで均等に成長した」</strong>と換算することで、年度ごとの変動に惑わされず本質的な成長速度を把握できます。
           </p>
-          <br>
-          <h3 style="font-family: 'Sora', sans-serif; font-size: 1.15rem; color: var(--ic-primary-dark); margin-bottom: 0.5rem;">The Mathematical CAGR Formula</h3>
-          <p style="color: var(--ic-text-muted); font-size: 0.95rem; line-height: 1.6;">
-            The standard formula is: <code>CAGR = (Ending Value / Beginning Value)^(1 / Years) - 1</code>.
-          </p>
-        </div>
 
-        <div class="faq-list" style="margin-top: 1.5rem;">
-          <details class="faq-card" open>
-            <summary>What is CAGR and how is it calculated? <i class="fas fa-chevron-down"></i></summary>
-            <p>CAGR measures the constant rate at which an investment grows annually over a specified time period, assuming the gains compound. It is calculated as: CAGR = (Ending Value / Beginning Value)^(1 / Years) - 1.</p>
-          </details>
-          <details class="faq-card">
-            <summary>What is the difference between CAGR and Absolute Return? <i class="fas fa-chevron-down"></i></summary>
-            <p>Absolute return measures total gain or loss without considering time duration. CAGR converts this growth into an annualized average rate, accounting for the effect of compounding over years.</p>
-          </details>
-          <details class="faq-card">
-            <summary>Can I use CAGR for Systematic Investment Plans (SIP)? <i class="fas fa-chevron-down"></i></summary>
-            <p>No, CAGR is mathematically designed for single point-to-point lump sum investments. For staggered periodic cash flows like monthly SIPs, you must use XIRR (Extended Internal Rate of Return).</p>
-          </details>
-        </div>
+          <h3>1. CAGRの計算式と仕組み</h3>
+          <p>
+            CAGRは以下の幾何平均の計算式によって求められます：
+          </p>
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-family: monospace; font-size: 1.05rem; font-weight: 700; color: #0f172a;">
+            CAGR = ( 最終金額 ÷ 初期金額 ) ^ ( 1 ÷ 経過年数 ) － 1
+          </div>
+          <p>
+            例えば、5年前に300万円で購入した投資信託が現在500万円に成長した場合：<br>
+            <strong>CAGR = (500 ÷ 300) ^ (1 ÷ 5) － 1 ＝ 約 10.76% / 年</strong> となります。
+          </p>
+
+          <h3>2. 単純平均（算術平均）とCAGR（幾何平均）の決定的な違い</h3>
+          <table class="projection-table" style="margin: 1rem 0;">
+            <thead>
+              <tr>
+                <th>指標</th>
+                <th>計算方法</th>
+                <th>特徴・注意点</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>単純平均利回り (算術平均)</strong></td>
+                <td>各年のリターンを合計して年数で割る</td>
+                <td>下落時の複利影響を無視するため、<strong>実際のリターンより過大評価</strong>されやすい。</td>
+              </tr>
+              <tr>
+                <td><strong>CAGR (幾何平均・年平均成長率)</strong></td>
+                <td>期初から期末までの複利成長速度を算出</td>
+                <td><strong>投資家の手取り資産の増減と完全に一致</strong>する最も正確な指標。</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>3. CAGRを活用したビジネス・投資の目標設定</h3>
+          <p>
+            当シミュレーターの「3. 目標CAGR逆算」機能を使うことで、<strong>「10年後に資産2,000万円を達成するには、年率何パーセントの利回りで運用する必要があるか」</strong>や、<strong>「3期後に売上10億円を目指す場合、年間何パーセントの売上成長率（KPI）が必要か」</strong>を瞬時に逆算できます。
+          </p>
+        </article>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© 2026 InstaCalc.in — Precision Financial & Growth Analytics.</p>
+      <p>InstaCalc.in - 日常のあらゆる計算を速く、正確に、シンプルにする無料計算ツール群</p>
       <div class="footer-links">
-        <a href="../index.html">Home</a>
-        <a href="../aboutus.html">About Us</a>
-        <a href="../privacypolicy.html">Privacy Policy</a>
-        <a href="../terms.html">Terms &amp; Conditions</a>
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+        <a href="../terms.html">利用規約</a>
       </div>
     </div>
   </footer>
 
-  <script src="../currency-manager.js"></script>
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="ページ上部へ戻る">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     (function () {
-      const $ = id => document.getElementById(id);
-      let currentMode = 'cagr';
-      let log = [];
-      let lastSummary = '';
+      let currentMode = "standard"; // standard | future_value | reverse
 
-      function formatCurrency(v) {
-        return window.currencyManager ? window.currencyManager.formatCurrency(v) : ('₹ ' + Number(v).toLocaleString());
+      function formatYen(val) {
+        return "¥" + Math.round(val).toLocaleString('ja-JP');
       }
 
-      function formatWithUnits(v) {
-        return window.currencyManager ? window.currencyManager.formatWithUnits(v) : ('₹ ' + Number(v).toLocaleString());
-      }
-
-      function formatPct(v) {
-        return Number(v).toFixed(2) + '%';
-      }
-
-      function syncPair(rangeId, numId, previewId, isCurrency = true, unitSuffix = '') {
-        const range = $(rangeId);
-        const num = $(numId);
-        const prev = $(previewId);
-        if (!range || !num) return;
-
-        function updateVal(val) {
-          range.value = val;
-          num.value = val;
-          if (prev) {
-            prev.textContent = isCurrency ? formatWithUnits(val) : (val + unitSuffix);
+      function formatManYen(val) {
+        if (Math.abs(val) >= 100000000) {
+          const oku = Math.floor(val / 100000000);
+          const restMan = Math.round((val % 100000000) / 10000);
+          if (restMan > 0) {
+            return oku + "億" + restMan.toLocaleString('ja-JP') + "万円";
           }
-          calculate();
+          return oku + "億円";
         }
-
-        range.addEventListener('input', () => updateVal(range.value));
-        num.addEventListener('input', () => updateVal(num.value));
-      }
-
-      function calculate() {
-        let pv = 0, fv = 0, years = 0, cagr = 0, profit = 0, absReturn = 0, multiplier = 1;
-
-        if (currentMode === 'cagr') {
-          pv = parseFloat($('cagrPV')?.value) || 0;
-          fv = parseFloat($('cagrFV')?.value) || 0;
-          years = parseFloat($('cagrYears')?.value) || 0;
-
-          if (pv > 0 && fv > 0 && years > 0) {
-            cagr = (Math.pow(fv / pv, 1 / years) - 1) * 100;
-            profit = fv - pv;
-            absReturn = ((fv - pv) / pv) * 100;
-            multiplier = fv / pv;
-
-            $('heroLabel').textContent = 'Compound Annual Growth Rate (CAGR)';
-            $('heroValue').textContent = formatPct(cagr);
-            $('heroDesc').textContent = `Growth from ${formatWithUnits(pv)} to ${formatWithUnits(fv)} in ${years} Yrs • Profit: ${formatWithUnits(profit)} (${formatPct(absReturn)})`;
-
-            $('cardCagr').textContent = formatPct(cagr);
-            $('cardProfit').textContent = formatWithUnits(profit);
-            $('cardAbsReturn').textContent = formatPct(absReturn);
-            $('cardMultiplier').textContent = multiplier.toFixed(2) + '×';
-
-            if ($('mobileSummaryVal')) $('mobileSummaryVal').textContent = formatPct(cagr);
-            drawCurve(pv, fv, years, cagr / 100);
-            lastSummary = `CAGR Calculation:\nInitial Investment: ${formatWithUnits(pv)}\nFinal Value: ${formatWithUnits(fv)}\nDuration: ${years} Years\nCAGR: ${formatPct(cagr)}\nProfit: ${formatWithUnits(profit)} (${formatPct(absReturn)})`;
-          }
-        } else if (currentMode === 'fv') {
-          pv = parseFloat($('fvPV')?.value) || 0;
-          const rate = parseFloat($('fvRate')?.value) || 0;
-          years = parseFloat($('fvYears')?.value) || 0;
-
-          if (pv > 0 && years > 0) {
-            const rDec = rate / 100;
-            fv = pv * Math.pow(1 + rDec, years);
-            profit = fv - pv;
-            absReturn = ((fv - pv) / pv) * 100;
-            multiplier = fv / pv;
-
-            $('heroLabel').textContent = 'Projected Future Wealth';
-            $('heroValue').textContent = formatWithUnits(fv);
-            $('heroDesc').textContent = `Invested ${formatWithUnits(pv)} @ ${rate}% CAGR for ${years} Yrs • Wealth Gain: ${formatWithUnits(profit)}`;
-
-            $('cardCagr').textContent = formatPct(rate);
-            $('cardProfit').textContent = formatWithUnits(profit);
-            $('cardAbsReturn').textContent = formatPct(absReturn);
-            $('cardMultiplier').textContent = multiplier.toFixed(2) + '×';
-
-            if ($('mobileSummaryVal')) $('mobileSummaryVal').textContent = formatWithUnits(fv);
-            drawCurve(pv, fv, years, rDec);
-            lastSummary = `Future Value Projection:\nInitial: ${formatWithUnits(pv)}\nRate: ${rate}%\nDuration: ${years} Years\nFinal Corpus: ${formatWithUnits(fv)}\nGain: ${formatWithUnits(profit)}`;
-          }
-        } else if (currentMode === 'pv') {
-          fv = parseFloat($('pvFV')?.value) || 0;
-          const rate = parseFloat($('pvRate')?.value) || 0;
-          years = parseFloat($('pvYears')?.value) || 0;
-
-          if (fv > 0 && years > 0) {
-            const rDec = rate / 100;
-            pv = fv / Math.pow(1 + rDec, years);
-            profit = fv - pv;
-            absReturn = ((fv - pv) / pv) * 100;
-            multiplier = fv / pv;
-
-            $('heroLabel').textContent = 'Required Starting Investment';
-            $('heroValue').textContent = formatWithUnits(pv);
-            $('heroDesc').textContent = `To accumulate ${formatWithUnits(fv)} in ${years} Yrs @ ${rate}% CAGR • Profit: ${formatWithUnits(profit)}`;
-
-            $('cardCagr').textContent = formatPct(rate);
-            $('cardProfit').textContent = formatWithUnits(profit);
-            $('cardAbsReturn').textContent = formatPct(absReturn);
-            $('cardMultiplier').textContent = multiplier.toFixed(2) + '×';
-
-            if ($('mobileSummaryVal')) $('mobileSummaryVal').textContent = formatWithUnits(pv);
-            drawCurve(pv, fv, years, rDec);
-            lastSummary = `Reverse CAGR:\nTarget: ${formatWithUnits(fv)}\nRate: ${rate}%\nDuration: ${years} Years\nRequired Initial: ${formatWithUnits(pv)}`;
-          }
-        } else if (currentMode === 'time') {
-          pv = parseFloat($('timePV')?.value) || 0;
-          fv = parseFloat($('timeFV')?.value) || 0;
-          const rate = parseFloat($('timeRate')?.value) || 0;
-
-          if (pv > 0 && fv > pv && rate > 0) {
-            const rDec = rate / 100;
-            years = Math.log(fv / pv) / Math.log(1 + rDec);
-            profit = fv - pv;
-            absReturn = ((fv - pv) / pv) * 100;
-            multiplier = fv / pv;
-
-            $('heroLabel').textContent = 'Required Holding Duration';
-            $('heroValue').textContent = years.toFixed(1) + ' Years';
-            $('heroDesc').textContent = `To grow ${formatWithUnits(pv)} to ${formatWithUnits(fv)} @ ${rate}% CAGR`;
-
-            $('cardCagr').textContent = formatPct(rate);
-            $('cardProfit').textContent = formatWithUnits(profit);
-            $('cardAbsReturn').textContent = formatPct(absReturn);
-            $('cardMultiplier').textContent = multiplier.toFixed(2) + '×';
-
-            if ($('mobileSummaryVal')) $('mobileSummaryVal').textContent = years.toFixed(1) + ' Yrs';
-            drawCurve(pv, fv, years, rDec);
-            lastSummary = `Duration Estimate:\nInitial: ${formatWithUnits(pv)}\nTarget: ${formatWithUnits(fv)}\nRate: ${rate}%\nTime Needed: ${years.toFixed(1)} Years`;
-          }
+        if (Math.abs(val) >= 10000) {
+          const man = (val / 10000).toFixed(1).replace(/\.0$/, '');
+          return Number(man).toLocaleString('ja-JP') + "万円";
         }
+        return Math.round(val).toLocaleString('ja-JP') + "円";
       }
 
-      function drawCurve(pv, fv, years, rateDec) {
-        const svg = $('liveSvgChart');
-        if (!svg) return;
-        const W = 400, H = 180, P = 30;
-        const innerW = W - 2 * P, innerH = H - 2 * P;
-
-        const steps = 30;
-        let pathD = `M ${P} ${H - P}`;
-        const maxVal = Math.max(pv, fv, 1);
-
-        for (let i = 0; i <= steps; i++) {
-          const t = (i / steps) * years;
-          const curVal = pv * Math.pow(1 + rateDec, t);
-          const x = P + (i / steps) * innerW;
-          const y = H - P - (curVal / maxVal) * innerH;
-          if (i === 0) pathD = `M ${x.toFixed(1)} ${y.toFixed(1)}`;
-          else pathD += ` L ${x.toFixed(1)} ${y.toFixed(1)}`;
-        }
-
-        const fillD = `${pathD} L ${W - P} ${H - P} L ${P} ${H - P} Z`;
-
-        svg.innerHTML = `
-          <defs>
-            <linearGradient id="cagrGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#007f8b" stop-opacity="0.35"/>
-              <stop offset="100%" stop-color="#007f8b" stop-opacity="0.0"/>
-            </linearGradient>
-          </defs>
-          <line x1="${P}" y1="${H - P}" x2="${W - P}" y2="${H - P}" stroke="#cbd5e1" stroke-width="1.5"/>
-          <line x1="${P}" y1="${P}" x2="${P}" y2="${H - P}" stroke="#cbd5e1" stroke-width="1.5"/>
-          <path d="${fillD}" fill="url(#cagrGrad)"/>
-          <path d="${pathD}" fill="none" stroke="#007f8b" stroke-width="3.5" stroke-linecap="round"/>
-          <circle cx="${P}" cy="${H - P - (pv / maxVal) * innerH}" r="4.5" fill="#007f8b"/>
-          <circle cx="${W - P}" cy="${H - P - (fv / maxVal) * innerH}" r="5" fill="#0f172a"/>
-          <text x="${P + 6}" y="${H - P - (pv / maxVal) * innerH - 8}" font-size="10" font-weight="700" fill="#0f172a">Start: ${formatWithUnits(pv)}</text>
-          <text x="${W - P}" y="${H - P - (fv / maxVal) * innerH - 8}" text-anchor="end" font-size="11" font-weight="800" fill="#007f8b">End: ${formatWithUnits(fv)}</text>
-          <text x="${P}" y="${H - 10}" font-size="10" fill="#64748b">Year 0</text>
-          <text x="${W - P}" y="${H - 10}" text-anchor="end" font-size="10" fill="#64748b">Year ${years.toFixed(1)}</text>
-        `;
+      function formatFullJapaneseCurrency(val) {
+        return formatYen(val) + " (" + formatManYen(val) + ")";
       }
 
-      function syncUI() {
-        document.querySelectorAll('.mode-pill-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            document.querySelectorAll('.mode-pill-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentMode = btn.dataset.mode;
-            document.querySelectorAll('.cagr-panel').forEach(p => p.classList.remove('active'));
-            const activePanel = $(`panel_${currentMode}`);
-            if (activePanel) activePanel.classList.add('active');
-            calculate();
-          });
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+
+        cardInitialVal: document.getElementById("cardInitialVal"),
+        labelInitialVal: document.getElementById("labelInitialVal"),
+        initialVal: document.getElementById("initialVal"),
+        initialValRange: document.getElementById("initialValRange"),
+        initialValPreview: document.getElementById("initialValPreview"),
+
+        cardFinalVal: document.getElementById("cardFinalVal"),
+        labelFinalVal: document.getElementById("labelFinalVal"),
+        finalVal: document.getElementById("finalVal"),
+        finalValRange: document.getElementById("finalValRange"),
+        finalValPreview: document.getElementById("finalValPreview"),
+
+        cardCagrRate: document.getElementById("cardCagrRate"),
+        cagrRateInput: document.getElementById("cagrRateInput"),
+        cagrRateRange: document.getElementById("cagrRateRange"),
+        cagrRatePreview: document.getElementById("cagrRatePreview"),
+
+        tenureYears: document.getElementById("tenureYears"),
+        tenureYearsRange: document.getElementById("tenureYearsRange"),
+        tenureYearsPreview: document.getElementById("tenureYearsPreview"),
+
+        heroRateTag: document.getElementById("heroRateTag"),
+        heroCagrValue: document.getElementById("heroCagrValue"),
+        heroCagrSub: document.getElementById("heroCagrSub"),
+
+        resInitialVal: document.getElementById("resInitialVal"),
+        resFinalVal: document.getElementById("resFinalVal"),
+        resTotalGain: document.getElementById("resTotalGain"),
+        resTotalReturn: document.getElementById("resTotalReturn"),
+        resMultiple: document.getElementById("resMultiple"),
+        resRule72: document.getElementById("resRule72"),
+
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        cagrGrowthChart: document.getElementById("cagrGrowthChart")
+      };
+
+      let chartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) return;
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
         });
 
-        // Sync pairs
-        syncPair('cagrPV_range', 'cagrPV', 'cagrPV_preview', true);
-        syncPair('cagrFV_range', 'cagrFV', 'cagrFV_preview', true);
-        syncPair('cagrYears_range', 'cagrYears', 'cagrYears_preview', false, ' Years');
-
-        syncPair('fvPV_range', 'fvPV', 'fvPV_preview', true);
-        syncPair('fvRate_range', 'fvRate', 'fvRate_preview', false, '%');
-        syncPair('fvYears_range', 'fvYears', 'fvYears_preview', false, ' Years');
-
-        syncPair('pvFV_range', 'pvFV', 'pvFV_preview', true);
-        syncPair('pvRate_range', 'pvRate', 'pvRate_preview', false, '%');
-        syncPair('pvYears_range', 'pvYears', 'pvYears_preview', false, ' Years');
-
-        syncPair('timePV_range', 'timePV', 'timePV_preview', true);
-        syncPair('timeFV_range', 'timeFV', 'timeFV_preview', true);
-        syncPair('timeRate_range', 'timeRate', 'timeRate_preview', false, '%');
-
-        // Chips handling
-        document.querySelectorAll('.chips-wrap .chip').forEach(chip => {
-          chip.addEventListener('click', function () {
-            const parent = this.parentElement;
-            const targetInput = $(parent.dataset.target);
-            const targetRange = $(parent.dataset.range);
-            if (targetInput) {
-              targetInput.value = this.dataset.val;
-              if (targetRange) targetRange.value = this.dataset.val;
-              const prev = $(`${parent.dataset.target}_preview`);
-              if (prev) {
-                const isCur = parent.dataset.target.toLowerCase().includes('pv') || parent.dataset.target.toLowerCase().includes('fv');
-                prev.textContent = isCur ? formatWithUnits(this.dataset.val) : (this.dataset.val + (parent.dataset.target.includes('Years') ? ' Years' : '%'));
-              }
-              calculate();
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 960) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
             }
           });
         });
+      }
 
-        function copySummary(btn) {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(lastSummary).then(() => {
-              const orig = btn.innerHTML;
-              btn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
-              setTimeout(() => btn.innerHTML = orig, 1800);
-              saveToLog();
-            });
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) return;
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
+
+      function parseNum(input, fallback) {
+        const val = Number(input);
+        return Number.isFinite(val) ? val : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl, onUpdate) {
+        if (!rangeEl || !numberEl) return;
+        rangeEl.addEventListener("input", function () {
+          numberEl.value = rangeEl.value;
+          if (onUpdate) onUpdate();
+          calculateAndRender();
+        });
+        numberEl.addEventListener("input", function () {
+          if (numberEl.value === "") return;
+          rangeEl.value = numberEl.value;
+          if (onUpdate) onUpdate();
+          calculateAndRender();
+        });
+      }
+
+      function updateMode(newMode) {
+        currentMode = newMode;
+        document.querySelectorAll(".cagr-tab-btn").forEach(btn => {
+          btn.classList.toggle("active", btn.getAttribute("data-calc-mode") === newMode);
+        });
+
+        if (newMode === "standard") {
+          elements.cardFinalVal.style.display = "block";
+          elements.cardCagrRate.style.display = "none";
+          elements.labelInitialVal.textContent = "初期金額 (投資元本 / 期初売上)";
+          elements.labelFinalVal.textContent = "最終金額 (現在資産 / 期末売上)";
+          elements.heroRateTag.innerHTML = '<i class="fas fa-arrow-trend-up"></i> 年平均成長率（CAGR）';
+        } else if (newMode === "future_value") {
+          elements.cardFinalVal.style.display = "none";
+          elements.cardCagrRate.style.display = "block";
+          elements.labelInitialVal.textContent = "初期投資金額 (投資元本)";
+          elements.heroRateTag.innerHTML = '<i class="fas fa-piggy-bank"></i> 将来想定資産額（最終価値）';
+        } else if (newMode === "reverse") {
+          elements.cardFinalVal.style.display = "block";
+          elements.cardCagrRate.style.display = "none";
+          elements.labelInitialVal.textContent = "現在の資産額 (現在の元本)";
+          elements.labelFinalVal.textContent = "目標金額 (達成したい目標額)";
+          elements.heroRateTag.innerHTML = '<i class="fas fa-bullseye"></i> 目標達成に必要な年平均成長率（CAGR）';
+        }
+
+        calculateAndRender();
+      }
+
+      function calculateAndRender() {
+        const initial = parseNum(elements.initialVal.value, 1000000);
+        let finalVal = parseNum(elements.finalVal.value, 2000000);
+        let cagrRate = parseNum(elements.cagrRateInput.value, 7.0);
+        const years = parseNum(elements.tenureYears.value, 5);
+
+        // Previews
+        elements.initialValPreview.textContent = formatManYen(initial);
+        elements.finalValPreview.textContent = formatManYen(finalVal);
+        elements.cagrRatePreview.textContent = `${cagrRate.toFixed(1)}%`;
+        elements.tenureYearsPreview.textContent = `${years} 年間`;
+
+        let calculatedCagr = 0;
+        let calculatedFinal = finalVal;
+
+        if (currentMode === "standard" || currentMode === "reverse") {
+          if (initial > 0 && finalVal > 0 && years > 0) {
+            calculatedCagr = (Math.pow(finalVal / initial, 1 / years) - 1) * 100;
           }
+          calculatedFinal = finalVal;
+        } else if (currentMode === "future_value") {
+          calculatedCagr = cagrRate;
+          calculatedFinal = initial * Math.pow(1 + cagrRate / 100, years);
         }
 
-        $('copyResultBtn')?.addEventListener('click', function () { copySummary(this); });
-        $('copyHeroBtn')?.addEventListener('click', function () { copySummary(this); });
+        const totalGain = calculatedFinal - initial;
+        const totalReturnPct = initial > 0 ? (totalGain / initial) * 100 : 0;
+        const multiple = initial > 0 ? calculatedFinal / initial : 1;
+        const rule72 = calculatedCagr > 0 ? (72 / calculatedCagr).toFixed(1) : "-";
 
-        $('resetBtn')?.addEventListener('click', () => {
-          $('cagrPV').value = 100000;
-          $('cagrPV_range').value = 100000;
-          $('cagrFV').value = 250000;
-          $('cagrFV_range').value = 250000;
-          $('cagrYears').value = 5;
-          $('cagrYears_range').value = 5;
-          calculate();
-        });
-
-        $('clearLog')?.addEventListener('click', () => {
-          log = [];
-          localStorage.removeItem('cagr_log');
-          renderLog();
-        });
-
-        if (window.currencyManager) {
-          window.currencyManager.onChange(calculate);
+        // Hero Update
+        if (currentMode === "future_value") {
+          elements.heroCagrValue.textContent = formatManYen(calculatedFinal);
+          elements.heroCagrSub.textContent = `年利: ${calculatedCagr.toFixed(2)}% | 増加額: +${formatManYen(totalGain)} (+${totalReturnPct.toFixed(1)}%)`;
+        } else {
+          const sign = calculatedCagr >= 0 ? "+" : "";
+          elements.heroCagrValue.textContent = `${sign}${calculatedCagr.toFixed(2)}% / 年`;
+          elements.heroCagrSub.textContent = `トータルリターン: +${totalReturnPct.toFixed(1)}% | 資産倍率: ${multiple.toFixed(2)} 倍`;
         }
+
+        // Result Grid
+        elements.resInitialVal.textContent = formatFullJapaneseCurrency(initial);
+        elements.resFinalVal.textContent = formatFullJapaneseCurrency(calculatedFinal);
+        elements.resTotalGain.textContent = (totalGain >= 0 ? "+" : "") + formatFullJapaneseCurrency(totalGain);
+        elements.resTotalReturn.textContent = `${totalReturnPct >= 0 ? "+" : ""}${totalReturnPct.toFixed(2)}%`;
+        elements.resMultiple.textContent = `${multiple.toFixed(2)} 倍`;
+        elements.resRule72.textContent = rule72 !== "-" ? `約 ${rule72} 年` : "算出不可";
+
+        // Build Projection Array
+        const projection = [];
+        for (let y = 1; y <= years; y++) {
+          const yVal = initial * Math.pow(1 + calculatedCagr / 100, y);
+          const prevVal = y === 1 ? initial : initial * Math.pow(1 + calculatedCagr / 100, y - 1);
+          const yGain = yVal - prevVal;
+          const yPct = ((yVal - initial) / initial) * 100;
+          projection.push({
+            year: y,
+            amount: yVal,
+            gain: yGain,
+            pct: yPct
+          });
+        }
+        lastProjection = projection;
+
+        // Render Table
+        if (elements.projectionTableBody) {
+          elements.projectionTableBody.innerHTML = projection.map(item => `
+            <tr>
+              <td><strong>${item.year} 年目</strong></td>
+              <td style="font-weight:700; color:#0284c7;">${formatYen(item.amount)} <small style="color:#0369a1;">(${formatManYen(item.amount)})</small></td>
+              <td style="color:#059669;">+${formatYen(item.gain)}</td>
+              <td style="color:#0f172a; font-weight:700;">+${item.pct.toFixed(1)}%</td>
+            </tr>
+          `).join("");
+        }
+
+        // Summary Text for Copy
+        lastSummaryText = [
+          `【CAGR（年平均成長率）シミュレーション結果】`,
+          `初期金額: ${formatFullJapaneseCurrency(initial)}`,
+          `最終金額: ${formatFullJapaneseCurrency(calculatedFinal)}`,
+          `経過年数: ${years} 年間`,
+          `---------------------------------`,
+          `年平均成長率（CAGR）: ${calculatedCagr.toFixed(2)}% / 年`,
+          `トータルリターン: +${totalReturnPct.toFixed(2)}%`,
+          `資産増加額: +${formatFullJapaneseCurrency(totalGain)}`,
+          `資産倍率: ${multiple.toFixed(2)} 倍`,
+          `72の法則（2倍化目安）: 約 ${rule72} 年`,
+          `---------------------------------`,
+          `計算元: InstaCalc (https://instacalc.in/ja/cagrcalculator.html)`
+        ].join('\n');
+
+        // Render Chart
+        updateChart(projection);
       }
 
-      function saveToLog() {
-        const entry = {
-          mode: currentMode.toUpperCase(),
-          val: $('heroValue').textContent,
-          desc: $('heroDesc').textContent,
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        };
-        log.unshift(entry);
-        if (log.length > 5) log.pop();
-        localStorage.setItem('cagr_log', JSON.stringify(log));
-        renderLog();
-      }
+      function updateChart(projection) {
+        if (!elements.cagrGrowthChart || typeof Chart === "undefined") return;
 
-      function renderLog() {
-        const wrap = $('calcLog');
-        if (!wrap) return;
-        if (log.length === 0) {
-          wrap.innerHTML = '<div style="font-size: 0.85rem; color: var(--ic-text-muted); text-align: center; padding: 1rem;">No history logged.</div>';
+        const labels = projection.map(item => `${item.year}年目`);
+        const dataValues = projection.map(item => Math.round(item.amount));
+
+        if (chartInstance) {
+          chartInstance.data.labels = labels;
+          chartInstance.data.datasets[0].data = dataValues;
+          chartInstance.update();
           return;
         }
-        wrap.innerHTML = log.map(e => `
-          <div style="border: 1px solid var(--ic-border); padding: 0.65rem; border-radius: var(--ic-radius-sm); background: #fff; display:grid; gap:0.2rem;">
-            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:0.8rem; color:var(--ic-primary-dark);">
-              <span>${e.mode}</span>
-              <span style="opacity:0.6;">${e.time}</span>
-            </div>
-            <div style="font-size: 0.95rem; font-weight:800; color:var(--ic-text);">${e.val}</div>
-            <div style="font-size: 0.8rem; color:var(--ic-text-muted);">${e.desc}</div>
-          </div>
-        `).join('');
+
+        chartInstance = new Chart(elements.cagrGrowthChart, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [{
+              label: "想定資産推移（幾何平均カーブ）",
+              data: dataValues,
+              borderColor: "#0284c7",
+              backgroundColor: "rgba(2, 132, 199, 0.08)",
+              borderWidth: 3,
+              fill: true,
+              tension: 0.3,
+              pointRadius: 4,
+              pointBackgroundColor: "#0284c7"
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: "index", intersect: false },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function (ctx) {
+                    return `資産評価額: ${formatYen(ctx.raw)} (${formatManYen(ctx.raw)})`;
+                  }
+                }
+              }
+            },
+            scales: {
+              x: { grid: { display: false } },
+              y: {
+                ticks: {
+                  callback: function (val) {
+                    return formatManYen(val);
+                  }
+                }
+              }
+            }
+          }
+        });
       }
 
-      function setupGlobal() {
-        const menuBtn = $('menuToggle');
-        const nav = $('mainNav');
-        if (menuBtn && nav) {
-          menuBtn.addEventListener('click', () => {
-            const isOpen = nav.classList.toggle('open');
-            menuBtn.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+      function wireEvents() {
+        syncPair(elements.initialValRange, elements.initialVal);
+        syncPair(elements.finalValRange, elements.finalVal);
+        syncPair(elements.cagrRateRange, elements.cagrRateInput);
+        syncPair(elements.tenureYearsRange, elements.tenureYears);
+
+        // Mode Switching
+        document.querySelectorAll(".cagr-tab-btn").forEach(btn => {
+          btn.addEventListener("click", function () {
+            const mode = this.getAttribute("data-calc-mode");
+            updateMode(mode);
+          });
+        });
+
+        // Preset Chips for Initial
+        document.querySelectorAll(".chips-group button[data-init-chip]").forEach(btn => {
+          btn.addEventListener("click", function () {
+            this.parentElement.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            const val = parseFloat(this.getAttribute("data-init-chip"));
+            elements.initialVal.value = val;
+            elements.initialValRange.value = val;
+            calculateAndRender();
+          });
+        });
+
+        // Preset Chips for Final
+        document.querySelectorAll(".chips-group button[data-final-chip]").forEach(btn => {
+          btn.addEventListener("click", function () {
+            this.parentElement.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            const val = parseFloat(this.getAttribute("data-final-chip"));
+            elements.finalVal.value = val;
+            elements.finalValRange.value = val;
+            calculateAndRender();
+          });
+        });
+
+        // Preset Chips for Rate
+        document.querySelectorAll(".chips-group button[data-rate-chip]").forEach(btn => {
+          btn.addEventListener("click", function () {
+            this.parentElement.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            const val = parseFloat(this.getAttribute("data-rate-chip"));
+            elements.cagrRateInput.value = val;
+            elements.cagrRateRange.value = val;
+            calculateAndRender();
+          });
+        });
+
+        // Preset Chips for Years
+        document.querySelectorAll(".chips-group button[data-year-chip]").forEach(btn => {
+          btn.addEventListener("click", function () {
+            this.parentElement.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            const val = parseFloat(this.getAttribute("data-year-chip"));
+            elements.tenureYears.value = val;
+            elements.tenureYearsRange.value = val;
+            calculateAndRender();
+          });
+        });
+
+        // Recalculate & Reset
+        if (elements.recalculateBtn) elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        if (elements.resetBtn) {
+          elements.resetBtn.addEventListener("click", function () {
+            elements.initialVal.value = 1000000;
+            elements.initialValRange.value = 1000000;
+            elements.finalVal.value = 2000000;
+            elements.finalValRange.value = 2000000;
+            elements.cagrRateInput.value = 7.0;
+            elements.cagrRateRange.value = 7.0;
+            elements.tenureYears.value = 5;
+            elements.tenureYearsRange.value = 5;
+            calculateAndRender();
           });
         }
 
-        const saved = localStorage.getItem('cagr_log');
-        if (saved) {
-          try { log = JSON.parse(saved); } catch (e) { }
+        // Copy Text
+        function copyText(text, btnEl) {
+          if (!navigator.clipboard || !text) return;
+          navigator.clipboard.writeText(text).then(() => {
+            const orig = btnEl.innerHTML;
+            btnEl.innerHTML = `<i class="fas fa-check"></i> コピー完了！`;
+            setTimeout(() => { btnEl.innerHTML = orig; }, 1800);
+          });
+        }
+
+        if (elements.copySummaryBtn) elements.copySummaryBtn.addEventListener("click", () => copyText(lastSummaryText, elements.copySummaryBtn));
+        if (elements.copyHeroBtn) elements.copyHeroBtn.addEventListener("click", () => copyText(lastSummaryText, elements.copyHeroBtn));
+
+        // CSV Export
+        if (elements.downloadCsvBtn) {
+          elements.downloadCsvBtn.addEventListener("click", function () {
+            if (!lastProjection.length) return;
+            const headers = ["経過年数", "想定資産額(円)", "前年比増加額(円)", "初期比成長率(%)"];
+            const rows = lastProjection.map(item => [
+              item.year,
+              Math.round(item.amount),
+              Math.round(item.gain),
+              item.pct.toFixed(2)
+            ]);
+
+            const csvContent = [headers.join(",")].concat(rows.map(r => r.join(","))).join("\n");
+            const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `年平均成長率_CAGR推移表_${new Date().toISOString().slice(0, 10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          });
         }
       }
 
-      const langSelect = $('langSelect');
-      if (langSelect) {
-        langSelect.value = 'ja';
-        langSelect.addEventListener('change', function () {
-          if (this.value === 'ja') {
-            localStorage.setItem('user_lang', 'ja');
-            window.location.href = 'ja/cagrcalculator.html';
-          } else if (this.value === 'ru') {
-            localStorage.setItem('user_lang', 'ru');
-            window.location.href = 'ru/cagrcalculator.html';
-          }
-        });
-      }
-
-      setupGlobal();
-      syncUI();
-      renderLog();
-      calculate();
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      calculateAndRender();
     })();
   </script>
+  <script type="module" src="../firebase.js"></script>
   <script defer src="../fullscreen-mode.js"></script>
+  <script src="../language-dialog.js" defer></script>
 </body>
 
 </html>

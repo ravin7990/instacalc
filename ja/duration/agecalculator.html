@@ -1,576 +1,253 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 
 <head>
   <meta charset="UTF-8">
-  <script>
-  (function() {
-    const pref = localStorage.getItem('user_lang');
-    const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-    if (pref === 'ru' || (!pref && browserLang.startsWith('ru'))) {
-      window.location.replace('../ru/duration/agecalculator.html');
-    } else if (pref === 'ja' || (!pref && browserLang.startsWith('ja'))) {
-      window.location.replace('../ja/duration/agecalculator.html');
-    }
-  })();
-  </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Age Calculator – Calculate Age from Date of Birth Online (Exact Years, Months, Days)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>年齢計算機・生年月日早見表 | 和暦・西暦・干支・満年齢・数え年＆厄年計算【無料】 - InstaCalc</title>
   <meta name="description"
-    content="Free online age calculator to find your exact age in years, months & days from date of birth. Calculate age for government jobs in India, school admissions & more.">
+    content="生年月日から正確な満年齢（年・月・日）、和暦（令和・平成・昭和・大正）、干支（十二支・十干）、数え年、厄年（前厄・本厄・後厄）、長寿祝い（還暦・古希・米寿等）、履歴書用入学・卒業年度早見表を瞬時に計算する無料ツール。">
   <meta name="keywords"
-    content="calculate age from date of birth, age calculator, age calculator for government jobs, exact age calculator, age calculator online, chronological age formula">
+    content="年齢 計算, 生年月日 年齢 計算, 和暦 西暦 変換, 満年齢 数え年 計算, 干支 計算, 厄年 早見表, 履歴書 入学卒業年度 計算, 長寿祝い 年齢">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+  <link rel="canonical" href="https://instacalc.in/ja/duration/agecalculator.html">
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+  <link rel="icon" type="image/webp" href="../../favicon.webp">
+  <link rel="alternate" hreflang="ja" href="https://instacalc.in/ja/duration/agecalculator.html">
+  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/duration/agecalculator.html">
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/age-calculator.html">
+  <link rel="alternate" hreflang="en" href="https://instacalc.in/duration/agecalculator.html">
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/duration/agecalculator.html">
+  <link rel="alternate" hreflang="ru" href="https://instacalc.in/ru/duration/agecalculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/duration/agecalculator.html">
 
-  <link rel="icon" type="image/x-icon" href="../../favicon.webp">
-  <link rel="canonical" href="https://instacalc.in/duration/agecalculator.html">
+
+
+
+
+
+<meta property="og:title" content="年齢計算機・生年月日早見表 | 和暦・西暦・干支・満年齢・数え年＆厄年計算【無料】">
+  <meta property="og:description"
+    content="生年月日から現在の満年齢、和暦・干支、数え年、厄年判定、履歴書用の学歴入学・卒業年を瞬時に計算。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/ja/duration/agecalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="年齢計算機・生年月日早見表 | 和暦・西暦・干支・厄年計算">
+  <meta name="twitter:description"
+    content="無料の年齢計算機。生年月日から満年齢、和暦、干支、数え年、厄年、履歴書用卒業年を自動算出。">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "年齢計算機・生年月日早見表 (和暦・西暦・干支・厄年対応)",
+      "url": "https://instacalc.in/ja/duration/agecalculator.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "description": "生年月日から満年齢、和暦（令和・平成・昭和・大正）、干支、数え年、厄年、長寿祝い、履歴書学歴早見表を計算するツール。",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "「満年齢」と「数え年」の違いは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "『満年齢』は生まれた日を0歳とし、誕生日を迎えるごとに1歳加算する現代の一般的な数え方です。一方『数え年』は生まれた年を1歳とし、毎年1月1日（元日）を迎えるごとに全員が一斉に1歳年をとる日本の伝統的な数え方です。厄年や七五三、長寿のお祝いは伝統的に数え年で行われます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "男性と女性の「厄年（大厄）」は何歳ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "数え年で計算します。男性の本厄は25歳・42歳・61歳で、特に『42歳』が大厄（死に）とされます。女性の本厄は19歳・33歳・37歳・61歳で、特に『33歳』が大厄（散々）とされます。本厄の前年を『前厄』、翌年を『後厄』と呼び、3年間にわたって厄除け・お祓いを行うのが通例です。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "早生まれ（1月1日〜4月1日生まれ）の学歴はどう計算されますか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "学校教育法により、4月1日生まれまでの子どもは前年度生まれ（前の学年）として扱われます。例えば2000年3月生まれの方は、1999年4月2日〜1999年12月生まれと同級生となり、2006年4月に小学校入学となります。"
+          }
+        }
+      ]
+    }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
+  <link rel="preload"
     href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
   <link rel="stylesheet" href="../../instacalc-core.css">
-
   <style>
-    /* Ultra-Responsive Mobile Viewport Styles for Age Calculator */
-    * {
-      box-sizing: border-box;
-    }
-    
-    .container {
-      width: min(1240px, 92vw);
-      margin: 0 auto;
-      padding: 0 0.5rem;
-    }
-
-    .calc-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
-      gap: 1.75rem;
-      align-items: start;
-      width: 100%;
-    }
-
-    .calculator-shell {
-      background: #ffffff;
-      border: 1px solid var(--ic-border);
+    /* Japanese Age Studio Styling */
+    .japanese-age-hero {
+      background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
+      border: 1.5px solid rgba(2, 132, 199, 0.25);
       border-radius: var(--ic-radius-lg);
-      box-shadow: var(--ic-shadow-md);
-      padding: 1.75rem;
-      width: 100%;
-      max-width: 100%;
-      overflow: hidden;
-    }
-
-    .calculator-header-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--ic-border);
-      width: 100%;
-    }
-
-    .toggle-group {
-      display: inline-flex;
-      background: var(--ic-bg-subtle);
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 0.25rem;
-      gap: 0.25rem;
-    }
-
-    .toggle-btn {
-      padding: 0.5rem 0.95rem;
-      font-size: 0.88rem;
-      font-weight: 700;
-      border-radius: var(--ic-radius-sm);
-      border: none;
-      background: transparent;
-      color: var(--ic-text-muted);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .toggle-btn.active {
-      background: #ffffff;
-      color: var(--ic-primary-dark);
-      box-shadow: var(--ic-shadow-sm);
-    }
-
-    /* Hero Result Card */
-    .hero-result-card {
-      background: linear-gradient(135deg, #f0fdfa 0%, #e6f7f6 100%);
-      border: 1px solid rgba(0, 127, 139, 0.25);
-      border-radius: var(--ic-radius-lg);
-      padding: 1.25rem 1.5rem;
+      padding: 1.5rem;
       margin-bottom: 1.5rem;
+      box-shadow: var(--ic-shadow-md);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 1rem;
-      width: 100%;
-      position: relative;
+      gap: 1.25rem;
     }
-
-    .hero-result-card .label-group {
-      display: grid;
-      gap: 0.25rem;
-      width: 100%;
-      min-width: 0;
+    @media (max-width: 640px) {
+      .japanese-age-hero {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.25rem;
+      }
     }
-
-    .hero-result-card .res-eyebrow {
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--ic-primary-dark);
-    }
-
-    .hero-result-card .res-val {
-      font-family: 'Sora', sans-serif;
-      font-size: clamp(1.45rem, 4vw, 2.2rem);
-      font-weight: 800;
-      color: var(--ic-primary-dark);
-      line-height: 1.2;
-      word-break: break-word;
-      overflow-wrap: break-word;
-    }
-
-    .hero-result-card .res-desc {
-      font-size: 0.85rem;
-      color: var(--ic-text-muted);
-      word-break: break-word;
-    }
-
-    .hero-result-card .quick-copy-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 1px solid rgba(0, 127, 139, 0.25);
-      background: #ffffff;
-      color: var(--ic-primary-dark);
-      font-size: 1.05rem;
+    .japanese-age-hero .banner-text {
       display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .japanese-age-hero .banner-tag {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-    }
-
-    .hero-result-card .quick-copy-btn:hover {
-      background: var(--ic-primary-dark);
-      color: #ffffff;
-      transform: translateY(-2px);
-    }
-
-    .field-card {
-      background: var(--ic-bg-subtle);
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 1rem;
-      margin-bottom: 0.85rem;
-      width: 100%;
-    }
-
-    .field-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.6rem;
-      font-weight: 700;
-      font-size: 0.92rem;
-      gap: 0.5rem;
-    }
-
-    .field-card input[type="date"],
-    .field-card input[type="text"],
-    .field-card select {
-      width: 100%;
-      height: 48px;
-      padding: 0.65rem 1rem;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--ic-text);
-      background: #ffffff;
-      border: 1.5px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      outline: none;
-      transition: all 0.2s ease;
-    }
-
-    .field-card input[type="date"]:focus {
-      border-color: var(--ic-primary);
-      box-shadow: 0 0 0 3.5px var(--ic-primary-light);
-    }
-
-    .chips-wrap {
-      display: flex;
-      flex-wrap: wrap;
       gap: 0.4rem;
-      margin-top: 0.6rem;
-      width: 100%;
-    }
-
-    .chip {
-      padding: 0.35rem 0.75rem;
       font-size: 0.82rem;
-      font-weight: 700;
-      border-radius: 999px;
-      border: 1px solid var(--ic-border);
-      background: #ffffff;
-      color: var(--ic-text-muted);
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.15s ease;
-    }
-
-    .chip:hover, .chip.active {
-      color: var(--ic-primary-dark);
-      background: var(--ic-primary-light);
-      border-color: var(--ic-primary);
-    }
-
-    /* Section Subheads */
-    .section-subtitle {
-      font-family: 'Sora', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--ic-text);
-      margin: 1.5rem 0 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .section-subtitle i {
-      color: var(--ic-primary);
-    }
-
-    /* Metric grids */
-    .metrics-summary-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 0.65rem;
-      width: 100%;
-    }
-
-    .metric-card {
-      background: var(--ic-bg-subtle);
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 0.85rem;
-      text-align: center;
-      min-width: 0;
-    }
-
-    .metric-card .m-label {
-      font-size: 0.75rem;
+      font-weight: 800;
+      color: #0369a1;
       text-transform: uppercase;
       letter-spacing: 0.04em;
-      color: var(--ic-text-muted);
-      font-weight: 700;
-      margin-bottom: 0.25rem;
     }
-
-    .metric-card .m-val {
-      font-family: 'Sora', sans-serif;
-      font-size: 1.15rem;
+    .japanese-age-hero .main-age {
+      font-family: var(--ic-font-heading, "Sora", sans-serif);
+      font-size: clamp(2.2rem, 5vw, 3rem);
       font-weight: 800;
-      color: var(--ic-primary-dark);
-      word-break: break-word;
+      color: #0284c7;
+      line-height: 1.15;
+    }
+    .japanese-age-hero .main-age-sub {
+      font-size: 0.95rem;
+      color: #475569;
+      font-weight: 700;
     }
 
-    /* Profile List */
-    .profile-list-card {
-      background: #ffffff;
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 1rem;
-      margin-top: 0.85rem;
+    /* Era & Zodiac Callout Card */
+    .era-zodiac-card {
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border: 1.5px solid rgba(16, 185, 129, 0.3);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.35rem;
+      margin: 1.5rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
     }
-
-    .ms-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    .era-zodiac-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 0.75rem;
     }
-
-    .ms-item {
+    .era-zodiac-title {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 0.5rem 0.75rem;
-      background: var(--ic-bg-subtle);
-      border-radius: var(--ic-radius-sm);
-      font-size: 0.88rem;
-    }
-
-    .ms-item span {
-      color: var(--ic-text-muted);
-      font-weight: 600;
-    }
-
-    .ms-item strong {
-      color: var(--ic-text);
-      font-weight: 700;
-    }
-
-    /* Planet Grid */
-    .planet-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
-      gap: 0.65rem;
-      margin-top: 0.75rem;
-      width: 100%;
-    }
-
-    .planet-card {
-      background: #ffffff;
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 0.85rem 0.5rem;
-      text-align: center;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .planet-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--ic-primary);
-    }
-
-    .planet-card .pn {
-      font-size: 0.78rem;
-      font-weight: 700;
-      color: var(--ic-text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .planet-card .p-icon {
-      font-size: 1.2rem;
-      margin: 0.35rem 0;
-      color: var(--ic-primary);
-    }
-
-    .planet-card .pv {
-      font-family: 'Sora', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--ic-primary-dark);
-    }
-
-    .planet-card .p-sub {
-      font-size: 0.7rem;
-      color: var(--ic-text-light);
-    }
-
-    /* Actions */
-    .calculator-actions {
-      display: flex;
-      flex-wrap: wrap;
       gap: 0.5rem;
-      margin-top: 1.25rem;
-      width: 100%;
+      font-family: var(--ic-font-heading, "Sora", sans-serif);
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #065f46;
     }
-
-    /* Mobile media query (320px - 640px) */
-    @media (max-width: 640px) {
-      .calc-layout {
-        grid-template-columns: 1fr !important;
-        gap: 1.25rem !important;
+    .era-zodiac-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+    @media (max-width: 768px) {
+      .era-zodiac-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.6rem;
       }
-      
-      .calculator-shell {
-        padding: 1rem 0.75rem !important;
-        border-radius: var(--ic-radius-md) !important;
-      }
-
-      .calculator-header-row {
-        flex-direction: column !important;
-        align-items: stretch !important;
-        gap: 0.5rem !important;
-      }
-
-      .toggle-group {
-        display: flex !important;
-        width: 100% !important;
-      }
-
-      .toggle-group .toggle-btn {
-        flex: 1 !important;
-        justify-content: center !important;
-        text-align: center !important;
-        padding: 0.55rem 0.4rem !important;
-        font-size: 0.82rem !important;
-      }
-
-      .hero-result-card {
-        padding: 1rem 0.85rem !important;
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 0.5rem !important;
-      }
-
-      .hero-result-card .quick-copy-btn {
-        position: absolute !important;
-        top: 0.75rem !important;
-        right: 0.75rem !important;
-        width: 38px !important;
-        height: 38px !important;
-      }
-
-      .hero-result-card .res-val {
-        font-size: clamp(1.35rem, 6vw, 1.75rem) !important;
-        max-width: calc(100% - 44px) !important;
-      }
-
-      .hero-result-card .res-desc {
-        font-size: 0.8rem !important;
-        line-height: 1.35 !important;
-      }
-
-      .metrics-summary-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 0.5rem !important;
-      }
-
-      .ms-list {
-        grid-template-columns: 1fr !important;
-      }
-
-      .planet-grid {
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 0.45rem !important;
-      }
-
-      .planet-card {
-        padding: 0.65rem 0.35rem !important;
-      }
-
-      .planet-card .pv {
-        font-size: 0.95rem !important;
-      }
-
-      .calculator-actions {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 0.4rem !important;
-      }
-
-      .calculator-actions .btn:first-child,
-      .calculator-actions .btn-primary {
-        grid-column: span 2 !important;
-      }
+    }
+    .era-box {
+      background: #ffffff;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 12px;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .era-box.highlight {
+      background: #065f46;
+      color: #ffffff;
+      border-color: #065f46;
+    }
+    .era-box-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #475569;
+    }
+    .era-box.highlight .era-box-label {
+      color: #a7f3d0;
+    }
+    .era-box-val {
+      font-family: var(--ic-font-heading, "Sora", sans-serif);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .era-box.highlight .era-box-val {
+      color: #ffffff;
     }
   </style>
-
-  <!-- Schema Markup: FAQPage -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How do I calculate my exact age from date of birth?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "To calculate your exact age, subtract your birth date from today's date (or a specific reference date). Adjust for leap years and different month lengths. If using an online age calculator, simply select your birth date and the tool computes it instantly."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How is age calculated for government job eligibility in India?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "For Indian government job exams (like UPSC, SSC CGL, Railways, Banking), eligibility is determined by your age on a specific cutoff date stated in the official exam notification. Use our calculator, select your DOB, and set the reference date to the cutoff date."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the chronological age calculation formula?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The chronological age formula is: Age = Today's Date - Date of Birth. Subtract the years, months, and days separately. If the days are negative, borrow from the previous month; if the months are negative, subtract 1 from the years and add 12 to the months."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is my date of birth data private and safe on this website?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, completely. Our age calculator executes entirely in your browser using JavaScript. No date of birth inputs or personal information are sent to our servers or third parties."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the minimum age for school admission in India under RTE?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Under the Right to Education (RTE) Act and National Education Policy (NEP) guidelines in India, the minimum age for admission to Class 1 is 6 years as of the designated cut-off date (usually 31 March or 1 June) of the academic year."
-        }
-      }
-    ]
-  }
-  </script>
-
-  <!-- Schema Markup: BreadcrumbList -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://instacalc.in/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Age Calculator",
-        "item": "https://instacalc.in/duration/agecalculator.html"
-      }
-    ]
-  }
-  </script>
 </head>
 
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="../../index.html" class="brand" aria-label="InstaCalc Home">
-        <img src="../../logo.png" alt="InstaCalc Logo">
+      <a href="../index.html" class="brand" aria-label="InstaCalc ホーム">
+        <img src="../../logo.png" alt="InstaCalc ロゴ">
         <span>InstaCalc.in</span>
       </a>
-      <div class="lang-switch">
-        <select id="langSelect" aria-label="Select Language">
-          <option value="en">English</option>
-          <option value="ru">Русский</option>
-          <option value="ja" selected>日本語</option>
-        </select>
-      </div>
-      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="メニュー開閉" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
       <nav class="site-nav" id="mainNav">
-        <a href="../../index.html">Home</a>
-        <a href="../../aboutus.html">About Us</a>
-        <a href="../../privacypolicy.html">Privacy Policy</a>
+        <a href="../index.html">ホーム</a>
+        <a href="agecalculator.html" class="active">年齢計算機</a>
+        <a href="../salarycalculator.html">給与手取り計算</a>
+        <a href="../sipcalculator.html">新NISA積立</a>
+        <a href="../aboutus.html">運営者情報</a>
+        <a href="../contactus.html">お問い合わせ</a>
       </nav>
     </div>
   </header>
@@ -579,571 +256,633 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow"><i class="fas fa-cake-candles"></i> Chronology & Age Analysis</span>
-          <h1>Age Calculator – Calculate Exact Age from Date of Birth</h1>
-          <p>Find your precise age in years, months, and days down to the second. Check eligibility cutoffs for government jobs, school admissions, and explore your life milestones.</p>
+          <span class="eyebrow">
+            <i class="fas fa-cake-candles"></i>
+            生年月日・暦・年齢マスタープランナー
+          </span>
+          <h1>年齢計算機・生年月日早見表 — 和暦・西暦・干支・数え年＆厄年計算機</h1>
+          <p>生年月日を入力するだけで、正確な満年齢（年・月・日）、生後日数、和暦（令和・平成・昭和・大正）、干支（十干十二支）、数え年、厄年（男性25/42/61歳・女性19/33/37/61歳）、長寿祝い、履歴書用入学・卒業年度早見表を瞬時に完全算出します。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#age-planner">
+              <i class="fas fa-calculator"></i>
+              年齢・生年月日を計算
+            </a>
+            <a class="btn btn-ghost" href="../index.html">
+              <i class="fas fa-house"></i>
+              全ツール一覧へ
+            </a>
+          </div>
         </div>
+
         <aside class="hero-panel">
-          <h2>Precision Insights</h2>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Exact Years, Months & Days</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Cutoff Date Eligibility Check</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Next Birthday Countdown</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Biological & Planetary Age</div>
+          <h2><i class="fas fa-calendar-check" style="color: #38bdf8;"></i> 年齢計算の充実機能</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>正確な満年齢（◯歳◯ヶ月◯日）＆生後日数</strong></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>和暦（令和・平成・昭和・大正）＆干支（十干十二支）</strong></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>厄年判定（前厄・本厄・大厄・後厄）</strong></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>長寿祝い（還暦・古希・喜寿・米寿等）の達成年</strong></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>履歴書用 学歴（小・中・高・大）入学卒業年＆CSV保存</strong></div>
         </aside>
       </div>
     </section>
 
-    <section class="section">
+    <section id="age-planner" class="section">
       <div class="container calc-layout">
         <div class="calculator-shell">
-          <!-- Mobile Sticky Summary Pill -->
-          <div class="mobile-summary-pill" id="mobileSummaryPill">
-            <span class="metric-label" id="mobileSummaryLabel">Calculated Age</span>
-            <span class="metric-val" id="mobileSummaryVal">-</span>
-          </div>
-
           <div class="calculator-header-row">
-            <div class="toggle-group" aria-label="Calculator Mode">
-              <a href="agecalculator.html" class="toggle-btn active"><i class="fas fa-cake-candles"></i> Age Calculator</a>
-              <a href="dayscalculator.html" class="toggle-btn"><i class="fas fa-calendar-days"></i> Days Counter</a>
+            <div class="mode-switch" aria-label="計算モード">
+              <a href="agecalculator.html" class="active"><i class="fas fa-cake-candles"></i> 年齢・生年月日計算</a>
             </div>
-            <button id="todayBtn" class="btn btn-ghost btn-sm" type="button">
-              <i class="fas fa-calendar-day"></i>
-              <span>Set Target to Today</span>
+          </div>
+
+          <!-- Hero Main Outcome Banner -->
+          <div class="japanese-age-hero">
+            <div class="banner-text">
+              <span class="banner-tag"><i class="fas fa-user-clock"></i> 現在の正確な満年齢</span>
+              <div class="main-age" id="heroAgeVal">満 26 歳 4 ヶ月 15 日</div>
+              <div class="main-age-sub" id="heroAgeSub">生後 9,634 日目 | 次の誕生日まで あと 229 日</div>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" id="copyHeroBtn" title="結果をコピー">
+              <i class="fas fa-copy"></i> 結果をコピー
             </button>
           </div>
 
-          <!-- Hero Live Result Card -->
-          <div class="hero-result-card">
-            <div class="label-group">
-              <span class="res-eyebrow">Exact Chronological Age</span>
-              <div class="res-val" id="resAgeHero">-</div>
-              <div class="res-desc" id="resAgeDesc">-</div>
-            </div>
-            <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary">
-              <i class="fas fa-copy"></i>
-            </button>
-          </div>
-
+          <!-- Input Controls Grid -->
           <div class="input-grid">
+            <!-- Date of Birth -->
             <div class="field-card">
               <div class="field-head">
-                <label for="dob"><i class="fas fa-baby" style="color:var(--ic-primary);"></i> Date of Birth</label>
-                <span id="dobDayName">Select DOB</span>
+                <label for="birthDate">生年月日 (Date of Birth)</label>
               </div>
-              <input type="date" id="dob" required>
-              <div class="chips-wrap" id="presetDobChips">
-                <button type="button" class="chip" data-age="18">18 Yrs</button>
-                <button type="button" class="chip" data-age="21">21 Yrs</button>
-                <button type="button" class="chip" data-age="25">25 Yrs</button>
-                <button type="button" class="chip" data-age="30">30 Yrs</button>
-                <button type="button" class="chip" data-age="40">40 Yrs</button>
-                <button type="button" class="chip" data-age="50">50 Yrs</button>
-                <button type="button" class="chip" data-age="60">60 Yrs</button>
-              </div>
+              <input type="date" id="birthDate" value="2000-01-01" style="width:100%; padding:0.65rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700; font-size:1.05rem;">
             </div>
 
+            <!-- Target / Current Date -->
             <div class="field-card">
               <div class="field-head">
-                <label for="now"><i class="fas fa-calendar-check" style="color:var(--ic-primary);"></i> Age as of Date (Reference / Cutoff)</label>
-                <span id="nowDayName">Today</span>
+                <label for="targetDate">計算基準日 (通常は今日の日付)</label>
               </div>
-              <input type="date" id="now" required>
-              <div class="chips-wrap" id="presetCutoffChips">
-                <button type="button" class="chip" id="chipSetToday">Today</button>
-                <button type="button" class="chip" data-cutoff="08-01">1 Aug (UPSC / SSC)</button>
-                <button type="button" class="chip" data-cutoff="01-01">1 Jan (New Year)</button>
-                <button type="button" class="chip" data-cutoff="03-31">31 Mar (School / Fin)</button>
+              <input type="date" id="targetDate" value="2026-09-01" style="width:100%; padding:0.65rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700; font-size:1.05rem;">
+            </div>
+
+            <!-- Gender for Yakudoshi -->
+            <div class="field-card">
+              <div class="field-head">
+                <label for="genderSelect">性別 (厄年判定用)</label>
               </div>
+              <select id="genderSelect" style="width:100%; padding:0.65rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">
+                <option value="male" selected>男性 (大厄: 数え42歳)</option>
+                <option value="female">女性 (大厄: 数え33歳)</option>
+              </select>
             </div>
           </div>
 
+          <!-- Buttons -->
           <div class="calculator-actions">
-            <button class="btn btn-primary" id="recalculateBtn" type="button">
-              <i class="fas fa-bolt"></i> Recalculate
+            <button id="recalculateBtn" class="btn btn-primary" type="button"><i class="fas fa-arrows-rotate"></i> 再計算する</button>
+            <button id="resetTodayBtn" class="btn btn-ghost" type="button"><i class="fas fa-calendar-day"></i> 今日の日付にリセット</button>
+          </div>
+
+          <!-- Era, Zodiac, Kazoe Callout Card -->
+          <div class="era-zodiac-card">
+            <div class="era-zodiac-header">
+              <div class="era-zodiac-title">
+                <i class="fas fa-torii-gate"></i>
+                <span>日本の暦情報（和暦・干支・数え年・厄年）</span>
+              </div>
+              <span style="font-size:0.75rem; font-weight:800; background:#059669; color:#fff; padding:0.2rem 0.55rem; border-radius:999px;">暦診断</span>
+            </div>
+
+            <div class="era-zodiac-grid">
+              <div class="era-box highlight">
+                <span class="era-box-label">和暦 (元号)</span>
+                <span class="era-box-val" id="warekiVal">平成12年</span>
+              </div>
+              <div class="era-box">
+                <span class="era-box-label">干支 (十干十二支)</span>
+                <span class="era-box-val" id="etoVal" style="color:#0284c7;">庚辰 (たつ年)</span>
+              </div>
+              <div class="era-box">
+                <span class="era-box-label">伝統的な「数え年」</span>
+                <span class="era-box-val" id="kazoeVal" style="color:#a21caf;">27 歳</span>
+              </div>
+              <div class="era-box">
+                <span class="era-box-label">厄年判定 (今年)</span>
+                <span class="era-box-val" id="yakudoshiVal" style="color:#059669;">厄年ではありません</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Result Grid Cards -->
+          <div class="result-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="result-card">
+              <h3>生後経過日数</h3>
+              <div id="daysAliveVal" class="result-value">9,634 日</div>
+              <div class="val-sub">誕生からの総経過日数</div>
+            </div>
+
+            <div class="result-card positive">
+              <h3>次の誕生日まで</h3>
+              <div id="nextBdayVal" class="result-value" style="color:#059669;">あと 229 日</div>
+              <div class="val-sub" id="nextBdaySub">2027年1月1日 (満27歳)</div>
+            </div>
+
+            <div class="result-card">
+              <h3>星座 (西洋占星術)</h3>
+              <div id="zodiacWesternVal" class="result-value" style="color:#c026d3;">山羊座 (Capricorn)</div>
+              <div class="val-sub">誕生日の星座</div>
+            </div>
+
+            <div class="result-card" style="background:#fdf4ff; border-color:#d946ef;">
+              <h3 style="color:#a21caf;">次の長寿祝い</h3>
+              <div id="nextChoujuVal" class="result-value" style="color:#c026d3;">還暦 (60歳)</div>
+              <div class="val-sub" id="nextChoujuSub">2060年 (あと 34年)</div>
+            </div>
+          </div>
+
+          <!-- Education Timeline Table for Resume -->
+          <div class="table-tools" style="margin-top: 1.5rem;">
+            <h3><i class="fas fa-user-graduate" style="color: var(--ic-primary);"></i> 履歴書用 入学・卒業年度 早見表</h3>
+            <button id="downloadCsvBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-file-csv"></i> CSVファイルを保存
             </button>
-            <button class="btn btn-ghost" id="resetBtn" type="button">
-              <i class="fas fa-rotate-left"></i> Reset Defaults (25 Yrs)
+          </div>
+
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>学校・学歴</th>
+                  <th>入学年月 (和暦 / 西暦)</th>
+                  <th>卒業年月 (和暦 / 西暦)</th>
+                  <th>備考</th>
+                </tr>
+              </thead>
+              <tbody id="resumeTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="calculator-actions" style="margin-top: 1rem;">
+            <button id="copySummaryBtn" class="btn btn-ghost" type="button">
+              <i class="fas fa-copy"></i> 計算結果をコピー
             </button>
-            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
-              <i class="fas fa-copy"></i> Copy Full Summary
-            </button>
-          </div>
-
-          <!-- Detailed Time Breakdown -->
-          <div class="section-subtitle"><i class="fas fa-clock"></i> Comprehensive Time Breakdown</div>
-          <div class="metrics-summary-grid">
-            <div class="metric-card">
-              <div class="m-label">Total Months</div>
-              <div class="m-val" id="resTotalMonths">-</div>
-            </div>
-            <div class="metric-card">
-              <div class="m-label">Total Weeks</div>
-              <div class="m-val" id="resTotalWeeks">-</div>
-            </div>
-            <div class="metric-card">
-              <div class="m-label">Total Days</div>
-              <div class="m-val" id="resTotalDays">-</div>
-            </div>
-            <div class="metric-card">
-              <div class="m-label">Total Hours</div>
-              <div class="m-val" id="resTotalHours">-</div>
-            </div>
-            <div class="metric-card">
-              <div class="m-label">Total Minutes</div>
-              <div class="m-val" id="resTotalMins">-</div>
-            </div>
-            <div class="metric-card">
-              <div class="m-label">Total Seconds</div>
-              <div class="m-val" id="resTotalSecs">-</div>
-            </div>
-          </div>
-
-          <!-- Birthday & Astrology Profile -->
-          <div class="section-subtitle"><i class="fas fa-sparkles"></i> Life & Astrological Profile</div>
-          <div class="profile-list-card">
-            <div class="ms-list">
-              <div class="ms-item"><span>Born Day of Week</span> <strong id="resDayOfWeek">-</strong></div>
-              <div class="ms-item"><span>Next Birthday In</span> <strong id="resNextBday">-</strong></div>
-              <div class="ms-item"><span>Next Birthday Day</span> <strong id="resNextBdayDay">-</strong></div>
-              <div class="ms-item"><span>Half-Birthday</span> <strong id="resHalfBday">-</strong></div>
-              <div class="ms-item"><span>Zodiac Sign</span> <strong id="resZodiac">-</strong></div>
-              <div class="ms-item"><span>Chinese Zodiac</span> <strong id="resChineseZod">-</strong></div>
-              <div class="ms-item"><span>Birthstone</span> <strong id="resBirthstone">-</strong></div>
-              <div class="ms-item"><span>Leap Years Lived</span> <strong id="resLeapYears">-</strong></div>
-            </div>
-          </div>
-
-          <!-- Biological Stats -->
-          <div class="section-subtitle"><i class="fas fa-heart-pulse"></i> Estimated Biological Metrics</div>
-          <div class="metrics-summary-grid">
-            <div class="metric-card">
-              <div class="m-label">Heartbeats (~72 bpm)</div>
-              <div class="m-val" id="resHeartbeats" style="color:#e11d48;">-</div>
-            </div>
-            <div class="metric-card">
-              <div class="m-label">Breaths (~16 / min)</div>
-              <div class="m-val" id="resBreaths" style="color:#0284c7;">-</div>
-            </div>
-            <div class="metric-card">
-              <div class="m-label">Sleep Logged (~8h/d)</div>
-              <div class="m-val" id="resSleepHours" style="color:#8b5cf6;">-</div>
-            </div>
-            <div class="metric-card">
-              <div class="m-label">Laughter (~15 / d)</div>
-              <div class="m-val" id="resLaughter" style="color:#10b981;">-</div>
-            </div>
-          </div>
-
-          <!-- Interplanetary Maturity -->
-          <div class="section-subtitle"><i class="fas fa-globe"></i> Interplanetary Maturity</div>
-          <div class="planet-grid">
-            <div class="planet-card">
-              <div class="pn">Mercury</div>
-              <div class="p-icon"><i class="fas fa-meteor"></i></div>
-              <div class="pv" id="pMerc">--</div>
-              <div class="p-sub">88 Earth days/yr</div>
-            </div>
-            <div class="planet-card">
-              <div class="pn">Venus</div>
-              <div class="p-icon"><i class="fas fa-sun"></i></div>
-              <div class="pv" id="pVen">--</div>
-              <div class="p-sub">225 Earth days/yr</div>
-            </div>
-            <div class="planet-card">
-              <div class="pn">Mars</div>
-              <div class="p-icon"><i class="fas fa-rocket"></i></div>
-              <div class="pv" id="pMars">--</div>
-              <div class="p-sub">687 Earth days/yr</div>
-            </div>
-            <div class="planet-card">
-              <div class="pn">Jupiter</div>
-              <div class="p-icon"><i class="fas fa-ring"></i></div>
-              <div class="pv" id="pJup">--</div>
-              <div class="p-sub">11.86 Earth yrs</div>
-            </div>
-            <div class="planet-card">
-              <div class="pn">Saturn</div>
-              <div class="p-icon"><i class="fas fa-satellite"></i></div>
-              <div class="pv" id="pSat">--</div>
-              <div class="p-sub">29.45 Earth yrs</div>
-            </div>
-            <div class="planet-card">
-              <div class="pn">Neptune</div>
-              <div class="p-icon"><i class="fas fa-star"></i></div>
-              <div class="pv" id="pNep">--</div>
-              <div class="p-sub">164.8 Earth yrs</div>
-            </div>
           </div>
         </div>
 
-        <aside>
+        <!-- Sidebar -->
+        <aside class="sidebar">
           <div class="sidebar-card">
-            <h3>Related Tools</h3>
-            <ul class="link-list">
-              <li><a href="dayscalculator.html"><span>Days Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="hourcalculator.html"><span>Hour Tracker</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../../catagecalculator.html"><span>Cat Age Converter</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../../sipcalculator.html"><span>SIP Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../../epfcalculator.html"><span>EPF Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+            <h3><i class="fas fa-torii-gate" style="color: var(--ic-primary);"></i> 男性の厄年一覧 (数え年)</h3>
+            <ul style="line-height: 1.7; font-size:0.88rem; padding-left: 1.2rem; color: #334155; margin:0;">
+              <li><strong>25歳：</strong> 本厄 (24歳前厄 / 26歳後厄)</li>
+              <li><strong style="color:#dc2626;">42歳（大厄）：</strong> 本厄 (41歳前厄 / 43歳後厄)</li>
+              <li><strong>61歳（還暦）：</strong> 本厄 (60歳前厄 / 62歳後厄)</li>
             </ul>
           </div>
 
-          <div class="feature-card">
-            <h3>Age Calculation Rules</h3>
-            <ul class="feature-list">
-              <li><i class="fas fa-circle-check"></i> Accounts for exact leap years (29 Feb).</li>
-              <li><i class="fas fa-circle-check"></i> Accurately handles 28, 30, and 31-day months using chronological subtraction borrowing.</li>
-              <li><i class="fas fa-circle-check"></i> Standardized for UPSC, SSC, IBPS, and school admissions in India.</li>
+          <div class="sidebar-card" style="background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%); border-color: #f0abfc;">
+            <h3><i class="fas fa-wand-magic-sparkles" style="color: #a21caf;"></i> 女性の厄年一覧 (数え年)</h3>
+            <ul style="line-height: 1.7; font-size:0.88rem; padding-left: 1.2rem; color: #334155; margin:0;">
+              <li><strong>19歳：</strong> 本厄 (18歳前厄 / 20歳後厄)</li>
+              <li><strong style="color:#dc2626;">33歳（大厄）：</strong> 本厄 (32歳前厄 / 34歳後厄)</li>
+              <li><strong>37歳：</strong> 本厄 (36歳前厄 / 38歳後厄)</li>
+              <li><strong>61歳（還暦）：</strong> 本厄 (60歳前厄 / 62歳後厄)</li>
             </ul>
           </div>
         </aside>
       </div>
     </section>
 
-    <!-- SEO Content Section -->
-    <section class="section seo-section" style="padding-top: 0;">
+    <!-- Comprehensive Japanese Educational Article -->
+    <section class="section">
       <div class="container">
-        <div class="content-card">
-          <!-- Breadcrumb List UI -->
-          <nav aria-label="breadcrumb" style="margin-bottom: 20px; font-size: 0.9rem; font-weight: 600; color: var(--ic-text-muted);">
-            <a href="../../index.html" style="color: var(--ic-primary);">Home</a> &raquo; 
-            <span style="color: var(--ic-text-muted);">Age Calculator</span>
-          </nav>
+        <article class="content-card">
+          <h2>満年齢と数え年の違い、厄年・長寿祝いの正しい数え方</h2>
+          <p>
+            日本では明治時代以降「満年齢」が公式に使用されていますが、神社仏閣での厄払い・七五三・長寿のお祝いでは古来からの<strong>「数え年（生まれた年を1歳とし、元日に加齢）」</strong>が広く用いられています。
+          </p>
 
-          <h2 style="font-family: 'Sora', sans-serif; font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--ic-text); margin-bottom: 1.25rem;">
-            Age Calculator – Calculate Age from Date of Birth Online
-          </h2>
-
-          <p>To <strong>calculate age from date of birth</strong>, simply subtract your birth date from the current date or any target reference date. The resulting calculation yields your exact chronological age in years, months, and days. For instance, if your date of birth is 15 August 1997, your age as of 31 May 2026 is exactly 28 years, 9 months, and 16 days. Our free online <strong>age calculator</strong> computes this instantly, helping you check exam eligibility, fill school admission forms, or track important life milestones.</p>
-
-          <br>
-          <h3>Age for Government Exams & Job Eligibility in India</h3>
-          <p>In India, competitive exams enforce strict age cutoff windows. For example, UPSC Civil Services requires candidates to be between 21 and 32 years as of 1 August of the examination year. Similarly, SSC CGL, IBPS Banking, and Railway Recruitment Boards specify explicit cutoff dates. Use our tool by selecting your DOB and setting the "Age as of Date" to the official notification's cutoff date to guarantee 100% compliance.</p>
-        </div>
-
-        <div class="faq-list" style="margin-top: 1.5rem;">
-          <details class="faq-card" open>
-            <summary>How do I calculate my exact age from date of birth? <i class="fas fa-chevron-down"></i></summary>
-            <p>To calculate your exact age, subtract your birth date from today's date (or a specific reference date). Adjust for leap years and different month lengths. If using an online age calculator, simply select your birth date and the tool computes it instantly.</p>
-          </details>
-          <details class="faq-card">
-            <summary>How is age calculated for government job eligibility in India? <i class="fas fa-chevron-down"></i></summary>
-            <p>For Indian government job exams (like UPSC, SSC CGL, Railways, Banking), eligibility is determined by your age on a specific cutoff date stated in the official exam notification. Use our calculator, select your DOB, and set the reference date to the cutoff date.</p>
-          </details>
-          <details class="faq-card">
-            <summary>What is the chronological age calculation formula? <i class="fas fa-chevron-down"></i></summary>
-            <p>The chronological age formula is: Age = Today's Date - Date of Birth. Subtract the years, months, and days separately. If the days are negative, borrow from the previous month; if the months are negative, subtract 1 from the years and add 12 to the months.</p>
-          </details>
-          <details class="faq-card">
-            <summary>Is my date of birth data private and safe on this website? <i class="fas fa-chevron-down"></i></summary>
-            <p>Yes, completely. Our age calculator executes entirely in your browser using JavaScript. No date of birth inputs or personal information are sent to our servers or third parties.</p>
-          </details>
-          <details class="faq-card">
-            <summary>What is the minimum age for school admission in India under RTE? <i class="fas fa-chevron-down"></i></summary>
-            <p>Under the Right to Education (RTE) Act and National Education Policy (NEP) guidelines in India, the minimum age for admission to Class 1 is 6 years as of the designated cut-off date (usually 31 March or 1 June) of the academic year.</p>
-          </details>
-        </div>
+          <h3>1. 日本の長寿祝い一覧</h3>
+          <table class="projection-table" style="margin: 1rem 0;">
+            <thead>
+              <tr>
+                <th>お祝いの名称</th>
+                <th>年齢 (数え年 / 満年齢)</th>
+                <th>テーマカラー</th>
+                <th>由来・意味</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>還暦 (かんれき)</strong></td>
+                <td><strong>満60歳</strong> (数え61歳)</td>
+                <td><span style="color:#dc2626; font-weight:700;">赤</span></td>
+                <td>干支が60年で一巡し生まれた年に還る</td>
+              </tr>
+              <tr>
+                <td><strong>古希 (こき)</strong></td>
+                <td><strong>70歳</strong></td>
+                <td><span style="color:#7c3aed; font-weight:700;">紫</span></td>
+                <td>杜甫の詩「人生七十古来稀なり」より</td>
+              </tr>
+              <tr>
+                <td><strong>喜寿 (きじゅ)</strong></td>
+                <td><strong>77歳</strong></td>
+                <td><span style="color:#7c3aed; font-weight:700;">紫</span></td>
+                <td>「喜」の草書体が「七十七」に見える</td>
+              </tr>
+              <tr>
+                <td><strong>傘寿 (さんじゅ)</strong></td>
+                <td><strong>80歳</strong></td>
+                <td><span style="color:#d97706; font-weight:700;">黄 / 金</span></td>
+                <td>「傘」の略字が「八十」に見える</td>
+              </tr>
+              <tr>
+                <td><strong>米寿 (べいじゅ)</strong></td>
+                <td><strong>88歳</strong></td>
+                <td><span style="color:#d97706; font-weight:700;">黄 / 金</span></td>
+                <td>「米」の字を分解すると「八十八」になる</td>
+              </tr>
+              <tr>
+                <td><strong>卒寿 (そつじゅ)</strong></td>
+                <td><strong>90歳</strong></td>
+                <td><span style="color:#475569; font-weight:700;">白 / 紫</span></td>
+                <td>「卒」の略字が「九十」に見える</td>
+              </tr>
+              <tr>
+                <td><strong>白寿 (はくじゅ)</strong></td>
+                <td><strong>99歳</strong></td>
+                <td><span style="color:#475569; font-weight:700;">白</span></td>
+                <td>「百」から「一」をとると「白」になる</td>
+              </tr>
+              <tr>
+                <td><strong>百寿 (ひゃくじゅ / ももじゅ)</strong></td>
+                <td><strong>100歳</strong></td>
+                <td><span style="color:#db2777; font-weight:700;">桃 / 白</span></td>
+                <td>一世紀（100年）を迎えた記念</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© 2026 InstaCalc.in — Precision Time & Math Utilities.</p>
+      <p>InstaCalc.in - 日常のあらゆる計算を速く、正確に、シンプルにする無料計算ツール群</p>
       <div class="footer-links">
-        <a href="../../index.html">Home</a>
-        <a href="../../aboutus.html">About Us</a>
-        <a href="../../privacypolicy.html">Privacy Policy</a>
-        <a href="../../terms.html">Terms &amp; Conditions</a>
+        <a href="../index.html">ホーム</a>
+        <a href="../aboutus.html">運営者情報</a>
+        <a href="../contactus.html">お問い合わせ</a>
+        <a href="../privacypolicy.html">プライバシーポリシー</a>
+        <a href="../../terms.html">利用規約</a>
       </div>
     </div>
   </footer>
 
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="ページ上部へ戻る">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
   <script>
     (function () {
-      const menuToggle = document.getElementById("menuToggle");
-      const mainNav = document.getElementById("mainNav");
-      if (menuToggle && mainNav) {
-        menuToggle.addEventListener("click", () => {
-          const isOpen = mainNav.classList.toggle("open");
-          menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetTodayBtn: document.getElementById("resetTodayBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+
+        birthDate: document.getElementById("birthDate"),
+        targetDate: document.getElementById("targetDate"),
+        genderSelect: document.getElementById("genderSelect"),
+
+        heroAgeVal: document.getElementById("heroAgeVal"),
+        heroAgeSub: document.getElementById("heroAgeSub"),
+        warekiVal: document.getElementById("warekiVal"),
+        etoVal: document.getElementById("etoVal"),
+        kazoeVal: document.getElementById("kazoeVal"),
+        yakudoshiVal: document.getElementById("yakudoshiVal"),
+
+        daysAliveVal: document.getElementById("daysAliveVal"),
+        nextBdayVal: document.getElementById("nextBdayVal"),
+        nextBdaySub: document.getElementById("nextBdaySub"),
+        zodiacWesternVal: document.getElementById("zodiacWesternVal"),
+        nextChoujuVal: document.getElementById("nextChoujuVal"),
+        nextChoujuSub: document.getElementById("nextChoujuSub"),
+
+        resumeTableBody: document.getElementById("resumeTableBody")
+      };
+
+      let lastSummaryText = "";
+      let lastResumeRows = [];
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) return;
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 960) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
         });
       }
 
-      const langSelect = document.getElementById('langSelect');
-      if (langSelect) {
-        langSelect.value = 'ja';
-        langSelect.addEventListener('change', function() {
-          if (this.value === 'ru') {
-            localStorage.setItem('user_lang', 'ru');
-            window.location.href = '../ru/duration/agecalculator.html';
-          } else if (this.value === 'ja') {
-            localStorage.setItem('user_lang', 'ja');
-            window.location.href = '../ja/duration/agecalculator.html';
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) return;
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
+
+      function getWareki(date) {
+        const y = date.getFullYear();
+        const m = date.getMonth() + 1;
+        const d = date.getDate();
+        const ymd = y * 10000 + m * 100 + d;
+
+        if (ymd >= 20190501) {
+          const re = y - 2018;
+          return `令和${re === 1 ? '元' : re}年`;
+        }
+        if (ymd >= 19890108) {
+          const he = y - 1988;
+          return `平成${he === 1 ? '元' : he}年`;
+        }
+        if (ymd >= 19261225) {
+          const sh = y - 1925;
+          return `昭和${sh === 1 ? '元' : sh}年`;
+        }
+        if (ymd >= 19120730) {
+          const ta = y - 1911;
+          return `大正${ta === 1 ? '元' : ta}年`;
+        }
+        if (ymd >= 18680125) {
+          const me = y - 1867;
+          return `明治${me === 1 ? '元' : me}年`;
+        }
+        return `${y}年`;
+      }
+
+      function getEto(year) {
+        const jikkan = ["甲 (きのえ)", "乙 (きのと)", "丙 (ひのえ)", "丁 (ひのと)", "戊 (つちのえ)", "己 (つちのと)", "庚 (かのえ)", "辛 (かのと)", "壬 (みずのえ)", "癸 (みずのと)"];
+        const junishi = ["子 (ね)", "丑 (うし)", "寅 (とら)", "卯 (う)", "辰 (たつ)", "巳 (み)", "午 (うま)", "未 (ひつじ)", "申 (さる)", "酉 (とり)", "戌 (いぬ)", "亥 (い)"];
+
+        const jk = jikkan[(year - 4) % 10 < 0 ? (year - 4) % 10 + 10 : (year - 4) % 10];
+        const jn = junishi[(year - 4) % 12 < 0 ? (year - 4) % 12 + 12 : (year - 4) % 12];
+        return `${jk.split(' ')[0]}${jn.split(' ')[0]} (${jn.split(' ')[0]}年)`;
+      }
+
+      function getWesternZodiac(m, d) {
+        const dates = [20, 19, 21, 20, 21, 22, 23, 23, 23, 24, 23, 22];
+        const signs = ["山羊座 (Capricorn)", "水瓶座 (Aquarius)", "魚座 (Pisces)", "牡羊座 (Aries)", "牡牛座 (Taurus)", "双子座 (Gemini)", "蟹座 (Cancer)", "獅子座 (Leo)", "乙女座 (Virgo)", "天秤座 (Libra)", "蠍座 (Scorpio)", "射手座 (Sagittarius)"];
+        return d < dates[m - 1] ? signs[(m - 1 + 11) % 12] : signs[m - 1];
+      }
+
+      function checkYakudoshi(kazoeAge, gender) {
+        if (gender === "male") {
+          if (kazoeAge === 24) return "前厄 (数え24歳)";
+          if (kazoeAge === 25) return "本厄 (数え25歳)";
+          if (kazoeAge === 26) return "後厄 (数え26歳)";
+          if (kazoeAge === 41) return "前厄 (数え41歳)";
+          if (kazoeAge === 42) return "大厄・本厄 (数え42歳) ⚠️";
+          if (kazoeAge === 43) return "後厄 (数え43歳)";
+          if (kazoeAge === 60) return "前厄 (数え60歳)";
+          if (kazoeAge === 61) return "本厄 (数え61歳・還暦)";
+          if (kazoeAge === 62) return "後厄 (数え62歳)";
+        } else {
+          if (kazoeAge === 18) return "前厄 (数え18歳)";
+          if (kazoeAge === 19) return "本厄 (数え19歳)";
+          if (kazoeAge === 20) return "後厄 (数え20歳)";
+          if (kazoeAge === 32) return "前厄 (数え32歳)";
+          if (kazoeAge === 33) return "大厄・本厄 (数え33歳) ⚠️";
+          if (kazoeAge === 34) return "後厄 (数え34歳)";
+          if (kazoeAge === 36) return "前厄 (数え36歳)";
+          if (kazoeAge === 37) return "本厄 (数え37歳)";
+          if (kazoeAge === 38) return "後厄 (数え38歳)";
+          if (kazoeAge === 60) return "前厄 (数え60歳)";
+          if (kazoeAge === 61) return "本厄 (数え61歳・還暦)";
+          if (kazoeAge === 62) return "後厄 (数え62歳)";
+        }
+        return "厄年ではありません (平穏年)";
+      }
+
+      function getNextChouju(bYear, currentAge) {
+        const milestones = [
+          { name: "還暦", age: 60 },
+          { name: "古希", age: 70 },
+          { name: "喜寿", age: 77 },
+          { name: "傘寿", age: 80 },
+          { name: "米寿", age: 88 },
+          { name: "卒寿", age: 90 },
+          { name: "白寿", age: 99 },
+          { name: "百寿", age: 100 }
+        ];
+
+        for (const m of milestones) {
+          if (currentAge < m.age) {
+            const targetYear = bYear + m.age;
+            const diff = m.age - currentAge;
+            return {
+              name: `${m.name} (${m.age}歳)`,
+              sub: `${targetYear}年 (あと ${diff}年)`
+            };
           }
-        });
+        }
+        return { name: "長寿達成！🎉", sub: "大往生のお祝い" };
       }
 
-      const dobInput = document.getElementById('dob');
-      const nowInput = document.getElementById('now');
-      const dobDayName = document.getElementById('dobDayName');
-      const nowDayName = document.getElementById('nowDayName');
+      function generateResume(bDate) {
+        const bYear = bDate.getFullYear();
+        const bMonth = bDate.getMonth() + 1;
+        const bDay = bDate.getDate();
 
-      const heroAge = document.getElementById('resAgeHero');
-      const heroDesc = document.getElementById('resAgeDesc');
-      const mobileVal = document.getElementById('mobileSummaryVal');
-      const copyHeroBtn = document.getElementById('copyHeroBtn');
-      const copySummaryBtn = document.getElementById('copySummaryBtn');
+        // Hayamare (Jan 1 to Apr 1) belongs to previous school year
+        const isHayaumare = (bMonth === 1 || bMonth === 2 || bMonth === 3 || (bMonth === 4 && bDay === 1));
+        const baseYear = isHayaumare ? bYear - 1 : bYear;
 
-      const elMonths = document.getElementById('resTotalMonths');
-      const elWeeks = document.getElementById('resTotalWeeks');
-      const elDays = document.getElementById('resTotalDays');
-      const elHours = document.getElementById('resTotalHours');
-      const elMins = document.getElementById('resTotalMins');
-      const elSecs = document.getElementById('resTotalSecs');
+        const pIn = new Date(baseYear + 6, 3, 1);
+        const pOut = new Date(baseYear + 12, 2, 31);
+        const jIn = new Date(baseYear + 12, 3, 1);
+        const jOut = new Date(baseYear + 15, 2, 31);
+        const hIn = new Date(baseYear + 15, 3, 1);
+        const hOut = new Date(baseYear + 18, 2, 31);
+        const uIn = new Date(baseYear + 18, 3, 1);
+        const uOut = new Date(baseYear + 22, 2, 31);
 
-      const elDayOfWeek = document.getElementById('resDayOfWeek');
-      const elNextBday = document.getElementById('resNextBday');
-      const elNextBdayDay = document.getElementById('resNextBdayDay');
-      const elHalfBday = document.getElementById('resHalfBday');
-      const elZodiac = document.getElementById('resZodiac');
-      const elChineseZod = document.getElementById('resChineseZod');
-      const elBirthstone = document.getElementById('resBirthstone');
-      const elLeapYears = document.getElementById('resLeapYears');
-
-      const elHeartbeats = document.getElementById('resHeartbeats');
-      const elBreaths = document.getElementById('resBreaths');
-      const elSleepHours = document.getElementById('resSleepHours');
-      const elLaughter = document.getElementById('resLaughter');
-
-      const elMerc = document.getElementById('pMerc');
-      const elVen = document.getElementById('pVen');
-      const elMars = document.getElementById('pMars');
-      const elJup = document.getElementById('pJup');
-      const elSat = document.getElementById('pSat');
-      const elNep = document.getElementById('pNep');
-
-      // Default Initialization (Local Timezone Safe)
-      function formatDateToLocal(d) {
-        const y = d.getFullYear();
-        const m = String(d.getMonth() + 1).padStart(2, '0');
-        const day = String(d.getDate()).padStart(2, '0');
-        return `${y}-${m}-${day}`;
+        return [
+          { school: "小学校 (6年間)", in: `${getWareki(pIn)}4月 (${pIn.getFullYear()}年)`, out: `${getWareki(pOut)}3月 (${pOut.getFullYear()}年)`, note: isHayaumare ? "早生まれ考慮" : "通常学年" },
+          { school: "中学校 (3年間)", in: `${getWareki(jIn)}4月 (${jIn.getFullYear()}年)`, out: `${getWareki(jOut)}3月 (${jOut.getFullYear()}年)`, note: "義務教育修了" },
+          { school: "高等学校 (3年間)", in: `${getWareki(hIn)}4月 (${hIn.getFullYear()}年)`, out: `${getWareki(hOut)}3月 (${hOut.getFullYear()}年)`, note: "高校卒業" },
+          { school: "大学 (4年制・学部)", in: `${getWareki(uIn)}4月 (${uIn.getFullYear()}年)`, out: `${getWareki(uOut)}3月 (${uOut.getFullYear()}年)`, note: "大学卒業・新卒就職" }
+        ];
       }
 
-      const today = new Date();
-      nowInput.value = formatDateToLocal(today);
+      function calculateAndRender() {
+        if (!elements.birthDate.value || !elements.targetDate.value) return;
 
-      const defaultDob = new Date(today.getFullYear() - 25, today.getMonth(), today.getDate());
-      dobInput.value = formatDateToLocal(defaultDob);
+        const bDate = new Date(elements.birthDate.value);
+        const tDate = new Date(elements.targetDate.value);
 
-      const stones = ["Garnet (Jan)", "Amethyst (Feb)", "Aquamarine (Mar)", "Diamond (Apr)", "Emerald (May)", "Pearl (Jun)", "Ruby (Jul)", "Peridot (Aug)", "Sapphire (Sep)", "Opal (Oct)", "Topaz (Nov)", "Turquoise (Dec)"];
-      const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-      const chineseZodiacs = ["Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"];
+        if (isNaN(bDate.getTime()) || isNaN(tDate.getTime())) return;
 
-      function getZodiac(month, day) {
-        // month: 1-12, day: 1-31
-        if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) return "Aquarius ♒";
-        if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) return "Pisces ♓";
-        if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) return "Aries ♈";
-        if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) return "Taurus ♉";
-        if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) return "Gemini ♊";
-        if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) return "Cancer ♋";
-        if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) return "Leo ♌";
-        if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) return "Virgo ♍";
-        if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) return "Libra ♎";
-        if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) return "Scorpio ♏";
-        if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) return "Sagittarius ♐";
-        return "Capricorn ♑";
+        let yDiff = tDate.getFullYear() - bDate.getFullYear();
+        let mDiff = tDate.getMonth() - bDate.getMonth();
+        let dDiff = tDate.getDate() - bDate.getDate();
+
+        if (dDiff < 0) {
+          mDiff--;
+          const prevMonthLastDay = new Date(tDate.getFullYear(), tDate.getMonth(), 0).getDate();
+          dDiff += prevMonthLastDay;
+        }
+        if (mDiff < 0) {
+          yDiff--;
+          mDiff += 12;
+        }
+
+        const daysAlive = Math.floor((tDate - bDate) / (1000 * 60 * 60 * 24));
+        const kazoeAge = (tDate.getFullYear() - bDate.getFullYear()) + 1;
+
+        // Next Birthday
+        let nextBday = new Date(tDate.getFullYear(), bDate.getMonth(), bDate.getDate());
+        if (nextBday < tDate) {
+          nextBday = new Date(tDate.getFullYear() + 1, bDate.getMonth(), bDate.getDate());
+        }
+        const daysToNextBday = Math.ceil((nextBday - tDate) / (1000 * 60 * 60 * 24));
+        const nextBdayAge = yDiff + (nextBday.getFullYear() > tDate.getFullYear() || (tDate.getMonth() === bDate.getMonth() && tDate.getDate() === bDate.getDate()) ? 1 : 0);
+
+        // Top Hero
+        elements.heroAgeVal.textContent = `満 ${yDiff} 歳 ${mDiff} ヶ月 ${dDiff} 日`;
+        elements.heroAgeSub.textContent = `生後 ${daysAlive.toLocaleString('ja-JP')} 日目 | 次の誕生日まで あと ${daysToNextBday} 日`;
+
+        // Japanese Eras & Zodiac
+        elements.warekiVal.textContent = getWareki(bDate);
+        elements.etoVal.textContent = getEto(bDate.getFullYear());
+        elements.kazoeVal.textContent = `${kazoeAge} 歳`;
+        const gender = elements.genderSelect.value;
+        const yaku = checkYakudoshi(kazoeAge, gender);
+        elements.yakudoshiVal.textContent = yaku;
+        elements.yakudoshiVal.style.color = yaku.includes("大厄") ? "#dc2626" : yaku.includes("厄") ? "#d97706" : "#059669";
+
+        // Results Grid
+        elements.daysAliveVal.textContent = `${daysAlive.toLocaleString('ja-JP')} 日`;
+        elements.nextBdayVal.textContent = `あと ${daysToNextBday} 日`;
+        elements.nextBdaySub.textContent = `${nextBday.getFullYear()}年${nextBday.getMonth() + 1}月${nextBday.getDate()}日 (満${nextBdayAge}歳)`;
+        elements.zodiacWesternVal.textContent = getWesternZodiac(bDate.getMonth() + 1, bDate.getDate());
+
+        const chouju = getNextChouju(bDate.getFullYear(), yDiff);
+        elements.nextChoujuVal.textContent = chouju.name;
+        elements.nextChoujuSub.textContent = chouju.sub;
+
+        // Resume Table
+        const resume = generateResume(bDate);
+        lastResumeRows = resume;
+        elements.resumeTableBody.innerHTML = resume.map(r => `
+          <tr>
+            <td><strong>${r.school}</strong></td>
+            <td style="font-weight:700; color:#0284c7;">${r.in}</td>
+            <td style="font-weight:700; color:#059669;">${r.out}</td>
+            <td style="font-size:0.85rem; color:#64748b;">${r.note}</td>
+          </tr>
+        `).join("");
+
+        // Summary Text
+        lastSummaryText = [
+          `【年齢・生年月日 計算結果】`,
+          `生年月日: ${bDate.getFullYear()}年${bDate.getMonth()+1}月${bDate.getDate()}日 (${getWareki(bDate)})`,
+          `---------------------------------`,
+          `満年齢: 満 ${yDiff} 歳 ${mDiff} ヶ月 ${dDiff} 日`,
+          `数え年: ${kazoeAge} 歳`,
+          `干支: ${getEto(bDate.getFullYear())}`,
+          `厄年判定: ${yaku}`,
+          `生後経過日数: ${daysAlive.toLocaleString('ja-JP')} 日目`,
+          `次の誕生日まで: あと ${daysToNextBday} 日`,
+          `---------------------------------`,
+          `計算元: InstaCalc (https://instacalc.in/ja/duration/agecalculator.html)`
+        ].join('\n');
       }
 
-      function countLeapYears(startYear, endYear) {
-        let count = 0;
-        for (let yr = startYear; yr <= endYear; yr++) {
-          if ((yr % 4 === 0 && yr % 100 !== 0) || (yr % 400 === 0)) count++;
-        }
-        return count;
-      }
+      function wireEvents() {
+        elements.birthDate.addEventListener("change", calculateAndRender);
+        elements.targetDate.addEventListener("change", calculateAndRender);
+        elements.genderSelect.addEventListener("change", calculateAndRender);
 
-      let lastSummary = "";
-
-      function calculateAge() {
-        if (!dobInput.value || !nowInput.value) return;
-
-        const [bY, bM, bD] = dobInput.value.split('-').map(Number);
-        const [nY, nM, nD] = nowInput.value.split('-').map(Number);
-
-        const birthDate = new Date(bY, bM - 1, bD);
-        const refDate = new Date(nY, nM - 1, nD);
-
-        if (isNaN(birthDate.getTime()) || isNaN(refDate.getTime())) return;
-
-        if (refDate < birthDate) {
-          heroAge.textContent = "Date of Birth is in the future";
-          heroDesc.textContent = "Please select a Date of Birth earlier than the reference date.";
-          if (mobileVal) mobileVal.textContent = "Invalid DOB";
-          return;
+        if (elements.recalculateBtn) elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        if (elements.resetTodayBtn) {
+          elements.resetTodayBtn.addEventListener("click", function () {
+            const today = new Date().toISOString().slice(0, 10);
+            elements.targetDate.value = today;
+            calculateAndRender();
+          });
         }
 
-        dobDayName.textContent = daysOfWeek[birthDate.getDay()];
-        nowDayName.textContent = daysOfWeek[refDate.getDay()];
-
-        // Chronological Exact Borrowing Subtraction
-        let years = nY - bY;
-        let months = nM - bM;
-        let days = nD - bD;
-
-        if (days < 0) {
-          months--;
-          // Days in the previous month before reference month
-          const prevMonthDays = new Date(nY, nM - 1, 0).getDate();
-          days += prevMonthDays;
-        }
-
-        if (months < 0) {
-          years--;
-          months += 12;
-        }
-
-        // Total Elapsed Time Calculations
-        const diffMs = refDate.getTime() - birthDate.getTime();
-        const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-        const totalWeeks = (totalDays / 7).toFixed(1);
-        const totalMonthsExact = (years * 12 + months + (days / 30.4375)).toFixed(1);
-        const totalHours = totalDays * 24;
-        const totalMins = totalHours * 60;
-        const totalSecs = totalMins * 60;
-
-        // Next Birthday calculation
-        let nextBday = new Date(nY, bM - 1, bD);
-        if (nextBday < refDate) {
-          nextBday = new Date(nY + 1, bM - 1, bD);
-        }
-        const nextBdayDays = Math.ceil((nextBday.getTime() - refDate.getTime()) / (1000 * 60 * 60 * 24));
-        const nextBdayDayName = daysOfWeek[nextBday.getDay()];
-
-        // Half Birthday
-        const halfBday = new Date(bY, (bM - 1 + 6) % 12, bD);
-        const halfBdayFormatted = halfBday.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
-
-        // Astrology & Stones
-        const zodiac = getZodiac(bM, bD);
-        const chineseZod = chineseZodiacs[(bY - 4) % 12];
-        const birthstone = stones[bM - 1];
-        const leapCount = countLeapYears(bY, nY);
-
-        // Biological
-        const heartbeats = Math.floor(totalMins * 72);
-        const breaths = Math.floor(totalMins * 16);
-        const sleepHours = Math.floor(totalDays * 8);
-        const laughs = Math.floor(totalDays * 15);
-
-        // Update UI
-        const ageString = `${years} Years, ${months} Months, ${days} Days`;
-        heroAge.textContent = ageString;
-        heroDesc.textContent = `${totalDays.toLocaleString()} days alive • Born on a ${daysOfWeek[birthDate.getDay()]} • Next birthday in ${nextBdayDays} days (${nextBdayDayName})`;
-        
-        if (mobileVal) mobileVal.textContent = `${years}y ${months}m ${days}d`;
-
-        elMonths.textContent = Number(totalMonthsExact).toLocaleString();
-        elWeeks.textContent = Number(totalWeeks).toLocaleString();
-        elDays.textContent = totalDays.toLocaleString();
-        elHours.textContent = totalHours.toLocaleString();
-        elMins.textContent = totalMins.toLocaleString();
-        elSecs.textContent = totalSecs.toLocaleString();
-
-        elDayOfWeek.textContent = daysOfWeek[birthDate.getDay()];
-        elNextBday.textContent = `${nextBdayDays} Days`;
-        elNextBdayDay.textContent = nextBdayDayName;
-        elHalfBday.textContent = halfBdayFormatted;
-        elZodiac.textContent = zodiac;
-        elChineseZod.textContent = chineseZod;
-        elBirthstone.textContent = birthstone;
-        elLeapYears.textContent = `${leapCount} Years`;
-
-        elHeartbeats.textContent = heartbeats.toLocaleString();
-        elBreaths.textContent = breaths.toLocaleString();
-        elSleepHours.textContent = sleepHours.toLocaleString() + ' hrs';
-        elLaughter.textContent = laughs.toLocaleString();
-
-        // Planetary Ages
-        elMerc.textContent = (totalDays / 87.97).toFixed(1) + ' yrs';
-        elVen.textContent = (totalDays / 224.7).toFixed(1) + ' yrs';
-        elMars.textContent = (totalDays / 686.98).toFixed(1) + ' yrs';
-        elJup.textContent = (totalDays / 4332.59).toFixed(2) + ' yrs';
-        elSat.textContent = (totalDays / 10759.22).toFixed(2) + ' yrs';
-        elNep.textContent = (totalDays / 60190.03).toFixed(3) + ' yrs';
-
-        lastSummary = `Age Summary from InstaCalc.in:\nExact Age: ${ageString}\nTotal Days: ${totalDays.toLocaleString()} Days\nBorn on: ${daysOfWeek[birthDate.getDay()]}\nNext Birthday: in ${nextBdayDays} days (${nextBdayDayName})\nZodiac: ${zodiac} | Birthstone: ${birthstone}`;
-      }
-
-      // Event Listeners
-      dobInput.addEventListener('input', calculateAge);
-      nowInput.addEventListener('input', calculateAge);
-
-      // Preset Chips Logic
-      document.querySelectorAll('#presetDobChips .chip').forEach(chip => {
-        chip.addEventListener('click', function() {
-          const ageYears = Number(this.getAttribute('data-age'));
-          const currentRef = nowInput.value ? new Date(nowInput.value) : new Date();
-          const targetBday = new Date(currentRef.getFullYear() - ageYears, currentRef.getMonth(), currentRef.getDate());
-          dobInput.value = formatDateToLocal(targetBday);
-          calculateAge();
-        });
-      });
-
-      document.querySelectorAll('#presetCutoffChips .chip').forEach(chip => {
-        chip.addEventListener('click', function() {
-          const cutoff = this.getAttribute('data-cutoff');
-          const currentRefYear = nowInput.value ? new Date(nowInput.value).getFullYear() : new Date().getFullYear();
-          if (cutoff) {
-            nowInput.value = `${currentRefYear}-${cutoff}`;
-          } else {
-            nowInput.value = formatDateToLocal(new Date());
-          }
-          calculateAge();
-        });
-      });
-
-      document.getElementById('todayBtn').addEventListener('click', () => {
-        nowInput.value = formatDateToLocal(new Date());
-        calculateAge();
-      });
-
-      document.getElementById('recalculateBtn').addEventListener('click', calculateAge);
-
-      document.getElementById('resetBtn').addEventListener('click', () => {
-        const cur = new Date();
-        nowInput.value = formatDateToLocal(cur);
-        const def = new Date(cur.getFullYear() - 25, cur.getMonth(), cur.getDate());
-        dobInput.value = formatDateToLocal(def);
-        calculateAge();
-      });
-
-      // Quick Copy
-      function copyText(text, btn) {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
+        // Copy Text
+        function copyText(text, btnEl) {
+          if (!navigator.clipboard || !text) return;
           navigator.clipboard.writeText(text).then(() => {
-            const orig = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
-            setTimeout(() => btn.innerHTML = orig, 1800);
+            const orig = btnEl.innerHTML;
+            btnEl.innerHTML = `<i class="fas fa-check"></i> コピー完了！`;
+            setTimeout(() => { btnEl.innerHTML = orig; }, 1800);
+          });
+        }
+
+        if (elements.copySummaryBtn) elements.copySummaryBtn.addEventListener("click", () => copyText(lastSummaryText, elements.copySummaryBtn));
+        if (elements.copyHeroBtn) elements.copyHeroBtn.addEventListener("click", () => copyText(lastSummaryText, elements.copyHeroBtn));
+
+        // CSV Export
+        if (elements.downloadCsvBtn) {
+          elements.downloadCsvBtn.addEventListener("click", function () {
+            if (!lastResumeRows.length) return;
+            const headers = ["学校・学歴", "入学年月", "卒業年月", "備考"];
+            const rows = lastResumeRows.map(r => [
+              r.school,
+              r.in,
+              r.out,
+              r.note
+            ]);
+
+            const csvContent = [headers.join(",")].concat(rows.map(r => r.join(","))).join("\n");
+            const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `履歴書_入学卒業年度早見表_${new Date().toISOString().slice(0, 10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
           });
         }
       }
 
-      if (copyHeroBtn) {
-        copyHeroBtn.addEventListener('click', () => copyText(lastSummary, copyHeroBtn));
-      }
-      if (copySummaryBtn) {
-        copySummaryBtn.addEventListener('click', () => copyText(lastSummary, copySummaryBtn));
-      }
+      // Initialize default dates
+      const todayStr = new Date().toISOString().slice(0, 10);
+      if (elements.targetDate) elements.targetDate.value = todayStr;
 
-      // Initial Calculation
-      calculateAge();
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      calculateAndRender();
     })();
   </script>
+  <script type="module" src="../../firebase.js"></script>
   <script defer src="../../fullscreen-mode.js"></script>
+  <script src="../../language-dialog.js" defer></script>
 </body>
 
 </html>

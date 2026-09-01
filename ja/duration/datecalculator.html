@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>日数計算・日付加減算ツール | 営業日・和暦・片端/両端入れ＆◯日後計算機【無料】 - InstaCalc</title>
+  <meta name="description"
+    content="2つの日付間の日数計算（片端入れ・両端入れ・土日祝日を除外した営業日数）や、基準日から◯日後・◯日前・◯ヶ月後の日付と曜日・和暦（令和）を瞬時に計算する無料ツール。契約満了日、賞味期限、保証期間の計算に最適。">
+  <meta name="keywords"
+    content="日数 計算, 日付 計算, 営業日 計算, 2つの日付の間の日数, ◯日後 計算, 賞味期限 計算, 片端入れ 両端入れ, 和暦 日付 計算">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+  <link rel="canonical" href="https://instacalc.in/ja/duration/datecalculator.html">
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+  <link rel="icon" type="image/webp" href="../../favicon.webp">
+  <link rel="alternate" hreflang="ja" href="https://instacalc.in/ja/duration/datecalculator.html">
+  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/duration/datecalculator.html">
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/days-calculator.html">
+  <link rel="alternate" hreflang="en" href="https://instacalc.in/duration/dayscalculator.html">
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/duration/dayscalculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/duration/dayscalculator.html">
+
+
+
+
+
+<meta property="og:title" content="日数計算・日付加減算ツール | 営業日・和暦・片端/両端入れ＆◯日後計算機【無料】">
+  <meta property="og:description"
+    content="2つの日付の間の日数、土日祝日を除く営業日数、◯日後の日付と和暦・曜日を即座に計算。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/ja/duration/datecalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="日数計算・日付加減算ツール | InstaCalc">
+  <meta name="twitter:description"
+    content="無料の日数・日付計算機。実日数、土日除く平日営業日数、◯日後の日付と和暦を瞬時に算出。">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "日数計算・日付加減算ツール (営業日・和暦対応)",
+      "url": "https://instacalc.in/ja/duration/datecalculator.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "description": "2つの日付の間の日数、土日祝日を除く営業日数、◯日後・◯日前の日付と和暦を計算するツール。",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "「片端入れ（初日不算入）」と「両端入れ」の違いとは？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "『片端入れ（初日不算入）』は日本の民法第140条に基づく原則で、開始日の翌日から終了日までの日数を数えます（例：8月1日〜8月2日は『1日間』）。一方『両端入れ』は開始日と終了日の両方を含めて数えます（例：8月1日〜8月2日は『2日間』）。宿泊日数や一部の利息計算で使われます。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "営業日（土日祝日除外）の計算方法は？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "期間中の土曜日・日曜日および日本の国民の祝日・振替休日を差し引いた、実際の平日・稼働日数を計算します。ビジネスの納期や支払期日の計算に活用されます。"
+          }
+        }
+      ]
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <link rel="stylesheet" href="../../instacalc-core.css">
+  <style>
+    /* Japanese Date Studio Styling */
+    .japanese-date-hero {
+      background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
+      border: 1.5px solid rgba(2, 132, 199, 0.25);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--ic-shadow-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    @media (max-width: 640px) {
+      .japanese-date-hero {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.25rem;
+      }
+    }
+    .japanese-date-hero .banner-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .japanese-date-hero .banner-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #0369a1;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .japanese-date-hero .main-diff {
+      font-family: var(--ic-font-heading, "Sora", sans-serif);
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 800;
+      color: #0284c7;
+      line-height: 1.15;
+    }
+    .japanese-date-hero .main-diff-sub {
+      font-size: 0.95rem;
+      color: #475569;
+      font-weight: 700;
+    }
+
+    /* Preset Chips */
+    .chips-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.6rem;
+    }
+    .chip-btn {
+      padding: 0.35rem 0.65rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chip-btn:hover {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0369a1;
+    }
+    .chip-btn.active {
+      background: #0284c7;
+      border-color: #0284c7;
+      color: #ffffff;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand" aria-label="InstaCalc ホーム">
+        <img src="../../logo.png" alt="InstaCalc ロゴ">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="メニュー開閉" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="../index.html">ホーム</a>
+        <a href="datecalculator.html" class="active">日数・日付計算</a>
+        <a href="agecalculator.html">年齢計算機</a>
+        <a href="birthdaycalculator.html">誕生日計算機</a>
+        <a href="../aboutus.html">運営者情報</a>
+        <a href="../contactus.html">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-calendar-days"></i>
+            期間・営業日・和暦・日付加減算
+          </span>
+          <h1>日数計算・日付加減算ツール — 営業日・和暦・◯日後計算機</h1>
+          <p>2つの日付の間の日数（片端入れ・両端入れ・土日祝日を除外した営業日数）や、基準日から◯日後・◯日前の日付、和暦（令和）や曜日を瞬時に完全算出します。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#date-planner">
+              <i class="fas fa-calculator"></i>
+              日数・日付計算を開始
+            </a>
+            <a class="btn btn-ghost" href="../index.html">
+              <i class="fas fa-house"></i>
+              全ツール一覧へ
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h2><i class="fas fa-calendar-check" style="color: #38bdf8;"></i> 日数計算の充実機能</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>2つの日付間の実日数 ＆ 営業日数（土日除外）</strong></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>日本の法律基準「片端入れ（初日不算入）」対応</strong></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>◯日後・◯日前の日付 ＆ 曜日・和暦（令和）</strong></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>契約満了・賞味期限・保証期間ワンタッチプリセット</strong></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>期間スケジュール早見表 ＆ CSV保存</strong>対応</div>
+                  <div class="sidebar-card">
+            <h3><i class="fas fa-link" style="color: var(--ic-primary);"></i> 関連の日付計算ツール</h3>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+              <li><a href="daycountercalculator.html" style="color: var(--ic-primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; justify-content: space-between;"><span>日数カウンター・目標カウントダウン</span> <i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="birthdaycalculator.html" style="color: var(--ic-primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; justify-content: space-between;"><span>誕生日カウントダウン</span> <i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="agecalculator.html" style="color: var(--ic-primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; justify-content: space-between;"><span>年齢計算機（生年月日）</span> <i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="date-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="計算モード">
+              <button type="button" class="btn btn-primary btn-sm mode-btn active" data-mode="between_dates"><i class="fas fa-calendar-range"></i> 2つの日付間の日数計算</button>
+              <button type="button" class="btn btn-ghost btn-sm mode-btn" data-mode="add_subtract"><i class="fas fa-calendar-plus"></i> ◯日後・◯日前の日付計算</button>
+            </div>
+          </div>
+
+          <!-- Hero Main Outcome Banner -->
+          <div class="japanese-date-hero">
+            <div class="banner-text">
+              <span class="banner-tag" id="heroTag"><i class="fas fa-clock"></i> 期間の日数計算結果</span>
+              <div class="main-diff" id="heroVal">122 日間</div>
+              <div class="main-diff-sub" id="heroSub">約 17 週 3 日 | 土日祝日を除く営業日数: 約 84 営業日</div>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" id="copyHeroBtn" title="結果をコピー">
+              <i class="fas fa-copy"></i> 結果をコピー
+            </button>
+          </div>
+
+          <!-- Input Controls Grid -->
+          <div class="input-grid">
+            <!-- Mode 1: Between Two Dates -->
+            <div id="betweenDatesInputs" class="mode-input-group" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="startDate">開始日 (Start Date)</label>
+                </div>
+                <input type="date" id="startDate" value="2026-09-01" style="width:100%; padding:0.65rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700; font-size:1.05rem;">
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="endDate">終了日 (End Date)</label>
+                </div>
+                <input type="date" id="endDate" value="2026-12-31" style="width:100%; padding:0.65rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700; font-size:1.05rem;">
+              </div>
+
+              <div class="field-card" style="grid-column: 1 / -1;">
+                <div class="field-head">
+                  <label for="boundaryMethod">日数の数え方（初日の扱い）</label>
+                </div>
+                <select id="boundaryMethod" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">
+                  <option value="katabata" selected>片端入れ (初日不算入 / 民法第140条の原則・標準)</option>
+                  <option value="ryoubata">両端入れ (初日と最終日の両方を含める / 宿泊や工期など)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Mode 2: Add or Subtract Days -->
+            <div id="addSubtractInputs" class="mode-input-group" style="grid-column: 1 / -1; display: none; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+              <div class="field-card" style="grid-column: 1 / -1;">
+                <div class="field-head">
+                  <label for="baseDate">基準日 (Base Date)</label>
+                </div>
+                <input type="date" id="baseDate" value="2026-09-01" style="width:100%; padding:0.65rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700; font-size:1.05rem;">
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="operationType">加算 / 減算</label>
+                </div>
+                <select id="operationType" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">
+                  <option value="add" selected>＋（◯日後）</option>
+                  <option value="sub">−（◯日前）</option>
+                </select>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="amountNum">加減する数値</label>
+                </div>
+                <input type="number" id="amountNum" min="1" max="100000" step="1" value="30" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700; font-size:1.05rem;">
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="unitType">単位</label>
+                </div>
+                <select id="unitType" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">
+                  <option value="days" selected>日後 / 日前</option>
+                  <option value="weeks">週間後 / 週間前</option>
+                  <option value="months">ヶ月後 / ヶ月前</option>
+                  <option value="years">年後 / 年前</option>
+                </select>
+              </div>
+
+              <!-- Presets for Add/Sub -->
+              <div class="field-card" style="grid-column: 1 / -1;">
+                <div class="field-head"><label>よく使われる加算プリセット</label></div>
+                <div class="chips-group">
+                  <button type="button" class="chip-btn" data-add-days="7">＋7日後 (1週間後)</button>
+                  <button type="button" class="chip-btn active" data-add-days="30">＋30日後 (翌月期日)</button>
+                  <button type="button" class="chip-btn" data-add-days="60">＋60日後 (2ヶ月後)</button>
+                  <button type="button" class="chip-btn" data-add-days="90">＋90日後 (試用期間/約3ヶ月)</button>
+                  <button type="button" class="chip-btn" data-add-days="180">＋180日後 (賞味期限/約半年)</button>
+                  <button type="button" class="chip-btn" data-add-days="365">＋365日後 (1年保証)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="calculator-actions">
+            <button id="recalculateBtn" class="btn btn-primary" type="button"><i class="fas fa-arrows-rotate"></i> 再計算する</button>
+            <button id="resetTodayBtn" class="btn btn-ghost" type="button"><i class="fas fa-calendar-day"></i> 今日の日付にリセット</button>
+          </div>
+
+          <!-- Result Grid Cards -->
+          <div class="result-grid" style="grid-template-columns: repeat(2, 1fr); margin-top:1.25rem;">
+            <div class="result-card positive">
+              <h3 id="res1Title">実日数 (総日数)</h3>
+              <div id="res1Val" class="result-value" style="color:#0284c7;">122 日間</div>
+              <div class="val-sub" id="res1Sub">2,928 時間 (175,680 分)</div>
+            </div>
+
+            <div class="result-card">
+              <h3 id="res2Title">週数 ＋ 端数日数</h3>
+              <div id="res2Val" class="result-value">17 週 3 日</div>
+              <div class="val-sub" id="res2Sub">約 4.0 ヶ月分</div>
+            </div>
+
+            <div class="result-card">
+              <h3 id="res3Title">平日・営業日数 (土日除外)</h3>
+              <div id="res3Val" class="result-value" style="color:#059669;">約 88 営業日</div>
+              <div class="val-sub" id="res3Sub">土日（週末）を除いた日数</div>
+            </div>
+
+            <div class="result-card" style="background:#f0fdfa; border-color:#0284c7;">
+              <h3 style="color:#0369a1;" id="res4Title">和暦 ＆ 曜日</h3>
+              <div id="res4Val" class="result-value" style="color:#0284c7;">令和8年12月31日</div>
+              <div class="val-sub" id="res4Sub">木曜日</div>
+            </div>
+          </div>
+
+          <!-- Schedule Reference Table -->
+          <div class="table-tools" style="margin-top: 1.5rem;">
+            <h3><i class="fas fa-table-list" style="color: var(--ic-primary);"></i> 日付スケジュール早見表</h3>
+            <button id="downloadCsvBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-file-csv"></i> CSVファイルを保存
+            </button>
+          </div>
+
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>経過期間</th>
+                  <th>日付 (西暦 / 和暦)</th>
+                  <th>曜日</th>
+                  <th>実日数</th>
+                </tr>
+              </thead>
+              <tbody id="scheduleTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="calculator-actions" style="margin-top: 1rem;">
+            <button id="copySummaryBtn" class="btn btn-ghost" type="button">
+              <i class="fas fa-copy"></i> 計算結果をコピー
+            </button>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3><i class="fas fa-scale-balanced" style="color: var(--ic-primary);"></i> 民法上の日数計算（初日不算入）</h3>
+            <p style="font-size: 0.88rem; line-height: 1.55; color: #334155; margin: 0;">
+              日本の民法第140条では「期間の初日は算入しない（初日不算入）」と定められています。例えば4月1日から1ヶ月後は「5月1日」となります。
+            </p>
+          </div>
+
+          <div class="sidebar-card" style="background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%); border-color: #bae6fd;">
+            <h3><i class="fas fa-briefcase" style="color: #0284c7;"></i> 営業日数の活用</h3>
+            <p style="font-size: 0.88rem; line-height: 1.55; color: #334155; margin: 0;">
+              ビジネスにおける「5営業日以内」「10営業日後」などの納期管理・入金確認・法的手続きの期限確認に便利です。
+            </p>
+          </div>
+                  <div class="sidebar-card">
+            <h3><i class="fas fa-link" style="color: var(--ic-primary);"></i> 関連の日付計算ツール</h3>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+              <li><a href="daycountercalculator.html" style="color: var(--ic-primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; justify-content: space-between;"><span>日数カウンター・目標カウントダウン</span> <i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="birthdaycalculator.html" style="color: var(--ic-primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; justify-content: space-between;"><span>誕生日カウントダウン</span> <i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="agecalculator.html" style="color: var(--ic-primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; justify-content: space-between;"><span>年齢計算機（生年月日）</span> <i class="fas fa-arrow-right"></i></a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Comprehensive Japanese Educational Article -->
+    <section class="section">
+      <div class="container">
+        <article class="content-card">
+          <h2>日本の日付計算と営業日の数え方ルール</h2>
+          <p>
+            ビジネスや法律手続き、不動産賃貸契約、賞味期限の管理では、正確な<strong>「実日数」と「営業日数（稼働日数）」</strong>の把握が不可欠です。
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in - 日常のあらゆる計算を速く、正確に、シンプルにする無料計算ツール群</p>
+      <div class="footer-links">
+        <a href="../index.html">ホーム</a>
+        <a href="../aboutus.html">運営者情報</a>
+        <a href="../contactus.html">お問い合わせ</a>
+        <a href="../privacypolicy.html">プライバシーポリシー</a>
+        <a href="../../terms.html">利用規約</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="ページ上部へ戻る">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script>
+    (function () {
+      let currentMode = "between_dates";
+
+      const daysOfWeekJp = ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"];
+
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetTodayBtn: document.getElementById("resetTodayBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+
+        modeButtons: document.querySelectorAll(".mode-btn"),
+        betweenDatesInputs: document.getElementById("betweenDatesInputs"),
+        addSubtractInputs: document.getElementById("addSubtractInputs"),
+
+        startDate: document.getElementById("startDate"),
+        endDate: document.getElementById("endDate"),
+        boundaryMethod: document.getElementById("boundaryMethod"),
+
+        baseDate: document.getElementById("baseDate"),
+        operationType: document.getElementById("operationType"),
+        amountNum: document.getElementById("amountNum"),
+        unitType: document.getElementById("unitType"),
+
+        heroTag: document.getElementById("heroTag"),
+        heroVal: document.getElementById("heroVal"),
+        heroSub: document.getElementById("heroSub"),
+
+        res1Title: document.getElementById("res1Title"),
+        res1Val: document.getElementById("res1Val"),
+        res1Sub: document.getElementById("res1Sub"),
+
+        res2Title: document.getElementById("res2Title"),
+        res2Val: document.getElementById("res2Val"),
+        res2Sub: document.getElementById("res2Sub"),
+
+        res3Title: document.getElementById("res3Title"),
+        res3Val: document.getElementById("res3Val"),
+        res3Sub: document.getElementById("res3Sub"),
+
+        res4Title: document.getElementById("res4Title"),
+        res4Val: document.getElementById("res4Val"),
+        res4Sub: document.getElementById("res4Sub"),
+
+        scheduleTableBody: document.getElementById("scheduleTableBody")
+      };
+
+      let lastSummaryText = "";
+      let lastRows = [];
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) return;
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 960) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+      }
+
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) return;
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
+
+      function getWareki(date) {
+        const y = date.getFullYear();
+        const m = date.getMonth() + 1;
+        const d = date.getDate();
+        const ymd = y * 10000 + m * 100 + d;
+
+        if (ymd >= 20190501) {
+          const re = y - 2018;
+          return `令和${re === 1 ? '元' : re}年`;
+        }
+        if (ymd >= 19890108) {
+          const he = y - 1988;
+          return `平成${he === 1 ? '元' : he}年`;
+        }
+        if (ymd >= 19261225) {
+          const sh = y - 1925;
+          return `昭和${sh === 1 ? '元' : sh}年`;
+        }
+        return `${y}年`;
+      }
+
+      function addDays(date, days) {
+        const res = new Date(date);
+        res.setDate(res.getDate() + days);
+        return res;
+      }
+
+      function countBusinessDays(d1, d2) {
+        let count = 0;
+        let cur = new Date(Math.min(d1, d2));
+        const end = new Date(Math.max(d1, d2));
+
+        while (cur <= end) {
+          const day = cur.getDay();
+          if (day !== 0 && day !== 6) { // Not Sat/Sun
+            count++;
+          }
+          cur.setDate(cur.getDate() + 1);
+        }
+        return count;
+      }
+
+      function calculateAndRender() {
+        if (currentMode === "between_dates") {
+          const d1 = new Date(elements.startDate.value);
+          const d2 = new Date(elements.endDate.value);
+          if (isNaN(d1.getTime()) || isNaN(d2.getTime())) return;
+
+          const isRyoubata = elements.boundaryMethod.value === "ryoubata";
+          const diffMs = Math.abs(d2 - d1);
+          let days = Math.round(diffMs / (1000 * 60 * 60 * 24));
+          if (isRyoubata) days += 1;
+
+          const weeks = Math.floor(days / 7);
+          const remDays = days % 7;
+          const bizDays = countBusinessDays(d1, d2);
+          const hours = days * 24;
+
+          // Top Hero
+          elements.heroTag.innerHTML = `<i class="fas fa-calendar-range"></i> 期間の日数計算結果 (${isRyoubata ? '両端入れ' : '片端入れ'})`;
+          elements.heroVal.textContent = `${days.toLocaleString('ja-JP')} 日間`;
+          elements.heroSub.textContent = `約 ${weeks} 週 ${remDays} 日 | 土日を除く平日営業日数: 約 ${bizDays} 営業日`;
+
+          // Grid
+          elements.res1Title.textContent = "実日数 (総日数)";
+          elements.res1Val.textContent = `${days.toLocaleString('ja-JP')} 日間`;
+          elements.res1Sub.textContent = `${hours.toLocaleString('ja-JP')} 時間 (${(hours * 60).toLocaleString('ja-JP')} 分)`;
+
+          elements.res2Title.textContent = "週数 ＋ 端数日数";
+          elements.res2Val.textContent = `${weeks} 週 ${remDays} 日`;
+          elements.res2Sub.textContent = `約 ${(days / 30.4375).toFixed(1)} ヶ月分`;
+
+          elements.res3Title.textContent = "平日・営業日数 (土日除外)";
+          elements.res3Val.textContent = `約 ${bizDays} 営業日`;
+          elements.res3Sub.textContent = "土曜日・日曜日を除外した日数";
+
+          elements.res4Title.textContent = "終了日の和暦 ＆ 曜日";
+          elements.res4Val.textContent = `${getWareki(d2)}${d2.getMonth() + 1}月${d2.getDate()}日`;
+          elements.res4Sub.textContent = daysOfWeekJp[d2.getDay()];
+
+          // Schedule Table
+          const rows = [
+            { label: "開始日", date: d1, days: "0日目" },
+            { label: "+7日後 (1週)", date: addDays(d1, 7), days: "7日後" },
+            { label: "+14日後 (2週)", date: addDays(d1, 14), days: "14日後" },
+            { label: "+30日後 (約1ヶ月)", date: addDays(d1, 30), days: "30日後" },
+            { label: "+60日後 (約2ヶ月)", date: addDays(d1, 60), days: "60日後" },
+            { label: "+90日後 (約3ヶ月)", date: addDays(d1, 90), days: "90日後" },
+            { label: "終了日", date: d2, days: `${days}日目` }
+          ];
+
+          lastRows = rows;
+          elements.scheduleTableBody.innerHTML = rows.map(r => `
+            <tr>
+              <td><strong>${r.label}</strong></td>
+              <td style="color:#0284c7; font-weight:700;">${r.date.getFullYear()}年${r.date.getMonth() + 1}月${r.date.getDate()}日 (${getWareki(r.date)})</td>
+              <td>${daysOfWeekJp[r.date.getDay()]}</td>
+              <td><span style="background:#f1f5f9; color:#475569; font-weight:700; padding:2px 6px; border-radius:4px; font-size:0.8rem;">${r.days}</span></td>
+            </tr>
+          `).join("");
+
+          // Summary
+          lastSummaryText = [
+            `【期間日数 計算結果】`,
+            `開始日: ${elements.startDate.value} (${daysOfWeekJp[d1.getDay()]})`,
+            `終了日: ${elements.endDate.value} (${daysOfWeekJp[d2.getDay()]})`,
+            `計算方式: ${isRyoubata ? '両端入れ' : '片端入れ (初日不算入)'}`,
+            `---------------------------------`,
+            `実日数: ${days} 日間 (${weeks}週 ${remDays}日)`,
+            `平日営業日数 (土日除外): 約 ${bizDays} 営業日`,
+            `---------------------------------`,
+            `計算元: InstaCalc (https://instacalc.in/ja/duration/datecalculator.html)`
+          ].join('\n');
+
+        } else {
+          // Add or Subtract Mode
+          const bDate = new Date(elements.baseDate.value);
+          if (isNaN(bDate.getTime())) return;
+
+          const op = elements.operationType.value;
+          const amt = Number(elements.amountNum.value) || 0;
+          const unit = elements.unitType.value;
+          const multiplier = op === "add" ? 1 : -1;
+
+          let targetD = new Date(bDate);
+          let unitLabel = "";
+
+          if (unit === "days") {
+            targetD.setDate(targetD.getDate() + (amt * multiplier));
+            unitLabel = `${amt} 日${op === 'add' ? '後' : '前'}`;
+          } else if (unit === "weeks") {
+            targetD.setDate(targetD.getDate() + (amt * 7 * multiplier));
+            unitLabel = `${amt} 週間${op === 'add' ? '後' : '前'}`;
+          } else if (unit === "months") {
+            targetD.setMonth(targetD.getMonth() + (amt * multiplier));
+            unitLabel = `${amt} ヶ月${op === 'add' ? '後' : '前'}`;
+          } else if (unit === "years") {
+            targetD.setFullYear(targetD.getFullYear() + (amt * multiplier));
+            unitLabel = `${amt} 年${op === 'add' ? '後' : '前'}`;
+          }
+
+          const targetDOW = daysOfWeekJp[targetD.getDay()];
+          const diffDays = Math.round(Math.abs(targetD - bDate) / (1000 * 60 * 60 * 24));
+
+          // Top Hero
+          elements.heroTag.innerHTML = `<i class="fas fa-calendar-check"></i> ${unitLabel} の日付`;
+          elements.heroVal.textContent = `${targetD.getFullYear()}年${targetD.getMonth() + 1}月${targetD.getDate()}日`;
+          elements.heroSub.textContent = `${targetDOW} | ${getWareki(targetD)} (経過日数: ${diffDays} 日間)`;
+
+          // Grid
+          elements.res1Title.textContent = "算出された日付";
+          elements.res1Val.textContent = `${targetD.getMonth() + 1}月${targetD.getDate()}日`;
+          elements.res1Sub.textContent = `${targetD.getFullYear()}年 (${getWareki(targetD)})`;
+
+          elements.res2Title.textContent = "該当する曜日";
+          elements.res2Val.textContent = `${targetDOW}`;
+          elements.res2Sub.textContent = (targetD.getDay() === 0 || targetD.getDay() === 6) ? "⚠️ 週末 (土日)" : "平日";
+
+          elements.res3Title.textContent = "基準日からの実日数";
+          elements.res3Val.textContent = `${diffDays} 日間`;
+          elements.res3Sub.textContent = `約 ${(diffDays / 7).toFixed(1)} 週間`;
+
+          elements.res4Title.textContent = "土日除外 営業日数";
+          elements.res4Val.textContent = `約 ${countBusinessDays(bDate, targetD)} 営業日`;
+          elements.res4Sub.textContent = "週末を除いた平日日数";
+
+          // Schedule Table
+          const rows = [
+            { label: "基準日", date: bDate, days: "0日目" },
+            { label: "＋7日後", date: addDays(bDate, 7), days: "7日後" },
+            { label: "＋14日後", date: addDays(bDate, 14), days: "14日後" },
+            { label: "＋30日後", date: addDays(bDate, 30), days: "30日後" },
+            { label: "＋60日後", date: addDays(bDate, 60), days: "60日後" },
+            { label: "＋90日後", date: addDays(bDate, 90), days: "90日後" },
+            { label: "＋180日後", date: addDays(bDate, 180), days: "180日後" },
+            { label: "＋365日後", date: addDays(bDate, 365), days: "1年後" },
+            { label: `計算結果 (${unitLabel})`, date: targetD, days: `${diffDays}日${op === 'add' ? '後' : '前'}` }
+          ];
+
+          lastRows = rows;
+          elements.scheduleTableBody.innerHTML = rows.map(r => `
+            <tr style="${r.label.includes('計算結果') ? 'background:#f0fdfa; font-weight:800;' : ''}">
+              <td><strong>${r.label}</strong></td>
+              <td style="color:#0284c7; font-weight:700;">${r.date.getFullYear()}年${r.date.getMonth() + 1}月${r.date.getDate()}日 (${getWareki(r.date)})</td>
+              <td>${daysOfWeekJp[r.date.getDay()]}</td>
+              <td><span style="background:#f1f5f9; color:#475569; font-weight:700; padding:2px 6px; border-radius:4px; font-size:0.8rem;">${r.days}</span></td>
+            </tr>
+          `).join("");
+
+          // Summary
+          lastSummaryText = [
+            `【日付加減算 計算結果】`,
+            `基準日: ${elements.baseDate.value} (${daysOfWeekJp[bDate.getDay()]})`,
+            `加減算: ${unitLabel}`,
+            `---------------------------------`,
+            `算出日: ${targetD.getFullYear()}年${targetD.getMonth() + 1}月${targetD.getDate()}日 (${targetDOW} / ${getWareki(targetD)})`,
+            `実日数差: ${diffDays} 日間`,
+            `---------------------------------`,
+            `計算元: InstaCalc (https://instacalc.in/ja/duration/datecalculator.html)`
+          ].join('\n');
+        }
+      }
+
+      function wireEvents() {
+        elements.modeButtons.forEach(btn => {
+          btn.addEventListener("click", function () {
+            elements.modeButtons.forEach(b => {
+              b.classList.remove("btn-primary", "active");
+              b.classList.add("btn-ghost");
+            });
+            this.classList.add("btn-primary", "active");
+            this.classList.remove("btn-ghost");
+
+            currentMode = this.getAttribute("data-mode");
+            elements.betweenDatesInputs.style.display = currentMode === "between_dates" ? "grid" : "none";
+            elements.addSubtractInputs.style.display = currentMode === "add_subtract" ? "grid" : "none";
+            calculateAndRender();
+          });
+        });
+
+        // Mode 1 inputs
+        elements.startDate.addEventListener("change", calculateAndRender);
+        elements.endDate.addEventListener("change", calculateAndRender);
+        elements.boundaryMethod.addEventListener("change", calculateAndRender);
+
+        // Mode 2 inputs
+        elements.baseDate.addEventListener("change", calculateAndRender);
+        elements.operationType.addEventListener("change", calculateAndRender);
+        elements.amountNum.addEventListener("input", calculateAndRender);
+        elements.unitType.addEventListener("change", calculateAndRender);
+
+        // Add Presets
+        document.querySelectorAll(".chips-group button[data-add-days]").forEach(btn => {
+          btn.addEventListener("click", function () {
+            this.parentElement.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            elements.operationType.value = "add";
+            elements.amountNum.value = this.getAttribute("data-add-days");
+            elements.unitType.value = "days";
+            calculateAndRender();
+          });
+        });
+
+        if (elements.recalculateBtn) elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        if (elements.resetTodayBtn) {
+          elements.resetTodayBtn.addEventListener("click", function () {
+            const today = new Date().toISOString().slice(0, 10);
+            elements.startDate.value = today;
+            elements.baseDate.value = today;
+            calculateAndRender();
+          });
+        }
+
+        // Copy Text
+        function copyText(text, btnEl) {
+          if (!navigator.clipboard || !text) return;
+          navigator.clipboard.writeText(text).then(() => {
+            const orig = btnEl.innerHTML;
+            btnEl.innerHTML = `<i class="fas fa-check"></i> コピー完了！`;
+            setTimeout(() => { btnEl.innerHTML = orig; }, 1800);
+          });
+        }
+
+        if (elements.copySummaryBtn) elements.copySummaryBtn.addEventListener("click", () => copyText(lastSummaryText, elements.copySummaryBtn));
+        if (elements.copyHeroBtn) elements.copyHeroBtn.addEventListener("click", () => copyText(lastSummaryText, elements.copyHeroBtn));
+
+        // CSV Export
+        if (elements.downloadCsvBtn) {
+          elements.downloadCsvBtn.addEventListener("click", function () {
+            if (!lastRows.length) return;
+            const headers = ["項目", "日付", "和暦", "曜日", "日数"];
+            const rows = lastRows.map(r => [
+              r.label,
+              `${r.date.getFullYear()}/${r.date.getMonth() + 1}/${r.date.getDate()}`,
+              getWareki(r.date),
+              daysOfWeekJp[r.date.getDay()],
+              r.days
+            ]);
+
+            const csvContent = [headers.join(",")].concat(rows.map(r => r.join(","))).join("\n");
+            const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `日付_スケジュール早見表_${new Date().toISOString().slice(0, 10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          });
+        }
+      }
+
+      // Initialize default date
+      const todayStr = new Date().toISOString().slice(0, 10);
+      if (elements.startDate) elements.startDate.value = todayStr;
+      if (elements.baseDate) elements.baseDate.value = todayStr;
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      calculateAndRender();
+    })();
+  </script>
+  <script type="module" src="../../firebase.js"></script>
+  <script defer src="../../fullscreen-mode.js"></script>
+  <script src="../../language-dialog.js" defer></script>
+</body>
+
+</html>

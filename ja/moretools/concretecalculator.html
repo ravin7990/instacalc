@@ -1,519 +1,292 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 
 <head>
   <meta charset="UTF-8">
-  <script>
-  (function() {
-    const pref = localStorage.getItem('user_lang');
-    const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-    if (pref === 'ru' || (!pref && browserLang.startsWith('ru'))) {
-      window.location.replace('../ru/moretools/concretecalculator.html');
-    } else if (pref === 'ja' || (!pref && browserLang.startsWith('ja'))) {
-      window.location.replace('../ja/moretools/concretecalculator.html');
-    } else if (pref === 'ko' || (!pref && browserLang.startsWith('ko'))) {
-      window.location.replace('../ko/moretools/concretecalculator.html');
-    }
-  })();
-  </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Concrete Calculator – Estimate Cement, Sand, Aggregate & Cost (M15 to M25)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>生コンクリート・基礎打設 立米(m³)計算機 | 必要量・セメント砂利配合計算【無料】 - InstaCalc</title>
   <meta name="description"
-    content="Free advanced concrete calculator to estimate concrete volume (m³/yd³), cement bags, sand (CFT), aggregate, and cost for slabs, footings, columns, beams, stairs, and retaining walls.">
+    content="土間コンクリート・駐車場・スラブ・基礎・円柱の必要コンクリート体積（立米/m³）を無料計算。5%〜10%の打設ロス率割り増し、生コン発注量、DIY手練り用のセメント・砂・砂利（25kg袋換算）の必要袋数まで瞬時に試算。">
   <meta name="keywords"
-    content="concrete calculator, cement calculator, concrete mix calculator, concrete volume calculator, cement sand aggregate calculator, rcc slab calculator, construction cost estimator">
+    content="生コン 立米 計算, コンクリート 必要量 計算, 土間コンクリート 厚さ 計算, コンクリート 配合比率, セメント 砂 砂利 袋数, コンクリート 体積 計算, 駐車場 コンクリート 立米">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+  <link rel="canonical" href="https://instacalc.in/ja/moretools/concretecalculator.html">
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+  <link rel="icon" type="image/webp" href="../../favicon.webp">
+  <link rel="alternate" hreflang="ja" href="https://instacalc.in/ja/moretools/concretecalculator.html">
+  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/moretools/concretecalculator.html">
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/concrete-calculator.html">
+  <link rel="alternate" hreflang="en" href="https://instacalc.in/moretools/concretecalculator.html">
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/moretools/concretecalculator.html">
+  <link rel="alternate" hreflang="ru" href="https://instacalc.in/ru/moretools/concretecalculator.html">
+  <link rel="alternate" hreflang="ko" href="https://instacalc.in/ko/moretools/concretecalculator.html">
+  <link rel="alternate" hreflang="ko-KR" href="https://instacalc.in/ko/moretools/concretecalculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/moretools/concretecalculator.html">
 
-  <link rel="icon" type="image/x-icon" href="../../favicon.webp">
-  <link rel="canonical" href="https://instacalc.in/moretools/concretecalculator.html">
+
+
+
+
+
+
+<meta property="og:title" content="生コンクリート・基礎打設 立米(m³)計算機 | 必要量・セメント砂利配合計算【無料】">
+  <meta property="og:description"
+    content="土間コン・スラブ・基礎のコンクリート必要体積（m³/立米）とセメント・砂・砂利の配合袋数を即座に計算。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/ja/moretools/concretecalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="生コンクリート・基礎打設 立米(m³)計算機 | InstaCalc">
+  <meta name="twitter:description"
+    content="無料の生コン立米計算機。土間コンクリートや基礎の必要m³、配合袋数を瞬時に算出。">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "生コンクリート・基礎打設 立米(m³)計算機",
+      "url": "https://instacalc.in/ja/moretools/concretecalculator.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "description": "土間コンクリート、スラブ、布基礎、丸柱の必要体積（立方メートル/立米）およびセメント・砂・砂利配合量を計算するツール。",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "「立米（りゅうべい）」とは何ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "『立米（りゅうべい）』とは、建築・土木業界で使われる『立方メートル（m³）』の通称です。縦1m × 横1m × 高さ1m の体積（1,000リットル）に相当します。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "駐車場の土間コンクリートの厚さは何cm必要ですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "普通乗用車用の駐車場であれば、標準厚さは『10cm〜12cm』（ワイヤーメッシュ入り）が推奨されます。大型車やトラックが出入りする場合は『15cm以上』が必要です。歩道や庭の犬走りであれば『8cm〜10cm』が目安です。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "生コンを発注する際、ロス率はどれくらい見込むべきですか？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "型枠のたわみや路盤の不陸（凹凸）、施工中のこぼれを考慮し、計算した実体積に『5%〜10%（通常5%増し）』を上乗せして発注するのが鉄則です。不足すると途中で固まる『コールドジョイント』の原因になります。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "DIYで手練りする場合の標準的な配合比率は？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "強度が必要なコンクリートは『セメント 1 ： 砂 2 ： 砂利 3』（重量比または容積比）が基本です。レンガ積みや仕上げ用のモルタルであれば『セメント 1 ： 砂 3』（砂利なし）を用います。"
+          }
+        }
+      ]
+    }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
+  <link rel="preload"
     href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
   <link rel="stylesheet" href="../../instacalc-core.css">
-
   <style>
-    /* Ultra-Responsive Modern Concrete Calculator Styles */
-    * {
-      box-sizing: border-box;
-    }
-    
-    .container {
-      width: min(1240px, 92vw);
-      margin: 0 auto;
-      padding: 0 0.5rem;
-    }
-
-    .calc-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
-      gap: 1.75rem;
-      align-items: start;
-      width: 100%;
-    }
-
-    .calculator-shell {
-      background: #ffffff;
-      border: 1px solid var(--ic-border);
+    /* Japanese Concrete Studio Styling */
+    .japanese-concrete-hero {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 1.5px solid rgba(100, 116, 139, 0.3);
       border-radius: var(--ic-radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
       box-shadow: var(--ic-shadow-md);
-      padding: 1.75rem;
-      width: 100%;
-      max-width: 100%;
-      overflow: hidden;
-    }
-
-    /* Mode Pill Switcher */
-    .shape-nav-wrap {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.85rem;
-      border-bottom: 1px solid var(--ic-border);
-      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.25rem;
     }
-
-    .mode-pill-btn {
+    @media (max-width: 640px) {
+      .japanese-concrete-hero {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.25rem;
+      }
+    }
+    .japanese-concrete-hero .banner-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .japanese-concrete-hero .banner-tag {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      padding: 0.5rem 0.85rem;
-      font-size: 0.84rem;
-      font-weight: 700;
-      border-radius: var(--ic-radius-full);
-      border: 1px solid var(--ic-border);
-      background: #ffffff;
-      color: var(--ic-text-muted);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .mode-pill-btn:hover {
-      border-color: var(--ic-primary);
-      color: var(--ic-primary-dark);
-      background: var(--ic-bg-subtle);
-    }
-
-    .mode-pill-btn.active {
-      background: linear-gradient(135deg, var(--ic-primary-dark), var(--ic-primary));
-      color: #ffffff;
-      border-color: var(--ic-primary-dark);
-      box-shadow: 0 3px 8px rgba(0, 127, 139, 0.25);
-    }
-
-    /* Hero Live Result Card */
-    .hero-result-card {
-      background: linear-gradient(135deg, #f0fdfa 0%, #e6f7f6 100%);
-      border: 1px solid rgba(0, 127, 139, 0.25);
-      border-radius: var(--ic-radius-lg);
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      width: 100%;
-      position: relative;
-    }
-
-    .hero-result-card .label-group {
-      display: grid;
-      gap: 0.25rem;
-      width: 100%;
-      min-width: 0;
-    }
-
-    .hero-result-card .res-eyebrow {
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--ic-primary-dark);
-    }
-
-    .hero-result-card .res-val {
-      font-family: 'Sora', sans-serif;
-      font-size: clamp(1.45rem, 4vw, 2.2rem);
-      font-weight: 800;
-      color: var(--ic-primary-dark);
-      line-height: 1.2;
-      word-break: break-word;
-      overflow-wrap: break-word;
-    }
-
-    .hero-result-card .res-desc {
-      font-size: 0.85rem;
-      color: var(--ic-text-muted);
-      word-break: break-word;
-    }
-
-    .hero-result-card .quick-copy-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 1px solid rgba(0, 127, 139, 0.25);
-      background: #ffffff;
-      color: var(--ic-primary-dark);
-      font-size: 1.05rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-    }
-
-    .hero-result-card .quick-copy-btn:hover {
-      background: var(--ic-primary-dark);
-      color: #ffffff;
-      transform: translateY(-2px);
-    }
-
-    /* Form and Fields */
-    .field-card {
-      background: var(--ic-bg-subtle);
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 1rem;
-      margin-bottom: 0.85rem;
-      width: 100%;
-    }
-
-    .field-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.6rem;
-      font-weight: 700;
-      font-size: 0.92rem;
-      gap: 0.5rem;
-    }
-
-    .field-head span {
-      color: var(--ic-primary-dark);
-      font-family: 'Sora', sans-serif;
-      font-size: 0.95rem;
-    }
-
-    .field-card input[type="number"],
-    .field-card select {
-      width: 100%;
-      height: 48px;
-      padding: 0.65rem 1rem;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--ic-text);
-      background: #ffffff;
-      border: 1.5px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      outline: none;
-      transition: all 0.2s ease;
-    }
-
-    .field-card input[type="number"]:focus,
-    .field-card select:focus {
-      border-color: var(--ic-primary);
-      box-shadow: 0 0 0 3.5px var(--ic-primary-light);
-    }
-
-    .chips-wrap {
-      display: flex;
-      flex-wrap: wrap;
       gap: 0.4rem;
-      margin-top: 0.6rem;
-      width: 100%;
-    }
-
-    .chip {
-      padding: 0.35rem 0.75rem;
       font-size: 0.82rem;
-      font-weight: 700;
-      border-radius: 999px;
-      border: 1px solid var(--ic-border);
-      background: #ffffff;
-      color: var(--ic-text-muted);
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.15s ease;
-    }
-
-    .chip:hover, .chip.active {
-      color: var(--ic-primary-dark);
-      background: var(--ic-primary-light);
-      border-color: var(--ic-primary);
-    }
-
-    .inline-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.75rem;
-    }
-
-    .section-subhead {
-      font-family: 'Sora', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--ic-text);
-      margin: 1.25rem 0 0.65rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .section-subhead i {
-      color: var(--ic-primary);
-    }
-
-    /* Result grid */
-    .result-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
-      gap: 0.75rem;
-      margin-top: 1.25rem;
-      width: 100%;
-    }
-
-    .result-card {
-      background: #ffffff;
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 0.85rem;
-      min-width: 0;
-      overflow: hidden;
-    }
-
-    .result-card h3 {
-      font-size: 0.76rem;
+      font-weight: 800;
+      color: #475569;
       text-transform: uppercase;
       letter-spacing: 0.04em;
-      color: var(--ic-text-muted);
-      font-weight: 700;
-      margin-bottom: 0.25rem;
     }
-
-    .result-value {
-      font-family: 'Sora', sans-serif;
-      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+    .japanese-concrete-hero .main-volume {
+      font-family: var(--ic-font-heading, "Sora", sans-serif);
+      font-size: clamp(2.2rem, 5vw, 3rem);
       font-weight: 800;
-      color: var(--ic-text);
-      word-break: break-word;
+      color: #0f172a;
+      line-height: 1.15;
+    }
+    .japanese-concrete-hero .main-volume-sub {
+      font-size: 0.95rem;
+      color: #475569;
+      font-weight: 700;
     }
 
-    .result-card.highlight {
-      background: #f8fafc;
-      border-color: rgba(0, 127, 139, 0.3);
-    }
-
-    .result-card.highlight .result-value {
-      color: var(--ic-primary-dark);
-    }
-
-    .result-card.positive .result-value {
-      color: #1f9f67;
-    }
-
-    /* Visual Studio SVG card */
-    .visual-studio-card {
-      background: #ffffff;
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 1rem;
-      margin-top: 1rem;
-      text-align: center;
-    }
-
-    .svg-canvas-wrap {
-      width: 100%;
-      height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at center, #f8fafc 0%, #edf2f7 100%);
-      border-radius: var(--ic-radius-sm);
-      overflow: hidden;
-      margin-top: 0.5rem;
-    }
-
-    /* Table & Charts */
-    .chart-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1rem;
-      margin-top: 1.25rem;
-      width: 100%;
-    }
-
-    .chart-card {
-      background: #ffffff;
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 1rem;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .chart-wrap {
-      position: relative;
-      width: 100%;
-      height: 240px;
-    }
-
-    .table-shell {
-      width: 100%;
-      max-width: 100%;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      background: #ffffff;
-      margin-top: 0.5rem;
-    }
-
-    .table-shell table {
-      width: 100%;
-      min-width: 480px;
-      border-collapse: collapse;
-      font-size: 0.88rem;
-    }
-
-    /* Actions */
-    .calculator-actions {
+    /* Preset Chips */
+    .chips-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1.25rem;
-      width: 100%;
+      gap: 0.45rem;
+      margin-top: 0.6rem;
+    }
+    .chip-btn {
+      padding: 0.35rem 0.65rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chip-btn:hover {
+      background: #e2e8f0;
+      border-color: #64748b;
+      color: #0f172a;
+    }
+    .chip-btn.active {
+      background: #334155;
+      border-color: #334155;
+      color: #ffffff;
     }
 
-    /* Mobile media query (320px - 640px) */
+    /* Material Mix Callout Card */
+    .material-card {
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border: 1.5px solid rgba(16, 185, 129, 0.3);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.35rem;
+      margin: 1.5rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .material-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .material-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ic-font-heading, "Sora", sans-serif);
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #065f46;
+    }
+    .material-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+    }
     @media (max-width: 640px) {
-      .calc-layout {
-        grid-template-columns: 1fr !important;
-        gap: 1.25rem !important;
+      .material-grid {
+        grid-template-columns: 1fr;
+        gap: 0.6rem;
       }
-      
-      .calculator-shell {
-        padding: 1rem 0.75rem !important;
-        border-radius: var(--ic-radius-md) !important;
-      }
-
-      .shape-nav-wrap {
-        gap: 0.3rem !important;
-      }
-
-      .mode-pill-btn {
-        padding: 0.45rem 0.65rem !important;
-        font-size: 0.78rem !important;
-      }
-
-      .hero-result-card {
-        padding: 1rem 0.85rem !important;
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 0.5rem !important;
-      }
-
-      .hero-result-card .quick-copy-btn {
-        position: absolute !important;
-        top: 0.75rem !important;
-        right: 0.75rem !important;
-        width: 38px !important;
-        height: 38px !important;
-      }
-
-      .hero-result-card .res-val {
-        font-size: clamp(1.35rem, 6.5vw, 1.85rem) !important;
-        max-width: calc(100% - 44px) !important;
-      }
-
-      .hero-result-card .res-desc {
-        font-size: 0.8rem !important;
-        line-height: 1.35 !important;
-      }
-
-      .inline-grid {
-        grid-template-columns: 1fr !important;
-        gap: 0.5rem !important;
-      }
-
-      .result-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 0.5rem !important;
-      }
-
-      .result-card {
-        padding: 0.75rem 0.65rem !important;
-      }
-
-      .result-value {
-        font-size: 1.05rem !important;
-      }
-
-      .chart-grid {
-        grid-template-columns: 1fr !important;
-      }
-
-      .calculator-actions {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 0.4rem !important;
-      }
-
-      .calculator-actions .btn:first-child,
-      .calculator-actions .btn-primary {
-        grid-column: span 2 !important;
-      }
+    }
+    .material-box {
+      background: #ffffff;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 12px;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .material-box.highlight {
+      background: #065f46;
+      color: #ffffff;
+      border-color: #065f46;
+    }
+    .material-box-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #475569;
+    }
+    .material-box.highlight .material-box-label {
+      color: #a7f3d0;
+    }
+    .material-box-val {
+      font-family: var(--ic-font-heading, "Sora", sans-serif);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .material-box.highlight .material-box-val {
+      color: #ffffff;
     }
   </style>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Advanced Concrete Calculator",
-    "url": "https://instacalc.in/moretools/concretecalculator.html",
-    "applicationCategory": "ConstructionApplication",
-    "operatingSystem": "All",
-    "description": "Concrete calculator for estimating materials and costs of slabs, columns, beams, footings, and stairs.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  }
-  </script>
 </head>
 
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="../../index.html" class="brand" aria-label="InstaCalc Home">
-        <img src="../../logo.png" alt="InstaCalc Logo" width="38" height="38">
+      <a href="../index.html" class="brand" aria-label="InstaCalc ホーム">
+        <img src="../../logo.png" alt="InstaCalc ロゴ">
         <span>InstaCalc.in</span>
       </a>
-      <div class="lang-switch">
-        <select id="langSelect" aria-label="Select Language">
-          <option value="en">English</option>
-          <option value="ru">Русский</option>
-          <option value="ja" selected>日本語</option>
-          <option value="ko">한국어</option>
-        </select>
-      </div>
-      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
-      <nav class="site-nav" id="siteNav">
-        <a href="../../index.html">Home</a>
-        <a href="concretecalculator.html" class="active">Concrete Tool</a>
-        <a href="diagonalcalculator.html">Diagonal Tool</a>
-        <a href="../../sipcalculator.html">SIP Planner</a>
-        <a href="../../emicalculator.html">EMI Tool</a>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="メニュー開閉" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="../index.html">ホーム</a>
+        <a href="concretecalculator.html" class="active">生コン立米計算</a>
+        <a href="diagonalcalculator.html">対角線計算</a>
+        <a href="../aboutus.html">運営者情報</a>
+        <a href="../contactus.html">お問い合わせ</a>
       </nav>
     </div>
   </header>
@@ -522,763 +295,607 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow"><i class="fas fa-trowel-bricks"></i> Civil Engineering & Construction</span>
-          <h1>Concrete & Building Material Estimator</h1>
-          <p>Estimate precise <strong>cement bags, sand (CFT/m³), aggregate (gravel), water, and reinforcement steel</strong> for slabs, columns, beams, footings, stairs, and retaining walls.</p>
+          <span class="eyebrow">
+            <i class="fas fa-trowel-bricks"></i>
+            建築・DIYコンクリート体積プランナー
+          </span>
+          <h1>生コンクリート・基礎打設 立米(m³)計算機 — 必要量＆配合袋数計算</h1>
+          <p>土間コンクリート（駐車場・庭・犬走り）、スラブ、布基礎、円柱の寸法を入力するだけで、必要なコンクリート体積（立米・m³）、5〜10%の割り増しロス込発注量、DIY手練り用のセメント・砂・砂利（25kg袋換算）の必要袋数を瞬時に計算します。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#concrete-planner">
+              <i class="fas fa-calculator"></i>
+              立米計算を開始
+            </a>
+            <a class="btn btn-ghost" href="../index.html">
+              <i class="fas fa-house"></i>
+              全ツール一覧へ
+            </a>
+          </div>
         </div>
+
         <aside class="hero-panel">
-          <h2>Precision Civil Features</h2>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Standard Dry Volume Factor (1.54×)</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> M5 to M25 Concrete Mix Grades</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Instant Material & Cost Breakdown</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> RCC Steel Rebar Estimation</div>
+          <h2><i class="fas fa-cubes" style="color: #94a3b8;"></i> 生コン・配合計算の充実機能</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>スラブ・土間コン・布基礎・丸柱</strong>の4形状対応</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>打設ロス率（5%〜10%推奨）割り増し</strong>を自動計算</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>市販25kg袋（セメント・砂・砂利）換算袋数</strong>を表示</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>駐車場1台・2台分などの人気ワンタッチプリセット</strong></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>詳細配合内訳表＆CSVデータ保存</strong>対応</div>
         </aside>
       </div>
     </section>
 
-    <div class="container" id="calculator">
-      <div class="calc-layout">
-        <article class="calculator-shell">
-          <!-- Mobile Sticky Summary Pill -->
-          <div class="mobile-summary-pill" id="mobileSummaryPill">
-            <span class="metric-label" id="mobileSummaryLabel">Estimated Volume</span>
-            <span class="metric-val" id="mobileSummaryVal">-</span>
-          </div>
-
-          <!-- Shape Navigation Pills -->
-          <div class="shape-nav-wrap" aria-label="Select Structural Shape">
-            <button type="button" class="mode-pill-btn active" data-shape="slab"><i class="fas fa-layer-group"></i> Slab</button>
-            <button type="button" class="mode-pill-btn" data-shape="column"><i class="fas fa-monument"></i> Column</button>
-            <button type="button" class="mode-pill-btn" data-shape="beam"><i class="fas fa-ruler-horizontal"></i> Beam</button>
-            <button type="button" class="mode-pill-btn" data-shape="footing"><i class="fas fa-cube"></i> Footing</button>
-            <button type="button" class="mode-pill-btn" data-shape="staircase"><i class="fas fa-stairs"></i> Stairs</button>
-            <button type="button" class="mode-pill-btn" data-shape="circle"><i class="fas fa-circle-notch"></i> Circle</button>
-            <button type="button" class="mode-pill-btn" data-shape="wall"><i class="fas fa-border-all"></i> Wall</button>
-          </div>
-
-          <!-- Hero Live Result Card -->
-          <div class="hero-result-card">
-            <div class="label-group">
-              <span class="res-eyebrow" id="heroShapeTitle">Rectangular Slab Concrete Volume</span>
-              <div class="res-val" id="heroVolDisplay">- m³</div>
-              <div class="res-desc" id="heroMaterialSummary">Cement: - Bags | Sand: - m³ | Aggregate: - m³</div>
+    <section id="concrete-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="計算形状">
+              <button type="button" class="btn btn-primary btn-sm shape-btn active" data-shape="slab"><i class="fas fa-square"></i> 土間コン・平板</button>
+              <button type="button" class="btn btn-ghost btn-sm shape-btn" data-shape="footing"><i class="fas fa-border-all"></i> 布基礎・溝</button>
+              <button type="button" class="btn btn-ghost btn-sm shape-btn" data-shape="column"><i class="fas fa-circle"></i> 丸柱・円柱</button>
             </div>
-            <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary">
-              <i class="fas fa-copy"></i>
+          </div>
+
+          <!-- Hero Main Outcome Banner -->
+          <div class="japanese-concrete-hero">
+            <div class="banner-text">
+              <span class="banner-tag"><i class="fas fa-truck-moving"></i> 必要コンクリート発注量（ロス率込）</span>
+              <div class="main-volume" id="heroVolumeVal">1.31 m³ (立米)</div>
+              <div class="main-volume-sub" id="heroVolumeSub">実体積: 1.25 m³ | ロス割り増し (+5%): +0.06 m³</div>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" id="copyHeroBtn" title="結果をコピー">
+              <i class="fas fa-copy"></i> 結果をコピー
             </button>
           </div>
 
-          <!-- Dynamic Shape Dimensions Section -->
-          <div class="section-subhead"><i class="fas fa-ruler-combined"></i> <span id="currentShapeLabel">Dimensions (Meters)</span></div>
-          <div class="input-section" id="shapeInputs">
-            <!-- Dynamic inputs generated by JS -->
-          </div>
+          <!-- Input Controls Grid -->
+          <div class="input-grid">
+            <!-- Dimensions for Slab -->
+            <div id="slabInputs" class="input-shape-group" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="lengthM">縦の長さ (m)</label>
+                  <span id="lengthMPreview" style="font-weight: 800; color: var(--ic-primary-dark);">5.0 m</span>
+                </div>
+                <input type="number" id="lengthM" min="0.1" max="100" step="0.1" value="5.0" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700;">
+              </div>
 
-          <!-- Visual Studio SVG Canvas -->
-          <div class="visual-studio-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; font-weight:700; color:var(--ic-text-muted);">
-              <span><i class="fas fa-vector-square"></i> Structural Preview</span>
-              <span id="visualBadge" style="color:var(--ic-primary-dark);">Scale Auto-Fit</span>
-            </div>
-            <div class="svg-canvas-wrap" id="svgCanvasWrap">
-              <!-- SVG preview rendered dynamically -->
-            </div>
-          </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="widthM">横の幅 (m)</label>
+                  <span id="widthMPreview" style="font-weight: 800; color: var(--ic-primary-dark);">2.5 m</span>
+                </div>
+                <input type="number" id="widthM" min="0.1" max="100" step="0.1" value="2.5" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700;">
+              </div>
 
-          <!-- Mix Grade & Advanced Parameters -->
-          <div class="section-subhead"><i class="fas fa-mortar-pestle"></i> Mix Grade & Waste Factors</div>
-          <div class="inline-grid">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="thicknessCm">コンクリート厚さ (cm)</label>
+                  <span id="thicknessCmPreview" style="font-weight: 800; color: var(--ic-primary-dark);">10 cm (駐車場標準)</span>
+                </div>
+                <input type="number" id="thicknessCm" min="1" max="100" step="1" value="10" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700;">
+              </div>
+            </div>
+
+            <!-- Dimensions for Footing -->
+            <div id="footingInputs" class="input-shape-group" style="grid-column: 1 / -1; display: none; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="footingLengthM">全長 (m)</label>
+                </div>
+                <input type="number" id="footingLengthM" min="0.1" max="200" step="0.5" value="20.0" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700;">
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="footingWidthCm">幅 (cm)</label>
+                </div>
+                <input type="number" id="footingWidthCm" min="5" max="100" step="1" value="15" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700;">
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="footingDepthCm">深さ・高さ (cm)</label>
+                </div>
+                <input type="number" id="footingDepthCm" min="5" max="200" step="1" value="40" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700;">
+              </div>
+            </div>
+
+            <!-- Dimensions for Column -->
+            <div id="columnInputs" class="input-shape-group" style="grid-column: 1 / -1; display: none; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="colDiameterCm">直径 (cm)</label>
+                </div>
+                <input type="number" id="colDiameterCm" min="5" max="200" step="1" value="30" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700;">
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="colHeightM">高さ・長さ (m)</label>
+                </div>
+                <input type="number" id="colHeightM" min="0.1" max="50" step="0.1" value="2.5" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700;">
+              </div>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="colCount">本数 (個数)</label>
+                </div>
+                <input type="number" id="colCount" min="1" max="100" step="1" value="4" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:700;">
+              </div>
+            </div>
+
+            <!-- Presets -->
+            <div class="field-card" style="grid-column: 1 / -1;">
+              <div class="field-head">
+                <label>よく使われる施工プリセット（寸法自動入力）</label>
+              </div>
+              <div class="chips-group">
+                <button type="button" class="chip-btn active" data-preset="car1">🚗 駐車場1台分 (2.5m × 5m × 10cm)</button>
+                <button type="button" class="chip-btn" data-preset="car2">🚗🚗 駐車場2台分 (5m × 5m × 10cm)</button>
+                <button type="button" class="chip-btn" data-preset="pathway">🚶 犬走り・通路 (1m × 8m × 8cm)</button>
+                <button type="button" class="chip-btn" data-preset="terrace">☕ 庭テラス (3m × 3m × 10cm)</button>
+              </div>
+            </div>
+
+            <!-- Waste / Loss Factor -->
             <div class="field-card">
               <div class="field-head">
-                <label for="concreteGrade">Concrete Grade</label>
+                <label for="lossFactor">打設ロス率（型枠たわみ・こぼれ割り増し）</label>
               </div>
-              <select id="concreteGrade">
-                <option value="M5">M5 (1:5:10 - Lean Mass)</option>
-                <option value="M7.5">M7.5 (1:4:8 - Foundation Bed)</option>
-                <option value="M10">M10 (1:3:6 - Plain Concrete)</option>
-                <option value="M15">M15 (1:2:4 - Non-Structural)</option>
-                <option value="M20" selected>M20 (1:1.5:3 - Standard RCC)</option>
-                <option value="M25">M25 (1:1:2 - Heavy Load RCC)</option>
-                <option value="custom">Custom Ratio</option>
+              <select id="lossFactor" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">
+                <option value="0">0% (実体積のみ)</option>
+                <option value="5" selected>+5% (標準推奨・生コン発注向け)</option>
+                <option value="10">+10% (不整地・DIY手練り向け)</option>
               </select>
             </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="wastage">Wastage Buffer</label>
-                <span id="wastageVal">5%</span>
-              </div>
-              <input type="range" id="wastage" min="0" max="20" step="1" value="5">
-            </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="cementBagSize">Cement Bag Weight</label>
-              </div>
-              <select id="cementBagSize">
-                <option value="50" selected>50 kg (Standard India/EU)</option>
-                <option value="40">40 kg</option>
-                <option value="25">25 kg</option>
-                <option value="94">94 lbs (Standard US Bag)</option>
-              </select>
-            </div>
           </div>
 
-          <div id="customRatioFields" class="field-card" style="display:none;">
-            <div class="field-head"><label>Custom Proportion (Cement : Sand : Aggregate)</label></div>
-            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:0.5rem;">
-              <input type="number" id="ratioC" value="1" step="0.1" placeholder="Cement">
-              <input type="number" id="ratioS" value="1.5" step="0.1" placeholder="Sand">
-              <input type="number" id="ratioA" value="3" step="0.1" placeholder="Aggregate">
-            </div>
-          </div>
-
-          <div class="field-card" style="margin-top:0.5rem;">
-            <label style="display:flex; align-items:center; gap:0.6rem; cursor:pointer; font-weight:700; font-size:0.92rem; color:var(--ic-text);">
-              <input type="checkbox" id="includeSteel" checked style="width:20px; height:20px; accent-color:var(--ic-primary);">
-              <span>Include RCC Reinforcement Steel Rebar Estimation</span>
-            </label>
-          </div>
-
-          <!-- Cost Estimation Section -->
-          <div class="section-subhead"><i class="fas fa-coins"></i> Material Unit Prices (Optional Costing)</div>
-          <div class="inline-grid">
-            <div class="field-card">
-              <div class="field-head"><label for="costCement">Cement / Bag</label></div>
-              <input type="number" id="costCement" placeholder="e.g. 380">
-            </div>
-            <div class="field-card">
-              <div class="field-head"><label for="costSand">Sand / m³ (or CFT)</label></div>
-              <input type="number" id="costSand" placeholder="e.g. 1600">
-            </div>
-            <div class="field-card">
-              <div class="field-head"><label for="costAgg">Aggregate / m³</label></div>
-              <input type="number" id="costAgg" placeholder="e.g. 1800">
-            </div>
-            <div id="steelCostField" class="field-card">
-              <div class="field-head"><label for="costSteel">Steel / kg</label></div>
-              <input type="number" id="costSteel" placeholder="e.g. 70">
-            </div>
-          </div>
-
-          <!-- Total Cost Banner -->
-          <div class="hero-result-card" id="totalCostSection" style="display:none; background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border-color: rgba(16, 185, 129, 0.3); margin-top: 1rem;">
-            <div class="label-group">
-              <span class="res-eyebrow" style="color:#065f46;">Total Material Cost</span>
-              <div class="res-val" id="totalCostDisplay" style="color:#047857;">₹ 0</div>
-              <div class="res-desc" style="color:#065f46;">Inclusive of cement, sand, gravel, and reinforcement rebar.</div>
-            </div>
-          </div>
-
-          <!-- Core Metric Result Cards -->
-          <div class="section-subhead"><i class="fas fa-cubes"></i> Calculated Material Breakdown</div>
-          <div class="result-grid">
-            <div class="result-card highlight">
-              <h3>Wet Concrete Volume</h3>
-              <div class="result-value" id="resWetVol">- m³</div>
-            </div>
-            <div class="result-card">
-              <h3>Dry Mix Volume (1.54×)</h3>
-              <div class="result-value" id="resDryVol">- m³</div>
-            </div>
-            <div class="result-card highlight">
-              <h3>Cement Required</h3>
-              <div class="result-value" id="resCement">- Bags</div>
-            </div>
-            <div class="result-card">
-              <h3>Sand Required</h3>
-              <div class="result-value" id="resSand">- m³</div>
-            </div>
-            <div class="result-card highlight">
-              <h3>Aggregate (Gravel)</h3>
-              <div class="result-value" id="resAgg">- m³</div>
-            </div>
-            <div class="result-card positive">
-              <h3>Water Required</h3>
-              <div class="result-value" id="resWater">- L</div>
-            </div>
-            <div class="result-card">
-              <h3>Sand (CFT)</h3>
-              <div class="result-value" id="resSandCft">- ft³</div>
-            </div>
-            <div class="result-card">
-              <h3>Rebar Steel Weight</h3>
-              <div class="result-value" id="resSteel">- kg</div>
-            </div>
-          </div>
-
-          <!-- Charts and Breakdown Table -->
-          <div class="chart-grid">
-            <div class="chart-card">
-              <div style="font-weight:700; font-size:0.92rem; margin-bottom:0.5rem; color:var(--ic-text);"><i class="fas fa-chart-pie" style="color:var(--ic-primary);"></i> Material Volume Mix Ratio</div>
-              <div class="chart-wrap">
-                <canvas id="materialChart"></canvas>
-              </div>
-            </div>
-            <div class="chart-card">
-              <div style="font-weight:700; font-size:0.92rem; margin-bottom:0.5rem; color:var(--ic-text);"><i class="fas fa-list-check" style="color:var(--ic-primary);"></i> Itemized Bill of Quantities (BOQ)</div>
-              <div class="table-shell">
-            <table class="projection-table">
-                  <thead>
-                    <tr>
-                      <th>Material Component</th>
-                      <th>Quantity</th>
-                      <th>Standard Unit</th>
-                    </tr>
-                  </thead>
-                  <tbody id="breakdownTable"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
+          <!-- Buttons -->
           <div class="calculator-actions">
-            <button class="btn btn-primary" id="copyResult" type="button"><i class="fas fa-copy"></i> Copy Materials List</button>
-            <button class="btn btn-ghost" id="resetCalc" type="button"><i class="fas fa-rotate-left"></i> Reset Defaults</button>
+            <button id="recalculateBtn" class="btn btn-primary" type="button"><i class="fas fa-arrows-rotate"></i> 再計算する</button>
+            <button id="resetBtn" class="btn btn-ghost" type="button"><i class="fas fa-rotate-left"></i> 初期設定に戻す</button>
           </div>
-        </article>
 
+          <!-- Material 25kg Bags Callout Card -->
+          <div class="material-card">
+            <div class="material-header">
+              <div class="material-title">
+                <i class="fas fa-cubes-stacked"></i>
+                <span>DIY手練り用 市販25kg袋 換算必要数（1:2:3配合）</span>
+              </div>
+              <span style="font-size:0.75rem; font-weight:800; background:#059669; color:#fff; padding:0.2rem 0.55rem; border-radius:999px;">25kg袋換算</span>
+            </div>
+
+            <div class="material-grid">
+              <div class="material-box highlight">
+                <span class="material-box-label">セメント (25kg袋)</span>
+                <span class="material-box-val" id="cementBagsVal">約 19 袋</span>
+              </div>
+              <div class="material-box">
+                <span class="material-box-label">砂 (細骨材 / 25kg袋)</span>
+                <span class="material-box-val" id="sandBagsVal" style="color:#0284c7;">約 37 袋</span>
+              </div>
+              <div class="material-box">
+                <span class="material-box-label">砂利 (粗骨材 / 25kg袋)</span>
+                <span class="material-box-val" id="gravelBagsVal" style="color:#d97706;">約 55 袋</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Result Grid Cards -->
+          <div class="result-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="result-card">
+              <h3>施工実体積（ロスなし）</h3>
+              <div id="netVolumeVal" class="result-value">1.25 m³</div>
+              <div class="val-sub">約 1,250 リットル</div>
+            </div>
+
+            <div class="result-card positive">
+              <h3>推奨生コン発注量（+5%）</h3>
+              <div id="grossVolumeVal" class="result-value" style="color:#059669;">1.31 m³</div>
+              <div class="val-sub">0.5m³刻み発注なら 1.5 m³</div>
+            </div>
+
+            <div class="result-card">
+              <h3>総重量（打設後コンクリート）</h3>
+              <div id="totalWeightVal" class="result-value" style="color:#475569;">約 3.0 トン</div>
+              <div class="val-sub">比重 約2.3t/m³ で試算</div>
+            </div>
+
+            <div class="result-card" style="background:#f8fafc; border-color:#94a3b8;">
+              <h3 style="color:#475569;">必要水量（目安）</h3>
+              <div id="waterLitresVal" class="result-value" style="color:#0284c7;">約 230 L</div>
+              <div class="val-sub">水セメント比 50% 目安</div>
+            </div>
+          </div>
+
+          <!-- Breakdown Table -->
+          <div class="table-tools" style="margin-top: 1.5rem;">
+            <h3><i class="fas fa-table-list" style="color: var(--ic-primary);"></i> コンクリート材料・配合詳細内訳書</h3>
+            <button id="downloadCsvBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-file-csv"></i> CSVファイルを保存
+            </button>
+          </div>
+
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>材料名</th>
+                  <th>必要重量 (kg)</th>
+                  <th>市販25kg袋 換算袋数</th>
+                  <th>配合比率 (1:2:3)</th>
+                </tr>
+              </thead>
+              <tbody id="breakdownTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="calculator-actions" style="margin-top: 1rem;">
+            <button id="copySummaryBtn" class="btn btn-ghost" type="button">
+              <i class="fas fa-copy"></i> 計算結果をコピー
+            </button>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
         <aside class="sidebar">
           <div class="sidebar-card">
-            <h3>Recent Estimates</h3>
-            <div id="calcLog" class="link-list">
-              <div style="font-size: 0.85rem; color: var(--ic-text-muted); text-align: center; padding: 1rem;">No history logged.</div>
-            </div>
-            <button class="btn btn-ghost" style="width:100%; font-size:0.8rem; min-height:36px; margin-top:0.5rem;" id="clearLog" type="button">Clear History</button>
+            <h3><i class="fas fa-hard-hat" style="color: var(--ic-primary);"></i> 土間コンクリート厚さの目安</h3>
+            <ul style="line-height: 1.7; font-size:0.88rem; padding-left: 1.2rem; color: #334155; margin:0;">
+              <li><strong>普通車駐車場：</strong> 10cm 〜 12cm (メッシュ筋入り)</li>
+              <li><strong>大型車・トラック：</strong> 15cm 〜 20cm</li>
+              <li><strong>犬走り・庭通路：</strong> 8cm 〜 10cm</li>
+              <li><strong>物置基礎・テラス：</strong> 10cm</li>
+            </ul>
           </div>
 
-          <div class="sidebar-card">
-            <h3>Related Tools</h3>
-            <ul class="link-list">
-              <li><a href="diagonalcalculator.html"><span>Diagonal Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../../duration/agecalculator.html"><span>Age Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../../sipcalculator.html"><span>SIP Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../../gstcalculator.html"><span>GST Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
-            </ul>
+          <div class="sidebar-card" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-color: #cbd5e1;">
+            <h3><i class="fas fa-truck-front" style="color: #475569;"></i> 生コン発注のコツ</h3>
+            <p style="font-size: 0.88rem; line-height: 1.55; color: #334155; margin: 0;">
+              ミキサー車（生コン工場）への注文は通常<strong>0.5立米（0.5m³）単位</strong>です。不足すると重大な強度低下を招くため、必ず5%〜10%の余裕を持った端数切り上げで発注しましょう。
+            </p>
           </div>
         </aside>
       </div>
-    </div>
-
-    <!-- Educational Guide Section -->
-    <section class="section" id="guide">
-      <div class="container content-card">
-        <h2 style="font-family: 'Sora', sans-serif; font-size: clamp(1.4rem, 3vw, 1.85rem); margin-bottom: 1rem; color: var(--ic-text);">
-          How to Calculate Concrete Materials (Cement, Sand & Aggregate)
-        </h2>
-        <div class="input-grid">
-          <article>
-            <h3 style="font-family: 'Sora', sans-serif; margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--ic-primary-dark);">The 1.54 Dry Volume Factor</h3>
-            <p style="color: var(--ic-text-muted); font-size: 0.95rem; line-height: 1.6;">
-              When dry materials (cement powder, fine sand, coarse aggregate) are mixed with water, the fine particles fill void spaces between aggregate rocks. Therefore, dry volume decreases by approximately 54%. To prepare 1 m³ of wet compacted concrete, civil engineers multiply by <strong>1.54</strong> to determine dry batch quantities.
-            </p>
-          </article>
-          <article>
-            <h3 style="font-family: 'Sora', sans-serif; margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--ic-primary-dark);">Standard Concrete Grade Mix Ratios</h3>
-            <ul style="color: var(--ic-text-muted); font-size: 0.95rem; line-height: 1.7; padding-left: 1.2rem;">
-              <li><strong>M10 (1:3:6):</strong> Characteristic strength 10 MPa. Ideal for leveling beds and mass foundations.</li>
-              <li><strong>M15 (1:2:4):</strong> Characteristic strength 15 MPa. Used for non-structural pathways and plain concrete.</li>
-              <li><strong>M20 (1:1.5:3):</strong> Characteristic strength 20 MPa. The universal benchmark for residential RCC slabs, beams, and columns.</li>
-              <li><strong>M25 (1:1:2):</strong> Characteristic strength 25 MPa. High-strength mix for heavy load-bearing structural members.</li>
-            </ul>
-          </article>
-        </div>
-      </div>
     </section>
 
-    <!-- FAQ Section -->
+    <!-- Comprehensive Japanese Educational Article -->
     <section class="section">
       <div class="container">
-        <div class="faq-list">
-          <details class="faq-card" open>
-            <summary>How many bags of cement are needed for 1 cubic meter of M20 concrete? <i class="fas fa-chevron-down"></i></summary>
-            <p>For standard M20 grade concrete (1:1.5:3 ratio), you will need approximately <strong>8.2 to 8.4 bags</strong> of 50 kg cement per cubic meter of wet concrete, including standard 5% site wastage.</p>
-          </details>
-          <details class="faq-card">
-            <summary>How much sand and aggregate is required per cubic meter? <i class="fas fa-chevron-down"></i></summary>
-            <p>For 1 m³ of M20 mix, you will need approximately <strong>0.44 m³ (15.5 CFT)</strong> of clean fine sand and <strong>0.88 m³ (31.1 CFT)</strong> of coarse aggregate (20mm gravel).</p>
-          </details>
-          <details class="faq-card">
-            <summary>How is rebar steel weight estimated for RCC elements? <i class="fas fa-chevron-down"></i></summary>
-            <p>Steel reinforcement is standardly estimated by structural volume: Slabs require ~80 kg/m³, Beams ~120 kg/m³, Columns ~145 kg/m³, and Footings ~80 kg/m³.</p>
-          </details>
-        </div>
+        <article class="content-card">
+          <h2>コンクリート体積（立米）の計算方法と配合の基本</h2>
+          <p>
+            コンクリートの量は立方メートル（m³）、通称<strong>「立米（りゅうべい）」</strong>で計算します。
+            体積計算は「縦 × 横 × 厚さ」の掛け算が基本ですが、施工時のロスや手練り・生コン発注の違いを理解することが重要です。
+          </p>
+
+          <h3>1. コンクリートの標準配合比率（1 : 2 : 3）</h3>
+          <p>
+            土間コンクリートや基礎など強度が必要な場所では、<strong>セメント 1 ： 砂 2 ： 砂利 3</strong>（容積・重量比）が基本となります。
+            1立米（$1\text{m}^3$）のコンクリートを作る場合、セメント約350kg（14袋）、砂約700kg（28袋）、砂利約1,050kg（42袋）が必要です。
+          </p>
+        </article>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© 2026 InstaCalc.in — Precision Civil & Mathematical Engineering Tools.</p>
+      <p>InstaCalc.in - 日常のあらゆる計算を速く、正確に、シンプルにする無料計算ツール群</p>
       <div class="footer-links">
-        <a href="../../index.html">Home</a>
-        <a href="../../aboutus.html">About Us</a>
-        <a href="../../privacypolicy.html">Privacy Policy</a>
-        <a href="../../terms.html">Terms &amp; Conditions</a>
+        <a href="../index.html">ホーム</a>
+        <a href="../aboutus.html">運営者情報</a>
+        <a href="../contactus.html">お問い合わせ</a>
+        <a href="../privacypolicy.html">プライバシーポリシー</a>
+        <a href="../../terms.html">利用規約</a>
       </div>
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="ページ上部へ戻る">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
   <script>
     (function () {
-      const $ = id => document.getElementById(id);
-      let currentShape = 'slab';
-      let chartInstance = null;
-      let log = [];
+      let currentShape = "slab";
 
-      const MIX_DATA = {
-        'M5': [1, 5, 10],
-        'M7.5': [1, 4, 8],
-        'M10': [1, 3, 6],
-        'M15': [1, 2, 4],
-        'M20': [1, 1.5, 3],
-        'M25': [1, 1, 2]
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+
+        shapeButtons: document.querySelectorAll(".shape-btn"),
+        slabInputs: document.getElementById("slabInputs"),
+        footingInputs: document.getElementById("footingInputs"),
+        columnInputs: document.getElementById("columnInputs"),
+
+        lengthM: document.getElementById("lengthM"),
+        widthM: document.getElementById("widthM"),
+        thicknessCm: document.getElementById("thicknessCm"),
+        footingLengthM: document.getElementById("footingLengthM"),
+        footingWidthCm: document.getElementById("footingWidthCm"),
+        footingDepthCm: document.getElementById("footingDepthCm"),
+        colDiameterCm: document.getElementById("colDiameterCm"),
+        colHeightM: document.getElementById("colHeightM"),
+        colCount: document.getElementById("colCount"),
+
+        lossFactor: document.getElementById("lossFactor"),
+
+        heroVolumeVal: document.getElementById("heroVolumeVal"),
+        heroVolumeSub: document.getElementById("heroVolumeSub"),
+        cementBagsVal: document.getElementById("cementBagsVal"),
+        sandBagsVal: document.getElementById("sandBagsVal"),
+        gravelBagsVal: document.getElementById("gravelBagsVal"),
+
+        netVolumeVal: document.getElementById("netVolumeVal"),
+        grossVolumeVal: document.getElementById("grossVolumeVal"),
+        totalWeightVal: document.getElementById("totalWeightVal"),
+        waterLitresVal: document.getElementById("waterLitresVal"),
+
+        breakdownTableBody: document.getElementById("breakdownTableBody")
       };
 
-      const SHAPES = {
-        slab: {
-          label: 'Rectangular Slab',
-          icon: 'fa-layer-group',
-          fields: [
-            { id: 'inp_l', label: 'Length (m)', def: 5, chips: [3, 5, 8, 10, 15] },
-            { id: 'inp_w', label: 'Width (m)', def: 4, chips: [3, 4, 6, 8, 10] },
-            { id: 'inp_t', label: 'Thickness (m)', def: 0.15, chips: [0.10, 0.125, 0.15, 0.20] }
-          ]
-        },
-        column: {
-          label: 'Square / Rectangular Column',
-          icon: 'fa-monument',
-          fields: [
-            { id: 'inp_l', label: 'Side A Width (m)', def: 0.30, chips: [0.23, 0.30, 0.45, 0.60] },
-            { id: 'inp_w', label: 'Side B Breadth (m)', def: 0.45, chips: [0.23, 0.30, 0.45, 0.60] },
-            { id: 'inp_h', label: 'Height / Clear Length (m)', def: 3.0, chips: [2.5, 3.0, 3.5, 4.0] },
-            { id: 'inp_qty', label: 'Number of Columns', def: 1, chips: [1, 4, 6, 8, 12] }
-          ]
-        },
-        beam: {
-          label: 'Structural Beam',
-          icon: 'fa-ruler-horizontal',
-          fields: [
-            { id: 'inp_l', label: 'Beam Length (m)', def: 4.0, chips: [3, 4, 5, 6, 8] },
-            { id: 'inp_w', label: 'Beam Width (m)', def: 0.23, chips: [0.23, 0.30, 0.38] },
-            { id: 'inp_d', label: 'Beam Depth (m)', def: 0.45, chips: [0.30, 0.45, 0.60] },
-            { id: 'inp_qty', label: 'Quantity', def: 1, chips: [1, 2, 4, 6] }
-          ]
-        },
-        footing: {
-          label: 'Foundation Footing',
-          icon: 'fa-cube',
-          fields: [
-            { id: 'inp_l', label: 'Footing Length (m)', def: 1.8, chips: [1.2, 1.5, 1.8, 2.4] },
-            { id: 'inp_w', label: 'Footing Width (m)', def: 1.8, chips: [1.2, 1.5, 1.8, 2.4] },
-            { id: 'inp_d', label: 'Depth / Thickness (m)', def: 0.45, chips: [0.30, 0.45, 0.60] },
-            { id: 'inp_qty', label: 'Number of Footings', def: 4, chips: [1, 4, 6, 8, 12] }
-          ]
-        },
-        staircase: {
-          label: 'Staircase Steps & Waist',
-          icon: 'fa-stairs',
-          fields: [
-            { id: 'inp_tr', label: 'Tread Run (m)', def: 0.25, chips: [0.25, 0.28, 0.30] },
-            { id: 'inp_rs', label: 'Riser Height (m)', def: 0.15, chips: [0.15, 0.175, 0.20] },
-            { id: 'inp_w', label: 'Stair Width (m)', def: 1.2, chips: [0.9, 1.0, 1.2, 1.5] },
-            { id: 'inp_qty', label: 'Total Number of Steps', def: 15, chips: [10, 12, 15, 18, 20] }
-          ]
-        },
-        circle: {
-          label: 'Circular Column / Tank',
-          icon: 'fa-circle-notch',
-          fields: [
-            { id: 'inp_dia', label: 'Diameter (m)', def: 0.45, chips: [0.30, 0.45, 0.60, 1.0, 2.0] },
-            { id: 'inp_h', label: 'Height / Depth (m)', def: 3.0, chips: [2.5, 3.0, 3.5, 4.0] },
-            { id: 'inp_qty', label: 'Quantity', def: 1, chips: [1, 2, 4, 6] }
-          ]
-        },
-        wall: {
-          label: 'Retaining / Shear Wall',
-          icon: 'fa-border-all',
-          fields: [
-            { id: 'inp_l', label: 'Wall Length (m)', def: 10.0, chips: [5, 10, 15, 20] },
-            { id: 'inp_h', label: 'Wall Height (m)', def: 3.0, chips: [2.5, 3.0, 3.5, 4.0] },
-            { id: 'inp_t', label: 'Wall Thickness (m)', def: 0.23, chips: [0.15, 0.20, 0.23, 0.30] }
-          ]
-        }
-      };
+      let lastSummaryText = "";
+      let lastRows = [];
 
-      function formatNum(n, decimals = 2) {
-        return Number(n).toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-      }
-
-      function initInputs() {
-        const wrap = $('shapeInputs');
-        const shape = SHAPES[currentShape];
-        $('currentShapeLabel').textContent = `${shape.label} Dimensions (Meters)`;
-        $('heroShapeTitle').textContent = `${shape.label} Concrete Volume`;
-
-        let html = '<div class="inline-grid">';
-        shape.fields.forEach(f => {
-          html += `
-            <div class="field-card">
-              <div class="field-head">
-                <label for="${f.id}">${f.label}</label>
-                <span id="${f.id}_val">${f.def}</span>
-              </div>
-              <input type="number" id="${f.id}" value="${f.def}" step="0.01" min="0.01" class="calc-trigger">
-              <div class="chips-wrap" data-target="${f.id}">
-                ${f.chips.map(c => `<button type="button" class="chip" data-val="${c}">${c} m</button>`).join('')}
-              </div>
-            </div>`;
-        });
-        html += '</div>';
-        wrap.innerHTML = html;
-
-        wrap.querySelectorAll('.calc-trigger').forEach(el => {
-          el.addEventListener('input', () => {
-            const valSpan = $(`${el.id}_val`);
-            if (valSpan) valSpan.textContent = el.value;
-            calculate();
-          });
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) return;
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
         });
 
-        wrap.querySelectorAll('.chip').forEach(btn => {
-          btn.addEventListener('click', function () {
-            const parent = this.parentElement;
-            const targetId = parent.dataset.target;
-            const targetInput = $(targetId);
-            if (targetInput) {
-              targetInput.value = this.dataset.val;
-              const valSpan = $(`${targetId}_val`);
-              if (valSpan) valSpan.textContent = this.dataset.val;
-              calculate();
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 960) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
             }
           });
         });
-
-        renderSVG();
       }
 
-      function renderSVG() {
-        const svgWrap = $('svgCanvasWrap');
-        if (!svgWrap) return;
-        const s = currentShape;
-        let svg = '';
-
-        if (s === 'slab') {
-          svg = `<svg viewBox="0 0 300 130" width="260" height="120" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="50,70 170,30 250,50 130,90" fill="rgba(0,127,139,0.2)" stroke="#007f8b" stroke-width="2.5" />
-            <polygon points="50,70 130,90 130,110 50,90" fill="rgba(0,127,139,0.35)" stroke="#007f8b" stroke-width="2" />
-            <polygon points="130,90 250,50 250,70 130,110" fill="rgba(0,127,139,0.45)" stroke="#007f8b" stroke-width="2" />
-            <text x="90" y="105" fill="#0f172a" font-size="11" font-weight="700" text-anchor="middle">Length</text>
-            <text x="200" y="85" fill="#0f172a" font-size="11" font-weight="700" text-anchor="middle">Width</text>
-            <text x="40" y="85" fill="#007f8b" font-size="10" font-weight="700">Thickness</text>
-          </svg>`;
-        } else if (s === 'column' || s === 'beam') {
-          svg = `<svg viewBox="0 0 300 130" width="260" height="120" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="120,20 180,20 180,105 120,105" fill="rgba(0,127,139,0.2)" stroke="#007f8b" stroke-width="2.5" />
-            <polygon points="180,20 205,35 205,120 180,105" fill="rgba(0,127,139,0.4)" stroke="#007f8b" stroke-width="2" />
-            <polygon points="120,20 145,5 205,35 180,20" fill="rgba(0,127,139,0.3)" stroke="#007f8b" stroke-width="2" />
-            <text x="150" y="65" fill="#007f8b" font-size="12" font-weight="800" text-anchor="middle">RCC Member</text>
-          </svg>`;
-        } else if (s === 'staircase') {
-          svg = `<svg viewBox="0 0 300 130" width="260" height="120" xmlns="http://www.w3.org/2000/svg">
-            <path d="M50,110 L90,110 L90,85 L130,85 L130,60 L170,60 L170,35 L210,35 L210,15 L230,15 L230,65 L90,120 Z" fill="rgba(0,127,139,0.25)" stroke="#007f8b" stroke-width="2.5" />
-            <text x="140" y="105" fill="#007f8b" font-size="11" font-weight="700">Steps + Waist Slab</text>
-          </svg>`;
-        } else if (s === 'circle') {
-          svg = `<svg viewBox="0 0 300 130" width="260" height="120" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="150" cy="30" rx="45" ry="15" fill="rgba(0,127,139,0.25)" stroke="#007f8b" stroke-width="2.5" />
-            <path d="M105,30 L105,95 A45,15 0 0,0 195,95 L195,30 Z" fill="rgba(0,127,139,0.35)" stroke="#007f8b" stroke-width="2" />
-            <text x="150" y="65" fill="#0f172a" font-size="11" font-weight="800" text-anchor="middle">Diameter &times; Height</text>
-          </svg>`;
-        } else {
-          svg = `<svg viewBox="0 0 300 130" width="260" height="120" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="50,30 250,30 250,105 50,105" fill="rgba(0,127,139,0.2)" stroke="#007f8b" stroke-width="2.5" />
-            <text x="150" y="70" fill="#007f8b" font-size="13" font-weight="800" text-anchor="middle">Retaining Wall</text>
-          </svg>`;
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) return;
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
         }
-        svgWrap.innerHTML = svg;
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
       }
 
-      let lastSummaryText = '';
+      function parseNum(input, fallback) {
+        const val = Number(input);
+        return Number.isFinite(val) ? val : fallback;
+      }
 
-      function calculate() {
-        let wetVol = 0;
-        const s = currentShape;
+      function calculateVolume() {
+        let netM3 = 0;
 
-        if (s === 'slab') {
-          const l = parseFloat($('inp_l')?.value) || 0;
-          const w = parseFloat($('inp_w')?.value) || 0;
-          const t = parseFloat($('inp_t')?.value) || 0;
-          wetVol = l * w * t;
-        } else if (s === 'column' || s === 'beam' || s === 'footing') {
-          const l = parseFloat($('inp_l')?.value) || 0;
-          const w = parseFloat($('inp_w')?.value) || 0;
-          const d = parseFloat($('inp_d')?.value || $('inp_h')?.value) || 0;
-          const qty = parseFloat($('inp_qty')?.value) || 1;
-          wetVol = l * w * d * qty;
-        } else if (s === 'staircase') {
-          const tr = parseFloat($('inp_tr')?.value) || 0;
-          const rs = parseFloat($('inp_rs')?.value) || 0;
-          const w = parseFloat($('inp_w')?.value) || 0;
-          const qty = parseFloat($('inp_qty')?.value) || 0;
-          const stepsVol = (0.5 * tr * rs) * w * qty;
-          const waistVol = (tr * qty) * w * 0.15;
-          wetVol = stepsVol + waistVol;
-        } else if (s === 'circle') {
-          const dia = parseFloat($('inp_dia')?.value) || 0;
-          const h = parseFloat($('inp_h')?.value) || 0;
-          const qty = parseFloat($('inp_qty')?.value) || 1;
-          wetVol = Math.PI * Math.pow(dia / 2, 2) * h * qty;
-        } else if (s === 'wall') {
-          const l = parseFloat($('inp_l')?.value) || 0;
-          const h = parseFloat($('inp_h')?.value) || 0;
-          const t = parseFloat($('inp_t')?.value) || 0;
-          wetVol = l * h * t;
+        if (currentShape === "slab") {
+          const l = parseNum(elements.lengthM.value, 5);
+          const w = parseNum(elements.widthM.value, 2.5);
+          const t = parseNum(elements.thicknessCm.value, 10) / 100;
+          netM3 = l * w * t;
+        } else if (currentShape === "footing") {
+          const l = parseNum(elements.footingLengthM.value, 20);
+          const w = parseNum(elements.footingWidthCm.value, 15) / 100;
+          const d = parseNum(elements.footingDepthCm.value, 40) / 100;
+          netM3 = l * w * d;
+        } else if (currentShape === "column") {
+          const r = (parseNum(elements.colDiameterCm.value, 30) / 2) / 100;
+          const h = parseNum(elements.colHeightM.value, 2.5);
+          const count = parseNum(elements.colCount.value, 4);
+          netM3 = Math.PI * r * r * h * count;
         }
 
-        const grade = $('concreteGrade').value;
-        let c, sa, ag;
-        if (grade === 'custom') {
-          c = parseFloat($('ratioC').value) || 1;
-          sa = parseFloat($('ratioS').value) || 1.5;
-          ag = parseFloat($('ratioA').value) || 3;
-          $('customRatioFields').style.display = 'block';
-        } else {
-          [c, sa, ag] = MIX_DATA[grade];
-          $('customRatioFields').style.display = 'none';
-        }
+        const lossPct = parseNum(elements.lossFactor.value, 5);
+        const grossM3 = netM3 * (1 + lossPct / 100);
 
-        const totalParts = c + sa + ag;
-        const dryVolFactor = 1.54;
-        const wastagePercent = parseFloat($('wastage').value) || 0;
-        $('wastageVal').textContent = wastagePercent + '%';
-        const wastage = 1 + (wastagePercent / 100);
-        const dryVol = wetVol * dryVolFactor * wastage;
+        // 1m3 standard mix = 350kg cement, 700kg sand, 1050kg gravel, 175L water
+        const cementKg = Math.round(grossM3 * 350);
+        const sandKg = Math.round(grossM3 * 700);
+        const gravelKg = Math.round(grossM3 * 1050);
+        const waterL = Math.round(grossM3 * 175);
+        const totalWeightTons = (grossM3 * 2.3).toFixed(1);
 
-        const cementVol = (c / totalParts) * dryVol;
-        const sandVol = (sa / totalParts) * dryVol;
-        const aggVol = (ag / totalParts) * dryVol;
+        const cementBags = Math.ceil(cementKg / 25);
+        const sandBags = Math.ceil(sandKg / 25);
+        const gravelBags = Math.ceil(gravelKg / 25);
 
-        const cementDensity = 1440; // kg/m3
-        const bagSize = parseFloat($('cementBagSize').value) || 50;
-        const cementBags = (cementVol * cementDensity) / bagSize;
-        const waterLiters = (cementVol * cementDensity) * 0.5; // 0.5 W/C ratio
-        const sandCft = sandVol * 35.3147;
-        const aggTonnes = aggVol * 1.6;
+        return {
+          netM3: netM3,
+          grossM3: grossM3,
+          lossPct: lossPct,
+          cementKg: cementKg,
+          sandKg: sandKg,
+          gravelKg: gravelKg,
+          waterL: waterL,
+          totalWeightTons: totalWeightTons,
+          cementBags: cementBags,
+          sandBags: sandBags,
+          gravelBags: gravelBags
+        };
+      }
 
-        const includeSteel = $('includeSteel').checked;
-        const steelRatePerM3 = (s === 'column' ? 145 : s === 'beam' ? 120 : s === 'footing' ? 80 : 80);
-        const steelKg = includeSteel ? (wetVol * steelRatePerM3) : 0;
+      function calculateAndRender() {
+        const res = calculateVolume();
 
-        // UI Updates
-        $('heroVolDisplay').textContent = `${formatNum(wetVol)} m³ (${formatNum(wetVol * 1.30795)} yd³)`;
-        $('heroMaterialSummary').textContent = `Cement: ${Math.ceil(cementBags)} Bags | Sand: ${formatNum(sandVol)} m³ (${formatNum(sandCft)} ft³) | Gravel: ${formatNum(aggVol)} m³`;
+        // Top Hero
+        elements.heroVolumeVal.textContent = `${res.grossM3.toFixed(2)} m³ (立米)`;
+        elements.heroVolumeSub.textContent = `実体積: ${res.netM3.toFixed(2)} m³ | ロス割り増し (+${res.lossPct}%): +${(res.grossM3 - res.netM3).toFixed(2)} m³`;
 
-        $('resWetVol').textContent = `${formatNum(wetVol)} m³`;
-        $('resDryVol').textContent = `${formatNum(dryVol)} m³`;
-        $('resCement').textContent = `${Math.ceil(cementBags)} Bags (${formatNum(cementVol * cementDensity, 0)} kg)`;
-        $('resSand').textContent = `${formatNum(sandVol)} m³`;
-        $('resSandCft').textContent = `${formatNum(sandCft, 1)} CFT`;
-        $('resAgg').textContent = `${formatNum(aggVol)} m³ (${formatNum(aggTonnes, 1)} MT)`;
-        $('resWater').textContent = `${formatNum(waterLiters, 0)} L`;
-        $('resSteel').textContent = includeSteel ? `${formatNum(steelKg, 0)} kg` : 'Disabled';
+        // Material 25kg Bags Callout Card
+        elements.cementBagsVal.textContent = `約 ${res.cementBags} 袋 (${res.cementKg} kg)`;
+        elements.sandBagsVal.textContent = `約 ${res.sandBags} 袋 (${res.sandKg} kg)`;
+        elements.gravelBagsVal.textContent = `約 ${res.gravelBags} 袋 (${res.gravelKg} kg)`;
 
-        const mobVal = $('mobileSummaryVal');
-        if (mobVal) {
-          mobVal.textContent = `${formatNum(wetVol)} m³ • ${Math.ceil(cementBags)} Bags`;
-        }
+        // Results Grid
+        elements.netVolumeVal.textContent = `${res.netM3.toFixed(2)} m³`;
+        elements.grossVolumeVal.textContent = `${res.grossM3.toFixed(2)} m³`;
+        elements.totalWeightVal.textContent = `約 ${res.totalWeightTons} トン`;
+        elements.waterLitresVal.textContent = `約 ${res.waterL} L`;
 
         // Breakdown Table
-        const breakdown = [
-          ['Portland Cement', `${Math.ceil(cementBags)} (${formatNum(cementVol * cementDensity, 0)} kg)`, 'Bags / kg'],
-          ['River Sand (Fine)', `${formatNum(sandVol)} (${formatNum(sandCft, 1)} CFT)`, 'm³ / ft³'],
-          ['Coarse Aggregate (Gravel)', `${formatNum(aggVol)} (${formatNum(aggTonnes, 1)} MT)`, 'm³ / Tonnes'],
-          ['Mixing Water', formatNum(waterLiters, 0), 'Litres'],
-          ['Steel Rebar Reinforcement', includeSteel ? formatNum(steelKg, 0) : '0', 'kg']
+        const rows = [
+          { name: "① 普通ポルトランドセメント", kg: `${res.cementKg} kg`, bags: `${res.cementBags} 袋 (25kg/袋)`, ratio: "1 (約350kg/m³)" },
+          { name: "② 砂 (細骨材)", kg: `${res.sandKg} kg`, bags: `${res.sandBags} 袋 (25kg/袋)`, ratio: "2 (約700kg/m³)" },
+          { name: "③ 砂利・砕石 (粗骨材)", kg: `${res.gravelKg} kg`, bags: `${res.gravelBags} 袋 (25kg/袋)`, ratio: "3 (約1,050kg/m³)" },
+          { name: "④ 練り混ぜ水", kg: `${res.waterL} L (kg)`, bags: "-", ratio: "水セメント比 約50%" }
         ];
-        $('breakdownTable').innerHTML = breakdown.map(r => `<tr><td style="font-weight:600;">${r[0]}</td><td style="font-weight:700; color:var(--ic-primary-dark);">${r[1]}</td><td>${r[2]}</td></tr>`).join('');
+        lastRows = rows;
 
-        // Cost Calculation
-        calculateCost(cementBags, sandVol, aggVol, steelKg);
-        updateChart(c, sa, ag);
+        elements.breakdownTableBody.innerHTML = rows.map(r => `
+          <tr>
+            <td><strong>${r.name}</strong></td>
+            <td style="font-weight:700; color:#0284c7;">${r.kg}</td>
+            <td style="font-weight:800; color:#059669;">${r.bags}</td>
+            <td style="color:#64748b; font-size:0.88rem;">${r.ratio}</td>
+          </tr>
+        `).join("");
 
-        lastSummaryText = `Concrete Material Estimate (${SHAPES[currentShape].label}):\nWet Volume: ${formatNum(wetVol)} m³ (${formatNum(wetVol * 1.30795)} yd³)\nDry Volume (1.54×): ${formatNum(dryVol)} m³\nCement: ${Math.ceil(cementBags)} Bags\nSand: ${formatNum(sandVol)} m³ (${formatNum(sandCft, 1)} CFT)\nAggregate: ${formatNum(aggVol)} m³\nWater: ${formatNum(waterLiters, 0)} Litres\nRebar Steel: ${formatNum(steelKg, 0)} kg`;
+        // Summary Text
+        lastSummaryText = [
+          `【生コンクリート・基礎打設 体積計算結果】`,
+          `必要発注体積 (ロス率${res.lossPct}%込): ${res.grossM3.toFixed(2)} m³ (立米)`,
+          `施工実体積: ${res.netM3.toFixed(2)} m³`,
+          `---------------------------------`,
+          `【DIY手練り用 25kg袋 換算】`,
+          `セメント: 約 ${res.cementBags} 袋 (${res.cementKg} kg)`,
+          `砂 (細骨材): 約 ${res.sandBags} 袋 (${res.sandKg} kg)`,
+          `砂利 (粗骨材): 約 ${res.gravelBags} 袋 (${res.gravelKg} kg)`,
+          `練り混ぜ水目安: 約 ${res.waterL} リットル`,
+          `---------------------------------`,
+          `計算元: InstaCalc (https://instacalc.in/ja/moretools/concretecalculator.html)`
+        ].join('\n');
       }
 
-      function calculateCost(cb, sv, av, sk) {
-        const costC = parseFloat($('costCement')?.value) || 0;
-        const costS = parseFloat($('costSand')?.value) || 0;
-        const costA = parseFloat($('costAgg')?.value) || 0;
-        const costSt = parseFloat($('costSteel')?.value) || 0;
-
-        const total = (Math.ceil(cb) * costC) + (sv * costS) + (av * costA) + (sk * costSt);
-        const card = $('totalCostSection');
-        if (total > 0) {
-          card.style.display = 'flex';
-          $('totalCostDisplay').textContent = (window.currencyManager ? window.currencyManager.formatWithUnits(total) : '₹ ' + total.toLocaleString());
-        } else {
-          card.style.display = 'none';
-        }
-      }
-
-      function updateChart(c, sa, ag) {
-        const ctx = $('materialChart')?.getContext('2d');
-        if (!ctx) return;
-        if (chartInstance) chartInstance.destroy();
-        chartInstance = new Chart(ctx, {
-          type: 'doughnut',
-          data: {
-            labels: ['Cement', 'Sand', 'Aggregate'],
-            datasets: [{
-              data: [c, sa, ag],
-              backgroundColor: ['#007f8b', '#f59e0b', '#64748b'],
-              borderWidth: 2,
-              borderColor: '#ffffff',
-              hoverOffset: 6
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: { position: 'bottom' }
-            }
-          }
-        });
-      }
-
-      function syncUI() {
-        document.querySelectorAll('.mode-pill-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            document.querySelectorAll('.mode-pill-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentShape = btn.dataset.shape;
-            initInputs();
-            calculate();
-          });
-        });
-
-        $('includeSteel').addEventListener('change', (e) => {
-          $('steelCostField').style.display = e.target.checked ? 'block' : 'none';
-          calculate();
-        });
-
-        $('concreteGrade').addEventListener('change', calculate);
-        $('cementBagSize').addEventListener('change', calculate);
-        $('wastage').addEventListener('input', calculate);
-
-        ['costCement', 'costSand', 'costAgg', 'costSteel', 'ratioC', 'ratioS', 'ratioA'].forEach(id => {
-          const el = $(id);
-          if (el) el.addEventListener('input', calculate);
-        });
-
-        if (window.currencyManager) {
-          window.currencyManager.onChange(calculate);
-        }
-
-        function copySummary(btn) {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(lastSummaryText).then(() => {
-              const orig = btn.innerHTML;
-              btn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
-              setTimeout(() => btn.innerHTML = orig, 1800);
-              saveToLog();
+      function wireEvents() {
+        elements.shapeButtons.forEach(btn => {
+          btn.addEventListener("click", function () {
+            elements.shapeButtons.forEach(b => {
+              b.classList.remove("btn-primary", "active");
+              b.classList.add("btn-ghost");
             });
-          }
-        }
+            this.classList.add("btn-primary", "active");
+            this.classList.remove("btn-ghost");
 
-        $('copyResult')?.addEventListener('click', function() { copySummary(this); });
-        $('copyHeroBtn')?.addEventListener('click', function() { copySummary(this); });
-
-        $('resetCalc')?.addEventListener('click', () => {
-          currentShape = 'slab';
-          document.querySelectorAll('.mode-pill-btn').forEach(b => b.classList.toggle('active', b.dataset.shape === 'slab'));
-          initInputs();
-          calculate();
+            currentShape = this.getAttribute("data-shape");
+            elements.slabInputs.style.display = currentShape === "slab" ? "grid" : "none";
+            elements.footingInputs.style.display = currentShape === "footing" ? "grid" : "none";
+            elements.columnInputs.style.display = currentShape === "column" ? "grid" : "none";
+            calculateAndRender();
+          });
         });
 
-        $('clearLog')?.addEventListener('click', () => {
-          log = [];
-          localStorage.removeItem('conc_log');
-          renderLog();
+        // Inputs change
+        const allInputs = [
+          elements.lengthM, elements.widthM, elements.thicknessCm,
+          elements.footingLengthM, elements.footingWidthCm, elements.footingDepthCm,
+          elements.colDiameterCm, elements.colHeightM, elements.colCount,
+          elements.lossFactor
+        ];
+        allInputs.forEach(inp => {
+          if (inp) inp.addEventListener("input", calculateAndRender);
         });
-      }
 
-      function saveToLog() {
-        const entry = {
-          shape: SHAPES[currentShape].label,
-          vol: $('resWetVol').textContent,
-          bags: $('resCement').textContent,
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        };
-        log.unshift(entry);
-        if (log.length > 5) log.pop();
-        localStorage.setItem('conc_log', JSON.stringify(log));
-        renderLog();
-      }
+        // Presets
+        document.querySelectorAll(".chips-group button[data-preset]").forEach(btn => {
+          btn.addEventListener("click", function () {
+            this.parentElement.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
 
-      function renderLog() {
-        const wrap = $('calcLog');
-        if (!wrap) return;
-        if (log.length === 0) {
-          wrap.innerHTML = '<div style="font-size: 0.85rem; color: var(--ic-text-muted); text-align: center; padding: 1rem;">No history logged.</div>';
-          return;
-        }
-        wrap.innerHTML = log.map(e => `
-          <div style="border: 1px solid var(--ic-border); padding: 0.65rem; border-radius: var(--ic-radius-sm); background: #fff; display:grid; gap:0.2rem;">
-            <div style="display:flex; justify-content:space-between; font-weight:700; font-size:0.8rem; color:var(--ic-primary-dark);">
-              <span>${e.shape}</span>
-              <span style="opacity:0.6;">${e.time}</span>
-            </div>
-            <div style="font-size: 0.82rem;">Volume: <strong>${e.vol}</strong></div>
-            <div style="font-size: 0.82rem;">Cement: <strong>${e.bags}</strong></div>
-          </div>
-        `).join('');
-      }
+            // Switch to slab
+            elements.shapeButtons[0].click();
+            const p = this.getAttribute("data-preset");
+            if (p === "car1") {
+              elements.lengthM.value = 5.0;
+              elements.widthM.value = 2.5;
+              elements.thicknessCm.value = 10;
+            } else if (p === "car2") {
+              elements.lengthM.value = 5.0;
+              elements.widthM.value = 5.0;
+              elements.thicknessCm.value = 10;
+            } else if (p === "pathway") {
+              elements.lengthM.value = 8.0;
+              elements.widthM.value = 1.0;
+              elements.thicknessCm.value = 8;
+            } else if (p === "terrace") {
+              elements.lengthM.value = 3.0;
+              elements.widthM.value = 3.0;
+              elements.thicknessCm.value = 10;
+            }
+            calculateAndRender();
+          });
+        });
 
-      function setupGlobal() {
-        const menuBtn = $('menuToggle');
-        const nav = $('siteNav');
-        if (menuBtn && nav) {
-          menuBtn.addEventListener('click', () => {
-            const isOpen = nav.classList.toggle('open');
-            menuBtn.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        if (elements.recalculateBtn) elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        if (elements.resetBtn) {
+          elements.resetBtn.addEventListener("click", function () {
+            elements.shapeButtons[0].click();
+            elements.lengthM.value = 5.0;
+            elements.widthM.value = 2.5;
+            elements.thicknessCm.value = 10;
+            elements.lossFactor.value = "5";
+            calculateAndRender();
           });
         }
 
-        const saved = localStorage.getItem('conc_log');
-        if (saved) {
-          try { log = JSON.parse(saved); } catch(e) {}
+        // Copy Text
+        function copyText(text, btnEl) {
+          if (!navigator.clipboard || !text) return;
+          navigator.clipboard.writeText(text).then(() => {
+            const orig = btnEl.innerHTML;
+            btnEl.innerHTML = `<i class="fas fa-check"></i> コピー完了！`;
+            setTimeout(() => { btnEl.innerHTML = orig; }, 1800);
+          });
+        }
+
+        if (elements.copySummaryBtn) elements.copySummaryBtn.addEventListener("click", () => copyText(lastSummaryText, elements.copySummaryBtn));
+        if (elements.copyHeroBtn) elements.copyHeroBtn.addEventListener("click", () => copyText(lastSummaryText, elements.copyHeroBtn));
+
+        // CSV Export
+        if (elements.downloadCsvBtn) {
+          elements.downloadCsvBtn.addEventListener("click", function () {
+            if (!lastRows.length) return;
+            const headers = ["材料名", "必要重量(kg)", "市販25kg袋 換算袋数", "配合比率"];
+            const rows = lastRows.map(r => [
+              r.name,
+              r.kg,
+              r.bags,
+              r.ratio
+            ]);
+
+            const csvContent = [headers.join(",")].concat(rows.map(r => r.join(","))).join("\n");
+            const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `コンクリート必要量_材料内訳_${new Date().toISOString().slice(0, 10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          });
         }
       }
 
-      const langSelect = $('langSelect');
-      if (langSelect) {
-        langSelect.value = 'ja';
-        langSelect.addEventListener('change', function () {
-          if (this.value === 'ru') {
-            localStorage.setItem('user_lang', 'ru');
-            window.location.href = '../ru/moretools/concretecalculator.html';
-          } else if (this.value === 'ja') {
-            localStorage.setItem('user_lang', 'ja');
-            window.location.href = '../ja/moretools/concretecalculator.html';
-          } else if (this.value === 'ko') {
-            localStorage.setItem('user_lang', 'ko');
-            window.location.href = '../ko/moretools/concretecalculator.html';
-          }
-        });
-      }
-
-      // Initial Start
-      setupGlobal();
-      initInputs();
-      syncUI();
-      renderLog();
-      calculate();
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      calculateAndRender();
     })();
   </script>
+  <script type="module" src="../../firebase.js"></script>
   <script defer src="../../fullscreen-mode.js"></script>
+  <script src="../../language-dialog.js" defer></script>
 </body>
 
 </html>
