@@ -1,26 +1,32 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 
 <head>
   <meta charset="UTF-8">
   <script>
-    (function () {
-      localStorage.setItem('user_lang', 'ru');
-    })();
+  (function() {
+    const pref = localStorage.getItem('user_lang');
+    const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    if (pref === 'ru' || (!pref && browserLang.startsWith('ru'))) {
+      window.location.replace('../ru/duration/agecalculator.html');
+    } else if (pref === 'ja' || (!pref && browserLang.startsWith('ja'))) {
+      window.location.replace('../ja/duration/agecalculator.html');
+    }
+  })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Калькулятор возраста онлайн | Рассчитать возраст по дате рождения</title>
+  <title>Age Calculator – Calculate Age from Date of Birth Online (Exact Years, Months, Days)</title>
   <meta name="description"
-    content="Бесплатный онлайн-калькулятор возраста — расчет точного возраста в годах, месяцах и днях от даты рождения. Узнайте свой точный возраст до секунд, знак зодиака и биометрические показатели.">
+    content="Free online age calculator to find your exact age in years, months & days from date of birth. Calculate age for government jobs in India, school admissions & more.">
   <meta name="keywords"
-    content="рассчитать возраст по дате рождения, калькулятор возраста, калькулятор возраста онлайн, точный возраст, сколько мне лет, знак зодиака по дате рождения, возраст на планетах">
+    content="calculate age from date of birth, age calculator, age calculator for government jobs, exact age calculator, age calculator online, chronological age formula">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
 
   <link rel="icon" type="image/x-icon" href="../../favicon.webp">
-  <link rel="canonical" href="https://instacalc.in/ru/duration/agecalculator.html">
+  <link rel="canonical" href="https://instacalc.in/duration/agecalculator.html">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,900 +34,543 @@
     href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="../../instacalc-core.css">
 
   <style>
-    :root {
-      --bg: #f2f6f8;
-      --text: #132a3b;
-      --text-soft: #334d60;
-      --accent: #007f8b;
-      --accent-strong: #005f73;
-      --accent-2: #ee9f2e;
-      --line: #d3e1ea;
-      --card: #ffffff;
-      --success: #1f9f67;
-      --shadow: 0 18px 45px rgba(19, 42, 59, 0.12);
-      --radius-xl: 26px;
-      --radius-lg: 20px;
-      --radius-md: 15px;
-      --radius-sm: 11px;
-    }
-
+    /* Ultra-Responsive Mobile Viewport Styles for Age Calculator */
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      font-family: "Public Sans", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 12% 8%, #d9eef7 0, transparent 38%),
-        radial-gradient(circle at 88% 16%, #ffebcc 0, transparent 34%),
-        linear-gradient(180deg, #f8fcff 0%, var(--bg) 32%, #eef5f8 100%);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.22;
-      background-image: linear-gradient(transparent 95%, rgba(0, 95, 115, 0.08) 95%);
-      background-size: 100% 36px;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
+    
     .container {
-      width: min(1180px, 92vw);
+      width: min(1240px, 92vw);
       margin: 0 auto;
-    }
-
-    .section {
-      padding: 3.2rem 0;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 55;
-      border-bottom: 1px solid rgba(0, 95, 115, 0.12);
-      background: rgba(242, 246, 248, 0.92);
-      backdrop-filter: blur(10px);
-    }
-
-    .header-inner {
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.8rem;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: "Sora", sans-serif;
-      font-weight: 700;
-      color: var(--accent-strong);
-      letter-spacing: -0.02em;
-    }
-
-    .brand img {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 2px solid rgba(0, 95, 115, 0.15);
-      background: #ffffff;
-    }
-
-    .menu-toggle {
-      width: 42px;
-      height: 42px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      border-radius: 12px;
-      background: #ffffff;
-      color: var(--accent-strong);
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    .site-nav {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 4vw;
-      right: 4vw;
-      display: none;
-      flex-direction: column;
-      gap: 0.4rem;
-      padding: 0.7rem;
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: #ffffff;
-      box-shadow: 0 18px 30px rgba(15, 23, 42, 0.12);
-    }
-
-    .site-nav.open {
-      display: flex;
-    }
-
-    .site-nav a {
-      min-height: 40px;
-      display: inline-flex;
-      align-items: center;
-      padding: 0.45rem 0.8rem;
-      border-radius: 10px;
-      font-weight: 600;
-      color: var(--text-soft);
-    }
-
-    .site-nav a:hover,
-    .site-nav a.active {
-      color: var(--accent-strong);
-      background: rgba(0, 127, 139, 0.12);
-    }
-
-    .hero {
-      padding: 3.3rem 0 2.4rem;
-    }
-
-    .hero-grid {
-      display: grid;
-      gap: 1.1rem;
-    }
-
-    .hero-copy {
-      border: 1px solid rgba(0, 95, 115, 0.16);
-      border-radius: var(--radius-xl);
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.67));
-      box-shadow: var(--shadow);
-      padding: 1.35rem;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.32rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 95, 115, 0.2);
-      background: rgba(255, 255, 255, 0.74);
-      color: var(--accent-strong);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      font-size: 0.78rem;
-    }
-
-    .hero-copy h1 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(2rem, 5vw, 3.05rem);
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      margin-top: 0.9rem;
-      max-width: 16ch;
-    }
-
-    .hero-copy p {
-      margin-top: 0.95rem;
-      color: var(--text-soft);
-      font-size: clamp(1rem, 2.2vw, 1.1rem);
-      max-width: 56ch;
-    }
-
-    .hero-panel {
-      border-radius: var(--radius-xl);
-      padding: 1.15rem;
-      background: linear-gradient(165deg, rgba(0, 95, 115, 0.95), rgba(0, 127, 139, 0.93));
-      color: #f8fcff;
-      box-shadow: 0 18px 35px rgba(0, 95, 115, 0.28);
-      display: grid;
-      gap: 0.6rem;
-      align-content: start;
-    }
-
-    .hero-panel h2 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.18rem;
-    }
-
-    .hero-point {
-      border-radius: 11px;
-      border: 1px solid rgba(255, 255, 255, 0.24);
-      background: rgba(255, 255, 255, 0.11);
-      padding: 0.63rem 0.72rem;
-      font-size: 0.93rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.46rem;
+      padding: 0 0.5rem;
     }
 
     .calc-layout {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.95rem;
-    }
-
-    .calculator-shell,
-    .feature-card,
-    .content-card,
-    .faq-card,
-    .sidebar-card {
-      border: 1px solid rgba(0, 95, 115, 0.15);
-      background: rgba(255, 255, 255, 0.89);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+      grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
+      gap: 1.75rem;
+      align-items: start;
+      width: 100%;
     }
 
     .calculator-shell {
-      padding: 1rem;
-      display: grid;
-      gap: 0.95rem;
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-lg);
+      box-shadow: var(--ic-shadow-md);
+      padding: 1.75rem;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
     }
 
-    .mode-switch {
+    .calculator-header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--ic-border);
+      width: 100%;
+    }
+
+    .toggle-group {
       display: inline-flex;
-      border: 1px solid rgba(0, 95, 115, 0.22);
-      border-radius: 12px;
-      padding: 0.26rem;
-      background: #ffffff;
-      width: fit-content;
+      background: var(--ic-bg-subtle);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 0.25rem;
       gap: 0.25rem;
     }
 
-    .mode-switch a {
-      min-height: 38px;
-      padding: 0.42rem 0.76rem;
-      border-radius: 9px;
+    .toggle-btn {
+      padding: 0.5rem 0.95rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      color: var(--text-soft);
+      border-radius: var(--ic-radius-sm);
+      border: none;
+      background: transparent;
+      color: var(--ic-text-muted);
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      font-size: 0.92rem;
+      gap: 0.4rem;
+      text-decoration: none;
+      transition: all 0.2s;
     }
 
-    .mode-switch a.active {
-      color: #ffffff;
-      background: linear-gradient(110deg, var(--accent), #00a1b2);
+    .toggle-btn.active {
+      background: #ffffff;
+      color: var(--ic-primary-dark);
+      box-shadow: var(--ic-shadow-sm);
     }
 
-    .input-grid {
+    /* Hero Result Card */
+    .hero-result-card {
+      background: linear-gradient(135deg, #f0fdfa 0%, #e6f7f6 100%);
+      border: 1px solid rgba(0, 127, 139, 0.25);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      position: relative;
+    }
+
+    .hero-result-card .label-group {
       display: grid;
-      gap: 0.7rem;
-      grid-template-columns: 1fr;
+      gap: 0.25rem;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .hero-result-card .res-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ic-primary-dark);
+    }
+
+    .hero-result-card .res-val {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.45rem, 4vw, 2.2rem);
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      line-height: 1.2;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .hero-result-card .res-desc {
+      font-size: 0.85rem;
+      color: var(--ic-text-muted);
+      word-break: break-word;
+    }
+
+    .hero-result-card .quick-copy-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 127, 139, 0.25);
+      background: #ffffff;
+      color: var(--ic-primary-dark);
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .hero-result-card .quick-copy-btn:hover {
+      background: var(--ic-primary-dark);
+      color: #ffffff;
+      transform: translateY(-2px);
     }
 
     .field-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-      display: grid;
-      gap: 0.54rem;
+      background: var(--ic-bg-subtle);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1rem;
+      margin-bottom: 0.85rem;
+      width: 100%;
     }
 
     .field-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 0.6rem;
+      font-weight: 700;
+      font-size: 0.92rem;
       gap: 0.5rem;
     }
 
-    .field-head label {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    input {
+    .field-card input[type="date"],
+    .field-card input[type="text"],
+    .field-card select {
       width: 100%;
-      min-height: 42px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 0.48rem 0.62rem;
-      font: inherit;
-      color: var(--text);
-      background: #ffffff;
-      outline: none;
-    }
-
-    .result-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.62rem;
-    }
-
-    .result-card {
-      border: 1px solid rgba(0, 95, 115, 0.13);
-      border-radius: 12px;
-      background: #ffffff;
-      padding: 0.72rem;
-    }
-
-    .result-card h3 {
-      color: var(--text-soft);
-      font-size: 0.85rem;
+      height: 48px;
+      padding: 0.65rem 1rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      margin-bottom: 0.22rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
+      color: var(--ic-text);
+      background: #ffffff;
+      border: 1.5px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      outline: none;
+      transition: all 0.2s ease;
     }
 
-    .result-value {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.04rem, 2.5vw, 1.32rem);
-      line-height: 1.3;
-      color: var(--text);
+    .field-card input[type="date"]:focus {
+      border-color: var(--ic-primary);
+      box-shadow: 0 0 0 3.5px var(--ic-primary-light);
+    }
+
+    .chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+      width: 100%;
+    }
+
+    .chip {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border-radius: 999px;
+      border: 1px solid var(--ic-border);
+      background: #ffffff;
+      color: var(--ic-text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .chip:hover, .chip.active {
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      border-color: var(--ic-primary);
+    }
+
+    /* Section Subheads */
+    .section-subtitle {
+      font-family: 'Sora', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ic-text);
+      margin: 1.5rem 0 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-subtitle i {
+      color: var(--ic-primary);
+    }
+
+    /* Metric grids */
+    .metrics-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.65rem;
+      width: 100%;
+    }
+
+    .metric-card {
+      background: var(--ic-bg-subtle);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 0.85rem;
+      text-align: center;
+      min-width: 0;
+    }
+
+    .metric-card .m-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--ic-text-muted);
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .metric-card .m-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
       word-break: break-word;
     }
 
-    .result-card.positive {
-      background: rgba(31, 159, 103, 0.08);
-      border-color: rgba(31, 159, 103, 0.26);
-    }
-
-    .planet-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-
-    .planet-box {
-      text-align: center;
-      border: 1px solid var(--line);
-      padding: 0.5rem;
-      border-radius: 10px;
-      background: #fff;
-    }
-
-    .planet-box .pn {
-      font-size: 0.7rem;
-      font-weight: 800;
-      color: var(--accent);
-      text-transform: uppercase;
-    }
-
-    .planet-box .pv {
-      font-weight: 700;
-      font-size: 0.9rem;
+    /* Profile List */
+    .profile-list-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1rem;
+      margin-top: 0.85rem;
     }
 
     .ms-list {
       display: grid;
-      gap: 0.4rem;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
     }
 
     .ms-item {
       display: flex;
       justify-content: space-between;
-      padding: 0.4rem 0;
-      border-bottom: 1px solid var(--line);
-      font-size: 0.85rem;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      background: var(--ic-bg-subtle);
+      border-radius: var(--ic-radius-sm);
+      font-size: 0.88rem;
     }
 
     .ms-item span {
+      color: var(--ic-text-muted);
       font-weight: 600;
-      color: var(--text-soft);
     }
 
     .ms-item strong {
+      color: var(--ic-text);
       font-weight: 700;
-      color: var(--accent-strong);
     }
 
-    .sidebar-card {
-      padding: 1rem;
+    /* Planet Grid */
+    .planet-grid {
       display: grid;
-      gap: 0.5rem;
-      align-content: start;
+      grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+      gap: 0.65rem;
+      margin-top: 0.75rem;
+      width: 100%;
     }
 
-    .sidebar-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: 1.05rem;
-    }
-
-    .link-list {
-      list-style: none;
-      display: grid;
-      gap: 0.45rem;
-    }
-
-    .link-list a {
-      min-height: 41px;
-      border-radius: 10px;
-      border: 1px solid rgba(0, 95, 115, 0.13);
+    .planet-card {
       background: #ffffff;
-      padding: 0.48rem 0.62rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.4rem;
-      color: var(--text);
-      font-size: 0.9rem;
-      font-weight: 600;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 0.85rem 0.5rem;
+      text-align: center;
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
-    .link-list a:hover {
-      border-color: rgba(0, 127, 139, 0.4);
-      transform: translateY(-1px);
+    .planet-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--ic-primary);
     }
 
-    @media (min-width: 640px) {
-      .input-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .result-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .span-2 {
-        grid-column: span 2;
-      }
+    .planet-card .pn {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
-    @media (min-width: 940px) {
-      .hero-grid {
-        grid-template-columns: 1.5fr 1fr;
-      }
-
-      .calc-layout {
-        grid-template-columns: 1.751fr 1fr;
-        align-items: start;
-      }
-
-      .site-nav {
-        position: static;
-        display: flex;
-        flex-direction: row;
-        background: none;
-        border: none;
-        box-shadow: none;
-        padding: 0;
-      }
-
-      .menu-toggle {
-        display: none;
-      }
+    .planet-card .p-icon {
+      font-size: 1.2rem;
+      margin: 0.35rem 0;
+      color: var(--ic-primary);
     }
 
-    .site-footer {
-      margin-top: 1rem;
-      border-top: 1px solid rgba(0, 95, 115, 0.14);
-      background: rgba(238, 246, 250, 0.86);
-      padding: 1.4rem 0 2.3rem;
+    .planet-card .pv {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
     }
 
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 0.78rem;
-      color: var(--text-soft);
+    .planet-card .p-sub {
+      font-size: 0.7rem;
+      color: var(--ic-text-light);
     }
 
-    .footer-links {
+    /* Actions */
+    .calculator-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-      font-weight: 600;
-    }
-
-    /* SEO & Article Styles */
-    .article-card {
-      background: var(--card);
-      border: 1px solid rgba(0, 95, 115, 0.15);
-      border-radius: var(--radius-xl);
-      padding: 2.2rem;
-      box-shadow: var(--shadow);
-      margin-bottom: 2rem;
-      color: var(--text);
-    }
-    
-    .article-card h2 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.4rem, 3vw, 1.8rem);
-      color: var(--accent-strong);
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      letter-spacing: -0.02em;
-    }
-    
-    .article-card h2:first-of-type {
-      margin-top: 0;
-    }
-    
-    .article-card h3 {
-      font-family: "Sora", sans-serif;
-      font-size: clamp(1.1rem, 2vw, 1.3rem);
-      color: var(--text);
-      margin-top: 1.5rem;
-      margin-bottom: 0.8rem;
-    }
-    
-    .article-card p {
-      color: var(--text-soft);
-      font-size: 1.02rem;
-      line-height: 1.7;
-      margin-bottom: 1.2rem;
-    }
-    
-    .article-card ul, .article-card ol {
-      color: var(--text-soft);
-      padding-left: 1.5rem;
-      margin-bottom: 1.2rem;
-    }
-    
-    .article-card li {
-      margin-bottom: 0.5rem;
-      line-height: 1.6;
-    }
-    
-    .toc-card {
-      background: #f0f6f8;
-      border-radius: var(--radius-md);
-      padding: 1.4rem;
-      border-left: 4px solid var(--accent);
-      margin-bottom: 2rem;
-    }
-    
-    .toc-card strong {
-      font-family: "Sora", sans-serif;
-      color: var(--accent-strong);
-      display: block;
-      margin-bottom: 0.8rem;
-      font-size: 1.1rem;
-    }
-    
-    .toc-list {
-      list-style-type: none !important;
-      padding-left: 0 !important;
-      display: grid;
-      grid-template-columns: 1fr;
       gap: 0.5rem;
-    }
-    @media (min-width: 640px) {
-      .toc-list {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem 1.5rem;
-      }
-    }
-    
-    .toc-list a {
-      color: var(--text);
-      font-weight: 600;
-      font-size: 0.94rem;
-      transition: color 0.2s ease;
-    }
-    
-    .toc-list a:hover {
-      color: var(--accent);
-      text-decoration: underline;
-    }
-    
-    .highlight-box {
-      background: rgba(0, 127, 139, 0.06);
-      border-left: 4px solid var(--accent);
-      border-radius: var(--radius-sm);
-      padding: 1.2rem;
-      margin: 1.5rem 0;
-    }
-    
-    .highlight-box strong {
-      color: var(--accent-strong);
-    }
-    
-    .warning-box {
-      background: #fff8eb;
-      border-left: 4px solid var(--accent-2);
-      border-radius: var(--radius-sm);
-      padding: 1.2rem;
-      margin: 1.5rem 0;
-    }
-    
-    .warning-box strong {
-      color: #b27300;
-    }
-    
-    /* SEO Table Styles */
-    .seo-table-wrapper {
-      overflow-x: auto;
-      margin: 1.5rem 0;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--line);
-    }
-    
-    .seo-table {
+      margin-top: 1.25rem;
       width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.96rem;
-    }
-    
-    .seo-table th {
-      background: var(--accent-strong);
-      color: #ffffff;
-      padding: 0.9rem 1.1rem;
-      font-weight: 600;
-      font-family: "Sora", sans-serif;
-    }
-    
-    .seo-table td {
-      padding: 0.9rem 1.1rem;
-      border-bottom: 1px solid var(--line);
-      color: var(--text-soft);
-    }
-    
-    .seo-table tr:last-child td {
-      border-bottom: none;
-    }
-    
-    .seo-table tr:nth-child(even) {
-      background: rgba(242, 246, 248, 0.5);
     }
 
-    /* FAQ Accordion Styles */
-    .faq-wrapper {
-      margin-top: 2rem;
-    }
-    
-    .faq-item {
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      background: var(--card);
-      margin-bottom: 0.8rem;
-      overflow: hidden;
-      transition: border-color 0.25s ease;
-    }
-    
-    .faq-item:hover {
-      border-color: rgba(0, 127, 139, 0.4);
-    }
-    
-    .faq-header {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.1rem 1.4rem;
-      background: none;
-      border: none;
-      text-align: left;
-      font-family: "Sora", sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text);
-      cursor: pointer;
-      outline: none;
-    }
-    
-    .faq-header i {
-      color: var(--accent);
-      transition: transform 0.25s ease;
-    }
-    
-    .faq-item.active .faq-header i {
-      transform: rotate(180deg);
-    }
-    
-    .faq-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.25s cubic-bezier(0, 1, 0, 1);
-    }
-    
-    .faq-body {
-      padding: 0 1.4rem 1.3rem;
-      color: var(--text-soft);
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-
-    /* Mobile & Tablet Responsiveness Adjustments */
-    @media (max-width: 768px) {
-      .seo-section {
-        padding: 1.25rem 0;
-      }
-      .article-card {
-        padding: 1.25rem 1rem;
-        border-radius: var(--radius-lg);
-        margin-bottom: 1rem;
-      }
-      .article-card h1 {
-        font-size: 1.55rem !important;
-        margin-bottom: 1rem !important;
-      }
-      .article-card h2 {
-        font-size: 1.32rem !important;
-        margin-top: 1.5rem !important;
-        margin-bottom: 0.75rem !important;
-      }
-      .article-card h3 {
-        font-size: 1.12rem !important;
-        margin-top: 1.2rem !important;
-        margin-bottom: 0.6rem !important;
-      }
-      .article-card p, .article-card li {
-        font-size: 0.95rem !important;
-        line-height: 1.6 !important;
-        margin-bottom: 0.9rem !important;
-      }
-      .toc-card {
-        padding: 1rem !important;
-        margin-bottom: 1.5rem !important;
-      }
-      .toc-list {
+    /* Mobile media query (320px - 640px) */
+    @media (max-width: 640px) {
+      .calc-layout {
         grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+      
+      .calculator-shell {
+        padding: 1rem 0.75rem !important;
+        border-radius: var(--ic-radius-md) !important;
+      }
+
+      .calculator-header-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 0.5rem !important;
+      }
+
+      .toggle-group {
+        display: flex !important;
+        width: 100% !important;
+      }
+
+      .toggle-group .toggle-btn {
+        flex: 1 !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 0.55rem 0.4rem !important;
+        font-size: 0.82rem !important;
+      }
+
+      .hero-result-card {
+        padding: 1rem 0.85rem !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.5rem !important;
+      }
+
+      .hero-result-card .quick-copy-btn {
+        position: absolute !important;
+        top: 0.75rem !important;
+        right: 0.75rem !important;
+        width: 38px !important;
+        height: 38px !important;
+      }
+
+      .hero-result-card .res-val {
+        font-size: clamp(1.35rem, 6vw, 1.75rem) !important;
+        max-width: calc(100% - 44px) !important;
+      }
+
+      .hero-result-card .res-desc {
+        font-size: 0.8rem !important;
+        line-height: 1.35 !important;
+      }
+
+      .metrics-summary-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+      }
+
+      .ms-list {
+        grid-template-columns: 1fr !important;
+      }
+
+      .planet-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 0.45rem !important;
+      }
+
+      .planet-card {
+        padding: 0.65rem 0.35rem !important;
+      }
+
+      .planet-card .pv {
+        font-size: 0.95rem !important;
+      }
+
+      .calculator-actions {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
         gap: 0.4rem !important;
       }
-      .toc-list a {
-        font-size: 0.88rem !important;
-      }
-      .highlight-box, .warning-box {
-        padding: 0.9rem !important;
-        margin: 1.1rem 0 !important;
-      }
-      .seo-table th, .seo-table td {
-        padding: 0.75rem 0.85rem !important;
-        font-size: 0.86rem !important;
-      }
-      .faq-header {
-        padding: 0.95rem 1rem !important;
-        font-size: 0.96rem !important;
-      }
-      .faq-body {
-        padding: 0 1rem 1rem !important;
-        font-size: 0.9rem !important;
-      }
-    }
 
-    @media (max-width: 480px) {
-      .planet-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-      }
-      .hero-copy h1 {
-        font-size: 1.7rem !important;
+      .calculator-actions .btn:first-child,
+      .calculator-actions .btn-primary {
+        grid-column: span 2 !important;
       }
     }
-    .lang-switch{margin-left:auto;margin-right:1rem;display:inline-flex;align-items:center}.lang-switch select{min-height:36px;padding:.2rem .5rem;font-size:.85rem;font-weight:600;color:var(--accent-strong);background:#fff;border:1px solid rgba(0,95,115,.22);border-radius:8px;cursor:pointer;outline:none;transition:border-color .2s}.lang-switch select:focus{border-color:var(--accent)}
-    @media(max-width:939px){.lang-switch{margin-right:0.5rem}}
   </style>
 
-<!-- Schema Markup: FAQPage -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Как узнать свой точный возраст по дате рождения?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Чтобы рассчитать свой точный возраст, нужно вычесть дату рождения из текущей даты (или другой целевой даты), учитывая високосные годы и разную длину месяцев. Наш онлайн-калькулятор делает это автоматически и мгновенно."
+  <!-- Schema Markup: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I calculate my exact age from date of birth?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "To calculate your exact age, subtract your birth date from today's date (or a specific reference date). Adjust for leap years and different month lengths. If using an online age calculator, simply select your birth date and the tool computes it instantly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is age calculated for government job eligibility in India?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For Indian government job exams (like UPSC, SSC CGL, Railways, Banking), eligibility is determined by your age on a specific cutoff date stated in the official exam notification. Use our calculator, select your DOB, and set the reference date to the cutoff date."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the chronological age calculation formula?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The chronological age formula is: Age = Today's Date - Date of Birth. Subtract the years, months, and days separately. If the days are negative, borrow from the previous month; if the months are negative, subtract 1 from the years and add 12 to the months."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my date of birth data private and safe on this website?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, completely. Our age calculator executes entirely in your browser using JavaScript. No date of birth inputs or personal information are sent to our servers or third parties."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the minimum age for school admission in India under RTE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Under the Right to Education (RTE) Act and National Education Policy (NEP) guidelines in India, the minimum age for admission to Class 1 is 6 years as of the designated cut-off date (usually 31 March or 1 June) of the academic year."
+        }
       }
-    },
-    {
-      "@type": "Question",
-      "name": "Как рассчитывается возраст для работы или госслужбы?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Для трудоустройства или экзаменов возраст обычно определяется на конкретную отчетную дату, указанную работодателем. Вы можете указать свою дату рождения и задать нужную дату в поле 'Возраст на дату'."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Что такое хронологический возраст и как его рассчитать?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Хронологический возраст — это точное количество времени, прошедшее с момента рождения до настоящего момента. Формула: Возраст = Текущая дата - Дата рождения. Года, месяцы и дни вычитаются отдельно с переносом из предыдущих месяцев при необходимости."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Безопасны ли мои личные данные и дата рождения на этом сайте?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Да, абсолютно. Калькулятор работает полностью в вашем браузере с помощью JavaScript. Никакие введенные данные не передаются на наши серверы или третьим лицам."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Каков минимальный возраст для поступления в школу?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "В большинстве стран минимальный возраст для поступления в первый класс школы составляет 6 или 7 лет на начало учебного года. Вы можете легко проверить соответствие этому критерию с помощью нашего калькулятора."
-      }
-    }
-  ]
-}
-</script>
+    ]
+  }
+  </script>
 
-<!-- Schema Markup: BreadcrumbList -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Главная",
-      "item": "https://instacalc.in/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Калькулятор возраста",
-      "item": "https://instacalc.in/ru/duration/agecalculator.html"
-    }
-  ]
-}
-</script>
-
-<!-- Schema Markup: HowTo -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  "name": "Как рассчитать возраст по дате рождения онлайн",
-  "description": "Рассчитайте свой точный возраст в годах, месяцах и днях с помощью бесплатного онлайн-калькулятора.",
-  "step": [
-    {
-      "@type": "HowToStep",
-      "name": "Введите дату рождения",
-      "text": "Укажите год, месяц, день и время вашего рождения в поле ввода."
-    },
-    {
-      "@type": "HowToStep",
-      "name": "Укажите целевую дату",
-      "text": "Оставьте текущую дату или выберите дату в будущем/прошлом для расчета возраста на этот момент."
-    },
-    {
-      "@type": "HowToStep",
-      "name": "Получите результаты мгновенно",
-      "text": "Калькулятор сразу покажет ваш точный возраст, знак зодиака, планетарный возраст и другие биометрические показатели."
-    }
-  ]
-}
-</script>
+  <!-- Schema Markup: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://instacalc.in/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Age Calculator",
+        "item": "https://instacalc.in/duration/agecalculator.html"
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="../../index.html" class="brand">
-        <img src="../../logo.png" alt="InstaCalc">
+      <a href="../../index.html" class="brand" aria-label="InstaCalc Home">
+        <img src="../../logo.png" alt="InstaCalc Logo">
         <span>InstaCalc.in</span>
       </a>
       <div class="lang-switch">
-        <select id="langSelect" aria-label="Выберите язык">
+        <select id="langSelect" aria-label="Select Language">
           <option value="en">English</option>
           <option value="ru" selected>Русский</option>
           <option value="ja">日本語</option>
         </select>
       </div>
-      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
       <nav class="site-nav" id="mainNav">
-        <a href="../../index.html">Главная</a>
-        <a href="../../aboutus.html">О нас</a>
-        <a href="../../privacypolicy.html">Конфиденциальность</a>
+        <a href="../../index.html">Home</a>
+        <a href="../../aboutus.html">About Us</a>
+        <a href="../../privacypolicy.html">Privacy Policy</a>
       </nav>
     </div>
   </header>
@@ -930,15 +579,16 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow"><i class="fas fa-history"></i> Анализ жизни</span>
-          <h1>Точный калькулятор возраста онлайн</h1>
-          <p>Узнайте свой точный возраст до секунд, отслеживайте биологические показатели и смотрите свой возраст на других планетах Солнечной системы.</p>
+          <span class="eyebrow"><i class="fas fa-cake-candles"></i> Chronology & Age Analysis</span>
+          <h1>Age Calculator – Calculate Exact Age from Date of Birth</h1>
+          <p>Find your precise age in years, months, and days down to the second. Check eligibility cutoffs for government jobs, school admissions, and explore your life milestones.</p>
         </div>
         <aside class="hero-panel">
-          <h2>Точные данные</h2>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Точный возраст и дни рождения</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Возраст на планетах Солнечной системы</div>
-          <div class="hero-point"><i class="fas fa-check-circle"></i> Биологические показатели (пульс/вдохи)</div>
+          <h2>Precision Insights</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Exact Years, Months & Days</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Cutoff Date Eligibility Check</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Next Birthday Countdown</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Biological & Planetary Age</div>
         </aside>
       </div>
     </section>
@@ -946,95 +596,205 @@
     <section class="section">
       <div class="container calc-layout">
         <div class="calculator-shell">
-          <div class="mode-switch">
-            <a href="#" class="active">Анализ возраста</a>
+          <!-- Mobile Sticky Summary Pill -->
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label" id="mobileSummaryLabel">Calculated Age</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <div class="calculator-header-row">
+            <div class="toggle-group" aria-label="Calculator Mode">
+              <a href="agecalculator.html" class="toggle-btn active"><i class="fas fa-cake-candles"></i> Age Calculator</a>
+              <a href="dayscalculator.html" class="toggle-btn"><i class="fas fa-calendar-days"></i> Days Counter</a>
+            </div>
+            <button id="todayBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-calendar-day"></i>
+              <span>Set Target to Today</span>
+            </button>
+          </div>
+
+          <!-- Hero Live Result Card -->
+          <div class="hero-result-card">
+            <div class="label-group">
+              <span class="res-eyebrow">Exact Chronological Age</span>
+              <div class="res-val" id="resAgeHero">-</div>
+              <div class="res-desc" id="resAgeDesc">-</div>
+            </div>
+            <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary">
+              <i class="fas fa-copy"></i>
+            </button>
           </div>
 
           <div class="input-grid">
             <div class="field-card">
-              <div class="field-head"><label for="dob">Дата рождения</label></div>
-              <input type="datetime-local" id="dob">
+              <div class="field-head">
+                <label for="dob"><i class="fas fa-baby" style="color:var(--ic-primary);"></i> Date of Birth</label>
+                <span id="dobDayName">Select DOB</span>
+              </div>
+              <input type="date" id="dob" required>
+              <div class="chips-wrap" id="presetDobChips">
+                <button type="button" class="chip" data-age="18">18 Yrs</button>
+                <button type="button" class="chip" data-age="21">21 Yrs</button>
+                <button type="button" class="chip" data-age="25">25 Yrs</button>
+                <button type="button" class="chip" data-age="30">30 Yrs</button>
+                <button type="button" class="chip" data-age="40">40 Yrs</button>
+                <button type="button" class="chip" data-age="50">50 Yrs</button>
+                <button type="button" class="chip" data-age="60">60 Yrs</button>
+              </div>
             </div>
+
             <div class="field-card">
-              <div class="field-head"><label for="now">Возраст на дату</label></div>
-              <input type="datetime-local" id="now">
+              <div class="field-head">
+                <label for="now"><i class="fas fa-calendar-check" style="color:var(--ic-primary);"></i> Age as of Date (Reference / Cutoff)</label>
+                <span id="nowDayName">Today</span>
+              </div>
+              <input type="date" id="now" required>
+              <div class="chips-wrap" id="presetCutoffChips">
+                <button type="button" class="chip" id="chipSetToday">Today</button>
+                <button type="button" class="chip" data-cutoff="08-01">1 Aug (UPSC / SSC)</button>
+                <button type="button" class="chip" data-cutoff="01-01">1 Jan (New Year)</button>
+                <button type="button" class="chip" data-cutoff="03-31">31 Mar (School / Fin)</button>
+              </div>
             </div>
           </div>
 
-          <div class="result-grid">
-            <div class="result-card positive span-2">
-              <h3>Рассчитанный возраст</h3>
-              <div class="result-value" id="resAge">-- Лет, -- Месяцев, -- Дней</div>
-              <div style="font-size: 0.82rem; font-weight:700; color:var(--accent-strong); margin-top:0.4rem;"
-                id="resSubAge"></div>
-            </div>
+          <div class="calculator-actions">
+            <button class="btn btn-primary" id="recalculateBtn" type="button">
+              <i class="fas fa-bolt"></i> Recalculate
+            </button>
+            <button class="btn btn-ghost" id="resetBtn" type="button">
+              <i class="fas fa-rotate-left"></i> Reset Defaults (25 Yrs)
+            </button>
+            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
+              <i class="fas fa-copy"></i> Copy Full Summary
+            </button>
+          </div>
 
-            <div class="result-card">
-              <h3>Профиль пути</h3>
-              <div class="ms-list">
-                <div class="ms-item"><span>День рождения</span> <strong id="resDay">-</strong></div>
-                <div class="ms-item"><span>До дня рождения</span> <strong id="resNext">-</strong></div>
-                <div class="ms-item"><span>Знак зодиака</span> <strong id="resZod">-</strong></div>
-                <div class="ms-item"><span>Камень рождения</span> <strong id="resStone">-</strong></div>
-              </div>
+          <!-- Detailed Time Breakdown -->
+          <div class="section-subtitle"><i class="fas fa-clock"></i> Comprehensive Time Breakdown</div>
+          <div class="metrics-summary-grid">
+            <div class="metric-card">
+              <div class="m-label">Total Months</div>
+              <div class="m-val" id="resTotalMonths">-</div>
             </div>
-
-            <div class="result-card">
-              <h3>Био-статистика</h3>
-              <div class="ms-list">
-                <div class="ms-item"><span>Удары сердца</span> <strong id="resHeart"
-                    style="color:var(--success);">-</strong></div>
-                <div class="ms-item"><span>Вдохи</span> <strong id="resBreaths"
-                    style="color:var(--success);">-</strong></div>
-                <div class="ms-item"><span>Часы сна</span> <strong id="resSleep"
-                    style="color:var(--success);">-</strong></div>
-              </div>
+            <div class="metric-card">
+              <div class="m-label">Total Weeks</div>
+              <div class="m-val" id="resTotalWeeks">-</div>
             </div>
+            <div class="metric-card">
+              <div class="m-label">Total Days</div>
+              <div class="m-val" id="resTotalDays">-</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Total Hours</div>
+              <div class="m-val" id="resTotalHours">-</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Total Minutes</div>
+              <div class="m-val" id="resTotalMins">-</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Total Seconds</div>
+              <div class="m-val" id="resTotalSecs">-</div>
+            </div>
+          </div>
 
-            <div class="result-card span-2">
-              <h3>Межпланетный возраст</h3>
-              <div class="planet-grid">
-                <div class="planet-box"><span class="pn">Меркурий</span>
-                  <div class="pv" id="pMerc">--</div>
-                </div>
-                <div class="planet-box"><span class="pn">Венера</span>
-                  <div class="pv" id="pVen">--</div>
-                </div>
-                <div class="planet-box"><span class="pn">Марс</span>
-                  <div class="pv" id="pMars">--</div>
-                </div>
-                <div class="planet-box"><span class="pn">Юпитер</span>
-                  <div class="pv" id="pJup">--</div>
-                </div>
-                <div class="planet-box"><span class="pn">Сатурн</span>
-                  <div class="pv" id="pSat">--</div>
-                </div>
-                <div class="planet-box"><span class="pn">Нептун</span>
-                  <div class="pv" id="pNep">--</div>
-                </div>
-              </div>
+          <!-- Birthday & Astrology Profile -->
+          <div class="section-subtitle"><i class="fas fa-sparkles"></i> Life & Astrological Profile</div>
+          <div class="profile-list-card">
+            <div class="ms-list">
+              <div class="ms-item"><span>Born Day of Week</span> <strong id="resDayOfWeek">-</strong></div>
+              <div class="ms-item"><span>Next Birthday In</span> <strong id="resNextBday">-</strong></div>
+              <div class="ms-item"><span>Next Birthday Day</span> <strong id="resNextBdayDay">-</strong></div>
+              <div class="ms-item"><span>Half-Birthday</span> <strong id="resHalfBday">-</strong></div>
+              <div class="ms-item"><span>Zodiac Sign</span> <strong id="resZodiac">-</strong></div>
+              <div class="ms-item"><span>Chinese Zodiac</span> <strong id="resChineseZod">-</strong></div>
+              <div class="ms-item"><span>Birthstone</span> <strong id="resBirthstone">-</strong></div>
+              <div class="ms-item"><span>Leap Years Lived</span> <strong id="resLeapYears">-</strong></div>
+            </div>
+          </div>
+
+          <!-- Biological Stats -->
+          <div class="section-subtitle"><i class="fas fa-heart-pulse"></i> Estimated Biological Metrics</div>
+          <div class="metrics-summary-grid">
+            <div class="metric-card">
+              <div class="m-label">Heartbeats (~72 bpm)</div>
+              <div class="m-val" id="resHeartbeats" style="color:#e11d48;">-</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Breaths (~16 / min)</div>
+              <div class="m-val" id="resBreaths" style="color:#0284c7;">-</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Sleep Logged (~8h/d)</div>
+              <div class="m-val" id="resSleepHours" style="color:#8b5cf6;">-</div>
+            </div>
+            <div class="metric-card">
+              <div class="m-label">Laughter (~15 / d)</div>
+              <div class="m-val" id="resLaughter" style="color:#10b981;">-</div>
+            </div>
+          </div>
+
+          <!-- Interplanetary Maturity -->
+          <div class="section-subtitle"><i class="fas fa-globe"></i> Interplanetary Maturity</div>
+          <div class="planet-grid">
+            <div class="planet-card">
+              <div class="pn">Mercury</div>
+              <div class="p-icon"><i class="fas fa-meteor"></i></div>
+              <div class="pv" id="pMerc">--</div>
+              <div class="p-sub">88 Earth days/yr</div>
+            </div>
+            <div class="planet-card">
+              <div class="pn">Venus</div>
+              <div class="p-icon"><i class="fas fa-sun"></i></div>
+              <div class="pv" id="pVen">--</div>
+              <div class="p-sub">225 Earth days/yr</div>
+            </div>
+            <div class="planet-card">
+              <div class="pn">Mars</div>
+              <div class="p-icon"><i class="fas fa-rocket"></i></div>
+              <div class="pv" id="pMars">--</div>
+              <div class="p-sub">687 Earth days/yr</div>
+            </div>
+            <div class="planet-card">
+              <div class="pn">Jupiter</div>
+              <div class="p-icon"><i class="fas fa-ring"></i></div>
+              <div class="pv" id="pJup">--</div>
+              <div class="p-sub">11.86 Earth yrs</div>
+            </div>
+            <div class="planet-card">
+              <div class="pn">Saturn</div>
+              <div class="p-icon"><i class="fas fa-satellite"></i></div>
+              <div class="pv" id="pSat">--</div>
+              <div class="p-sub">29.45 Earth yrs</div>
+            </div>
+            <div class="planet-card">
+              <div class="pn">Neptune</div>
+              <div class="p-icon"><i class="fas fa-star"></i></div>
+              <div class="pv" id="pNep">--</div>
+              <div class="p-sub">164.8 Earth yrs</div>
             </div>
           </div>
         </div>
 
-        <aside class="sidebar-layout">
+        <aside>
           <div class="sidebar-card">
-            <h3>Похожие инструменты</h3>
+            <h3>Related Tools</h3>
             <ul class="link-list">
-              <li><a href="../../duration/birthdaycalculator.html">Калькулятор дня рождения <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../../duration/dayscalculator.html">Калькулятор дней <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../../duration/timedurationcalculator.html">Калькулятор длительности <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../../duration/timezonecalculator.html">Конвертер часовых поясов <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="dayscalculator.html"><span>Days Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="hourcalculator.html"><span>Hour Tracker</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="../../catagecalculator.html"><span>Cat Age Converter</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="../../sipcalculator.html"><span>SIP Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="../../epfcalculator.html"><span>EPF Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
             </ul>
           </div>
-          <br>
-          <div class="sidebar-card">
-            <h3>Популярные вопросы</h3>
-            <ul class="link-list">
-              <li><a href="#toc-1">Как рассчитать возраст по дате рождения? <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="#toc-4">Хронологический возраст и формула <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="#toc-6">Возраст для госслужбы в России <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="#toc-7">Возраст для поступления в школу <i class="fas fa-chevron-right"></i></a></li>
+
+          <div class="feature-card">
+            <h3>Age Calculation Rules</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-circle-check"></i> Accounts for exact leap years (29 Feb).</li>
+              <li><i class="fas fa-circle-check"></i> Accurately handles 28, 30, and 31-day months using chronological subtraction borrowing.</li>
+              <li><i class="fas fa-circle-check"></i> Standardized for UPSC, SSC, IBPS, and school admissions in India.</li>
             </ul>
           </div>
         </aside>
@@ -1042,250 +802,348 @@
     </section>
 
     <!-- SEO Content Section -->
-    <section class="section seo-section">
+    <section class="section seo-section" style="padding-top: 0;">
       <div class="container">
-        <article class="article-card">
-          <h1>Руководство по расчету возраста: формулы, правила и онлайн-инструменты</h1>
-          <p>Добро пожаловать в подробное руководство по расчету хронологического возраста. Наш бесплатный инструмент позволяет определить точный возраст в годах, месяцах, днях, часах и даже секундах по дате рождения.</p>
+        <div class="content-card">
+          <!-- Breadcrumb List UI -->
+          <nav aria-label="breadcrumb" style="margin-bottom: 20px; font-size: 0.9rem; font-weight: 600; color: var(--ic-text-muted);">
+            <a href="../../index.html" style="color: var(--ic-primary);">Home</a> &raquo; 
+            <span style="color: var(--ic-text-muted);">Age Calculator</span>
+          </nav>
 
-          <div class="toc-card">
-            <strong>Содержание:</strong>
-            <ul class="toc-list">
-              <li><a href="#toc-1">1. Что такое калькулятор возраста?</a></li>
-              <li><a href="#toc-2">2. Почему важно знать свой точный возраст?</a></li>
-              <li><a href="#toc-3">3. Ключевые преимущества нашего калькулятора</a></li>
-              <li><a href="#toc-4">4. Как работает калькулятор возраста?</a></li>
-              <li><a href="#toc-5">5. Пошаговое руководство по расчету возраста</a></li>
-              <li><a href="#toc-6">6. Как рассчитать возраст: формула и правила</a></li>
-              <li><a href="#toc-7">7. Пример расчета возраста в числах</a></li>
-              <li><a href="#toc-8">8. Ошибки при самостоятельном расчете возраста</a></li>
-              <li><a href="#toc-9">9. Часто задаваемые вопросы (FAQ)</a></li>
-            </ul>
-          </div>
+          <h2 style="font-family: 'Sora', sans-serif; font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--ic-text); margin-bottom: 1.25rem;">
+            Age Calculator – Calculate Age from Date of Birth Online
+          </h2>
 
-          <h2 id="toc-1">Что такое калькулятор возраста?</h2>
-          <p>Онлайн-калькулятор возраста — это удобный инструмент, который позволяет мгновенно узнать ваш точный хронологический возраст. В отличие от простого вычитания года рождения из текущего года, наш калькулятор учитывает количество дней в конкретных месяцах, високосные годы, а также время рождения, предоставляя результат с точностью до секунды.</p>
+          <p>To <strong>calculate age from date of birth</strong>, simply subtract your birth date from the current date or any target reference date. The resulting calculation yields your exact chronological age in years, months, and days. For instance, if your date of birth is 15 August 1997, your age as of 31 May 2026 is exactly 28 years, 9 months, and 16 days. Our free online <strong>age calculator</strong> computes this instantly, helping you check exam eligibility, fill school admission forms, or track important life milestones.</p>
 
-          <h2 id="toc-2">Почему важно знать свой точный возраст?</h2>
-          <p>Точный расчет возраста необходим во многих жизненных ситуациях:</p>
-          <ul>
-            <li><strong>Трудоустройство и конкурсы:</strong> Для прохождения отборов на вакансии часто устанавливаются жесткие возрастные ограничения на определенную дату.</li>
-            <li><strong>Поступление в школу и детский сад:</strong> Правила приема требуют соответствия минимальному возрасту на начало учебного года (например, полные 6 лет и 6 месяцев на 1 сентября).</li>
-            <li><strong>Оформление документов:</strong> Получение паспорта, водительских прав или пенсионных документов требует точного подтверждения возраста.</li>
-            <li><strong>Спорт и соревнования:</strong> Участие в возрастных категориях на турнирах.</li>
-          </ul>
+          <br>
+          <h3>Age for Government Exams & Job Eligibility in India</h3>
+          <p>In India, competitive exams enforce strict age cutoff windows. For example, UPSC Civil Services requires candidates to be between 21 and 32 years as of 1 August of the examination year. Similarly, SSC CGL, IBPS Banking, and Railway Recruitment Boards specify explicit cutoff dates. Use our tool by selecting your DOB and setting the "Age as of Date" to the official notification's cutoff date to guarantee 100% compliance.</p>
+        </div>
 
-          <h2 id="toc-3">Ключевые преимущества нашего калькулятора</h2>
-          <ul>
-            <li><strong>Посекундная точность:</strong> Учитывает точное время рождения.</li>
-            <li><strong>Универсальность:</strong> Возможность рассчитать возраст не только на сегодня, но и на любую дату в прошлом или будущем.</li>
-            <li><strong>Интерактивная био-статистика:</strong> Узнайте примерное количество ударов сердца, сделанных вдохов и часов сна за всю вашу жизнь.</li>
-            <li><strong>Космический возраст:</strong> Узнайте, сколько лет вам исполнилось бы на других планетах Солнечной системы, таких как Марс или Юпитер.</li>
-            <li><strong>Конфиденциальность:</strong> Все вычисления выполняются в вашем браузере, ваши данные не передаются на сервер.</li>
-          </ul>
-
-          <h2 id="toc-4">Как работает калькулятор возраста?</h2>
-          <p>Калькулятор использует системные часы вашего устройства и встроенные методы JavaScript для работы с датами. Он вычитает временную метку (timestamp) даты рождения из целевой даты и преобразует разницу в года, месяцы, дни, часы, минуты и секунды.</p>
-
-          <h2 id="toc-5">Пошаговое руководство по расчету возраста</h2>
-          <ol>
-            <li>В поле <strong>"Дата рождения"</strong> выберите год, месяц, день и время вашего рождения.</li>
-            <li>В поле <strong>"Возраст на дату"</strong> по умолчанию стоит текущее время. Вы можете изменить его, если хотите узнать возраст на другой момент времени.</li>
-            <li>Результат обновится автоматически. В главном окне вы увидите количество лет, месяцев и дней.</li>
-          </ol>
-
-          <h2 id="toc-6">Как рассчитать возраст по дате рождения: формула и правила</h2>
-          <p>Математический алгоритм вычисления возраста выглядит следующим образом:</p>
-          <div class="highlight-box">
-            <strong>Формула возраста:</strong><br>
-            <code>Возраст = Целевая дата - Дата рождения</code>
-          </div>
-          <p>При расчете вручную соблюдаются следующие правила:</p>
-          <ul>
-            <li>Вычитаются дни, затем месяцы, затем годы.</li>
-            <li>Если число дней целевой даты меньше числа дней даты рождения, мы "занимаем" 1 месяц из целевого месяца. Количество дней в "занятом" месяце прибавляется к дням целевой даты.</li>
-            <li>Если число месяцев целевой даты меньше месяцев рождения, мы "занимаем" 1 год из целевого года (прибавляя 12 месяцев).</li>
-          </ul>
-
-          <h2 id="toc-7">Пример расчета возраста в числах</h2>
-          <p>Допустим, дата рождения: <strong>15 июня 1998 года</strong>, а рассчитать возраст нужно на <strong>10 марта 2026 года</strong>.</p>
-          <ol>
-            <li><strong>Дни:</strong> 10 - 15. Число дней отрицательное. Занимаем 1 месяц у марта (в феврале 2026 года 28 дней). Дни: 10 + 28 = 38. Теперь 38 - 15 = 23 дня.</li>
-            <li><strong>Месяцы:</strong> У нас осталось 2 месяца (февраль). Вычитаем июнь (6-й месяц): 2 - 6. Отрицательно. Занимаем 1 год у 2026. Месяцы: 2 + 12 = 14. Вычитаем: 14 - 6 = 8 месяцев.</li>
-            <li><strong>Годы:</strong> Осталось 2025 лет. Вычитаем: 2025 - 1998 = 27 лет.</li>
-            <li><strong>Итог:</strong> 27 лет, 8 месяцев и 23 дня.</li>
-          </ol>
-
-          <h2 id="toc-8">Ошибки при самостоятельном расчете возраста</h2>
-          <div class="warning-box">
-            <strong>Основные источники ошибок:</strong>
-            <ul>
-              <li>Использование среднего значения в 30 дней для всех месяцев без учета того, что в феврале 28/29 дней, а в других месяцах 30 или 31 день.</li>
-              <li>Пропуск високосных лет (29 дней в феврале каждые 4 года).</li>
-              <li>Неправильный перенос дней при переходе через границу месяца.</li>
-            </ul>
-          </div>
-
-          <h2 id="toc-9">Часто задаваемые вопросы (FAQ)</h2>
-          <div class="faq-wrapper">
-            <div class="faq-item">
-              <button class="faq-header">Как узнать свой точный возраст по дате рождения? <i class="fas fa-chevron-down"></i></button>
-              <div class="faq-content">
-                <div class="faq-body">Чтобы рассчитать свой точный возраст, нужно вычесть дату рождения из текущей даты (или другой целевой даты), учитывая високосные годы и разную длину месяцев. Наш онлайн-калькулятор делает это автоматически и мгновенно.</div>
-              </div>
-            </div>
-            <div class="faq-item">
-              <button class="faq-header">Как рассчитывается возраст для работы или госслужбы? <i class="fas fa-chevron-down"></i></button>
-              <div class="faq-content">
-                <div class="faq-body">Для трудоустройства или экзаменов возраст обычно определяется на конкретную отчетную дату, указанную работодателем. Вы можете указать свою дату рождения и задать нужную дату в поле 'Возраст на дату'.</div>
-              </div>
-            </div>
-            <div class="faq-item">
-              <button class="faq-header">Что такое хронологический возраст и как его рассчитать? <i class="fas fa-chevron-down"></i></button>
-              <div class="faq-content">
-                <div class="faq-body">Хронологический возраст — это точное количество времени, прошедшее с момента рождения до настоящего момента. Формула: Возраст = Текущая дата - Дата рождения. Года, месяцы и дни вычитаются отдельно с переносом из предыдущих месяцев при необходимости.</div>
-              </div>
-            </div>
-            <div class="faq-item">
-              <button class="faq-header">Безопасны ли мои личные данные и дата рождения на этом сайте? <i class="fas fa-chevron-down"></i></button>
-              <div class="faq-content">
-                <div class="faq-body">Да, абсолютно. Калькулятор работает полностью в вашем браузере с помощью JavaScript. Никакие введенные данные не передаются на наши серверы или третьим лицам.</div>
-              </div>
-            </div>
-            <div class="faq-item">
-              <button class="faq-header">Каков минимальный возраст для поступления в школу? <i class="fas fa-chevron-down"></i></button>
-              <div class="faq-content">
-                <div class="faq-body">В большинстве стран минимальный возраст для поступления в первый класс школы составляет 6 или 7 лет на начало учебного года. Вы можете легко проверить соответствие этому критерию с помощью нашего калькулятора.</div>
-              </div>
-            </div>
-          </div>
-        </article>
+        <div class="faq-list" style="margin-top: 1.5rem;">
+          <details class="faq-card" open>
+            <summary>How do I calculate my exact age from date of birth? <i class="fas fa-chevron-down"></i></summary>
+            <p>To calculate your exact age, subtract your birth date from today's date (or a specific reference date). Adjust for leap years and different month lengths. If using an online age calculator, simply select your birth date and the tool computes it instantly.</p>
+          </details>
+          <details class="faq-card">
+            <summary>How is age calculated for government job eligibility in India? <i class="fas fa-chevron-down"></i></summary>
+            <p>For Indian government job exams (like UPSC, SSC CGL, Railways, Banking), eligibility is determined by your age on a specific cutoff date stated in the official exam notification. Use our calculator, select your DOB, and set the reference date to the cutoff date.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What is the chronological age calculation formula? <i class="fas fa-chevron-down"></i></summary>
+            <p>The chronological age formula is: Age = Today's Date - Date of Birth. Subtract the years, months, and days separately. If the days are negative, borrow from the previous month; if the months are negative, subtract 1 from the years and add 12 to the months.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Is my date of birth data private and safe on this website? <i class="fas fa-chevron-down"></i></summary>
+            <p>Yes, completely. Our age calculator executes entirely in your browser using JavaScript. No date of birth inputs or personal information are sent to our servers or third parties.</p>
+          </details>
+          <details class="faq-card">
+            <summary>What is the minimum age for school admission in India under RTE? <i class="fas fa-chevron-down"></i></summary>
+            <p>Under the Right to Education (RTE) Act and National Education Policy (NEP) guidelines in India, the minimum age for admission to Class 1 is 6 years as of the designated cut-off date (usually 31 March or 1 June) of the academic year.</p>
+          </details>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; 2026 InstaCalc.in. Все права защищены.</p>
+      <p>© 2026 InstaCalc.in — Precision Time & Math Utilities.</p>
       <div class="footer-links">
-        <a href="../../privacypolicy.html">Политика конфиденциальности</a>
+        <a href="../../index.html">Home</a>
+        <a href="../../aboutus.html">About Us</a>
+        <a href="../../privacypolicy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms &amp; Conditions</a>
       </div>
     </div>
   </footer>
 
   <script>
-
     (function () {
       const menuToggle = document.getElementById("menuToggle");
       const mainNav = document.getElementById("mainNav");
-      menuToggle.onclick = () => mainNav.classList.toggle("open");
-
-      const langSelect = document.getElementById('langSelect');
-        if (langSelect) {
-          langSelect.value = 'ru';
-          langSelect.addEventListener('change', function () {
-            if (this.value === 'en') {
-              localStorage.setItem('user_lang', 'en');
-              window.location.href = '../../duration/agecalculator.html';
-            } else if (this.value === 'ja') {
-              localStorage.setItem('user_lang', 'ja');
-              window.location.href = '../../ja/duration/agecalculator.html';
-            }
-          });
-        }
-
-      const inputs = { dob: document.getElementById('dob'), now: document.getElementById('now') };
-      const res = {
-        age: document.getElementById('resAge'),
-        sub: document.getElementById('resSubAge'),
-        day: document.getElementById('resDay'),
-        next: document.getElementById('resNext'),
-        zod: document.getElementById('resZod'),
-        stone: document.getElementById('resStone'),
-        heart: document.getElementById('resHeart'),
-        breaths: document.getElementById('resBreaths'),
-        sleep: document.getElementById('resSleep'),
-        pm: document.getElementById('pMerc'),
-        pv: document.getElementById('pVen'),
-        pa: document.getElementById('pMars'),
-        pj: document.getElementById('pJup'),
-        ps: document.getElementById('pSat'),
-        pn: document.getElementById('pNep')
-      };
-
-      const nowD = new Date();
-      inputs.now.value = nowD.toISOString().slice(0, 16);
-      const defB = new Date(nowD.getFullYear() - 25, nowD.getMonth(), nowD.getDate(), 9, 0);
-      inputs.dob.value = defB.toISOString().slice(0, 16);
-
-      const stones = ["Гранат", "Аметист", "Аквамарин", "Алмаз", "Изумруд", "Жемчуг", "Рубин", "Перидот", "Сапфир", "Опал", "Топаз", "Бирюза"];
-      const zodes = [["Коз", 20, 0], ["Вод", 19, 1], ["Рыб", 20, 2], ["Ове", 20, 3], ["Тел", 21, 4], ["Бли", 21, 5], ["Рак", 23, 6], ["Лев", 23, 7], ["Дев", 23, 8], ["Вес", 23, 9], ["Ско", 22, 10], ["Стр", 22, 11], ["Коз", 31, 11]];
-
-      function update() {
-        const b = new Date(inputs.dob.value);
-        const n = new Date(inputs.now.value);
-        if (isNaN(b) || isNaN(n)) return;
-
-        const diffMs = n - b;
-        const totalSecs = Math.floor(diffMs / 1000);
-        const totalMins = Math.floor(totalSecs / 60);
-        const totalHrs = Math.floor(totalMins / 60);
-        const totalдней = Math.floor(totalHrs / 24);
-
-        let y = n.getFullYear() - b.getFullYear();
-        let mon = n.getMonth() - b.getMonth();
-        let d = n.getDate() - b.getDate();
-        if (d < 0) { mon--; d += new Date(n.getFullYear(), n.getMonth(), 0).getDate(); }
-        if (mon < 0) { y--; mon += 12; }
-
-        res.age.textContent = `${y} лет, ${mon} месяцев, ${d} дней`;
-        res.sub.textContent = `${totalSecs.toLocaleString()} всего секунд жизни`;
-
-        res.day.textContent = b.toLocaleDateString(undefined, { weekday: 'short' });
-        let next = new Date(n.getFullYear(), b.getMonth(), b.getDate());
-        if (next < n) next.setFullYear(n.getFullYear() + 1);
-        res.next.textContent = Math.ceil((next - n) / 86400000) + "дн";
-        res.stone.textContent = stones[b.getMonth()];
-        for (let z of zodes) { if (b.getMonth() < z[2] || (b.getMonth() === z[2] && b.getDate() <= z[1])) { res.zod.textContent = z[0]; break; } }
-
-        res.heart.textContent = (totalMins * 72).toLocaleString();
-        res.breaths.textContent = (totalMins * 12).toLocaleString();
-        res.sleep.textContent = (totalдней * 8).toLocaleString();
-
-        res.pm.textContent = (totalдней / 88).toFixed(1);
-        res.pv.textContent = (totalдней / 225).toFixed(1);
-        res.pa.textContent = (totalдней / 687).toFixed(1);
-        res.pj.textContent = (totalдней / 4333).toFixed(1);
-        res.ps.textContent = (totalдней / 10759).toFixed(1);
-        res.pn.textContent = (totalдней / 60190).toFixed(2);
+      if (menuToggle && mainNav) {
+        menuToggle.addEventListener("click", () => {
+          const isOpen = mainNav.classList.toggle("open");
+          menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
       }
 
-      inputs.dob.oninput = update;
-      inputs.now.oninput = update;
-      update();
-
-      // Collapsible FAQ Accordion Logic
-      document.querySelectorAll('.faq-header').forEach(button => {
-        button.addEventListener('click', () => {
-          const faqItem = button.parentElement;
-          const faqContent = faqItem.querySelector('.faq-content');
-          const isActive = faqItem.classList.contains('active');
-          
-          // Close all FAQ items
-          document.querySelectorAll('.faq-item').forEach(item => {
-            item.classList.remove('active');
-            item.querySelector('.faq-content').style.maxHeight = null;
-          });
-          
-          if (!isActive) {
-            faqItem.classList.add('active');
-            faqContent.style.maxHeight = faqContent.scrollHeight + "px";
+      const langSelect = document.getElementById('langSelect');
+      if (langSelect) {
+        langSelect.value = 'ru';
+        langSelect.addEventListener('change', function() {
+          if (this.value === 'ru') {
+            localStorage.setItem('user_lang', 'ru');
+            window.location.href = '../ru/duration/agecalculator.html';
+          } else if (this.value === 'ja') {
+            localStorage.setItem('user_lang', 'ja');
+            window.location.href = '../ja/duration/agecalculator.html';
           }
         });
+      }
+
+      const dobInput = document.getElementById('dob');
+      const nowInput = document.getElementById('now');
+      const dobDayName = document.getElementById('dobDayName');
+      const nowDayName = document.getElementById('nowDayName');
+
+      const heroAge = document.getElementById('resAgeHero');
+      const heroDesc = document.getElementById('resAgeDesc');
+      const mobileVal = document.getElementById('mobileSummaryVal');
+      const copyHeroBtn = document.getElementById('copyHeroBtn');
+      const copySummaryBtn = document.getElementById('copySummaryBtn');
+
+      const elMonths = document.getElementById('resTotalMonths');
+      const elWeeks = document.getElementById('resTotalWeeks');
+      const elDays = document.getElementById('resTotalDays');
+      const elHours = document.getElementById('resTotalHours');
+      const elMins = document.getElementById('resTotalMins');
+      const elSecs = document.getElementById('resTotalSecs');
+
+      const elDayOfWeek = document.getElementById('resDayOfWeek');
+      const elNextBday = document.getElementById('resNextBday');
+      const elNextBdayDay = document.getElementById('resNextBdayDay');
+      const elHalfBday = document.getElementById('resHalfBday');
+      const elZodiac = document.getElementById('resZodiac');
+      const elChineseZod = document.getElementById('resChineseZod');
+      const elBirthstone = document.getElementById('resBirthstone');
+      const elLeapYears = document.getElementById('resLeapYears');
+
+      const elHeartbeats = document.getElementById('resHeartbeats');
+      const elBreaths = document.getElementById('resBreaths');
+      const elSleepHours = document.getElementById('resSleepHours');
+      const elLaughter = document.getElementById('resLaughter');
+
+      const elMerc = document.getElementById('pMerc');
+      const elVen = document.getElementById('pVen');
+      const elMars = document.getElementById('pMars');
+      const elJup = document.getElementById('pJup');
+      const elSat = document.getElementById('pSat');
+      const elNep = document.getElementById('pNep');
+
+      // Default Initialization (Local Timezone Safe)
+      function formatDateToLocal(d) {
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}-${m}-${day}`;
+      }
+
+      const today = new Date();
+      nowInput.value = formatDateToLocal(today);
+
+      const defaultDob = new Date(today.getFullYear() - 25, today.getMonth(), today.getDate());
+      dobInput.value = formatDateToLocal(defaultDob);
+
+      const stones = ["Garnet (Jan)", "Amethyst (Feb)", "Aquamarine (Mar)", "Diamond (Apr)", "Emerald (May)", "Pearl (Jun)", "Ruby (Jul)", "Peridot (Aug)", "Sapphire (Sep)", "Opal (Oct)", "Topaz (Nov)", "Turquoise (Dec)"];
+      const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const chineseZodiacs = ["Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"];
+
+      function getZodiac(month, day) {
+        // month: 1-12, day: 1-31
+        if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) return "Aquarius ♒";
+        if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) return "Pisces ♓";
+        if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) return "Aries ♈";
+        if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) return "Taurus ♉";
+        if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) return "Gemini ♊";
+        if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) return "Cancer ♋";
+        if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) return "Leo ♌";
+        if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) return "Virgo ♍";
+        if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) return "Libra ♎";
+        if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) return "Scorpio ♏";
+        if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) return "Sagittarius ♐";
+        return "Capricorn ♑";
+      }
+
+      function countLeapYears(startYear, endYear) {
+        let count = 0;
+        for (let yr = startYear; yr <= endYear; yr++) {
+          if ((yr % 4 === 0 && yr % 100 !== 0) || (yr % 400 === 0)) count++;
+        }
+        return count;
+      }
+
+      let lastSummary = "";
+
+      function calculateAge() {
+        if (!dobInput.value || !nowInput.value) return;
+
+        const [bY, bM, bD] = dobInput.value.split('-').map(Number);
+        const [nY, nM, nD] = nowInput.value.split('-').map(Number);
+
+        const birthDate = new Date(bY, bM - 1, bD);
+        const refDate = new Date(nY, nM - 1, nD);
+
+        if (isNaN(birthDate.getTime()) || isNaN(refDate.getTime())) return;
+
+        if (refDate < birthDate) {
+          heroAge.textContent = "Date of Birth is in the future";
+          heroDesc.textContent = "Please select a Date of Birth earlier than the reference date.";
+          if (mobileVal) mobileVal.textContent = "Invalid DOB";
+          return;
+        }
+
+        dobDayName.textContent = daysOfWeek[birthDate.getDay()];
+        nowDayName.textContent = daysOfWeek[refDate.getDay()];
+
+        // Chronological Exact Borrowing Subtraction
+        let years = nY - bY;
+        let months = nM - bM;
+        let days = nD - bD;
+
+        if (days < 0) {
+          months--;
+          // Days in the previous month before reference month
+          const prevMonthDays = new Date(nY, nM - 1, 0).getDate();
+          days += prevMonthDays;
+        }
+
+        if (months < 0) {
+          years--;
+          months += 12;
+        }
+
+        // Total Elapsed Time Calculations
+        const diffMs = refDate.getTime() - birthDate.getTime();
+        const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        const totalWeeks = (totalDays / 7).toFixed(1);
+        const totalMonthsExact = (years * 12 + months + (days / 30.4375)).toFixed(1);
+        const totalHours = totalDays * 24;
+        const totalMins = totalHours * 60;
+        const totalSecs = totalMins * 60;
+
+        // Next Birthday calculation
+        let nextBday = new Date(nY, bM - 1, bD);
+        if (nextBday < refDate) {
+          nextBday = new Date(nY + 1, bM - 1, bD);
+        }
+        const nextBdayDays = Math.ceil((nextBday.getTime() - refDate.getTime()) / (1000 * 60 * 60 * 24));
+        const nextBdayDayName = daysOfWeek[nextBday.getDay()];
+
+        // Half Birthday
+        const halfBday = new Date(bY, (bM - 1 + 6) % 12, bD);
+        const halfBdayFormatted = halfBday.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+
+        // Astrology & Stones
+        const zodiac = getZodiac(bM, bD);
+        const chineseZod = chineseZodiacs[(bY - 4) % 12];
+        const birthstone = stones[bM - 1];
+        const leapCount = countLeapYears(bY, nY);
+
+        // Biological
+        const heartbeats = Math.floor(totalMins * 72);
+        const breaths = Math.floor(totalMins * 16);
+        const sleepHours = Math.floor(totalDays * 8);
+        const laughs = Math.floor(totalDays * 15);
+
+        // Update UI
+        const ageString = `${years} Years, ${months} Months, ${days} Days`;
+        heroAge.textContent = ageString;
+        heroDesc.textContent = `${totalDays.toLocaleString()} days alive • Born on a ${daysOfWeek[birthDate.getDay()]} • Next birthday in ${nextBdayDays} days (${nextBdayDayName})`;
+        
+        if (mobileVal) mobileVal.textContent = `${years}y ${months}m ${days}d`;
+
+        elMonths.textContent = Number(totalMonthsExact).toLocaleString();
+        elWeeks.textContent = Number(totalWeeks).toLocaleString();
+        elDays.textContent = totalDays.toLocaleString();
+        elHours.textContent = totalHours.toLocaleString();
+        elMins.textContent = totalMins.toLocaleString();
+        elSecs.textContent = totalSecs.toLocaleString();
+
+        elDayOfWeek.textContent = daysOfWeek[birthDate.getDay()];
+        elNextBday.textContent = `${nextBdayDays} Days`;
+        elNextBdayDay.textContent = nextBdayDayName;
+        elHalfBday.textContent = halfBdayFormatted;
+        elZodiac.textContent = zodiac;
+        elChineseZod.textContent = chineseZod;
+        elBirthstone.textContent = birthstone;
+        elLeapYears.textContent = `${leapCount} Years`;
+
+        elHeartbeats.textContent = heartbeats.toLocaleString();
+        elBreaths.textContent = breaths.toLocaleString();
+        elSleepHours.textContent = sleepHours.toLocaleString() + ' hrs';
+        elLaughter.textContent = laughs.toLocaleString();
+
+        // Planetary Ages
+        elMerc.textContent = (totalDays / 87.97).toFixed(1) + ' yrs';
+        elVen.textContent = (totalDays / 224.7).toFixed(1) + ' yrs';
+        elMars.textContent = (totalDays / 686.98).toFixed(1) + ' yrs';
+        elJup.textContent = (totalDays / 4332.59).toFixed(2) + ' yrs';
+        elSat.textContent = (totalDays / 10759.22).toFixed(2) + ' yrs';
+        elNep.textContent = (totalDays / 60190.03).toFixed(3) + ' yrs';
+
+        lastSummary = `Age Summary from InstaCalc.in:\nExact Age: ${ageString}\nTotal Days: ${totalDays.toLocaleString()} Days\nBorn on: ${daysOfWeek[birthDate.getDay()]}\nNext Birthday: in ${nextBdayDays} days (${nextBdayDayName})\nZodiac: ${zodiac} | Birthstone: ${birthstone}`;
+      }
+
+      // Event Listeners
+      dobInput.addEventListener('input', calculateAge);
+      nowInput.addEventListener('input', calculateAge);
+
+      // Preset Chips Logic
+      document.querySelectorAll('#presetDobChips .chip').forEach(chip => {
+        chip.addEventListener('click', function() {
+          const ageYears = Number(this.getAttribute('data-age'));
+          const currentRef = nowInput.value ? new Date(nowInput.value) : new Date();
+          const targetBday = new Date(currentRef.getFullYear() - ageYears, currentRef.getMonth(), currentRef.getDate());
+          dobInput.value = formatDateToLocal(targetBday);
+          calculateAge();
+        });
       });
+
+      document.querySelectorAll('#presetCutoffChips .chip').forEach(chip => {
+        chip.addEventListener('click', function() {
+          const cutoff = this.getAttribute('data-cutoff');
+          const currentRefYear = nowInput.value ? new Date(nowInput.value).getFullYear() : new Date().getFullYear();
+          if (cutoff) {
+            nowInput.value = `${currentRefYear}-${cutoff}`;
+          } else {
+            nowInput.value = formatDateToLocal(new Date());
+          }
+          calculateAge();
+        });
+      });
+
+      document.getElementById('todayBtn').addEventListener('click', () => {
+        nowInput.value = formatDateToLocal(new Date());
+        calculateAge();
+      });
+
+      document.getElementById('recalculateBtn').addEventListener('click', calculateAge);
+
+      document.getElementById('resetBtn').addEventListener('click', () => {
+        const cur = new Date();
+        nowInput.value = formatDateToLocal(cur);
+        const def = new Date(cur.getFullYear() - 25, cur.getMonth(), cur.getDate());
+        dobInput.value = formatDateToLocal(def);
+        calculateAge();
+      });
+
+      // Quick Copy
+      function copyText(text, btn) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+            setTimeout(() => btn.innerHTML = orig, 1800);
+          });
+        }
+      }
+
+      if (copyHeroBtn) {
+        copyHeroBtn.addEventListener('click', () => copyText(lastSummary, copyHeroBtn));
+      }
+      if (copySummaryBtn) {
+        copySummaryBtn.addEventListener('click', () => copyText(lastSummary, copySummaryBtn));
+      }
+
+      // Initial Calculation
+      calculateAge();
     })();
-  
   </script>
+  <script defer src="../../fullscreen-mode.js"></script>
 </body>
 
 </html>

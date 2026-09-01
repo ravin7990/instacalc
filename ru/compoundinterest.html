@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 
 <head>
@@ -877,7 +877,7 @@
       }
 
       .calc-layout {
-        grid-template-columns: 1.72fr 1fr;
+        grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
         align-items: start;
       }
 
@@ -955,6 +955,82 @@
         margin-right: 0.5rem;
       }
     }
+  
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell {
+        border: 0;
+        background: transparent;
+        overflow: visible;
+      }
+
+      .projection-table,
+      .projection-table tbody,
+      .projection-table tr,
+      .projection-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .projection-table thead {
+        display: none;
+      }
+
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--border-soft);
+        border-radius: 12px;
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--border-soft);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+
+      .projection-table td:nth-child(odd):not(.projection-year) {
+        border-right: 1px solid var(--border-soft);
+      }
+
+      .projection-table td:nth-last-child(-n + 2) {
+        border-bottom: 0;
+      }
+
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, #e6f7f6, #ffffff);
+        border-right: 0;
+        color: #005f73;
+        font-size: 0.95rem;
+      }
+
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: #64748b;
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .projection-table .projection-year::before {
+        display: none;
+      }
+    }
+
   </style>
 </head>
 
@@ -1000,7 +1076,7 @@
           <div class="hero-actions">
             <a class="btn btn-primary" href="#compound-planner">
               <i class="fas fa-calculator"></i>Начать расчет</a>
-            <a class="btn btn-ghost" href="cargcalculator.html">
+            <a class="btn btn-ghost" href="cagrcalculator.html">
               <i class="fas fa-arrow-right-arrow-left"></i>Сравните с CAGR</a>
           </div>
         </div>
@@ -1022,7 +1098,7 @@
           <div class="calculator-header-row">
             <div class="mode-switch" aria-label="Calculator mode">
               <a href="compoundinterest.html" class="active">Сложные проценты</a>
-              <a href="cargcalculator.html">Среднегодовой темп роста</a>
+              <a href="cagrcalculator.html">Среднегодовой темп роста</a>
             </div>
             <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
               <i class="fas fa-sliders"></i>
@@ -1249,7 +1325,7 @@
               <i class="fas fa-file-csv"></i>Скачать CSV-файл</button>
           </div>
           <div class="table-shell">
-            <table>
+            <table class="projection-table">
               <thead>
                 <tr>
                   <th>Год</th>
@@ -1279,7 +1355,7 @@
           <div class="sidebar-card">
             <h3>Похожие калькуляторы</h3>
             <ul class="link-list">
-              <li><a href="cargcalculator.html"><span>Калькулятор среднегодового темпа роста</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="cagrcalculator.html"><span>Калькулятор среднегодового темпа роста</span><i class="fas fa-arrow-right"></i></a></li>
               <li><a href="sipcalculator.html"><span>SIP-калькулятор</span><i class="fas fa-arrow-right"></i></a></li>
               <li><a href="mutualfundreturncalculator.html"><span>Калькулятор взаимных фондов</span><i
                     class="fas fa-arrow-right"></i></a></li>
@@ -1386,6 +1462,7 @@
         <a href="aboutus.html">О нас</a>
         <a href="contactus.html">Свяжитесь с нами</a>
         <a href="privacypolicy.html">Политика конфиденциальности</a>
+        <a href="../terms.html">Terms &amp; Conditions</a>
       </div>
     </div>
   </footer>
@@ -1780,11 +1857,11 @@
         elements.projectionTableBody.innerHTML = projection.map(function (row) {
           return (
             "<tr>" +
-            "<td>Год " + row.year + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.totalContributed, currencyCode) + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.grossValue, currencyCode) + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.cumulativeFees, currencyCode) + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.netValue, currencyCode) + "</td>" +
+            "<td class=\"projection-year\">Год " + row.year + "</td>" +
+            "<td data-label=\"Сумма взносов\">" + formatCurrencyWithUnits(row.totalContributed, currencyCode) + "</td>" +
+            "<td data-label=\"Общая сумма\">" + formatCurrencyWithUnits(row.grossValue, currencyCode) + "</td>" +
+            "<td data-label=\"Комиссии\">" + formatCurrencyWithUnits(row.cumulativeFees, currencyCode) + "</td>" +
+            "<td data-label=\"Чистая сумма\">" + formatCurrencyWithUnits(row.netValue, currencyCode) + "</td>" +
             "</tr>"
           );
         }).join("");
@@ -2097,6 +2174,8 @@
     })();
   
   </script>
+  <script defer src="../fullscreen-mode.js"></script>
 </body>
 
 </html>
+

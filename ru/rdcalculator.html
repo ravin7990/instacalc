@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -891,7 +891,7 @@
       }
 
       .calc-layout {
-        grid-template-columns: 1.72fr 1fr;
+        grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
         align-items: start;
       }
 
@@ -935,6 +935,82 @@
         transition: none;
       }
     }
+  
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell {
+        border: 0;
+        background: transparent;
+        overflow: visible;
+      }
+
+      .projection-table,
+      .projection-table tbody,
+      .projection-table tr,
+      .projection-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .projection-table thead {
+        display: none;
+      }
+
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--border-soft);
+        border-radius: 12px;
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--border-soft);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+
+      .projection-table td:nth-child(odd):not(.projection-year) {
+        border-right: 1px solid var(--border-soft);
+      }
+
+      .projection-table td:nth-last-child(-n + 2) {
+        border-bottom: 0;
+      }
+
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, #e6f7f6, #ffffff);
+        border-right: 0;
+        color: #005f73;
+        font-size: 0.95rem;
+      }
+
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: #64748b;
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .projection-table .projection-year::before {
+        display: none;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1199,7 +1275,7 @@
             </button>
           </div>
           <div class="table-shell">
-            <table>
+            <table class="projection-table">
               <thead>
                 <tr>
                   <th>Год</th>
@@ -1300,7 +1376,7 @@
           <h3>Справочник ставок крупнейших банков РФ (на вклады с пополнением)</h3>
           <p>Процентные ставки регулярно меняются в зависимости от ключевой ставки Банка России. Ниже приведен ориентировочный срез ставок по состоянию на 2026 год:</p>
           <div class="table-shell">
-            <table>
+            <table class="projection-table">
               <thead>
                 <tr>
                   <th>Банк</th>
@@ -1373,6 +1449,7 @@
         <a href="aboutus.html">О нас</a>
         <a href="contactus.html">Контакты</a>
         <a href="privacypolicy.html">Политика конфиденциальности</a>
+        <a href="../terms.html">Terms &amp; Conditions</a>
       </div>
     </div>
   </footer>
@@ -1696,11 +1773,11 @@
         elements.projectionTableBody.innerHTML = projection.map(function (row) {
           return (
             "<tr>" +
-              "<td>Год " + row.year + "</td>" +
-              "<td>" + formatCurrencyWithUnits(row.monthlyDepositAtYearEnd) + "</td>" +
-              "<td>" + formatCurrencyWithUnits(row.invested) + "</td>" +
-              "<td>" + formatCurrencyWithUnits(row.gains) + "</td>" +
-              "<td>" + formatCurrencyWithUnits(row.corpus) + "</td>" +
+              "<td class=\"projection-year\">Год " + row.year + "</td>" +
+              "<td data-label=\"Ежемесячный взнос\">" + formatCurrencyWithUnits(row.monthlyDepositAtYearEnd) + "</td>" +
+              "<td data-label=\"Сумма взносов\">" + formatCurrencyWithUnits(row.invested) + "</td>" +
+              "<td data-label=\"Начисленные проценты\">" + formatCurrencyWithUnits(row.gains) + "</td>" +
+              "<td data-label=\"Итоговая сумма\">" + formatCurrencyWithUnits(row.corpus) + "</td>" +
             "</tr>"
           );
         }).join("");
@@ -1999,5 +2076,7 @@
     const app = initializeApp(firebaseConfig);
     getAnalytics(app);
   </script>
+  <script defer src="../fullscreen-mode.js"></script>
 </body>
 </html>
+

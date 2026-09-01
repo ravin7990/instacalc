@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 
 <head>
@@ -861,7 +861,7 @@
       }
 
       .calc-layout {
-        grid-template-columns: 1.72fr 1fr;
+        grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
         align-items: start;
       }
 
@@ -950,6 +950,82 @@
     .lang-switch select:focus {
       border-color: var(--accent);
     }
+  
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell {
+        border: 0;
+        background: transparent;
+        overflow: visible;
+      }
+
+      .projection-table,
+      .projection-table tbody,
+      .projection-table tr,
+      .projection-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .projection-table thead {
+        display: none;
+      }
+
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--border-soft);
+        border-radius: 12px;
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--border-soft);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+
+      .projection-table td:nth-child(odd):not(.projection-year) {
+        border-right: 1px solid var(--border-soft);
+      }
+
+      .projection-table td:nth-last-child(-n + 2) {
+        border-bottom: 0;
+      }
+
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, #e6f7f6, #ffffff);
+        border-right: 0;
+        color: #005f73;
+        font-size: 0.95rem;
+      }
+
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: #64748b;
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .projection-table .projection-year::before {
+        display: none;
+      }
+    }
+
   </style>
 </head>
 
@@ -1107,7 +1183,7 @@
           </div>
 
           <div class="table-shell" style="margin-top:20px;">
-            <table>
+            <table class="projection-table">
               <thead>
                 <tr>
                   <th>Год</th>
@@ -1179,6 +1255,7 @@
         <a href="aboutus.html">О нас</a>
         <a href="contactus.html">Свяжитесь с нами</a>
         <a href="privacypolicy.html">Политика конфиденциальности</a>
+        <a href="../terms.html">Terms &amp; Conditions</a>
       </div>
     </div>
   </footer>
@@ -1312,11 +1389,19 @@
         elements.resMaturity.textContent = formatWithUnits(currentBalance);
 
         elements.projectionTable.innerHTML = "";
-        yearlyData.forEach(row => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `<td>${row.year}</td><td>${formatWithUnits(row.opening)}</td><td>${formatWithUnits(row.invest)}</td><td>${formatWithUnits(row.interest)}</td><td>${formatWithUnits(row.closing)}</td>`;
-          elements.projectionTable.appendChild(tr);
-        });
+        if (elements.projectionTable) {
+          elements.projectionTable.innerHTML = yearlyData.map(row => {
+            return (
+              "<tr>" +
+              "<td class=\"projection-year\">Год " + row.year + "</td>" +
+              "<td data-label=\"Начальный баланс\">" + formatWithUnits(row.opening) + "</td>" +
+              "<td data-label=\"Взнос за год\">" + formatWithUnits(row.invest) + "</td>" +
+              "<td data-label=\"Начисленные проценты\">" + formatWithUnits(row.interest) + "</td>" +
+              "<td data-label=\"Итоговый баланс\">" + formatWithUnits(row.closing) + "</td>" +
+              "</tr>"
+            );
+          }).join("");
+        }
 
         drawChart(labels, values);
       }
@@ -1407,6 +1492,7 @@
   
   </script>
 
+  <script defer src="../fullscreen-mode.js"></script>
 </body>
 
 </html>

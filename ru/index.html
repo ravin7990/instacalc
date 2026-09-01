@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 
 <head>
@@ -1088,6 +1088,7 @@
         <a href="aboutus.html">О нас</a>
         <a href="contactus.html">Свяжитесь с нами</a>
         <a href="privacypolicy.html">Политика конфиденциальности</a>
+        <a href="../terms.html">Terms &amp; Conditions</a>
       </div>
     </div>
   </footer>
@@ -1462,11 +1463,24 @@
       }
 
       function fillCategories() {
+        categoriesGrid.innerHTML = '';
         Object.keys(unitCategories).sort().forEach(function (category) {
           const card = document.createElement("div");
-          card.className = "category-item";
+          card.className = "category-card";
           const icon = categoryIcons[category] || "fas fa-square";
-          card.innerHTML = '<i class="' + icon + '"></i><span>' + toTitleCase(category) + '</span>';
+          const unitsCount = Object.keys(unitCategories[category]).length;
+          card.innerHTML = '<i class="' + icon + '" style="color:var(--ic-primary); font-size:1.2rem;"></i><div><strong style="display:block; font-size:0.95rem;">' + toTitleCase(category) + '</strong><span style="font-size:0.8rem; color:var(--ic-text-muted);">' + unitsCount + ' units</span></div>';
+          card.addEventListener("click", function () {
+            const sampleUnits = Object.keys(unitCategories[category]);
+            if (sampleUnits.length >= 2) {
+              const fromU = getPreferredAlias(sampleUnits[0]);
+              const toU = getPreferredAlias(sampleUnits[1]);
+              conversionInput.value = "10 " + fromU + " to " + toU;
+              performConversion(conversionInput.value);
+              conversionInput.focus();
+              window.scrollTo({ top: conversionInput.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' });
+            }
+          });
           categoriesGrid.appendChild(card);
         });
       }
@@ -1526,13 +1540,24 @@
         if (!insideInput && !insideSuggestions) suggestionsContainer.classList.add("hidden");
       });
 
-      toggleCategoriesBtn.addEventListener("click", function () {
-        const willShow = categoriesGridContainerEl.classList.contains("hidden");
-        categoriesGridContainerEl.classList.toggle("hidden");
-        toggleCategoriesBtn.setAttribute("aria-expanded", String(willShow));
-        toggleCategoriesText.textContent = willShow ? "Hide supported categories" : "Show supported categories";
-        const icon = toggleCategoriesBtn.querySelector("i");
-        if (icon) icon.className = willShow ? "fas fa-chevron-up" : "fas fa-chevron-down";
+      toggleCategoriesBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        const isHidden = categoriesGridContainerEl.classList.contains("hidden") || categoriesGridContainerEl.style.display === "none";
+        if (isHidden) {
+          categoriesGridContainerEl.classList.remove("hidden");
+          categoriesGridContainerEl.style.display = "block";
+          toggleCategoriesBtn.setAttribute("aria-expanded", "true");
+          toggleCategoriesText.textContent = "Hide supported categories";
+          const icon = toggleCategoriesBtn.querySelector("i");
+          if (icon) icon.className = "fas fa-chevron-up";
+        } else {
+          categoriesGridContainerEl.classList.add("hidden");
+          categoriesGridContainerEl.style.display = "none";
+          toggleCategoriesBtn.setAttribute("aria-expanded", "false");
+          toggleCategoriesText.textContent = "Show supported categories";
+          const icon = toggleCategoriesBtn.querySelector("i");
+          if (icon) icon.className = "fas fa-chevron-down";
+        }
       });
 
       conversionInput.focus();
@@ -1542,3 +1567,4 @@
 </body>
 
 </html>
+

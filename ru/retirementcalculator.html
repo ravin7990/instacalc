@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 
 <head>
@@ -847,7 +847,7 @@
       }
 
       .calc-layout {
-        grid-template-columns: 1.72fr 1fr;
+        grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
         align-items: start;
       }
 
@@ -936,6 +936,82 @@
       background: var(--accent-strong);
       color: #fff;
     }
+  
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell {
+        border: 0;
+        background: transparent;
+        overflow: visible;
+      }
+
+      .projection-table,
+      .projection-table tbody,
+      .projection-table tr,
+      .projection-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .projection-table thead {
+        display: none;
+      }
+
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--border-soft);
+        border-radius: 12px;
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--border-soft);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+
+      .projection-table td:nth-child(odd):not(.projection-year) {
+        border-right: 1px solid var(--border-soft);
+      }
+
+      .projection-table td:nth-last-child(-n + 2) {
+        border-bottom: 0;
+      }
+
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, #e6f7f6, #ffffff);
+        border-right: 0;
+        color: #005f73;
+        font-size: 0.95rem;
+      }
+
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: #64748b;
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .projection-table .projection-year::before {
+        display: none;
+      }
+    }
+
   </style>
 </head>
 
@@ -1250,7 +1326,7 @@
           </button>
         </div>
         <div class="table-shell">
-          <table>
+            <table class="projection-table">
             <thead>
               <tr>
                 <th>Год</th>
@@ -1287,7 +1363,7 @@
             <li><a href="epfcalculator.html"><span>Калькулятор накоплений</span><i class="fas fa-arrow-right"></i></a></li>
             <li><a href="gratuitycalculator.html"><span>Калькулятор выплат при увольнении</span><i class="fas fa-arrow-right"></i></a>
             </li>
-            <li><a href="cargcalculator.html"><span>Калькулятор CAGR</span><i class="fas fa-arrow-right"></i></a></li>
+            <li><a href="cagrcalculator.html"><span>Калькулятор CAGR</span><i class="fas fa-arrow-right"></i></a></li>
           </ul>
         </div>
       </aside>
@@ -1374,6 +1450,7 @@
         <a href="aboutus.html">О нас</a>
         <a href="contactus.html">Контакты</a>
         <a href="privacypolicy.html">Политика конфиденциальности</a>
+        <a href="../terms.html">Terms &amp; Conditions</a>
       </div>
       <p
         style="font-size: 0.75rem; color: var(--text-soft); max-width: 800px; line-height: 1.4; opacity: 0.8; margin-top: 0.5rem;">
@@ -1792,11 +1869,11 @@
         elements.projectionTableBody.innerHTML = projection.map(function (row) {
           return (
             "<tr>" +
-            "<td>Год " + row.year + "</td>" +
-            "<td>" + row.age + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.annualContribution) + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.totalInvested) + "</td>" +
-            "<td>" + formatCurrencyWithUnits(row.balance) + "</td>" +
+            "<td class=\"projection-year\">Год " + row.year + " (" + row.age + " лет)</td>" +
+            "<td data-label=\"Возраст\">" + row.age + " лет</td>" +
+            "<td data-label=\"Взнос за год\">" + formatCurrencyWithUnits(row.annualContribution) + "</td>" +
+            "<td data-label=\"Всего внесено\">" + formatCurrencyWithUnits(row.totalInvested) + "</td>" +
+            "<td data-label=\"Капитал\">" + formatCurrencyWithUnits(row.balance) + "</td>" +
             "</tr>"
           );
         }).join("");
@@ -2137,6 +2214,9 @@
     const app = initializeApp(firebaseConfig);
     getAnalytics(app);
   </script>
+  <script defer src="../fullscreen-mode.js"></script>
 </body>
 
 </html>
+
+
