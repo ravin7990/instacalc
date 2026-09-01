@@ -24,13 +24,60 @@
   <meta property="og:url" content="https://instacalc.in/duration/hourcalculator.html">
   <meta property="og:image" content="https://instacalc.in/instatheme.webp">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hours Calculator - Work Hours, Break Deduction & Decimal Payroll">
+  <meta name="twitter:description" content="Calculate work hours, subtract breaks, and convert to decimal payroll hours.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
   <link rel="stylesheet" href="../instacalc-core.css">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do you calculate total work hours between two times?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Convert start and end times to minutes past midnight. Subtract start time from end time, subtract unpaid break duration, and divide the result by 60 to obtain decimal hours."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the calculator handle overnight shifts crossing midnight?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If the shift end time is earlier than the start time (e.g., 9:00 PM to 5:00 AM), the calculator automatically adds 24 hours (1,440 minutes) to the end time to calculate total elapsed overnight time correctly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are decimal hours calculated for timesheet payroll?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Decimal hours are computed by taking the total net working minutes and dividing by 60. For example, 7 hours and 45 minutes = 7 + (45/60) = 7.75 decimal hours."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I calculate total gross pay from work hours?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Multiply total decimal hours worked by your hourly wage rate (e.g., 8.50 decimal hours * $25.00/hr = $212.50 gross pay)."
+          }
+        }
+      ]
+    }
+  </script>
 
   <style>
     * { box-sizing: border-box; }
@@ -285,27 +332,53 @@
     </div>
 
     <section class="section">
-      <div class="container content-card">
-        <h2 style="font-family: 'Sora', sans-serif; font-size: clamp(1.4rem, 3vw, 1.85rem); margin-bottom: 1rem; color: var(--ic-text);">
-          How to Convert Work Hours into Decimal Payroll Format
-        </h2>
-        <p style="color: var(--ic-text-muted); font-size: 0.95rem; line-height: 1.6;">
-          Payroll accounting software requires working time in decimal format rather than standard hours and minutes. To convert minutes to decimal hours, divide the minutes by 60:
-          <br>• <strong>15 minutes</strong> = 15 / 60 = <strong>0.25 hrs</strong>
-          <br>• <strong>30 minutes</strong> = 30 / 60 = <strong>0.50 hrs</strong>
-          <br>• <strong>45 minutes</strong> = 45 / 60 = <strong>0.75 hrs</strong>
-        </p>
+      <div class="container content-grid">
+        <article class="content-card">
+          <h3>How to Calculate Work Hours & Timesheet Pay</h3>
+          <p>Tracking working hours and deducting lunch breaks accurately is vital for timesheet reporting, freelancer invoicing, and overtime compliance. Standard clocks record time in hours and minutes (sexagesimal base-60), but payroll systems require decimal format for accurate mathematical multiplication.</p>
+          <br>
+          <p><strong>Core Formulas:</strong></p>
+          <ul>
+            <li><strong>Gross Shift Minutes:</strong> $\text{End Minutes} - \text{Start Minutes}$ (add 1,440 mins for overnight shifts)</li>
+            <li><strong>Net Working Time:</strong> $\text{Gross Minutes} - \text{Break Minutes}$</li>
+            <li><strong>Decimal Hours:</strong> $\frac{\text{Net Working Minutes}}{60}$</li>
+            <li><strong>Gross Earnings:</strong> $\text{Decimal Hours} \times \text{Hourly Wage Rate}$</li>
+          </ul>
+          <br>
+          <p><strong>Example:</strong> An 8:30 AM to 5:00 PM shift with a 45-minute lunch break totals 8.5 gross hours minus 0.75 break hours = <strong>7.75 decimal hours (7 hours and 45 minutes)</strong>.</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>How do you convert minutes to decimal hours for payroll? <i class="fas fa-chevron-down"></i></summary>
+            <p>Divide the minutes by 60: 15 mins = 0.25 hrs, 30 mins = 0.50 hrs, 45 mins = 0.75 hrs, and 6 mins = 0.10 hrs.</p>
+          </details>
+          <details class="faq-card">
+            <summary>How are overnight shifts crossing midnight calculated? <i class="fas fa-chevron-down"></i></summary>
+            <p>The calculator detects when the end time is numerically less than the start time and automatically adds 24 hours (1,440 minutes) to calculate continuous overnight duration without errors.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can I calculate time addition and subtraction? <i class="fas fa-chevron-down"></i></summary>
+            <p>Yes. Use the "Add / Sub Time" mode tab above to add or subtract hours and minutes from any baseline time of day.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Does this calculator support unpaid meal break deductions? <i class="fas fa-chevron-down"></i></summary>
+            <p>Yes. Enter your total unpaid break duration in minutes (e.g., 30 or 60), and the tool automatically subtracts it from total elapsed shift time.</p>
+          </details>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© 2026 InstaCalc.in — Precision Time & Hours Analytics.</p>
+      <p>InstaCalc.in — precision time, timesheet, and hours calculation analytics.</p>
       <div class="footer-links">
         <a href="../index.html">Home</a>
         <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
         <a href="../privacypolicy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms &amp; Conditions</a>
       </div>
     </div>
   </footer>

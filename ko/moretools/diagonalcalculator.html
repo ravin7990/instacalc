@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -169,6 +169,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
         <div class="mode-switch" role="tablist" aria-label="대각선 계산 모드">
           <button class="mode-btn active" data-mode="rectangle" role="tab" aria-selected="true">직사각형</button>
           <button class="mode-btn" data-mode="square" role="tab" aria-selected="false">정사각형</button>
+          <button class="mode-btn" data-mode="triangle" role="tab" aria-selected="false">정사각형</button>
           <button class="mode-btn" data-mode="parallelogram" role="tab" aria-selected="false">평행사변형</button>
           <button class="mode-btn" data-mode="rhombus" role="tab" aria-selected="false">마름모</button>
           <button class="mode-btn" data-mode="cuboid" role="tab" aria-selected="false">직육면체</button>
@@ -206,7 +207,54 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
             <div class="result"><span>면적</span><strong id="sqArea">-</strong></div>
             <div class="result"><span>공식</span><strong>d = s × sqrt(2)</strong></div>
           </div>
+        
+        <section class="panel" data-panel="triangle">
+          <h3>삼각형 대각선 / 빗변 계산기 (피타고라스 정리)</h3>
+          <p>직각삼각형의 빗변(대각선), 누락된 변의 길이 및 3-4-5 직각 측정값을 계산합니다.</p>
+          <div class="input-grid">
+            <div class="field">
+              <label for="triCalcType">계산 모드</label>
+              <select id="triCalcType">
+                <option value="hypotenuse" selected>빗변 / 대각선 (c) 구하기</option>
+                <option value="leg">남은 변 (b) 구하기</option>
+                <option value="equilateral">정삼각형 높이 (h)</option>
+              </select>
+            </div>
+            <div class="field" id="triSideAField">
+              <label for="triSideA" id="triSideALabel">변 a (밑변)</label>
+              <input type="number" id="triSideA" value="3" min="0" step="any">
+            </div>
+            <div class="field" id="triSideBField">
+              <label for="triSideB" id="triSideBLabel">변 b (높이)</label>
+              <input type="number" id="triSideB" value="4" min="0" step="any">
+            </div>
+            <div class="field">
+              <label for="triUnit">단위</label>
+              <select id="triUnit">
+                <option>cm</option>
+                <option>m</option>
+                <option>in</option>
+                <option>ft</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="chips-wrap" style="margin: 0.75rem 0;" id="triPresetChips">
+            <button type="button" class="chip" data-a="3" data-b="4" data-type="hypotenuse">3-4-5 (직각 잡기)</button>
+            <button type="button" class="chip" data-a="5" data-b="12" data-type="hypotenuse">5-12-13</button>
+            <button type="button" class="chip" data-a="6" data-b="8" data-type="hypotenuse">6-8-10</button>
+            <button type="button" class="chip" data-a="8" data-b="15" data-type="hypotenuse">8-15-17</button>
+          </div>
+
+          <div class="results">
+            <div class="result"><span id="triResultLabel">대각선 / 빗변 (c)</span><strong id="triResultValue">-</strong></div>
+            <div class="result"><span>둘레</span><strong id="triPerimeter">-</strong></div>
+            <div class="result"><span>넓이</span><strong id="triArea">-</strong></div>
+            <div class="result"><span>내각</span><strong id="triAngles">-</strong></div>
+            <div class="result"><span>공식</span><strong id="triFormula">c = √(a² + b²)</strong></div>
+          </div>
         </section>
+</section>
         
         <section class="panel" data-panel="parallelogram">
           <h3>평행사변형 대각선 계산기</h3>
@@ -480,6 +528,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
       <a href="../aboutus.html">회사 소개</a>
       <a href="../contactus.html">문의하기</a>
       <a href="../privacypolicy.html">개인정보처리방침</a>
+        <a href="../../terms.html">Terms &amp; Conditions</a>
     </div>
   </div>
 </footer>
@@ -535,6 +584,63 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
         '<text x=\"160\" y=\"212\" text-anchor=\"middle\" fill=\"#0c5f5b\" font-size=\"12\">정사각형의 네 변 길이는 동일합니다</text>';
       if(els.diagramCaption)els.diagramCaption.textContent='정사각형 실시간 도해가 한 변의 길이로 업데이트됩니다.';
       return;
+    }
+        if(mode==='triangle'){
+      const calcType = $('triCalcType').value;
+      const u = $('triUnit').value;
+      if (calcType === 'equilateral') {
+        const s = num($('triSideA'));
+        if (!(s > 0)) { drawPlaceholder('Enter side length.'); return; }
+        const h = (Math.sqrt(3) / 2) * s;
+        const scale = Math.min((W - 2 * P) / s, (H - 2 * P) / h);
+        const tw = s * scale, th = h * scale;
+        const x1 = W / 2, y1 = (H - th) / 2;
+        const x2 = x1 - tw / 2, y2 = y1 + th;
+        const x3 = x1 + tw / 2, y3 = y1 + th;
+        els.liveDiagram.innerHTML =
+          '<polygon points="' + x1.toFixed(1) + ',' + y1.toFixed(1) + ' ' + x2.toFixed(1) + ',' + y2.toFixed(1) + ' ' + x3.toFixed(1) + ',' + y3.toFixed(1) + '" fill="#d9f1ef" stroke="#0f7d78" stroke-width="2"/>' +
+          '<line x1="' + x1.toFixed(1) + '" y1="' + y1.toFixed(1) + '" x2="' + x1.toFixed(1) + '" y2="' + y3.toFixed(1) + '" stroke="#cc5a1a" stroke-width="2.5" stroke-dasharray="6 4"/>' +
+          '<text x="' + x1.toFixed(1) + '" y="' + (y1 - 8).toFixed(1) + '" text-anchor="middle" fill="#0c5f5b" font-size="12">Side = ' + fmt(s, 2) + ' ' + u + '</text>' +
+          '<text x="' + (x1 + 10).toFixed(1) + '" y="' + (y1 + th / 2).toFixed(1) + '" fill="#cc5a1a" font-size="12">h = ' + fmt(h, 2) + ' ' + u + '</text>';
+        return;
+      }
+      
+      const a = num($('triSideA')), bVal = num($('triSideB'));
+      if (calcType === 'hypotenuse') {
+        if (!(a > 0 && bVal > 0)) { drawPlaceholder('Enter Leg a & b.'); return; }
+        const c = Math.sqrt(a * a + bVal * bVal);
+        const scale = Math.min((W - 2 * P - 40) / a, (H - 2 * P - 30) / bVal);
+        const rw = a * scale, rh = bVal * scale;
+        const x = (W - rw) / 2 + 10, y = (H - rh) / 2;
+        const x1 = x, y1 = y + rh, x2 = x + rw, y2 = y + rh, x3 = x, y3 = y;
+        const sq = Math.min(14, Math.min(rw, rh) * 0.2);
+        
+        els.liveDiagram.innerHTML =
+          '<polygon points="' + x1.toFixed(1) + ',' + y1.toFixed(1) + ' ' + x2.toFixed(1) + ',' + y2.toFixed(1) + ' ' + x3.toFixed(1) + ',' + y3.toFixed(1) + '" fill="#d9f1ef" stroke="#0f7d78" stroke-width="2"/>' +
+          '<path d="M ' + (x1 + sq).toFixed(1) + ' ' + y1.toFixed(1) + ' L ' + (x1 + sq).toFixed(1) + ' ' + (y1 - sq).toFixed(1) + ' L ' + x1.toFixed(1) + ' ' + (y1 - sq).toFixed(1) + '" fill="none" stroke="#0f7d78" stroke-width="1.5"/>' +
+          '<line x1="' + x3.toFixed(1) + '" y1="' + y3.toFixed(1) + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) + '" stroke="#cc5a1a" stroke-width="2.8" stroke-dasharray="6 4"/>' +
+          '<text x="' + (x1 + rw / 2).toFixed(1) + '" y="' + (y1 + 18).toFixed(1) + '" text-anchor="middle" fill="#0c5f5b" font-size="12">a = ' + fmt(a, 2) + ' ' + u + '</text>' +
+          '<text x="' + (x1 - 8).toFixed(1) + '" y="' + (y + rh / 2).toFixed(1) + '" text-anchor="end" fill="#0c5f5b" font-size="12">b = ' + fmt(bVal, 2) + ' ' + u + '</text>' +
+          '<text x="' + (x1 + rw / 2 + 10).toFixed(1) + '" y="' + (y + rh / 2 - 6).toFixed(1) + '" fill="#cc5a1a" font-size="12">c = ' + fmt(c, 2) + ' ' + u + '</text>';
+        return;
+      } else {
+        if (!(a > 0 && bVal > a)) { drawPlaceholder('Enter valid leg & hypotenuse.'); return; }
+        const b = Math.sqrt(bVal * bVal - a * a);
+        const scale = Math.min((W - 2 * P - 40) / a, (H - 2 * P - 30) / b);
+        const rw = a * scale, rh = b * scale;
+        const x = (W - rw) / 2 + 10, y = (H - rh) / 2;
+        const x1 = x, y1 = y + rh, x2 = x + rw, y2 = y + rh, x3 = x, y3 = y;
+        const sq = Math.min(14, Math.min(rw, rh) * 0.2);
+        
+        els.liveDiagram.innerHTML =
+          '<polygon points="' + x1.toFixed(1) + ',' + y1.toFixed(1) + ' ' + x2.toFixed(1) + ',' + y2.toFixed(1) + ' ' + x3.toFixed(1) + ',' + y3.toFixed(1) + '" fill="#d9f1ef" stroke="#0f7d78" stroke-width="2"/>' +
+          '<path d="M ' + (x1 + sq).toFixed(1) + ' ' + y1.toFixed(1) + ' L ' + (x1 + sq).toFixed(1) + ' ' + (y1 - sq).toFixed(1) + ' L ' + x1.toFixed(1) + ' ' + (y1 - sq).toFixed(1) + '" fill="none" stroke="#0f7d78" stroke-width="1.5"/>' +
+          '<line x1="' + x3.toFixed(1) + '" y1="' + y3.toFixed(1) + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) + '" stroke="#cc5a1a" stroke-width="2.8" stroke-dasharray="6 4"/>' +
+          '<text x="' + (x1 + rw / 2).toFixed(1) + '" y="' + (y1 + 18).toFixed(1) + '" text-anchor="middle" fill="#0c5f5b" font-size="12">a = ' + fmt(a, 2) + ' ' + u + '</text>' +
+          '<text x="' + (x1 - 8).toFixed(1) + '" y="' + (y + rh / 2).toFixed(1) + '" text-anchor="end" fill="#0c5f5b" font-size="12">b = ' + fmt(b, 2) + ' ' + u + '</text>' +
+          '<text x="' + (x1 + rw / 2 + 10).toFixed(1) + '" y="' + (y + rh / 2 - 6).toFixed(1) + '" fill="#cc5a1a" font-size="12">c = ' + fmt(bVal, 2) + ' ' + u + '</text>';
+        return;
+      }
     }
     if(mode==='parallelogram'){
       const a=num($('paraSideA')),b=num($('paraSideB')),ang=num($('paraAngle')),u=$('paraUnit').value;
@@ -645,6 +751,79 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
 
   function updateRectangle(){const l=num($('rectLength')),w=num($('rectWidth')),u=$('rectUnit').value;if(l<=0||w<=0){$('rectDiagonal').textContent='-';$('rectPerimeter').textContent='-';$('rectArea').textContent='-';setPrimary('rectangle','직사각형 대각선',NaN,u,'가로와 세로에 양의 실수를 기입해 주십시오.');return;}const d=diag(l,w);$('rectDiagonal').textContent=fmt(d)+' '+u;$('rectPerimeter').textContent=fmt(2*(l+w))+' '+u;$('rectArea').textContent=fmt(l*w)+' '+u+'²';setPrimary('rectangle','직사각형 대각선',d,u,'직사각형 대각선 공식: sqrt(가로² + 세로²).')}
   function updateSquare(){const s=num($('sqSide')),u=$('sqUnit').value;if(s<=0){$('sqDiagonal').textContent='-';$('sqPerimeter').textContent='-';$('sqArea').textContent='-';setPrimary('square','정사각형 대각선',NaN,u,'변의 길이에 양의 실수를 기입해 주십시오.');return;}const d=s*Math.sqrt(2);$('sqDiagonal').textContent=fmt(d)+' '+u;$('sqPerimeter').textContent=fmt(4*s)+' '+u;$('sqArea').textContent=fmt(s*s)+' '+u+'²';setPrimary('square','정사각형 대각선',d,u,'정사각형 대각선 공식: d = s × sqrt(2).')}
+    function updateTriangle() {
+    const calcType = $('triCalcType').value;
+    const u = $('triUnit').value;
+    const bField = $('triSideBField');
+    const aLabel = $('triSideALabel'), bLabel = $('triSideBLabel');
+    
+    if (calcType === 'equilateral') {
+      bField.style.display = 'none';
+      aLabel.textContent = 'Side (s)';
+      const s = num($('triSideA'));
+      if (!(s > 0)) {
+        $('triResultValue').textContent = '-'; $('triPerimeter').textContent = '-'; $('triArea').textContent = '-'; $('triAngles').textContent = '-';
+        setPrimary('triangle', 'Altitude', NaN, u, '');
+        return;
+      }
+      const h = (Math.sqrt(3) / 2) * s;
+      const perimeter = 3 * s;
+      const area = (Math.sqrt(3) / 4) * s * s;
+      $('triResultLabel').textContent = 'Altitude (h)';
+      $('triResultValue').textContent = fmt(h) + ' ' + u;
+      $('triPerimeter').textContent = fmt(perimeter) + ' ' + u;
+      $('triArea').textContent = fmt(area) + ' ' + u + '²';
+      $('triAngles').textContent = '60°, 60°, 60°';
+      $('triFormula').textContent = 'h = (√3 / 2) × s';
+      setPrimary('triangle', 'Altitude', h, u, '');
+      return;
+    }
+    
+    bField.style.display = 'grid';
+    if (calcType === 'hypotenuse') {
+      aLabel.textContent = 'Leg a';
+      bLabel.textContent = 'Leg b';
+      const a = num($('triSideA')), b = num($('triSideB'));
+      if (!(a > 0 && b > 0)) {
+        $('triResultValue').textContent = '-'; $('triPerimeter').textContent = '-'; $('triArea').textContent = '-'; $('triAngles').textContent = '-';
+        setPrimary('triangle', 'Hypotenuse (c)', NaN, u, '');
+        return;
+      }
+      const c = Math.sqrt(a * a + b * b);
+      const perimeter = a + b + c;
+      const area = 0.5 * a * b;
+      const angA = Math.atan2(a, b) * 180 / Math.PI;
+      const angB = 90 - angA;
+      $('triResultLabel').textContent = 'Diagonal / Hypotenuse (c)';
+      $('triResultValue').textContent = fmt(c) + ' ' + u;
+      $('triPerimeter').textContent = fmt(perimeter) + ' ' + u;
+      $('triArea').textContent = fmt(area) + ' ' + u + '²';
+      $('triAngles').textContent = 'α = ' + fmt(angB, 1) + '°, β = ' + fmt(angA, 1) + '°, γ = 90.0°';
+      $('triFormula').textContent = 'c = √(a² + b²)';
+      setPrimary('triangle', 'Hypotenuse (c)', c, u, '');
+    } else {
+      aLabel.textContent = 'Leg a';
+      bLabel.textContent = 'Hypotenuse (c)';
+      const a = num($('triSideA')), c = num($('triSideB'));
+      if (!(a > 0 && c > 0 && c > a)) {
+        $('triResultValue').textContent = '-'; $('triPerimeter').textContent = '-'; $('triArea').textContent = '-'; $('triAngles').textContent = '-';
+        setPrimary('triangle', 'Missing leg b', NaN, u, '');
+        return;
+      }
+      const b = Math.sqrt(c * c - a * a);
+      const perimeter = a + b + c;
+      const area = 0.5 * a * b;
+      const angA = Math.asin(a / c) * 180 / Math.PI;
+      const angB = 90 - angA;
+      $('triResultLabel').textContent = 'Missing Leg (b)';
+      $('triResultValue').textContent = fmt(b) + ' ' + u;
+      $('triPerimeter').textContent = fmt(perimeter) + ' ' + u;
+      $('triArea').textContent = fmt(area) + ' ' + u + '²';
+      $('triAngles').textContent = 'α = ' + fmt(angA, 1) + '°, β = ' + fmt(angB, 1) + '°, γ = 90.0°';
+      $('triFormula').textContent = 'b = √(c² - a²)';
+      setPrimary('triangle', 'Missing leg b', b, u, '');
+    }
+  }
   function updateParallelogram(){const a=num($('paraSideA')),b=num($('paraSideB')),ang=num($('paraAngle')),u=$('paraUnit').value;if(a<=0||b<=0||ang<=0||ang>=180){$('paraDiag1').textContent='-';$('paraDiag2').textContent='-';$('paraArea').textContent='-';$('paraPerimeter').textContent='-';setPrimary('parallelogram','평행사변형 대각선',NaN,u,'변의 길이와 올바른 각도(0-180)를 입력하세요.');return;}const rad=ang*Math.PI/180;const p=Math.sqrt(a*a+b*b-2*a*b*Math.cos(rad));const q=Math.sqrt(a*a+b*b+2*a*b*Math.cos(rad));const area=a*b*Math.sin(rad);$('paraDiag1').textContent=fmt(p)+' '+u;$('paraDiag2').textContent=fmt(q)+' '+u;$('paraArea').textContent=fmt(area)+' '+u+'\u00b2';$('paraPerimeter').textContent=fmt(2*(a+b))+' '+u;setPrimary('parallelogram','평행사변형 대각선 p',p,u,'코사인 법칙을 적용한 대각선 계산 결과입니다.')}
   function updateRhombus(){const s=num($('rhombusSide')),ang=num($('rhombusAngle')),u=$('rhombusUnit').value;if(s<=0||ang<=0||ang>=180){$('rhombusDiag1').textContent='-';$('rhombusDiag2').textContent='-';$('rhombusArea').textContent='-';$('rhombusPerimeter').textContent='-';setPrimary('rhombus','마름모 대각선',NaN,u,'변의 길이와 올바른 각도(0-180)를 입력하세요.');return;}const rad=ang*Math.PI/180;const p=2*s*Math.sin(rad/2);const q=2*s*Math.cos(rad/2);const area=(p*q)/2;$('rhombusDiag1').textContent=fmt(p)+' '+u;$('rhombusDiag2').textContent=fmt(q)+' '+u;$('rhombusArea').textContent=fmt(area)+' '+u+'\u00b2';$('rhombusPerimeter').textContent=fmt(4*s)+' '+u;setPrimary('rhombus','마름모 대각선 p',p,u,'서로 직교하는 마름모의 성질을 적용: p = 2s·sin(θ/2).')}
   function updateCuboid(){const l=num($('boxLength')),w=num($('boxWidth')),h=num($('boxHeight')),u=$('boxUnit').value;if(l<=0||w<=0||h<=0){$('boxDiagonal').textContent='-';$('boxFaceLW').textContent='-';$('boxFaceLH').textContent='-';$('boxFaceWH').textContent='-';setPrimary('cuboid','직육면체 대각선',NaN,u,'가로, 세로, 높이에 각각 양의 실수를 기입해 주십시오.');return;}const d=Math.sqrt(l*l+w*w+h*h);$('boxDiagonal').textContent=fmt(d)+' '+u;$('boxFaceLW').textContent=fmt(diag(l,w))+' '+u;$('boxFaceLH').textContent=fmt(diag(l,h))+' '+u;$('boxFaceWH').textContent=fmt(diag(w,h))+' '+u;setPrimary('cuboid','직육면체 공간 대각선',d,u,'입체 상자의 3D 대각선 공식을 사용하였습니다.')}
@@ -652,7 +831,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
   function updateScreen(){const w=Math.round(num($('scrW'))),h=Math.round(num($('scrH'))),ppi=num($('scrPpi'));if(!Number.isFinite(w)||!Number.isFinite(h)||w<=0||h<=0){$('scrDiagPx').textContent='-';$('scrAspect').textContent='-';$('scrDiagIn').textContent='-';$('scrDiagCm').textContent='-';setPrimary('screen','화면 대각선',NaN,'','정확한 픽셀 해상도를 입력하십시오.');return;}const d=diag(w,h),g=gcd(w,h);$('scrDiagPx').textContent=fmt(d,2)+' px';$('scrAspect').textContent=(w/g)+':'+(h/g);if(Number.isFinite(ppi)&&ppi>0){const i=d/ppi,c=i*2.54;$('scrDiagIn').textContent=fmt(i,2)+' in';$('scrDiagCm').textContent=fmt(c,2)+' cm';setPrimary('screen','화면 대각선',i,'in','해상도 및 PPI 값에 기반하여 계산되었습니다.')}else{$('scrDiagIn').textContent='PPI 기입 필요';$('scrDiagCm').textContent='PPI 기입 필요';setPrimary('screen','화면 대각선',d,'px','인치와 cm로 변환하려면 PPI를 기입하십시오.')}}
   function updateRoom(){const l=num($('roomL')),w=num($('roomW')),m=num($('roomM')),u=$('roomUnit').value;if(l<=0||w<=0){$('roomExpected').textContent='-';$('roomDiff').textContent='-';$('roomStatus').textContent='방 치수가 유효하지 않습니다.';setPrimary('room','방 대각선',NaN,u,'가로와 세로에 양의 실수를 기입해 주십시오.');return;}const d=diag(l,w);$('roomExpected').textContent=fmt(d)+' '+u;if(Number.isFinite(m)&&m>0){const diff=m-d,tol=d*.005;$('roomDiff').textContent=(diff>=0?'+':'')+fmt(diff)+' '+u;$('roomStatus').textContent=Math.abs(diff)<=tol?'수직 상태 양호 (오차 0.5% 이내)':'수직이 맞지 않음; 모퉁이 조절 필요';}else{$('roomDiff').textContent='측정값 추가 필요';$('roomStatus').textContent='실측 대각선값을 입력해 비교해 보세요.';}setPrimary('room','이론상 방 대각선',d,u,'방 모퉁이의 직각 정렬 확인용으로 사용됩니다.')}
 
-  function updateActive(){if(mode==='rectangle')updateRectangle();else if(mode==='square')updateSquare();else if(mode==='parallelogram')updateParallelogram();else if(mode==='rhombus')updateRhombus();else if(mode==='cuboid')updateCuboid();else if(mode==='polygon')updatePolygon();else if(mode==='screen')updateScreen();else if(mode==='room')updateRoom();drawDiagram();}
+  function updateActive(){if(mode==='rectangle')updateRectangle();else if(mode==='square')updateSquare();else if(mode==='triangle')updateTriangle();else if(mode==='parallelogram')updateParallelogram();else if(mode==='rhombus')updateRhombus();else if(mode==='cuboid')updateCuboid();else if(mode==='polygon')updatePolygon();else if(mode==='screen')updateScreen();else if(mode==='room')updateRoom();drawDiagram();}
   function switchMode(m){mode=m;els.modeBtns.forEach(b=>{const on=b.dataset.mode===m;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on));});els.panels.forEach(p=>p.classList.toggle('active',p.dataset.panel===m));updateActive();}
 
   function saveLog(){try{localStorage.setItem('diagLog',JSON.stringify(log));}catch(e){}}
@@ -664,7 +843,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
 
   function setupNav(){els.menuToggle.addEventListener('click',()=>{const open=els.mainNav.classList.toggle('open');els.menuToggle.setAttribute('aria-expanded',String(open));els.menuToggle.textContent=open?'✕':'☰';});els.mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(window.innerWidth<980){els.mainNav.classList.remove('open');els.menuToggle.setAttribute('aria-expanded','false');els.menuToggle.textContent='☰';}}));}
   function setupTop(){let ticking=false;const sync=()=>{els.topBtn.classList.toggle('show',window.scrollY>260);ticking=false;};window.addEventListener('scroll',()=>{if(ticking)return;ticking=true;window.requestAnimationFrame(sync);},{passive:true});els.topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));sync();}
-  function wireInputs(){['rectLength','rectWidth','rectUnit','sqSide','sqUnit','paraSideA','paraSideB','paraAngle','paraUnit','rhombusSide','rhombusAngle','rhombusUnit','boxLength','boxWidth','boxHeight','boxUnit','polySides','scrW','scrH','scrPpi','roomL','roomW','roomM','roomUnit'].forEach(id=>{const e=$(id);if(e){e.addEventListener('input',updateActive);e.addEventListener('change',updateActive);}})}
+  function wireInputs(){['rectLength','rectWidth','rectUnit','sqSide','sqUnit','triCalcType','triSideA','triSideB','triUnit','paraSideA','paraSideB','paraAngle','paraUnit','rhombusSide','rhombusAngle','rhombusUnit','boxLength','boxWidth','boxHeight','boxUnit','polySides','scrW','scrH','scrPpi','roomL','roomW','roomM','roomUnit'].forEach(id=>{const e=$(id);if(e){e.addEventListener('input',updateActive);e.addEventListener('change',updateActive);}})}
 
   const langSelect = document.getElementById('langSelect');
   if (langSelect) {
@@ -683,8 +862,23 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
     });
   }
 
-  setupNav();setupTop();els.modeBtns.forEach(b=>b.addEventListener('click',()=>switchMode(b.dataset.mode)));els.copyBtn.addEventListener('click',copyPrimary);els.addLogBtn.addEventListener('click',addLog);els.clearLogBtn.addEventListener('click',clearLog);wireInputs();loadLog();renderLog();switchMode('rectangle');
+  setupNav();setupTop();els.modeBtns.forEach(b=>b.addEventListener('click',()=>switchMode(b.dataset.mode)));els.copyBtn.addEventListener('click',copyPrimary);els.addLogBtn.addEventListener('click',addLog);els.clearLogBtn.addEventListener('click',clearLog);wireInputs();
+  const triChips = document.querySelectorAll('#triPresetChips .chip');
+  triChips.forEach(chip => {
+    chip.addEventListener('click', function() {
+      const aVal = this.dataset.a;
+      const bVal = this.dataset.b;
+      const tVal = this.dataset.type;
+      if ($('triCalcType')) $('triCalcType').value = tVal;
+      if ($('triSideA')) $('triSideA').value = aVal;
+      if ($('triSideB')) $('triSideB').value = bVal;
+      updateActive();
+    });
+  });
+loadLog();renderLog();switchMode('rectangle');
 })();
 </script>
+  <script defer src="../../fullscreen-mode.js"></script>
 </body>
 </html>
+

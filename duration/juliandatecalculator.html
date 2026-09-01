@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Julian Date Converter – Julian Day Number, Modified Julian & DOY Calculator</title>
+  <title>Julian Date Calculator - Calendar to JDN Converter</title>
   <meta name="description"
     content="Free online Julian Date Converter. Convert between Gregorian calendar date and astronomical Julian Day (JD), Modified Julian Date (MJD), and 5-digit manufacturing codes.">
   <meta name="keywords"
@@ -17,13 +17,63 @@
   <link rel="icon" type="image/x-icon" href="../favicon.webp">
   <link rel="canonical" href="https://instacalc.in/duration/juliandatecalculator.html">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  
+  <meta property="og:title" content="Julian Date Calculator - Convert Calendar to Julian Day Number">
+  <meta property="og:description" content="Convert any Gregorian calendar date to Julian Day Number (JDN) and Modified Julian Date (MJD) instantly.">
+  <meta property="og:url" content="https://instacalc.in/duration/juliandatecalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Julian Date Calculator - Convert Calendar to Julian Day Number">
+  <meta name="twitter:description" content="Convert any Gregorian calendar date to Julian Day Number (JDN) and Modified Julian Date (MJD) instantly.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
   <link rel="stylesheet" href="../instacalc-core.css">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a Julian Date (Julian Day Number)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Julian Date (JD) is a continuous count of days elapsed since the beginning of the Julian Period on January 1, 4713 BC (Proleptic Julian calendar). It is widely used in astronomy and geodesy to calculate time intervals without irregular month lengths."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Modified Julian Date (MJD)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Modified Julian Date (MJD) is defined as MJD = JD - 2400000.5. It shifts the epoch to midnight on November 17, 1858, simplifying calculations by reducing the number of digits and starting days at midnight UTC rather than noon."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a 5-digit manufacturing Julian date code (YYDDD)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In food, beverage, and industrial manufacturing, a Julian date code often refers to a 5-digit format where the first two digits represent the year (e.g., 26 for 2026) and the last three digits indicate the Day of the Year (DOY, from 001 to 365/366)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Day of Year (DOY) calculated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Day of Year is the sequential day number starting from January 1 (Day 1) to December 31 (Day 365, or 366 in leap years)."
+          }
+        }
+      ]
+    }
+  </script>
 
   <style>
     * { box-sizing: border-box; }
@@ -206,11 +256,49 @@
         </aside>
       </div>
     </div>
+    <section class="section">
+      <div class="container content-grid">
+        <article class="content-card">
+          <h3>Understanding Julian Dates & Conversions</h3>
+          <p>The <strong>Julian Day (JD)</strong> system, devised by French scholar Joseph Justus Scaliger in 1583, provides a continuous tally of solar days and fractional days from an origin epoch set on January 1, 4713 BC. Unlike Gregorian dates, Julian days eliminate irregularities caused by leap years, differing month lengths, and daylight saving shifts—making them the gold standard in astronomy, satellite orbit tracking, and geodesy.</p>
+          <br>
+          <p><strong>Modified Julian Date (MJD):</strong> Astronomers frequently employ the Modified Julian Date ($MJD = JD - 2400000.5$), which sets the zero reference point to midnight UTC on November 17, 1858. This reduces the magnitude of numbers and aligns day rollovers with midnight rather than noon.</p>
+          <br>
+          <p><strong>Commercial & Manufacturing Codes (YYDDD):</strong> In supply chain logistics and batch tracking, companies often print a 5-digit "Julian code" where the first two digits designate the production year and the final three digits indicate the sequential Day of the Year (DOY 001 to 366).</p>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>What is the difference between Julian Date and Julian Calendar? <i class="fas fa-chevron-down"></i></summary>
+            <p>The Julian Calendar is the historical solar calendar introduced by Julius Caesar in 46 BC. In contrast, the Julian Date is a continuous mathematical count of days since 4713 BC, unrelated to the historical Roman calendar.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Why does the Julian Day begin at noon UTC? <i class="fas fa-chevron-down"></i></summary>
+            <p>Astronomers historically adopted noon UTC so that nighttime astronomical observations would fall within a single calendar day without changing dates at midnight.</p>
+          </details>
+          <details class="faq-card">
+            <summary>How do I decode a 5-digit food packaging date (YYDDD)? <i class="fas fa-chevron-down"></i></summary>
+            <p>The first two digits indicate the year (e.g., 26 for 2026), and the remaining three digits indicate the day of that year (e.g., 045 represents the 45th day of the year, February 14th).</p>
+          </details>
+          <details class="faq-card">
+            <summary>What is Unix Epoch time compared to Julian Day? <i class="fas fa-chevron-down"></i></summary>
+            <p>Unix time counts seconds elapsed since January 1, 1970 UTC (JD 2440587.5). The Julian day number can be converted directly to Unix timestamps by subtracting the epoch difference.</p>
+          </details>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© 2026 InstaCalc.in — Precision Julian & Astronomical Tools.</p>
+      <p>InstaCalc.in — precision Julian date, astronomical, and chronological computation tools.</p>
+      <div class="footer-links">
+        <a href="../index.html">Home</a>
+        <a href="../aboutus.html">About Us</a>
+        <a href="../contactus.html">Contact Us</a>
+        <a href="../privacypolicy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms &amp; Conditions</a>
+      </div>
     </div>
   </footer>
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -15,7 +15,7 @@
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0f6f6b">
 <meta name="google-adsense-account" content="ca-pub-4943063856769784">
-<link rel="icon" type="image/webp" href="../favicon.webp">
+<link rel="icon" type="image/x-icon" href="../../favicon.ico">
 <link rel="canonical" href="https://instacalc.in/ja/moretools/diagonalcalculator.html">
 <meta property="og:title" content="対角線 計算 オンライン — 8種類の図形に対応した対角線計算ツール">
 <meta property="og:description" content="長方形、正方形、直方体、多角形、テレビ画面、部屋の対角線を1つのマルチ計算機で簡単算出。">
@@ -120,7 +120,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
 <header class="site-header">
   <div class="container header-inner">
     <a href="../index.html" class="brand" aria-label="InstaCalc ホーム">
-      <img src="../logo.png" alt="InstaCalc ロゴ" width="42" height="42" decoding="async" fetchpriority="high">
+      <img src="../../logo.png" alt="InstaCalc ロゴ" width="42" height="42" decoding="async" fetchpriority="high">
       <span>InstaCalc.in</span>
     </a>
     <div class="lang-switch">
@@ -131,7 +131,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
         <option value="ko">한국어</option>
       </select>
     </div>
-    <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="メニューを開閉">?</button>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="メニューを開閉"><i class="fas fa-bars"></i></button>
     <nav class="site-nav" id="mainNav">
       <a href="../index.html">ホーム</a>
       <a href="../aboutus.html">運営者情報</a>
@@ -170,6 +170,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
         <div class="mode-switch" role="tablist" aria-label="対角線計算モード">
           <button class="mode-btn active" data-mode="rectangle" role="tab" aria-selected="true">長方形</button>
           <button class="mode-btn" data-mode="square" role="tab" aria-selected="false">正方形</button>
+          <button class="mode-btn" data-mode="triangle" role="tab" aria-selected="false">正方形</button>
           <button class="mode-btn" data-mode="parallelogram" role="tab" aria-selected="false">平行四辺形</button>
           <button class="mode-btn" data-mode="rhombus" role="tab" aria-selected="false">ひし形</button>
           <button class="mode-btn" data-mode="cuboid" role="tab" aria-selected="false">直方体</button>
@@ -207,7 +208,58 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
             <div class="result"><span>面積</span><strong id="sqArea">-</strong></div>
             <div class="result"><span>公式</span><strong>d = s × sqrt(2)</strong></div>
           </div>
+        
+        <section class="panel" data-panel="triangle">
+          <h3>三角形の対角線 / 斜辺計算機 (ピタゴラスの定理)</h3>
+          <p>直角三角形の斜辺（対角線）、不足している辺の長さ、または建築・大工工事の3-4-5直角出し計算を行います。</p>
+          <div class="input-grid">
+            <div class="field">
+              <label for="triCalcType">計算モード</label>
+              <select id="triCalcType">
+                <option value="hypotenuse" selected>斜辺 / 対角線 (c) を求める</option>
+                <option value="leg">残りの辺 (b) を求める</option>
+                <option value="equilateral">正三角形の高さ (h)</option>
+              </select>
+            </div>
+            <div class="field" id="triSideAField">
+              <label for="triSideA" id="triSideALabel">辺 a (底辺)</label>
+              <input type="number" id="triSideA" value="3" min="0" step="any">
+            </div>
+            <div class="field" id="triSideBField">
+              <label for="triSideB" id="triSideBLabel">辺 b (高さ)</label>
+              <input type="number" id="triSideB" value="4" min="0" step="any">
+            </div>
+            <div class="field">
+              <label for="triUnit">単位</label>
+              <select id="triUnit">
+                <option>cm</option>
+                <option>m</option>
+                <option>in</option>
+                <option>ft</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="chips-wrap" style="margin: 0.75rem 0;" id="triPresetChips">
+            <button type="button" class="chip" data-a="3" data-b="4" data-type="hypotenuse">3-4-5 (直角出し)</button>
+            <button type="button" class="chip" data-a="5" data-b="12" data-type="hypotenuse">5-12-13</button>
+            <button type="button" class="chip" data-a="6" data-b="8" data-type="hypotenuse">6-8-10</button>
+            <button type="button" class="chip" data-a="8" data-b="15" data-type="hypotenuse">8-15-17</button>
+          </div>
+
+          <div class="results">
+            <div class="result"><span id="triResultLabel">対角線 / 斜辺 (c)</span><strong id="triResultValue">-</strong></div>
+            <div class="result"><span>周囲の長さ</span><strong id="triPerimeter">-</strong></div>
+            <div class="result"><span>面積</span><strong id="triArea">-</strong></div>
+            <div class="result"><span>内角</span><strong id="triAngles">-</strong></div>
+            <div class="result"><span>公式</span><strong id="triFormula">c = √(a² + b²)</strong></div>
+          </div>
+          <div style="font-size: 0.85rem; color: var(--ic-text-muted); margin-top: 0.5rem; background: var(--ic-bg-subtle); padding: 0.6rem 0.8rem; border-radius: var(--ic-radius-sm); border-left: 3px solid var(--ic-primary);">
+            <i class="fas fa-circle-info" style="color: var(--ic-primary); margin-right: 0.3rem;"></i>
+            <strong>幾何学ノート:</strong> 厳密な幾何学定義では三角形に内角対角線はありません (0本)。しかし建築・測量・大工現場では、直角三角形の斜辺 (c = √(a² + b²)) や3-4-5工法を一般的に「三角形の対角線」と呼びます。
+          </div>
         </section>
+</section>
 
         <section class="panel" data-panel="parallelogram">
           <h3>平行四辺形の対角線 計算</h3>
@@ -464,7 +516,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
       <div class="grid">
         <a href="trignometrycalculator.html" class="card" style="text-decoration:none;color:inherit"><h3>三角関数計算ツール</h3><p>sin、cos、tan、および逆三角関数をオンラインで計算します。</p></a>
         <a href="concretecalculator.html" class="card" style="text-decoration:none;color:inherit"><h3>コンクリート計算ツール</h3><p>スラブ、基礎、柱のコンクリートのボリューム（体積）を計算します。</p></a>
-        <a href="coumpoundinterest.html" class="card" style="text-decoration:none;color:inherit"><h3>複利計算ツール</h3><p>複利の計算を柔軟な資本化期間で行います。</p></a>
+        <a href="compoundinterest.html" class="card" style="text-decoration:none;color:inherit"><h3>複利計算ツール</h3><p>複利の計算を柔軟な資本化期間で行います。</p></a>
         <a href="../../gallontolitercalculator.html" class="card" style="text-decoration:none;color:inherit"><h3>単位換算ツール</h3><p>ガロンとリットルなど、各種単位の相互換算を行います。</p></a>
       </div>
     </div>
@@ -479,6 +531,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
       <a href="../aboutus.html">運営者情報</a>
       <a href="../contactus.html">お問い合わせ</a>
       <a href="../privacypolicy.html">プライバシーポリシー</a>
+        <a href="../../terms.html">Terms &amp; Conditions</a>
     </div>
   </div>
 </footer>
@@ -545,6 +598,63 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
         '<text x=\"160\" y=\"212\" text-anchor=\"middle\" fill=\"#0c5f5b\" font-size=\"12\">4つの辺はすべて等しいです</text>';
       if(els.diagramCaption)els.diagramCaption.textContent='一辺の長さの変更に応じて、リアルタイムの図面が更新されます。';
       return;
+    }
+        if(mode==='triangle'){
+      const calcType = $('triCalcType').value;
+      const u = $('triUnit').value;
+      if (calcType === 'equilateral') {
+        const s = num($('triSideA'));
+        if (!(s > 0)) { drawPlaceholder('Enter side length.'); return; }
+        const h = (Math.sqrt(3) / 2) * s;
+        const scale = Math.min((W - 2 * P) / s, (H - 2 * P) / h);
+        const tw = s * scale, th = h * scale;
+        const x1 = W / 2, y1 = (H - th) / 2;
+        const x2 = x1 - tw / 2, y2 = y1 + th;
+        const x3 = x1 + tw / 2, y3 = y1 + th;
+        els.liveDiagram.innerHTML =
+          '<polygon points="' + x1.toFixed(1) + ',' + y1.toFixed(1) + ' ' + x2.toFixed(1) + ',' + y2.toFixed(1) + ' ' + x3.toFixed(1) + ',' + y3.toFixed(1) + '" fill="#d9f1ef" stroke="#0f7d78" stroke-width="2"/>' +
+          '<line x1="' + x1.toFixed(1) + '" y1="' + y1.toFixed(1) + '" x2="' + x1.toFixed(1) + '" y2="' + y3.toFixed(1) + '" stroke="#cc5a1a" stroke-width="2.5" stroke-dasharray="6 4"/>' +
+          '<text x="' + x1.toFixed(1) + '" y="' + (y1 - 8).toFixed(1) + '" text-anchor="middle" fill="#0c5f5b" font-size="12">Side = ' + fmt(s, 2) + ' ' + u + '</text>' +
+          '<text x="' + (x1 + 10).toFixed(1) + '" y="' + (y1 + th / 2).toFixed(1) + '" fill="#cc5a1a" font-size="12">h = ' + fmt(h, 2) + ' ' + u + '</text>';
+        return;
+      }
+      
+      const a = num($('triSideA')), bVal = num($('triSideB'));
+      if (calcType === 'hypotenuse') {
+        if (!(a > 0 && bVal > 0)) { drawPlaceholder('Enter Leg a & b.'); return; }
+        const c = Math.sqrt(a * a + bVal * bVal);
+        const scale = Math.min((W - 2 * P - 40) / a, (H - 2 * P - 30) / bVal);
+        const rw = a * scale, rh = bVal * scale;
+        const x = (W - rw) / 2 + 10, y = (H - rh) / 2;
+        const x1 = x, y1 = y + rh, x2 = x + rw, y2 = y + rh, x3 = x, y3 = y;
+        const sq = Math.min(14, Math.min(rw, rh) * 0.2);
+        
+        els.liveDiagram.innerHTML =
+          '<polygon points="' + x1.toFixed(1) + ',' + y1.toFixed(1) + ' ' + x2.toFixed(1) + ',' + y2.toFixed(1) + ' ' + x3.toFixed(1) + ',' + y3.toFixed(1) + '" fill="#d9f1ef" stroke="#0f7d78" stroke-width="2"/>' +
+          '<path d="M ' + (x1 + sq).toFixed(1) + ' ' + y1.toFixed(1) + ' L ' + (x1 + sq).toFixed(1) + ' ' + (y1 - sq).toFixed(1) + ' L ' + x1.toFixed(1) + ' ' + (y1 - sq).toFixed(1) + '" fill="none" stroke="#0f7d78" stroke-width="1.5"/>' +
+          '<line x1="' + x3.toFixed(1) + '" y1="' + y3.toFixed(1) + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) + '" stroke="#cc5a1a" stroke-width="2.8" stroke-dasharray="6 4"/>' +
+          '<text x="' + (x1 + rw / 2).toFixed(1) + '" y="' + (y1 + 18).toFixed(1) + '" text-anchor="middle" fill="#0c5f5b" font-size="12">a = ' + fmt(a, 2) + ' ' + u + '</text>' +
+          '<text x="' + (x1 - 8).toFixed(1) + '" y="' + (y + rh / 2).toFixed(1) + '" text-anchor="end" fill="#0c5f5b" font-size="12">b = ' + fmt(bVal, 2) + ' ' + u + '</text>' +
+          '<text x="' + (x1 + rw / 2 + 10).toFixed(1) + '" y="' + (y + rh / 2 - 6).toFixed(1) + '" fill="#cc5a1a" font-size="12">c = ' + fmt(c, 2) + ' ' + u + '</text>';
+        return;
+      } else {
+        if (!(a > 0 && bVal > a)) { drawPlaceholder('Enter valid leg & hypotenuse.'); return; }
+        const b = Math.sqrt(bVal * bVal - a * a);
+        const scale = Math.min((W - 2 * P - 40) / a, (H - 2 * P - 30) / b);
+        const rw = a * scale, rh = b * scale;
+        const x = (W - rw) / 2 + 10, y = (H - rh) / 2;
+        const x1 = x, y1 = y + rh, x2 = x + rw, y2 = y + rh, x3 = x, y3 = y;
+        const sq = Math.min(14, Math.min(rw, rh) * 0.2);
+        
+        els.liveDiagram.innerHTML =
+          '<polygon points="' + x1.toFixed(1) + ',' + y1.toFixed(1) + ' ' + x2.toFixed(1) + ',' + y2.toFixed(1) + ' ' + x3.toFixed(1) + ',' + y3.toFixed(1) + '" fill="#d9f1ef" stroke="#0f7d78" stroke-width="2"/>' +
+          '<path d="M ' + (x1 + sq).toFixed(1) + ' ' + y1.toFixed(1) + ' L ' + (x1 + sq).toFixed(1) + ' ' + (y1 - sq).toFixed(1) + ' L ' + x1.toFixed(1) + ' ' + (y1 - sq).toFixed(1) + '" fill="none" stroke="#0f7d78" stroke-width="1.5"/>' +
+          '<line x1="' + x3.toFixed(1) + '" y1="' + y3.toFixed(1) + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) + '" stroke="#cc5a1a" stroke-width="2.8" stroke-dasharray="6 4"/>' +
+          '<text x="' + (x1 + rw / 2).toFixed(1) + '" y="' + (y1 + 18).toFixed(1) + '" text-anchor="middle" fill="#0c5f5b" font-size="12">a = ' + fmt(a, 2) + ' ' + u + '</text>' +
+          '<text x="' + (x1 - 8).toFixed(1) + '" y="' + (y + rh / 2).toFixed(1) + '" text-anchor="end" fill="#0c5f5b" font-size="12">b = ' + fmt(b, 2) + ' ' + u + '</text>' +
+          '<text x="' + (x1 + rw / 2 + 10).toFixed(1) + '" y="' + (y + rh / 2 - 6).toFixed(1) + '" fill="#cc5a1a" font-size="12">c = ' + fmt(bVal, 2) + ' ' + u + '</text>';
+        return;
+      }
     }
     if(mode==='parallelogram'){
       const a=num($('paraSideA')),b=num($('paraSideB')),ang=num($('paraAngle')),u=$('paraUnit').value;
@@ -654,6 +764,79 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
 
   function updateRectangle(){const l=num($('rectLength')),w=num($('rectWidth')),u=$('rectUnit').value;if(l<=0||w<=0){$('rectDiagonal').textContent='-';$('rectPerimeter').textContent='-';$('rectArea').textContent='-';setPrimary('rectangle','長方形の対角線',NaN,u,'正の縦と横の長さを入力してください。');return;}const d=diag(l,w);$('rectDiagonal').textContent=fmt(d)+' '+u;$('rectPerimeter').textContent=fmt(2*(l+w))+' '+u;$('rectArea').textContent=fmt(l*w)+' '+u+'²';setPrimary('rectangle','長方形の対角線',d,u,'長方形の対角線の公式: sqrt(縦² + 横²)')}
   function updateSquare(){const s=num($('sqSide')),u=$('sqUnit').value;if(s<=0){$('sqDiagonal').textContent='-';$('sqPerimeter').textContent='-';$('sqArea').textContent='-';setPrimary('square','正方形の対角線',NaN,u,'正の一辺の長さを入力してください。');return;}const d=s*Math.sqrt(2);$('sqDiagonal').textContent=fmt(d)+' '+u;$('sqPerimeter').textContent=fmt(4*s)+' '+u;$('sqArea').textContent=fmt(s*s)+' '+u+'²';setPrimary('square','正方形の対角線',d,u,'正方形の対角線の公式: d = s × sqrt(2)')}
+    function updateTriangle() {
+    const calcType = $('triCalcType').value;
+    const u = $('triUnit').value;
+    const bField = $('triSideBField');
+    const aLabel = $('triSideALabel'), bLabel = $('triSideBLabel');
+    
+    if (calcType === 'equilateral') {
+      bField.style.display = 'none';
+      aLabel.textContent = 'Side (s)';
+      const s = num($('triSideA'));
+      if (!(s > 0)) {
+        $('triResultValue').textContent = '-'; $('triPerimeter').textContent = '-'; $('triArea').textContent = '-'; $('triAngles').textContent = '-';
+        setPrimary('triangle', 'Altitude', NaN, u, '');
+        return;
+      }
+      const h = (Math.sqrt(3) / 2) * s;
+      const perimeter = 3 * s;
+      const area = (Math.sqrt(3) / 4) * s * s;
+      $('triResultLabel').textContent = 'Altitude (h)';
+      $('triResultValue').textContent = fmt(h) + ' ' + u;
+      $('triPerimeter').textContent = fmt(perimeter) + ' ' + u;
+      $('triArea').textContent = fmt(area) + ' ' + u + '²';
+      $('triAngles').textContent = '60°, 60°, 60°';
+      $('triFormula').textContent = 'h = (√3 / 2) × s';
+      setPrimary('triangle', 'Altitude', h, u, '');
+      return;
+    }
+    
+    bField.style.display = 'grid';
+    if (calcType === 'hypotenuse') {
+      aLabel.textContent = 'Leg a';
+      bLabel.textContent = 'Leg b';
+      const a = num($('triSideA')), b = num($('triSideB'));
+      if (!(a > 0 && b > 0)) {
+        $('triResultValue').textContent = '-'; $('triPerimeter').textContent = '-'; $('triArea').textContent = '-'; $('triAngles').textContent = '-';
+        setPrimary('triangle', 'Hypotenuse (c)', NaN, u, '');
+        return;
+      }
+      const c = Math.sqrt(a * a + b * b);
+      const perimeter = a + b + c;
+      const area = 0.5 * a * b;
+      const angA = Math.atan2(a, b) * 180 / Math.PI;
+      const angB = 90 - angA;
+      $('triResultLabel').textContent = 'Diagonal / Hypotenuse (c)';
+      $('triResultValue').textContent = fmt(c) + ' ' + u;
+      $('triPerimeter').textContent = fmt(perimeter) + ' ' + u;
+      $('triArea').textContent = fmt(area) + ' ' + u + '²';
+      $('triAngles').textContent = 'α = ' + fmt(angB, 1) + '°, β = ' + fmt(angA, 1) + '°, γ = 90.0°';
+      $('triFormula').textContent = 'c = √(a² + b²)';
+      setPrimary('triangle', 'Hypotenuse (c)', c, u, '');
+    } else {
+      aLabel.textContent = 'Leg a';
+      bLabel.textContent = 'Hypotenuse (c)';
+      const a = num($('triSideA')), c = num($('triSideB'));
+      if (!(a > 0 && c > 0 && c > a)) {
+        $('triResultValue').textContent = '-'; $('triPerimeter').textContent = '-'; $('triArea').textContent = '-'; $('triAngles').textContent = '-';
+        setPrimary('triangle', 'Missing leg b', NaN, u, '');
+        return;
+      }
+      const b = Math.sqrt(c * c - a * a);
+      const perimeter = a + b + c;
+      const area = 0.5 * a * b;
+      const angA = Math.asin(a / c) * 180 / Math.PI;
+      const angB = 90 - angA;
+      $('triResultLabel').textContent = 'Missing Leg (b)';
+      $('triResultValue').textContent = fmt(b) + ' ' + u;
+      $('triPerimeter').textContent = fmt(perimeter) + ' ' + u;
+      $('triArea').textContent = fmt(area) + ' ' + u + '²';
+      $('triAngles').textContent = 'α = ' + fmt(angA, 1) + '°, β = ' + fmt(angB, 1) + '°, γ = 90.0°';
+      $('triFormula').textContent = 'b = √(c² - a²)';
+      setPrimary('triangle', 'Missing leg b', b, u, '');
+    }
+  }
   function updateParallelogram(){const a=num($('paraSideA')),b=num($('paraSideB')),ang=num($('paraAngle')),u=$('paraUnit').value;if(a<=0||b<=0||ang<=0||ang>=180){$('paraDiag1').textContent='-';$('paraDiag2').textContent='-';$('paraArea').textContent='-';$('paraPerimeter').textContent='-';setPrimary('parallelogram','平行四辺形の対角線',NaN,u,'正の辺と角度（0°〜180°）を入力してください。');return;}const rad=ang*Math.PI/180;const p=Math.sqrt(a*a+b*b-2*a*b*Math.cos(rad));const q=Math.sqrt(a*a+b*b+2*a*b*Math.cos(rad));const area=a*b*Math.sin(rad);$('paraDiag1').textContent=fmt(p)+' '+u;$('paraDiag2').textContent=fmt(q)+' '+u;$('paraArea').textContent=fmt(area)+' '+u+'\u00b2';$('paraPerimeter').textContent=fmt(2*(a+b))+' '+u;setPrimary('parallelogram','平行四辺形の対角線 p',p,u,'余弦定理を用いた短い方の対角線計算。')}
   function updateRhombus(){const s=num($('rhombusSide')),ang=num($('rhombusAngle')),u=$('rhombusUnit').value;if(s<=0||ang<=0||ang>=180){$('rhombusDiag1').textContent='-';$('rhombusDiag2').textContent='-';$('rhombusArea').textContent='-';$('rhombusPerimeter').textContent='-';setPrimary('rhombus','ひし形の対角線',NaN,u,'正の一辺の長さと角度（0°〜180°）を入力してください。');return;}const rad=ang*Math.PI/180;const p=2*s*Math.sin(rad/2);const q=2*s*Math.cos(rad/2);const area=(p*q)/2;$('rhombusDiag1').textContent=fmt(p)+' '+u;$('rhombusDiag2').textContent=fmt(q)+' '+u;$('rhombusArea').textContent=fmt(area)+' '+u+'\u00b2';$('rhombusPerimeter').textContent=fmt(4*s)+' '+u;setPrimary('rhombus','ひし形の対角線 p',p,u,'対角線は直交します：p = 2s\u00b7sin(\u03b8/2)')}
   function updateCuboid(){const l=num($('boxLength')),w=num($('boxWidth')),h=num($('boxHeight')),u=$('boxUnit').value;if(l<=0||w<=0||h<=0){$('boxDiagonal').textContent='-';$('boxFaceLW').textContent='-';$('boxFaceLH').textContent='-';$('boxFaceWH').textContent='-';setPrimary('cuboid','直方体の空間対角線',NaN,u,'正の縦、横、高さの長さを入力してください。');return;}const d=Math.sqrt(l*l+w*w+h*h);$('boxDiagonal').textContent=fmt(d)+' '+u;$('boxFaceLW').textContent=fmt(diag(l,w))+' '+u;$('boxFaceLH').textContent=fmt(diag(l,h))+' '+u;$('boxFaceWH').textContent=fmt(diag(w,h))+' '+u;setPrimary('cuboid','直方体の空間対角線',d,u,'3次元の箱の空間対角線公式を使用。')}
@@ -661,7 +844,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
   function updateScreen(){const w=Math.round(num($('scrW'))),h=Math.round(num($('scrH'))),ppi=num($('scrPpi'));if(!Number.isFinite(w)||!Number.isFinite(h)||w<=0||h<=0){$('scrDiagPx').textContent='-';$('scrAspect').textContent='-';$('scrDiagIn').textContent='-';$('scrDiagCm').textContent='-';setPrimary('screen','画面の対角線',NaN,'','有効な解像度を入力してください。');return;}const d=diag(w,h),g=gcd(w,h);$('scrDiagPx').textContent=fmt(d,2)+' px';$('scrAspect').textContent=(w/g)+':'+(h/g);if(Number.isFinite(ppi)&&ppi>0){const i=d/ppi,c=i*2.54;$('scrDiagIn').textContent=fmt(i,2)+' in';$('scrDiagCm').textContent=fmt(c,2)+' cm';setPrimary('screen','画面の対角線',i,'in','ピクセルと画素密度（PPI）から算出。')}else{$('scrDiagIn').textContent='PPIを入力';$('scrDiagCm').textContent='PPIを入力';setPrimary('screen','画面の対角線',d,'px','インチおよびcmへの変換にはPPIを入力してください。')}}
   function updateRoom(){const l=num($('roomL')),w=num($('roomW')),m=num($('roomM')),u=$('roomUnit').value;if(l<=0||w<=0){$('roomExpected').textContent='-';$('roomDiff').textContent='-';$('roomStatus').textContent='部屋の寸法を入力してください';setPrimary('room','期待される部屋の対角線',NaN,u,'正の縦と横の長さを入力してください。');return;}const d=diag(l,w);$('roomExpected').textContent=fmt(d)+' '+u;if(Number.isFinite(m)&&m>0){const diff=m-d,tol=d*.005;$('roomDiff').textContent=(diff>=0?'+':'')+fmt(diff)+' '+u;$('roomStatus').textContent=Math.abs(diff)<=tol?'ほぼ直角です（誤差0.5%以内）':'直角ではありません。角を調整してください';}else{$('roomDiff').textContent='実測値を入力してください';$('roomStatus').textContent='比較用に実測した対角線を入力';}setPrimary('room','期待される部屋の対角線',d,u,'部屋の角の直角（矩だし）を出すのに便利です。')}
 
-  function updateActive(){if(mode==='rectangle')updateRectangle();else if(mode==='square')updateSquare();else if(mode==='parallelogram')updateParallelogram();else if(mode==='rhombus')updateRhombus();else if(mode==='cuboid')updateCuboid();else if(mode==='polygon')updatePolygon();else if(mode==='screen')updateScreen();else if(mode==='room')updateRoom();drawDiagram();}
+  function updateActive(){if(mode==='rectangle')updateRectangle();else if(mode==='square')updateSquare();else if(mode==='triangle')updateTriangle();else if(mode==='parallelogram')updateParallelogram();else if(mode==='rhombus')updateRhombus();else if(mode==='cuboid')updateCuboid();else if(mode==='polygon')updatePolygon();else if(mode==='screen')updateScreen();else if(mode==='room')updateRoom();drawDiagram();}
   function switchMode(m){mode=m;els.modeBtns.forEach(b=>{const on=b.dataset.mode===m;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on));});els.panels.forEach(p=>p.classList.toggle('active',p.dataset.panel===m));updateActive();}
 
   function saveLog(){try{localStorage.setItem('diagLog',JSON.stringify(log));}catch(e){}}
@@ -673,7 +856,7 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
 
   function setupNav(){els.menuToggle.addEventListener('click',()=>{const open=els.mainNav.classList.toggle('open');els.menuToggle.setAttribute('aria-expanded',String(open));els.menuToggle.textContent=open?'?':'?';});els.mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(window.innerWidth<980){els.mainNav.classList.remove('open');els.menuToggle.setAttribute('aria-expanded','false');els.menuToggle.textContent='?';}}));}
   function setupTop(){let ticking=false;const sync=()=>{els.topBtn.classList.toggle('show',window.scrollY>260);ticking=false;};window.addEventListener('scroll',()=>{if(ticking)return;ticking=true;window.requestAnimationFrame(sync);},{passive:true});els.topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));sync();}
-  function wireInputs(){['rectLength','rectWidth','rectUnit','sqSide','sqUnit','paraSideA','paraSideB','paraAngle','paraUnit','rhombusSide','rhombusAngle','rhombusUnit','boxLength','boxWidth','boxHeight','boxUnit','polySides','scrW','scrH','scrPpi','roomL','roomW','roomM','roomUnit'].forEach(id=>{const e=$(id);if(e){e.addEventListener('input',updateActive);e.addEventListener('change',updateActive);}})}
+  function wireInputs(){['rectLength','rectWidth','rectUnit','sqSide','sqUnit','triCalcType','triSideA','triSideB','triUnit','paraSideA','paraSideB','paraAngle','paraUnit','rhombusSide','rhombusAngle','rhombusUnit','boxLength','boxWidth','boxHeight','boxUnit','polySides','scrW','scrH','scrPpi','roomL','roomW','roomM','roomUnit'].forEach(id=>{const e=$(id);if(e){e.addEventListener('input',updateActive);e.addEventListener('change',updateActive);}})}
 
   const langSelect = document.getElementById('langSelect');
   if (langSelect) {
@@ -692,8 +875,24 @@ input[type="number"]:focus,select:focus{border-color:rgba(15,125,120,.62);box-sh
     });
   }
 
-  setupNav();setupTop();els.modeBtns.forEach(b=>b.addEventListener('click',()=>switchMode(b.dataset.mode)));els.copyBtn.addEventListener('click',copyPrimary);els.addLogBtn.addEventListener('click',addLog);els.clearLogBtn.addEventListener('click',clearLog);wireInputs();loadLog();renderLog();switchMode('rectangle');
+  setupNav();setupTop();els.modeBtns.forEach(b=>b.addEventListener('click',()=>switchMode(b.dataset.mode)));els.copyBtn.addEventListener('click',copyPrimary);els.addLogBtn.addEventListener('click',addLog);els.clearLogBtn.addEventListener('click',clearLog);wireInputs();
+  const triChips = document.querySelectorAll('#triPresetChips .chip');
+  triChips.forEach(chip => {
+    chip.addEventListener('click', function() {
+      const aVal = this.dataset.a;
+      const bVal = this.dataset.b;
+      const tVal = this.dataset.type;
+      if ($('triCalcType')) $('triCalcType').value = tVal;
+      if ($('triSideA')) $('triSideA').value = aVal;
+      if ($('triSideB')) $('triSideB').value = bVal;
+      updateActive();
+    });
+  });
+loadLog();renderLog();switchMode('rectangle');
 })();
 </script>
+  <script defer src="../../fullscreen-mode.js"></script>
 </body>
 </html>
+
+

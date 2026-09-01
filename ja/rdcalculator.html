@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -816,7 +816,7 @@
         align-items: stretch;
       }
       .calc-layout {
-        grid-template-columns: 1.72fr 1fr;
+        grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
         align-items: start;
       }
       .chart-grid {
@@ -835,6 +835,206 @@
         transition: none;
       }
     }
+  
+    /* ==========================================================================
+       Fintech Interactive Studio 2-Column Desktop Grid
+       ========================================================================== */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+
+    .studio-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .studio-outcome {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+
+    .legend-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+
+    .legend-val.positive {
+      color: #10b981;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+
+    .growth-timeline-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+    }
+
+    .chart-wrap-timeline {
+      position: relative;
+      width: 100%;
+      height: 280px;
+    }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell {
+        border: 0;
+        background: transparent;
+        overflow: visible;
+      }
+
+      .projection-table,
+      .projection-table tbody,
+      .projection-table tr,
+      .projection-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .projection-table thead {
+        display: none;
+      }
+
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+
+      .projection-table td:nth-child(odd):not(.projection-year) {
+        border-right: 1px solid var(--ic-border);
+      }
+
+      .projection-table td:nth-last-child(-n + 2) {
+        border-bottom: 0;
+      }
+
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .projection-table .projection-year::before {
+        display: none;
+      }
+    }
+
+    @media (max-width: 960px) {
+      .fin-studio-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -898,227 +1098,276 @@
       </div>
     </section>
 
-    <section id="rd-planner" class="section">
+        <section id="rd-planner" class="section">
       <div class="container calc-layout">
         <div class="calculator-shell">
           <div class="calculator-header-row">
-            <div class="mode-switch" aria-label="電卓モード">
-              <a href="rdcalculator.html" class="active">積立定期 (RD)</a>
-              <a href="fdcalculator.html">一括定期 (FD)</a>
+            <div class="toggle-group" aria-label="Calculator mode">
+              <a href="rdcalculator.html" class="toggle-btn active"><i class="fas fa-rotate"></i> 積立定期預金 (RD)</a>
+              <a href="fdcalculator.html" class="toggle-btn"><i class="fas fa-building-columns"></i> 定期預金 (FD)</a>
+              <a href="sipcalculator.html" class="toggle-btn"><i class="fas fa-calendar-alt"></i> 積立SIP</a>
             </div>
-          </div>
-
-          <div class="input-grid">
-            <div class="inline-grid">
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="monthlyDeposit">毎月の積立金額 (円/月)</label>
-                  <span id="monthlyDepositPreview">5,000</span>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="monthlyDepositRange" min="500" max="500000" step="500" value="5000">
-                  <input type="number" id="monthlyDeposit" min="500" max="500000" step="500" value="5000">
-                </div>
-              </div>
-
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="returnRate">想定年利（金利）(%)</label>
-                  <span id="returnRatePreview">7.2%</span>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="returnRateRange" min="2" max="18" step="0.05" value="7.2">
-                  <input type="number" id="returnRate" min="2" max="18" step="0.05" value="7.2">
-                </div>
-              </div>
-
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="years">預入期間 (年)</label>
-                  <span id="yearsPreview">5</span>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="yearsRange" min="1" max="10" step="1" value="5">
-                  <input type="number" id="years" min="1" max="10" step="1" value="5">
-                </div>
-              </div>
-            </div>
-
-            <div class="inline-grid">
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="stepUp">毎年の積立増額ステップアップ率 (%)</label>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="stepUpRange" min="0" max="25" step="0.5" value="0">
-                  <input type="number" id="stepUp" min="0" max="25" step="0.5" value="0">
-                </div>
-              </div>
-
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="taxRate">適用される所得税率 (TDS等) (%)</label>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="taxRateRange" min="0" max="35" step="1" value="10">
-                  <input type="number" id="taxRate" min="0" max="35" step="1" value="10">
-                </div>
-              </div>
-
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="compounding">複利計算の頻度</label>
-                </div>
-                <select id="compounding">
-                  <option value="4" selected>四半期複利 (Quarterly)</option>
-                  <option value="12">月複利 (Monthly)</option>
-                  <option value="2">半年複利 (Half-Yearly)</option>
-                  <option value="1">単利 (Simple Interest)</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="inline-grid">
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="seniorCitizen">シニア向け優遇金利の適用</label>
-                </div>
-                <select id="seniorCitizen">
-                  <option value="no" selected>いいえ（通常金利）</option>
-                  <option value="yes">はい（優遇金利 +0.5%加算）</option>
-                </select>
-              </div>
-
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="depositTiming">毎月の積立タイミング</label>
-                </div>
-                <select id="depositTiming">
-                  <option value="end" selected>月末 (End of Month)</option>
-                  <option value="start">月初 (Beginning of Month)</option>
-                </select>
-              </div>
-
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="bankPreset">主要銀行・機関の金利Preset</label>
-                </div>
-                <select id="bankPreset">
-                  <option value="custom" selected>カスタム入力（自由設定）</option>
-                  <option value="sbi">SBI (インド国営銀行) - 6.80%</option>
-                  <option value="hdfc">HDFC銀行 - 7.00%</option>
-                  <option value="icici">ICICI銀行 - 7.10%</option>
-                  <option value="pnb">PNB銀行 - 6.90%</option>
-                  <option value="axis">アクシス銀行 - 7.00%</option>
-                  <option value="canara">カナラ銀行 - 6.85%</option>
-                  <option value="bob">バローダ銀行 - 6.80%</option>
-                  <option value="kotak">コタックマヒンドラ銀行 - 7.05%</option>
-                  <option value="post-office">インド郵便局 (5年) - 6.70%</option>
-                  <option value="idfc">IDFCファースト銀行 - 7.50%</option>
-                  <option value="yes-bank">イエス銀行 - 7.25%</option>
-                  <option value="federal">フェデラル銀行 - 7.20%</option>
-                  <option value="union">ユニオン銀行 - 6.80%</option>
-                  <option value="indian-bank">インディアン銀行 - 6.75%</option>
-                  <option value="indusind">インダスインド銀行 - 7.25%</option>
-                  <option value="rbl">RBL銀行 - 7.50%</option>
-                  <option value="sfb">小規模金融銀行 (SFB通常) - 8.00%</option>
-                  <option value="au-sfb">AU小規模金融銀行 - 8.00%</option>
-                  <option value="ujjivan-sfb">ウジヴァン小規模金融銀行 - 8.25%</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="targetCorpus">目標到達金額 (円) （設定すると必要積立額を逆算）</label>
-              </div>
-              <input type="number" id="targetCorpus" min="0" step="5000" value="1000000" placeholder="例: 1000000">
-            </div>
-          </div>
-
-          <div class="calculator-actions">
-            <button class="btn btn-primary" id="recalculateBtn" type="button">
-              <i class="fas fa-bolt"></i>
-              再計算する
-            </button>
-            <button class="btn btn-ghost" id="resetBtn" type="button">
-              <i class="fas fa-rotate-left"></i>
-              初期値に戻す
-            </button>
-            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
-              <i class="fas fa-copy"></i>
-              結果をコピー
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>高度な設定: オフ</span>
             </button>
           </div>
 
-          <div class="result-grid">
-            <div class="result-card">
-              <h3>累計積立元本</h3>
-              <div class="result-value" id="investedValue">-</div>
-            </div>
-            <div class="result-card positive">
-              <h3>受取利息総額 (税引前)</h3>
-              <div class="result-value" id="returnsValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>満期時受取総額 (税引前)</h3>
-              <div class="result-value" id="corpusValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>税引後の想定手取り総額</h3>
-              <div class="result-value" id="inflationAdjustedValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>目標達成に必要な毎月の積立額</h3>
-              <div class="result-value" id="requiredRdValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>実質税引後年間利回り</h3>
-              <div class="result-value" id="maturityLabel">-</div>
-            </div>
+          <!-- Mobile Sticky Summary Pill -->
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label" id="mobileSummaryLabel">満期受取予想額</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
           </div>
 
-          <div class="goal-status">
-            <div class="goal-meta">
-              <span id="goalStatusText">目標を設定すると進捗状況が表示されます。</span>
-              <strong id="goalPercentText">0%</strong>
-            </div>
-            <div class="goal-progress">
-              <div class="goal-progress-bar" id="goalProgressBar"></div>
-            </div>
-          </div>
+          <!-- Desktop Interactive 2-Column Grid -->
+          <div class="fin-studio-grid">
+            <!-- Left Inputs Column -->
+            <div class="studio-inputs">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="monthlyDeposit">毎月の積立預入額</label>
+                  <span class="field-preview-badge" id="monthlyDepositPreview">¥50,000</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="monthlyDepositRange" min="500" max="1000000" step="500" value="5000">
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">¥</span>
+                    <input type="number" id="monthlyDeposit" min="500" max="1000000" step="500" value="5000" class="has-prefix">
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="monthlyDeposit" data-range="monthlyDepositRange">
+                  <button type="button" class="chip" data-val="1000">¥1万</button>
+                  <button type="button" class="chip" data-val="2500">¥2.5万</button>
+                  <button type="button" class="chip" data-val="5000">¥5万</button>
+                  <button type="button" class="chip" data-val="10000">¥10万</button>
+                  <button type="button" class="chip" data-val="25000">¥25万</button>
+                  <button type="button" class="chip" data-val="50000">¥50万</button>
+                </div>
+              </div>
 
-          <div class="chart-grid">
-            <div class="chart-card">
-              <h3>資産推移シミュレーション</h3>
-              <div class="chart-wrap">
-                <canvas id="growthChart"></canvas>
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="returnRate">積立利率 (% p.a.)</label>
+                  <span class="field-preview-badge" id="returnRatePreview">7.2%</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="returnRateRange" min="1" max="15" step="0.1" value="7.2">
+                  <div class="input-with-adornment">
+                    <input type="number" id="returnRate" min="1" max="15" step="0.1" value="7.2" class="has-suffix">
+                    <span class="input-suffix">%</span>
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="returnRate" data-range="returnRateRange">
+                  <button type="button" class="chip" data-val="6.8">6.8% (標準)</button>
+                  <button type="button" class="chip" data-val="7.2">7.2% (優遇)</button>
+                  <button type="button" class="chip" data-val="7.75">7.75% (ネット銀行)</button>
+                  <button type="button" class="chip" data-val="8.5">8.5% (特別金利)</button>
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="years">積立期間 (年)</label>
+                  <span class="field-preview-badge" id="yearsPreview">5年</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="yearsRange" min="0.5" max="10" step="0.5" value="5">
+                  <div class="input-with-adornment">
+                    <input type="number" id="years" min="0.5" max="10" step="0.5" value="5" class="has-suffix">
+                    <span class="input-suffix">年</span>
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="years" data-range="yearsRange">
+                  <button type="button" class="chip" data-val="1">1年</button>
+                  <button type="button" class="chip" data-val="2">2年</button>
+                  <button type="button" class="chip" data-val="3">3年</button>
+                  <button type="button" class="chip" data-val="5">5年</button>
+                  <button type="button" class="chip" data-val="10">10年</button>
+                </div>
+              </div>
+
+              <div class="advanced-only-section" id="advancedFields">
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="bankPreset">金融機関プリセット</label>
+                    </div>
+                    <select id="bankPreset">
+                      <option value="custom" selected>カスタム金利</option>
+                      <option value="sbi">SBI RD (6.8% - 7.0%)</option>
+                      <option value="hdfc">HDFC RD (7.0% - 7.2%)</option>
+                      <option value="icici">ICICI Bank RD (7.0% - 7.2%)</option>
+                      <option value="pnb">PNB RD (6.8% - 7.25%)</option>
+                      <option value="axis">Axis Bank RD (7.1% - 7.2%)</option>
+                      <option value="post-office">Post Office 郵便貯金 (6.7%)</option>
+                      <option value="sfb">スモールファイナンス銀行 (8.0% - 8.5%)</option>
+                    </select>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="compounding">複利計算頻度</label>
+                    </div>
+                    <select id="compounding">
+                      <option value="4" selected>四半期複利 (標準)</option>
+                      <option value="12">毎月複利</option>
+                      <option value="2">半年複利</option>
+                      <option value="1">1年複利</option>
+                    </select>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="stepUp">年間増額率 (ステップアップ %)</label>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="stepUpRange" min="0" max="25" step="0.5" value="0">
+                      <div class="input-with-adornment">
+                        <input type="number" id="stepUp" min="0" max="25" step="0.5" value="0" class="has-suffix">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="depositTiming">積立タイミング</label>
+                    </div>
+                    <select id="depositTiming">
+                      <option value="end" selected>月末入金</option>
+                      <option value="start">月初入金</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="seniorCitizen">シニア優遇金利 (+0.5%)</label>
+                    </div>
+                    <select id="seniorCitizen">
+                      <option value="no" selected>適用なし (一般)</option>
+                      <option value="yes">適用あり (+0.50%)</option>
+                    </select>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="taxRate">利息課税率 (%)</label>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="taxRateRange" min="0" max="35" step="1" value="10">
+                      <div class="input-with-adornment">
+                        <input type="number" id="taxRate" min="0" max="35" step="1" value="10" class="has-suffix">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="targetCorpus">目標満期金額 (任意)</label>
+                    </div>
+                    <input type="number" id="targetCorpus" min="0" step="100000" value="1000000" placeholder="例: 1000000">
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="chart-card">
-              <h3>満期受取額の内訳</h3>
-              <div class="chart-wrap small">
-                <canvas id="splitChart"></canvas>
+
+            <!-- Right Visual Outcome Column -->
+            <div class="studio-outcome">
+              <!-- Hero Outcome Card -->
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-vault"></i> 満期受取予想総額</span>
+                  <div class="res-val" id="corpusHeroValue">-</div>
+                  <div class="res-desc" id="corpusHeroDesc">元本: - | 利息合計: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="サマリーをコピー">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+
+              <!-- Doughnut Split Visualizer -->
+              <div class="outcome-chart-box">
+                <div class="chart-wrap-doughnut">
+                  <canvas id="splitChart"></canvas>
+                </div>
+                <div class="legend-stats-row">
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-invested"></span> 拠出累計</div>
+                    <div class="legend-val" id="investedValue">-</div>
+                  </div>
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-returns"></span> 利息合計</div>
+                    <div class="legend-val positive" id="returnsValue">-</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Key Metrics Grid -->
+              <div class="result-grid">
+                <div class="result-card">
+                  <h3>満期受取総額</h3>
+                  <div class="result-value" id="corpusValue">-</div>
+                </div>
+                <div class="result-card">
+                  <h3>税引後満期受取額</h3>
+                  <div class="result-value" id="inflationAdjustedValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>目標達成必要積立額</h3>
+                  <div class="result-value" id="requiredRdValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>実質税引後利回り</h3>
+                  <div class="result-value" id="maturityLabel">-</div>
+                </div>
+              </div>
+
+              <div class="goal-status advanced-only">
+                <div class="goal-meta">
+                  <span id="goalStatusText">目標金額を設定すると進捗が表示されます。</span>
+                  <strong id="goalPercentText">0%</strong>
+                </div>
+                <div class="goal-progress">
+                  <div class="goal-progress-bar" id="goalProgressBar"></div>
+                </div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> サマリーをコピー</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> 初期設定</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> 再計算</button>
               </div>
             </div>
           </div>
 
-          <div class="table-tools">
-            <h3>年間推移詳細テーブル</h3>
-            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
-              <i class="fas fa-file-csv"></i>
-              CSVダウンロード
-            </button>
+          <!-- Bottom Full-Width 2-Line Compounding Growth Area Chart -->
+          <div class="growth-timeline-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-chart-line" style="color:var(--ic-primary);"></i> 積立預金 資産推移シミュレーション</h3>
+              <span style="font-size:0.85rem; color:var(--ic-text-muted);">満期総額推移 vs 拠出累計</span>
+            </div>
+            <div class="chart-wrap-timeline">
+              <canvas id="growthChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Year-Wise Amortization Projection Table -->
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> 年次資産推移表</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> CSV出力</button>
           </div>
           <div class="table-shell">
-            <table>
+            <table class="projection-table">
               <thead>
                 <tr>
-                  <th>経過年数</th>
-                  <th>毎月の積立額 (期末)</th>
-                  <th>累計積立元本</th>
-                  <th>累計受取利息</th>
-                  <th>満期受取見込残高</th>
+                  <th>年次</th>
+                  <th>毎月積立額 (年末)</th>
+                  <th>拠出累計</th>
+                  <th>利息合計</th>
+                  <th>満期受取総額</th>
                 </tr>
               </thead>
               <tbody id="projectionTableBody"></tbody>
@@ -1126,7 +1375,7 @@
           </div>
         </div>
 
-        <aside class="section-head" style="margin-bottom:0;">
+        <aside class="sidebar">
           <div class="feature-card">
             <h3>積立定期（RD）運用のコツ</h3>
             <ul class="feature-list">
@@ -1141,7 +1390,7 @@
     </section>
 
     <section class="section">
-      <div class="container calc-layout">
+      <div class="container content-grid">
         <article class="content-card">
           <h2>RD（積立定期預金）の計算方法と金利の仕組み</h2>
           <p><strong>積立定期預金（Recurring Deposit）</strong>の満期金額を正確に手計算するのは、各回（毎月）の積立金が満期までの異なる残り期間にわたって別々に複利運用されるため、非常に複雑です。本ツールでは、各月の入金を個別に認識し、月単位で正確に金利をシミュレートする「月次推移モデル」を採用しています。</p>
@@ -1151,7 +1400,7 @@
           <h3>インドの主要金融機関のRD金利状況（参考値）</h3>
           <p>適用金利は預入期間や顧客属性（シニアかどうか）によって変動します。比較のための主要なプリセット情報は以下の通りです。</p>
           <div class="table-shell">
-            <table>
+            <table class="projection-table">
               <thead>
                 <tr>
                   <th>金融機関</th>
@@ -1229,6 +1478,7 @@
         <a href="aboutus.html">運営者情報</a>
         <a href="contactus.html">お問い合わせ</a>
         <a href="privacypolicy.html">プライバシーポリシー</a>
+        <a href="../terms.html">Terms &amp; Conditions</a>
       </div>
     </div>
   </footer>
@@ -1640,7 +1890,7 @@
             datasets: [
               {
                 data: [Math.max(invested, 0), Math.max(gains, 0)],
-                backgroundColor: ["#007f8b", "#1f9f67"],
+                backgroundColor: ["#0284c7", "#10b981"],
                 borderWidth: 1
               }
             ]
@@ -1834,6 +2084,30 @@
 
       toggleNav();
       setupBackToTop();
+      
+        const copyHero = document.getElementById("copyHeroBtn");
+        if (copyHero) {
+          copyHero.addEventListener("click", function() {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(lastSummaryText).then(() => {
+                const orig = copyHero.innerHTML;
+                copyHero.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+                setTimeout(() => copyHero.innerHTML = orig, 1800);
+              });
+            }
+          });
+        }
+        
+        const toggleViewBtn = document.getElementById("toggleViewBtn");
+        if (toggleViewBtn) {
+          toggleViewBtn.addEventListener("click", function () {
+            const shell = document.querySelector(".calculator-shell");
+            const isAdvanced = shell.classList.toggle("advanced-mode");
+            toggleViewBtn.classList.toggle("active", isAdvanced);
+            toggleViewBtn.querySelector("span").textContent = isAdvanced ? "高度な設定: オン" : "高度な設定: オフ";
+          });
+        }
+
       wireEvents();
       calculateAndRender();
     })();
@@ -1854,5 +2128,7 @@
     const app = initializeApp(firebaseConfig);
     getAnalytics(app);
   </script>
+  <script defer src="../fullscreen-mode.js"></script>
 </body>
 </html>
+

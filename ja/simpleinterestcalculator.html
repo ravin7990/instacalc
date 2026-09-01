@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 
 <head>
@@ -710,7 +710,7 @@
       }
 
       .calc-layout {
-        grid-template-columns: 1.72fr 1fr;
+        grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
         align-items: start;
       }
 
@@ -741,6 +741,206 @@
     .lang-switch select:focus {
       border-color: var(--accent);
     }
+  
+    /* ==========================================================================
+       Fintech Interactive Studio 2-Column Desktop Grid
+       ========================================================================== */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+
+    .studio-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .studio-outcome {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+
+    .legend-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+
+    .legend-val.positive {
+      color: #10b981;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+
+    .growth-timeline-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+    }
+
+    .chart-wrap-timeline {
+      position: relative;
+      width: 100%;
+      height: 280px;
+    }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell {
+        border: 0;
+        background: transparent;
+        overflow: visible;
+      }
+
+      .projection-table,
+      .projection-table tbody,
+      .projection-table tr,
+      .projection-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .projection-table thead {
+        display: none;
+      }
+
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+
+      .projection-table td:nth-child(odd):not(.projection-year) {
+        border-right: 1px solid var(--ic-border);
+      }
+
+      .projection-table td:nth-last-child(-n + 2) {
+        border-bottom: 0;
+      }
+
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .projection-table .projection-year::before {
+        display: none;
+      }
+    }
+
+    @media (max-width: 960px) {
+      .fin-studio-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -788,7 +988,7 @@
               <i class="fas fa-calculator"></i>
               計算を開始する
             </a>
-            <a class="btn btn-ghost" href="coumpoundinterest.html">
+            <a class="btn btn-ghost" href="compoundinterest.html">
               <i class="fas fa-arrow-right-arrow-left"></i>
               複利と比較する
             </a>
@@ -805,79 +1005,213 @@
       </div>
     </section>
 
-    <section id="calculator" class="section">
+        <section id="calculator" class="section">
       <div class="container calc-layout">
         <div class="calculator-shell">
-          <div class="input-grid">
-            <div class="field-card">
-              <div class="field-head">
-                <label for="amount">元本 (投資額 / 借入額)</label>
-                <span id="amountPreview">25,000</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="amountRange" min="0" max="100000000" step="500" value="25000">
-                <input type="number" id="amount" min="0" max="100000000" step="any" value="25000">
-              </div>
+          <div class="calculator-header-row">
+            <div class="toggle-group" aria-label="Calculator mode">
+              <a href="simpleinterestcalculator.html" class="toggle-btn active"><i class="fas fa-percent"></i> 単利計算</a>
+              <a href="compoundinterest.html" class="toggle-btn"><i class="fas fa-chart-line"></i> 複利計算</a>
+              <a href="sipcalculator.html" class="toggle-btn"><i class="fas fa-calendar-alt"></i> 積立SIP</a>
             </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="rate">年利率 (%)</label>
-                <span id="ratePreview">12%</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="rateRange" min="0.1" max="100" step="0.1" value="12">
-                <input type="number" id="rate" min="0.1" max="100" step="any" value="12">
-              </div>
-            </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="years">借入・運用期間 (年)</label>
-                <span id="yearsPreview">10</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="yearsRange" min="0.1" max="100" step="0.5" value="10">
-                <input type="number" id="years" min="0.1" max="100" step="any" value="10">
-              </div>
-            </div>
-          </div>
-
-          <div class="calculator-actions">
-            <button class="btn btn-primary" id="recalculateBtn" type="button">
-              <i class="fas fa-bolt"></i> 再計算する
-            </button>
-            <button class="btn btn-ghost" id="resetBtn" type="button">
-              <i class="fas fa-rotate-left"></i> 初期値に戻す
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>高度な設定: オフ</span>
             </button>
           </div>
 
-          <div class="result-grid">
-            <div class="result-card">
-              <h3>元本金額</h3>
-              <div class="result-value" id="investedValue">-</div>
+          <!-- Mobile Sticky Summary Pill -->
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label" id="mobileSummaryLabel">満期受取総額</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <!-- Desktop Interactive 2-Column Grid -->
+          <div class="fin-studio-grid">
+            <!-- Left Inputs Column -->
+            <div class="studio-inputs">
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="amount">元本金額</label>
+                  <span class="field-preview-badge" id="amountPreview">¥250,000</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="amountRange" min="500" max="100000000" step="500" value="25000">
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">¥</span>
+                    <input type="number" id="amount" min="500" max="100000000" step="500" value="25000" class="has-prefix">
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="amount" data-range="amountRange">
+                  <button type="button" class="chip" data-val="10000">¥10万</button>
+                  <button type="button" class="chip" data-val="25000">¥25万</button>
+                  <button type="button" class="chip" data-val="50000">¥50万</button>
+                  <button type="button" class="chip" data-val="100000">¥100万</button>
+                  <button type="button" class="chip" data-val="500000">¥500万</button>
+                  <button type="button" class="chip" data-val="1000000">¥1000万</button>
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="rate">年利率 (% p.a.)</label>
+                  <span class="field-preview-badge" id="ratePreview">12%</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="rateRange" min="0.1" max="100" step="0.1" value="12">
+                  <div class="input-with-adornment">
+                    <input type="number" id="rate" min="0.1" max="100" step="0.1" value="12" class="has-suffix">
+                    <span class="input-suffix">%</span>
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="rate" data-range="rateRange">
+                  <button type="button" class="chip" data-val="6">6% (債券/標準)</button>
+                  <button type="button" class="chip" data-val="8">8% (優遇)</button>
+                  <button type="button" class="chip" data-val="10">10% (ローン金利)</button>
+                  <button type="button" class="chip" data-val="12">12% (クレジット)</button>
+                  <button type="button" class="chip" data-val="15">15% (高利回り)</button>
+                </div>
+              </div>
+
+              <div class="field-card">
+                <div class="field-head">
+                  <label for="years">期間 (年数)</label>
+                  <span class="field-preview-badge" id="yearsPreview">10年</span>
+                </div>
+                <div class="range-row">
+                  <input type="range" id="yearsRange" min="0.1" max="40" step="0.5" value="10">
+                  <div class="input-with-adornment">
+                    <input type="number" id="years" min="0.1" max="40" step="0.5" value="10" class="has-suffix">
+                    <span class="input-suffix">年</span>
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="years" data-range="yearsRange">
+                  <button type="button" class="chip" data-val="1">1年</button>
+                  <button type="button" class="chip" data-val="2">2年</button>
+                  <button type="button" class="chip" data-val="3">3年</button>
+                  <button type="button" class="chip" data-val="5">5年</button>
+                  <button type="button" class="chip" data-val="10">10年</button>
+                  <button type="button" class="chip" data-val="15">15年</button>
+                </div>
+              </div>
+
+              <div class="advanced-only-section" id="advancedFields">
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="taxRate">利息課税率 (%)</label>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="taxRateRange" min="0" max="35" step="1" value="0">
+                      <div class="input-with-adornment">
+                        <input type="number" id="taxRate" min="0" max="35" step="1" value="0" class="has-suffix">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="targetAmount">目標満期金額 (任意)</label>
+                    </div>
+                    <input type="number" id="targetAmount" min="0" step="5000" value="0" placeholder="目標金額">
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="result-card positive">
-              <h3>合計利息額</h3>
-              <div class="result-value" id="returnsValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>合計金額 (元本＋利息)</h3>
-              <div class="result-value" id="corpusValue">-</div>
+
+            <!-- Right Visual Outcome Column -->
+            <div class="studio-outcome">
+              <!-- Hero Outcome Card -->
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-coins"></i> 満期受取予想総額</span>
+                  <div class="res-val" id="corpusHeroValue">-</div>
+                  <div class="res-desc" id="corpusHeroDesc">元本: - | 単利息: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="サマリーをコピー">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+
+              <!-- Doughnut Split Visualizer -->
+              <div class="outcome-chart-box">
+                <div class="chart-wrap-doughnut">
+                  <canvas id="splitChart"></canvas>
+                </div>
+                <div class="legend-stats-row">
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-invested"></span> 元本金額</div>
+                    <div class="legend-val" id="investedValue">-</div>
+                  </div>
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-returns"></span> 単利息合計</div>
+                    <div class="legend-val positive" id="returnsValue">-</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Key Metrics Grid -->
+              <div class="result-grid">
+                <div class="result-card">
+                  <h3>満期受取総額</h3>
+                  <div class="result-value" id="corpusValue">-</div>
+                </div>
+                <div class="result-card">
+                  <h3>年間受取利息</h3>
+                  <div class="result-value" id="annualInterestValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>税引後受取総額</h3>
+                  <div class="result-value" id="postTaxCorpusValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>月間利息受取額</h3>
+                  <div class="result-value" id="monthlyInterestValue">-</div>
+                </div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> サマリーをコピー</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> 初期設定</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> 再計算</button>
+              </div>
             </div>
           </div>
 
-          <div class="chart-grid" style="grid-template-columns: 1fr;">
-            <div class="chart-card">
-              <h3>元本と利息の構成比</h3>
-              <div class="chart-wrap small">
-                <canvas id="splitChart"></canvas>
-              </div>
+          <!-- Bottom Full-Width Compounding Growth Area Chart -->
+          <div class="growth-timeline-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-chart-line" style="color:var(--ic-primary);"></i> 単利運用 資産拡大シミュレーション</h3>
+              <span style="font-size:0.85rem; color:var(--ic-text-muted);">総受取額 vs 元本推移</span>
             </div>
+            <div class="chart-wrap-timeline">
+              <canvas id="growthChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Year-Wise Amortization Projection Table -->
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> 年次利息推移スケジュール</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> CSV出力</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>年次</th>
+                  <th>元本金額</th>
+                  <th>年間利息</th>
+                  <th>利息累計</th>
+                  <th>満期総額</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
           </div>
         </div>
 
-        <aside class="section-head" style="margin-bottom:0;">
+        <aside class="sidebar">
           <div class="feature-card">
             <h3>計算上の留意点</h3>
             <ul class="feature-list">
@@ -890,7 +1224,7 @@
           <div class="sidebar-card">
             <h3>関連する計算ツール</h3>
             <ul class="link-list">
-              <li><a href="coumpoundinterest.html"><span>複利計算シミュレーター</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="compoundinterest.html"><span>複利計算シミュレーター</span><i class="fas fa-arrow-right"></i></a></li>
               <li><a href="sipcalculator.html"><span>SIP積立シミュレーター</span><i class="fas fa-arrow-right"></i></a></li>
               <li><a href="fdcalculator.html"><span>定期預金（FD）計算</span><i class="fas fa-arrow-right"></i></a></li>
               <li><a href="rdcalculator.html"><span>積立預金（RD）計算</span><i class="fas fa-arrow-right"></i></a></li>
@@ -901,7 +1235,7 @@
     </section>
 
     <section class="section">
-      <div class="container calc-layout">
+      <div class="container content-grid">
         <article class="content-card">
           <h2>単利とは？その定義と活用方法について</h2>
           <p>個人向けローン、マイカーローン、または固定利回りの債券など、お金を借りたり預けたりする際に発生する金利の仕組みを理解することは、お金の管理において非常に重要です。複利が資産形成でよく注目されますが、<strong>単利（Simple Interest）</strong>は支払額や受取額が明確で、わかりやすい特徴を持っています。</p>
@@ -968,6 +1302,7 @@
         <a href="aboutus.html">運営者情報</a>
         <a href="contactus.html">お問い合わせ</a>
         <a href="privacypolicy.html">プライバシーポリシー</a>
+        <a href="../terms.html">Terms &amp; Conditions</a>
       </div>
       <p
         style="font-size: 0.75rem; color: var(--text-soft); max-width: 800px; line-height: 1.4; opacity: 0.8; margin-top: 0.5rem;">
@@ -982,16 +1317,17 @@
 
   <script src="../currency-manager.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-  <script>
+    <script>
     (function () {
       const defaults = {
         amount: 25000,
         rate: 12,
-        years: 10
+        years: 10,
+        taxRate: 0
       };
 
-      const nfCurrency = { format: (v) => window.currencyManager ? window.currencyManager.formatCurrency(v) : "¥" + Math.round(v).toLocaleString('ja-JP') };
-      const nfNumber = { format: (v) => Math.round(v).toLocaleString("ja-JP") };
+      const nfCurrency = { format: (v) => window.currencyManager ? window.currencyManager.formatCurrency(v) : String(v) };
+      const nfNumber = { format: (v) => window.currencyManager ? window.currencyManager.formatNumber(v) : String(v) };
 
       const elements = {
         menuToggle: document.getElementById("menuToggle"),
@@ -999,22 +1335,44 @@
         backToTopBtn: document.getElementById("backToTopBtn"),
         recalculateBtn: document.getElementById("recalculateBtn"),
         resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+
         amount: document.getElementById("amount"),
         amountRange: document.getElementById("amountRange"),
         rate: document.getElementById("rate"),
         rateRange: document.getElementById("rateRange"),
         years: document.getElementById("years"),
         yearsRange: document.getElementById("yearsRange"),
+        taxRate: document.getElementById("taxRate"),
+        taxRateRange: document.getElementById("taxRateRange"),
+        targetAmount: document.getElementById("targetAmount"),
+
         amountPreview: document.getElementById("amountPreview"),
         ratePreview: document.getElementById("ratePreview"),
         yearsPreview: document.getElementById("yearsPreview"),
+
+        corpusHeroValue: document.getElementById("corpusHeroValue"),
+        corpusHeroDesc: document.getElementById("corpusHeroDesc"),
         investedValue: document.getElementById("investedValue"),
         returnsValue: document.getElementById("returnsValue"),
         corpusValue: document.getElementById("corpusValue"),
-        splitChart: document.getElementById("splitChart")
+        annualInterestValue: document.getElementById("annualInterestValue"),
+        postTaxCorpusValue: document.getElementById("postTaxCorpusValue"),
+        monthlyInterestValue: document.getElementById("monthlyInterestValue"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+
+        splitChart: document.getElementById("splitChart"),
+        growthChart: document.getElementById("growthChart"),
+        projectionTableBody: document.getElementById("projectionTableBody")
       };
 
       let splitChartInstance = null;
+      let growthChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
 
       function toggleNav() {
         if (!elements.menuToggle || !elements.mainNav) return;
@@ -1022,15 +1380,6 @@
           const isOpen = elements.mainNav.classList.toggle("open");
           elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
           elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
-        });
-        elements.mainNav.querySelectorAll("a").forEach(function (link) {
-          link.addEventListener("click", function () {
-            if (window.innerWidth < 940) {
-              elements.mainNav.classList.remove("open");
-              elements.menuToggle.setAttribute("aria-expanded", "false");
-              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-          });
         });
       }
 
@@ -1062,7 +1411,6 @@
 
       function syncPair(rangeEl, numberEl) {
         if (!rangeEl || !numberEl) return;
-        
         const min = parseFloat(rangeEl.min || "0");
         const max = parseFloat(rangeEl.max || "100000000");
         const step = rangeEl.step === "any" ? 0 : parseFloat(rangeEl.step || "1");
@@ -1084,13 +1432,6 @@
           rangeEl.value = String(normalized);
           calculateAndRender();
         });
-
-        numberEl.addEventListener("blur", function () {
-          const normalized = normalize(numberEl.value || rangeEl.value);
-          rangeEl.value = String(normalized);
-          numberEl.value = String(normalized);
-          calculateAndRender();
-        });
       }
 
       function formatCurrencyWithUnits(value) {
@@ -1099,75 +1440,230 @@
 
       function getInputs() {
         return {
-          amount: parseNumeric(elements.amount.value, defaults.amount),
-          rate: parseNumeric(elements.rate.value, defaults.rate),
-          years: parseNumeric(elements.years.value, defaults.years)
+          amount: parseNumeric(elements.amount ? elements.amount.value : defaults.amount, defaults.amount),
+          rate: parseNumeric(elements.rate ? elements.rate.value : defaults.rate, defaults.rate),
+          years: parseNumeric(elements.years ? elements.years.value : defaults.years, defaults.years),
+          taxRate: parseNumeric(elements.taxRate ? elements.taxRate.value : defaults.taxRate, defaults.taxRate)
         };
       }
 
-      function renderCharts(invested, gains) {
-        if (!window.Chart || !elements.splitChart) return;
-        if (splitChartInstance) {
-          splitChartInstance.destroy();
-        }
-        splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
-          type: "doughnut",
-          data: {
-            labels: ["元本金額", "獲得金利"],
-            datasets: [
-              {
-                data: [Math.max(invested, 0), Math.max(gains, 0)],
-                backgroundColor: ["#007f8b", "#1f9f67"],
-                borderWidth: 1
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: { position: "bottom" },
-              tooltip: {
-                callbacks: {
-                  label: function (context) {
-                    const label = context.label || "";
-                    const value = context.parsed;
-                    return label + ": " + formatCurrencyWithUnits(value);
+      function renderProjectionTable(projection) {
+        if (!elements.projectionTableBody) return;
+        elements.projectionTableBody.innerHTML = projection.map(function (row) {
+          return (
+            "<tr>" +
+            "<td class=\"projection-year\">" + row.year + "年目</td>" +
+            "<td data-label=\"元本金額\">" + formatCurrencyWithUnits(row.principal) + "</td>" +
+            "<td data-label=\"年間利息\">" + formatCurrencyWithUnits(row.interestThisYear) + "</td>" +
+            "<td data-label=\"利息累計\">" + formatCurrencyWithUnits(row.cumulativeInterest) + "</td>" +
+            "<td data-label=\"満期総額\">" + formatCurrencyWithUnits(row.totalAmount) + "</td>" +
+            "</tr>"
+          );
+        }).join("");
+      }
+
+      function renderCharts(projection, invested, gains) {
+        if (!window.Chart) return;
+
+        // 1. Doughnut Chart
+        if (elements.splitChart) {
+          if (splitChartInstance) {
+            splitChartInstance.destroy();
+          }
+          splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+            type: "doughnut",
+            data: {
+              labels: ["元本金額", "単利息合計"],
+              datasets: [
+                {
+                  data: [Math.max(invested, 0), Math.max(gains, 0)],
+                  backgroundColor: ["#0284c7", "#10b981"],
+                  borderWidth: 1
+                }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { position: "bottom" },
+                tooltip: {
+                  callbacks: {
+                    label: function (context) {
+                      return context.label + ": " + formatCurrencyWithUnits(context.parsed);
+                    }
                   }
                 }
               }
             }
+          });
+        }
+
+        // 2. Timeline Growth Area Chart
+        if (elements.growthChart && projection.length > 0) {
+          if (growthChartInstance) {
+            growthChartInstance.destroy();
           }
-        });
+          const growthCtx = elements.growthChart.getContext("2d");
+          const corpusGrad = growthCtx.createLinearGradient(0, 0, 0, 300);
+          corpusGrad.addColorStop(0, "rgba(2, 132, 199, 0.28)");
+          corpusGrad.addColorStop(1, "rgba(2, 132, 199, 0.015)");
+
+          const labels = projection.map(function (row) { return row.year + "年目"; });
+          const totalData = projection.map(function (row) { return row.totalAmount; });
+          const principalData = projection.map(function (row) { return row.principal; });
+
+          growthChartInstance = new Chart(growthCtx, {
+            type: "line",
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: "満期受取総額",
+                  data: totalData,
+                  borderColor: "#0284c7",
+                  backgroundColor: corpusGrad,
+                  fill: true,
+                  tension: 0.2,
+                  borderWidth: 3,
+                  pointRadius: 0,
+                  pointHoverRadius: 5
+                },
+                {
+                  label: "元本金額",
+                  data: principalData,
+                  borderColor: "#10b981",
+                  backgroundColor: "transparent",
+                  fill: false,
+                  tension: 0,
+                  borderWidth: 2,
+                  borderDash: [6, 4],
+                  pointRadius: 0,
+                  pointHoverRadius: 4
+                }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { position: "top" },
+                tooltip: {
+                  callbacks: {
+                    label: function (context) {
+                      return context.dataset.label + ": " + formatCurrencyWithUnits(context.parsed.y);
+                    }
+                  }
+                }
+              }
+            }
+          });
+        }
       }
 
       function updatePreviewLabels(inputs) {
-        elements.amountPreview.textContent = window.currencyManager ? window.currencyManager.formatNumber(inputs.amount) : inputs.amount.toLocaleString('ja-JP');
-        elements.ratePreview.textContent = inputs.rate.toFixed(1) + "%";
-        elements.yearsPreview.textContent = String(inputs.years);
+        if (elements.amountPreview) elements.amountPreview.textContent = formatCurrencyWithUnits(inputs.amount);
+        if (elements.ratePreview) elements.ratePreview.textContent = inputs.rate.toFixed(2) + "%";
+        if (elements.yearsPreview) elements.yearsPreview.textContent = String(inputs.years) + "年";
       }
 
       function calculateAndRender() {
         const inputs = getInputs();
         updatePreviewLabels(inputs);
 
-        const interest = (inputs.amount * inputs.rate * inputs.years) / 100;
-        const total = inputs.amount + interest;
+        const P = inputs.amount;
+        const R = inputs.rate;
+        const T = inputs.years;
 
-        elements.investedValue.textContent = formatCurrencyWithUnits(inputs.amount);
-        elements.returnsValue.textContent = formatCurrencyWithUnits(interest);
-        elements.corpusValue.textContent = formatCurrencyWithUnits(total);
+        // Accurate Simple Interest Calculation: SI = (P * R * T) / 100
+        const totalInterest = (P * R * T) / 100;
+        const totalAmount = P + totalInterest;
+        const annualInterest = (P * R) / 100;
+        const monthlyInterest = annualInterest / 12;
 
-        renderCharts(inputs.amount, interest);
+        const taxRate = clamp(inputs.taxRate, 0, 35);
+        const postTaxInterest = totalInterest * (1 - taxRate / 100);
+        const postTaxCorpus = P + postTaxInterest;
+
+        if (elements.investedValue) elements.investedValue.textContent = formatCurrencyWithUnits(P);
+        if (elements.returnsValue) elements.returnsValue.textContent = formatCurrencyWithUnits(totalInterest);
+        if (elements.corpusValue) elements.corpusValue.textContent = formatCurrencyWithUnits(totalAmount);
+        if (elements.annualInterestValue) elements.annualInterestValue.textContent = formatCurrencyWithUnits(annualInterest) + " / 年";
+        if (elements.postTaxCorpusValue) elements.postTaxCorpusValue.textContent = formatCurrencyWithUnits(postTaxCorpus);
+        if (elements.monthlyInterestValue) elements.monthlyInterestValue.textContent = formatCurrencyWithUnits(monthlyInterest) + " / 月";
+
+        if (elements.corpusHeroValue) elements.corpusHeroValue.textContent = formatCurrencyWithUnits(totalAmount);
+        if (elements.corpusHeroDesc) {
+          elements.corpusHeroDesc.textContent = "元本: " + formatCurrencyWithUnits(P) + " • 単利息: " + formatCurrencyWithUnits(totalInterest);
+        }
+        if (elements.mobileSummaryVal) elements.mobileSummaryVal.textContent = formatCurrencyWithUnits(totalAmount);
+
+        // Build Year-wise Schedule
+        const numYears = Math.max(1, Math.ceil(T));
+        const projection = [];
+        for (let y = 1; y <= numYears; y++) {
+          const effectiveTime = Math.min(y, T);
+          const prevTime = Math.min(y - 1, T);
+          const interestThisYear = (P * R * (effectiveTime - prevTime)) / 100;
+          const cumulativeInterest = (P * R * effectiveTime) / 100;
+          projection.push({
+            year: y,
+            principal: P,
+            interestThisYear: interestThisYear,
+            cumulativeInterest: cumulativeInterest,
+            totalAmount: P + cumulativeInterest
+          });
+        }
+
+        lastProjection = projection;
+        renderProjectionTable(projection);
+        renderCharts(projection, P, totalInterest);
+
+        lastSummaryText = [
+          "単利計算シミュレーション結果",
+          "元本金額: " + formatCurrencyWithUnits(P),
+          "年利率: " + R.toFixed(2) + "% p.a.",
+          "運用期間: " + T + "年",
+          "年間利息: " + formatCurrencyWithUnits(annualInterest),
+          "利息合計: " + formatCurrencyWithUnits(totalInterest),
+          "満期受取総額: " + formatCurrencyWithUnits(totalAmount),
+          "税引後満期受取額: " + formatCurrencyWithUnits(postTaxCorpus)
+        ].join("\n");
+      }
+
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) return;
+        const headers = ["年次", "元本金額", "年間利息", "利息累計", "満期総額"];
+        const rows = lastProjection.map(function (row) {
+          return [
+            row.year + "年目",
+            Math.round(row.principal),
+            Math.round(row.interestThisYear),
+            Math.round(row.cumulativeInterest),
+            Math.round(row.totalAmount)
+          ].join(",");
+        });
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "simple-interest-schedule.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
       }
 
       function resetToDefaults() {
-        elements.amount.value = defaults.amount;
-        elements.amountRange.value = defaults.amount;
-        elements.rate.value = defaults.rate;
-        elements.rateRange.value = defaults.rate;
-        elements.years.value = defaults.years;
-        elements.yearsRange.value = defaults.years;
+        if (elements.amount) elements.amount.value = defaults.amount;
+        if (elements.amountRange) elements.amountRange.value = defaults.amount;
+        if (elements.rate) elements.rate.value = defaults.rate;
+        if (elements.rateRange) elements.rateRange.value = defaults.rate;
+        if (elements.years) elements.years.value = defaults.years;
+        if (elements.yearsRange) elements.yearsRange.value = defaults.years;
+        if (elements.taxRate) elements.taxRate.value = defaults.taxRate;
+        if (elements.taxRateRange) elements.taxRateRange.value = defaults.taxRate;
         calculateAndRender();
       }
 
@@ -1175,24 +1671,62 @@
         syncPair(elements.amountRange, elements.amount);
         syncPair(elements.rateRange, elements.rate);
         syncPair(elements.yearsRange, elements.years);
+        syncPair(elements.taxRateRange, elements.taxRate);
 
-        elements.recalculateBtn.addEventListener("click", calculateAndRender);
-        elements.resetBtn.addEventListener("click", resetToDefaults);
+        // Preset Chips
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function() {
+            const wrap = this.parentElement;
+            if (wrap.dataset.target) {
+              const targetInput = document.getElementById(wrap.dataset.target);
+              const targetRange = document.getElementById(wrap.dataset.range);
+              if (targetInput) targetInput.value = this.dataset.val;
+              if (targetRange) targetRange.value = this.dataset.val;
+              calculateAndRender();
+            }
+          });
+        });
+
+        if (elements.recalculateBtn) elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        if (elements.resetBtn) elements.resetBtn.addEventListener("click", resetToDefaults);
+        if (elements.downloadCsvBtn) elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        if (elements.copySummaryBtn) {
+          elements.copySummaryBtn.addEventListener("click", function () {
+            if (!navigator.clipboard || !lastSummaryText) return;
+            navigator.clipboard.writeText(lastSummaryText).then(function () {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> コピー完了';
+              window.setTimeout(function () {
+                elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> サマリーをコピー';
+              }, 1300);
+            });
+          });
+        }
+
+        if (elements.copyHeroBtn) {
+          elements.copyHeroBtn.addEventListener("click", function() {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(lastSummaryText).then(() => {
+                const orig = elements.copyHeroBtn.innerHTML;
+                elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+                setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+              });
+            }
+          });
+        }
+
+        if (elements.toggleViewBtn) {
+          elements.toggleViewBtn.addEventListener("click", function () {
+            const shell = document.querySelector(".calculator-shell");
+            const isAdvanced = shell.classList.toggle("advanced-mode");
+            elements.toggleViewBtn.classList.toggle("active", isAdvanced);
+            elements.toggleViewBtn.querySelector("span").textContent = isAdvanced ? "高度な設定: オン" : "高度な設定: オフ";
+          });
+        }
+
         if (window.currencyManager) {
           window.currencyManager.onChange(calculateAndRender);
         }
-      }
-
-      // Language switch dropdown handler
-      const langSelect = document.getElementById('langSelect');
-      if (langSelect) {
-        langSelect.value = 'ja';
-        langSelect.addEventListener('change', function() {
-          if (this.value === 'en') {
-            localStorage.setItem('user_lang', 'en');
-            window.location.href = '../simpleinterestcalculator.html';
-          }
-        });
       }
 
       toggleNav();
@@ -1223,3 +1757,5 @@
 </body>
 
 </html>
+
+

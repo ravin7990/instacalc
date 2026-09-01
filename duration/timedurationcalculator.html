@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -24,7 +24,13 @@
   <meta property="og:url" content="https://instacalc.in/duration/timedurationcalculator.html">
   <meta property="og:image" content="https://instacalc.in/instatheme.webp">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Time Duration Calculator - Exact Elapsed Time Between Timestamps">
+  <meta name="twitter:description" content="Calculate exact days, hours, minutes, and seconds between timestamps.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
@@ -89,6 +95,46 @@
       .calculator-actions .btn:first-child, .calculator-actions .btn-primary { grid-column: span 2 !important; }
     }
   </style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do you calculate exact elapsed time between two timestamps?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The calculator converts both start and end timestamps to absolute epoch milliseconds, computes the difference, and decomposes it into days, hours, minutes, and seconds."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I add or subtract time intervals?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Switch to the Add / Subtract Duration mode to add or subtract specific numbers of days, hours, minutes, and seconds from any starting date."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are continuous working hours computed across multi-day shifts?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Continuous duration measures the exact elapsed time without truncation across calendar midnight boundaries."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between clock time and elapsed duration?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Clock time indicates a specific position on the 24-hour dial, whereas duration measures the total amount of time elapsed between two distinct moments."
+          }
+        }
+      ]
+    }
+  </script>
 </head>
 
 <body>
@@ -259,15 +305,40 @@
     </div>
 
     <section class="section">
-      <div class="container content-card">
-        <h2 style="font-family: 'Sora', sans-serif; font-size: clamp(1.4rem, 3vw, 1.85rem); margin-bottom: 1rem; color: var(--ic-text);">
-          How Time Duration Calculations Work
-        </h2>
-        <p style="color: var(--ic-text-muted); font-size: 0.95rem; line-height: 1.6;">
-          Time duration measures the exact elapsed continuous span between two coordinate timestamps on the Gregorian timeline. It factors in multi-day shifts, 60-second minutes, and 60-minute hours for precise countdowns, flight durations, and project timelines.
-        </p>
+      <div class="container content-grid">
+        <article class="content-card">
+          <h3>Understanding Continuous Time Duration & Interval Math</h3>
+          <p>Calculating the exact elapsed duration between two points in time is crucial for event planning, flight schedules, multi-day work shifts, server uptime monitoring, and athletic race timing. Unlike simple time-of-day differences, continuous duration calculations account for calendar day rollovers and variable month lengths.</p>
+          <br>
+          <p><strong>Decomposition of Total Duration:</strong></p>
+          <ul>
+            <li><strong>Total Seconds:</strong> $\text{End Time (ms)} - \text{Start Time (ms)} \div 1000$</li>
+            <li><strong>Decomposed Format:</strong> Decomposes into Days ($D = \lfloor\frac{S}{86400}\rfloor$), Hours ($H = \lfloor\frac{S \bmod 86400}{3600}\rfloor$), Minutes ($M = \lfloor\frac{S \bmod 3600}{60}\rfloor$), and Seconds ($S \bmod 60$).</li>
+            <li><strong>Decimal Equivalents:</strong> Useful for engineering and billing conversions (e.g. 1 day 12 hours = 1.50 days or 36.00 hours).</li>
+          </ul>
+        </article>
+
+        <div class="faq-list">
+          <details class="faq-card" open>
+            <summary>How do you calculate exact elapsed time between two timestamps? <i class="fas fa-chevron-down"></i></summary>
+            <p>The calculator converts both start and end timestamps into UTC milliseconds, computes the difference, and decomposes the result into days, hours, minutes, and seconds.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can I add or subtract duration from a starting timestamp? <i class="fas fa-chevron-down"></i></summary>
+            <p>Yes. Use the "Add / Subtract Duration" tab to add or subtract days, hours, minutes, and seconds from any date and time.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Does this tool handle daylight saving time changes? <i class="fas fa-chevron-down"></i></summary>
+            <p>Calculations use browser-native high-precision timestamps, ensuring exact linear elapsed seconds between dates.</p>
+          </details>
+          <details class="faq-card">
+            <summary>Can I copy or export the duration summary? <i class="fas fa-chevron-down"></i></summary>
+            <p>Yes. Click the "Copy Duration Summary" button to quickly copy the decomposed duration, total hours, and total seconds to your clipboard.</p>
+          </details>
+        </div>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer">
@@ -277,6 +348,7 @@
         <a href="../index.html">Home</a>
         <a href="../aboutus.html">About Us</a>
         <a href="../privacypolicy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms &amp; Conditions</a>
       </div>
     </div>
   </footer>

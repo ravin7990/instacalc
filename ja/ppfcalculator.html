@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 
 <head>
@@ -751,7 +751,7 @@
       }
 
       .calc-layout {
-        grid-template-columns: 1.72fr 1fr;
+        grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
         align-items: start;
       }
     }
@@ -778,6 +778,206 @@
     .lang-switch select:focus {
       border-color: var(--accent);
     }
+  
+    /* ==========================================================================
+       Fintech Interactive Studio 2-Column Desktop Grid
+       ========================================================================== */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+
+    .studio-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .studio-outcome {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+
+    .legend-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+
+    .legend-val.positive {
+      color: #10b981;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+
+    .growth-timeline-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+    }
+
+    .chart-wrap-timeline {
+      position: relative;
+      width: 100%;
+      height: 280px;
+    }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell {
+        border: 0;
+        background: transparent;
+        overflow: visible;
+      }
+
+      .projection-table,
+      .projection-table tbody,
+      .projection-table tr,
+      .projection-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .projection-table thead {
+        display: none;
+      }
+
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+
+      .projection-table td:nth-child(odd):not(.projection-year) {
+        border-right: 1px solid var(--ic-border);
+      }
+
+      .projection-table td:nth-last-child(-n + 2) {
+        border-bottom: 0;
+      }
+
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .projection-table .projection-year::before {
+        display: none;
+      }
+    }
+
+    @media (max-width: 960px) {
+      .fin-studio-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -837,119 +1037,194 @@
       </div>
     </section>
 
-    <section id="ppf-planner" class="section">
+        <section id="ppf-planner" class="section">
       <div class="container calc-layout">
         <div class="calculator-shell" id="calcTarget">
           <div class="calculator-header-row">
-            <div class="mode-switch" aria-label="計算モード">
-              <a href="#" class="active">PPF積立シミュレーション</a>
+            <div class="toggle-group" aria-label="Calculator mode">
+              <a href="ppfcalculator.html" class="toggle-btn active"><i class="fas fa-piggy-bank"></i> PPF満期シミュレーター</a>
+              <a href="compoundinterest.html" class="toggle-btn"><i class="fas fa-chart-line"></i> 複利運用</a>
+              <a href="sipcalculator.html" class="toggle-btn"><i class="fas fa-calendar-alt"></i> 積立SIP</a>
             </div>
             <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
               <i class="fas fa-sliders"></i>
-              <span>詳細設定モード: オフ</span>
+              <span>高度な設定: オフ</span>
             </button>
           </div>
 
-          <div class="input-grid">
-            <div class="field-card">
-              <div class="field-head">
-                <label for="investment">年間投資金総額</label>
-                <span id="investmentPreview">150,000</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="investmentRange" min="500" max="150000" step="500" value="150000">
-                <input type="number" id="investment" min="500" max="150000" step="500" value="150000">
-              </div>
-            </div>
+          <!-- Mobile Sticky Summary Pill -->
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label" id="mobileSummaryLabel">満期受取予想総額 (非課税)</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
 
-            <div class="field-card">
-              <div class="field-head">
-                <label for="rate">現在のPPF金利 (年利%)</label>
-                <span id="ratePreview">7.1%</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="rateRange" min="5" max="12" step="0.1" value="7.1">
-                <input type="number" id="rate" min="5" max="12" step="0.1" value="7.1">
-              </div>
-            </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="tenure">預入期間 (年数)</label>
-                <span id="tenurePreview">15年</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="tenureRange" min="15" max="50" step="5" value="15">
-                <input type="number" id="tenure" min="15" max="50" step="5" value="15">
-              </div>
-            </div>
-
-            <div class="advanced-only-section" id="advancedFields">
+          <!-- Desktop Interactive 2-Column Grid -->
+          <div class="fin-studio-grid">
+            <!-- Left Inputs Column -->
+            <div class="studio-inputs">
               <div class="field-card">
                 <div class="field-head">
-                  <label for="investFreq">投資の頻度</label>
+                  <label for="investment">年間積立額</label>
+                  <span class="field-preview-badge" id="investmentPreview">¥1,500,000</span>
                 </div>
-                <select id="investFreq">
-                  <option value="year" selected>年に1回 (4月期首払い)</option>
-                  <option value="month">毎月積み立て (SIPスタイル)</option>
-                </select>
-              </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label>PPFの投資ルール</label>
+                <div class="range-row">
+                  <input type="range" id="investmentRange" min="500" max="150000" step="500" value="150000">
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">¥</span>
+                    <input type="number" id="investment" min="500" max="150000" step="500" value="150000" class="has-prefix">
+                  </div>
                 </div>
-                <p style="font-size:0.85rem; color:var(--text-soft);">
-                  会計年度（4月〜翌3月）あたり最大15万ルピー（1.5 Lakh）まで投資可能です。<br>
-                  利息は毎月5日から月末までの最低残高を基準に計算されます。
-                </p>
+                <div class="chips-wrap" data-target="investment" data-range="investmentRange">
+                  <button type="button" class="chip" data-val="10000">¥10万</button>
+                  <button type="button" class="chip" data-val="25000">¥25万</button>
+                  <button type="button" class="chip" data-val="50000">¥50万</button>
+                  <button type="button" class="chip" data-val="100000">¥100万</button>
+                  <button type="button" class="chip" data-val="150000">¥150万 (上限)</button>
+                </div>
+              </div>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="rate">PPF年利率 (% p.a.)</label>
+                    <span class="field-preview-badge" id="ratePreview">7.1%</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="rateRange" min="5" max="12" step="0.1" value="7.1">
+                    <div class="input-with-adornment">
+                      <input type="number" id="rate" min="5" max="12" step="0.1" value="7.1" class="has-suffix">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                  <div class="chips-wrap" data-target="rate" data-range="rateRange" style="margin-top:0.5rem;">
+                    <button type="button" class="chip" data-val="7.1">7.1% (公定金利)</button>
+                    <button type="button" class="chip" data-val="7.5">7.5%</button>
+                    <button type="button" class="chip" data-val="8.0">8.0%</button>
+                  </div>
+                </div>
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="tenure">運用期間 (年数)</label>
+                    <span class="field-preview-badge" id="tenurePreview">15年</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="tenureRange" min="15" max="50" step="5" value="15">
+                    <div class="input-with-adornment">
+                      <input type="number" id="tenure" min="15" max="50" step="5" value="15" class="has-suffix">
+                      <span class="input-suffix">年</span>
+                    </div>
+                  </div>
+                  <div class="chips-wrap" data-target="tenure" data-range="tenureRange" style="margin-top:0.5rem;">
+                    <button type="button" class="chip" data-val="15">15年 (標準)</button>
+                    <button type="button" class="chip" data-val="20">20年 (延長1)</button>
+                    <button type="button" class="chip" data-val="25">25年 (延長2)</button>
+                    <button type="button" class="chip" data-val="30">30年 (延長3)</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="advanced-only-section" id="advancedFields">
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="investFreq">拠出タイミング・頻度</label>
+                    </div>
+                    <select id="investFreq">
+                      <option value="year" selected>年1回一括入金 (4月初旬)</option>
+                      <option value="month">毎月均等入金 (5日以前の入金)</option>
+                    </select>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="openingBalance">既存PPF口座残高</label>
+                    </div>
+                    <input type="number" id="openingBalance" min="0" step="10000" value="0" placeholder="0">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Visual Outcome Column -->
+            <div class="studio-outcome">
+              <!-- Hero Outcome Card -->
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-coins"></i> 満期受取予想総額 (非課税)</span>
+                  <div class="res-val" id="corpusHeroValue">-</div>
+                  <div class="res-desc" id="corpusHeroDesc">投資元本: - | 非課税利息: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="サマリーをコピー">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+
+              <!-- Doughnut Split Visualizer -->
+              <div class="outcome-chart-box">
+                <div class="chart-wrap-doughnut">
+                  <canvas id="splitChart"></canvas>
+                </div>
+                <div class="legend-stats-row">
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-invested"></span> 投資元本累計</div>
+                    <div class="legend-val" id="resInvested">-</div>
+                  </div>
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-returns"></span> 利息累計</div>
+                    <div class="legend-val positive" id="resInterest">-</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Key Metrics Grid -->
+              <div class="result-grid">
+                <div class="result-card positive">
+                  <h3>満期受取総額</h3>
+                  <div class="result-value" id="resMaturity">-</div>
+                </div>
+                <div class="result-card">
+                  <h3>投資元本累計</h3>
+                  <div class="result-value" id="resInvestedGrid">-</div>
+                </div>
+                <div class="result-card">
+                  <h3>非課税利息合計</h3>
+                  <div class="result-value" id="resInterestGrid">-</div>
+                </div>
+              </div>
+
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> サマリーをコピー</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> 初期設定</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> 再計算</button>
               </div>
             </div>
           </div>
 
-          <div class="calculator-actions">
-            <button class="btn btn-primary" id="recalculateBtn" type="button">
-              <i class="fas fa-bolt"></i> 再計算
-            </button>
-            <button class="btn btn-ghost" id="resetBtn" type="button">
-              <i class="fas fa-rotate-left"></i> 初期値に戻す
-            </button>
-            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
-              <i class="fas fa-copy"></i> 結果をコピー
-            </button>
-          </div>
-
-          <div class="result-grid">
-            <div class="result-card">
-              <h3>累計投資元本</h3>
-              <div class="result-value" id="resInvested">-</div>
+          <!-- Bottom Full-Width Compounding Growth Area Chart -->
+          <div class="growth-timeline-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-chart-line" style="color:var(--ic-primary);"></i> PPF資産拡大シミュレーション</h3>
+              <span style="font-size:0.85rem; color:var(--ic-text-muted);">満期予想残高 vs 投資元本累計</span>
             </div>
-            <div class="result-card positive">
-              <h3>受取利息総額</h3>
-              <div class="result-value" id="resInterest">-</div>
-            </div>
-            <div class="result-card">
-              <h3>満期受取金額</h3>
-              <div class="result-value" id="resMaturity">-</div>
+            <div class="chart-wrap-timeline">
+              <canvas id="ppfChart"></canvas>
             </div>
           </div>
 
-          <div class="chart-grid" style="margin-top:20px;">
-            <div class="chart-card">
-              <h3>満期受取額の推移</h3>
-              <div class="chart-wrap">
-                <canvas id="ppfChart"></canvas>
-              </div>
-            </div>
+          <!-- Year-Wise Amortization Projection Table -->
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> 年次資産推移スケジュール</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> CSV出力</button>
           </div>
-
-          <div class="table-shell" style="margin-top:20px;">
-            <table>
+          <div class="table-shell">
+            <table class="projection-table">
               <thead>
                 <tr>
-                  <th>年度</th>
+                  <th>年次</th>
                   <th>期首残高</th>
-                  <th>年間投資額</th>
-                  <th>発生利息</th>
+                  <th>年間積立額</th>
+                  <th>年間利息</th>
                   <th>期末残高</th>
                 </tr>
               </thead>
@@ -958,7 +1233,7 @@
           </div>
         </div>
 
-        <aside class="section-head" style="margin-bottom:0;">
+        <aside class="sidebar">
           <div class="sidebar-card">
             <h3>関連する節税計算ツール</h3>
             <ul class="link-list">
@@ -976,7 +1251,7 @@
     </section>
 
     <section class="section">
-      <div class="container calc-layout">
+      <div class="container content-grid">
         <article class="content-card">
           <h3>PPF計算ツールを利用するメリット</h3>
           <p>PPF（Public Provident Fund）は、投資額、発生する利息、および満期受取金のすべてが非課税となる「トリプル非課税（E-E-E）ステータス」を持つため、インドで最も人気のある老後資金用貯蓄手段の1つです。</p>
@@ -1012,35 +1287,32 @@
         <a href="aboutus.html">運営者情報</a>
         <a href="contactus.html">お問い合わせ</a>
         <a href="privacypolicy.html">プライバシーポリシー</a>
+        <a href="../terms.html">Terms &amp; Conditions</a>
       </div>
     </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-  <script>
+    <script>
     (function () {
       const defaults = {
         investment: 150000,
         rate: 7.1,
         tenure: 15,
-        freq: 'year'
+        freq: 'year',
+        openingBalance: 0
       };
 
-      const nfCurrency = { format: (v) => "¥" + Math.round(v).toLocaleString('ja-JP') };
+      const nfCurrency = { format: (v) => window.currencyManager ? window.currencyManager.formatCurrency(v) : String(v) };
 
       function formatWithUnits(v) {
-        return nfCurrency.format(v);
+        return window.currencyManager ? window.currencyManager.formatWithUnits(v) : nfCurrency.format(v);
       }
 
-            function compactCurrency(v) {
-        if (v >= 100000000) {
-          return "¥" + (v / 100000000).toFixed(1) + "億円";
-        }
-        if (v >= 10000) {
-          return "¥" + (v / 10000).toFixed(0) + "万円";
-        }
-        return "¥" + Math.round(v).toLocaleString('ja-JP');
+      function compactCurrency(v) {
+        return window.currencyManager ? window.currencyManager.formatCompact(v) : String(v);
       }
+
       const elements = {
         investment: document.getElementById("investment"),
         investmentRange: document.getElementById("investmentRange"),
@@ -1049,25 +1321,37 @@
         tenure: document.getElementById("tenure"),
         tenureRange: document.getElementById("tenureRange"),
         investFreq: document.getElementById("investFreq"),
+        openingBalance: document.getElementById("openingBalance"),
 
         investmentPreview: document.getElementById("investmentPreview"),
         ratePreview: document.getElementById("ratePreview"),
         tenurePreview: document.getElementById("tenurePreview"),
 
+        corpusHeroValue: document.getElementById("corpusHeroValue"),
+        corpusHeroDesc: document.getElementById("corpusHeroDesc"),
         resInvested: document.getElementById("resInvested"),
         resInterest: document.getElementById("resInterest"),
         resMaturity: document.getElementById("resMaturity"),
+        resInvestedGrid: document.getElementById("resInvestedGrid"),
+        resInterestGrid: document.getElementById("resInterestGrid"),
+        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
 
+        splitChart: document.getElementById("splitChart"),
         ppfChart: document.getElementById("ppfChart"),
         projectionTable: document.getElementById("projectionTable"),
         toggleViewBtn: document.getElementById("toggleViewBtn"),
         calcTarget: document.getElementById("calcTarget"),
         recalculateBtn: document.getElementById("recalculateBtn"),
         resetBtn: document.getElementById("resetBtn"),
-        copySummaryBtn: document.getElementById("copySummaryBtn")
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn")
       };
 
-      let chartInstance = null;
+      let splitChartInstance = null;
+      let timelineChartInstance = null;
+      let lastProjection = [];
+      let lastSummaryText = "";
 
       function parseNumeric(input, fallback) {
         const value = Number(input);
@@ -1076,17 +1360,24 @@
 
       function syncPair(rangeEl, numberEl) {
         if (!rangeEl || !numberEl) return;
-        rangeEl.addEventListener("input", () => { numberEl.value = rangeEl.value; calculate(); });
-        numberEl.addEventListener("input", () => { rangeEl.value = numberEl.value; calculate(); });
+        rangeEl.addEventListener("input", () => {
+          numberEl.value = rangeEl.value;
+          calculate();
+        });
+        numberEl.addEventListener("input", () => {
+          rangeEl.value = numberEl.value;
+          calculate();
+        });
       }
 
       function setupToggleAdvanced() {
         let isAdvancedMode = false;
+        if (!elements.toggleViewBtn) return;
         elements.toggleViewBtn.addEventListener("click", () => {
           isAdvancedMode = !isAdvancedMode;
           elements.calcTarget.classList.toggle("advanced-mode", isAdvancedMode);
           elements.toggleViewBtn.classList.toggle("active", isAdvancedMode);
-          elements.toggleViewBtn.querySelector("span").textContent = isAdvancedMode ? "詳細設定モード: オン" : "詳細設定モード: オフ";
+          elements.toggleViewBtn.querySelector("span").textContent = isAdvancedMode ? "高度な設定: オン" : "高度な設定: オフ";
         });
       }
 
@@ -1094,17 +1385,19 @@
         const inv = parseNumeric(elements.investment.value, defaults.investment);
         const r = parseNumeric(elements.rate.value, defaults.rate) / 100;
         const years = parseNumeric(elements.tenure.value, defaults.tenure);
-        const freq = elements.investFreq.value;
+        const freq = elements.investFreq ? elements.investFreq.value : defaults.freq;
+        const initBal = parseNumeric(elements.openingBalance ? elements.openingBalance.value : 0, 0);
 
         elements.investmentPreview.textContent = formatWithUnits(inv);
         elements.ratePreview.textContent = (r * 100).toFixed(1) + "%";
         elements.tenurePreview.textContent = years + "年";
 
-        let currentBalance = 0;
-        let totalInvested = 0;
+        let currentBalance = initBal;
+        let totalInvested = initBal;
         const yearlyData = [];
-        const labels = ["開始"];
-        const values = [0];
+        const labels = ["0年目"];
+        const values = [initBal];
+        const investedSeries = [initBal];
 
         for (let y = 1; y <= years; y++) {
           let opening = currentBalance;
@@ -1112,18 +1405,23 @@
           let yearInterest = 0;
 
           if (freq === 'year') {
+            // Deposit at start of year (April)
             currentBalance += inv;
             yearInvested = inv;
             yearInterest = currentBalance * r;
             currentBalance += yearInterest;
           } else {
+            // Monthly deposits before 5th of each month (inv / 12 per month)
             const monthly = inv / 12;
+            let runningBal = opening;
+            let accruedInterest = 0;
             for (let m = 1; m <= 12; m++) {
-              currentBalance += monthly;
-              yearInvested += monthly;
+              runningBal += monthly;
+              accruedInterest += (runningBal * r) / 12;
             }
-            yearInterest = opening * r + (yearInvested * r / 2);
-            currentBalance += yearInterest;
+            yearInvested = inv;
+            yearInterest = accruedInterest;
+            currentBalance = opening + yearInvested + yearInterest;
           }
 
           totalInvested += yearInvested;
@@ -1136,102 +1434,253 @@
           });
           labels.push(y + "年目");
           values.push(currentBalance);
+          investedSeries.push(totalInvested);
         }
 
-        elements.resInvested.textContent = formatWithUnits(totalInvested);
-        elements.resInterest.textContent = formatWithUnits(currentBalance - totalInvested);
-        elements.resMaturity.textContent = formatWithUnits(currentBalance);
+        const totalInterest = Math.max(0, currentBalance - totalInvested);
 
-        elements.projectionTable.innerHTML = "";
-        yearlyData.forEach(row => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `<td>${row.year}年目</td><td>${formatWithUnits(row.opening)}</td><td>${formatWithUnits(row.invest)}</td><td>${formatWithUnits(row.interest)}</td><td>${formatWithUnits(row.closing)}</td>`;
-          elements.projectionTable.appendChild(tr);
-        });
+        if (elements.resInvested) elements.resInvested.textContent = formatWithUnits(totalInvested);
+        if (elements.resInterest) elements.resInterest.textContent = formatWithUnits(totalInterest);
+        if (elements.resMaturity) elements.resMaturity.textContent = formatWithUnits(currentBalance);
 
-        drawChart(labels, values);
+        if (elements.resInvestedGrid) elements.resInvestedGrid.textContent = formatWithUnits(totalInvested);
+        if (elements.resInterestGrid) elements.resInterestGrid.textContent = formatWithUnits(totalInterest);
+
+        if (elements.corpusHeroValue) elements.corpusHeroValue.textContent = formatWithUnits(currentBalance);
+        if (elements.corpusHeroDesc) {
+          elements.corpusHeroDesc.textContent = "投資元本: " + formatWithUnits(totalInvested) + " • 非課税利息: " + formatWithUnits(totalInterest);
+        }
+        if (elements.mobileSummaryVal) elements.mobileSummaryVal.textContent = formatWithUnits(currentBalance);
+
+        lastProjection = yearlyData;
+
+        // Render Table
+        if (elements.projectionTable) {
+          elements.projectionTable.innerHTML = yearlyData.map(row => {
+            return (
+              "<tr>" +
+              "<td class=\"projection-year\">" + row.year + "年目</td>" +
+              "<td data-label=\"期首残高\">" + formatWithUnits(row.opening) + "</td>" +
+              "<td data-label=\"年間積立額\">" + formatWithUnits(row.invest) + "</td>" +
+              "<td data-label=\"年間利息\">" + formatWithUnits(row.interest) + "</td>" +
+              "<td data-label=\"期末残高\">" + formatWithUnits(row.closing) + "</td>" +
+              "</tr>"
+            );
+          }).join("");
+        }
+
+        renderCharts(labels, values, investedSeries, totalInvested, totalInterest);
+
+        lastSummaryText = [
+          "PPF満期シミュレーション結果",
+          "年間積立額: " + formatWithUnits(inv),
+          "年利率: " + (r * 100).toFixed(1) + "% p.a.",
+          "運用期間: " + years + "年",
+          "投資元本累計: " + formatWithUnits(totalInvested),
+          "非課税利息合計: " + formatWithUnits(totalInterest),
+          "満期受取総額: " + formatWithUnits(currentBalance)
+        ].join("\n");
       }
 
-      function drawChart(labels, values) {
-        const ctx = elements.ppfChart.getContext("2d");
-        if (chartInstance) chartInstance.destroy();
+      function renderCharts(labels, values, investedSeries, totalInvested, totalInterest) {
+        if (!window.Chart) return;
 
-        chartInstance = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: labels,
-            datasets: [{
-              label: '満期受取金額',
-              data: values,
-              borderColor: '#007f8b',
-              backgroundColor: 'rgba(0, 127, 139, 0.1)',
-              fill: true,
-              tension: 0.2
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              y: { ticks: { callback: (v) => compactCurrency(v) } }
+        // 1. Doughnut Visualizer
+        if (elements.splitChart) {
+          if (splitChartInstance) splitChartInstance.destroy();
+          splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
+            type: "doughnut",
+            data: {
+              labels: ["投資元本累計", "非課税利息合計"],
+              datasets: [
+                {
+                  data: [Math.max(totalInvested, 0), Math.max(totalInterest, 0)],
+                  backgroundColor: ["#0284c7", "#10b981"],
+                  borderWidth: 1
+                }
+              ]
             },
-            plugins: {
-              legend: { display: false },
-              tooltip: {
-                callbacks: { label: (ctx) => ` 予定額: ${formatWithUnits(ctx.raw)}` }
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { position: "bottom" },
+                tooltip: {
+                  callbacks: {
+                    label: function (ctx) {
+                      return ctx.label + ": " + formatWithUnits(ctx.parsed);
+                    }
+                  }
+                }
               }
             }
-          }
-        });
+          });
+        }
+
+        // 2. Timeline Area Growth Chart
+        if (elements.ppfChart) {
+          if (timelineChartInstance) timelineChartInstance.destroy();
+          const ctx = elements.ppfChart.getContext("2d");
+          const corpusGrad = ctx.createLinearGradient(0, 0, 0, 300);
+          corpusGrad.addColorStop(0, "rgba(2, 132, 199, 0.28)");
+          corpusGrad.addColorStop(1, "rgba(2, 132, 199, 0.015)");
+
+          timelineChartInstance = new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: "満期予想残高",
+                  data: values,
+                  borderColor: "#0284c7",
+                  backgroundColor: corpusGrad,
+                  fill: true,
+                  tension: 0.25,
+                  borderWidth: 3,
+                  pointRadius: 0,
+                  pointHoverRadius: 5
+                },
+                {
+                  label: "投資元本累計",
+                  data: investedSeries,
+                  borderColor: "#10b981",
+                  backgroundColor: "transparent",
+                  fill: false,
+                  tension: 0,
+                  borderWidth: 2,
+                  borderDash: [6, 4],
+                  pointRadius: 0,
+                  pointHoverRadius: 4
+                }
+              ]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                y: { ticks: { callback: (v) => compactCurrency(v) } }
+              },
+              plugins: {
+                legend: { position: "top" },
+                tooltip: {
+                  callbacks: {
+                    label: function (ctx) {
+                      return ctx.dataset.label + ": " + formatWithUnits(ctx.parsed.y);
+                    }
+                  }
+                }
+              }
+            }
+          });
+        }
       }
 
-      syncPair(elements.investmentRange, elements.investment);
-      syncPair(elements.rateRange, elements.rate);
-      syncPair(elements.tenureRange, elements.tenure);
-      elements.investFreq.addEventListener("change", calculate);
-      elements.recalculateBtn.addEventListener("click", calculate);
-      elements.resetBtn.addEventListener("click", () => {
-        elements.investment.value = defaults.investment; elements.investmentRange.value = defaults.investment;
-        elements.rate.value = defaults.rate; elements.rateRange.value = defaults.rate;
-        elements.tenure.value = defaults.tenure; elements.tenureRange.value = defaults.tenure;
-        elements.investFreq.value = defaults.freq;
-        calculate();
-      });
-
-      elements.copySummaryBtn.addEventListener("click", () => {
-        const s = `【PPF満期シミュレーション結果】\n` +
-          `年間投資額: ${elements.investmentPreview.textContent} /年\n` +
-          `適用金利: ${elements.rate.value}%\n` +
-          `預入期間: ${elements.tenure.value}年\n` +
-          `満期受取金額: ${elements.resMaturity.textContent}`;
-        navigator.clipboard.writeText(s).then(() => {
-          const ot = elements.copySummaryBtn.innerHTML;
-          elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> コピーしました！';
-          setTimeout(() => elements.copySummaryBtn.innerHTML = ot, 2000);
+      function downloadProjectionCsv() {
+        if (!lastProjection || lastProjection.length === 0) return;
+        const headers = ["年次", "期首残高", "年間積立額", "年間利息", "期末残高"];
+        const rows = lastProjection.map(function (row) {
+          return [
+            row.year + "年目",
+            Math.round(row.opening),
+            Math.round(row.invest),
+            Math.round(row.interest),
+            Math.round(row.closing)
+          ].join(",");
         });
-      });
-
-      // Nav toggle
-      document.getElementById("menuToggle").addEventListener("click", () => {
-        document.getElementById("mainNav").classList.toggle("open");
-      });
-
-      // Language switch dropdown handler
-      const langSelect = document.getElementById('langSelect');
-      if (langSelect) {
-        langSelect.value = 'ja';
-        langSelect.addEventListener('change', function() {
-          if (this.value === 'en') {
-            localStorage.setItem('user_lang', 'en');
-            window.location.href = '../ppfcalculator.html';
-          }
-        });
+        const csv = [headers.join(","), rows.join("\n")].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "ppf-schedule.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
       }
 
-      setupToggleAdvanced();
+      function wireEvents() {
+        syncPair(elements.investmentRange, elements.investment);
+        syncPair(elements.rateRange, elements.rate);
+        syncPair(elements.tenureRange, elements.tenure);
+
+        if (elements.investFreq) elements.investFreq.addEventListener("change", calculate);
+        if (elements.openingBalance) elements.openingBalance.addEventListener("input", calculate);
+        if (elements.recalculateBtn) elements.recalculateBtn.addEventListener("click", calculate);
+        if (elements.downloadCsvBtn) elements.downloadCsvBtn.addEventListener("click", downloadProjectionCsv);
+
+        // Preset Chips Handling
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function() {
+            const wrap = this.parentElement;
+            if (wrap.dataset.target) {
+              const targetInput = document.getElementById(wrap.dataset.target);
+              const targetRange = document.getElementById(wrap.dataset.range);
+              if (targetInput) targetInput.value = this.dataset.val;
+              if (targetRange) targetRange.value = this.dataset.val;
+              calculate();
+            }
+          });
+        });
+
+        if (elements.resetBtn) {
+          elements.resetBtn.addEventListener("click", () => {
+            elements.investment.value = defaults.investment;
+            elements.investmentRange.value = defaults.investment;
+            elements.rate.value = defaults.rate;
+            elements.rateRange.value = defaults.rate;
+            elements.tenure.value = defaults.tenure;
+            elements.tenureRange.value = defaults.tenure;
+            if (elements.investFreq) elements.investFreq.value = defaults.freq;
+            if (elements.openingBalance) elements.openingBalance.value = defaults.openingBalance;
+            calculate();
+          });
+        }
+
+        if (elements.copySummaryBtn) {
+          elements.copySummaryBtn.addEventListener("click", () => {
+            if (!navigator.clipboard || !lastSummaryText) return;
+            navigator.clipboard.writeText(lastSummaryText).then(() => {
+              elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> コピー完了!';
+              setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> サマリーをコピー', 2000);
+            });
+          });
+        }
+
+        if (elements.copyHeroBtn) {
+          elements.copyHeroBtn.addEventListener("click", function() {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(lastSummaryText).then(() => {
+                const orig = elements.copyHeroBtn.innerHTML;
+                elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+                setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+              });
+            }
+          });
+        }
+
+        const menuToggle = document.getElementById("menuToggle");
+        const mainNav = document.getElementById("mainNav");
+        if (menuToggle && mainNav) {
+          menuToggle.addEventListener("click", () => {
+            mainNav.classList.toggle("open");
+          });
+        }
+
+        if (window.currencyManager) {
+          window.currencyManager.onChange(calculate);
+        }
+
+        setupToggleAdvanced();
+      }
+
+      wireEvents();
       calculate();
     })();
   </script>
+  <script defer src="../fullscreen-mode.js"></script>
 </body>
 
 </html>
+

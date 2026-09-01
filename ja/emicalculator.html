@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 
 <head>
@@ -864,7 +864,7 @@
       }
 
       .calc-layout {
-        grid-template-columns: 1.72fr 1fr;
+        grid-template-columns: minmax(0, 1fr) 340px; gap: 2rem;
         align-items: start;
       }
 
@@ -936,6 +936,206 @@
     .lang-switch select:focus {
       border-color: var(--accent);
     }
+  
+    /* ==========================================================================
+       Fintech Interactive Studio 2-Column Desktop Grid
+       ========================================================================== */
+    .fin-studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.75rem;
+      align-items: start;
+      margin-top: 1rem;
+      width: 100%;
+    }
+
+    .studio-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .studio-outcome {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .field-preview-badge {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    .outcome-chart-box {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .chart-wrap-doughnut {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .legend-stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      width: 100%;
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--ic-border);
+    }
+
+    .legend-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .legend-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .legend-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--ic-text);
+    }
+
+    .legend-val.positive {
+      color: #10b981;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot-invested { background: #0284c7; }
+    .dot-returns { background: #10b981; }
+
+    .growth-timeline-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      padding: 1.5rem;
+      margin-top: 2rem;
+      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
+    }
+
+    .chart-wrap-timeline {
+      position: relative;
+      width: 100%;
+      height: 280px;
+    }
+
+    /* Projection Table Mobile Card Grid */
+    @media (max-width: 640px) {
+      .table-shell {
+        border: 0;
+        background: transparent;
+        overflow: visible;
+      }
+
+      .projection-table,
+      .projection-table tbody,
+      .projection-table tr,
+      .projection-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .projection-table thead {
+        display: none;
+      }
+
+      .projection-table tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 0.85rem;
+        border: 1px solid var(--ic-border);
+        border-radius: var(--ic-radius-md);
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      }
+
+      .projection-table td {
+        padding: 0.6rem 0.85rem;
+        border: 0;
+        border-bottom: 1px solid var(--ic-border);
+        font-family: 'Sora', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+
+      .projection-table td:nth-child(odd):not(.projection-year) {
+        border-right: 1px solid var(--ic-border);
+      }
+
+      .projection-table td:nth-last-child(-n + 2) {
+        border-bottom: 0;
+      }
+
+      .projection-table .projection-year {
+        grid-column: 1 / -1;
+        min-height: auto;
+        padding: 0.7rem 0.85rem;
+        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
+        border-right: 0;
+        color: var(--ic-primary-dark);
+        font-size: 0.95rem;
+      }
+
+      .projection-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.25rem;
+        color: var(--ic-text-muted);
+        font-family: 'Public Sans', sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .projection-table .projection-year::before {
+        display: none;
+      }
+    }
+
+    @media (max-width: 960px) {
+      .fin-studio-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -998,247 +1198,311 @@
       </div>
     </section>
 
-    <section id="emi-planner" class="section">
+        <section id="emi-planner" class="section">
       <div class="container calc-layout">
         <div class="calculator-shell">
           <div class="calculator-header-row">
-            <div class="mode-switch" aria-label="返済シミュレーション">
-              <a href="emicalculator.html" class="active">EMI計算</a>
+            <div class="toggle-group" aria-label="Calculator mode">
+              <a href="emicalculator.html" class="toggle-btn active"><i class="fas fa-house-chimney"></i> ローン返済シミュレーター (EMI)</a>
+              <a href="compoundinterest.html" class="toggle-btn"><i class="fas fa-chart-line"></i> 複利計算</a>
+              <a href="sipcalculator.html" class="toggle-btn"><i class="fas fa-calendar-alt"></i> 積立SIP</a>
             </div>
             <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
               <i class="fas fa-sliders"></i>
-              <span>詳細設定モード: オフ</span>
+              <span>高度な設定: オフ</span>
             </button>
           </div>
 
-          <div class="input-grid">
-            <div class="inline-grid advanced-only">
+          <!-- Mobile Sticky Summary Pill -->
+          <div class="mobile-summary-pill" id="mobileSummaryPill">
+            <span class="metric-label" id="mobileSummaryLabel">毎月返済額 (EMI)</span>
+            <span class="metric-val" id="mobileSummaryVal">-</span>
+          </div>
+
+          <!-- Desktop Interactive 2-Column Grid -->
+          <div class="fin-studio-grid">
+            <!-- Left Inputs Column -->
+            <div class="studio-inputs">
               <div class="field-card">
                 <div class="field-head">
-                  <label for="repaymentMode">繰上返済による効果の反映方法</label>
+                  <label for="loanAmount">借入元金 (ローン金額)</label>
+                  <span class="field-preview-badge" id="loanAmountPreview">¥30,000,000</span>
                 </div>
-                <select id="repaymentMode">
-                  <option value="reduce_tenure" selected>期間を短縮する（返済額を維持）</option>
-                  <option value="reduce_emi">毎月の返済額を減らす（期間を維持）</option>
-                </select>
+                <div class="range-row">
+                  <input type="range" id="loanAmountRange" min="10000" max="20000000" step="10000" value="3000000">
+                  <div class="input-with-adornment">
+                    <span class="input-prefix">¥</span>
+                    <input type="number" id="loanAmount" min="10000" max="20000000" step="10000" value="3000000" class="has-prefix">
+                  </div>
+                </div>
+                <div class="chips-wrap" data-target="loanAmount" data-range="loanAmountRange">
+                  <button type="button" class="chip" data-val="1000000">¥1000万</button>
+                  <button type="button" class="chip" data-val="2500000">¥2500万</button>
+                  <button type="button" class="chip" data-val="3500000">¥3500万</button>
+                  <button type="button" class="chip" data-val="5000000">¥5000万</button>
+                  <button type="button" class="chip" data-val="10000000">¥1億円</button>
+                </div>
               </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="targetInterestSaving">目標の利息削減割合（％）</label>
+
+              <div class="inline-grid">
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="annualRate">年金利 (% p.a.)</label>
+                    <span class="field-preview-badge" id="annualRatePreview">1.5%</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="annualRateRange" min="0" max="25" step="0.1" value="8.5">
+                    <div class="input-with-adornment">
+                      <input type="number" id="annualRate" min="0" max="25" step="0.1" value="8.5" class="has-suffix">
+                      <span class="input-suffix">%</span>
+                    </div>
+                  </div>
+                  <div class="chips-wrap" data-target="annualRate" data-range="annualRateRange" style="margin-top:0.5rem;">
+                    <button type="button" class="chip" data-val="8.5">8.5% (住宅)</button>
+                    <button type="button" class="chip" data-val="9.5">9.5% (マイカー)</button>
+                    <button type="button" class="chip" data-val="12">12% (フリー)</button>
+                  </div>
                 </div>
-                <input type="number" id="targetInterestSaving" min="0" max="100" step="1" value="20">
+
+                <div class="field-card">
+                  <div class="field-head">
+                    <label for="tenureYears">借入期間 (年数)</label>
+                    <span class="field-preview-badge" id="tenureYearsPreview">20年</span>
+                  </div>
+                  <div class="range-row">
+                    <input type="range" id="tenureYearsRange" min="1" max="40" step="1" value="20">
+                    <div class="input-with-adornment">
+                      <input type="number" id="tenureYears" min="1" max="40" step="1" value="20" class="has-suffix">
+                      <span class="input-suffix">年</span>
+                    </div>
+                  </div>
+                  <div class="chips-wrap" data-target="tenureYears" data-range="tenureYearsRange" style="margin-top:0.5rem;">
+                    <button type="button" class="chip" data-val="5">5年</button>
+                    <button type="button" class="chip" data-val="10">10年</button>
+                    <button type="button" class="chip" data-val="15">15年</button>
+                    <button type="button" class="chip" data-val="20">20年</button>
+                    <button type="button" class="chip" data-val="35">35年</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="advanced-only-section" id="advancedFields">
+                <input type="hidden" id="maxSimulationMonths" value="720">
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="repaymentMode">繰上返済戦略</label>
+                    </div>
+                    <select id="repaymentMode">
+                      <option value="reduce_tenure" selected>返済額維持・期間短縮 (利息削減最大化)</option>
+                      <option value="reduce_emi">期間維持・返済額軽減 (月々の負担軽減)</option>
+                    </select>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="tenureExtraMonths">追加月数 (端数月)</label>
+                    </div>
+                    <input type="number" id="tenureExtraMonths" min="0" max="11" step="1" value="0" placeholder="0">
+                  </div>
+                </div>
+
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="oneTimePrepayMonth">スポット繰上月目</label>
+                    </div>
+                    <input type="number" id="oneTimePrepayMonth" min="0" max="600" step="1" value="24" placeholder="経過月数">
+                  </div>
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="oneTimePrepayAmount">スポット繰上額</label>
+                    </div>
+                    <input type="number" id="oneTimePrepayAmount" min="0" step="5000" value="0" placeholder="0">
+                  </div>
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="annualPrepayAmount">年間繰上返済額</label>
+                    </div>
+                    <input type="number" id="annualPrepayAmount" min="0" step="5000" value="0" placeholder="0">
+                  </div>
+                </div>
+
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="processingFeePercent">事務手数料・保証料 (%)</label>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="processingFeePercentRange" min="0" max="5" step="0.05" value="0.5">
+                      <div class="input-with-adornment">
+                        <input type="number" id="processingFeePercent" min="0" max="5" step="0.05" value="0.5" class="has-suffix">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="upfrontCharges">初期諸費用・諸経費</label>
+                    </div>
+                    <input type="number" id="upfrontCharges" min="0" step="500" value="0" placeholder="0">
+                  </div>
+
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="emiStepupPercent">年間返済ステップアップ (%)</label>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="emiStepupPercentRange" min="0" max="20" step="0.5" value="0">
+                      <div class="input-with-adornment">
+                        <input type="number" id="emiStepupPercent" min="0" max="20" step="0.5" value="0" class="has-suffix">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="rateChangeMonth">金利変動月目</label>
+                    </div>
+                    <input type="number" id="rateChangeMonth" min="0" max="600" step="1" value="0" placeholder="0 (無効)">
+                  </div>
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="newAnnualRate">改定後想定年金利 (%)</label>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="newAnnualRateRange" min="0" max="25" step="0.1" value="9">
+                      <div class="input-with-adornment">
+                        <input type="number" id="newAnnualRate" min="0" max="25" step="0.1" value="9" class="has-suffix">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="targetInterestSaving">目標利息削減率 (%)</label>
+                    </div>
+                    <input type="number" id="targetInterestSaving" min="0" max="100" step="1" value="20">
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="field-card">
-              <div class="field-head">
-                <label for="loanAmount">借入元本（ローン総額）</label>
-                <span id="loanAmountPreview">300,000</span>
+            <!-- Right Visual Outcome Column -->
+            <div class="studio-outcome">
+              <!-- Hero Outcome Card -->
+              <div class="hero-result-card">
+                <div class="label-group">
+                  <span class="res-eyebrow"><i class="fas fa-coins"></i> 毎月返済額 (EMI)</span>
+                  <div class="res-val" id="corpusHeroValue">-</div>
+                  <div class="res-desc" id="corpusHeroDesc">借入元金: - | 利息総額: -</div>
+                </div>
+                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="サマリーをコピー">
+                  <i class="fas fa-copy"></i>
+                </button>
               </div>
-              <div class="range-row">
-                <input type="range" id="loanAmountRange" min="10000" max="100000000" step="10000" value="300000">
-                <input type="number" id="loanAmount" min="10000" max="100000000" step="10000" value="300000">
-              </div>
-            </div>
 
-            <div class="inline-grid">
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="annualRate">借入金利（年利％）</label>
-                  <span id="annualRatePreview">8.0%</span>
+              <!-- Doughnut Split Visualizer -->
+              <div class="outcome-chart-box">
+                <div class="chart-wrap-doughnut">
+                  <canvas id="splitChart"></canvas>
                 </div>
-                <div class="range-row">
-                  <input type="range" id="annualRateRange" min="1" max="25" step="0.05" value="8">
-                  <input type="number" id="annualRate" min="1" max="25" step="0.05" value="8">
-                </div>
-              </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="tenureYears">返済期間（年数）</label>
-                  <span id="tenureYearsPreview">10</span>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="tenureYearsRange" min="1" max="35" step="1" value="10">
-                  <input type="number" id="tenureYears" min="1" max="35" step="1" value="10">
+                <div class="legend-stats-row">
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-invested"></span> 借入元金</div>
+                    <div class="legend-val" id="resPrincipalHero">-</div>
+                  </div>
+                  <div class="legend-stat">
+                    <div class="legend-label"><span class="dot dot-returns"></span> 利息総額</div>
+                    <div class="legend-val positive" id="totalInterestValue">-</div>
+                  </div>
                 </div>
               </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="tenureExtraMonths">追加返済月数</label>
-                </div>
-                <input type="number" id="tenureExtraMonths" min="0" max="11" step="1" value="0">
-              </div>
-            </div>
 
-            <div class="inline-grid advanced-only">
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="processingFeePercent">事務手数料（融資総額に対する％）</label>
+              <!-- Key Metrics Grid -->
+              <div class="result-grid">
+                <div class="result-card positive">
+                  <h3>毎月返済額</h3>
+                  <div class="result-value" id="emiValue">-</div>
                 </div>
-                <div class="range-row">
-                  <input type="range" id="processingFeePercentRange" min="0" max="6" step="0.1" value="1">
-                  <input type="number" id="processingFeePercent" min="0" max="6" step="0.1" value="1">
+                <div class="result-card">
+                  <h3>総返済総額 (元利合計)</h3>
+                  <div class="result-value" id="totalCostValue">-</div>
+                </div>
+                <div class="result-card">
+                  <h3>完済予定期間</h3>
+                  <div class="result-value" id="payoffTimeValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>削減利息総額</h3>
+                  <div class="result-value" id="interestSavedValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>短縮期間</h3>
+                  <div class="result-value" id="tenureSavedValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>手数料・初期費用合計</h3>
+                  <div class="result-value" id="feesValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>繰上返済総額</h3>
+                  <div class="result-value" id="totalPrepayValue">-</div>
+                </div>
+                <div class="result-card advanced-only">
+                  <h3>実質年率 (APR)</h3>
+                  <div class="result-value" id="effectiveAprValue">-</div>
                 </div>
               </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="upfrontCharges">その他初期諸経費</label>
-                </div>
-                <input type="number" id="upfrontCharges" min="0" step="50" value="500">
-              </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="emiStepupPercent">毎月の返済額の年次増額率（％）</label>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="emiStepupPercentRange" min="0" max="20" step="0.5" value="0">
-                  <input type="number" id="emiStepupPercent" min="0" max="20" step="0.5" value="0">
-                </div>
-              </div>
-            </div>
 
-            <div class="inline-grid advanced-only">
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="oneTimePrepayMonth">臨時繰上返済を行う月（経過月）</label>
+              <div class="goal-status advanced-only">
+                <div class="goal-meta">
+                  <span id="goalStatusText">利息削減の達成進捗が表示されます。</span>
+                  <strong id="goalPercentText">0%</strong>
                 </div>
-                <input type="number" id="oneTimePrepayMonth" min="0" step="1" value="24">
-              </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="oneTimePrepayAmount">臨時繰上返済の金額</label>
+                <div class="goal-progress">
+                  <div class="goal-progress-bar" id="goalProgressBar"></div>
                 </div>
-                <input type="number" id="oneTimePrepayAmount" min="0" step="500" value="10000">
               </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="annualPrepayAmount">毎年の定期繰上返済額（12ヶ月ごと）</label>
-                </div>
-                <input type="number" id="annualPrepayAmount" min="0" step="500" value="0">
-              </div>
-            </div>
 
-            <div class="inline-grid advanced-only">
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="rateChangeMonth">金利変動が適用される月（経過月）</label>
-                </div>
-                <input type="number" id="rateChangeMonth" min="0" step="1" value="0">
-              </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="newAnnualRate">適用後の新金利（年利％）</label>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="newAnnualRateRange" min="1" max="25" step="0.05" value="9">
-                  <input type="number" id="newAnnualRate" min="1" max="25" step="0.05" value="9">
-                </div>
-              </div>
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="maxSimulationMonths">シミュレーション最大月数</label>
-                </div>
-                <input type="number" id="maxSimulationMonths" min="12" max="720" step="12" value="720">
+              <div class="calculator-actions">
+                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> サマリーをコピー</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> 初期設定</button>
+                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> 再計算</button>
               </div>
             </div>
           </div>
 
-          <div class="calculator-actions">
-            <button class="btn btn-primary" id="recalculateBtn" type="button">
-              <i class="fas fa-bolt"></i>
-              再計算
-            </button>
-            <button class="btn btn-ghost" id="resetBtn" type="button">
-              <i class="fas fa-rotate-left"></i>
-              初期値に戻す
-            </button>
-            <button class="btn btn-ghost" id="copySummaryBtn" type="button">
-              <i class="fas fa-copy"></i>
-              サマリーをコピー
-            </button>
-          </div>
-
-          <div class="result-grid">
-            <div class="result-card positive">
-              <h3>初期毎月返済額（EMI）</h3>
-              <div class="result-value" id="emiValue">-</div>
+          <!-- Bottom Full-Width Compounding Growth Area Chart -->
+          <div class="growth-timeline-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+              <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-chart-line" style="color:var(--ic-primary);"></i> ローン残高推移・返済シミュレーション</h3>
+              <span style="font-size:0.85rem; color:var(--ic-text-muted);">通常返済残高 vs 繰上返済適用残高</span>
             </div>
-            <div class="result-card">
-              <h3>利息支払総額</h3>
-              <div class="result-value" id="totalInterestValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>総支払額（元本＋利息＋諸経費）</h3>
-              <div class="result-value" id="totalCostValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>初期事務手数料・諸経費合計</h3>
-              <div class="result-value" id="feesValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>繰上返済支払総額</h3>
-              <div class="result-value" id="totalPrepayValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>完済までの期間</h3>
-              <div class="result-value" id="payoffTimeValue">-</div>
-            </div>
-            <div class="result-card positive">
-              <h3>節約された利息総額</h3>
-              <div class="result-value" id="interestSavedValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>短縮された期間</h3>
-              <div class="result-value" id="tenureSavedValue">-</div>
-            </div>
-            <div class="result-card">
-              <h3>実質年率（APR）</h3>
-              <div class="result-value" id="effectiveAprValue">-</div>
+            <div class="chart-wrap-timeline">
+              <canvas id="growthChart"></canvas>
             </div>
           </div>
 
-          <div class="goal-status">
-            <div class="goal-meta">
-              <span id="goalStatusText">繰上返済目標に対する進捗状況。</span>
-              <strong id="goalPercentText">0%</strong>
-            </div>
-            <div class="goal-progress">
-              <div class="goal-progress-bar" id="goalProgressBar"></div>
-            </div>
-          </div>
-
-          <div class="chart-grid">
-            <div class="chart-card">
-              <h3>残高推移比較（通常返済 vs 繰上返済）</h3>
-              <div class="chart-wrap">
-                <canvas id="growthChart"></canvas>
-              </div>
-            </div>
-            <div class="chart-card">
-              <h3>返済総額の内訳</h3>
-              <div class="chart-wrap small">
-                <canvas id="splitChart"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="table-tools">
-            <h3>年次返済予定推移（返済予定表）</h3>
-            <button class="btn btn-ghost" id="downloadCsvBtn" type="button">
-              <i class="fas fa-file-csv"></i>
-              CSVを保存
-            </button>
+          <!-- Year-Wise Amortization Projection Table -->
+          <div class="table-tools" style="margin-top:2rem;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> 年次ローン償還スケジュール</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> CSV出力</button>
           </div>
           <div class="table-shell">
-            <table>
+            <table class="projection-table">
               <thead>
                 <tr>
-                  <th>経過年数</th>
-                  <th>期首借入残高</th>
-                  <th>元本返済額</th>
+                  <th>年次</th>
+                  <th>期首残高</th>
+                  <th>元金充当額</th>
                   <th>利息支払額</th>
                   <th>繰上返済額</th>
-                  <th>期末借入残高</th>
+                  <th>期末残高</th>
                 </tr>
               </thead>
               <tbody id="projectionTableBody"></tbody>
@@ -1246,7 +1510,7 @@
           </div>
         </div>
 
-        <aside class="section-head" style="margin-bottom:0;">
+        <aside class="sidebar">
           <div class="feature-card">
             <h3>返済計画時のポイント</h3>
             <ul class="feature-list">
@@ -1271,7 +1535,7 @@
     </section>
 
     <section class="section">
-      <div class="container calc-layout">
+      <div class="container content-grid">
         <article class="content-card">
           <h2>元利均等返済（EMI）の仕組みと基本数理</h2>
           <p>EMIとは「毎月の元利金均等返済」のことで、ローン期間を通じて毎月同じ額を返済する方法です。返済が進むにつれて借入残高が減少し、それに応じて毎月の返済額に占める利息割合が減少し、元本返済割合が増加していくのが大きな特徴です。</p>
@@ -1304,7 +1568,7 @@
     </section>
 
     <section class="section">
-      <div class="container calc-layout">
+      <div class="container content-grid">
         <article class="content-card">
           <h2>賢いローン返済戦略と家計設計</h2>
           <p>無理のない住宅ローン返済や早期完済を目指すには、計画的な返済管理が必要です。</p>
@@ -1327,6 +1591,7 @@
         <a href="aboutus.html">運営者情報</a>
         <a href="contactus.html">お問い合わせ</a>
         <a href="privacypolicy.html">プライバシーポリシー</a>
+        <a href="../terms.html">Terms &amp; Conditions</a>
       </div>
       <p
         style="font-size: 0.75rem; color: var(--text-soft); max-width: 800px; line-height: 1.4; opacity: 0.8; margin-top: 0.5rem;">
@@ -1864,7 +2129,7 @@
             datasets: [
               {
                 data: [optimized.principal, optimized.totalInterest, optimized.totalPrepayment, optimized.upfrontTotal],
-                backgroundColor: ["#007f8b", "#1f9f67", "#ee9f2e", "#6b7f8e"],
+                backgroundColor: ["#0284c7", "#10b981", "#f59e0b", "#64748b"],
                 borderWidth: 1
               }
             ]
@@ -1915,6 +2180,15 @@
         elements.emiValue.textContent = formatCurrencyWithUnits(optimized.startingEmi, inputs.currencyCode);
         elements.totalInterestValue.textContent = formatCurrencyWithUnits(optimized.totalInterest, inputs.currencyCode);
         elements.totalCostValue.textContent = formatCurrencyWithUnits(optimized.totalCost, inputs.currencyCode);
+
+        const heroVal = document.getElementById("corpusHeroValue");
+        const heroDesc = document.getElementById("corpusHeroDesc");
+        const resPrinHero = document.getElementById("resPrincipalHero");
+        if (heroVal) heroVal.textContent = formatCurrencyWithUnits(optimized.startingEmi, inputs.currencyCode) + " / 月";
+        if (heroDesc) {
+          heroDesc.textContent = "借入元金: " + formatCurrencyWithUnits(inputs.loanAmount, inputs.currencyCode) + " • 利息総額: " + formatCurrencyWithUnits(optimized.totalInterest, inputs.currencyCode);
+        }
+        if (resPrinHero) resPrinHero.textContent = formatCurrencyWithUnits(inputs.loanAmount, inputs.currencyCode);
         elements.feesValue.textContent = formatCurrencyWithUnits(optimized.upfrontTotal, inputs.currencyCode);
         elements.totalPrepayValue.textContent = formatCurrencyWithUnits(optimized.totalPrepayment, inputs.currencyCode);
         elements.payoffTimeValue.textContent = monthsToLabel(optimized.payoffMonths);
@@ -2078,10 +2352,40 @@
 
       toggleNav();
       setupBackToTop();
+      
+        const copyHero = document.getElementById("copyHeroBtn");
+        if (copyHero) {
+          copyHero.addEventListener("click", function() {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(lastSummaryText).then(() => {
+                const orig = copyHero.innerHTML;
+                copyHero.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
+                setTimeout(() => copyHero.innerHTML = orig, 1800);
+              });
+            }
+          });
+        }
+        
+        // Preset Chips
+        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+          btn.addEventListener("click", function() {
+            const wrap = this.parentElement;
+            if (wrap.dataset.target) {
+              const targetInput = document.getElementById(wrap.dataset.target);
+              const targetRange = document.getElementById(wrap.dataset.range);
+              if (targetInput) targetInput.value = this.dataset.val;
+              if (targetRange) targetRange.value = this.dataset.val;
+              calculateAndRender();
+            }
+          });
+        });
+
       wireEvents();
       calculateAndRender();
     })();
   </script>
+  <script defer src="../fullscreen-mode.js"></script>
 </body>
 
 </html>
+
