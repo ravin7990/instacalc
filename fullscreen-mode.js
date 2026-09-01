@@ -8,7 +8,7 @@
       return false;
     }
     // Matches if it has calculator, compoundinterest, gallontoliter, or tools
-    return /calculator|compoundinterest|coumpoundinterest|gallontoliter|moretools|duration/.test(p) || document.querySelector(".calculator-shell, #calcShell, #calcTarget, .calc-shell, .calc-card, #calculator") !== null;
+    return /calculator|compoundinterest|gallontoliter|moretools|duration/.test(p) || document.querySelector(".calculator-shell, #calcShell, #calcTarget, .calc-shell, .calc-card, #calculator") !== null;
   }
 
   if (!isToolPage()) {

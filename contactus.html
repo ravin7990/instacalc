@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <script>
+<script>
     (function () {
       const userLang = localStorage.getItem('user_lang');
       const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
@@ -15,18 +15,28 @@
       }
     })();
   </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Contact Us - InstaCalc.in Free Online Calculators & Tools</title>
-  <meta name="description" content="Contact InstaCalc.in for support, suggestions, and partnership inquiries via email, WhatsApp, or our contact form.">
-  <meta name="keywords" content="contact instacalc, calculator support, instacalc whatsapp, calculator feedback">
+  <meta name="description" content="Contact InstaCalc.in for support, feature suggestions, bug reports, and partnership inquiries via email, WhatsApp, or our contact form.">
+  <meta name="keywords" content="contact instacalc, calculator support, instacalc whatsapp, calculator feedback, instacalc contact">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#005f73">
-
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="canonical" href="https://instacalc.in/contactus.html">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/webp" href="favicon.webp">
+  <link rel="alternate" hreflang="ja" href="https://instacalc.in/ja/contactus.html">
+  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/contactus.html">
+  <link rel="alternate" hreflang="en" href="https://instacalc.in/contactus.html">
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/contactus.html">
+  <link rel="alternate" hreflang="ru" href="https://instacalc.in/ru/contactus.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/contactus.html">
 
-  <meta property="og:title" content="Contact InstaCalc.in">
+
+
+
+
+<meta property="og:title" content="Contact InstaCalc.in">
   <meta property="og:description" content="Reach InstaCalc.in for support, feedback, and business collaboration.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://instacalc.in/contactus.html">
@@ -50,122 +60,487 @@
     /* Contact Page Specific Layout & Form Styling */
     .contact-layout {
       display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 1.75rem;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 2rem;
       align-items: start;
     }
     @media (max-width: 960px) {
       .contact-layout {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1.75rem;
       }
     }
+
+    /* Contact Channel Cards */
     .contact-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.15rem;
+      margin-bottom: 1.75rem;
     }
     .contact-card {
       background: #ffffff;
       border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 1.25rem;
+      border-radius: var(--ic-radius-lg);
+      padding: 1.35rem;
       box-shadow: var(--ic-shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      min-width: 0; /* Prevents flex children blowout */
+      overflow: hidden;
+    }
+    .contact-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--ic-shadow-md);
+      border-color: var(--ic-border-focus);
+    }
+    .contact-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      min-width: 0;
+    }
+    .channel-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .channel-icon.email-icon {
+      background: #e0f2fe;
+      color: #0284c7;
+    }
+    .channel-icon.whatsapp-icon {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+    .contact-card-info {
+      min-width: 0;
+      flex: 1;
     }
     .contact-card h3 {
       font-family: var(--ic-font-heading);
-      font-size: 1.05rem;
-      margin-bottom: 0.35rem;
+      font-size: 1.08rem;
+      color: var(--ic-text);
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .badge-response {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      background: var(--ic-bg-subtle);
+      color: var(--ic-text-muted);
+      border: 1px solid var(--ic-border);
+      white-space: nowrap;
+    }
+    .badge-response.fast {
+      background: #ecfdf5;
+      color: #047857;
+      border-color: #a7f3d0;
+    }
+    .contact-card p {
+      font-size: 0.88rem;
+      color: var(--ic-text-muted);
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    /* Email Address Box with Zero-Overflow & Copy Button */
+    .contact-pill-wrap {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-    }
-    .contact-card p {
-      font-size: 0.92rem;
-      color: var(--ic-text-muted);
-      margin-bottom: 0.85rem;
-    }
-    .contact-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.55rem 1rem;
-      border-radius: var(--ic-radius-md);
       background: var(--ic-bg-subtle);
       border: 1px solid var(--ic-border);
-      font-weight: 700;
-      font-size: 0.92rem;
-      color: var(--ic-text);
-      transition: all 0.2s;
+      border-radius: var(--ic-radius-md);
+      padding: 0.4rem 0.5rem 0.4rem 0.85rem;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+      transition: all 0.2s ease;
     }
-    .contact-pill:hover {
+    .contact-pill-wrap:hover {
+      background: #ffffff;
+      border-color: var(--ic-primary);
+      box-shadow: 0 0 0 3px var(--ic-primary-light);
+    }
+    .contact-pill-wrap.whatsapp-wrap {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+    .contact-pill-wrap.whatsapp-wrap:hover {
+      background: #ffffff;
+      border-color: #22c55e;
+      box-shadow: 0 0 0 3px #dcfce7;
+    }
+    .contact-pill-text {
+      flex: 1;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--ic-text);
+      text-decoration: none;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-all; /* Guarantees no overflow on mobile devices */
+      min-width: 0;
+      line-height: 1.35;
+    }
+    .contact-pill-text:hover {
+      color: var(--ic-primary);
+    }
+    .contact-card-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+    .btn-action-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--ic-border);
+      background: #ffffff;
+      color: var(--ic-text-muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      padding: 0;
+    }
+    .btn-action-icon:hover {
+      color: var(--ic-primary-dark);
+      background: var(--ic-primary-light);
+      border-color: var(--ic-primary);
+      transform: scale(1.05);
+    }
+    .btn-action-icon.btn-wa:hover {
+      color: #15803d;
+      background: #dcfce7;
+      border-color: #22c55e;
+    }
+
+    /* Toast Notification for Copy */
+    .toast-copy {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #0f172a;
+      color: #ffffff;
+      padding: 0.65rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      box-shadow: var(--ic-shadow-xl);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 9999;
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .toast-copy.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    .toast-copy i {
+      color: #10b981;
+    }
+
+    /* Modern Contact Form Card */
+    .form-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.85rem;
+      box-shadow: var(--ic-shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+    @media (max-width: 640px) {
+      .form-card {
+        padding: 1.25rem;
+        border-radius: var(--ic-radius-md);
+      }
+    }
+    .form-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--ic-primary), var(--ic-accent));
+    }
+    .form-header {
+      margin-bottom: 1.5rem;
+    }
+    .form-header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.75rem;
+      background: var(--ic-primary-light);
+      color: var(--ic-primary-dark);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.6rem;
+    }
+    .form-card h3 {
+      font-family: var(--ic-font-heading);
+      font-size: 1.35rem;
+      color: var(--ic-text);
+      margin-bottom: 0.35rem;
+      font-weight: 800;
+    }
+    .form-card p.form-subtitle {
+      font-size: 0.92rem;
+      color: var(--ic-text-muted);
+      margin: 0;
+    }
+
+    /* Quick Preset Chips for Topic */
+    .topic-chips-label {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--ic-text-muted);
+      margin-bottom: 0.45rem;
+      display: block;
+    }
+    .topic-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1.25rem;
+    }
+    .topic-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      background: var(--ic-bg-subtle);
+      border: 1px solid var(--ic-border);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ic-text);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .topic-chip:hover {
       background: var(--ic-primary-light);
       color: var(--ic-primary-dark);
       border-color: var(--ic-primary);
-      transform: translateY(-1px);
     }
-    .contact-pill.whatsapp {
-      color: #047857;
-      background: var(--ic-success-light);
-      border-color: #a7f3d0;
+    .topic-chip.active {
+      background: var(--ic-primary);
+      color: #ffffff;
+      border-color: var(--ic-primary);
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
     }
+
+    /* Form Fields Styling */
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.15rem;
+    }
+    @media (max-width: 640px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
     }
     .field-full {
       grid-column: 1 / -1;
     }
-    .field label {
-      display: block;
-      font-size: 0.92rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
     }
+    .field label {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--ic-text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .field label .required {
+      color: #ef4444;
+      margin-left: 0.2rem;
+    }
+    .field label .optional-hint {
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: var(--ic-text-light);
+    }
+
+    .input-control-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-control-wrap i.field-icon {
+      position: absolute;
+      left: 1rem;
+      color: var(--ic-text-light);
+      font-size: 0.95rem;
+      pointer-events: none;
+      transition: color 0.2s ease;
+      z-index: 2;
+    }
+    .input-control-wrap:focus-within i.field-icon {
+      color: var(--ic-primary);
+    }
+
+    .field input,
+    .field select,
     .field textarea {
       width: 100%;
-      min-height: 120px;
-      padding: 0.75rem 1rem;
+      padding: 0.72rem 1rem 0.72rem 2.55rem;
       border: 1.5px solid var(--ic-border);
       border-radius: var(--ic-radius-md);
       font: inherit;
+      font-size: 0.95rem;
+      color: var(--ic-text);
+      background: #ffffff;
       outline: none;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
     }
+    .field input {
+      height: 48px;
+    }
+    .field select {
+      height: 48px;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 14px 14px;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+    .field textarea {
+      min-height: 130px;
+      padding: 0.85rem 1rem 0.85rem 2.55rem;
+      resize: vertical;
+      line-height: 1.5;
+    }
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: var(--ic-text-light);
+      opacity: 0.8;
+    }
+
+    .field input:focus,
+    .field select:focus,
     .field textarea:focus {
       border-color: var(--ic-primary);
       box-shadow: 0 0 0 3.5px var(--ic-primary-light);
+      background: #ffffff;
     }
-    .tool-links {
-      list-style: none;
-      display: grid;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
+    .field input:hover:not(:focus),
+    .field select:hover:not(:focus),
+    .field textarea:hover:not(:focus) {
+      border-color: #cbd5e1;
     }
-    .tool-links a {
+
+    /* Message info row */
+    .textarea-meta {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.65rem 0.85rem;
-      background: var(--ic-bg-subtle);
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-sm);
-      font-size: 0.92rem;
-      font-weight: 600;
+      font-size: 0.78rem;
+      color: var(--ic-text-muted);
+      margin-top: 0.25rem;
     }
-    .tool-links a:hover {
-      background: #ffffff;
-      border-color: var(--ic-primary);
-      color: var(--ic-primary-dark);
+
+    /* Form Action & Guarantee */
+    .form-footer {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
-    .alert {
-      padding: 0.85rem 1.1rem;
+    .btn-submit {
+      width: 100%;
+      height: 50px;
+      font-size: 1rem;
+      font-weight: 700;
       border-radius: var(--ic-radius-md);
-      margin-top: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--ic-primary), var(--ic-primary-dark));
+      border: none;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.28);
+      transition: all 0.2s ease;
+    }
+    .btn-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.38);
+    }
+    .btn-submit:active:not(:disabled) {
+      transform: translateY(0);
+    }
+    .btn-submit:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .privacy-promise {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-size: 0.8rem;
+      color: var(--ic-text-muted);
+      text-align: center;
+    }
+    .privacy-promise i {
+      color: var(--ic-accent);
+    }
+
+    /* Success & Error State Views */
+    .alert {
+      padding: 1rem 1.25rem;
+      border-radius: var(--ic-radius-md);
+      margin-top: 1.25rem;
       font-weight: 600;
       font-size: 0.92rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      line-height: 1.45;
+      animation: fadeIn 0.3s ease;
     }
     .alert-success {
       background: var(--ic-success-light);
@@ -177,7 +552,183 @@
       border: 1px solid #fecaca;
       color: #991b1b;
     }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Success Confirmation Box */
+    .form-success-box {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      animation: fadeIn 0.35s ease;
+    }
+    .success-icon-wrap {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #d1fae5;
+      color: #059669;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.85rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 0 0 8px #ecfdf5;
+    }
+    .form-success-box h4 {
+      font-family: var(--ic-font-heading);
+      font-size: 1.4rem;
+      color: var(--ic-text);
+      margin-bottom: 0.5rem;
+    }
+    .form-success-box p {
+      font-size: 0.95rem;
+      color: var(--ic-text-muted);
+      max-width: 420px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.55;
+    }
+    .btn-reset-form {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.25rem;
+      border-radius: var(--ic-radius-md);
+      background: var(--ic-bg-subtle);
+      border: 1px solid var(--ic-border);
+      color: var(--ic-text);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-reset-form:hover {
+      background: var(--ic-primary-light);
+      color: var(--ic-primary-dark);
+      border-color: var(--ic-primary);
+    }
+
+    /* Response Guarantee Box */
+    .info-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: var(--ic-shadow-sm);
+    }
+    .info-card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #fef3c7;
+      color: #d97706;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .info-card h3 {
+      font-family: var(--ic-font-heading);
+      font-size: 1rem;
+      color: var(--ic-text);
+      margin-bottom: 0.15rem;
+    }
+    .info-card p {
+      font-size: 0.88rem;
+      color: var(--ic-text-muted);
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    /* Sidebar Cards */
+    .sidebar-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.35rem;
+      box-shadow: var(--ic-shadow-sm);
+      margin-bottom: 1.25rem;
+    }
+    .sidebar-card h3 {
+      font-family: var(--ic-font-heading);
+      font-size: 1.08rem;
+      color: var(--ic-text);
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .tool-links {
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+    .tool-links a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.65rem 0.85rem;
+      background: var(--ic-bg-subtle);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ic-text);
+      transition: all 0.2s ease;
+    }
+    .tool-links a i {
+      color: var(--ic-text-light);
+      font-size: 0.8rem;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+    .tool-links a:hover {
+      background: #ffffff;
+      border-color: var(--ic-primary);
+      color: var(--ic-primary-dark);
+      transform: translateX(3px);
+      box-shadow: var(--ic-shadow-sm);
+    }
+    .tool-links a:hover i {
+      color: var(--ic-primary);
+      transform: translateX(2px);
+    }
+
+    .check-list {
+      list-style: none;
+      display: grid;
+      gap: 0.65rem;
+    }
+    .check-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.9rem;
+      color: var(--ic-text-muted);
+      line-height: 1.4;
+    }
+    .check-list li i {
+      color: #10b981;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
   </style>
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contact InstaCalc.in",
+      "url": "https://instacalc.in/contactus.html",
+      "description": "Contact the InstaCalc.in team for feature requests, bug reports or partnership proposals via form, email or WhatsApp."
+    }
+  </script>
+
 </head>
 <body>
   <header class="site-header">
@@ -205,11 +756,11 @@
       <div class="container hero-grid">
         <div class="hero-copy">
           <span class="eyebrow">
-            <i class="fas fa-message"></i>
-            Contact Team
+            <i class="fas fa-headset"></i>
+            Support & Inquiries
           </span>
           <h1>We would love to hear from you</h1>
-          <p>Have a calculator suggestion, found an issue, or want to collaborate? Reach out through email, WhatsApp, or the form below.</p>
+          <p>Have a calculator suggestion, found an issue, or want to collaborate? Reach out through email, WhatsApp, or our quick contact form below.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#send-message">
               <i class="fas fa-paper-plane"></i>
@@ -228,7 +779,7 @@
           <div class="hero-points">
             <div class="hero-point"><i class="fas fa-envelope"></i> Email for detailed requests</div>
             <div class="hero-point"><i class="fab fa-whatsapp"></i> WhatsApp for quick questions</div>
-            <div class="hero-point"><i class="fas fa-clock"></i> 24-48 hour average response</div>
+            <div class="hero-point"><i class="fas fa-clock"></i> 24–48 hour average response</div>
           </div>
         </aside>
       </div>
@@ -243,103 +794,215 @@
               Get In Touch
             </span>
             <h2>Choose your preferred contact method</h2>
-            <p>For technical support, feedback, and partnerships, send us a message any time.</p>
+            <p>For technical support, feedback, calculator suggestions, and partnerships, reach out anytime.</p>
           </div>
 
           <div class="contact-grid">
+            <!-- Email Card with Zero-Overflow & One-Click Copy -->
             <article class="contact-card">
-              <h3><i class="fas fa-envelope"></i> Email</h3>
-              <p>Best for detailed suggestions, feature requests, and support tickets.</p>
-              <a class="contact-pill" href="mailto:developerravin@gmail.com">
-                <i class="fas fa-paper-plane"></i>
-                developerravin@gmail.com
-              </a>
+              <div class="contact-card-top">
+                <div class="channel-icon email-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-card-info">
+                  <h3>
+                    <span>Email Us</span>
+                    <span class="badge-response">24-48h reply</span>
+                  </h3>
+                  <p>Best for detailed feature requests, bug reports, and collaborations.</p>
+                </div>
+              </div>
+              <div class="contact-pill-wrap">
+                <a class="contact-pill-text" href="mailto:developerravin@gmail.com" title="Send email to developerravin@gmail.com">
+                  developerravin@gmail.com
+                </a>
+                <div class="contact-card-actions">
+                  <button type="button" class="btn-action-icon" onclick="copyEmail('developerravin@gmail.com')" aria-label="Copy email address" title="Copy email address">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                  <a href="mailto:developerravin@gmail.com" class="btn-action-icon" aria-label="Open email client" title="Open email client">
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                  </a>
+                </div>
+              </div>
             </article>
 
+            <!-- WhatsApp Card -->
             <article class="contact-card">
-              <h3><i class="fab fa-whatsapp"></i> WhatsApp</h3>
-              <p>Best for quick queries and business conversations.</p>
-              <a class="contact-pill whatsapp" href="https://wa.me/917259472334" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-whatsapp"></i>
-                +91 7259472334
-              </a>
+              <div class="contact-card-top">
+                <div class="channel-icon whatsapp-icon">
+                  <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="contact-card-info">
+                  <h3>
+                    <span>WhatsApp</span>
+                    <span class="badge-response fast">Quick reply</span>
+                  </h3>
+                  <p>Best for quick questions, fast queries, and business chats.</p>
+                </div>
+              </div>
+              <div class="contact-pill-wrap whatsapp-wrap">
+                <a class="contact-pill-text" href="https://wa.me/917259472334" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+                  +91 7259472334
+                </a>
+                <div class="contact-card-actions">
+                  <a href="https://wa.me/917259472334" target="_blank" rel="noopener noreferrer" class="btn-action-icon btn-wa" aria-label="Open WhatsApp chat" title="Open WhatsApp chat">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                </div>
+              </div>
             </article>
           </div>
 
+          <!-- Modern Interactive Contact Form Card -->
           <article id="send-message" class="form-card">
-            <h3>Send Us a Message</h3>
-            <p>Fill out this form and we will get back to you soon.</p>
+            <div class="form-header">
+              <span class="form-header-badge"><i class="fas fa-bolt"></i> Direct Message</span>
+              <h3>Send Us a Message</h3>
+              <p class="form-subtitle">Fill out this quick form and our development team will get back to you shortly.</p>
+            </div>
 
-            <form action="https://formspree.io/f/moveyzod" method="POST">
+            <!-- Interactive Topic Preset Selector -->
+            <div>
+              <span class="topic-chips-label"><i class="fas fa-wand-magic-sparkles"></i> Quick Select Subject:</span>
+              <div class="topic-chips" id="topicChips">
+                <button type="button" class="topic-chip active" data-subject="General Inquiry">
+                  <i class="fas fa-comment-dots"></i> General Inquiry
+                </button>
+                <button type="button" class="topic-chip" data-subject="Calculator Suggestion">
+                  <i class="fas fa-lightbulb"></i> Suggest Calculator
+                </button>
+                <button type="button" class="topic-chip" data-subject="Technical Support">
+                  <i class="fas fa-bug"></i> Report Bug / Issue
+                </button>
+                <button type="button" class="topic-chip" data-subject="Business Partnership">
+                  <i class="fas fa-handshake"></i> Partnership
+                </button>
+                <button type="button" class="topic-chip" data-subject="Other">
+                  <i class="fas fa-ellipsis"></i> Other
+                </button>
+              </div>
+            </div>
+
+            <!-- Active Form Element -->
+            <form id="contactForm" action="https://formspree.io/f/moveyzod" method="POST">
               <div class="form-grid">
                 <div class="field">
-                  <label for="name">Your Name</label>
-                  <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                  <label for="name">Your Name <span class="required">*</span></label>
+                  <div class="input-control-wrap">
+                    <i class="fas fa-user field-icon"></i>
+                    <input type="text" id="name" name="name" placeholder="John Doe" autocomplete="name" required minlength="2">
+                  </div>
                 </div>
 
                 <div class="field">
-                  <label for="email">Email Address</label>
-                  <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                  <label for="email">Email Address <span class="required">*</span></label>
+                  <div class="input-control-wrap">
+                    <i class="fas fa-envelope field-icon"></i>
+                    <input type="email" id="email" name="email" placeholder="name@example.com" autocomplete="email" required>
+                  </div>
                 </div>
 
                 <div class="field field-full">
-                  <label for="subject">Subject</label>
-                  <select id="subject" name="subject">
-                    <option>General Inquiry</option>
-                    <option>Calculator Suggestion</option>
-                    <option>Business Partnership</option>
-                    <option>Technical Support</option>
-                    <option>Other</option>
-                  </select>
+                  <label for="subject">Subject <span class="required">*</span></label>
+                  <div class="input-control-wrap">
+                    <i class="fas fa-tag field-icon"></i>
+                    <select id="subject" name="subject" required>
+                      <option value="General Inquiry">General Inquiry</option>
+                      <option value="Calculator Suggestion">Calculator Suggestion</option>
+                      <option value="Technical Support">Technical Support / Bug Report</option>
+                      <option value="Business Partnership">Business Partnership</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
                 </div>
 
                 <div class="field field-full">
-                  <label for="message">Your Message</label>
-                  <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
+                  <label for="message">
+                    <span>Your Message <span class="required">*</span></span>
+                    <span class="optional-hint" id="charCount">0 characters</span>
+                  </label>
+                  <div class="input-control-wrap">
+                    <i class="fas fa-comment-alt field-icon" style="top: 1.1rem;"></i>
+                    <textarea id="message" name="message" placeholder="How can we help? Please describe your request, suggestion, or calculation requirement in detail..." required minlength="10"></textarea>
+                  </div>
+                  <div class="textarea-meta">
+                    <span>Minimum 10 characters</span>
+                    <span id="minCharHint" style="color: var(--ic-text-light);">We typically reply within 24h</span>
+                  </div>
                 </div>
               </div>
 
-              <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off">
+              <!-- Spam protection honeypot -->
+              <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" style="display:none !important;">
 
-              <button type="submit" class="btn btn-primary submit-btn">
-                <i class="fas fa-paper-plane"></i>
-                Send Message
-              </button>
+              <div class="form-footer">
+                <button type="submit" id="submitBtn" class="btn-submit">
+                  <i class="fas fa-paper-plane"></i>
+                  <span id="submitBtnText">Send Message</span>
+                </button>
 
-              <div class="alert alert-success hidden" id="successMessage">
-                <i class="fas fa-circle-check"></i> Message sent successfully.
+                <div class="privacy-promise">
+                  <i class="fas fa-shield-halved"></i>
+                  <span>Your information is protected. We will never share or spam your email.</span>
+                </div>
               </div>
+
+              <!-- Status Alert for Fallback -->
               <div class="alert alert-error hidden" id="errorMessage">
-                <i class="fas fa-circle-exclamation"></i> Something went wrong. Please try again.
+                <i class="fas fa-circle-exclamation"></i>
+                <div>
+                  <strong>Message failed to send.</strong>
+                  <div>Please try again or email us directly at <a href="mailto:developerravin@gmail.com" style="text-decoration: underline; font-weight:700;">developerravin@gmail.com</a>.</div>
+                </div>
               </div>
             </form>
+
+            <!-- Success Confirmation Screen (shown after AJAX send) -->
+            <div id="successCard" class="form-success-box hidden">
+              <div class="success-icon-wrap">
+                <i class="fas fa-check"></i>
+              </div>
+              <h4>Message Sent Successfully!</h4>
+              <p>Thank you for reaching out to InstaCalc. We have received your message and our team will get back to your email address shortly.</p>
+              <button type="button" class="btn-reset-form" id="btnResetForm">
+                <i class="fas fa-rotate-left"></i> Send Another Message
+              </button>
+            </div>
           </article>
 
+          <!-- Response Commitment Card -->
           <article class="info-card">
-            <h3><i class="fas fa-clock"></i> Response Time</h3>
-            <p>We usually respond to all messages within 24 to 48 hours. For urgent topics, WhatsApp is usually the fastest channel.</p>
+            <div class="info-card-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div>
+              <h3>Fast Response Commitment</h3>
+              <p>We review every inquiry personally. For urgent calculation questions or quick discussions, WhatsApp is usually our fastest communication channel.</p>
+            </div>
           </article>
         </div>
 
+        <!-- Sidebar Navigation & Trust Info -->
         <aside class="stack">
           <article class="sidebar-card">
-            <h3>Popular Calculators</h3>
+            <h3><i class="fas fa-calculator" style="color: var(--ic-primary);"></i> Popular Calculators</h3>
             <ul class="tool-links">
-              <li><a href="duration/agecalculator.html"><span>Age Calculator</span><i class="fas fa-arrow-right"></i></a></li>
-              <li><a href="emicalculator.html"><span>EMI Calculator</span><i class="fas fa-arrow-right"></i></a></li>
-              <li><a href="sipcalculator.html"><span>SIP Calculator</span><i class="fas fa-arrow-right"></i></a></li>
-              <li><a href="duration/birthdaycalculator.html"><span>Birthday Calculator</span><i class="fas fa-arrow-right"></i></a></li>
-              <li><a href="duration/timedurationcalculator.html"><span>Time Duration Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="duration/agecalculator.html"><span>Age Calculator</span><i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="emicalculator.html"><span>EMI Calculator</span><i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="sipcalculator.html"><span>SIP Calculator</span><i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="duration/birthdaycalculator.html"><span>Birthday Calculator</span><i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="duration/timedurationcalculator.html"><span>Time Duration Calculator</span><i class="fas fa-chevron-right"></i></a></li>
             </ul>
           </article>
 
           <article class="sidebar-card">
-            <h3>Why Contact Us?</h3>
+            <h3><i class="fas fa-circle-question" style="color: var(--ic-accent);"></i> Why Contact Us?</h3>
             <ul class="check-list">
-              <li><i class="fas fa-check-circle"></i> Suggest new calculators</li>
-              <li><i class="fas fa-check-circle"></i> Report technical issues</li>
-              <li><i class="fas fa-check-circle"></i> Ask partnership questions</li>
-              <li><i class="fas fa-check-circle"></i> Share product feedback</li>
+              <li><i class="fas fa-circle-check"></i> <span><strong>Suggest new calculators:</strong> Have a formula or tool you need? We build requested tools for free.</span></li>
+              <li><i class="fas fa-circle-check"></i> <span><strong>Report technical issues:</strong> Notice a bug or calculation discrepancy? We fix it quickly.</span></li>
+              <li><i class="fas fa-circle-check"></i> <span><strong>Partnership opportunities:</strong> Collaborate with InstaCalc on embeds or integrations.</span></li>
+              <li><i class="fas fa-circle-check"></i> <span><strong>User experience feedback:</strong> Help us improve our interface and features.</span></li>
             </ul>
           </article>
         </aside>
@@ -364,8 +1027,15 @@
     <i class="fas fa-arrow-up"></i>
   </button>
 
+  <!-- Copy Toast Notification -->
+  <div id="copyToast" class="toast-copy" role="status" aria-live="polite">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg">Email address copied to clipboard!</span>
+  </div>
+
   <script>
     (function () {
+      // Mobile navigation toggle
       const menuToggle = document.getElementById("menuToggle");
       const mainNav = document.getElementById("mainNav");
       const backToTopBtn = document.getElementById("backToTopBtn");
@@ -388,10 +1058,9 @@
         });
       }
 
+      // Back to top
       function syncBackToTop() {
-        if (!backToTopBtn) {
-          return;
-        }
+        if (!backToTopBtn) return;
         backToTopBtn.classList.toggle("show", window.scrollY > 260);
       }
 
@@ -401,28 +1070,148 @@
           window.scrollTo({ top: 0, behavior: "smooth" });
         });
       }
-
       syncBackToTop();
+
+      // Topic preset chips sync with subject dropdown
+      const topicChips = document.querySelectorAll("#topicChips .topic-chip");
+      const subjectSelect = document.getElementById("subject");
+
+      if (topicChips.length && subjectSelect) {
+        topicChips.forEach(function (chip) {
+          chip.addEventListener("click", function () {
+            topicChips.forEach(function (c) { c.classList.remove("active"); });
+            chip.classList.add("active");
+            const targetSubject = chip.getAttribute("data-subject");
+            for (let i = 0; i < subjectSelect.options.length; i++) {
+              if (subjectSelect.options[i].value === targetSubject || subjectSelect.options[i].text.includes(targetSubject)) {
+                subjectSelect.selectedIndex = i;
+                break;
+              }
+            }
+          });
+        });
+
+        subjectSelect.addEventListener("change", function () {
+          const currentVal = subjectSelect.value;
+          topicChips.forEach(function (chip) {
+            if (chip.getAttribute("data-subject") === currentVal || currentVal.includes(chip.getAttribute("data-subject"))) {
+              chip.classList.add("active");
+            } else {
+              chip.classList.remove("active");
+            }
+          });
+        });
+      }
+
+      // Character counter for message textarea
+      const messageInput = document.getElementById("message");
+      const charCount = document.getElementById("charCount");
+      if (messageInput && charCount) {
+        messageInput.addEventListener("input", function () {
+          const len = messageInput.value.length;
+          charCount.textContent = len + (len === 1 ? " character" : " characters");
+        });
+      }
+
+      // AJAX form submission with loading state & smooth success view
+      const contactForm = document.getElementById("contactForm");
+      const submitBtn = document.getElementById("submitBtn");
+      const submitBtnText = document.getElementById("submitBtnText");
+      const errorMessage = document.getElementById("errorMessage");
+      const successCard = document.getElementById("successCard");
+      const btnResetForm = document.getElementById("btnResetForm");
+
+      if (contactForm) {
+        contactForm.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          if (!contactForm.checkValidity()) {
+            contactForm.reportValidity();
+            return;
+          }
+
+          errorMessage.classList.add("hidden");
+          submitBtn.disabled = true;
+          submitBtnText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending message...';
+
+          try {
+            const formData = new FormData(contactForm);
+            const response = await fetch(contactForm.action, {
+              method: "POST",
+              body: formData,
+              headers: {
+                "Accept": "application/json"
+              }
+            });
+
+            if (response.ok) {
+              contactForm.reset();
+              if (charCount) charCount.textContent = "0 characters";
+              contactForm.classList.add("hidden");
+              if (successCard) successCard.classList.remove("hidden");
+            } else {
+              const data = await response.json().catch(function() { return {}; });
+              throw new Error(data.error || "Failed to submit form");
+            }
+          } catch (err) {
+            console.error("Form submission error:", err);
+            errorMessage.classList.remove("hidden");
+          } finally {
+            submitBtn.disabled = false;
+            submitBtnText.innerHTML = 'Send Message';
+          }
+        });
+      }
+
+      if (btnResetForm && contactForm && successCard) {
+        btnResetForm.addEventListener("click", function () {
+          successCard.classList.add("hidden");
+          contactForm.classList.remove("hidden");
+          if (errorMessage) errorMessage.classList.add("hidden");
+          const nameInput = document.getElementById("name");
+          if (nameInput) nameInput.focus();
+        });
+      }
     })();
+
+    // Copy to clipboard helper
+    function copyEmail(email) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(showToast).catch(function () {
+          fallbackCopy(email);
+        });
+      } else {
+        fallbackCopy(email);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        showToast();
+      } catch (err) {
+        alert("Email: " + text);
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function showToast() {
+      const toast = document.getElementById("copyToast");
+      if (!toast) return;
+      toast.classList.add("show");
+      setTimeout(function () {
+        toast.classList.remove("show");
+      }, 3000);
+    }
   </script>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
-      authDomain: "instacalc-40640.firebaseapp.com",
-      projectId: "instacalc-40640",
-      storageBucket: "instacalc-40640.firebasestorage.app",
-      messagingSenderId: "720029503645",
-      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
-      measurementId: "G-J0ZWXR3T5P"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    getAnalytics(app);
-  </script>
+  <script type="module" src="firebase.js"></script>
+  <script src="language-dialog.js" defer></script>
 </body>
 </html>
 

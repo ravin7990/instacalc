@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <script>
+<script>
     (function () {
       const userLang = localStorage.getItem('user_lang');
       const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
@@ -15,19 +15,29 @@
       }
     })();
   </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>About InstaCalc.in - Smart Calculators for Everyday Needs</title>
-  <meta name="description" content="Learn about InstaCalc.in, our mission, and the calculator tools we build for finance, unit conversion, time, and daily productivity.">
-  <meta name="keywords" content="about instacalc, financial calculators, age calculator, unit converter, emi calculator">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>About Us - InstaCalc.in Free Online Calculators & Tools</title>
+  <meta name="description" content="Discover the story, mission, and core values behind InstaCalc.in. We build fast, accurate, and privacy-first online calculators for daily productivity.">
+  <meta name="keywords" content="about instacalc, free online calculators, financial calculators, unit converter, calculation accuracy, privacy first calculators">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#005f73">
-
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="canonical" href="https://instacalc.in/aboutus.html">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/webp" href="favicon.webp">
+  <link rel="alternate" hreflang="ja" href="https://instacalc.in/ja/aboutus.html">
+  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/aboutus.html">
+  <link rel="alternate" hreflang="en" href="https://instacalc.in/aboutus.html">
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/aboutus.html">
+  <link rel="alternate" hreflang="ru" href="https://instacalc.in/ru/aboutus.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/aboutus.html">
 
-  <meta property="og:title" content="About InstaCalc.in">
-  <meta property="og:description" content="Meet the story, mission, and people behind InstaCalc.in.">
+
+
+
+
+<meta property="og:title" content="About InstaCalc.in - Smart Calculators for Everyday Decisions">
+  <meta property="og:description" content="Meet the story, mission, and team behind InstaCalc.in. Fast, free, and privacy-friendly calculation tools.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://instacalc.in/aboutus.html">
   <meta property="og:image" content="https://instacalc.in/instatheme.webp">
@@ -35,7 +45,7 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="About InstaCalc.in">
-  <meta name="twitter:description" content="Discover the mission and values of InstaCalc.in.">
+  <meta name="twitter:description" content="Discover the mission, vision, and people behind InstaCalc.in.">
   <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,30 +57,458 @@
 
   <link rel="stylesheet" href="instacalc-core.css">
   <style>
-    /* About Us Specific Polish */
-    .about-grid {
+    /* About Us Specific Modern Redesign Styles */
+    .about-layout {
       display: grid;
-      grid-template-columns: 1.6fr 1fr;
-      gap: 1.75rem;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 2rem;
       align-items: start;
     }
     @media (max-width: 960px) {
-      .about-grid {
+      .about-layout {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1.75rem;
       }
     }
-    .story-grid, .mission-grid, .values-grid {
+
+    /* Fixed Hero Points (High Contrast Pill Badges on Light Background) */
+    .hero-features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-top: 1.5rem;
     }
+    @media (max-width: 640px) {
+      .hero-features-grid {
+        grid-template-columns: 1fr;
+        gap: 0.6rem;
+      }
+    }
+    .hero-feature-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.65rem 0.95rem;
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ic-text); /* Always crisp dark text */
+      box-shadow: var(--ic-shadow-sm);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .hero-feature-pill:hover {
+      border-color: var(--ic-primary);
+      transform: translateY(-1px);
+    }
+    .hero-feature-pill i {
+      color: #10b981;
+      font-size: 1.05rem;
+      flex-shrink: 0;
+    }
+
+    /* Hero Aside Modern Dark Panel */
+    .hero-panel {
+      background: linear-gradient(145deg, #0f172a, #1e293b);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--ic-shadow-lg);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .hero-panel-head h2 {
+      font-family: var(--ic-font-heading);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .hero-panel-head p {
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+      margin: 0;
+    }
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    .about-stat-item {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--ic-radius-md);
+      padding: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      backdrop-filter: blur(8px);
+    }
+    .about-stat-item.full-span {
+      grid-column: 1 / -1;
+    }
+    .about-stat-item strong {
+      font-family: var(--ic-font-heading);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #38bdf8; /* Bright Cyan on Dark */
+      line-height: 1.1;
+    }
+    .about-stat-item span {
+      font-size: 0.82rem;
+      color: #e2e8f0; /* Crisp readable light text */
+      font-weight: 500;
+      line-height: 1.35;
+    }
+
+    /* Content Cards and Grids */
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+    @media (max-width: 640px) {
+      .story-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+    .story-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--ic-shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 0;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .story-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--ic-shadow-md);
+      border-color: var(--ic-border-focus);
+    }
+    .card-icon-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 0.25rem;
+    }
+    .card-icon-badge.blue {
+      background: #e0f2fe;
+      color: #0284c7;
+    }
+    .card-icon-badge.teal {
+      background: #ccfbf1;
+      color: #0d9488;
+    }
+    .card-icon-badge.purple {
+      background: #ede9fe;
+      color: #7c3aed;
+    }
+    .card-icon-badge.amber {
+      background: #fef3c7;
+      color: #d97706;
+    }
+    .card-icon-badge.emerald {
+      background: #d1fae5;
+      color: #059669;
+    }
+
+    .story-card h3 {
+      font-family: var(--ic-font-heading);
+      font-size: 1.15rem;
+      color: var(--ic-text);
+      font-weight: 700;
+      margin: 0;
+    }
+    .story-card p {
+      font-size: 0.92rem;
+      color: var(--ic-text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Mission & Vision Banner Cards */
+    .mission-vision-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+    @media (max-width: 640px) {
+      .mission-vision-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .pillar-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--ic-shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+    .pillar-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+    .pillar-card.mission::before {
+      background: linear-gradient(90deg, #0284c7, #38bdf8);
+    }
+    .pillar-card.vision::before {
+      background: linear-gradient(90deg, #0d9488, #2dd4bf);
+    }
+    .pillar-card h3 {
+      font-family: var(--ic-font-heading);
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: var(--ic-text);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .pillar-card p {
+      font-size: 0.92rem;
+      color: var(--ic-text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Core Values 4-Grid */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.15rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 640px) {
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .value-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.35rem;
+      box-shadow: var(--ic-shadow-sm);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin: 0;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .value-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--ic-shadow-md);
+      border-color: var(--ic-primary);
+    }
+    .value-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--ic-primary-light);
+      color: var(--ic-primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+    .value-info h4 {
+      font-family: var(--ic-font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ic-text);
+      margin-bottom: 0.3rem;
+    }
+    .value-info p {
+      font-size: 0.88rem;
+      color: var(--ic-text-muted);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* FAQ Section */
+    .faq-list {
+      display: grid;
+      gap: 0.75rem;
+    }
+    .faq-item {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-md);
+      overflow: hidden;
+      box-shadow: var(--ic-shadow-sm);
+      transition: border-color 0.2s ease;
+      margin: 0;
+    }
+    .faq-item[open] {
+      border-color: var(--ic-primary);
+    }
+    .faq-item summary {
+      padding: 1.1rem 1.25rem;
+      font-weight: 700;
+      font-size: 0.98rem;
+      color: var(--ic-text);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: #ffffff;
+      transition: background 0.2s ease;
+      user-select: none;
+    }
+    .faq-item summary:hover {
+      background: var(--ic-bg-subtle);
+    }
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+    .faq-item summary i {
+      color: var(--ic-primary);
+      font-size: 0.88rem;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .faq-item[open] summary i {
+      transform: rotate(180deg);
+    }
+    .faq-item p {
+      padding: 0 1.25rem 1.1rem;
+      color: var(--ic-text-muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin: 0;
+      border-top: 1px solid transparent;
+    }
+
+    /* Sidebar Cards & Founder Bio */
+    .sidebar-card {
+      background: #ffffff;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--ic-shadow-sm);
+      margin-bottom: 1.25rem;
+    }
+    .sidebar-card h3 {
+      font-family: var(--ic-font-heading);
+      font-size: 1.08rem;
+      color: var(--ic-text);
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Founder Card */
+    .founder-card {
+      text-align: center;
+      padding: 1.75rem 1.5rem;
+    }
+    .founder-avatar-wrap {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1rem;
+    }
+    .founder-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--ic-primary-light);
+      box-shadow: var(--ic-shadow-md);
+    }
+    .founder-badge {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: #10b981;
+      color: #ffffff;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      border: 2px solid #ffffff;
+    }
+    .founder-name {
+      font-family: var(--ic-font-heading);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--ic-text);
+      margin-bottom: 0.2rem;
+    }
+    .founder-role {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--ic-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.75rem;
+    }
+    .founder-bio {
+      font-size: 0.88rem;
+      color: var(--ic-text-muted);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .founder-links {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .btn-founder-contact {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      background: var(--ic-primary-light);
+      color: var(--ic-primary-dark);
+      font-size: 0.84rem;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+    .btn-founder-contact:hover {
+      background: var(--ic-primary);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    /* Popular Tool Links in Sidebar */
     .tool-links {
       list-style: none;
       display: grid;
       gap: 0.5rem;
-      margin-top: 0.75rem;
     }
     .tool-links a {
       display: flex;
@@ -79,16 +517,75 @@
       padding: 0.65rem 0.85rem;
       background: var(--ic-bg-subtle);
       border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-sm);
-      font-size: 0.92rem;
+      border-radius: var(--ic-radius-md);
+      font-size: 0.9rem;
       font-weight: 600;
+      color: var(--ic-text);
+      transition: all 0.2s ease;
+    }
+    .tool-links a i {
+      color: var(--ic-text-light);
+      font-size: 0.8rem;
+      transition: transform 0.2s ease, color 0.2s ease;
     }
     .tool-links a:hover {
       background: #ffffff;
       border-color: var(--ic-primary);
       color: var(--ic-primary-dark);
+      transform: translateX(3px);
+      box-shadow: var(--ic-shadow-sm);
+    }
+    .tool-links a:hover i {
+      color: var(--ic-primary);
+      transform: translateX(2px);
+    }
+
+    /* CTA Card in Sidebar */
+    .cta-card {
+      background: linear-gradient(145deg, #0284c7, #0369a1);
+      color: #ffffff;
+      border: none;
+    }
+    .cta-card h3 {
+      color: #ffffff;
+    }
+    .cta-card p {
+      color: #e0f2fe;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .btn-white {
+      background: #ffffff;
+      color: #0369a1;
+      font-weight: 700;
+      padding: 0.6rem 1rem;
+      border-radius: var(--ic-radius-md);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    .btn-white:hover {
+      background: #f8fafc;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
   </style>
+  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "name": "About InstaCalc.in",
+      "url": "https://instacalc.in/aboutus.html",
+      "description": "Learn about InstaCalc.in, our mission, and the free calculators we build for finance, unit conversion, time and everyday productivity."
+    }
+  </script>
+
 </head>
 <body>
   <header class="site-header">
@@ -112,19 +609,21 @@
   </header>
 
   <main>
+    <!-- Redesigned Hero Section with Guaranteed Visible Text & Metrics -->
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
           <span class="eyebrow">
             <i class="fas fa-circle-info"></i>
-            Our Story
+            About InstaCalc
           </span>
           <h1>Making calculations faster, clearer, and easier for everyone</h1>
-          <p>InstaCalc.in started in 2023 with one clear goal: remove the friction from everyday calculations. We design tools that are simple to use, accurate, and fast on mobile and desktop.</p>
+          <p>InstaCalc.in was built to eliminate confusion and complexity from everyday calculations. We craft fast, responsive, and 100% private calculation tools designed for students, professionals, and households worldwide.</p>
+          
           <div class="hero-actions">
             <a class="btn btn-primary" href="index.html">
               <i class="fas fa-calculator"></i>
-              Explore Tools
+              Explore 40+ Tools
             </a>
             <a class="btn btn-ghost" href="contactus.html">
               <i class="fas fa-envelope-open-text"></i>
@@ -132,157 +631,234 @@
             </a>
           </div>
 
-          <div class="hero-points">
-            <div class="hero-point"><i class="fas fa-check-circle"></i> 100% free and always accessible</div>
-            <div class="hero-point"><i class="fas fa-mobile-screen-button"></i> Built for mobile-first speed</div>
-            <div class="hero-point"><i class="fas fa-bolt"></i> Instant results without sign-up</div>
-            <div class="hero-point"><i class="fas fa-shield-halved"></i> Privacy-first experience</div>
+          <!-- Crisp High-Contrast Feature Badges (Fixed Text Visibility) -->
+          <div class="hero-features-grid">
+            <div class="hero-feature-pill">
+              <i class="fas fa-circle-check"></i>
+              <span>100% Free & No Sign-up</span>
+            </div>
+            <div class="hero-feature-pill">
+              <i class="fas fa-mobile-screen-button"></i>
+              <span>Mobile-First Touch Design</span>
+            </div>
+            <div class="hero-feature-pill">
+              <i class="fas fa-bolt"></i>
+              <span>Instant Real-Time Math</span>
+            </div>
+            <div class="hero-feature-pill">
+              <i class="fas fa-shield-halved"></i>
+              <span>100% Privacy & Zero Tracking</span>
+            </div>
           </div>
         </div>
 
+        <!-- Modern Aside Panel with Glowing Metrics -->
         <aside class="hero-panel">
-          <h2>What we focus on</h2>
-          <p>We build practical calculators that solve daily problems for students, professionals, and families.</p>
-          <div class="stat-grid">
-            <div class="stat-card">
-              <strong>40+ tools</strong>
-              <span>Finance, time, unit conversion, and more</span>
+          <div class="hero-panel-head">
+            <h2><i class="fas fa-chart-line" style="color: #38bdf8;"></i> What Drives Us</h2>
+            <p>Practical, reliable calculators built to solve everyday decisions with clarity and precision.</p>
+          </div>
+          
+          <div class="stats-container">
+            <div class="about-stat-item">
+              <strong>40+</strong>
+              <span>Interactive tools across finance, time, and math</span>
             </div>
-            <div class="stat-card">
-              <strong>Mobile-ready</strong>
-              <span>Designed for smooth one-thumb usage</span>
+            <div class="about-stat-item">
+              <strong>100%</strong>
+              <span>Client-side calculations with instant results</span>
             </div>
-            <div class="stat-card">
-              <strong>Always evolving</strong>
-              <span>Improved UI and new calculators regularly</span>
+            <div class="about-stat-item full-span">
+              <strong>Zero Friction</strong>
+              <span>No login wall, no popups, and smooth one-thumb mobile experience</span>
             </div>
           </div>
         </aside>
       </div>
     </section>
 
+    <!-- Main About Content Grid -->
     <section class="section">
-      <div class="container about-grid">
+      <div class="container about-layout">
         <div class="content-stack">
+          <!-- Section Heading -->
           <div class="section-head">
             <span class="eyebrow">
               <i class="fas fa-compass"></i>
-              About InstaCalc
+              Our Journey
             </span>
-            <h2>Our mission, vision, and values</h2>
-            <p>Every section below reflects how we build and maintain calculator experiences that are useful in real life.</p>
+            <h2>Our mission, vision, and origins</h2>
+            <p>Learn how InstaCalc was started and the philosophy behind every calculation formula we build.</p>
           </div>
 
+          <!-- Story Cards -->
           <div class="story-grid">
             <article class="story-card">
+              <div class="card-icon-badge blue">
+                <i class="fas fa-book-open"></i>
+              </div>
               <h3>Our Story</h3>
-              <p>InstaCalc.in was launched to bring reliable calculation tools into one clean place. Instead of searching across multiple websites, users can quickly access calculators for investments, tax, age, duration, and practical project work.</p>
+              <p>InstaCalc.in began in 2023 when we noticed that most calculation tools on the internet were cluttered with ads, loaded slowly on mobile devices, or required unnecessary account registrations. We created a clean, dedicated platform where answers are delivered in milliseconds.</p>
             </article>
+
             <article class="story-card">
+              <div class="card-icon-badge teal">
+                <i class="fas fa-rocket"></i>
+              </div>
               <h3>Why We Started</h3>
-              <p>Many online tools felt cluttered, slow, or hard to use on phones. We wanted to build a calculator platform that is fast, readable, and designed for real-world use even on smaller screens.</p>
+              <p>From planning loan EMIs to checking age in exact days or converting time durations, everyday calculations should be effortless. We designed our calculators with high-contrast displays, intuitive sliders, and real-time live outputs.</p>
             </article>
           </div>
 
-          <div class="mission-grid">
-            <article class="panel">
-              <h3><i class="fas fa-bullseye"></i> Mission</h3>
-              <p>To provide instant and accurate calculators that help people make better decisions in money management, planning, and daily work.</p>
+          <!-- Mission and Vision Cards -->
+          <div class="mission-vision-grid">
+            <article class="pillar-card mission">
+              <h3><i class="fas fa-bullseye" style="color: #0284c7;"></i> Our Mission</h3>
+              <p>To empower people with instant, accurate, and transparent calculators that make financial planning, educational tasks, and daily decisions simpler and stress-free.</p>
             </article>
-            <article class="panel">
-              <h3><i class="fas fa-eye"></i> Vision</h3>
-              <p>To become the most trusted and user-friendly online calculator destination for students, professionals, and households.</p>
+
+            <article class="pillar-card vision">
+              <h3><i class="fas fa-eye" style="color: #0d9488;"></i> Our Vision</h3>
+              <p>To become the most accessible and reliable web calculator suite globally, continuously setting higher benchmarks for speed, simplicity, and user privacy.</p>
             </article>
+          </div>
+
+          <!-- Core Values Section -->
+          <div class="section-head" style="margin-top: 1rem;">
+            <span class="eyebrow">
+              <i class="fas fa-gem"></i>
+              Core Principles
+            </span>
+            <h2>How we build every calculator</h2>
+            <p>Four unwavering pillars guide our engineering and design decisions.</p>
           </div>
 
           <div class="values-grid">
             <article class="value-card">
-              <div class="value-icon"><i class="fas fa-gauge-high"></i></div>
-              <div>
+              <div class="value-icon">
+                <i class="fas fa-gauge-high"></i>
+              </div>
+              <div class="value-info">
                 <h4>Performance First</h4>
-                <p>Pages are optimized for fast loading and quick interactions on both low-end and high-end devices.</p>
+                <p>Calculations compute directly in your browser without backend lag, delivering instantaneous results even on 3G connections.</p>
               </div>
             </article>
+
             <article class="value-card">
-              <div class="value-icon"><i class="fas fa-equals"></i></div>
-              <div>
-                <h4>Clarity in Design</h4>
-                <p>Simple labels, clean spacing, and readable outputs reduce confusion and help users trust the result.</p>
+              <div class="value-icon">
+                <i class="fas fa-circle-check"></i>
+              </div>
+              <div class="value-info">
+                <h4>Mathematical Precision</h4>
+                <p>Every algorithm is verified against official banking standards, standard physics constants, and mathematical proofs.</p>
               </div>
             </article>
+
             <article class="value-card">
-              <div class="value-icon"><i class="fas fa-user-shield"></i></div>
-              <div>
+              <div class="value-icon">
+                <i class="fas fa-user-shield"></i>
+              </div>
+              <div class="value-info">
                 <h4>Privacy by Default</h4>
-                <p>Most calculators run without requiring personal accounts, keeping the workflow private and frictionless.</p>
+                <p>Your inputs remain exclusively on your device. We do not store or transmit your financial amounts or personal numbers.</p>
               </div>
             </article>
+
             <article class="value-card">
-              <div class="value-icon"><i class="fas fa-seedling"></i></div>
-              <div>
-                <h4>Continuous Improvement</h4>
-                <p>We keep improving UI quality, calculator coverage, and mobile usability based on real user needs.</p>
+              <div class="value-icon">
+                <i class="fas fa-mobile-screen"></i>
+              </div>
+              <div class="value-info">
+                <h4>Mobile-First Usability</h4>
+                <p>Large tap targets, tactile range sliders, and clean typography designed for effortless one-handed smartphone use.</p>
               </div>
             </article>
           </div>
 
+          <!-- FAQ Accordion Section -->
           <div class="section-head">
             <span class="eyebrow">
               <i class="fas fa-circle-question"></i>
-              FAQ
+              Common Questions
             </span>
             <h2>Frequently asked questions</h2>
-            <p>Quick answers about how InstaCalc.in works.</p>
+            <p>Everything you need to know about InstaCalc and how our tools operate.</p>
           </div>
 
           <div class="faq-list">
             <details class="faq-item" open>
               <summary>
-                Is InstaCalc.in free to use?
+                <span>Are all calculators on InstaCalc.in completely free?</span>
                 <i class="fas fa-chevron-down"></i>
               </summary>
-              <p>Yes. All public calculators on InstaCalc.in are free to use.</p>
+              <p>Yes, 100%. All current and future calculation tools on InstaCalc.in are completely free for personal, educational, and commercial reference.</p>
             </details>
+
             <details class="faq-item">
               <summary>
-                Do I need to create an account?
+                <span>Do I need to sign up or provide an email address?</span>
                 <i class="fas fa-chevron-down"></i>
               </summary>
-              <p>No account is required. You can open and use the tools instantly.</p>
+              <p>No account or registration is required. You can simply open any calculator and use it right away without creating an account or providing personal details.</p>
             </details>
+
             <details class="faq-item">
               <summary>
-                Can I use InstaCalc on mobile?
+                <span>Is my financial data or input stored on your servers?</span>
                 <i class="fas fa-chevron-down"></i>
               </summary>
-              <p>Yes. The interface is mobile responsive and optimized for small touch screens.</p>
+              <p>No. All calculations run strictly client-side via JavaScript directly on your device. None of your entered values are sent to or stored on our servers.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>
+                <span>Can I request a new calculator or feature?</span>
+                <i class="fas fa-chevron-down"></i>
+              </summary>
+              <p>Absolutely! We love building tools requested by our community. Use our <a href="contactus.html" style="color: var(--ic-primary); font-weight:700; text-decoration:underline;">Contact Page</a> or message us on WhatsApp to request any calculator.</p>
             </details>
           </div>
         </div>
 
-        <aside class="sidebar">
-          <div class="sidebar-card member-card">
-            <img src="author.png" alt="Ravin Pednekar">
-            <div>
-              <h4>Ravin Pednekar</h4>
-              <p>Founder and Calculation Expert</p>
+        <!-- Sidebar Components -->
+        <aside class="stack">
+          <!-- Founder Profile Card -->
+          <div class="sidebar-card founder-card">
+            <div class="founder-avatar-wrap">
+              <img class="founder-avatar" src="author.png" alt="Ravin Pednekar">
+              <div class="founder-badge" title="Verified Creator">
+                <i class="fas fa-check"></i>
+              </div>
+            </div>
+            <div class="founder-name">Ravin Pednekar</div>
+            <div class="founder-role">Founder & Lead Developer</div>
+            <p class="founder-bio">Passionate about building fast, intuitive web tools that make math and decision-making accessible to everyone.</p>
+            <div class="founder-links">
+              <a class="btn-founder-contact" href="contactus.html">
+                <i class="fas fa-envelope"></i> Get in Touch
+              </a>
             </div>
           </div>
 
+          <!-- Popular Calculators Quick Navigation -->
           <div class="sidebar-card">
-            <h3>Popular Calculators</h3>
+            <h3><i class="fas fa-calculator" style="color: var(--ic-primary);"></i> Popular Calculators</h3>
             <ul class="tool-links">
-              <li><a href="duration/agecalculator.html"><span>Age Calculator</span><i class="fas fa-arrow-right"></i></a></li>
-              <li><a href="emicalculator.html"><span>EMI Calculator</span><i class="fas fa-arrow-right"></i></a></li>
-              <li><a href="sipcalculator.html"><span>SIP Calculator</span><i class="fas fa-arrow-right"></i></a></li>
-              <li><a href="duration/birthdaycalculator.html"><span>Birthday Calculator</span><i class="fas fa-arrow-right"></i></a></li>
-              <li><a href="duration/timedurationcalculator.html"><span>Time Duration Calculator</span><i class="fas fa-arrow-right"></i></a></li>
+              <li><a href="duration/agecalculator.html"><span>Age Calculator</span><i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="emicalculator.html"><span>EMI Calculator</span><i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="sipcalculator.html"><span>SIP Calculator</span><i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="duration/birthdaycalculator.html"><span>Birthday Calculator</span><i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="duration/timedurationcalculator.html"><span>Time Duration Calculator</span><i class="fas fa-chevron-right"></i></a></li>
             </ul>
           </div>
 
-          <div class="sidebar-card">
-            <h3>Upcoming Focus Areas</h3>
-            <p>We are actively exploring new utility calculators in finance, health, and productivity to expand your toolkit further.</p>
+          <!-- Contact / Suggestion CTA Card -->
+          <div class="sidebar-card cta-card">
+            <h3><i class="fas fa-lightbulb"></i> Have an Idea?</h3>
+            <p>Need a custom calculator for your workflow or have feedback on our tools? We build requested calculators for free.</p>
+            <a class="btn-white" href="contactus.html">
+              <i class="fas fa-paper-plane"></i> Suggest a Calculator
+            </a>
           </div>
         </aside>
       </div>
@@ -331,9 +907,7 @@
       }
 
       function syncBackToTop() {
-        if (!backToTopBtn) {
-          return;
-        }
+        if (!backToTopBtn) return;
         backToTopBtn.classList.toggle("show", window.scrollY > 260);
       }
 
@@ -347,24 +921,8 @@
       syncBackToTop();
     })();
   </script>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
-      authDomain: "instacalc-40640.firebaseapp.com",
-      projectId: "instacalc-40640",
-      storageBucket: "instacalc-40640.firebasestorage.app",
-      messagingSenderId: "720029503645",
-      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
-      measurementId: "G-J0ZWXR3T5P"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    getAnalytics(app);
-  </script>
+  <script type="module" src="firebase.js"></script>
+  <script src="language-dialog.js" defer></script>
 </body>
 </html>
 

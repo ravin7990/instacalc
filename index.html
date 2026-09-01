@@ -1,19 +1,62 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <script>
+<script>
     (function () {
-      const userLang = localStorage.getItem('user_lang');
-      const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-      if (userLang === 'ja' || (!userLang && browserLang.startsWith('ja'))) {
-        window.location.replace('./ja/index.html');
-      } else if (userLang === 'ko' || (!userLang && browserLang.startsWith('ko'))) {
-        window.location.replace('./ko/index.html');
-      } else if (userLang === 'ru' || (!userLang && browserLang.startsWith('ru'))) {
-        window.location.replace('./ru/index.html');
-      }
+      try {
+        var saved = localStorage.getItem('user_lang');
+        if (saved === 'in' || saved === 'en' || saved === 'india') return;
+        if (saved === 'us' || saved === 'usa') { window.location.replace('./us/index.html'); return; }
+        if (saved === 'ja' || saved === 'japan') { window.location.replace('./ja/index.html'); return; }
+        if (saved === 'ru' || saved === 'russia') { window.location.replace('./ru/index.html'); return; }
+        if (saved === 'ko' || saved === 'korea') { window.location.replace('./ko/index.html'); return; }
+
+        var ua = (navigator.userAgent || '').toLowerCase();
+        if (/bot|googlebot|bingbot|crawler|spider|robot|crawling|lighthouse|headless/i.test(ua)) return;
+
+        var tz = '';
+        try { tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '').toLowerCase(); } catch (e) {}
+
+        var langs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || navigator.userLanguage || ''];
+        var primaryLang = (langs[0] || '').toLowerCase();
+        var allLangs = langs.map(function(l) { return (l || '').toLowerCase(); }).join(',');
+
+        if (tz === 'asia/tokyo' || tz.indexOf('tokyo') !== -1 || primaryLang.indexOf('ja') === 0 || allLangs.indexOf('ja-jp') !== -1) {
+          window.location.replace('./ja/index.html');
+          return;
+        }
+
+        if (tz === 'asia/seoul' || tz.indexOf('seoul') !== -1 || primaryLang.indexOf('ko') === 0 || allLangs.indexOf('ko-kr') !== -1) {
+          window.location.replace('./ko/index.html');
+          return;
+        }
+
+        var ruTimezones = [
+          'europe/moscow', 'europe/samara', 'europe/volgograd', 'europe/saratov', 'europe/ulyanovsk',
+          'europe/kirov', 'europe/astrakhan', 'asia/yekaterinburg', 'asia/omsk', 'asia/novosibirsk',
+          'asia/barnaul', 'asia/tomsk', 'asia/novokuznetsk', 'asia/krasnoyarsk', 'asia/irkutsk',
+          'asia/chita', 'asia/yakutsk', 'asia/khandyga', 'asia/vladivostok', 'asia/ust-nera',
+          'asia/magadan', 'asia/sakhalin', 'asia/srednekolymsk', 'asia/kamchatka', 'asia/anadyr',
+          'europe/kaliningrad', 'europe/minsk', 'asia/almaty', 'asia/qyzylorda', 'asia/qostanay',
+          'asia/aqtobe', 'asia/aqtau', 'asia/atyrau', 'asia/oral', 'asia/bishkek', 'asia/tashkent',
+          'asia/dushanbe', 'asia/ashgabat', 'asia/yerevan', 'asia/baku', 'europe/chisinau'
+        ];
+        if (ruTimezones.indexOf(tz) !== -1 || primaryLang.indexOf('ru') === 0 || primaryLang.indexOf('be') === 0 || allLangs.indexOf('ru-ru') !== -1) {
+          window.location.replace('./ru/index.html');
+          return;
+        }
+
+        var inLanguages = ['hi', 'ta', 'te', 'bn', 'mr', 'gu', 'kn', 'pa', 'ml', 'ur', 'or', 'as'];
+        var isIndianLang = inLanguages.some(function(l) { return primaryLang.indexOf(l) === 0 || allLangs.indexOf(l + '-in') !== -1; });
+        if (tz === 'asia/kolkata' || tz === 'asia/calcutta' || tz === 'ist' || isIndianLang || primaryLang === 'en-in' || allLangs.indexOf('en-in') !== -1) {
+          return; // Stay on Indian edition
+        }
+
+        // USA & ALL OTHER COUNTRIES IN THE WORLD -> US Edition
+        window.location.replace('./us/index.html');
+      } catch (err) {}
     })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,14 +70,31 @@
   <meta name="theme-color" content="#0284c7">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
 
-  <link rel="canonical" href="https://instacalc.in">
+  <link rel="canonical" href="https://instacalc.in/">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/webp" href="favicon.webp">
+  <link rel="alternate" hreflang="ja" href="https://instacalc.in/ja/">
+  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/">
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/">
+  <link rel="alternate" hreflang="en" href="https://instacalc.in/">
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/">
+  <link rel="alternate" hreflang="ru" href="https://instacalc.in/ru/">
+  <link rel="alternate" hreflang="ko" href="https://instacalc.in/ko/">
+  <link rel="alternate" hreflang="ko-KR" href="https://instacalc.in/ko/">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
 
-  <meta property="og:title" content="InstaCalc.in - 40+ Free Calculators and Unit Converters">
+
+
+
+
+
+
+
+<meta property="og:title" content="InstaCalc.in - 40+ Free Calculators and Unit Converters">
   <meta property="og:description"
     content="Use smart financial calculators, fast unit converters, and time tools at InstaCalc.in.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://instacalc.in">
+  <meta property="og:url" content="https://instacalc.in/">
   <meta property="og:image" content="https://instacalc.in/instatheme.webp">
   <meta property="og:site_name" content="InstaCalc">
 
@@ -49,6 +109,25 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
   <link rel="stylesheet" href="instacalc-core.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "InstaCalc.in",
+      "url": "https://instacalc.in/",
+      "description": "Free online calculators and unit converters for finance, construction, time and everyday calculations."
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "InstaCalc",
+      "url": "https://instacalc.in/",
+      "logo": "https://instacalc.in/logo.png"
+    }
+  </script>
+
 </head>
 
 <body>
@@ -818,6 +897,8 @@
     });
   </script>
   <script src="currency-manager.js"></script>
+  <script type="module" src="firebase.js"></script>
+  <script src="language-dialog.js" defer></script>
 </body>
 
 </html>

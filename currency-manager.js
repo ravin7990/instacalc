@@ -6,7 +6,11 @@
   let symbol = '₹';
   
   const path = window.location.pathname;
-  if (path.includes('/ja/')) {
+  if (path.includes('/us/')) {
+    locale = 'en-US';
+    currency = 'USD';
+    symbol = '$';
+  } else if (path.includes('/ja/')) {
     locale = 'ja-JP';
     currency = 'JPY';
     symbol = '¥';
@@ -39,7 +43,11 @@
       const abs = Math.abs(value);
       const sign = value < 0 ? "-" : "";
       
-      if (locale === 'en-IN') {
+      if (locale === 'en-US') {
+        if (abs >= 1000000000) return sign + symbol + (abs / 1000000000).toFixed(2) + "B";
+        if (abs >= 1000000) return sign + symbol + (abs / 1000000).toFixed(2) + "M";
+        if (abs >= 1000) return sign + symbol + (abs / 1000).toFixed(2) + "K";
+      } else if (locale === 'en-IN') {
         if (abs >= 10000000) return sign + symbol + (abs / 10000000).toFixed(2) + " Cr";
         if (abs >= 100000) return sign + symbol + (abs / 100000).toFixed(2) + " Lakh";
       } else if (locale === 'ja-JP') {
@@ -59,7 +67,11 @@
       const abs = Math.abs(value);
       const sign = value < 0 ? "-" : "";
       
-      if (locale === 'en-IN') {
+      if (locale === 'en-US') {
+        if (abs >= 1000000000) return sign + (abs / 1000000000).toFixed(1) + "B";
+        if (abs >= 1000000) return sign + (abs / 1000000).toFixed(1) + "M";
+        if (abs >= 1000) return sign + (abs / 1000).toFixed(1) + "K";
+      } else if (locale === 'en-IN') {
         if (abs >= 10000000) return sign + (abs / 10000000).toFixed(1) + "Cr";
         if (abs >= 100000) return sign + (abs / 100000).toFixed(1) + "L";
         if (abs >= 1000) return sign + (abs / 1000).toFixed(1) + "K";
