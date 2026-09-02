@@ -281,7 +281,7 @@
       '  gap: 0.4rem;',
       '  padding: 0.25rem 0.65rem;',
       '  background: #e0f2fe;',
-      '  color: #0284c7;',
+      '  color: #0369a1;',
       '  border-radius: 999px;',
       '  font-size: 0.75rem;',
       '  font-weight: 800;',
@@ -591,7 +591,7 @@
     var oldLangSwitch = document.querySelector('.lang-switch');
     if (oldLangSwitch) {
       oldLangSwitch.innerHTML = [
-        '<button type="button" class="ic-lang-btn" aria-label="Select Language & Region" title="Select Language & Region">',
+        '<button type="button" class="ic-lang-btn" aria-label="Select Language & Region: ' + currentLangObj.shortLabel + '" title="Select Language & Region: ' + currentLangObj.shortLabel + '">',
         '  <i class="fas fa-globe"></i>',
         '  <span>' + currentLangObj.flag + ' ' + currentLangObj.shortLabel + '</span>',
         '  <i class="fas fa-chevron-down ic-chevron"></i>',
@@ -607,8 +607,8 @@
       newBtn.type = 'button';
       newBtn.id = 'icHeaderLangBtn';
       newBtn.className = 'ic-lang-btn';
-      newBtn.setAttribute('aria-label', 'Select Language & Region');
-      newBtn.setAttribute('title', 'Select Language & Region');
+      newBtn.setAttribute('aria-label', 'Select Language & Region: ' + currentLangObj.shortLabel);
+      newBtn.setAttribute('title', 'Select Language & Region: ' + currentLangObj.shortLabel);
       newBtn.innerHTML = [
         '<i class="fas fa-globe"></i>',
         '<span>' + currentLangObj.flag + ' ' + currentLangObj.shortLabel + '</span>',
