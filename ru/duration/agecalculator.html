@@ -7,9 +7,7 @@
   (function() {
     const pref = localStorage.getItem('user_lang');
     const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-    if (pref === 'ru' || (!pref && browserLang.startsWith('ru'))) {
-      window.location.replace('../ru/duration/agecalculator.html');
-    } else if (pref === 'ja' || (!pref && browserLang.startsWith('ja'))) {
+    if (pref === 'ja' || (!pref && browserLang.startsWith('ja'))) {
       window.location.replace('../ja/duration/agecalculator.html');
     }
   })();
@@ -49,10 +47,11 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"></noscript></noscript>
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript>
   <link rel="stylesheet" href="../../instacalc-core.css">
 
   <style>
@@ -575,7 +574,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="../../index.html" class="brand" aria-label="InstaCalc Главная">
-        <img src="../../logo.png" alt="Логотип InstaCalc">
+        <img src="../../logo.png" alt="Логотип InstaCalc" width="42" height="42">
         <span>InstaCalc.in</span>
       </a>
       <div class="lang-switch">
@@ -587,9 +586,10 @@
       </div>
       <button class="menu-toggle" id="menuЧтобыggle" type="button" aria-label="Чтобыggle Menu"><i class="fas fa-bars"></i></button>
       <nav class="site-nav" id="mainNav">
-        <a href="../../index.html">Главная</a>
-        <a href="../../aboutus.html">О нас</a>
-        <a href="../../privacypolicy.html">Политика конфиденциальности</a>
+        <a href="../index.html">Главная</a>
+        <a href="../aboutus.html">О нас</a>
+        <a href="../contactus.html">Свяжитесь с нами</a>
+        <a href="../privacypolicy.html">Политика конфиденциальности</a>
       </nav>
     </div>
   </header>
