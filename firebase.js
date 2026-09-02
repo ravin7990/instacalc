@@ -1,6 +1,6 @@
-// firebase.js - InstaCalc Firebase Initialization
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+// firebase.js - InstaCalc Firebase Initialization (lazy, deferred to idle time)
+// Loads the gstatic Firebase modules dynamically AFTER the page is interactive,
+// so analytics never competes with first paint / LCP on mobile.
 
 const firebaseConfig = {
   apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
@@ -12,8 +12,28 @@ const firebaseConfig = {
   measurementId: "G-J0ZWXR3T5P"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+let app = null;
+let analytics = null;
+
+function initFirebase() {
+  if (app) return; // already initialized
+  Promise.all([
+    import("https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js"),
+    import("https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js")
+  ])
+    .then(function (modules) {
+      app = modules[0].initializeApp(firebaseConfig);
+      analytics = modules[1].getAnalytics(app);
+    })
+    .catch(function () {
+      // Analytics is best-effort; never block or break the page.
+    });
+}
+
+if ("requestIdleCallback" in window) {
+  requestIdleCallback(initFirebase, { timeout: 3000 });
+} else {
+  setTimeout(initFirebase, 2500);
+}
 
 export { app, analytics };
