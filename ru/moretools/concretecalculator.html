@@ -3,77 +3,40 @@
 
 <head>
   <meta charset="UTF-8">
-  <!-- Geo/language routing is handled by hreflang clusters + the language dialog. -->
+  <script>
+  (function() {
+    const pref = localStorage.getItem('user_lang');
+    const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    if (pref === 'ru' || (!pref && browserLang.startsWith('ru'))) {
+      window.location.replace('../ru/moretools/concretecalculator.html');
+    } else if (pref === 'ja' || (!pref && browserLang.startsWith('ja'))) {
+      window.location.replace('../ja/moretools/concretecalculator.html');
+    } else if (pref === 'ko' || (!pref && browserLang.startsWith('ko'))) {
+      window.location.replace('../ko/moretools/concretecalculator.html');
+    }
+  })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Калькулятор бетона | цемент, песок, щебень и стоимость</title>
+  <title>Concrete Calculator – Estimate Cement, Sand, Aggregate & Cost (M15 to M25)</title>
   <meta name="description"
-    content="Калькулятор бетона: объём (м³), мешки цемента, песок, щебень и стоимость. Пропорции смеси для плит, колонн и фундаментов.">
+    content="Free advanced concrete calculator to estimate concrete volume (m³/yd³), cement bags, sand (CFT), aggregate, and cost for slabs, footings, columns, beams, stairs, and retaining walls.">
   <meta name="keywords"
-    content="калькулятор бетона, калькулятор цемента, калькулятор бетонной смеси, калькулятор объема бетона, калькулятор заполнителя цементного песка, калькулятор железобетонных плит, оценщик стоимости строительства">
+    content="concrete calculator, cement calculator, concrete mix calculator, concrete volume calculator, cement sand aggregate calculator, rcc slab calculator, construction cost estimator">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
-  <link rel="canonical" href="https://instacalc.in/ru/moretools/concretecalculator.html">
-  <meta property="og:title" content="Калькулятор бетона | цемент, песок, щебень и стоимость">
-  <meta property="og:description" content="Калькулятор бетона: объём (м³), мешки цемента, песок, щебень и стоимость. Пропорции смеси для плит, колонн и фундаментов.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://instacalc.in/ru/moretools/concretecalculator.html">
-  <meta property="og:image" content="https://instacalc.in/instatheme-og.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:site_name" content="InstaCalc">
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Калькулятор бетона | цемент, песок, щебень и стоимость">
-  <meta name="twitter:description" content="Калькулятор бетона: объём (м³), мешки цемента, песок, щебень и стоимость. Пропорции смеси для плит, колонн и фундаментов.">
-  <meta name="twitter:image" content="https://instacalc.in/instatheme-og.jpg">
-
-  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
-  <link rel="icon" type="image/webp" href="../../favicon.webp">
-  <link rel="alternate" hreflang="ja" href="https://instacalc.in/ja/moretools/concretecalculator.html">
-  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/moretools/concretecalculator.html">
-  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/concrete-calculator.html">
-  <link rel="alternate" hreflang="en" href="https://instacalc.in/moretools/concretecalculator.html">
-  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/moretools/concretecalculator.html">
-  <link rel="alternate" hreflang="ru" href="https://instacalc.in/ru/moretools/concretecalculator.html">
-  <link rel="alternate" hreflang="ko" href="https://instacalc.in/ko/moretools/concretecalculator.html">
-  <link rel="alternate" hreflang="ko-KR" href="https://instacalc.in/ko/moretools/concretecalculator.html">
-  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/moretools/concretecalculator.html">
+  <link rel="icon" type="image/x-icon" href="../../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/moretools/concretecalculator.html">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Sora:wght@700&display=swap">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
-<style>
-/* Critical above-the-fold styles (inlined for fast FCP/LCP) */
-:root{--ic-bg:#f8fafc;--ic-bg-subtle:#f1f5f9;--ic-card-bg:#ffffff;--ic-card-glass:rgba(255,255,255,0.9);--ic-text:#0f172a;--ic-text-muted:#475569;--ic-text-light:#94a3b8;--ic-primary:#0284c7;--ic-primary-dark:#0369a1;--ic-primary-light:#e0f2fe;--ic-accent:#0d9488;--ic-accent-light:#ccfbf1;--ic-accent-warn:#f59e0b;--ic-success:#10b981;--ic-success-light:#d1fae5;--ic-border:#e2e8f0;--ic-border-focus:#38bdf8;--ic-shadow-sm:0 1px 2px 0 rgba(0,0,0,.05);--ic-shadow-md:0 4px 6px -1px rgba(0,0,0,.07),0 2px 4px -2px rgba(0,0,0,.05);--ic-shadow-lg:0 10px 25px -3px rgba(15,23,42,.08),0 4px 6px -4px rgba(15,23,42,.04);--ic-shadow-xl:0 20px 35px -5px rgba(15,23,42,.1),0 8px 10px -6px rgba(15,23,42,.04);--ic-radius-sm:8px;--ic-radius-md:12px;--ic-radius-lg:18px;--ic-radius-full:9999px;--ic-font-sans:"Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;--ic-font-heading:"Sora",var(--ic-font-sans)}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{min-height:100vh;font-family:var(--ic-font-sans);color:var(--ic-text);background-color:var(--ic-bg);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none;transition:color .2s ease}
-img{max-width:100%;height:auto;display:block}
-button,input,select,textarea{font:inherit}
-.container{width:min(1240px,92vw);margin:0 auto}
-.section{padding:3rem 0}
-@media(max-width:768px){.section{padding:2rem 0}}
-.hidden{display:none!important}
-.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--ic-border);transition:box-shadow .2s ease}
-.header-inner{display:flex;align-items:center;justify-content:space-between;min-height:68px;gap:1rem}
-.brand{display:inline-flex;align-items:center;gap:.65rem;font-family:var(--ic-font-heading);font-weight:700;font-size:1.2rem;color:var(--ic-text);letter-spacing:-.02em}
-.brand img{width:38px;height:38px;border-radius:var(--ic-radius-md);border:1.5px solid var(--ic-border)}
-.site-nav{display:flex;align-items:center;gap:.5rem}
-.nav-link,.site-nav a{display:inline-flex;align-items:center;padding:.5rem .9rem;border-radius:var(--ic-radius-md);font-weight:600;font-size:.92rem;color:var(--ic-text-muted);text-decoration:none;transition:all .2s ease}
-.nav-link:hover,.nav-link.active,.site-nav a:hover,.site-nav a.active{color:var(--ic-primary-dark);background:var(--ic-primary-light)}
-.menu-toggle{display:none;width:44px;height:44px;align-items:center;justify-content:center;border-radius:var(--ic-radius-md);border:1px solid var(--ic-border);background:#fff;color:var(--ic-text);cursor:pointer;padding:0}
-.menu-toggle svg{width:22px;height:22px;fill:currentColor}
-@media(max-width:840px){.menu-toggle{display:inline-flex}.site-nav{position:fixed;top:69px;left:0;right:0;background:#fff;border-bottom:1px solid var(--ic-border);box-shadow:var(--ic-shadow-xl);flex-direction:column;align-items:stretch;padding:1rem 1.25rem 1.5rem;gap:.4rem;transform:translateY(-120%);opacity:0;visibility:hidden;transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .25s ease,visibility .25s}.site-nav.open{transform:translateY(0);opacity:1;visibility:visible}.nav-link,.site-nav a{padding:.8rem 1rem;font-size:1rem;border-radius:var(--ic-radius-md);background:var(--ic-bg)}}
-.hero{padding:2.5rem 0 1.5rem}
-.hero-badge{display:inline-flex;align-items:center;gap:.45rem;padding:.3rem .85rem;border-radius:var(--ic-radius-full);background:var(--ic-primary-light);color:var(--ic-primary-dark);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.75rem}
-.hero h1{font-family:var(--ic-font-heading);font-size:clamp(1.75rem,4vw,2.65rem);font-weight:800;line-height:1.15;letter-spacing:-.03em;color:var(--ic-text);margin-bottom:.85rem}
-.hero-desc{font-size:clamp(.98rem,1.8vw,1.12rem);color:var(--ic-text-muted);max-width:68ch;line-height:1.6}
-</style>
-<link rel="stylesheet" href="../../instacalc-core.css?v=3">
+  <link rel="stylesheet" href="../../instacalc-core.css">
 
   <style>
     /* Ultra-Responsive Modern Concrete Calculator Styles */
@@ -515,11 +478,11 @@ button,input,select,textarea{font:inherit}
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Расширенный калькулятор бетона",
+    "name": "Advanced Concrete Calculator",
     "url": "https://instacalc.in/moretools/concretecalculator.html",
     "applicationCategory": "ConstructionApplication",
     "operatingSystem": "All",
-    "description": "Бетонный калькулятор для расчета материалов и стоимости плит, колонн, балок, фундаментов и лестниц.",
+    "description": "Concrete calculator for estimating materials and costs of slabs, columns, beams, footings, and stairs.",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -532,13 +495,13 @@ button,input,select,textarea{font:inherit}
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="../../index.html" class="brand" aria-label="InstaCalc.in - Главная">
-        <img src="../../logo.png" alt="Логотип InstaCalc" width="38" height="38">
+      <a href="../../index.html" class="brand" aria-label="InstaCalc Home">
+        <img src="../../logo.png" alt="InstaCalc Logo" width="38" height="38">
         <span>InstaCalc.in</span>
       </a>
       <div class="lang-switch">
         <select id="langSelect" aria-label="Select Language">
-          <option value="en">английский</option>
+          <option value="en">English</option>
           <option value="ru" selected>Русский</option>
           <option value="ja">日本語</option>
           <option value="ko">한국어</option>
@@ -546,10 +509,11 @@ button,input,select,textarea{font:inherit}
       </div>
       <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle Menu"><i class="fas fa-bars"></i></button>
       <nav class="site-nav" id="siteNav">
-        <a href="../index.html">Главная</a>
-        <a href="../aboutus.html">О нас</a>
-        <a href="../contactus.html">Свяжитесь с нами</a>
-        <a href="../privacypolicy.html">Политика конфиденциальности</a>
+        <a href="../../index.html">Home</a>
+        <a href="concretecalculator.html" class="active">Concrete Tool</a>
+        <a href="diagonalcalculator.html">Diagonal Tool</a>
+        <a href="../../sipcalculator.html">SIP Planner</a>
+        <a href="../../emicalculator.html">EMI Tool</a>
       </nav>
     </div>
   </header>
@@ -558,16 +522,16 @@ button,input,select,textarea{font:inherit}
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <span class="eyebrow"><i class="fas fa-trowel-bricks"></i> Гражданское строительство и строительство</span>
-          <h1>Оценщик бетона и строительных материалов</h1>
-          <p>Оцените точную <strong>мешки с цементом, песок (CFT/м³), заполнитель (гравий), вода и арматурная сталь.</strong> для плит, колонн, балок, фундаментов, лестниц и подпорных стен.</p>
+          <span class="eyebrow"><i class="fas fa-trowel-bricks"></i> Civil Engineering & Construction</span>
+          <h1>Concrete & Building Material Estimator</h1>
+          <p>Estimate precise <strong>cement bags, sand (CFT/m³), aggregate (gravel), water, and reinforcement steel</strong> for slabs, columns, beams, footings, stairs, and retaining walls.</p>
         </div>
         <aside class="hero-panel">
-          <h2>Прецизионные гражданские характеристики</h2>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Стандартный коэффициент сухого объема (1,54×)</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Марки бетонных смесей от M5 до M25</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Мгновенная разбивка материалов и затрат</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Оценка стальной арматуры RCC</div>
+          <h2>Precision Civil Features</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Standard Dry Volume Factor (1.54×)</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> M5 to M25 Concrete Mix Grades</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> Instant Material & Cost Breakdown</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> RCC Steel Rebar Estimation</div>
         </aside>
       </div>
     </section>
@@ -577,27 +541,27 @@ button,input,select,textarea{font:inherit}
         <article class="calculator-shell">
           <!-- Mobile Sticky Summary Pill -->
           <div class="mobile-summary-pill" id="mobileSummaryPill">
-            <span class="metric-label" id="mobileSummaryLabel">Предполагаемый объем</span>
+            <span class="metric-label" id="mobileSummaryLabel">Estimated Volume</span>
             <span class="metric-val" id="mobileSummaryVal">-</span>
           </div>
 
           <!-- Shape Navigation Pills -->
           <div class="shape-nav-wrap" aria-label="Select Structural Shape">
-            <button type="button" class="mode-pill-btn active" data-shape="slab"><i class="fas fa-layer-group"></i> Плита</button>
-            <button type="button" class="mode-pill-btn" data-shape="column"><i class="fas fa-monument"></i> Столбец</button>
-            <button type="button" class="mode-pill-btn" data-shape="beam"><i class="fas fa-ruler-horizontal"></i> луч</button>
-            <button type="button" class="mode-pill-btn" data-shape="footing"><i class="fas fa-cube"></i> Фундамент</button>
-            <button type="button" class="mode-pill-btn" data-shape="staircase"><i class="fas fa-stairs"></i> Лестница</button>
-            <button type="button" class="mode-pill-btn" data-shape="circle"><i class="fas fa-circle-notch"></i> Круг</button>
-            <button type="button" class="mode-pill-btn" data-shape="wall"><i class="fas fa-border-all"></i> Стена</button>
+            <button type="button" class="mode-pill-btn active" data-shape="slab"><i class="fas fa-layer-group"></i> Slab</button>
+            <button type="button" class="mode-pill-btn" data-shape="column"><i class="fas fa-monument"></i> Column</button>
+            <button type="button" class="mode-pill-btn" data-shape="beam"><i class="fas fa-ruler-horizontal"></i> Beam</button>
+            <button type="button" class="mode-pill-btn" data-shape="footing"><i class="fas fa-cube"></i> Footing</button>
+            <button type="button" class="mode-pill-btn" data-shape="staircase"><i class="fas fa-stairs"></i> Stairs</button>
+            <button type="button" class="mode-pill-btn" data-shape="circle"><i class="fas fa-circle-notch"></i> Circle</button>
+            <button type="button" class="mode-pill-btn" data-shape="wall"><i class="fas fa-border-all"></i> Wall</button>
           </div>
 
           <!-- Hero Live Result Card -->
           <div class="hero-result-card">
             <div class="label-group">
-              <span class="res-eyebrow" id="heroShapeTitle">Прямоугольная плита Бетонный объем</span>
-              <div class="res-val" id="heroVolDisplay">- м³</div>
-              <div class="res-desc" id="heroMaterialSummary">Цемент: - Мешки | Песок: - м³ | Совокупность: - м³</div>
+              <span class="res-eyebrow" id="heroShapeTitle">Rectangular Slab Concrete Volume</span>
+              <div class="res-val" id="heroVolDisplay">- m³</div>
+              <div class="res-desc" id="heroMaterialSummary">Cement: - Bags | Sand: - m³ | Aggregate: - m³</div>
             </div>
             <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary">
               <i class="fas fa-copy"></i>
@@ -605,7 +569,7 @@ button,input,select,textarea{font:inherit}
           </div>
 
           <!-- Dynamic Shape Dimensions Section -->
-          <div class="section-subhead"><i class="fas fa-ruler-combined"></i> <span id="currentShapeLabel">Размеры (метры)</span></div>
+          <div class="section-subhead"><i class="fas fa-ruler-combined"></i> <span id="currentShapeLabel">Dimensions (Meters)</span></div>
           <div class="input-section" id="shapeInputs">
             <!-- Dynamic inputs generated by JS -->
           </div>
@@ -613,8 +577,8 @@ button,input,select,textarea{font:inherit}
           <!-- Visual Studio SVG Canvas -->
           <div class="visual-studio-card">
             <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; font-weight:700; color:var(--ic-text-muted);">
-              <span><i class="fas fa-vector-square"></i> Структурный просмотр</span>
-              <span id="visualBadge" style="color:var(--ic-primary-dark);">Автоматическая подгонка масштаба</span>
+              <span><i class="fas fa-vector-square"></i> Structural Preview</span>
+              <span id="visualBadge" style="color:var(--ic-primary-dark);">Scale Auto-Fit</span>
             </div>
             <div class="svg-canvas-wrap" id="svgCanvasWrap">
               <!-- SVG preview rendered dynamically -->
@@ -622,26 +586,26 @@ button,input,select,textarea{font:inherit}
           </div>
 
           <!-- Mix Grade & Advanced Parameters -->
-          <div class="section-subhead"><i class="fas fa-mortar-pestle"></i> Смешайте класс и коэффициенты отходов</div>
+          <div class="section-subhead"><i class="fas fa-mortar-pestle"></i> Mix Grade & Waste Factors</div>
           <div class="inline-grid">
             <div class="field-card">
               <div class="field-head">
-                <label for="concreteGrade">Марка бетона</label>
+                <label for="concreteGrade">Concrete Grade</label>
               </div>
               <select id="concreteGrade">
-                <option value="M5">M5 (1:5:10 – Сухая масса)</option>
-                <option value="M7.5">M7,5 (1:4:8 — Фундаментная кровать)</option>
-                <option value="M10">M10 (1:3:6 — обычный бетон)</option>
-                <option value="M15">M15 (1:2:4 – Неструктурный)</option>
-                <option value="M20" selected>M20 (1:1,5:3 — стандартный RCC)</option>
-                <option value="M25">M25 (1:1:2 – ПКР для тяжелых грузов)</option>
-                <option value="custom">Пользовательское соотношение</option>
+                <option value="M5">M5 (1:5:10 - Lean Mass)</option>
+                <option value="M7.5">M7.5 (1:4:8 - Foundation Bed)</option>
+                <option value="M10">M10 (1:3:6 - Plain Concrete)</option>
+                <option value="M15">M15 (1:2:4 - Non-Structural)</option>
+                <option value="M20" selected>M20 (1:1.5:3 - Standard RCC)</option>
+                <option value="M25">M25 (1:1:2 - Heavy Load RCC)</option>
+                <option value="custom">Custom Ratio</option>
               </select>
             </div>
 
             <div class="field-card">
               <div class="field-head">
-                <label for="wastage">Буфер отходов</label>
+                <label for="wastage">Wastage Buffer</label>
                 <span id="wastageVal">5%</span>
               </div>
               <input type="range" id="wastage" min="0" max="20" step="1" value="5">
@@ -649,117 +613,117 @@ button,input,select,textarea{font:inherit}
 
             <div class="field-card">
               <div class="field-head">
-                <label for="cementBagSize">Вес мешка с цементом</label>
+                <label for="cementBagSize">Cement Bag Weight</label>
               </div>
               <select id="cementBagSize">
-                <option value="50" selected>50 кг (Стандарт Индии/ЕС)</option>
-                <option value="40">40 кг</option>
-                <option value="25">25 кг</option>
-                <option value="94">94 фунта (стандартная сумка США)</option>
+                <option value="50" selected>50 kg (Standard India/EU)</option>
+                <option value="40">40 kg</option>
+                <option value="25">25 kg</option>
+                <option value="94">94 lbs (Standard US Bag)</option>
               </select>
             </div>
           </div>
 
           <div id="customRatioFields" class="field-card" style="display:none;">
-            <div class="field-head"><label>Пользовательская пропорция (Цемент: Песок: Заполнитель)</label></div>
+            <div class="field-head"><label>Custom Proportion (Cement : Sand : Aggregate)</label></div>
             <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:0.5rem;">
-              <input type="number" id="ratioC" value="1" step="0.1" placeholder="Цемент">
-              <input type="number" id="ratioS" value="1.5" step="0.1" placeholder="Песок">
-              <input type="number" id="ratioA" value="3" step="0.1" placeholder="Совокупный">
+              <input type="number" id="ratioC" value="1" step="0.1" placeholder="Cement">
+              <input type="number" id="ratioS" value="1.5" step="0.1" placeholder="Sand">
+              <input type="number" id="ratioA" value="3" step="0.1" placeholder="Aggregate">
             </div>
           </div>
 
           <div class="field-card" style="margin-top:0.5rem;">
             <label style="display:flex; align-items:center; gap:0.6rem; cursor:pointer; font-weight:700; font-size:0.92rem; color:var(--ic-text);">
               <input type="checkbox" id="includeSteel" checked style="width:20px; height:20px; accent-color:var(--ic-primary);">
-              <span>Включить оценку стальной арматуры для армирования RCC</span>
+              <span>Include RCC Reinforcement Steel Rebar Estimation</span>
             </label>
           </div>
 
           <!-- Cost Estimation Section -->
-          <div class="section-subhead"><i class="fas fa-coins"></i> Цены за единицу материала (дополнительная калькуляция)</div>
+          <div class="section-subhead"><i class="fas fa-coins"></i> Material Unit Prices (Optional Costing)</div>
           <div class="inline-grid">
             <div class="field-card">
-              <div class="field-head"><label for="costЦемент">Цемент / Мешок</label></div>
-              <input type="number" id="costЦемент" placeholder="например 380">
+              <div class="field-head"><label for="costCement">Cement / Bag</label></div>
+              <input type="number" id="costCement" placeholder="e.g. 380">
             </div>
             <div class="field-card">
-              <div class="field-head"><label for="costПесок">Песок/м³ (или ЦФТ)</label></div>
-              <input type="number" id="costПесок" placeholder="например 1600">
+              <div class="field-head"><label for="costSand">Sand / m³ (or CFT)</label></div>
+              <input type="number" id="costSand" placeholder="e.g. 1600">
             </div>
             <div class="field-card">
-              <div class="field-head"><label for="costAgg">Заполнитель/м³</label></div>
-              <input type="number" id="costAgg" placeholder="например 1800 г.">
+              <div class="field-head"><label for="costAgg">Aggregate / m³</label></div>
+              <input type="number" id="costAgg" placeholder="e.g. 1800">
             </div>
             <div id="steelCostField" class="field-card">
-              <div class="field-head"><label for="costSteel">Сталь/кг</label></div>
-              <input type="number" id="costSteel" placeholder="например 70">
+              <div class="field-head"><label for="costSteel">Steel / kg</label></div>
+              <input type="number" id="costSteel" placeholder="e.g. 70">
             </div>
           </div>
 
           <!-- Total Cost Banner -->
           <div class="hero-result-card" id="totalCostSection" style="display:none; background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border-color: rgba(16, 185, 129, 0.3); margin-top: 1rem;">
             <div class="label-group">
-              <span class="res-eyebrow" style="color:#065f46;">Общая стоимость материала</span>
+              <span class="res-eyebrow" style="color:#065f46;">Total Material Cost</span>
               <div class="res-val" id="totalCostDisplay" style="color:#047857;">₹ 0</div>
-              <div class="res-desc" style="color:#065f46;">Включая цемент, песок, гравий и арматурную арматуру.</div>
+              <div class="res-desc" style="color:#065f46;">Inclusive of cement, sand, gravel, and reinforcement rebar.</div>
             </div>
           </div>
 
           <!-- Core Metric Result Cards -->
-          <div class="section-subhead"><i class="fas fa-cubes"></i> Расчетная разбивка материала</div>
+          <div class="section-subhead"><i class="fas fa-cubes"></i> Calculated Material Breakdown</div>
           <div class="result-grid">
             <div class="result-card highlight">
-              <h3>Объем влажного бетона</h3>
-              <div class="result-value" id="resWetVol">- м³</div>
+              <h3>Wet Concrete Volume</h3>
+              <div class="result-value" id="resWetVol">- m³</div>
             </div>
             <div class="result-card">
-              <h3>Объем сухой смеси (1,54×)</h3>
-              <div class="result-value" id="resDryVol">- м³</div>
+              <h3>Dry Mix Volume (1.54×)</h3>
+              <div class="result-value" id="resDryVol">- m³</div>
             </div>
             <div class="result-card highlight">
-              <h3>Требуется цемент</h3>
-              <div class="result-value" id="resЦемент">- Сумки</div>
+              <h3>Cement Required</h3>
+              <div class="result-value" id="resCement">- Bags</div>
             </div>
             <div class="result-card">
-              <h3>Требуется песок</h3>
-              <div class="result-value" id="resПесок">- м³</div>
+              <h3>Sand Required</h3>
+              <div class="result-value" id="resSand">- m³</div>
             </div>
             <div class="result-card highlight">
-              <h3>Заполнитель (гравий)</h3>
-              <div class="result-value" id="resAgg">- м³</div>
+              <h3>Aggregate (Gravel)</h3>
+              <div class="result-value" id="resAgg">- m³</div>
             </div>
             <div class="result-card positive">
-              <h3>Требуется вода</h3>
-              <div class="result-value" id="resWater">- Л</div>
+              <h3>Water Required</h3>
+              <div class="result-value" id="resWater">- L</div>
             </div>
             <div class="result-card">
-              <h3>Песок (ЦФТ)</h3>
-              <div class="result-value" id="resПесокCft">- фут³</div>
+              <h3>Sand (CFT)</h3>
+              <div class="result-value" id="resSandCft">- ft³</div>
             </div>
             <div class="result-card">
-              <h3>Вес арматурной стали</h3>
-              <div class="result-value" id="resSteel">- кг</div>
+              <h3>Rebar Steel Weight</h3>
+              <div class="result-value" id="resSteel">- kg</div>
             </div>
           </div>
 
           <!-- Charts and Breakdown Table -->
           <div class="chart-grid">
             <div class="chart-card">
-              <div style="font-weight:700; font-size:0.92rem; margin-bottom:0.5rem; color:var(--ic-text);"><i class="fas fa-chart-pie" style="color:var(--ic-primary);"></i> Соотношение объемов материала и смеси</div>
+              <div style="font-weight:700; font-size:0.92rem; margin-bottom:0.5rem; color:var(--ic-text);"><i class="fas fa-chart-pie" style="color:var(--ic-primary);"></i> Material Volume Mix Ratio</div>
               <div class="chart-wrap">
                 <canvas id="materialChart"></canvas>
               </div>
             </div>
             <div class="chart-card">
-              <div style="font-weight:700; font-size:0.92rem; margin-bottom:0.5rem; color:var(--ic-text);"><i class="fas fa-list-check" style="color:var(--ic-primary);"></i> Детализированная ведомость объемов работ (BOQ)</div>
+              <div style="font-weight:700; font-size:0.92rem; margin-bottom:0.5rem; color:var(--ic-text);"><i class="fas fa-list-check" style="color:var(--ic-primary);"></i> Itemized Bill of Quantities (BOQ)</div>
               <div class="table-shell">
             <table class="projection-table">
                   <thead>
                     <tr>
-                      <th>Материальный компонент</th>
-                      <th>Количество</th>
-                      <th>Стандартный блок</th>
+                      <th>Material Component</th>
+                      <th>Quantity</th>
+                      <th>Standard Unit</th>
                     </tr>
                   </thead>
                   <tbody id="breakdownTable"></tbody>
@@ -769,27 +733,27 @@ button,input,select,textarea{font:inherit}
           </div>
 
           <div class="calculator-actions">
-            <button class="btn btn-primary" id="copyResult" type="button"><i class="fas fa-copy"></i> Копировать список материалов</button>
-            <button class="btn btn-ghost" id="resetCalc" type="button"><i class="fas fa-rotate-left"></i> Сбросить настройки по умолчанию</button>
+            <button class="btn btn-primary" id="copyResult" type="button"><i class="fas fa-copy"></i> Copy Materials List</button>
+            <button class="btn btn-ghost" id="resetCalc" type="button"><i class="fas fa-rotate-left"></i> Reset Defaults</button>
           </div>
         </article>
 
         <aside class="sidebar">
           <div class="sidebar-card">
-            <h3>Последние оценки</h3>
+            <h3>Recent Estimates</h3>
             <div id="calcLog" class="link-list">
-              <div style="font-size: 0.85rem; color: var(--ic-text-muted); text-align: center; padding: 1rem;">История не сохраняется.</div>
+              <div style="font-size: 0.85rem; color: var(--ic-text-muted); text-align: center; padding: 1rem;">No history logged.</div>
             </div>
-            <button class="btn btn-ghost" style="width:100%; font-size:0.8rem; min-height:36px; margin-top:0.5rem;" id="clearLog" type="button">Очистить историю</button>
+            <button class="btn btn-ghost" style="width:100%; font-size:0.8rem; min-height:36px; margin-top:0.5rem;" id="clearLog" type="button">Clear History</button>
           </div>
 
           <div class="sidebar-card">
-            <h3>Сопутствующие инструменты</h3>
+            <h3>Related Tools</h3>
             <ul class="link-list">
-              <li><a href="diagonalcalculator.html"><span>Диагональный калькулятор</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../../duration/agecalculator.html"><span>Калькулятор возраста</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../../sipcalculator.html"><span>SIP-калькулятор</span> <i class="fas fa-chevron-right"></i></a></li>
-              <li><a href="../../gstcalculator.html"><span>Калькулятор НДС</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="diagonalcalculator.html"><span>Diagonal Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="../../duration/agecalculator.html"><span>Age Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="../../sipcalculator.html"><span>SIP Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+              <li><a href="../../gstcalculator.html"><span>GST Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
             </ul>
           </div>
         </aside>
@@ -800,22 +764,22 @@ button,input,select,textarea{font:inherit}
     <section class="section" id="guide">
       <div class="container content-card">
         <h2 style="font-family: 'Sora', sans-serif; font-size: clamp(1.4rem, 3vw, 1.85rem); margin-bottom: 1rem; color: var(--ic-text);">
-          Как рассчитать бетонные материалы (цемент, песок и заполнитель)
+          How to Calculate Concrete Materials (Cement, Sand & Aggregate)
         </h2>
         <div class="input-grid">
           <article>
-            <h3 style="font-family: 'Sora', sans-serif; margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--ic-primary-dark);">Коэффициент сухого объема 1,54</h3>
+            <h3 style="font-family: 'Sora', sans-serif; margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--ic-primary-dark);">The 1.54 Dry Volume Factor</h3>
             <p style="color: var(--ic-text-muted); font-size: 0.95rem; line-height: 1.6;">
-              Когда сухие материалы (цементный порошок, мелкий песок, крупный заполнитель) смешиваются с водой, мелкие частицы заполняют пустоты между заполнителями пород. Таким образом, сухой объем уменьшается примерно на 54%. Чтобы приготовить 1 м³ мокрого уплотненного бетона, инженеры-строители умножают на <strong>1.54</strong> для определения количества сухой партии.
+              When dry materials (cement powder, fine sand, coarse aggregate) are mixed with water, the fine particles fill void spaces between aggregate rocks. Therefore, dry volume decreases by approximately 54%. To prepare 1 m³ of wet compacted concrete, civil engineers multiply by <strong>1.54</strong> to determine dry batch quantities.
             </p>
           </article>
           <article>
-            <h3 style="font-family: 'Sora', sans-serif; margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--ic-primary-dark);">Стандартные соотношения бетонных смесей</h3>
+            <h3 style="font-family: 'Sora', sans-serif; margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--ic-primary-dark);">Standard Concrete Grade Mix Ratios</h3>
             <ul style="color: var(--ic-text-muted); font-size: 0.95rem; line-height: 1.7; padding-left: 1.2rem;">
-              <li><strong>М10 (1:3:6):</strong> Характеристическая прочность 10 МПа. Идеально подходит для выравнивания грядок и массивных фундаментов.</li>
-              <li><strong>М15 (1:2:4):</strong> Характеристическая прочность 15 МПа. Используется для ненесущих дорожек и простого бетона.</li>
-              <li><strong>М20 (1:1,5:3):</strong> Нормативная прочность 20 МПа. Универсальный эталон для железобетонных плит, балок и колонн жилых домов.</li>
-              <li><strong>М25 (1:1:2):</strong> Характеристическая прочность 25 МПа. Высокопрочная смесь для тяжелых несущих конструкций.</li>
+              <li><strong>M10 (1:3:6):</strong> Characteristic strength 10 MPa. Ideal for leveling beds and mass foundations.</li>
+              <li><strong>M15 (1:2:4):</strong> Characteristic strength 15 MPa. Used for non-structural pathways and plain concrete.</li>
+              <li><strong>M20 (1:1.5:3):</strong> Characteristic strength 20 MPa. The universal benchmark for residential RCC slabs, beams, and columns.</li>
+              <li><strong>M25 (1:1:2):</strong> Characteristic strength 25 MPa. High-strength mix for heavy load-bearing structural members.</li>
             </ul>
           </article>
         </div>
@@ -827,16 +791,16 @@ button,input,select,textarea{font:inherit}
       <div class="container">
         <div class="faq-list">
           <details class="faq-card" open>
-            <summary>Сколько мешков цемента нужно на 1 куб бетона М20? <i class="fas fa-chevron-down"></i></summary>
-            <p>Для стандартного бетона марки М20 (соотношение 1:1,5:3) потребуется примерно <strong>от 8,2 до 8,4 мешков</strong> 50 кг цемента на кубический метр влажного бетона, включая стандартные 5% отходов на строительной площадке.</p>
+            <summary>How many bags of cement are needed for 1 cubic meter of M20 concrete? <i class="fas fa-chevron-down"></i></summary>
+            <p>For standard M20 grade concrete (1:1.5:3 ratio), you will need approximately <strong>8.2 to 8.4 bags</strong> of 50 kg cement per cubic meter of wet concrete, including standard 5% site wastage.</p>
           </details>
           <details class="faq-card">
-            <summary>Сколько песка и заполнителя требуется на кубический метр? <i class="fas fa-chevron-down"></i></summary>
-            <p>На 1 м³ смеси М20 понадобится примерно <strong>0,44 м³ (15,5 куб. футов)</strong> чистого мелкого песка и <strong>0,88 м³ (31,1 куб. футов)</strong> из крупного заполнителя (гравий 20 мм).</p>
+            <summary>How much sand and aggregate is required per cubic meter? <i class="fas fa-chevron-down"></i></summary>
+            <p>For 1 m³ of M20 mix, you will need approximately <strong>0.44 m³ (15.5 CFT)</strong> of clean fine sand and <strong>0.88 m³ (31.1 CFT)</strong> of coarse aggregate (20mm gravel).</p>
           </details>
           <details class="faq-card">
-            <summary>Как рассчитывается вес арматурной стали для элементов ЖБИ? <i class="fas fa-chevron-down"></i></summary>
-            <p>Стальная арматура стандартно оценивается по объему конструкции: для плит требуется ~80 кг/м³, для балок ~120 кг/м³, для колонн ~145 кг/м³, для фундаментов ~80 кг/м³.</p>
+            <summary>How is rebar steel weight estimated for RCC elements? <i class="fas fa-chevron-down"></i></summary>
+            <p>Steel reinforcement is standardly estimated by structural volume: Slabs require ~80 kg/m³, Beams ~120 kg/m³, Columns ~145 kg/m³, and Footings ~80 kg/m³.</p>
           </details>
         </div>
       </div>
@@ -845,12 +809,12 @@ button,input,select,textarea{font:inherit}
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© 2026 InstaCalc.in — Прецизионные инструменты для гражданского и математического проектирования.</p>
+      <p>© 2026 InstaCalc.in — Precision Civil & Mathematical Engineering Tools.</p>
       <div class="footer-links">
-        <a href="../../index.html">Главная</a>
-        <a href="../../aboutus.html">О нас</a>
-        <a href="../../privacypolicy.html">Политика конфиденциальности</a>
-        <a href="../../terms.html">Условия использования</a>
+        <a href="../../index.html">Home</a>
+        <a href="../../aboutus.html">About Us</a>
+        <a href="../../privacypolicy.html">Privacy Policy</a>
+        <a href="../../terms.html">Terms &amp; Conditions</a>
       </div>
     </div>
   </footer>
@@ -874,70 +838,70 @@ button,input,select,textarea{font:inherit}
 
       const SHAPES = {
         slab: {
-          label: 'Прямоугольная плита',
+          label: 'Rectangular Slab',
           icon: 'fa-layer-group',
           fields: [
-            { id: 'inp_l', label: 'Длина (м)', def: 5, chips: [3, 5, 8, 10, 15] },
-            { id: 'inp_w', label: 'Ширина (м)', def: 4, chips: [3, 4, 6, 8, 10] },
-            { id: 'inp_t', label: 'Толщина (м)', def: 0.15, chips: [0.10, 0.125, 0.15, 0.20] }
+            { id: 'inp_l', label: 'Length (m)', def: 5, chips: [3, 5, 8, 10, 15] },
+            { id: 'inp_w', label: 'Width (m)', def: 4, chips: [3, 4, 6, 8, 10] },
+            { id: 'inp_t', label: 'Thickness (m)', def: 0.15, chips: [0.10, 0.125, 0.15, 0.20] }
           ]
         },
         column: {
-          label: 'Квадратная/прямоугольная колонна',
+          label: 'Square / Rectangular Column',
           icon: 'fa-monument',
           fields: [
-            { id: 'inp_l', label: 'Сторона А Ширина (м)', def: 0.30, chips: [0.23, 0.30, 0.45, 0.60] },
-            { id: 'inp_w', label: 'Сторона B Ширина (м)', def: 0.45, chips: [0.23, 0.30, 0.45, 0.60] },
-            { id: 'inp_h', label: 'Высота/длина в свету (м)', def: 3.0, chips: [2.5, 3.0, 3.5, 4.0] },
-            { id: 'inp_qty', label: 'Количество столбцов', def: 1, chips: [1, 4, 6, 8, 12] }
+            { id: 'inp_l', label: 'Side A Width (m)', def: 0.30, chips: [0.23, 0.30, 0.45, 0.60] },
+            { id: 'inp_w', label: 'Side B Breadth (m)', def: 0.45, chips: [0.23, 0.30, 0.45, 0.60] },
+            { id: 'inp_h', label: 'Height / Clear Length (m)', def: 3.0, chips: [2.5, 3.0, 3.5, 4.0] },
+            { id: 'inp_qty', label: 'Number of Columns', def: 1, chips: [1, 4, 6, 8, 12] }
           ]
         },
         beam: {
-          label: 'Структурная балка',
+          label: 'Structural Beam',
           icon: 'fa-ruler-horizontal',
           fields: [
-            { id: 'inp_l', label: 'Длина балки (м)', def: 4.0, chips: [3, 4, 5, 6, 8] },
-            { id: 'inp_w', label: 'Ширина балки (м)', def: 0.23, chips: [0.23, 0.30, 0.38] },
-            { id: 'inp_d', label: 'Глубина луча (м)', def: 0.45, chips: [0.30, 0.45, 0.60] },
-            { id: 'inp_qty', label: 'Количество', def: 1, chips: [1, 2, 4, 6] }
+            { id: 'inp_l', label: 'Beam Length (m)', def: 4.0, chips: [3, 4, 5, 6, 8] },
+            { id: 'inp_w', label: 'Beam Width (m)', def: 0.23, chips: [0.23, 0.30, 0.38] },
+            { id: 'inp_d', label: 'Beam Depth (m)', def: 0.45, chips: [0.30, 0.45, 0.60] },
+            { id: 'inp_qty', label: 'Quantity', def: 1, chips: [1, 2, 4, 6] }
           ]
         },
         footing: {
-          label: 'Фундамент фундамента',
+          label: 'Foundation Footing',
           icon: 'fa-cube',
           fields: [
-            { id: 'inp_l', label: 'Длина опоры (м)', def: 1.8, chips: [1.2, 1.5, 1.8, 2.4] },
-            { id: 'inp_w', label: 'Ширина опоры (м)', def: 1.8, chips: [1.2, 1.5, 1.8, 2.4] },
-            { id: 'inp_d', label: 'Глубина/толщина (м)', def: 0.45, chips: [0.30, 0.45, 0.60] },
-            { id: 'inp_qty', label: 'Количество опор', def: 4, chips: [1, 4, 6, 8, 12] }
+            { id: 'inp_l', label: 'Footing Length (m)', def: 1.8, chips: [1.2, 1.5, 1.8, 2.4] },
+            { id: 'inp_w', label: 'Footing Width (m)', def: 1.8, chips: [1.2, 1.5, 1.8, 2.4] },
+            { id: 'inp_d', label: 'Depth / Thickness (m)', def: 0.45, chips: [0.30, 0.45, 0.60] },
+            { id: 'inp_qty', label: 'Number of Footings', def: 4, chips: [1, 4, 6, 8, 12] }
           ]
         },
         staircase: {
-          label: 'Лестничные ступени и пояс',
+          label: 'Staircase Steps & Waist',
           icon: 'fa-stairs',
           fields: [
-            { id: 'inp_tr', label: 'Пробег протектора (м)', def: 0.25, chips: [0.25, 0.28, 0.30] },
-            { id: 'inp_rs', label: 'Высота подступенка (м)', def: 0.15, chips: [0.15, 0.175, 0.20] },
-            { id: 'inp_w', label: 'Ширина лестницы (м)', def: 1.2, chips: [0.9, 1.0, 1.2, 1.5] },
-            { id: 'inp_qty', label: 'Общее количество шагов', def: 15, chips: [10, 12, 15, 18, 20] }
+            { id: 'inp_tr', label: 'Tread Run (m)', def: 0.25, chips: [0.25, 0.28, 0.30] },
+            { id: 'inp_rs', label: 'Riser Height (m)', def: 0.15, chips: [0.15, 0.175, 0.20] },
+            { id: 'inp_w', label: 'Stair Width (m)', def: 1.2, chips: [0.9, 1.0, 1.2, 1.5] },
+            { id: 'inp_qty', label: 'Total Number of Steps', def: 15, chips: [10, 12, 15, 18, 20] }
           ]
         },
         circle: {
-          label: 'Круглая колонна/резервуар',
+          label: 'Circular Column / Tank',
           icon: 'fa-circle-notch',
           fields: [
-            { id: 'inp_dia', label: 'Диаметр (м)', def: 0.45, chips: [0.30, 0.45, 0.60, 1.0, 2.0] },
-            { id: 'inp_h', label: 'Высота/Глубина (м)', def: 3.0, chips: [2.5, 3.0, 3.5, 4.0] },
-            { id: 'inp_qty', label: 'Количество', def: 1, chips: [1, 2, 4, 6] }
+            { id: 'inp_dia', label: 'Diameter (m)', def: 0.45, chips: [0.30, 0.45, 0.60, 1.0, 2.0] },
+            { id: 'inp_h', label: 'Height / Depth (m)', def: 3.0, chips: [2.5, 3.0, 3.5, 4.0] },
+            { id: 'inp_qty', label: 'Quantity', def: 1, chips: [1, 2, 4, 6] }
           ]
         },
         wall: {
-          label: 'Подпорная/сдвиговая стенка',
+          label: 'Retaining / Shear Wall',
           icon: 'fa-border-all',
           fields: [
-            { id: 'inp_l', label: 'Длина стены (м)', def: 10.0, chips: [5, 10, 15, 20] },
-            { id: 'inp_h', label: 'Высота стены (м)', def: 3.0, chips: [2.5, 3.0, 3.5, 4.0] },
-            { id: 'inp_t', label: 'Толщина стены (м)', def: 0.23, chips: [0.15, 0.20, 0.23, 0.30] }
+            { id: 'inp_l', label: 'Wall Length (m)', def: 10.0, chips: [5, 10, 15, 20] },
+            { id: 'inp_h', label: 'Wall Height (m)', def: 3.0, chips: [2.5, 3.0, 3.5, 4.0] },
+            { id: 'inp_t', label: 'Wall Thickness (m)', def: 0.23, chips: [0.15, 0.20, 0.23, 0.30] }
           ]
         }
       };
@@ -949,7 +913,7 @@ button,input,select,textarea{font:inherit}
       function initInputs() {
         const wrap = $('shapeInputs');
         const shape = SHAPES[currentShape];
-        $('currentShapeLabel').textContent = `${shape.label} Размеры (метры)`;
+        $('currentShapeLabel').textContent = `${shape.label} Dimensions (Meters)`;
         $('heroShapeTitle').textContent = `${shape.label} Concrete Volume`;
 
         let html = '<div class="inline-grid">';
@@ -1019,7 +983,7 @@ button,input,select,textarea{font:inherit}
         } else if (s === 'staircase') {
           svg = `<svg viewBox="0 0 300 130" width="260" height="120" xmlns="http://www.w3.org/2000/svg">
             <path d="M50,110 L90,110 L90,85 L130,85 L130,60 L170,60 L170,35 L210,35 L210,15 L230,15 L230,65 L90,120 Z" fill="rgba(0,127,139,0.25)" stroke="#007f8b" stroke-width="2.5" />
-            <text x="140" y="105" fill="#007f8b" font-size="11" font-weight="700">Steps + Waist Плита</text>
+            <text x="140" y="105" fill="#007f8b" font-size="11" font-weight="700">Steps + Waist Slab</text>
           </svg>`;
         } else if (s === 'circle') {
           svg = `<svg viewBox="0 0 300 130" width="260" height="120" xmlns="http://www.w3.org/2000/svg">
@@ -1030,7 +994,7 @@ button,input,select,textarea{font:inherit}
         } else {
           svg = `<svg viewBox="0 0 300 130" width="260" height="120" xmlns="http://www.w3.org/2000/svg">
             <polygon points="50,30 250,30 250,105 50,105" fill="rgba(0,127,139,0.2)" stroke="#007f8b" stroke-width="2.5" />
-            <text x="150" y="70" fill="#007f8b" font-size="13" font-weight="800" text-anchor="middle">Retaining Стена</text>
+            <text x="150" y="70" fill="#007f8b" font-size="13" font-weight="800" text-anchor="middle">Retaining Wall</text>
           </svg>`;
         }
         svgWrap.innerHTML = svg;
@@ -1109,13 +1073,13 @@ button,input,select,textarea{font:inherit}
 
         // UI Updates
         $('heroVolDisplay').textContent = `${formatNum(wetVol)} m³ (${formatNum(wetVol * 1.30795)} yd³)`;
-        $('heroMaterialSummary').textContent = `Цемент: ${Math.ceil(cementBags)} Bags | Песок: ${formatNum(sandVol)} m³ (${formatNum(sandCft)} ft³) | Gravel: ${formatNum(aggVol)} m³`;
+        $('heroMaterialSummary').textContent = `Cement: ${Math.ceil(cementBags)} Bags | Sand: ${formatNum(sandVol)} m³ (${formatNum(sandCft)} ft³) | Gravel: ${formatNum(aggVol)} m³`;
 
         $('resWetVol').textContent = `${formatNum(wetVol)} m³`;
         $('resDryVol').textContent = `${formatNum(dryVol)} m³`;
-        $('resЦемент').textContent = `${Math.ceil(cementBags)} Bags (${formatNum(cementVol * cementDensity, 0)} kg)`;
-        $('resПесок').textContent = `${formatNum(sandVol)} m³`;
-        $('resПесокCft').textContent = `${formatNum(sandCft, 1)} CFT`;
+        $('resCement').textContent = `${Math.ceil(cementBags)} Bags (${formatNum(cementVol * cementDensity, 0)} kg)`;
+        $('resSand').textContent = `${formatNum(sandVol)} m³`;
+        $('resSandCft').textContent = `${formatNum(sandCft, 1)} CFT`;
         $('resAgg').textContent = `${formatNum(aggVol)} m³ (${formatNum(aggTonnes, 1)} MT)`;
         $('resWater').textContent = `${formatNum(waterLiters, 0)} L`;
         $('resSteel').textContent = includeSteel ? `${formatNum(steelKg, 0)} kg` : 'Disabled';
@@ -1127,9 +1091,9 @@ button,input,select,textarea{font:inherit}
 
         // Breakdown Table
         const breakdown = [
-          ['Portland Цемент', `${Math.ceil(cementBags)} (${formatNum(cementVol * cementDensity, 0)} kg)`, 'Bags / kg'],
-          ['River Песок (Fine)', `${formatNum(sandVol)} (${formatNum(sandCft, 1)} CFT)`, 'm³ / ft³'],
-          ['Coarse Заполнитель (гравий)', `${formatNum(aggVol)} (${formatNum(aggTonnes, 1)} MT)`, 'm³ / Tonnes'],
+          ['Portland Cement', `${Math.ceil(cementBags)} (${formatNum(cementVol * cementDensity, 0)} kg)`, 'Bags / kg'],
+          ['River Sand (Fine)', `${formatNum(sandVol)} (${formatNum(sandCft, 1)} CFT)`, 'm³ / ft³'],
+          ['Coarse Aggregate (Gravel)', `${formatNum(aggVol)} (${formatNum(aggTonnes, 1)} MT)`, 'm³ / Tonnes'],
           ['Mixing Water', formatNum(waterLiters, 0), 'Litres'],
           ['Steel Rebar Reinforcement', includeSteel ? formatNum(steelKg, 0) : '0', 'kg']
         ];
@@ -1139,12 +1103,12 @@ button,input,select,textarea{font:inherit}
         calculateCost(cementBags, sandVol, aggVol, steelKg);
         updateChart(c, sa, ag);
 
-        lastSummaryText = `Concrete Material Estimate (${SHAPES[currentShape].label}):\nWet Volume: ${formatNum(wetVol)} m³ (${formatNum(wetVol * 1.30795)} yd³)\nDry Volume (1.54×): ${formatNum(dryVol)} m³\nЦемент: ${Math.ceil(cementBags)} Bags\nПесок: ${formatNum(sandVol)} m³ (${formatNum(sandCft, 1)} CFT)\nСовокупный: ${formatNum(aggVol)} m³\nWater: ${formatNum(waterLiters, 0)} Litres\nRebar Steel: ${formatNum(steelKg, 0)} kg`;
+        lastSummaryText = `Concrete Material Estimate (${SHAPES[currentShape].label}):\nWet Volume: ${formatNum(wetVol)} m³ (${formatNum(wetVol * 1.30795)} yd³)\nDry Volume (1.54×): ${formatNum(dryVol)} m³\nCement: ${Math.ceil(cementBags)} Bags\nSand: ${formatNum(sandVol)} m³ (${formatNum(sandCft, 1)} CFT)\nAggregate: ${formatNum(aggVol)} m³\nWater: ${formatNum(waterLiters, 0)} Litres\nRebar Steel: ${formatNum(steelKg, 0)} kg`;
       }
 
       function calculateCost(cb, sv, av, sk) {
-        const costC = parseFloat($('costЦемент')?.value) || 0;
-        const costS = parseFloat($('costПесок')?.value) || 0;
+        const costC = parseFloat($('costCement')?.value) || 0;
+        const costS = parseFloat($('costSand')?.value) || 0;
         const costA = parseFloat($('costAgg')?.value) || 0;
         const costSt = parseFloat($('costSteel')?.value) || 0;
 
@@ -1165,7 +1129,7 @@ button,input,select,textarea{font:inherit}
         chartInstance = new Chart(ctx, {
           type: 'doughnut',
           data: {
-            labels: ['Цемент', 'Песок', 'Совокупный'],
+            labels: ['Cement', 'Sand', 'Aggregate'],
             datasets: [{
               data: [c, sa, ag],
               backgroundColor: ['#007f8b', '#f59e0b', '#64748b'],
@@ -1204,7 +1168,7 @@ button,input,select,textarea{font:inherit}
         $('cementBagSize').addEventListener('change', calculate);
         $('wastage').addEventListener('input', calculate);
 
-        ['costЦемент', 'costПесок', 'costAgg', 'costSteel', 'ratioC', 'ratioS', 'ratioA'].forEach(id => {
+        ['costCement', 'costSand', 'costAgg', 'costSteel', 'ratioC', 'ratioS', 'ratioA'].forEach(id => {
           const el = $(id);
           if (el) el.addEventListener('input', calculate);
         });
@@ -1245,7 +1209,7 @@ button,input,select,textarea{font:inherit}
         const entry = {
           shape: SHAPES[currentShape].label,
           vol: $('resWetVol').textContent,
-          bags: $('resЦемент').textContent,
+          bags: $('resCement').textContent,
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         };
         log.unshift(entry);
@@ -1258,7 +1222,7 @@ button,input,select,textarea{font:inherit}
         const wrap = $('calcLog');
         if (!wrap) return;
         if (log.length === 0) {
-          wrap.innerHTML = '<div style="font-size: 0.85rem; color: var(--ic-text-muted); text-align: center; padding: 1rem;">История не сохраняется.</div>';
+          wrap.innerHTML = '<div style="font-size: 0.85rem; color: var(--ic-text-muted); text-align: center; padding: 1rem;">No history logged.</div>';
           return;
         }
         wrap.innerHTML = log.map(e => `
@@ -1268,7 +1232,7 @@ button,input,select,textarea{font:inherit}
               <span style="opacity:0.6;">${e.time}</span>
             </div>
             <div style="font-size: 0.82rem;">Volume: <strong>${e.vol}</strong></div>
-            <div style="font-size: 0.82rem;">Цемент: <strong>${e.bags}</strong></div>
+            <div style="font-size: 0.82rem;">Cement: <strong>${e.bags}</strong></div>
           </div>
         `).join('');
       }
@@ -1314,7 +1278,6 @@ button,input,select,textarea{font:inherit}
       calculate();
     })();
   </script>
-  <script type="module" src="../../firebase.js"></script>
   <script defer src="../../fullscreen-mode.js"></script>
   <script src="../../language-dialog.js" defer></script>
 </body>

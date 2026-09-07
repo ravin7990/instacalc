@@ -2,48 +2,39 @@
 <html lang="ru">
 
 <head>
+  <script>
+    (function () {
+      localStorage.setItem('user_lang', 'ru');
+    })();
+  </script>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Кредитный калькулятор EMI | платёж, предоплата, амортизация</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Кредитный калькулятор EMI | Расширенный расчет платежей, предоплаты и амортизации</title>
   <meta name="description"
-    content="Калькулятор EMI: график амортизации, досрочное погашение, экономия на процентах, комиссии и расчёт с плавающей ставкой.">
+    content="Расширенный калькулятор EMI с графиком амортизации, влиянием частичной предоплаты, экономией на процентах, сокращением срока владения, комиссией за обработку и планированием сценариев с плавающей ставкой.">
   <meta name="keywords"
     content="Калькулятор emi, калькулятор кредита emi, калькулятор амортизации, калькулятор предоплаты, калькулятор ипотечного кредита emi, планировщик автокредита emi, калькулятор процентов по кредиту">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#005f73">
   <meta name="google-adsense-account" content="ca-pub-4943063856769784">
-  <link rel="canonical" href="https://instacalc.in/ru/emicalculator.html">
-  <link rel="icon" type="image/x-icon" href="../favicon.ico">
-  <link rel="icon" type="image/webp" href="../favicon.webp">
-  <link rel="alternate" hreflang="ja" href="https://instacalc.in/ja/emicalculator.html">
-  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/emicalculator.html">
-  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/mortgage-calculator.html">
-  <link rel="alternate" hreflang="en" href="https://instacalc.in/emicalculator.html">
-  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/emicalculator.html">
-  <link rel="alternate" hreflang="ru" href="https://instacalc.in/ru/emicalculator.html">
-  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/emicalculator.html">
 
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/emicalculator.html">
 
-
-
-
-
-<meta property="og:title" content="Калькулятор EMI — планировщик расширенного кредита, предоплаты и срока владения">
+  <meta property="og:title" content="Калькулятор EMI — планировщик расширенного кредита, предоплаты и срока владения">
   <meta property="og:description"
     content="Рассчитайте EMI, общую сумму процентов, график амортизации и влияние досрочного погашения с помощью планирования изменения ставок и комиссий.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://instacalc.in/ru/emicalculator.html">
-  <meta property="og:image" content="https://instacalc.in/instatheme-og.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://instacalc.in/emicalculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
   <meta property="og:site_name" content="InstaCalc">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Калькулятор EMI — планировщик расширенного кредита, предоплаты и срока владения">
   <meta name="twitter:description"
     content="Бесплатный калькулятор EMI с таблицей амортизации, влиянием досрочного погашения, экономией на процентах и моделированием стратегии погашения.">
-  <meta name="twitter:image" content="https://instacalc.in/instatheme-og.jpg">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
 
   <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -116,9 +107,20 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Sora:wght@700&display=swap">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
-<style>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <style>
     :root {
       --bg: #f2f6f8;
       --text: #132a3b;
@@ -1035,8 +1037,8 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="index.html" class="brand" aria-label="InstaCalc.in - Home">
-        <img src="../logo.png" alt="Логотип ИнстаКальк" width="42" height="42">
+      <a href="index.html" class="brand" aria-label="InstaCalc home">
+        <img src="../logo.png" alt="Логотип ИнстаКальк">
         <span>InstaCalc.in</span>
       </a>
 
@@ -2234,7 +2236,24 @@
       calculateAndRender();
     })();
   </script>
-  <script type="module" src="../firebase.js"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+      authDomain: "instacalc-40640.firebaseapp.com",
+      projectId: "instacalc-40640",
+      storageBucket: "instacalc-40640.firebasestorage.app",
+      messagingSenderId: "720029503645",
+      appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+      measurementId: "G-J0ZWXR3T5P"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    getAnalytics(app);
+  </script>
   <script defer src="../fullscreen-mode.js"></script>
   <script src="../language-dialog.js" defer></script>
 </body>

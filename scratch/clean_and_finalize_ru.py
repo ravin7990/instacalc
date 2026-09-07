@@ -1,6 +1,7 @@
 import os
 import re
-base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+base_dir = r"c:\Users\ravin\Videos\new secretke website\instacalc-main\instacalc-main"
 
 files = [
     "cagrcalculator.html",
