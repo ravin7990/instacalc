@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOQ Viewer - Construction Bill of Quantities | Construction Hub</title>
+    <meta name="description"
+        content="Upload and view your construction project Bill of Quantities (BOQ). Interactive card layout with searching and filtering. Support for Excel uploads.">
+    <meta name="keywords"
+        content="BOQ Viewer, Bill of Quantities, Construction BOQ, Excel BOQ viewer, project estimates, civil engineering BOQ">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- SheetJS for Excel Parsing and Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- jsPDF for PDF Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="fevicon.png" type="image/x-icon">
+
+    <style>
+        /* BOQ Custom Styles for Upload & Search */
+        .boq-upload-container {
+            background: var(--card-background);
+            border: 2px dashed var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            margin: 30px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .boq-upload-container:hover,
+        .boq-upload-container.dragover {
+            border-color: var(--primary-color);
+            background: rgba(0, 119, 182, 0.05);
+        }
+
+        .boq-upload-icon {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .boq-upload-text h3 {
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+
+        .boq-upload-text p {
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+
+        #boqFileInput {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Loading Overlay */
+        #loadingOverlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+
+        .boq-viewer-active {
+            display: none;
+        }
+
+        .boq-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-top: 10px;
+        }
+
+        .btn-reset {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn-reset:hover {
+            background: #c0392b;
+        }
+
+        .boq-stats-bar {
+            background: linear-gradient(135deg, #27AE60, #2ECC71);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 30px;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.2);
+        }
+
+        .boq-stat {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .boq-stat i {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .boq-stat div strong {
+            display: block;
+            font-size: 1.1em;
+        }
+
+        .boq-stat div span {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        /* Responsive Column Overrides */
+        @media (min-width: 600px) {
+            .grid-cols-1 { grid-template-columns: repeat(1, 1fr) !important; }
+            .grid-cols-2 { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (min-width: 768px) {
+            .grid-cols-1 { grid-template-columns: repeat(1, 1fr) !important; }
+            .grid-cols-2 { grid-template-columns: repeat(2, 1fr) !important; }
+            .grid-cols-3 { grid-template-columns: repeat(3, 1fr) !important; }
+            .grid-cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
+        }
+        @media (min-width: 1100px) {
+            .grid-cols-5 { grid-template-columns: repeat(5, 1fr) !important; }
+            .grid-cols-6 { grid-template-columns: repeat(6, 1fr) !important; }
+        }
+
+        /* Modal Action Buttons & Sticky Footer */
+        .gsr-modal-footer {
+            position: sticky;
+            bottom: 0;
+            background: var(--card-background);
+            border-top: 1px solid #eef0f2;
+            z-index: 10;
+            padding: 16px 24px 20px;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .boq-modal-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            width: 100%;
+        }
+
+        .boq-btn-download-excel {
+            flex: 1;
+            min-width: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 18px;
+            background: #27AE60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .boq-btn-download-excel:hover {
+            background: #219653;
+            transform: translateY(-1px);
+        }
+
+        .boq-btn-download-pdf {
+            flex: 1;
+            min-width: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 18px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .boq-btn-download-pdf:hover {
+            background: #c0392b;
+            transform: translateY(-1px);
+        }
+
+        .boq-btn-close-preview {
+            padding: 12px 20px;
+            background: #e9ecef;
+            color: #495057;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .boq-btn-close-preview:hover {
+            background: #dee2e6;
+        }
+
+        /* Column Mapper Tool Styles */
+        .btn-adjust-cols {
+            background: var(--card-background);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-adjust-cols:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .boq-col-mapper {
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .boq-col-mapper-header {
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .boq-col-mapper-header h4 {
+            margin: 0;
+            color: var(--text-color);
+            font-size: 1.05em;
+        }
+
+        .boq-col-mapper-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+        }
+
+        .col-map-field label {
+            display: block;
+            font-size: 0.78em;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+
+        .col-map-field select {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--card-background);
+            color: var(--text-color);
+            font-size: 0.9em;
+        }
+
+        .btn-apply-map {
+            background: #0077B6;
+            color: white;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-apply-map:hover {
+            opacity: 0.9;
+        }
+
+        .btn-cancel-map {
+            background: #e9ecef;
+            color: #495057;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><a href="index.html">Construction Hub</a></h1>
+                <p>Your Central Resource for Construction Documents</p>
+            </div>
+            <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">
+                <span class="hamburger"></span>
+            </button>
+            <nav id="primary-navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="gsr-viewer.html">GSR Viewer</a></li>
+                    <li><a href="boq-viewer.html" class="active">BOQ Viewer</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="gsr-hero">
+                <div class="gsr-hero-content">
+                    <h2><i class="fas fa-file-invoice-dollar"></i> BOQ Viewer</h2>
+                    <p>Interactive browser for your construction Bill of Quantities. Upload Excel files and browse items
+                        with cards, search, and filtering.</p>
+                </div>
+                <div class="gsr-stats boq-viewer-active" id="boqSummaryStats">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- Upload Area -->
+            <div id="uploadArea" class="boq-upload-container">
+                <div class="boq-upload-icon"><i class="fas fa-file-excel"></i></div>
+                <div class="boq-upload-text">
+                    <h3>Upload BOQ Excel File</h3>
+                    <p>Click or drag your project file here (.xlsx, .xls, .csv)</p>
+                </div>
+                <input type="file" id="boqFileInput" accept=".xlsx, .xls, .csv">
+            </div>
+
+            <!-- Dashboard Content (Hidden until upload) -->
+            <div id="boqDashboard" class="boq-viewer-active">
+
+                <div class="boq-actions">
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                        <button id="resetBtn" class="btn-reset">
+                            <i class="fas fa-upload"></i> Upload Another File
+                        </button>
+                        <select id="boqSheetSelect" style="display: none; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-background); color: var(--text-color); font-weight: 500; font-size: 0.95em; cursor: pointer;">
+                        </select>
+                        <button id="toggleColMapperBtn" class="btn-adjust-cols" title="Review or adjust column mappings for this Excel sheet">
+                            <i class="fas fa-sliders-h"></i> Adjust Columns
+                        </button>
+                    </div>
+                    <div id="fileInfo" style="font-weight: 500; color: var(--text-light);"></div>
+                </div>
+
+                <!-- Column Mapping Panel (Hidden by default, openable by user) -->
+                <div id="colMapperPanel" class="boq-col-mapper" style="display: none;">
+                    <div class="boq-col-mapper-header">
+                        <h4><i class="fas fa-columns"></i> Column Mapping (Departmental Format)</h4>
+                        <span style="font-size: 0.85em; color: var(--text-light);">Auto-detected. Adjust if your department's sheet uses a different column order:</span>
+                    </div>
+                    <div class="boq-col-mapper-grid">
+                        <div class="col-map-field">
+                            <label>Item No / SR No</label>
+                            <select id="mapColNo"></select>
+                        </div>
+                        <div class="col-map-field">
+                            <label>Description / Work</label>
+                            <select id="mapColDesc"></select>
+                        </div>
+                        <div class="col-map-field">
+                            <label>Unit / UOM</label>
+                            <select id="mapColUnit"></select>
+                        </div>
+                        <div class="col-map-field">
+                            <label>Quantity</label>
+                            <select id="mapColQty"></select>
+                        </div>
+                        <div class="col-map-field">
+                            <label>Rate / Price (₹)</label>
+                            <select id="mapColRate"></select>
+                        </div>
+                        <div class="col-map-field">
+                            <label>Total Amount (₹)</label>
+                            <select id="mapColAmount"></select>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: flex-end;">
+                        <button id="applyColMapBtn" class="btn-apply-map"><i class="fas fa-check"></i> Apply & Re-extract</button>
+                        <button id="cancelColMapBtn" class="btn-cancel-map">Close</button>
+                    </div>
+                </div>
+
+                <!-- Search & Filters -->
+                <section class="gsr-controls">
+                    <div class="gsr-search-wrapper">
+                        <i class="fas fa-search gsr-search-icon"></i>
+                        <input type="text" id="boqSearchInput" placeholder="Search items in BOQ..." autocomplete="off">
+                        <button id="boqClearSearch" class="gsr-clear-btn" title="Clear search" style="display:none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="gsr-filter-row">
+                        <select id="boqSectionFilter">
+                            <option value="">All Sections</option>
+                        </select>
+                        <select id="boqGridColumns">
+                            <option value="auto">Auto Layout</option>
+                            <option value="1">1 Card/Row</option>
+                            <option value="2">2 Cards/Row</option>
+                            <option value="3">3 Cards/Row</option>
+                            <option value="4">4 Cards/Row</option>
+                            <option value="5">5 Cards/Row</option>
+                            <option value="6">6 Cards/Row</option>
+                        </select>
+                        <select id="boqSortBy">
+                            <option value="none">Original Order</option>
+                            <option value="rate-asc">Rate: Low to High</option>
+                            <option value="rate-desc">Rate: High to Low</option>
+                            <option value="amount-desc">Highest Amount</option>
+                        </select>
+                        <div class="gsr-result-count">
+                            <span id="boqResultCount">0</span> items found
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Grid -->
+                <section class="gsr-grid" id="boqGrid">
+                    <!-- Cards populated by JS -->
+                </section>
+
+                <!-- No Results -->
+                <div class="gsr-no-results" id="boqNoResults" style="display:none;">
+                    <i class="fas fa-search"></i>
+                    <h3>No items found</h3>
+                    <p>Try adjusting your search or section filter.</p>
+                </div>
+            </div>
+
+            <!-- Guidance Section (Visible when no file) -->
+            <section id="guidanceSection">
+                <div class="main-content-wrapper" style="margin-top: 0;">
+                    <div class="intro-section" style="width: 100%;">
+                        <h3><i class="fas fa-info-circle"></i> Instructions</h3>
+                        <p>Upload your construction BOQ to convert it into an interactive card-based viewer. This tool
+                            helps you:</p>
+                        <ul style="margin-top: 15px; list-style: none; padding-left: 0;">
+                            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle"
+                                    style="color: var(--accent-color); margin-right: 8px;"></i> Search through thousands
+                                of items instantly</li>
+                            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle"
+                                    style="color: var(--accent-color); margin-right: 8px;"></i> Filter by project
+                                sections (Earthwork, Concrete, etc.)</li>
+                            <li style="margin-bottom: 10px;"><i class="fas fa-check-circle"
+                                    style="color: var(--accent-color); margin-right: 8px;"></i> View detailed breakdowns
+                                of each item in a clean modal view</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal (Matching GSR Viewer) -->
+    <div class="gsr-modal-overlay" id="boqModal">
+        <div class="gsr-modal">
+            <button class="gsr-modal-close" id="boqModalClose" aria-label="Close modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="gsr-modal-header">
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <span class="gsr-modal-badge" id="boqModalBadge"></span>
+                </div>
+                <span class="gsr-modal-code" id="boqModalCode"></span>
+            </div>
+            <h3 id="boqModalTitle"></h3>
+            <div class="gsr-modal-body">
+                <p class="gsr-modal-description" id="boqModalDescription"></p>
+                <div class="gsr-modal-details">
+                    <div class="gsr-modal-detail">
+                        <span class="gsr-modal-label"><i class="fas fa-rupee-sign"></i> Rate</span>
+                        <span class="gsr-modal-value" id="boqModalRate"></span>
+                    </div>
+                    <div class="gsr-modal-detail">
+                        <span class="gsr-modal-label"><i class="fas fa-ruler-combined"></i> Unit</span>
+                        <span class="gsr-modal-value" id="boqModalUnit"></span>
+                    </div>
+                    <div class="gsr-modal-detail">
+                        <span class="gsr-modal-label"><i class="fas fa-cubes"></i> Quantity</span>
+                        <span class="gsr-modal-value" id="boqModalQty"></span>
+                    </div>
+                    <div class="gsr-modal-detail"
+                        style="background: rgba(39, 174, 96, 0.1); border-color: rgba(39, 174, 96, 0.2);">
+                        <span class="gsr-modal-label" style="color: #27AE60;"><i class="fas fa-money-bill-wave"></i>
+                            Total Amount</span>
+                        <span class="gsr-modal-value" id="boqModalAmount"
+                            style="color: #27AE60; font-weight: 700; font-size: 1.25em;"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="gsr-modal-footer">
+                <div class="boq-modal-actions">
+                    <button class="boq-btn-download-excel" id="boqDownloadExcelBtn" title="Download item details in Excel (.xlsx)">
+                        <i class="fas fa-file-excel"></i> Download Excel
+                    </button>
+                    <button class="boq-btn-download-pdf" id="boqDownloadPdfBtn" title="Download item details in PDF (.pdf)">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </button>
+                    <button class="boq-btn-close-preview" id="boqModalCloseBtn" title="Close Preview">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingOverlay">
+        <i class="fas fa-spinner fa-spin fa-3x" style="color: var(--primary-color);"></i>
+        <p style="margin-top: 15px; font-weight: 500;">Analyzing BOQ Structure...</p>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> Construction Hub. All Rights Reserved. This is not an official
+                government website. | <a href="privacy-policy.html" style="color: var(--secondary-color); text-decoration: none;">Privacy Policy</a></p>
+        </div>
+    </footer>
+
+    <!-- Firebase Analytics Tracking -->
+    <script type="module" src="js/firebase-analytics.js"></script>
+    <script src="js/boq-viewer.js?v=2.0"></script>
+</body>
+
+</html>

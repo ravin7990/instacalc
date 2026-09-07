@@ -1,0 +1,2174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSR Viewer - Goa Schedule of Rates | Construction Hub</title>
+    <meta name="description"
+        content="Browse Goa Schedule of Rates (GSR) for Building & Roads interactively. Search, filter by chapter, view rates, units, and descriptions for all PWD construction items.">
+    <meta name="keywords"
+        content="Goa Schedule of Rates, GSR Viewer, Goa PWD rates, construction rates, civil engineering rates, building construction costs Goa, roads GSR, GSR 2023">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- SheetJS for Excel Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- jsPDF for PDF Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- jsPDF-AutoTable for professional multi-page PDF estimates -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="fevicon.png" type="image/x-icon">
+
+    <style>
+        /* Sticky Modal Footer & Action Buttons */
+        .gsr-modal-footer {
+            position: sticky;
+            bottom: 0;
+            background: var(--card-background);
+            border-top: 1px solid #eef0f2;
+            z-index: 10;
+            padding: 16px 24px 20px;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .gsr-modal-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            width: 100%;
+        }
+
+        .gsr-btn-download-excel {
+            flex: 1;
+            min-width: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: #27AE60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .gsr-btn-download-excel:hover {
+            background: #219653;
+            transform: translateY(-1px);
+        }
+
+        .gsr-btn-download-pdf {
+            flex: 1;
+            min-width: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .gsr-btn-download-pdf:hover {
+            background: #c0392b;
+            transform: translateY(-1px);
+        }
+
+        .gsr-btn-download-doc {
+            flex: 1;
+            min-width: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: #0077B6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .gsr-btn-download-doc:hover {
+            background: #005f94;
+            transform: translateY(-1px);
+        }
+
+        .gsr-btn-close-preview {
+            padding: 12px 18px;
+            background: #e9ecef;
+            color: #495057;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .gsr-btn-close-preview:hover {
+            background: #dee2e6;
+        }
+
+        /* ── Card Add to Estimate Button ── */
+        .gsr-card-add-btn {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-left: 6px;
+        }
+
+        .gsr-card-add-btn:hover {
+            background: #27AE60;
+            color: #fff;
+            border-color: #27AE60;
+            transform: scale(1.12);
+        }
+
+        .gsr-card-add-btn.in-estimate {
+            background: #27AE60;
+            color: #fff;
+            border-color: #27AE60;
+            box-shadow: 0 2px 6px rgba(39, 174, 96, 0.35);
+        }
+
+        /* ── Modal Add to Estimate Button ── */
+        .gsr-btn-add-estimate {
+            flex: 1;
+            min-width: 145px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #0077B6, #0096C7);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .gsr-btn-add-estimate:hover {
+            background: linear-gradient(135deg, #023E8A, #0077B6);
+            transform: translateY(-1px);
+        }
+
+        .gsr-btn-add-estimate.in-estimate {
+            background: #27AE60;
+        }
+
+        /* ── Floating "My Estimate" Button ── */
+        .gsr-floating-estimate-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 990;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #0077B6, #0096C7);
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            box-shadow: 0 8px 24px rgba(0, 119, 182, 0.4);
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-family: inherit;
+        }
+
+        .gsr-floating-estimate-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 30px rgba(0, 119, 182, 0.5);
+            background: linear-gradient(135deg, #023E8A, #0077B6);
+        }
+
+        .estimate-btn-icon {
+            font-size: 1.25em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .estimate-btn-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            line-height: 1.2;
+        }
+
+        .estimate-btn-label {
+            font-weight: 700;
+            font-size: 0.95em;
+            letter-spacing: 0.2px;
+        }
+
+        .estimate-btn-sub {
+            font-size: 0.78em;
+            opacity: 0.9;
+        }
+
+        .estimate-btn-badge {
+            background: #E74C3C;
+            color: #fff;
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ── Slide-over Drawer / Modal ── */
+        .estimate-drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(4px);
+            z-index: 1050;
+            display: flex;
+            justify-content: flex-end;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.3s, opacity 0.3s ease;
+        }
+
+        .estimate-drawer-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .estimate-drawer {
+            background: #ffffff;
+            width: 100%;
+            max-width: 680px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -10px 0 35px rgba(0, 0, 0, 0.2);
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .estimate-drawer-overlay.active .estimate-drawer {
+            transform: translateX(0);
+        }
+
+        .estimate-drawer-header {
+            padding: 18px 24px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .btn-clear-estimate {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+            padding: 7px 12px;
+            border-radius: 6px;
+            font-size: 0.82em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-clear-estimate:hover {
+            background: #fca5a5;
+            color: #991b1b;
+        }
+
+        .btn-close-drawer {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.2s;
+        }
+
+        .btn-close-drawer:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        .estimate-meta-row {
+            padding: 14px 24px;
+            background: #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        .estimate-meta-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .estimate-meta-field label {
+            font-size: 0.78em;
+            font-weight: 600;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .estimate-meta-field input {
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.9em;
+            background: #ffffff;
+            color: #1e293b;
+            font-family: inherit;
+        }
+
+        .estimate-drawer-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 24px;
+            background: #ffffff;
+        }
+
+        .estimate-empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #64748b;
+        }
+
+        .estimate-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .estimate-item-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 14px 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s ease;
+        }
+
+        .estimate-item-card:hover {
+            border-color: #94a3b8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+        }
+
+        .estimate-item-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .estimate-item-badge {
+            font-size: 0.75em;
+            font-weight: 600;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .estimate-item-code {
+            font-size: 0.85em;
+            font-weight: 700;
+            color: #0f172a;
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .estimate-btn-remove {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .estimate-btn-remove:hover {
+            color: #ef4444;
+            background: #fee2e2;
+        }
+
+        .estimate-item-desc {
+            font-size: 0.88em;
+            color: #334155;
+            line-height: 1.45;
+            margin-bottom: 12px;
+        }
+
+        .estimate-item-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding-top: 10px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .estimate-rate-info {
+            font-size: 0.85em;
+            color: #64748b;
+        }
+
+        .estimate-qty-ctrl {
+            display: flex;
+            align-items: center;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #f8fafc;
+        }
+
+        .estimate-qty-btn {
+            background: #f8fafc;
+            border: none;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            font-size: 0.9em;
+            color: #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s;
+        }
+
+        .estimate-qty-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .estimate-qty-input {
+            width: 70px;
+            height: 28px;
+            border: none;
+            border-left: 1px solid #cbd5e1;
+            border-right: 1px solid #cbd5e1;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9em;
+            background: #fff;
+            font-family: inherit;
+        }
+
+        .estimate-qty-input:focus {
+            outline: none;
+            background: #eff6ff;
+        }
+
+        .estimate-item-amount {
+            font-size: 1.05em;
+            font-weight: 700;
+            color: #27AE60;
+        }
+
+        .estimate-drawer-footer {
+            border-top: 1px solid #e2e8f0;
+            background: #f8fafc;
+            padding: 16px 24px;
+            flex-shrink: 0;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .estimate-tax-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .tax-field {
+            flex: 1;
+            min-width: 140px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .tax-field label {
+            font-size: 0.78em;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .tax-field select {
+            padding: 6px 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.85em;
+            background: #fff;
+            color: #1e293b;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .estimate-summary-breakdown {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 14px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88em;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+
+        .summary-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .summary-grand-total {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 2px dashed #cbd5e1;
+            font-size: 1.15em;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .grand-total-val {
+            color: #27AE60;
+            font-size: 1.15em;
+        }
+
+        .estimate-total-words {
+            font-size: 0.8em;
+            color: #64748b;
+            font-style: italic;
+            text-align: right;
+            margin-top: 4px;
+        }
+
+        .estimate-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-estimate-excel {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 14px;
+            background: #27AE60;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-estimate-excel:hover {
+            background: #219653;
+            transform: translateY(-1px);
+        }
+
+        .btn-estimate-pdf {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 14px;
+            background: #0077B6;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-estimate-pdf:hover {
+            background: #023E8A;
+            transform: translateY(-1px);
+        }
+
+        /* ── Toast Notification ── */
+        .estimate-toast {
+            position: fixed;
+            bottom: 84px;
+            right: 24px;
+            background: #1e293b;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            z-index: 1060;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9em;
+            font-weight: 500;
+            pointer-events: none;
+            transition: opacity 0.25s, transform 0.25s;
+        }
+
+        .estimate-toast i {
+            color: #2ECC71;
+        }
+
+        @media (max-width: 600px) {
+            .estimate-drawer {
+                max-width: 100%;
+            }
+            .gsr-floating-estimate-btn {
+                bottom: 16px;
+                right: 16px;
+                padding: 10px 16px;
+            }
+            .estimate-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="GSR Viewer - Goa Schedule of Rates | Construction Hub">
+    <meta property="og:description"
+        content="Interactive browser for Goa PWD Schedule of Rates. Search and explore construction rates by chapter, item code, and description.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ravin7990.github.io/goa_schedule_of_rates/gsr-viewer.html">
+    <meta property="og:image" content="https://ravin7990.github.io/goa_schedule_of_rates/themegoa.webp">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://ravin7990.github.io/goa_schedule_of_rates/gsr-viewer.html">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1><a href="index.html">Construction Hub</a></h1>
+                <p>Your Central Resource for Construction Documents</p>
+            </div>
+            <button class="nav-toggle" aria-label="toggle navigation" aria-expanded="false">
+                <span class="hamburger"></span>
+            </button>
+            <nav id="primary-navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="gsr-viewer.html" class="active">GSR Viewer</a></li>
+                    <li><a href="boq-viewer.html">BOQ Viewer</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Hero Banner -->
+            <section class="gsr-hero">
+                <div class="gsr-hero-content">
+                    <h2><i class="fas fa-hard-hat"></i> GSR Viewer</h2>
+                    <p>Browse Goa PWD Schedule of Rates interactively. Search items, filter by chapter, and view
+                        detailed rates.</p>
+                </div>
+                <div class="gsr-stats" id="gsrStats">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- GSR Source Switcher -->
+            <section class="gsr-source-switcher" id="gsrSourceSwitcher">
+                <!-- Populated by JS from GSR_SOURCES -->
+            </section>
+
+            <!-- Search & Filters -->
+            <section class="gsr-controls">
+                <div class="gsr-search-wrapper">
+                    <i class="fas fa-search gsr-search-icon"></i>
+                    <input type="text" id="gsrSearchInput" placeholder="Search by description, item code, or keyword..."
+                        autocomplete="off">
+                    <button id="gsrClearSearch" class="gsr-clear-btn" title="Clear search" style="display:none;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="gsr-filter-row">
+                    <select id="gsrChapterFilter">
+                        <option value="">All Chapters</option>
+                    </select>
+                    <select id="gsrSortBy">
+                        <option value="code">Sort by Item Code</option>
+                        <option value="rate-asc">Rate: Low to High</option>
+                        <option value="rate-desc">Rate: High to Low</option>
+                        <option value="alpha">Alphabetical</option>
+                    </select>
+                    <div class="gsr-result-count">
+                        <span id="gsrResultCount">0</span> items found
+                    </div>
+                </div>
+            </section>
+
+            <!-- Grid -->
+            <section class="gsr-grid" id="gsrGrid">
+                <!-- Cards populated by JS -->
+            </section>
+
+            <!-- No Results -->
+            <div class="gsr-no-results" id="gsrNoResults" style="display:none;">
+                <i class="fas fa-search"></i>
+                <h3>No items found</h3>
+                <p>Try adjusting your search or filter to find what you're looking for.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="gsr-modal-overlay" id="gsrModal">
+        <div class="gsr-modal">
+            <button class="gsr-modal-close" id="gsrModalClose" aria-label="Close modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="gsr-modal-header">
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <span class="gsr-modal-badge" id="gsrModalBadge"></span>
+                    <span class="gsr-source-tag-modal" id="gsrModalSourceTag"></span>
+                </div>
+                <span class="gsr-modal-code" id="gsrModalCode"></span>
+            </div>
+            <h3 id="gsrModalTitle"></h3>
+            <div class="gsr-modal-body">
+                <p class="gsr-modal-description" id="gsrModalDescription"></p>
+                <div class="gsr-modal-details">
+                    <div class="gsr-modal-detail">
+                        <span class="gsr-modal-label"><i class="fas fa-rupee-sign"></i> Rate</span>
+                        <span class="gsr-modal-value" id="gsrModalRate"></span>
+                    </div>
+                    <div class="gsr-modal-detail">
+                        <span class="gsr-modal-label"><i class="fas fa-ruler-combined"></i> Unit</span>
+                        <span class="gsr-modal-value" id="gsrModalUnit"></span>
+                    </div>
+                    <div class="gsr-modal-detail">
+                        <span class="gsr-modal-label"><i class="fas fa-calendar-alt"></i> Year</span>
+                        <span class="gsr-modal-value" id="gsrModalYear"></span>
+                    </div>
+                    <div class="gsr-modal-detail">
+                        <span class="gsr-modal-label"><i class="fas fa-tags"></i> Tags</span>
+                        <span class="gsr-modal-value gsr-modal-tags" id="gsrModalTags"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="gsr-modal-footer">
+                <div class="gsr-modal-actions">
+                    <button class="gsr-btn-add-estimate" id="gsrModalAddEstimateBtn" title="Add item to custom estimate">
+                        <i class="fas fa-cart-plus"></i> Add to Estimate
+                    </button>
+                    <button class="gsr-btn-download-excel" id="gsrDownloadExcelBtn" title="Download item details in Excel (.xlsx)">
+                        <i class="fas fa-file-excel"></i> Download Excel
+                    </button>
+                    <button class="gsr-btn-download-pdf" id="gsrDownloadPdfBtn" title="Download item details in PDF (.pdf)">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </button>
+                    <a href="#" class="gsr-btn-download-doc" id="gsrModalDownload" download title="Download complete GSR source file">
+                        <i class="fas fa-file-alt"></i> Full Document
+                    </a>
+                    <button class="gsr-btn-close-preview" id="gsrModalCloseBtn" title="Close Preview">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating "My Estimate" Button -->
+    <button id="openEstimateBtn" class="gsr-floating-estimate-btn" title="View My Estimate">
+        <span class="estimate-btn-icon"><i class="fas fa-clipboard-list"></i></span>
+        <div class="estimate-btn-text">
+            <span class="estimate-btn-label">My Estimate</span>
+            <span class="estimate-btn-sub" id="estimateBtnTotal">0 items • ₹0</span>
+        </div>
+        <span class="estimate-btn-badge" id="estimateBtnCount" style="display: none;">0</span>
+    </button>
+
+    <!-- "My Estimate" Drawer Modal -->
+    <div class="estimate-drawer-overlay" id="estimateDrawerModal">
+        <div class="estimate-drawer">
+            <!-- Header -->
+            <div class="estimate-drawer-header">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-file-invoice-dollar" style="color: #27AE60; font-size: 1.3em;"></i>
+                        <h3 style="margin: 0; font-size: 1.2em; color: #0f172a;">My Project Estimate</h3>
+                    </div>
+                    <p style="margin: 4px 0 0; font-size: 0.82em; color: var(--text-light);">Custom bill compiled from Goa Schedule of Rates</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <button id="clearEstimateBtn" class="btn-clear-estimate" title="Clear all items from estimate">
+                        <i class="fas fa-trash-alt"></i> Clear All
+                    </button>
+                    <button id="closeEstimateDrawerBtn" class="btn-close-drawer" title="Close Estimate">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Project Meta Controls -->
+            <div class="estimate-meta-row">
+                <div class="estimate-meta-field" style="flex: 2; min-width: 200px;">
+                    <label for="estimateProjectName"><i class="fas fa-building"></i> Project / Work Name</label>
+                    <input type="text" id="estimateProjectName" placeholder="e.g. Proposed Villa Construction at Porvorim" value="Custom GSR Construction Estimate">
+                </div>
+                <div class="estimate-meta-field" style="flex: 1; min-width: 150px;">
+                    <label for="estimateClientName"><i class="fas fa-user-tie"></i> Prepared For / By</label>
+                    <input type="text" id="estimateClientName" placeholder="e.g. Client / Contractor Name">
+                </div>
+            </div>
+
+            <!-- Items List Container -->
+            <div class="estimate-drawer-body">
+                <div id="estimateEmptyState" class="estimate-empty-state">
+                    <i class="fas fa-folder-plus" style="font-size: 3em; color: #cbd5e1; margin-bottom: 12px;"></i>
+                    <h4 style="margin: 0 0 8px 0; color: #1e293b;">Your Estimate is Empty</h4>
+                    <p style="margin: 0; font-size: 0.9em; line-height: 1.5;">Click the <strong style="color: #27AE60;"><i class="fas fa-plus"></i></strong> button on any GSR rate card or in the specification preview to add items to your custom estimate.</p>
+                </div>
+
+                <div id="estimateItemsList" class="estimate-items-list" style="display: none;">
+                    <!-- Estimate items rendered dynamically -->
+                </div>
+            </div>
+
+            <!-- Summary & Taxes Footer -->
+            <div class="estimate-drawer-footer" id="estimateFooter" style="display: none;">
+                <!-- Overheads & GST Controls -->
+                <div class="estimate-tax-controls">
+                    <div class="tax-field">
+                        <label for="estimateGSTRate">GST Rate:</label>
+                        <select id="estimateGSTRate">
+                            <option value="0">0% (Nil / Exempt)</option>
+                            <option value="5">5% GST</option>
+                            <option value="12">12% GST</option>
+                            <option value="18" selected>18% GST (Standard)</option>
+                            <option value="28">28% GST</option>
+                        </select>
+                    </div>
+                    <div class="tax-field">
+                        <label for="estimateProfitRate">Contractor Overhead / Profit:</label>
+                        <select id="estimateProfitRate">
+                            <option value="0" selected>0% (Included in GSR)</option>
+                            <option value="5">5% Overhead</option>
+                            <option value="10">10% Overhead & Profit</option>
+                            <option value="15">15% Overhead & Profit</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Price Breakdown Calculation -->
+                <div class="estimate-summary-breakdown">
+                    <div class="summary-row">
+                        <span>Base Subtotal (<span id="estimateItemCountText">0</span> items):</span>
+                        <strong id="estimateBaseSubtotal">₹0</strong>
+                    </div>
+                    <div class="summary-row" id="overheadRow" style="display: none;">
+                        <span id="overheadLabel">Overhead & Profit:</span>
+                        <span id="estimateOverheadAmount">₹0</span>
+                    </div>
+                    <div class="summary-row" id="gstRow">
+                        <span id="gstLabel">GST (18%):</span>
+                        <span id="estimateGSTAmount">₹0</span>
+                    </div>
+                    <div class="summary-row summary-grand-total">
+                        <span>Estimated Grand Total:</span>
+                        <span class="grand-total-val" id="estimateGrandTotal">₹0</span>
+                    </div>
+                    <div id="estimateTotalWords" class="estimate-total-words"></div>
+                </div>
+
+                <!-- Action Export Buttons -->
+                <div class="estimate-actions">
+                    <button class="btn-estimate-excel" id="exportEstimateExcelBtn" title="Export complete estimate into Excel (.xlsx)">
+                        <i class="fas fa-file-excel"></i> Export Excel (.xlsx)
+                    </button>
+                    <button class="btn-estimate-pdf" id="exportEstimatePdfBtn" title="Export formatted estimate into PDF (.pdf)">
+                        <i class="fas fa-file-pdf"></i> Export PDF (.pdf)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="estimateToast" class="estimate-toast" style="display: none;">
+        <i class="fas fa-check-circle"></i>
+        <span id="estimateToastText">Item added to estimate</span>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="currentYear"></span> Construction Hub. All Rights Reserved. This is not an official
+                government website. | <a href="privacy-policy.html" style="color: var(--secondary-color); text-decoration: none;">Privacy Policy</a></p>
+        </div>
+    </footer>
+
+    <!-- Firebase Analytics Tracking -->
+    <script type="module" src="js/firebase-analytics.js"></script>
+    <script src="js/gsr-data.js?v=2.0"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            // ── Elements ──
+            const searchInput = document.getElementById('gsrSearchInput');
+            const clearSearchBtn = document.getElementById('gsrClearSearch');
+            const chapterFilter = document.getElementById('gsrChapterFilter');
+            const sortSelect = document.getElementById('gsrSortBy');
+            const grid = document.getElementById('gsrGrid');
+            const noResults = document.getElementById('gsrNoResults');
+            const resultCount = document.getElementById('gsrResultCount');
+            const statsEl = document.getElementById('gsrStats');
+            const modal = document.getElementById('gsrModal');
+            const modalClose = document.getElementById('gsrModalClose');
+            const modalCloseBtn = document.getElementById('gsrModalCloseBtn');
+            const downloadExcelBtn = document.getElementById('gsrDownloadExcelBtn');
+            const downloadPdfBtn = document.getElementById('gsrDownloadPdfBtn');
+            const switcherEl = document.getElementById('gsrSourceSwitcher');
+            const currentYearEl = document.getElementById('currentYear');
+
+            if (currentYearEl) currentYearEl.textContent = new Date().getFullYear();
+
+            // ── Mobile Nav Toggle ──
+            const navToggle = document.querySelector('.nav-toggle');
+            const primaryNav = document.getElementById('primary-navigation');
+            if (navToggle && primaryNav) {
+                navToggle.addEventListener('click', () => {
+                    const isActive = primaryNav.classList.toggle('nav-active');
+                    navToggle.setAttribute('aria-expanded', isActive);
+                });
+            }
+
+            // ── State ──
+            let GSR_DATA = [];
+            let GSR_CHAPTERS = [];
+            let activeSource = null;
+            let currentModalItem = null;
+            let currentPage = 1;
+            const ITEMS_PER_PAGE = 60;
+
+            // ── Render Source Switcher Buttons ──
+            function renderSwitcher(activeId) {
+                switcherEl.innerHTML = GSR_SOURCES.map(src => `
+                <button class="gsr-source-btn ${src.id === activeId ? 'active' : ''}"
+                        data-source="${src.id}"
+                        style="${src.id === activeId ? 'background:' + src.color + '; color:#fff; border-color:' + src.color : ''}">
+                    <i class="fas ${src.icon}"></i>
+                    ${src.label}
+                </button>
+            `).join('');
+
+                switcherEl.querySelectorAll('.gsr-source-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = btn.getAttribute('data-source');
+                        if (!activeSource || id !== activeSource.id) switchSource(id);
+                    });
+                });
+            }
+
+            // Render switcher immediately so buttons are always visible
+            renderSwitcher(GSR_SOURCES[0].id);
+
+            // ── Switch GSR Source ──
+            async function switchSource(sourceId) {
+                // Update switcher buttons immediately
+                renderSwitcher(sourceId);
+
+                // Reset search & filters
+                searchInput.value = '';
+                clearSearchBtn.style.display = 'none';
+                chapterFilter.value = '';
+                sortSelect.value = 'code';
+                currentPage = 1;
+
+                // Loading state
+                grid.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 2.5em; color: #0077B6; margin-bottom: 15px; display: block;"></i>
+                    <p style="color: #555; font-size: 1.1em;">Loading GSR data...</p>
+                </div>
+            `;
+
+                const result = await loadGSRData(sourceId);
+                GSR_DATA = result.items;
+                GSR_CHAPTERS = result.chapters;
+                activeSource = result.source;
+
+                if (window.trackEvent) {
+                    window.trackEvent('gsr_source_switch', {
+                        source_id: sourceId,
+                        source_name: activeSource ? activeSource.label : sourceId,
+                        total_items: GSR_DATA.length
+                    });
+                }
+
+                if (GSR_DATA.length === 0) {
+                    grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 2.5em; color: #e74c3c; margin-bottom: 15px; display: block;"></i>
+                        <p style="color: #555; font-size: 1.1em;">Failed to load GSR data. Please try using a local server: <code>npx http-server . -p 8080</code></p>
+                    </div>
+                `;
+                    return;
+                }
+
+                // Repopulate chapter filter
+                chapterFilter.innerHTML = '<option value="">All Chapters</option>';
+                GSR_CHAPTERS.forEach(ch => {
+                    const opt = document.createElement('option');
+                    opt.value = ch.id;
+                    opt.textContent = ch.name;
+                    chapterFilter.appendChild(opt);
+                });
+
+                renderStats();
+                update();
+            }
+
+            // ── Stats Bar ──
+            function renderStats() {
+                const totalItems = GSR_DATA.length;
+                const chapters = GSR_CHAPTERS.length;
+                const avgRate = (GSR_DATA.reduce((s, i) => s + i.rate, 0) / totalItems).toFixed(0);
+                statsEl.innerHTML = `
+                <div class="gsr-stat">
+                    <i class="fas fa-list-ol"></i>
+                    <div><strong>${totalItems.toLocaleString('en-IN')}</strong><span>Total Items</span></div>
+                </div>
+                <div class="gsr-stat">
+                    <i class="fas fa-book-open"></i>
+                    <div><strong>${chapters}</strong><span>Chapters</span></div>
+                </div>
+                <div class="gsr-stat">
+                    <i class="fas fa-rupee-sign"></i>
+                    <div><strong>₹${Number(avgRate).toLocaleString('en-IN')}</strong><span>Avg Rate</span></div>
+                </div>
+            `;
+            }
+
+            // ── Get chapter color ──
+            function getChapterColor(chapterId) {
+                const ch = GSR_CHAPTERS.find(c => c.id === chapterId);
+                return ch ? ch.color : '#666';
+            }
+
+            // ── Render Grid ──
+            function renderGrid(allItems) {
+                grid.innerHTML = '';
+                if (allItems.length === 0) {
+                    noResults.style.display = 'flex';
+                    resultCount.textContent = '0';
+                    return;
+                }
+                noResults.style.display = 'none';
+                resultCount.textContent = allItems.length.toLocaleString('en-IN');
+
+                const itemsToShow = allItems.slice(0, currentPage * ITEMS_PER_PAGE);
+
+                itemsToShow.forEach((item, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'gsr-card';
+                    if (index >= (currentPage - 1) * ITEMS_PER_PAGE) {
+                        card.style.animationDelay = `${(index % ITEMS_PER_PAGE) * 0.03}s`;
+                    } else {
+                        card.style.opacity = '1';
+                    }
+                    card.setAttribute('data-id', item.id);
+
+                    const chColor = getChapterColor(item.chapterId);
+                    const displayChapter = item.chapter.length > 25
+                        ? item.chapter.substring(0, 25) + '…'
+                        : item.chapter;
+
+                    // Source info for the tag
+                    const src = GSR_SOURCES.find(s => s.id === item.sourceId);
+                    const srcColor = src ? src.color : '#666';
+                    const srcIcon = src ? src.icon : 'fa-file';
+                    const srcLabel = src ? src.shortLabel : '';
+
+                    const inEst = (typeof isInEstimate === 'function') && isInEstimate(item);
+
+                    card.innerHTML = `
+                    <div class="gsr-card-top" style="border-left: 4px solid ${chColor};">
+                        <span class="gsr-card-badge" style="background-color: ${chColor};" title="${item.chapter}">${displayChapter}</span>
+                        <div style="display: flex; align-items: center; gap: 4px;">
+                            <span class="gsr-card-code">${item.itemCode}</span>
+                            <button class="gsr-card-add-btn ${inEst ? 'in-estimate' : ''}" title="${inEst ? 'In Estimate (Click to remove)' : 'Add to My Estimate'}">
+                                <i class="fas ${inEst ? 'fa-check' : 'fa-plus'}"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="gsr-card-desc">${item.shortDescription}</p>
+                    <div class="gsr-card-bottom">
+                        <div class="gsr-card-rate">
+                            <span class="gsr-rate-value">₹${item.rate.toLocaleString('en-IN')}</span>
+                            <span class="gsr-rate-unit">${item.unit}</span>
+                        </div>
+                        <span class="gsr-source-tag" style="background-color: ${srcColor}15; color: ${srcColor}; border: 1px solid ${srcColor}30;" title="${item.sourceLabel}">
+                            <i class="fas ${srcIcon}"></i> ${srcLabel}
+                        </span>
+                    </div>
+                `;
+
+                    card.addEventListener('click', (e) => {
+                        if (e.target.closest('.gsr-card-add-btn')) {
+                            e.stopPropagation();
+                            if (typeof toggleEstimateItem === 'function') toggleEstimateItem(item);
+                            return;
+                        }
+                        openModal(item);
+                    });
+                    grid.appendChild(card);
+                });
+
+                // "Load More" button
+                if (itemsToShow.length < allItems.length) {
+                    const loadMoreWrapper = document.createElement('div');
+                    loadMoreWrapper.className = 'gsr-load-more-wrapper';
+                    loadMoreWrapper.innerHTML = `
+                    <button class="gsr-load-more-btn">
+                        <i class="fas fa-chevron-down"></i>
+                        Load More (${(allItems.length - itemsToShow.length).toLocaleString('en-IN')} remaining)
+                    </button>
+                `;
+                    loadMoreWrapper.querySelector('button').addEventListener('click', () => {
+                        currentPage++;
+                        renderGrid(allItems);
+                        const cards = grid.querySelectorAll('.gsr-card');
+                        if (cards.length > (currentPage - 1) * ITEMS_PER_PAGE) {
+                            cards[(currentPage - 1) * ITEMS_PER_PAGE].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    });
+                    grid.appendChild(loadMoreWrapper);
+                }
+            }
+
+            // ── Filter & Sort ──
+            function getFilteredItems() {
+                const search = searchInput.value.toLowerCase().trim();
+                const chapterId = chapterFilter.value;
+                const sortBy = sortSelect.value;
+
+                let items = GSR_DATA.filter(item => {
+                    const matchesChapter = !chapterId || item.chapterId === chapterId;
+                    if (!matchesChapter) return false;
+                    if (!search) return true;
+
+                    return item.shortDescription.toLowerCase().includes(search) ||
+                        item.itemCode.toLowerCase().includes(search) ||
+                        item.chapter.toLowerCase().includes(search) ||
+                        item.unit.toLowerCase().includes(search) ||
+                        item.rate.toString().includes(search) ||
+                        item.tags.some(t => t.includes(search));
+                });
+
+                switch (sortBy) {
+                    case 'rate-asc': items.sort((a, b) => a.rate - b.rate); break;
+                    case 'rate-desc': items.sort((a, b) => b.rate - a.rate); break;
+                    case 'alpha': items.sort((a, b) => a.shortDescription.localeCompare(b.shortDescription)); break;
+                    case 'code': default: break;
+                }
+
+                return items;
+            }
+
+            // ── Debounced search ──
+            let searchTimeout;
+            function update() {
+                currentPage = 1;
+                const items = getFilteredItems();
+                renderGrid(items);
+                clearSearchBtn.style.display = searchInput.value ? 'flex' : 'none';
+            }
+
+            function debouncedUpdate() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(update, 200);
+            }
+
+            // ── Modal ──
+            function openModal(item) {
+                currentModalItem = item;
+                const chColor = getChapterColor(item.chapterId);
+                const src = GSR_SOURCES.find(s => s.id === item.sourceId);
+
+                document.getElementById('gsrModalBadge').textContent = item.chapter;
+                document.getElementById('gsrModalBadge').style.backgroundColor = chColor;
+                document.getElementById('gsrModalCode').textContent = `SR No: ${item.itemCode}`;
+                document.getElementById('gsrModalTitle').textContent = 'Specification Detail';
+                document.getElementById('gsrModalDescription').textContent = item.fullDescription;
+                document.getElementById('gsrModalRate').textContent = `₹${item.rate.toLocaleString('en-IN')}`;
+                document.getElementById('gsrModalUnit').textContent = item.unit;
+                document.getElementById('gsrModalYear').textContent = item.year;
+
+                // Source tag in modal
+                const sourceTag = document.getElementById('gsrModalSourceTag');
+                if (src) {
+                    sourceTag.innerHTML = `<i class="fas ${src.icon}"></i> ${src.label}`;
+                    sourceTag.style.backgroundColor = src.color + '15';
+                    sourceTag.style.color = src.color;
+                    sourceTag.style.borderColor = src.color + '30';
+                }
+
+                const tagsEl = document.getElementById('gsrModalTags');
+                tagsEl.innerHTML = item.tags.map(t => `<span class="gsr-tag">${t}</span>`).join('');
+
+                const downloadBtn = document.getElementById('gsrModalDownload');
+                downloadBtn.href = item.downloadFile;
+
+                // Sync "Add to Estimate" button in modal
+                const modalAddBtn = document.getElementById('gsrModalAddEstimateBtn');
+                if (modalAddBtn) {
+                    const inEst = (typeof isInEstimate === 'function') && isInEstimate(item);
+                    modalAddBtn.innerHTML = inEst
+                        ? `<i class="fas fa-check-circle"></i> In Estimate (Remove)`
+                        : `<i class="fas fa-cart-plus"></i> Add to Estimate`;
+                    modalAddBtn.classList.toggle('in-estimate', inEst);
+                    modalAddBtn.onclick = () => {
+                        if (typeof toggleEstimateItem === 'function') {
+                            toggleEstimateItem(item);
+                            const nowIn = isInEstimate(item);
+                            modalAddBtn.innerHTML = nowIn
+                                ? `<i class="fas fa-check-circle"></i> In Estimate (Remove)`
+                                : `<i class="fas fa-cart-plus"></i> Add to Estimate`;
+                            modalAddBtn.classList.toggle('in-estimate', nowIn);
+                        }
+                    };
+                }
+
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                if (window.trackEvent) {
+                    window.trackEvent('gsr_item_preview', {
+                        item_code: item.itemCode,
+                        chapter: item.chapter,
+                        rate: item.rate,
+                        year: item.year || ''
+                    });
+                }
+            }
+
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            // ── Export Item as Excel (.xlsx) ──
+            function downloadItemExcel(item) {
+                if (!item) return;
+                try {
+                    const wb = XLSX.utils.book_new();
+                    const src = GSR_SOURCES.find(s => s.id === item.sourceId);
+                    const sourceTitle = src ? src.label : (item.sourceId || "Goa Schedule of Rates");
+
+                    const rows = [
+                        ["Construction Hub - GSR Item Rate Specification"],
+                        ["Schedule Source", sourceTitle],
+                        ["Schedule Year", item.year || '-'],
+                        ["Generated Date", new Date().toLocaleString('en-IN')],
+                        [],
+                        ["Field", "Value"],
+                        ["Item Code / SR No", item.itemCode],
+                        ["Chapter", item.chapter],
+                        ["Short Description", item.shortDescription],
+                        ["Full Description", item.fullDescription],
+                        ["Unit", item.unit || '-'],
+                        ["Rate (Rs.)", item.rate],
+                        ["Tags", Array.isArray(item.tags) ? item.tags.join(', ') : (item.tags || '')]
+                    ];
+
+                    const ws = XLSX.utils.aoa_to_sheet(rows);
+                    ws['!cols'] = [{ wch: 22 }, { wch: 75 }];
+                    XLSX.utils.book_append_sheet(wb, ws, "GSR Item");
+
+                    const safeCode = String(item.itemCode).replace(/[^a-zA-Z0-9_-]/g, '_');
+                    XLSX.writeFile(wb, `GSR_Item_${safeCode}.xlsx`);
+
+                    if (window.trackEvent) {
+                        window.trackEvent('gsr_item_download', {
+                            format: 'excel',
+                            item_code: item.itemCode,
+                            rate: item.rate
+                        });
+                    }
+                } catch (err) {
+                    console.error("Excel download error:", err);
+                    alert("Could not export Excel file: " + err.message);
+                }
+            }
+
+            // ── Export Item as PDF (.pdf) ──
+            function downloadItemPdf(item) {
+                if (!item) return;
+                try {
+                    if (!window.jspdf || !window.jspdf.jsPDF) {
+                        alert("PDF library is loading. Please try again in a moment.");
+                        return;
+                    }
+
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'mm',
+                        format: 'a4'
+                    });
+
+                    const pageWidth = doc.internal.pageSize.getWidth();
+                    const margin = 16;
+                    let y = 18;
+
+                    // Header Banner
+                    doc.setFillColor(42, 77, 59); // Theme green
+                    doc.rect(margin, y, pageWidth - (margin * 2), 22, 'F');
+
+                    doc.setTextColor(255, 255, 255);
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(13);
+                    doc.text("CONSTRUCTION HUB - GOA SCHEDULE OF RATES", margin + 6, y + 9);
+
+                    const src = GSR_SOURCES.find(s => s.id === item.sourceId);
+                    const sourceLabel = src ? src.label : "GSR Goa PWD";
+
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(8.5);
+                    doc.text(`Schedule: ${sourceLabel} (${item.year || ''})   |   Exported: ${new Date().toLocaleDateString('en-IN')}`, margin + 6, y + 16);
+
+                    y += 30;
+
+                    // Chapter & Code Bar
+                    doc.setTextColor(50, 50, 50);
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(10.5);
+                    doc.text(`SR No: ${item.itemCode}`, margin, y);
+
+                    const displayChapter = item.chapter.length > 40 ? item.chapter.substring(0, 40) + '...' : item.chapter;
+                    doc.text(`Chapter: ${displayChapter}`, pageWidth - margin, y, { align: 'right' });
+
+                    y += 4;
+                    doc.setDrawColor(210, 215, 220);
+                    doc.line(margin, y, pageWidth - margin, y);
+                    y += 8;
+
+                    // Short Description / Title
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(11);
+                    doc.setTextColor(30, 30, 30);
+                    const splitTitle = doc.splitTextToSize(item.shortDescription, pageWidth - (margin * 2));
+                    doc.text(splitTitle, margin, y);
+                    y += (splitTitle.length * 5) + 4;
+
+                    // Full Description
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(9);
+                    doc.setTextColor(60, 60, 60);
+                    const splitDesc = doc.splitTextToSize(item.fullDescription, pageWidth - (margin * 2));
+                    doc.text(splitDesc, margin, y);
+                    y += (splitDesc.length * 4.8) + 8;
+
+                    // Rate & Unit Box
+                    doc.setFillColor(248, 250, 252);
+                    doc.setDrawColor(220, 225, 230);
+                    doc.roundedRect(margin, y, pageWidth - (margin * 2), 26, 3, 3, 'FD');
+
+                    const colWidth = (pageWidth - (margin * 2)) / 3;
+                    const boxY = y + 8;
+
+                    // Rate
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(8);
+                    doc.setTextColor(39, 174, 96);
+                    doc.text("RATE (Rs.)", margin + 6, boxY);
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(12);
+                    doc.setTextColor(39, 174, 96);
+                    doc.text(`Rs. ${item.rate.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`, margin + 6, boxY + 8);
+
+                    // Unit
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(8);
+                    doc.setTextColor(110, 110, 110);
+                    doc.text("UNIT", margin + colWidth + 4, boxY);
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(11);
+                    doc.setTextColor(40, 40, 40);
+                    doc.text(String(item.unit || '-'), margin + colWidth + 4, boxY + 8);
+
+                    // Year
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(8);
+                    doc.setTextColor(110, 110, 110);
+                    doc.text("SCHEDULE YEAR", margin + (colWidth * 2) + 4, boxY);
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(11);
+                    doc.setTextColor(40, 40, 40);
+                    doc.text(String(item.year || '-'), margin + (colWidth * 2) + 4, boxY + 8);
+
+                    // Footer Note
+                    doc.setDrawColor(230, 230, 230);
+                    doc.line(margin, 280, pageWidth - margin, 280);
+                    doc.setFont('helvetica', 'italic');
+                    doc.setFontSize(8);
+                    doc.setTextColor(140, 140, 140);
+                    doc.text("Generated via Construction Hub GSR Viewer. Official rates governed by Goa PWD Schedule of Rates.", margin, 285);
+
+                    const safeCode = String(item.itemCode).replace(/[^a-zA-Z0-9_-]/g, '_');
+                    doc.save(`GSR_Item_${safeCode}.pdf`);
+
+                    if (window.trackEvent) {
+                        window.trackEvent('gsr_item_download', {
+                            format: 'pdf',
+                            item_code: item.itemCode,
+                            rate: item.rate
+                        });
+                    }
+                } catch (err) {
+                    console.error("PDF download error:", err);
+                    alert("Could not export PDF: " + err.message);
+                }
+            }
+
+            // Modal Button Listeners
+            modalClose.addEventListener('click', closeModal);
+            if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+            if (downloadExcelBtn) {
+                downloadExcelBtn.addEventListener('click', () => {
+                    if (currentModalItem) downloadItemExcel(currentModalItem);
+                });
+            }
+
+            if (downloadPdfBtn) {
+                downloadPdfBtn.addEventListener('click', () => {
+                    if (currentModalItem) downloadItemPdf(currentModalItem);
+                });
+            }
+
+            // ── Escape HTML helper ──
+            function escapeHTML(str) {
+                if (str === null || str === undefined) return '';
+                return String(str)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#039;');
+            }
+
+            // ── Format Currency helpers ──
+            function formatCurrency(amount) {
+                return `₹${Math.round(amount).toLocaleString('en-IN')}`;
+            }
+
+            function formatCompactCurrency(amount) {
+                if (amount >= 10000000) {
+                    return `₹${(amount / 10000000).toFixed(2)} Cr`;
+                } else if (amount >= 100000) {
+                    return `₹${(amount / 100000).toFixed(2)} L`;
+                }
+                return `₹${Math.round(amount).toLocaleString('en-IN')}`;
+            }
+
+            // ── My Estimate State & Persistence ──
+            let MY_ESTIMATE = [];
+            try {
+                const saved = localStorage.getItem('gsr_my_estimate');
+                if (saved) MY_ESTIMATE = JSON.parse(saved);
+                if (!Array.isArray(MY_ESTIMATE)) MY_ESTIMATE = [];
+            } catch (e) {
+                console.warn("Could not load saved estimate:", e);
+                MY_ESTIMATE = [];
+            }
+
+            function saveEstimate() {
+                try {
+                    localStorage.setItem('gsr_my_estimate', JSON.stringify(MY_ESTIMATE));
+                } catch (e) {
+                    console.warn("Could not save estimate:", e);
+                }
+                updateEstimateUI();
+            }
+
+            function isInEstimate(item) {
+                if (!item) return false;
+                return MY_ESTIMATE.some(e => e.itemCode === item.itemCode && e.sourceId === item.sourceId);
+            }
+
+            function toggleEstimateItem(item) {
+                if (!item) return;
+                const existingIdx = MY_ESTIMATE.findIndex(e => e.itemCode === item.itemCode && e.sourceId === item.sourceId);
+                if (existingIdx !== -1) {
+                    MY_ESTIMATE.splice(existingIdx, 1);
+                    saveEstimate();
+                    showToast(`Removed item ${item.itemCode} from estimate`, 'fa-trash-alt');
+                    if (window.trackEvent) {
+                        window.trackEvent('estimate_item_remove', {
+                            item_code: item.itemCode,
+                            source_id: item.sourceId || ''
+                        });
+                    }
+                } else {
+                    const src = GSR_SOURCES.find(s => s.id === item.sourceId);
+                    MY_ESTIMATE.push({
+                        itemCode: item.itemCode,
+                        chapter: item.chapter || '',
+                        sourceId: item.sourceId || '',
+                        sourceLabel: src ? src.label : (item.sourceLabel || 'GSR'),
+                        description: item.shortDescription || item.fullDescription || '',
+                        fullDescription: item.fullDescription || item.shortDescription || '',
+                        unit: item.unit || '-',
+                        rate: Number(item.rate) || 0,
+                        qty: 1
+                    });
+                    saveEstimate();
+                    showToast(`Added item ${item.itemCode} to estimate`, 'fa-check-circle');
+
+                    if (window.trackEvent) {
+                        window.trackEvent('estimate_item_add', {
+                            item_code: item.itemCode,
+                            rate: Number(item.rate) || 0,
+                            unit: item.unit || '',
+                            source_id: item.sourceId || ''
+                        });
+                    }
+
+                    // Micro-pulse animation on floating button
+                    const floatBtn = document.getElementById('openEstimateBtn');
+                    if (floatBtn) {
+                        floatBtn.style.transform = 'translateY(-6px) scale(1.08)';
+                        setTimeout(() => { floatBtn.style.transform = ''; }, 300);
+                    }
+                }
+                // Refresh visible cards
+                const currentItems = getFilteredItems();
+                renderGrid(currentItems);
+            }
+
+            function updateEstimateItemQty(index, newQty) {
+                if (index < 0 || index >= MY_ESTIMATE.length) return;
+                const parsed = parseFloat(newQty);
+                if (isNaN(parsed) || parsed <= 0) return;
+                MY_ESTIMATE[index].qty = parsed;
+                saveEstimate();
+            }
+
+            function removeEstimateItem(index) {
+                if (index < 0 || index >= MY_ESTIMATE.length) return;
+                const removed = MY_ESTIMATE.splice(index, 1)[0];
+                saveEstimate();
+                if (removed) {
+                    showToast(`Removed ${removed.itemCode}`, 'fa-trash-alt');
+                    if (window.trackEvent) {
+                        window.trackEvent('estimate_item_remove', {
+                            item_code: removed.itemCode,
+                            source_id: removed.sourceId || ''
+                        });
+                    }
+                }
+                const currentItems = getFilteredItems();
+                renderGrid(currentItems);
+            }
+
+            function clearEstimate() {
+                if (MY_ESTIMATE.length === 0) return;
+                if (confirm("Are you sure you want to clear all items from your estimate?")) {
+                    const prevCount = MY_ESTIMATE.length;
+                    MY_ESTIMATE = [];
+                    saveEstimate();
+                    showToast("Estimate cleared", 'fa-trash-alt');
+                    if (window.trackEvent) {
+                        window.trackEvent('estimate_clear', {
+                            items_cleared_count: prevCount
+                        });
+                    }
+                    const currentItems = getFilteredItems();
+                    renderGrid(currentItems);
+                }
+            }
+
+            // ── Toast Notifications ──
+            let toastTimeout = null;
+            function showToast(text, iconClass = 'fa-check-circle') {
+                const toast = document.getElementById('estimateToast');
+                const toastText = document.getElementById('estimateToastText');
+                if (!toast || !toastText) return;
+
+                toastText.textContent = text;
+                const icon = toast.querySelector('i');
+                if (icon) icon.className = `fas ${iconClass}`;
+
+                toast.style.display = 'flex';
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateY(0)';
+
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateY(10px)';
+                    setTimeout(() => { toast.style.display = 'none'; }, 250);
+                }, 2500);
+            }
+
+            // ── Update Estimate UI (Floating Button & Drawer) ──
+            function updateEstimateUI() {
+                const floatBtnCount = document.getElementById('estimateBtnCount');
+                const floatBtnTotal = document.getElementById('estimateBtnTotal');
+                const emptyState = document.getElementById('estimateEmptyState');
+                const itemsList = document.getElementById('estimateItemsList');
+                const footer = document.getElementById('estimateFooter');
+                const itemCountText = document.getElementById('estimateItemCountText');
+                const baseSubtotalEl = document.getElementById('estimateBaseSubtotal');
+                const overheadRow = document.getElementById('overheadRow');
+                const overheadLabel = document.getElementById('overheadLabel');
+                const overheadAmountEl = document.getElementById('estimateOverheadAmount');
+                const gstRow = document.getElementById('gstRow');
+                const gstLabel = document.getElementById('gstLabel');
+                const gstAmountEl = document.getElementById('estimateGSTAmount');
+                const grandTotalEl = document.getElementById('estimateGrandTotal');
+                const totalWordsEl = document.getElementById('estimateTotalWords');
+                const gstSelect = document.getElementById('estimateGSTRate');
+                const profitSelect = document.getElementById('estimateProfitRate');
+
+                const totalItems = MY_ESTIMATE.length;
+                const baseSubtotal = MY_ESTIMATE.reduce((sum, item) => sum + (item.rate * item.qty), 0);
+
+                const gstRate = gstSelect ? parseFloat(gstSelect.value) || 0 : 18;
+                const profitRate = profitSelect ? parseFloat(profitSelect.value) || 0 : 0;
+
+                const overheadAmount = (baseSubtotal * profitRate) / 100;
+                const taxableAmount = baseSubtotal + overheadAmount;
+                const gstAmount = (taxableAmount * gstRate) / 100;
+                const grandTotal = taxableAmount + gstAmount;
+
+                // Update floating button
+                if (floatBtnCount) {
+                    floatBtnCount.textContent = totalItems;
+                    floatBtnCount.style.display = totalItems > 0 ? 'inline-block' : 'none';
+                }
+                if (floatBtnTotal) {
+                    floatBtnTotal.textContent = totalItems === 0
+                        ? '0 items • ₹0'
+                        : `${totalItems} item${totalItems > 1 ? 's' : ''} • ${formatCompactCurrency(grandTotal)}`;
+                }
+
+                // Update Drawer states
+                if (totalItems === 0) {
+                    if (emptyState) emptyState.style.display = 'block';
+                    if (itemsList) itemsList.style.display = 'none';
+                    if (footer) footer.style.display = 'none';
+                    return;
+                }
+
+                if (emptyState) emptyState.style.display = 'none';
+                if (itemsList) itemsList.style.display = 'flex';
+                if (footer) footer.style.display = 'block';
+
+                if (itemCountText) itemCountText.textContent = totalItems;
+                if (baseSubtotalEl) baseSubtotalEl.textContent = formatCurrency(baseSubtotal);
+
+                if (overheadRow && overheadAmountEl) {
+                    if (profitRate > 0) {
+                        overheadRow.style.display = 'flex';
+                        if (overheadLabel) overheadLabel.textContent = `Overhead & Profit (${profitRate}%):`;
+                        overheadAmountEl.textContent = formatCurrency(overheadAmount);
+                    } else {
+                        overheadRow.style.display = 'none';
+                    }
+                }
+
+                if (gstRow && gstAmountEl) {
+                    if (gstRate > 0) {
+                        gstRow.style.display = 'flex';
+                        if (gstLabel) gstLabel.textContent = `GST (${gstRate}%):`;
+                        gstAmountEl.textContent = formatCurrency(gstAmount);
+                    } else {
+                        gstRow.style.display = 'none';
+                    }
+                }
+
+                if (grandTotalEl) grandTotalEl.textContent = formatCurrency(grandTotal);
+                if (totalWordsEl) totalWordsEl.textContent = `(Approx. ${formatCompactCurrency(grandTotal)})`;
+
+                // Render Item Cards in Drawer
+                if (itemsList) {
+                    itemsList.innerHTML = MY_ESTIMATE.map((item, idx) => {
+                        const lineAmount = Math.round(item.rate * item.qty);
+                        return `
+                        <div class="estimate-item-card" data-idx="${idx}">
+                            <div class="estimate-item-top">
+                                <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                                    <span class="estimate-item-code">${escapeHTML(item.itemCode)}</span>
+                                    <span class="estimate-item-badge" style="background: #0077B6;">${escapeHTML(item.chapter)}</span>
+                                    <span style="font-size: 0.75em; color: #64748b; background: #f8fafc; padding: 2px 6px; border-radius: 4px; border: 1px solid #e2e8f0;">${escapeHTML(item.sourceLabel)}</span>
+                                </div>
+                                <button class="estimate-btn-remove" data-idx="${idx}" title="Remove item from estimate">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                            <div class="estimate-item-desc">${escapeHTML(item.description)}</div>
+                            <div class="estimate-item-bottom">
+                                <div class="estimate-rate-info">
+                                    Rate: <strong>₹${item.rate.toLocaleString('en-IN')}</strong> / ${escapeHTML(item.unit)}
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div class="estimate-qty-ctrl">
+                                        <button class="estimate-qty-btn btn-minus" data-idx="${idx}" title="Decrease quantity">-</button>
+                                        <input type="number" class="estimate-qty-input" data-idx="${idx}" value="${item.qty}" min="0.01" step="any" title="Enter custom quantity">
+                                        <button class="estimate-qty-btn btn-plus" data-idx="${idx}" title="Increase quantity">+</button>
+                                    </div>
+                                    <span class="estimate-item-amount">₹${lineAmount.toLocaleString('en-IN')}</span>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                    }).join('');
+
+                    // Wire up events in drawer items
+                    itemsList.querySelectorAll('.estimate-btn-remove').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const idx = parseInt(btn.getAttribute('data-idx'), 10);
+                            removeEstimateItem(idx);
+                        });
+                    });
+
+                    itemsList.querySelectorAll('.btn-minus').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const idx = parseInt(btn.getAttribute('data-idx'), 10);
+                            const current = MY_ESTIMATE[idx].qty;
+                            const next = Math.max(0.01, current <= 1 ? +(current - 0.1).toFixed(2) : +(current - 1).toFixed(2));
+                            updateEstimateItemQty(idx, next);
+                        });
+                    });
+
+                    itemsList.querySelectorAll('.btn-plus').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const idx = parseInt(btn.getAttribute('data-idx'), 10);
+                            const current = MY_ESTIMATE[idx].qty;
+                            const next = +(current + 1).toFixed(2);
+                            updateEstimateItemQty(idx, next);
+                        });
+                    });
+
+                    itemsList.querySelectorAll('.estimate-qty-input').forEach(input => {
+                        input.addEventListener('change', () => {
+                            const idx = parseInt(input.getAttribute('data-idx'), 10);
+                            let val = parseFloat(input.value);
+                            if (isNaN(val) || val <= 0) val = 1;
+                            updateEstimateItemQty(idx, val);
+                        });
+                    });
+                }
+            }
+
+            // ── Drawer Open / Close ──
+            const openEstimateBtn = document.getElementById('openEstimateBtn');
+            const estimateDrawerModal = document.getElementById('estimateDrawerModal');
+            const closeEstimateDrawerBtn = document.getElementById('closeEstimateDrawerBtn');
+            const clearEstimateBtn = document.getElementById('clearEstimateBtn');
+
+            function openEstimateDrawer() {
+                if (!estimateDrawerModal) return;
+                estimateDrawerModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                updateEstimateUI();
+
+                if (window.trackEvent) {
+                    const baseSubtotal = MY_ESTIMATE.reduce((s, i) => s + (i.rate * i.qty), 0);
+                    window.trackEvent('estimate_drawer_open', {
+                        item_count: MY_ESTIMATE.length,
+                        subtotal: Math.round(baseSubtotal)
+                    });
+                }
+            }
+
+            function closeEstimateDrawer() {
+                if (!estimateDrawerModal) return;
+                estimateDrawerModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            if (openEstimateBtn) openEstimateBtn.addEventListener('click', openEstimateDrawer);
+            if (closeEstimateDrawerBtn) closeEstimateDrawerBtn.addEventListener('click', closeEstimateDrawer);
+            if (clearEstimateBtn) clearEstimateBtn.addEventListener('click', clearEstimate);
+            if (estimateDrawerModal) {
+                estimateDrawerModal.addEventListener('click', (e) => {
+                    if (e.target === estimateDrawerModal) closeEstimateDrawer();
+                });
+            }
+
+            const gstSelect = document.getElementById('estimateGSTRate');
+            const profitSelect = document.getElementById('estimateProfitRate');
+            if (gstSelect) gstSelect.addEventListener('change', updateEstimateUI);
+            if (profitSelect) profitSelect.addEventListener('change', updateEstimateUI);
+
+            // ── Export Estimate to Excel (.xlsx) ──
+            function exportEstimateExcel() {
+                if (MY_ESTIMATE.length === 0) {
+                    alert("Please add at least one item to your estimate before exporting.");
+                    return;
+                }
+
+                try {
+                    const projectName = document.getElementById('estimateProjectName')?.value?.trim() || "Custom GSR Construction Estimate";
+                    const clientName = document.getElementById('estimateClientName')?.value?.trim() || "N/A";
+                    const gstVal = gstSelect ? parseFloat(gstSelect.value) || 0 : 18;
+                    const profitVal = profitSelect ? parseFloat(profitSelect.value) || 0 : 0;
+
+                    const baseSubtotal = MY_ESTIMATE.reduce((s, i) => s + (i.rate * i.qty), 0);
+                    const overheadAmount = (baseSubtotal * profitVal) / 100;
+                    const taxableAmount = baseSubtotal + overheadAmount;
+                    const gstAmount = (taxableAmount * gstVal) / 100;
+                    const grandTotal = taxableAmount + gstAmount;
+
+                    const rows = [
+                        ["GOA CONSTRUCTION DOCUMENT HUB - ESTIMATE SHEET"],
+                        ["Project / Work Name:", projectName],
+                        ["Client / Prepared For:", clientName],
+                        ["Generated On:", new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })],
+                        [],
+                        ["SR No.", "Item Code", "GSR Chapter", "Schedule Source", "Item Description", "Unit", "Quantity", "Schedule Rate (INR)", "Total Amount (INR)"]
+                    ];
+
+                    MY_ESTIMATE.forEach((item, idx) => {
+                        rows.push([
+                            idx + 1,
+                            item.itemCode,
+                            item.chapter,
+                            item.sourceLabel,
+                            item.fullDescription || item.description,
+                            item.unit,
+                            item.qty,
+                            item.rate,
+                            item.qty * item.rate
+                        ]);
+                    });
+
+                    rows.push([]);
+                    rows.push(["", "", "", "", "", "", "", "Base Subtotal:", baseSubtotal]);
+                    if (profitVal > 0) {
+                        rows.push(["", "", "", "", "", "", "", `Contractor Overhead (${profitVal}%):`, overheadAmount]);
+                    }
+                    if (gstVal > 0) {
+                        rows.push(["", "", "", "", "", "", "", `GST (${gstVal}%):`, gstAmount]);
+                    }
+                    rows.push(["", "", "", "", "", "", "", "Estimated Grand Total:", grandTotal]);
+
+                    const wb = XLSX.utils.book_new();
+                    const ws = XLSX.utils.aoa_to_sheet(rows);
+
+                    ws['!cols'] = [
+                        { wch: 8 },
+                        { wch: 14 },
+                        { wch: 25 },
+                        { wch: 22 },
+                        { wch: 55 },
+                        { wch: 12 },
+                        { wch: 12 },
+                        { wch: 20 },
+                        { wch: 22 }
+                    ];
+
+                    XLSX.utils.book_append_sheet(wb, ws, "Project Estimate");
+                    const safeName = projectName.replace(/[^a-zA-Z0-9_-]/g, '_').substring(0, 30);
+                    XLSX.writeFile(wb, `${safeName || 'GSR_Estimate'}_${Date.now()}.xlsx`);
+                    showToast("Exported Estimate Excel successfully!", 'fa-file-excel');
+
+                    if (window.trackEvent) {
+                        window.trackEvent('estimate_export', {
+                            format: 'excel',
+                            item_count: MY_ESTIMATE.length,
+                            grand_total: Math.round(grandTotal),
+                            gst_percent: gstVal,
+                            profit_percent: profitVal
+                        });
+                    }
+                } catch (err) {
+                    console.error("Excel export error:", err);
+                    alert("Could not export Excel: " + err.message);
+                }
+            }
+
+            // ── Export Estimate to PDF (.pdf) ──
+            function exportEstimatePdf() {
+                if (MY_ESTIMATE.length === 0) {
+                    alert("Please add at least one item to your estimate before exporting.");
+                    return;
+                }
+
+                try {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+                    const projectName = document.getElementById('estimateProjectName')?.value?.trim() || "Custom GSR Construction Estimate";
+                    const clientName = document.getElementById('estimateClientName')?.value?.trim() || "N/A";
+                    const gstVal = gstSelect ? parseFloat(gstSelect.value) || 0 : 18;
+                    const profitVal = profitSelect ? parseFloat(profitSelect.value) || 0 : 0;
+
+                    const baseSubtotal = MY_ESTIMATE.reduce((s, i) => s + (i.rate * i.qty), 0);
+                    const overheadAmount = (baseSubtotal * profitVal) / 100;
+                    const taxableAmount = baseSubtotal + overheadAmount;
+                    const gstAmount = (taxableAmount * gstVal) / 100;
+                    const grandTotal = taxableAmount + gstAmount;
+
+                    // Branded Blue Header
+                    doc.setFillColor(0, 119, 182);
+                    doc.rect(0, 0, 210, 24, 'F');
+
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(13);
+                    doc.setTextColor(255, 255, 255);
+                    doc.text("CONSTRUCTION HUB - PROJECT ESTIMATE", 14, 11);
+
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(8.5);
+                    doc.text("Goa Schedule of Rates (GSR) Custom Bill Compilation", 14, 18);
+
+                    // Project Details
+                    doc.setTextColor(30, 41, 59);
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(11);
+                    doc.text(projectName, 14, 32);
+
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(9);
+                    doc.setTextColor(100, 116, 139);
+                    doc.text(`Prepared For/By: ${clientName}`, 14, 38);
+                    doc.text(`Date: ${new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}`, 150, 38);
+
+                    // Table rows
+                    const tableRows = MY_ESTIMATE.map((item, idx) => {
+                        const lineAmt = (item.rate * item.qty).toLocaleString('en-IN', { minimumFractionDigits: 2 });
+                        return [
+                            idx + 1,
+                            item.itemCode,
+                            item.fullDescription || item.description,
+                            item.unit,
+                            item.qty.toString(),
+                            `Rs. ${item.rate.toLocaleString('en-IN')}`,
+                            `Rs. ${lineAmt}`
+                        ];
+                    });
+
+                    // Summary rows at bottom of table
+                    const summaryRows = [
+                        [
+                            { content: 'Base Subtotal:', colSpan: 6, styles: { halign: 'right', fontStyle: 'bold' } },
+                            { content: `Rs. ${baseSubtotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`, styles: { halign: 'right', fontStyle: 'bold' } }
+                        ]
+                    ];
+
+                    if (profitVal > 0) {
+                        summaryRows.push([
+                            { content: `Contractor Overhead (${profitVal}%):`, colSpan: 6, styles: { halign: 'right' } },
+                            { content: `Rs. ${overheadAmount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`, styles: { halign: 'right' } }
+                        ]);
+                    }
+
+                    if (gstVal > 0) {
+                        summaryRows.push([
+                            { content: `GST (${gstVal}%):`, colSpan: 6, styles: { halign: 'right' } },
+                            { content: `Rs. ${gstAmount.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`, styles: { halign: 'right' } }
+                        ]);
+                    }
+
+                    summaryRows.push([
+                        { content: 'ESTIMATED GRAND TOTAL:', colSpan: 6, styles: { halign: 'right', fontStyle: 'bold', fillColor: [240, 253, 244], textColor: [22, 101, 52] } },
+                        { content: `Rs. ${grandTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`, styles: { halign: 'right', fontStyle: 'bold', fillColor: [240, 253, 244], textColor: [22, 101, 52] } }
+                    ]);
+
+                    doc.autoTable({
+                        startY: 44,
+                        head: [['#', 'Item Code', 'Description of Work', 'Unit', 'Qty', 'Rate', 'Amount']],
+                        body: [...tableRows, ...summaryRows],
+                        styles: { fontSize: 8, cellPadding: 2.2 },
+                        headStyles: { fillColor: [0, 119, 182], textColor: 255, fontStyle: 'bold' },
+                        columnStyles: {
+                            0: { cellWidth: 8, halign: 'center' },
+                            1: { cellWidth: 18, halign: 'center', fontStyle: 'bold' },
+                            2: { cellWidth: 'auto' },
+                            3: { cellWidth: 14, halign: 'center' },
+                            4: { cellWidth: 14, halign: 'right' },
+                            5: { cellWidth: 24, halign: 'right' },
+                            6: { cellWidth: 26, halign: 'right' }
+                        },
+                        alternateRowStyles: { fillColor: [248, 250, 252] },
+                        margin: { left: 14, right: 14 }
+                    });
+
+                    // Add page numbers
+                    const pageCount = doc.internal.getNumberOfPages();
+                    for (let p = 1; p <= pageCount; p++) {
+                        doc.setPage(p);
+                        doc.setFontSize(8);
+                        doc.setTextColor(140, 140, 140);
+                        doc.text(`Page ${p} of ${pageCount} • Generated via Construction Hub GSR Viewer`, 14, 290);
+                    }
+
+                    const safeName = projectName.replace(/[^a-zA-Z0-9_-]/g, '_').substring(0, 30);
+                    doc.save(`${safeName || 'GSR_Estimate'}_${Date.now()}.pdf`);
+                    showToast("Exported Estimate PDF successfully!", 'fa-file-pdf');
+
+                    if (window.trackEvent) {
+                        window.trackEvent('estimate_export', {
+                            format: 'pdf',
+                            item_count: MY_ESTIMATE.length,
+                            grand_total: Math.round(grandTotal),
+                            gst_percent: gstVal,
+                            profit_percent: profitVal
+                        });
+                    }
+                } catch (err) {
+                    console.error("PDF export error:", err);
+                    alert("Could not export PDF: " + err.message);
+                }
+            }
+
+            const exportExcelBtn = document.getElementById('exportEstimateExcelBtn');
+            if (exportExcelBtn) exportExcelBtn.addEventListener('click', exportEstimateExcel);
+
+            const exportPdfBtn = document.getElementById('exportEstimatePdfBtn');
+            if (exportPdfBtn) exportPdfBtn.addEventListener('click', exportEstimatePdf);
+
+            // Escape key closes estimate drawer or modal
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (estimateDrawerModal && estimateDrawerModal.classList.contains('active')) {
+                        closeEstimateDrawer();
+                    } else if (modal && modal.classList.contains('active')) {
+                        closeModal();
+                    }
+                }
+            });
+
+            // ── Search & Filter Listeners with Analytics ──
+            let gsrSearchAnalyticsTimer;
+            if (searchInput) {
+                searchInput.addEventListener('input', () => {
+                    debouncedUpdate();
+                    clearTimeout(gsrSearchAnalyticsTimer);
+                    gsrSearchAnalyticsTimer = setTimeout(() => {
+                        const term = searchInput.value.trim();
+                        if (term && window.trackEvent) {
+                            window.trackEvent('gsr_search', {
+                                search_term: term,
+                                source_id: activeSource ? activeSource.id : ''
+                            });
+                        }
+                    }, 800);
+                });
+            }
+
+            if (clearSearchBtn) {
+                clearSearchBtn.addEventListener('click', () => {
+                    searchInput.value = '';
+                    update();
+                    clearSearchBtn.style.display = 'none';
+                    searchInput.focus();
+                });
+            }
+
+            if (chapterFilter) {
+                chapterFilter.addEventListener('change', () => {
+                    update();
+                    if (chapterFilter.value && window.trackEvent) {
+                        window.trackEvent('gsr_chapter_filter', {
+                            chapter_id: chapterFilter.value,
+                            source_id: activeSource ? activeSource.id : ''
+                        });
+                    }
+                });
+            }
+
+            if (sortSelect) {
+                sortSelect.addEventListener('change', () => {
+                    update();
+                    if (window.trackEvent) {
+                        window.trackEvent('gsr_sort_change', {
+                            sort_by: sortSelect.value,
+                            source_id: activeSource ? activeSource.id : ''
+                        });
+                    }
+                });
+            }
+
+            // Initialize Estimate UI at start
+            updateEstimateUI();
+
+            // ── Initial load — default to first source ──
+            await switchSource(GSR_SOURCES[0].id);
+        });
+    </script>
+</body>
+
+</html>
