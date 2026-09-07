@@ -93,8 +93,8 @@
       nativeName: '한국어 · 대한민국 (₩ KRW)',
       badge: '한국어판',
       desc: '만 나이, 삼각법, 콘크리트, 대각선 및 날짜 시간 유틸리티 계산기',
-      folder: 'ko/',
-      homeFile: 'ko/index.html'
+      folder: 'ko/moretools/',
+      homeFile: 'ko/moretools/trignometrycalculator.html'
     }
   ];
 
@@ -180,7 +180,7 @@
       if (currentFilename === 'concretecalculator.html' || currentFilename === 'diagonalcalculator.html' || currentFilename === 'trignometrycalculator.html') {
         return rootPrefix + 'ko/moretools/' + currentFilename;
       }
-      return rootPrefix + 'ko/index.html';
+      return rootPrefix + 'ko/moretools/trignometrycalculator.html';
     }
 
     return rootPrefix + target.homeFile;
@@ -281,7 +281,7 @@
       '  gap: 0.4rem;',
       '  padding: 0.25rem 0.65rem;',
       '  background: #e0f2fe;',
-      '  color: #0369a1;',
+      '  color: #0284c7;',
       '  border-radius: 999px;',
       '  font-size: 0.75rem;',
       '  font-weight: 800;',
@@ -591,7 +591,7 @@
     var oldLangSwitch = document.querySelector('.lang-switch');
     if (oldLangSwitch) {
       oldLangSwitch.innerHTML = [
-        '<button type="button" class="ic-lang-btn" aria-label="Select Language & Region: ' + currentLangObj.shortLabel + '" title="Select Language & Region: ' + currentLangObj.shortLabel + '">',
+        '<button type="button" class="ic-lang-btn" aria-label="Select Language & Region" title="Select Language & Region">',
         '  <i class="fas fa-globe"></i>',
         '  <span>' + currentLangObj.flag + ' ' + currentLangObj.shortLabel + '</span>',
         '  <i class="fas fa-chevron-down ic-chevron"></i>',
@@ -607,8 +607,8 @@
       newBtn.type = 'button';
       newBtn.id = 'icHeaderLangBtn';
       newBtn.className = 'ic-lang-btn';
-      newBtn.setAttribute('aria-label', 'Select Language & Region: ' + currentLangObj.shortLabel);
-      newBtn.setAttribute('title', 'Select Language & Region: ' + currentLangObj.shortLabel);
+      newBtn.setAttribute('aria-label', 'Select Language & Region');
+      newBtn.setAttribute('title', 'Select Language & Region');
       newBtn.innerHTML = [
         '<i class="fas fa-globe"></i>',
         '<span>' + currentLangObj.flag + ' ' + currentLangObj.shortLabel + '</span>',
