@@ -4,7 +4,7 @@ import { planCopy } from "@/i18n/retirement-labels";
 import { formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
 import type { Locale } from "@/config/site";
 import { JaNpsArticle } from "@/components/articles/ja/JaNpsArticle";
-import { RuInternationalArticle } from "@/components/articles/ru/RuInternationalArticle";
+import { RuNpsArticle } from "@/components/articles/ru/RuNpsArticle";
 import { InNpsArticle } from "@/components/articles/in/InNpsArticle";
 
 export default createCalculatorPage((locale: Locale) => {
@@ -56,6 +56,6 @@ export default createCalculatorPage((locale: Locale) => {
       { label: c.pension, value: (r) => money(r.monthlyPension) },
       { label: c.totalInvested, value: (r) => money(r.invested) },
     ],
-    guide: locale === "ja" ? <JaNpsArticle /> : locale === "ru" ? <RuInternationalArticle /> : <InNpsArticle />,
+    guide: locale === "ja" ? <JaNpsArticle /> : locale === "ru" ? <RuNpsArticle /> : <InNpsArticle />,
   };
 });

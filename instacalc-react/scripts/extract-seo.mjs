@@ -10,6 +10,8 @@
 import { readFileSync, writeFileSync, readdirSync, statSync, mkdirSync } from "node:fs";
 import { join, dirname, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { applyRuSeo } from "./update-ru-seo.mjs";
+import { applyEnglishFaqs } from "./fix-hindi-faqs.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
@@ -297,6 +299,9 @@ if (!pages["us/auto-loan-calculator.html"]) {
     source: "us/auto-loan-calculator.html",
   };
 }
+
+applyRuSeo(pages);
+applyEnglishFaqs(pages);
 
 const outDir = join(ROOT, "src", "data");
 mkdirSync(outDir, { recursive: true });

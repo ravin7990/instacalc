@@ -8,10 +8,10 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { pathToFileURL } from "node:url";
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SEO_PATH = join(__dirname, "..", "src", "data", "seo.generated.json");
-
-const seoData = JSON.parse(readFileSync(SEO_PATH, "utf8"));
 
 const FAQ_REPLACEMENTS = {
   "duration/agecalculator.html": [
@@ -571,42 +571,82 @@ const FAQ_REPLACEMENTS = {
       q: "How can I copy or share my calculation results?",
       a: "Every calculator features an instant Copy button next to the primary result, enabling you to copy key figures and schedules directly into WhatsApp, email, or spreadsheets."
     }
+  ],
+  "epfcalculator.html": [
+    {
+      q: "How is EPF maturity calculated in India?",
+      a: "EPF maturity is calculated by adding your monthly 12% employee contribution, the 3.67% employer share, and optionally your VPF contribution, then compounding the final balance annually using the latest EPFO declared interest rate (e.g., 8.25%)."
+    },
+    {
+      q: "What is the difference between EPF and EPS?",
+      a: "EPF (Employee Provident Fund) builds your compounding lump-sum retirement corpus. EPS (Employee Pension Scheme) takes 8.33% of the employer's share (capped at ₹1,250/month) to fund a fixed monthly pension paid to you after your retirement."
+    },
+    {
+      q: "Can I include VPF in EPF calculations?",
+      a: "Yes. Voluntary Provident Fund (VPF) allows you to voluntarily contribute more than the mandated 12% of your basic salary. Our advanced calculator lets you add a VPF percentage to accurately project a significantly higher tax-free retirement corpus."
+    },
+    {
+      q: "How does a salary hike impact my EPF corpus?",
+      a: "Since EPF is a strict percentage of your Basic Salary + DA, an annual salary hike mechanically increases your absolute monthly contribution. This continuous step-up effect radically boosts your final corpus via long-term geometric compounding."
+    },
+    {
+      q: "Can I model partial EPF withdrawal before retirement?",
+      a: "Yes. EPF rules allow partial tax-free withdrawals for specific life events (marriage, home purchase, medical emergencies). You can input a one-time withdrawal year and amount to instantly see how early liquidity severely impacts your final retirement balance."
+    },
+    {
+      q: "Does this EPF calculator show inflation-adjusted corpus?",
+      a: "Yes. Viewing a massive nominal corpus value can be misleading. By setting an expected inflation rate, our tool mathematically discounts your final EPF maturity amount to show its exact true purchasing power in today's currency."
+    },
+    {
+      q: "What is the maximum EPF interest rate?",
+      a: "The EPF interest rate is not fixed; it is actively declared by the Central Board of Trustees (EPFO) every financial year. In recent years, it has fluctuated between 8.1% and 8.5%, making it one of the highest-yielding sovereign-backed debt instruments in India."
+    },
+    {
+      q: "Is my EPF corpus completely tax-free?",
+      a: "Generally, yes. EPF falls under the EEE (Exempt-Exempt-Exempt) tax regime. However, if your total employee contribution (EPF + VPF) exceeds ₹2.5 lakh in a single financial year, the interest actively earned on the excess amount becomes fully taxable according to your slab."
+    },
+    {
+      q: "How is the EPS pension amount estimated?",
+      a: "EPS pension is broadly estimated using the formula: (Pensionable Salary × Pensionable Service) ÷ 70. Our calculator utilizes this government statutory logic to project an indicative figure of your guaranteed monthly pension at retirement."
+    },
+    {
+      q: "How do I transfer my EPF balance when changing jobs?",
+      a: "You can transfer your EPF account between employers online through the EPFO Member e-Sewa Unified Portal using your Universal Account Number (UAN). Submit an online transfer claim (Form 13) after linking your Aadhaar and bank account details."
+    }
   ]
 };
 
-let updatedCount = 0;
+export function applyEnglishFaqs(pages) {
+  for (const [pagePath, faqs] of Object.entries(FAQ_REPLACEMENTS)) {
+    const page = pages[pagePath];
+    if (!page) continue;
 
-for (const [pagePath, faqs] of Object.entries(FAQ_REPLACEMENTS)) {
-  const page = seoData.pages[pagePath];
-  if (!page) {
-    console.warn(`Page not found in seo.generated.json: ${pagePath}`);
-    continue;
-  }
-
-  // Find or create FAQPage JSON-LD
-  let faqJsonLd = page.jsonLd?.find((j) => j && j["@type"] === "FAQPage");
-  if (!faqJsonLd) {
-    faqJsonLd = {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: []
-    };
-    if (!page.jsonLd) page.jsonLd = [];
-    page.jsonLd.push(faqJsonLd);
-  }
-
-  faqJsonLd.mainEntity = faqs.map((f) => ({
-    "@type": "Question",
-    name: f.q,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: f.a
+    // Find or create FAQPage JSON-LD
+    let faqJsonLd = page.jsonLd?.find((j) => j && j["@type"] === "FAQPage");
+    if (!faqJsonLd) {
+      faqJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: []
+      };
+      if (!page.jsonLd) page.jsonLd = [];
+      page.jsonLd.push(faqJsonLd);
     }
-  }));
 
-  updatedCount++;
-  console.log(`Updated FAQs for: ${pagePath} (${faqs.length} FAQs)`);
+    faqJsonLd.mainEntity = faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.a
+      }
+    }));
+  }
 }
 
-writeFileSync(SEO_PATH, JSON.stringify(seoData, null, 2), "utf8");
-console.log(`\nSuccessfully updated ${updatedCount} pages in ${SEO_PATH}!`);
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  const seoData = JSON.parse(readFileSync(SEO_PATH, "utf8"));
+  applyEnglishFaqs(seoData.pages);
+  writeFileSync(SEO_PATH, JSON.stringify(seoData, null, 2), "utf8");
+  console.log(`\nSuccessfully updated English FAQs in ${SEO_PATH}!`);
+}

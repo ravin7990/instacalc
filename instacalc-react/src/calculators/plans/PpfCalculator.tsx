@@ -3,7 +3,7 @@ import { calculatePpf } from "@/engines/retirement-plans";
 import { planCopy } from "@/i18n/retirement-labels";
 import { formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
 import type { Locale } from "@/config/site";
-import { RuInternationalArticle } from "@/components/articles/ru/RuInternationalArticle";
+import { RuPpfArticle } from "@/components/articles/ru/RuPpfArticle";
 import { InPpfArticle } from "@/components/articles/in/InPpfArticle";
 
 export default createCalculatorPage((locale: Locale) => {
@@ -69,6 +69,6 @@ export default createCalculatorPage((locale: Locale) => {
           money(row.closing),
         ]),
     },
-    guide: locale === "ru" ? <RuInternationalArticle /> : <InPpfArticle />,
+    guide: locale === "ru" ? <RuPpfArticle /> : <InPpfArticle />,
   };
 });

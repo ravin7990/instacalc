@@ -11,7 +11,7 @@ import { calculateMutualFund, type RiskScenario } from "@/engines/mutual-fund";
 import { fundCopy } from "@/i18n/fund-labels";
 import { formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
 import { JaMutualFundArticle } from "@/components/articles/ja/JaMutualFundArticle";
-import { RuCompoundArticle } from "@/components/articles/ru/RuCompoundArticle";
+import { RuMutualFundArticle } from "@/components/articles/ru/RuMutualFundArticle";
 import { InSipArticle } from "@/components/articles/in/InSipArticle";
 
 const SCENARIOS: RiskScenario[] = ["conservative", "base", "aggressive"];
@@ -25,10 +25,11 @@ export default function MutualFundCalculator({ seo }: { seo: SeoRecord }) {
   const p = symbol(seo.locale);
   const money = (n: number) => moneyFormat(seo.locale, n);
 
+  const isRu = seo.locale === "ru";
   const [s, setS] = useState({
     initial: 500_000, topup: 10_000, rate: 12, years: 15,
-    stepUp: 5, expense: 1, inflation: 6, exitLoad: 1,
-    ltcg: 12.5, exemption: 125_000, swpYear: 0, swp: 0,
+    stepUp: 5, expense: 1, inflation: isRu ? 7 : 6, exitLoad: isRu ? 0 : 1,
+    ltcg: isRu ? 13 : 12.5, exemption: isRu ? 3_000_000 : 125_000, swpYear: 0, swp: 0,
     target: 20_000_000, scenario: 1,
   });
 
@@ -62,7 +63,11 @@ export default function MutualFundCalculator({ seo }: { seo: SeoRecord }) {
       slider: { min: 0, max: 5_000_000, step: 50_000 },
       prefix: p,
       chips: [100_000, 250_000, 500_000, 1_000_000, 2_000_000].map((v) => ({
-        label: seo.locale === "ja" ? `${v / 10_000}万円` : `${p}${v / 100_000}L`,
+        label: seo.locale === "ja"
+          ? `${v / 10_000}万円`
+          : isRu
+          ? (v >= 1_000_000 ? `${v / 1_000_000} млн ₽` : `${v / 1000} тыс. ₽`)
+          : `${p}${v / 100_000}L`,
         value: v,
       })),
     },
@@ -72,7 +77,11 @@ export default function MutualFundCalculator({ seo }: { seo: SeoRecord }) {
       slider: { min: 0, max: 100_000, step: 500 },
       prefix: p,
       chips: [0, 5000, 10000, 25000, 50000].map((v) => ({
-        label: seo.locale === "ja" ? (v >= 10_000 ? `${v / 10_000}万円` : `${v}円`) : `${p}${v}`,
+        label: seo.locale === "ja"
+          ? (v >= 10_000 ? `${v / 10_000}万円` : `${v}円`)
+          : isRu
+          ? (v === 0 ? "0 ₽" : `${v / 1000} тыс. ₽`)
+          : `${p}${v}`,
         value: v,
       })),
     },
@@ -189,7 +198,7 @@ export default function MutualFundCalculator({ seo }: { seo: SeoRecord }) {
         </CalculatorShell>
 
         {seo.locale === "ja" && <JaMutualFundArticle />}
-        {seo.locale === "ru" && <RuCompoundArticle />}
+        {seo.locale === "ru" && <RuMutualFundArticle />}
         {seo.locale === "en" && <InSipArticle />}
 
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />

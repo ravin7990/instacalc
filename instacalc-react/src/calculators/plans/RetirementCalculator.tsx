@@ -12,7 +12,7 @@ import { usCopy } from "@/i18n/us-labels";
 import { formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
 import { UsRetirementArticle } from "@/components/articles/us/UsRetirementArticle";
 import { JaRetirementArticle } from "@/components/articles/ja/JaRetirementArticle";
-import { RuCompoundArticle } from "@/components/articles/ru/RuCompoundArticle";
+import { RuRetirementArticle } from "@/components/articles/ru/RuRetirementArticle";
 import { InCompoundArticle } from "@/components/articles/in/InCompoundArticle";
 
 /**
@@ -195,7 +195,7 @@ export default function RetirementCalculator({ seo }: { seo: SeoRecord }) {
 
         {seo.locale === "us" && <UsRetirementArticle />}
         {seo.locale === "ja" && <JaRetirementArticle />}
-        {seo.locale === "ru" && <RuCompoundArticle />}
+        {seo.locale === "ru" && <RuRetirementArticle />}
         {seo.locale === "en" && <InCompoundArticle />}
 
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />

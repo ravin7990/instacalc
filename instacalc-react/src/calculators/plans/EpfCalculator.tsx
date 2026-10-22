@@ -10,7 +10,7 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateEpf } from "@/engines/retirement-plans";
 import { planCopy } from "@/i18n/retirement-labels";
 import { formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
-import { RuInternationalArticle } from "@/components/articles/ru/RuInternationalArticle";
+import { RuEpfArticle } from "@/components/articles/ru/RuEpfArticle";
 import { InEpfArticle } from "@/components/articles/in/InEpfArticle";
 
 /** EPF, EPS and VPF projection. */
@@ -108,7 +108,7 @@ export default function EpfCalculator({ seo }: { seo: SeoRecord }) {
           />
         </CalculatorShell>
 
-        {seo.locale === "ru" && <RuInternationalArticle />}
+        {seo.locale === "ru" && <RuEpfArticle />}
         {seo.locale === "en" && <InEpfArticle />}
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />
       </Layout>

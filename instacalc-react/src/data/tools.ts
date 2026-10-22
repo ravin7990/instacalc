@@ -238,13 +238,13 @@ const RU_GROUPS: ToolGroup[] = [
     ],
   },
   {
-    id: "international-funds",
-    name: "Международные и индийские финансовые инструменты",
+    id: "pension-benefits",
+    name: "Пенсионные программы, долгосрочные сбережения и трудовые выплаты",
     tools: [
-      { path: "epfcalculator.html", label: "Калькулятор EPF (пенсионный накопительный фонд Индии)" },
-      { path: "ppfcalculator.html", label: "Калькулятор PPF (государственный сберегательный фонд Индии)" },
-      { path: "npscalculator.html", label: "Калькулятор NPS (национальная пенсионная система Индии)" },
-      { path: "gratuitycalculator.html", label: "Калькулятор Gratuity (выходное пособие за выслугу лет)" },
+      { path: "epfcalculator.html", label: "Калькулятор накопительной пенсии (накопления СФР и НПФ)" },
+      { path: "ppfcalculator.html", label: "Калькулятор Программы долгосрочных сбережений (ПДС: софинансирование)" },
+      { path: "npscalculator.html", label: "Калькулятор негосударственной пенсии (НПО: пенсионный план НПФ)" },
+      { path: "gratuitycalculator.html", label: "Калькулятор выходного пособия (выплаты при увольнении по ТК РФ)" },
     ],
   },
 ];

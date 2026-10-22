@@ -9,7 +9,7 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateGratuity } from "@/engines/retirement-plans";
 import { planCopy } from "@/i18n/retirement-labels";
 import { formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
-import { RuInternationalArticle } from "@/components/articles/ru/RuInternationalArticle";
+import { RuGratuityArticle } from "@/components/articles/ru/RuGratuityArticle";
 import { InGratuityArticle } from "@/components/articles/in/InGratuityArticle";
 
 /** Gratuity under the Payment of Gratuity Act, or the uncovered rate. */
@@ -117,7 +117,7 @@ export default function GratuityCalculator({ seo }: { seo: SeoRecord }) {
           }
         />
 
-        {seo.locale === "ru" && <RuInternationalArticle />}
+        {seo.locale === "ru" && <RuGratuityArticle />}
         {seo.locale === "en" && <InGratuityArticle />}
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />
       </Layout>

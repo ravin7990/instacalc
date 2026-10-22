@@ -130,7 +130,7 @@ export default function ContactPage({ seo }: { seo: SeoRecord }) {
                     {isJa
                       ? "グローバル展開：日本、米国、インド、韓国、欧州"
                       : isRu
-                      ? "Обслуживаем пользователей в Индии, США, ЕС, Японии и СНГ"
+                      ? "Обслуживаем пользователей в России, странах СНГ и по всему миру"
                       : isKo
                       ? "한국, 미국, 일본, 인도 글로벌 서비스"
                       : "Official Operating Location · Contact: +91 7259472334"}

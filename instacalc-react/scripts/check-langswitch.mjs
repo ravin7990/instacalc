@@ -71,14 +71,16 @@ for (const [rel, base] of PAGES) {
     // wrong `../terms.html` on /ko/moretools/ pass.
     const pageUrl = `https://instacalc.in${base}`;
     const url = new URL(terms[1], pageUrl);
-    if (url.pathname !== "/terms.html") {
+    const expectedTerms = base.startsWith("/ja/") ? "/ja/terms.html" : "/terms.html";
+    if (url.pathname !== expectedTerms) {
       failed = true;
-      console.error(`   ! terms resolves to ${url.pathname}, expected /terms.html`);
+      console.error(`   ! terms resolves to ${url.pathname}, expected ${expectedTerms}`);
     }
     const url2 = new URL(del[1], pageUrl);
-    if (url2.pathname !== "/delete-account.html") {
+    const expectedDel = base.startsWith("/ja/") ? "/ja/delete-account.html" : "/delete-account.html";
+    if (url2.pathname !== expectedDel) {
       failed = true;
-      console.error(`   ! delete-account resolves to ${url2.pathname}, expected /delete-account.html`);
+      console.error(`   ! delete-account resolves to ${url2.pathname}, expected ${expectedDel}`);
     }
     // Sanity: must not escape the site.
     if (!url.origin.includes("instacalc.in")) {
