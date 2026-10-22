@@ -291,6 +291,9 @@ button, input, select, textarea {
   align-items: start;
   width: 100%;
   margin-top: 1.25rem;
+  /* Reserve space so the fixed "Fullscreen Tool" button (bottom-left) never
+     sits on top of calculator content. */
+  padding-bottom: 4.5rem;
 }
 
 @media (min-width: 1400px) {
@@ -434,12 +437,21 @@ button, input, select, textarea {
   box-shadow: 0 0 0 3.5px var(--ic-primary-light);
 }
 
-.has-prefix {
-  padding-left: 2.25rem;
+/* Adornment padding — must beat `.field-card input[...]` (0,2,1), so target
+   the input element with the class explicitly (0,2,1 + class = 0,3,1). */
+.input-with-adornment input.has-prefix,
+input.has-prefix {
+  padding-left: 2.35rem !important;
 }
 
-.has-suffix {
-  padding-right: 2.5rem;
+.input-with-adornment input.has-suffix,
+input.has-suffix {
+  padding-right: 2.6rem !important;
+}
+
+.input-prefix,
+.input-suffix {
+  z-index: 2;
 }
 
 /* Range Sliders & Inputs */
@@ -449,7 +461,7 @@ button, input, select, textarea {
 
 .range-row {
   display: grid;
-  grid-template-columns: 1fr 130px;
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 170px);
   gap: 0.85rem;
   align-items: center;
 }
@@ -896,14 +908,17 @@ input[type="range"].ic-range::-moz-range-thumb {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.3rem 0.85rem;
+  padding: 0.35rem 0.9rem;
   border-radius: var(--ic-radius-full);
   background: var(--ic-primary-light);
   color: var(--ic-primary-dark);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  align-self: flex-start;
+  width: fit-content;
+  max-width: 100%;
 }
 
 /* Hero Section Components */
@@ -997,22 +1012,34 @@ input[type="range"].ic-range::-moz-range-thumb {
 }
 
 .hero-panel {
-  background: linear-gradient(145deg, #0f172a, #1e293b);
+  position: relative;
+  background: linear-gradient(150deg, #0f172a 0%, #134e4a 120%);
   color: #ffffff;
   border-radius: var(--ic-radius-lg);
-  padding: 1.75rem;
-  box-shadow: var(--ic-shadow-lg);
+  padding: 1.9rem 1.75rem;
+  box-shadow: 0 18px 40px -18px rgba(13, 110, 102, 0.55);
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
+}
+
+.hero-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 0%, rgba(13,148,136,0.35), transparent 55%);
+  pointer-events: none;
 }
 
 .hero-panel h2 {
+  position: relative;
   font-family: var(--ic-font-heading);
-  font-size: 1.25rem;
+  font-size: 1.28rem;
   font-weight: 700;
   color: #ffffff;
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
+  letter-spacing: -0.01em;
 }
 
 .quick-links {
@@ -1041,16 +1068,33 @@ input[type="range"].ic-range::-moz-range-thumb {
 }
 
 .hero-point {
+  position: relative;
   display: flex;
   align-items: flex-start;
-  gap: 0.6rem;
-  padding: 0.65rem 0.85rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  gap: 0.65rem;
+  padding: 0.7rem 0.9rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--ic-radius-md);
   font-size: 0.92rem;
   color: #f1f5f9;
-  margin-bottom: 0.5rem;
+  line-height: 1.45;
+  margin-bottom: 0.6rem;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.hero-point:last-child { margin-bottom: 0; }
+
+.hero-point:hover {
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(45, 212, 191, 0.4);
+}
+
+.hero-point i {
+  color: #2dd4bf;
+  font-size: 1rem;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
 }
 
 .hero-points {
@@ -2724,3 +2768,886 @@ input[type="range"].ic-range::-moz-range-thumb {
   font-size: 0.95rem;
   flex-shrink: 0;
 }
+
+
+/* ==========================================================================
+   Redesign Layer (v2.1) — Homepage & Hub Primitives
+   Calm, consistent, low-chrome. Adds the vocabulary pages need so they stop
+   hand-rolling inline styles. Nothing here overrides existing behaviour.
+   ========================================================================== */
+
+/* --- Tighter, calmer page rhythm --- */
+.section-tight {
+  padding: 2.25rem 0;
+}
+
+@media (max-width: 768px) {
+  .section-tight { padding: 1.5rem 0; }
+}
+
+/* --- Section header with optional right-aligned meta --- */
+.section-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.section-bar h2 {
+  font-family: var(--ic-font-heading);
+  font-size: clamp(1.3rem, 2.3vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ic-text);
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.section-bar h2 i {
+  color: var(--ic-primary);
+  font-size: 0.92em;
+}
+
+.section-bar .section-note {
+  font-size: 0.9rem;
+  color: var(--ic-text-muted);
+  font-weight: 600;
+}
+
+/* --- Sticky category jump nav (homepage) --- */
+.cat-nav {
+  position: sticky;
+  top: 68px;
+  z-index: 80;
+  background: rgba(248, 250, 252, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--ic-border);
+  margin-bottom: 1.75rem;
+}
+
+.cat-nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.cat-nav-inner::-webkit-scrollbar { display: none; }
+
+.cat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: var(--ic-radius-full);
+  border: 1px solid var(--ic-border);
+  background: #ffffff;
+  color: var(--ic-text-muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+
+.cat-pill i { font-size: 0.85rem; color: var(--ic-text-light); transition: color 0.18s ease; }
+
+.cat-pill:hover {
+  color: var(--ic-primary-dark);
+  border-color: var(--ic-primary);
+  background: var(--ic-primary-light);
+}
+
+.cat-pill:hover i { color: var(--ic-primary); }
+
+.cat-pill.active {
+  color: #ffffff;
+  background: var(--ic-primary-dark);
+  border-color: var(--ic-primary-dark);
+}
+
+.cat-pill.active i { color: #ffffff; }
+
+/* --- Tool search box --- */
+.tool-search {
+  position: relative;
+  max-width: 460px;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.tool-search i {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ic-text-light);
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+.tool-search input {
+  width: 100%;
+  height: 50px;
+  padding: 0.6rem 1rem 0.6rem 2.6rem;
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: var(--ic-text);
+  background: #ffffff;
+  border: 1.5px solid var(--ic-border);
+  border-radius: var(--ic-radius-full);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.tool-search input:focus {
+  border-color: var(--ic-primary);
+  box-shadow: 0 0 0 4px var(--ic-primary-light);
+}
+
+.tool-search .tool-search-empty {
+  font-size: 0.85rem;
+  color: var(--ic-text-light);
+  margin-top: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+/* --- Hub grid: fixed columns so cards never strand alone --- */
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.15rem;
+}
+
+@media (max-width: 960px) {
+  .hub-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 620px) {
+  .hub-grid { grid-template-columns: 1fr; }
+}
+
+/* --- Hub tool card --- */
+.hub-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.35rem;
+  background: #ffffff;
+  border: 1px solid var(--ic-border);
+  border-radius: var(--ic-radius-lg);
+  box-shadow: var(--ic-shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+}
+
+.hub-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--ic-shadow-lg);
+  border-color: #cbd5e1;
+}
+
+.hub-card .hub-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  background: var(--ic-primary-light);
+  color: var(--ic-primary-dark);
+  flex-shrink: 0;
+}
+
+/* Tint variants for icon chips */
+.hub-icon.tint-blue   { background: #eff6ff; color: #2563eb; }
+.hub-icon.tint-pink   { background: #fdf2f8; color: #db2777; }
+.hub-icon.tint-green  { background: #f0fdf4; color: #16a34a; }
+.hub-icon.tint-amber  { background: #fef3c7; color: #d97706; }
+.hub-icon.tint-indigo { background: #e0e7ff; color: #4338ca; }
+.hub-icon.tint-teal   { background: #ccfbf1; color: #0d9488; }
+.hub-icon.tint-rose   { background: #ffe4e6; color: #e11d48; }
+.hub-icon.tint-slate  { background: #f1f5f9; color: #475569; }
+
+.hub-card h3 {
+  font-family: var(--ic-font-heading);
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--ic-text);
+  margin: 0;
+  line-height: 1.25;
+}
+
+.hub-card p {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--ic-text-muted);
+  margin: 0;
+  flex: 1;
+}
+
+.hub-card .hub-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ic-primary-dark);
+  margin-top: 0.25rem;
+  transition: gap 0.18s ease;
+}
+
+.hub-card:hover .hub-card-link { gap: 0.6rem; }
+
+/* Make the whole card a click target without nesting anchor issues */
+.hub-card .hub-card-cover {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+.hub-card .hub-card-link { position: relative; z-index: 2; }
+
+/* --- Quiet secondary button (less shouty than 16x primary) --- */
+.btn-quiet {
+  background: var(--ic-bg-subtle);
+  color: var(--ic-primary-dark) !important;
+  border: 1px solid var(--ic-border);
+}
+
+.btn-quiet:hover {
+  background: var(--ic-primary-light);
+  border-color: var(--ic-primary);
+  transform: translateY(-1px);
+}
+
+/* --- Hidden by filter --- */
+.is-filtered-out { display: none !important; }
+
+/* --- Hub empty state --- */
+.hub-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--ic-text-muted);
+}
+
+.hub-empty i {
+  font-size: 2rem;
+  color: var(--ic-text-light);
+  display: block;
+  margin-bottom: 0.65rem;
+}
+
+
+/* ==========================================================================
+   Studio Calculator Layout v2 — spacious, modern, easy to scan.
+   Used by: mortgage, cd, 401k, roth-ira, dca, fire, retirement …
+   Fills the gap where .hero-result-card / .res-val had desktop styles missing.
+   ========================================================================== */
+
+/* Give the whole calculator column more room on large screens */
+@media (min-width: 1100px) {
+  .calc-layout {
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 2.25rem;
+  }
+}
+
+/* Full-width calculator container (no separate sidebar column) */
+.calc-container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-bottom: 4.5rem;
+}
+
+/* Compact "related tools" bar shown below the calculator */
+.related-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.75rem;
+  padding: 1rem 1.25rem;
+  background: var(--ic-card-bg);
+  border: 1px solid var(--ic-border);
+  border-radius: var(--ic-radius-md);
+  box-shadow: var(--ic-shadow-sm);
+}
+
+.related-tools-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ic-text-muted);
+  margin-right: 0.35rem;
+}
+
+.related-tools a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.42rem 0.85rem;
+  border-radius: var(--ic-radius-full);
+  background: var(--ic-bg-subtle);
+  border: 1px solid var(--ic-border);
+  color: var(--ic-text);
+  font-size: 0.86rem;
+  font-weight: 600;
+  transition: all 0.18s ease;
+}
+
+.related-tools a:hover {
+  background: var(--ic-primary-light);
+  border-color: var(--ic-primary);
+  color: var(--ic-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* The shell: generous padding, soft surface, clear separation */
+.calculator-shell {
+  padding: 1.75rem;
+  background: var(--ic-card-bg);
+  border: 1px solid var(--ic-border);
+  border-radius: var(--ic-radius-lg);
+  box-shadow: var(--ic-shadow-lg);
+}
+
+@media (min-width: 1200px) {
+  .calculator-shell { padding: 2rem 2.25rem; }
+}
+
+/* Header row: tabs on the left, advanced toggle on the right */
+.calculator-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  padding-bottom: 1.15rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--ic-border);
+}
+
+/* Studio is the two work zones: inputs | results */
+.fin-studio-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+  gap: 2rem;
+  align-items: start;
+  margin-top: 0;
+}
+
+@media (max-width: 1024px) {
+  .fin-studio-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.studio-inputs { display: flex; flex-direction: column; gap: 1rem; }
+.studio-outcome { display: flex; flex-direction: column; gap: 1.15rem; }
+
+/* --- Input cards: roomy, calm, focus-visible --- */
+.studio-inputs .field-card {
+  background: #ffffff;
+  border: 1px solid var(--ic-border);
+  border-radius: var(--ic-radius-md);
+  padding: 1.15rem 1.25rem;
+  margin-bottom: 0;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.studio-inputs .field-card:focus-within {
+  border-color: var(--ic-primary);
+  box-shadow: 0 0 0 3px var(--ic-primary-light);
+}
+
+.studio-inputs .field-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.7rem;
+}
+
+.studio-inputs .field-head label {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.studio-inputs .field-head label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ic-text);
+  line-height: 1.3;
+}
+
+.field-preview-badge {
+  font-family: var(--ic-font-heading);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--ic-primary-dark);
+  background: var(--ic-primary-light);
+  padding: 0.25rem 0.7rem;
+  border-radius: var(--ic-radius-full);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Bigger, friendlier sliders */
+.studio-inputs input[type="range"] { margin: 0.75rem 0 0.35rem; }
+
+/* Range-row number box: right-align the value so it sits beside its unit (%, Mo, $) */
+.studio-inputs .range-row input[type="number"],
+.studio-inputs .range-row input[type="text"] {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.studio-inputs .range-row .input-with-adornment input.has-prefix {
+  text-align: right;
+}
+
+/* Full-width vertical stack of input cards (default for slider rows) */
+.field-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* --- Two-up sub grid (e.g. APY + Term): equal heights, aligned internals --- */
+.studio-inputs .inline-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: stretch;
+}
+
+@media (max-width: 620px) {
+  .studio-inputs .inline-grid { grid-template-columns: 1fr; }
+}
+
+.studio-inputs .inline-grid > .field-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header inside a two-up card: label on its own line, badge below it */
+.studio-inputs .inline-grid > .field-card > .field-head {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+  margin-bottom: 0.75rem;
+  min-height: 0;
+}
+
+.studio-inputs .inline-grid > .field-card > .field-head label {
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.studio-inputs .inline-grid > .field-card > .field-head .field-preview-badge {
+  align-self: flex-start;
+}
+
+/* Chips pinned to the bottom so both cards finish level */
+.studio-inputs .inline-grid > .field-card > .chips-wrap {
+  margin-top: auto;
+  padding-top: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* --- Hero result: the headline number, made to feel important --- */
+.hero-result-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 1.6rem;
+  border-radius: var(--ic-radius-lg);
+  background: linear-gradient(135deg, #0f172a 0%, #134e4a 55%, #0d6e66 100%);
+  color: #ffffff;
+  box-shadow: 0 12px 28px -10px rgba(13, 110, 102, 0.5);
+  overflow: hidden;
+}
+
+.hero-result-card::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -12%;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(255,255,255,0.14), transparent 68%);
+  pointer-events: none;
+}
+
+.hero-result-card .label-group { min-width: 0; }
+
+.res-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #99f6e4;
+  margin-bottom: 0.35rem;
+}
+
+.res-val {
+  font-family: var(--ic-font-heading);
+  font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  word-break: break-word;
+}
+
+.res-desc {
+  margin-top: 0.45rem;
+  font-size: 0.88rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.quick-copy-btn {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--ic-radius-md);
+  border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.12);
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all 0.18s ease;
+}
+
+.quick-copy-btn:hover {
+  background: rgba(255,255,255,0.26);
+  transform: translateY(-1px);
+}
+
+/* --- Chart box: centred, breathing room --- */
+.outcome-chart-box {
+  background: #ffffff;
+  border: 1px solid var(--ic-border);
+  border-radius: var(--ic-radius-md);
+  padding: 1.25rem 1.35rem;
+  box-shadow: var(--ic-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.chart-wrap-doughnut {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.legend-stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ic-border);
+}
+
+.legend-stat { display: flex; flex-direction: column; gap: 0.25rem; }
+
+.legend-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ic-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.legend-val {
+  font-family: var(--ic-font-heading);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--ic-text);
+}
+
+.legend-val.positive { color: #0d9488; }
+
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+.dot-invested { background: #0284c7; }
+.dot-returns { background: #0d9488; }
+
+/* --- Result metric cards: tidy 3-up row (was stacking vertically) --- */
+.studio-outcome .result-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+
+@media (max-width: 620px) {
+  .studio-outcome .result-grid { grid-template-columns: 1fr; }
+}
+
+.studio-outcome .result-card {
+  background: var(--ic-bg-subtle);
+  border: 1px solid var(--ic-border);
+  border-radius: var(--ic-radius-md);
+  padding: 1.05rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.studio-outcome .result-card:hover {
+  background: #ffffff;
+  border-color: var(--ic-primary);
+}
+
+.studio-outcome .result-card h3 {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  color: var(--ic-text-muted);
+  margin: 0;
+  min-height: 2.6rem;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.studio-outcome .result-card .result-value {
+  font-family: var(--ic-font-heading);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--ic-text);
+  word-break: break-word;
+}
+
+.studio-outcome .result-card.positive {
+  background: var(--ic-success-light);
+  border-color: #a7f3d0;
+}
+
+.studio-outcome .result-card.positive .result-value { color: #065f46; }
+
+/* --- Action buttons: even, full-width row inside the studio --- */
+.studio-outcome .calculator-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+}
+
+.studio-outcome .calculator-actions .btn {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 460px) {
+  .studio-outcome .calculator-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Timeline + table sections: give them air and a header bar --- */
+.growth-timeline-card {
+  background: #ffffff;
+  border: 1px solid var(--ic-border);
+  border-radius: var(--ic-radius-md);
+  padding: 1.5rem;
+  margin-top: 2rem;
+  box-shadow: var(--ic-shadow-sm);
+}
+
+.growth-timeline-card .chart-wrap-timeline { height: 260px; }
+
+.table-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 2rem;
+  margin-bottom: 0.85rem;
+}
+
+.table-tools h3 {
+  font-family: var(--ic-font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ic-text);
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.table-tools h3 i { color: var(--ic-primary); }
+
+/* Sidebar: stick to the top so it doesn't leave a large empty gap */
+.calc-layout > .sidebar {
+  position: sticky;
+  top: 88px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (max-width: 960px) {
+  .calc-layout > .sidebar { position: static; }
+}
+
+/* Sidebar card: match the calm surface */
+.sidebar-card {
+  background: #ffffff;
+  border: 1px solid var(--ic-border);
+  border-radius: var(--ic-radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--ic-shadow-sm);
+}
+
+.sidebar-card h3 {
+  font-family: var(--ic-font-heading);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--ic-text);
+  margin-bottom: 0.85rem;
+}
+
+
+/* ==========================================================================
+   Tool Page Hero (compact) — keeps the calculator above the fold on desktop.
+   Replaces the oversized landing-page hero on calculator/tool pages.
+   ========================================================================== */
+.tool-hero {
+  padding: 1.75rem 0 1.25rem;
+  border-bottom: 1px solid var(--ic-border);
+  background: linear-gradient(180deg, #ffffff 0%, var(--ic-bg) 100%);
+  margin-bottom: 1.5rem;
+}
+
+.tool-hero .eyebrow {
+  align-self: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.tool-hero h1 {
+  font-family: var(--ic-font-heading);
+  font-size: clamp(1.6rem, 2.6vw, 2.15rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--ic-text);
+  margin: 0 0 0.5rem;
+}
+
+.tool-hero h1 .tool-hero-sub {
+  font-size: 0.62em;
+  font-weight: 600;
+  color: var(--ic-text-light);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.tool-hero-desc {
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: var(--ic-text-muted);
+  max-width: 72ch;
+  margin: 0;
+}
+
+.tool-hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+}
+
+.tool-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.85rem;
+  border-radius: var(--ic-radius-full);
+  background: var(--ic-bg-subtle);
+  border: 1px solid var(--ic-border);
+  color: var(--ic-text-muted);
+  font-size: 0.83rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.tool-badge i {
+  color: var(--ic-primary);
+  font-size: 0.85rem;
+}
+
+/* Tighter section directly under a compact tool hero */
+.tool-hero + .section {
+  padding-top: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .tool-hero {
+    padding: 1.25rem 0 1rem;
+    margin-bottom: 1.15rem;
+  }
+  .tool-hero h1 .tool-hero-sub {
+    display: block;
+    white-space: normal;
+    margin-top: 0.15rem;
+  }
+  .tool-hero-badges { gap: 0.4rem; }
+  .tool-badge { font-size: 0.78rem; padding: 0.36rem 0.7rem; }
+}
+
+/* Fullscreen mode button: hidden on desktop and tablet, available only on mobile (< 768px) */
+@media (min-width: 768px) {
+  .insta-fs-btn,
+  .insta-fs-toast {
+    display: none !important;
+  }
+}
+

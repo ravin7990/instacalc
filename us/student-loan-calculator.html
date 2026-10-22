@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Verify site ownership & paste the actual codes: Google Search Console (Domain-wide verification), Bing Webmaster Tools -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Loan Calculator (US) | Payment & Payoff</title>
+  <meta name="description"
+    content="Estimate monthly payment, total interest, and payoff timeline for federal or private student loans, including standard 10-year and extended plans.">
+  <meta name="keywords"
+    content="student loan calculator, student loan payment calculator, federal student loan payoff, student loan interest, standard repayment plan">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="canonical" href="https://instacalc.in/us/student-loan-calculator.html">
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/student-loan-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/us/student-loan-calculator.html">
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+
+  <meta property="og:title" content="Student Loan Calculator (US)">
+  <meta property="og:description"
+    content="Estimate monthly payment, total interest, and payoff timeline for federal or private student loans.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/us/student-loan-calculator.html">
+  <meta property="og:image" content="https://instacalc.in/cover.png">
+  <meta property="og:site_name" content="InstaCalc">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Student Loan Calculator (US)">
+  <meta name="twitter:description"
+    content="Estimate monthly payment, total interest, and payoff timeline for student loans.">
+
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="preload" href="../instacalc-core.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../instacalc-core.css"></noscript>
+
+  <script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"FAQPage",
+"mainEntity":[
+{"@type":"Question","name":"Does this include income-driven repayment (IDR)?","acceptedAnswer":{"@type":"Answer","text":"No. This calculator amortizes like a standard or extended repayment plan. IDR plans recompute payments each year based on income and family size, so amortization math doesn't apply."}},
+{"@type":"Question","name":"Are loan forgiveness programs included?","acceptedAnswer":{"@type":"Answer","text":"No. Public Service Loan Forgiveness (PSLF), Teacher Loan Forgiveness, and income-based forgiveness are separate programs; this calculator assumes the full balance is repaid."}},
+{"@type":"Question","name":"How accurate is this calculator for private student loans?","acceptedAnswer":{"@type":"Answer","text":"For fixed-rate private loans the math is the same. Variable-rate private loans change the payment every rate adjustment, so treat the result as a snapshot at today's rate."}},
+{"@type":"Question","name":"What is the current federal student loan interest rate?","acceptedAnswer":{"@type":"Answer","text":"Undergraduate Direct loan rates reset every July 1 based on the 10-year Treasury auction — verify the current-year figure at studentaid.gov rather than assuming a fixed number."}},
+{"@type":"Question","name":"Do I save money by paying extra each month?","acceptedAnswer":{"@type":"Answer","text":"Yes. Extra payments go straight to principal, reducing the interest that accrues afterwards. On a $35,000 loan at 5.5 percent, an extra $100 per month saves roughly $2,880 in interest and shortens payoff by about 2.5 years."}},
+{"@type":"Question","name":"Should I refinance my student loans?","acceptedAnswer":{"@type":"Answer","text":"Only if you have stable income and don't need federal protections (IDR, PSLF, deferment). Refinancing federal loans into a private loan permanently gives up those protections."}},
+{"@type":"Question","name":"What happens during a deferment or forbearance?","acceptedAnswer":{"@type":"Answer","text":"Payments pause, but unsubsidized and private loans keep accruing interest. Subsidized federal loans may not accrue interest during deferment depending on the loan type and economic hardship status."}},
+{"@type":"Question","name":"Can I deduct student-loan interest on my taxes?","acceptedAnswer":{"@type":"Answer","text":"Yes — the Student Loan Interest Deduction allows up to $2,500 per taxpayer per year, with income limits (MAGI phase-out; check current IRS rules). You don't need to itemize to claim it."}},
+{"@type":"Question","name":"What is loan capitalization?","acceptedAnswer":{"@type":"Answer","text":"Unpaid accrued interest gets added to the principal balance (capitalized) at certain events — end of grace period, end of deferment, IDR recertification events. It increases the balance you pay interest on going forward."}},
+{"@type":"Question","name":"Does the standard repayment term have to be 10 years?","acceptedAnswer":{"@type":"Answer","text":"Federal Direct loans default to 10-year standard repayment. Extended plans of 15, 20, or 25 years are available for balances above roughly $30,000, but longer terms pay more total interest."}}
+]
+}
+</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "InstaCalc",
+        "item": "https://instacalc.in/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "US Calculators",
+        "item": "https://instacalc.in/us/index.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Student Loan Calculator",
+        "item": "https://instacalc.in/us/student-loan-calculator.html"
+      }
+    ]
+  }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc USA</span>
+      </a>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-graduation-cap"></i> Education finance</span>
+          <h1>Student Loan Calculator</h1>
+          <p>Estimate monthly payment, total interest, and payoff timeline for your federal or private
+            student loan. Compare standard, extended, and additional-extra-payment scenarios.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div style="padding:1.5rem;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+          <div style="margin-bottom:1rem">
+            <label for="balance" style="display:block;font-weight:600;margin-bottom:0.35rem;">Total loan balance
+              ($)</label>
+            <input id="balance" type="number" min="0" value="35000" step="500"
+              style="width:100%;padding:0.6rem;border:1px solid #cbd5e1;border-radius:8px;font-size:1rem;">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div>
+              <label for="rate" style="display:block;font-weight:600;margin-bottom:0.35rem;">Annual interest rate
+                (%)</label>
+              <input id="rate" type="number" min="0" value="5.5" step="0.01"
+                style="width:100%;padding:0.6rem;border:1px solid #cbd5e1;border-radius:8px;">
+            </div>
+            <div>
+              <label for="term" style="display:block;font-weight:600;margin-bottom:0.35rem;">Repayment term (years)</label>
+              <select id="term" style="width:100%;padding:0.6rem;border:1px solid #cbd5e1;border-radius:8px;">
+                <option value="10" selected>Standard — 10 years</option>
+                <option value="15">Extended — 15 years</option>
+                <option value="20">Extended — 20 years</option>
+                <option value="25">Extended — 25 years</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-bottom:1rem">
+            <label for="extra" style="display:block;font-weight:600;margin-bottom:0.35rem;">Extra monthly payment ($, optional)</label>
+            <input id="extra" type="number" min="0" value="0" step="25"
+              style="width:100%;padding:0.6rem;border:1px solid #cbd5e1;border-radius:8px;">
+          </div>
+          <button id="calcBtn" type="button"
+            style="background:#0284c7;color:#fff;padding:0.65rem 1.4rem;border:0;border-radius:10px;font-weight:600;cursor:pointer;">Calculate
+            payment</button>
+
+          <div id="result" style="margin-top:1.25rem;">
+            <div style="border:1px solid #bbf7d0;border-radius:12px;padding:1rem;background:#f0fdf4;">
+              <h3 style="margin:0 0 0.25rem;color:#166534;">Monthly payment &amp; cost</h3>
+              <p id="monthlyPayment" style="font-size:1.6rem;font-weight:800;margin:0.25rem 0;color:#0f172a;">–</p>
+              <p id="totalInterest" style="font-size:0.95rem;color:#475569;">–</p>
+              <p id="totalCost" style="font-size:0.95rem;color:#475569;">–</p>
+              <p id="withExtra" style="font-size:0.95rem;color:#0f172a;">–</p>
+            </div>
+          </div>
+
+          <div style="position:relative;height:260px;margin-top:1.5rem;">
+            <canvas id="loanChart"></canvas>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;">
+            <h3 style="margin:0;">Year-wise repayment schedule</h3>
+            <button id="downloadCsvBtn" type="button"
+              style="background:#475569;color:#fff;padding:0.5rem 1rem;border:0;border-radius:8px;font-weight:600;cursor:pointer;">
+              <i class="fas fa-file-csv"></i> Download CSV</button>
+          </div>
+          <div style="overflow-x:auto;margin-top:0.75rem;border:1px solid #e2e8f0;border-radius:12px;">
+            <table style="width:100%;border-collapse:collapse;font-size:0.9rem;" id="scheduleTable">
+              <thead>
+                <tr style="background:#f1f5f9;">
+                  <th style="text-align:left;padding:0.55rem 0.75rem;border-bottom:1px solid #e2e8f0;">Year</th>
+                  <th style="text-align:left;padding:0.55rem 0.75rem;border-bottom:1px solid #e2e8f0;">Opening Balance</th>
+                  <th style="text-align:left;padding:0.55rem 0.75rem;border-bottom:1px solid #e2e8f0;">Payments Made</th>
+                  <th style="text-align:left;padding:0.55rem 0.75rem;border-bottom:1px solid #e2e8f0;">Interest Paid</th>
+                  <th style="text-align:left;padding:0.55rem 0.75rem;border-bottom:1px solid #e2e8f0;">Closing Balance</th>
+                </tr>
+              </thead>
+              <tbody id="loanScheduleBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <section class="section" style="margin-top:2.5rem">
+          
+        <section class="section" id="how-use" style="margin-top:2rem">
+          <div class="prose">
+            <h2>How to use this calculator</h2>
+            <ol>
+              <li>Enter your <strong>total loan balance</strong> — combine multiple federal loans for a blended estimate.</li>
+              <li>Enter the <strong>annual interest rate</strong> — check your loan servicer's disclosure.</li>
+              <li>Pick a <strong>repayment term</strong> — Standard (10 years) or Extended (15/20/25 for $30k+).</li>
+              <li>Optionally add <strong>extra monthly payment</strong> to see interest savings.</li>
+              <li>Click <strong>Calculate payment</strong> — monthly amount, total interest, total cost, early-payoff comparison.</li>
+            </ol>
+
+            <h2>The method — amortization plus daily accrual</h2>
+            <p>Federal and private student loans use a standard amortization variation: monthly rate = APR/12, fixed payment by term, interest paid first and principal second. Most student loans also accrue interest <strong>daily</strong> (APR ÷ 365.25) on the outstanding balance — meaning interest starts the day funds are disbursed, unless the loan is subsidized.</p>
+            <p>The amortized monthly payment follows the classic formula: M = P × r / (1 − (1+r)^−n), where P is principal, r the monthly rate, and n the number of payments. This calculator also models an early-payoff scenario with your extra payment, reporting months saved and total interest reduction.</p>
+
+            <h2>Worked example — $35,000 at 5.5% / 10 years</h2>
+            <p>Aiden graduated with $35,000 in Direct Unsubsidized loans at 5.5%. Standard 10-year repayment: <strong>$380/month</strong>, <strong>$10,581 interest</strong>, total repaid <strong>$45,581</strong>.</p>
+            <p>If Aiden adds <strong>$100 extra per month</strong>, payoff drops to about 89 months (7.4 years), saving roughly <strong>$2,880 in interest</strong>. Stretch to a 25-year extended plan and the payment drops to about $213, but total interest balloons to around $28,900 — a 173% increase for the relief of $167/month.</p>
+
+            <h2>Local (US) rules and context</h2>
+            <ul>
+              <li><strong>Federal rates reset every July 1</strong> based on the 10-year Treasury auction — check <a href="https://studentaid.gov/" rel="nofollow noopener">studentaid.gov</a> for current-year rates.</li>
+              <li><strong>Subsidized vs unsubsidized:</strong> subsidized loans don't accrue interest during school; unsubsidized accrue from disbursement.</li>
+              <li><strong>Income-Driven Repayment</strong> (SAVE, PAYE, IBR, ICR) recomputes payments based on income and family size, and can extend to 20-25 years with eventual forgiveness — this calculator doesn't model IDR.</li>
+              <li><strong>Public Service Loan Forgiveness (PSLF)</strong> requires 120 qualifying payments at a qualifying employer.</li>
+              <li><strong>Consolidation</strong> can lower payments by extending term but increases total interest.</li>
+              <li><strong>Deferment/forbearance</strong> pauses payments, but unsubsidized loans keep accruing interest.</li>
+              <li>Private loans have lender-set rates, often tied to credit; no federal forgiveness applies.</li>
+            </ul>
+
+            <h2>Practical tips</h2>
+            <ul>
+              <li><strong>Pay interest during school</strong> on unsubsidized loans, even small amounts — it prevents capitalization at graduation.</li>
+              <li><strong>Auto-pay typically saves 0.25%</strong> on the interest rate with most servicers.</li>
+              <li><strong>Target the highest-rate loan first</strong> if you have multiple — the avalanche approach beats the snowball mathematically.</li>
+              <li><strong>Recertify income annually</strong> if on IDR — a missed recertification causes a payment shock.</li>
+              <li><strong>Refinancing loses federal protections</strong> (IDR, PSLF, deferment) — only refinance if you're certain you won't need them.</li>
+            </ul>
+
+            <h2>Common mistakes to avoid</h2>
+            <ul>
+              <li>Assuming the grace period is interest-free — unsubsidized loan interest accrues during the 6-month grace after graduation.</li>
+              <li>Forgetting annual IDR income recertification, causing a payment shock.</li>
+              <li>Refinancing federal loans for a lower rate and unknowingly losing PSLF eligibility.</li>
+              <li>Confusing capitalized vs non-capitalized interest on subsidized loans.</li>
+              <li>Ignoring the SAVE-plan litigation status — verify current IDR rules on studentaid.gov before enrolling.</li>
+            </ul>
+
+            <h2>Related tools</h2>
+            <ul>
+              <li><a href="paycheck-calculator.html">Paycheck Calculator</a> — see how loan payments fit into take-home pay.</li>
+              <li><a href="401k-calculator.html">401(k) Calculator</a> — save for retirement alongside loan payments.</li>
+              <li><a href="roth-ira-calculator.html">Roth IRA Calculator</a> — model tax-free growth while paying down student debt.</li>
+              <li><a href="retirement-calculator.html">Retirement Calculator</a> — broader retirement picture.</li>
+            </ul>
+
+            <h2>Disclaimer</h2>
+            <p>This calculator provides educational estimates only and does not constitute financial, legal, or student-aid advice. Actual payment schedules, IDR eligibility, and forgiveness depend on your servicer and US Department of Education rules. Verify at <a href="https://studentaid.gov/" rel="nofollow noopener">studentaid.gov</a> and consult a licensed advisor.</p>
+          </div>
+        </section>
+
+          <h2>How student-loan interest works</h2>
+          <p>Federal student loans (Direct subsidized and unsubsidized) use a <strong>daily interest
+            accrual</strong> of rate ÷ 365.25 added to your balance. Standard repayment is
+            <strong>10 years</strong>, extended plans can stretch to 25 years for balances above $30,000,
+            and income-driven repayment (IDR) plans set monthly payments based on discretionary income,
+            not amortization.</p>
+          <p><strong>Verify current rates</strong> on the
+            <a href="https://studentaid.gov/understand-aid/eligibility/staying-eligible/aws#interest-rates"
+              rel="nofollow noopener">Federal Student Aid (studentaid.gov) site</a> — rates reset every July.</p>
+        </section>
+
+        <section class="section" style="margin-top:1.5rem">
+          <h2>Frequently asked questions</h2>
+<details class="faq card"><summary>Does this include income-driven repayment (IDR)?</summary><p>No. This calculator amortizes like a standard or extended repayment plan. IDR plans recompute payments each year based on income and family size, so amortization math doesn't apply.</p></details>
+          <details class="faq card"><summary>Are loan forgiveness programs included?</summary><p>No. Public Service Loan Forgiveness (PSLF), Teacher Loan Forgiveness, and income-based forgiveness are separate programs; this calculator assumes the full balance is repaid.</p></details>
+          <details class="faq card"><summary>How accurate is this calculator for private student loans?</summary><p>For fixed-rate private loans the math is the same. Variable-rate private loans change the payment every rate adjustment, so treat the result as a snapshot at today's rate.</p></details>
+          <details class="faq card"><summary>What is the current federal student loan interest rate?</summary><p>Undergraduate Direct loan rates reset every July 1 based on the 10-year Treasury auction — verify the current-year figure at studentaid.gov rather than assuming a fixed number.</p></details>
+          <details class="faq card"><summary>Do I save money by paying extra each month?</summary><p>Yes. Extra payments go straight to principal, reducing the interest that accrues afterwards. On a $35,000 loan at 5.5 percent, an extra $100 per month saves roughly $2,880 in interest and shortens payoff by about 2.5 years.</p></details>
+          <details class="faq card"><summary>Should I refinance my student loans?</summary><p>Only if you have stable income and don't need federal protections (IDR, PSLF, deferment). Refinancing federal loans into a private loan permanently gives up those protections.</p></details>
+          <details class="faq card"><summary>What happens during a deferment or forbearance?</summary><p>Payments pause, but unsubsidized and private loans keep accruing interest. Subsidized federal loans may not accrue interest during deferment depending on the loan type and economic hardship status.</p></details>
+          <details class="faq card"><summary>Can I deduct student-loan interest on my taxes?</summary><p>Yes — the Student Loan Interest Deduction allows up to $2,500 per taxpayer per year, with income limits (MAGI phase-out; check current IRS rules). You don't need to itemize to claim it.</p></details>
+          <details class="faq card"><summary>What is loan capitalization?</summary><p>Unpaid accrued interest gets added to the principal balance (capitalized) at certain events — end of grace period, end of deferment, IDR recertification events. It increases the balance you pay interest on going forward.</p></details>
+          <details class="faq card"><summary>Does the standard repayment term have to be 10 years?</summary><p>Federal Direct loans default to 10-year standard repayment. Extended plans of 15, 20, or 25 years are available for balances above roughly $30,000, but longer terms pay more total interest.</p></details>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-tagline">InstaCalc USA — reliable calculators and converters for daily use.</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="delete-account.html">Delete Account</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Student Loan Calculator (US)",
+      "url": "https://instacalc.in/us/student-loan-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "inLanguage": "en-US",
+      "description": "Estimate monthly payment, total interest, and payoff timeline for US federal or private student loans.",
+      "isAccessibleForFree": "true",
+      "publisher": { "@type": "Organization", "name": "InstaCalc", "url": "https://instacalc.in/" }
+    }
+  </script>
+
+  <script>
+    const fmt = v => '$' + Math.round(v).toLocaleString('en-US');
+    function amortize(principal, annualRate, years) {
+      const r = annualRate / 12, n = years * 12;
+      if (r === 0) return principal / n;
+      return principal * r / (1 - Math.pow(1 + r, -n));
+    }
+
+    const NL_CHAR_LOAN = String.fromCharCode(10);
+    let loanChartInstance = null;
+    let loanScheduleRows = [];
+
+    document.getElementById('calcBtn').addEventListener('click', () => {
+      const P = parseFloat(document.getElementById('balance').value) || 0;
+      const rate = (parseFloat(document.getElementById('rate').value) || 0) / 100;
+      const years = parseInt(document.getElementById('term').value) || 10;
+      const extra = parseFloat(document.getElementById('extra').value) || 0;
+
+      const monthly = amortize(P, rate, years);
+      const n = years * 12;
+      const totalInterest = monthly * n - P;
+      document.getElementById('monthlyPayment').textContent = fmt(monthly) + ' / month';
+      document.getElementById('totalInterest').textContent = 'Total interest over ' + years + ' years: ' + fmt(totalInterest);
+      document.getElementById('totalCost').textContent = 'Total repaid: ' + fmt(P + totalInterest);
+
+      if (extra > 0) {
+        let bal = P, months = 0, interestPaid = 0;
+        const r = rate / 12;
+        while (bal > 0 && months < 600) {
+          const interest = bal * r;
+          interestPaid += interest;
+          bal += interest;
+          bal -= (monthly + extra);
+          if (bal < 0) bal = 0;
+          months++;
+        }
+        const saved = totalInterest - interestPaid;
+        document.getElementById('withExtra').textContent =
+          'With extra $' + extra + '/mo: debt-free in ' + months + ' months (' + (months / 12).toFixed(1) + ' yrs), saving $' + Math.round(saved).toLocaleString('en-US') + ' in interest.';
+      } else {
+        document.getElementById('withExtra').textContent = 'Add an extra monthly payment to see potential interest savings.';
+      }
+
+      // year-wise schedule
+      loanScheduleRows = [];
+      let simBal = P, simMonths = 0;
+      const r = rate / 12;
+      let y = 1, opening = simBal, paidInYear = 0, interestInYear = 0;
+      while (simBal > 0.01 && simMonths < 600) {
+        const interest = simBal * r;
+        const pay = Math.min(monthly + extra, simBal + interest);
+        interestInYear += interest;
+        paidInYear += pay;
+        simBal = simBal + interest - pay;
+        if (simBal < 0.01) simBal = 0;
+        simMonths++;
+        if (simMonths % 12 === 0 || simBal === 0) {
+          loanScheduleRows.push({ year: y, opening: opening, paid: paidInYear, interest: interestInYear, closing: simBal });
+          y++;
+          opening = simBal;
+          paidInYear = 0;
+          interestInYear = 0;
+        }
+      }
+      if (monthly > 0 && loanScheduleRows.length) renderLoanSchedule();
+      drawLoanChart();
+    });
+
+    function renderLoanSchedule() {
+      const D = '$';
+      document.getElementById('loanScheduleBody').innerHTML = loanScheduleRows.map(r =>
+        '<tr><td style="padding:0.5rem 0.75rem;border-bottom:1px solid #f1f5f9;">Year ' + r.year + '</td>' +
+        '<td style="padding:0.5rem 0.75rem;border-bottom:1px solid #f1f5f9;">' + D + Math.round(r.opening).toLocaleString('en-US') + '</td>' +
+        '<td style="padding:0.5rem 0.75rem;border-bottom:1px solid #f1f5f9;">' + D + Math.round(r.paid).toLocaleString('en-US') + '</td>' +
+        '<td style="padding:0.5rem 0.75rem;border-bottom:1px solid #f1f5f9;">' + D + Math.round(r.interest).toLocaleString('en-US') + '</td>' +
+        '<td style="padding:0.5rem 0.75rem;border-bottom:1px solid #f1f5f9;">' + D + Math.round(r.closing).toLocaleString('en-US') + '</td></tr>'
+      ).join('');
+    }
+
+    function drawLoanChart() {
+      if (typeof Chart === 'undefined') return;
+      if (loanChartInstance) loanChartInstance.destroy();
+      loanChartInstance = new Chart(document.getElementById('loanChart').getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: ['Start'].concat(loanScheduleRows.map(r => 'Year ' + r.year)),
+          datasets: [{
+            label: 'Remaining balance',
+            data: loanScheduleRows.length ? [loanScheduleRows[0].opening].concat(loanScheduleRows.map(r => r.closing)) : [],
+            borderColor: '#0284c7',
+            backgroundColor: 'rgba(2,132,199,0.10)',
+            fill: true,
+            pointRadius: 2,
+            tension: 0.3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: (ctx) => ' $' + Math.round(ctx.raw).toLocaleString('en-US') } }
+          },
+          scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => '$' + (v >= 1000 ? (v / 1000) + 'k' : v) } } }
+        }
+      });
+    }
+
+    document.getElementById('downloadCsvBtn').addEventListener('click', () => {
+      if (!loanScheduleRows.length) return;
+      const rows = [['Year', 'Opening Balance', 'Payments Made', 'Interest Paid', 'Closing Balance']]
+        .concat(loanScheduleRows.map(r => ['Year ' + r.year, Math.round(r.opening), Math.round(r.paid), Math.round(r.interest), Math.round(r.closing)]));
+      const csv = rows.map(r => r.join(',')).join(NL_CHAR_LOAN);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'student-loan-schedule.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Verify site ownership & paste the actual codes: Google Search Console (Domain-wide verification), Bing Webmaster Tools -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paycheck Calculator (US) | Take-Home & FICA</title>
+  <meta name="description"
+    content="Estimate your US take-home pay per paycheck with 2026 federal tax brackets, FICA (Social Security + Medicare), 401(k), and health-insurance deductions.">
+  <meta name="keywords"
+    content="paycheck calculator, take home pay calculator, us salary calculator, federal tax withholding calculator, fica calculator">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="canonical" href="https://instacalc.in/us/paycheck-calculator.html">
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/paycheck-calculator.html">
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/salarycalculator.html">
+  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/salarycalculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/us/paycheck-calculator.html">
+  <link rel="icon" type="image/x-icon" href="../favicon.webp">
+
+  <meta property="og:title" content="Paycheck Calculator (US) — Take-Home Pay Estimator">
+  <meta property="og:description"
+    content="2026 federal brackets, FICA, 401(k), health insurance, and pay-frequency-aware take-home pay.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/us/paycheck-calculator.html">
+  <meta property="og:image" content="https://instacalc.in/cover.png">
+  <meta property="og:site_name" content="InstaCalc">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Paycheck Calculator (US)">
+  <meta name="twitter:description"
+    content="2026 federal brackets, FICA, 401(k), health insurance, pay-frequency-aware take-home pay.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  <link rel="preload" href="../instacalc-core.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../instacalc-core.css"></noscript>
+
+  <script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"FAQPage",
+"mainEntity":[
+{"@type":"Question","name":"Is my state income tax included?","acceptedAnswer":{"@type":"Answer","text":"No. Each state sets its own rate (or has none at all). Add your state's effective withholding rate manually or use your state's official calculator for precision."}},
+{"@type":"Question","name":"Are 401(k) contributions subtracted before tax?","acceptedAnswer":{"@type":"Answer","text":"Yes, for traditional 401(k). Roth 401(k) is post-tax and would not reduce today's taxable wage."}},
+{"@type":"Question","name":"How accurate is this paycheck calculator?","acceptedAnswer":{"@type":"Answer","text":"Within about 2 percent for federal tax and FICA on a simple W-4 with no extra withholding. Accuracy drops with nonstandard W-4 elections, itemized deductions, or noncash benefits."}},
+{"@type":"Question","name":"Why is my first paycheck lower than later ones?","acceptedAnswer":{"@type":"Answer","text":"Usually proration — you worked fewer hours that period, or benefits start the following month. Health premiums are sometimes charged twice in a month with three biweekly pay periods."}},
+{"@type":"Question","name":"What is the Social Security wage base for 2026?","acceptedAnswer":{"@type":"Answer","text":"Wages stop accruing the 6.2 percent Social Security portion above the annual wage base, but continue to accrue the 1.45 percent Medicare portion (and the 0.9 percent Additional Medicare tax above 200,000 dollars single or 250,000 dollars married)."}},
+{"@type":"Question","name":"What is the Additional Medicare Tax?","acceptedAnswer":{"@type":"Answer","text":"0.9 percent on employee wages above 200,000 dollars single or 250,000 dollars married filing jointly, on top of the normal 1.45 percent Medicare. Employers withhold it automatically once wages cross the threshold."}},
+{"@type":"Question","name":"Do I get taxes back at year-end if I overpaid?","acceptedAnswer":{"@type":"Answer","text":"Yes. Overwithheld amounts are refunded after filing your federal return, typically within 21 days of the IRS accepting an e-filed return."}},
+{"@type":"Question","name":"Is bonus income taxed differently?","acceptedAnswer":{"@type":"Answer","text":"Supplemental wages can be withheld at a flat 22 percent federal rate (37 percent above 1 million dollars), but actual tax at filing is based on your bracket. Overwithheld bonus tax is refunded at filing."}},
+{"@type":"Question","name":"Do Roth 401(k) contributions reduce my paycheck now?","acceptedAnswer":{"@type":"Answer","text":"They reduce take-home pay more than traditional 401(k) because they are post-tax, but produce tax-free qualified withdrawals at retirement. This calculator models traditional 401(k) only."}},
+{"@type":"Question","name":"Are FSA or HSA contributions pre-tax?","acceptedAnswer":{"@type":"Answer","text":"Yes. Payroll-deducted FSA and HSA contributions reduce taxable wages for both FICA and federal income tax, effectively saving the 7.65 percent FICA share plus your marginal rate."}}
+]
+}
+</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "InstaCalc",
+        "item": "https://instacalc.in/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "US Calculators",
+        "item": "https://instacalc.in/us/index.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Paycheck Calculator (Take-Home Pay)",
+        "item": "https://instacalc.in/us/paycheck-calculator.html"
+      }
+    ]
+  }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+        <img src="../logo.png" alt="InstaCalc logo">
+        <span>InstaCalc USA</span>
+      </a>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><i class="fas fa-money-check-dollar"></i> Payroll</span>
+          <h1>Paycheck Calculator (Take-Home Pay)</h1>
+          <p>Estimate federal income tax, FICA (Social Security + Medicare), 401(k), and health-insurance
+            deductions to see your actual take-home pay per paycheck, for any 2026 pay frequency.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="paycheck-card" style="padding:1.5rem;border:1px solid #e2e8f0;border-radius:16px;background:#fff;">
+          <div style="margin-bottom:1rem">
+            <label for="annualSalary" style="display:block;font-weight:600;margin-bottom:0.35rem;">Annual gross salary
+              ($)</label>
+            <input id="annualSalary" type="number" min="0" value="85000" step="1000"
+              style="width:100%;padding:0.6rem;border:1px solid #cbd5e1;border-radius:8px;font-size:1rem;">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div>
+              <label for="payFreq" style="display:block;font-weight:600;margin-bottom:0.35rem;">Pay frequency</label>
+              <select id="payFreq" style="width:100%;padding:0.6rem;border:1px solid #cbd5e1;border-radius:8px;">
+                <option value="26">Biweekly (26)</option>
+                <option value="24">Semi-monthly (24)</option>
+                <option value="12">Monthly (12)</option>
+                <option value="52">Weekly (52)</option>
+              </select>
+            </div>
+            <div>
+              <label for="filing" style="display:block;font-weight:600;margin-bottom:0.35rem;">Filing status</label>
+              <select id="filing" style="width:100%;padding:0.6rem;border:1px solid #cbd5e1;border-radius:8px;">
+                <option value="single">Single</option>
+                <option value="married">Married filing jointly</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+            <div>
+              <label for="k401" style="display:block;font-weight:600;margin-bottom:0.35rem;">401(k) % of
+                salary</label>
+              <input id="k401" type="number" min="0" max="100" value="6" step="1"
+                style="width:100%;padding:0.6rem;border:1px solid #cbd5e1;border-radius:8px;">
+            </div>
+            <div>
+              <label for="health" style="display:block;font-weight:600;margin-bottom:0.35rem;">Health insurance per
+                paycheck ($)</label>
+              <input id="health" type="number" min="0" value="120" step="10"
+                style="width:100%;padding:0.6rem;border:1px solid #cbd5e1;border-radius:8px;">
+            </div>
+          </div>
+          <button id="calcBtn" type="button"
+            style="background:#0284c7;color:#fff;padding:0.65rem 1.4rem;border:0;border-radius:10px;font-weight:600;cursor:pointer;">Calculate
+            take-home pay</button>
+
+          <div id="result" style="margin-top:1.25rem;display:none;">
+            <div
+              style="border:1px solid #bbf7d0;border-radius:12px;padding:1rem;background:#f0fdf4;margin-bottom:1rem;">
+              <h3 style="margin:0 0 0.25rem;color:#166534;">Take-home per paycheck</h3>
+              <p id="perPay" style="font-size:1.6rem;font-weight:800;margin:0.25rem 0;color:#0f172a;">–</p>
+              <p id="annualNet" style="font-size:0.95rem;color:#475569;">–</p>
+            </div>
+            <table style="width:100%;border-collapse:collapse;font-size:0.95rem;">
+              <thead><tr style="text-align:left;color:#475569;">
+                <th style="padding:0.4rem 0.6rem;border-bottom:1px solid #e2e8f0;">Deduction</th>
+                <th style="padding:0.4rem 0.6rem;border-bottom:1px solid #e2e8f0;">Per paycheck</th>
+                <th style="padding:0.4rem 0.6rem;border-bottom:1px solid #e2e8f0;">Annual</th>
+              </tr></thead>
+              <tbody id="breakdown"></tbody>
+            </table>
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:1.5rem;margin-top:1.5rem;align-items:center;">
+            <div style="position:relative;width:240px;height:240px;flex-shrink:0;">
+              <canvas id="paycheckChart"></canvas>
+            </div>
+            <div>
+              <button id="downloadCsvBtn" type="button"
+                style="background:#475569;color:#fff;padding:0.5rem 1rem;border:0;border-radius:8px;font-weight:600;cursor:pointer;">
+                <i class="fas fa-file-csv"></i> Download CSV</button>
+              <p style="font-size:0.83rem;color:#64748b;margin-top:0.5rem;">Per-pay and annual breakdown of where your gross
+                pay goes.</p>
+            </div>
+          </div>
+        </div>
+
+        <section class="section" style="margin-top:2.5rem">
+          <h2>How this calculator works</h2>
+          <p>Uses 2026 federal income-tax brackets (with <strong>standard deduction</strong> of $15,750 single
+            / $31,500 married, indexed estimates), FICA at 6.2% Social Security (up to the wage-base cap of
+            $184,500) + 1.45% Medicare (+0.9% additional Medicare tax over $200,000/$250,000), then 401(k)
+            pre-tax and health insurance post- or pre-tax depending on plan. State and local income tax are
+            <strong>not included</strong> — add your state's rate manually if applicable.</p>
+          <p><em>Verify current-year IRS numbers on
+              <a href="https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026"
+                rel="nofollow noopener"> IRS.gov</a>. IRS releases inflation adjustments each autumn.</em></p>
+        </section>
+
+        <section class="section" style="margin-top:1.5rem">
+          
+        <section class="section" id="how-use" style="margin-top:2rem">
+          <div class="prose">
+            <h2>How to use this calculator</h2>
+            <ol>
+              <li>Enter your <strong>annual gross salary</strong> — the total pay before deductions, before bonuses.</li>
+              <li>Pick your <strong>pay frequency</strong> (26 biweekly / 24 semi-monthly / 12 monthly / 52 weekly).</li>
+              <li>Choose your <strong>filing status</strong> (Single or Married Filing Jointly).</li>
+              <li>Add your <strong>401(k) %</strong> and <strong>health-insurance premium per paycheck</strong> if known.</li>
+              <li>Click <strong>Calculate take-home pay</strong> to see net pay per check plus a full deduction table.</li>
+            </ol>
+
+            <h2>The method behind the math</h2>
+            <p><strong>Federal income tax.</strong> Subtract traditional 401(k) contributions (pre-tax), then the standard deduction ($15,750 single / $31,500 MFJ for 2026 estimates), then run the remainder through the 2026 brackets — 10% up to $11,925, 12% to $48,475, 22% to $103,350, 24% to $197,300 for Single (MFJ thresholds roughly double).</p>
+            <p><strong>FICA payroll taxes.</strong> Social Security: 6.2% of wages up to the 2026 wage-base cap of $184,500. Medicare: 1.45% with no cap, plus an <strong>Additional Medicare Tax of 0.9%</strong> on wages exceeding $200,000 single / $250,000 MFJ.</p>
+            <p><strong>Then:</strong> subtract the health-insurance premium per paycheck, and divide the annual net by your pay frequency to get per-check take-home.</p>
+
+            <h2>Worked example — $85,000 salary, biweekly</h2>
+            <p>Noah earns $85,000, contributes 6% to his 401(k) ($5,100 pre-tax), and pays $120 per check for health premiums. Taxable wages after the 401(k) and the standard deduction land near $64,150. Federal income tax is roughly $9,027/year, Social Security $4,954, Medicare $1,159. His annual net after all deductions is <strong>$61,641</strong>, or <strong>$2,371 per biweekly paycheck</strong>.</p>
+
+            <h2>Local rules and context</h2>
+            <ul>
+              <li>Payroll withholding uses Form W-4 elections; this calculator assumes the default (no extra withholding, no itemizing).</li>
+              <li><strong>State income tax is NOT included</strong> — states range from 0% (TX, FL, WA, NV, SD, WY, AK, TN, NH) to over 13% (CA). Add your state's rate manually if applicable.</li>
+              <li>Social Security has a wage base cap; wages above it stop accruing SS tax but continue Medicare.</li>
+              <li>Roth 401(k) contributions are post-tax and would not reduce taxable wages — this calculator assumes traditional only.</li>
+              <li>Bonuses are typically withheld at a flat 22% supplemental federal rate — calculate them separately.</li>
+            </ul>
+
+            <h2>Practical tips</h2>
+            <ul>
+              <li>Update W-4 elections after any major life event (marriage, child, home purchase) so your withholding matches your liability.</li>
+              <li>Pre-tax deductions (401k, FSA, HSA) also reduce FICA — effectively 7.65% saved in addition to your marginal rate.</li>
+              <li>Review your paystub's YTD figures mid-year to catch any withholding drift before December.</li>
+              <li>If your income drops mid-year (layoff, unpaid leave), submit a new W-4 to avoid a big tax bill in April.</li>
+            </ul>
+
+            <h2>Common mistakes to avoid</h2>
+            <ul>
+              <li>Assuming gross × your tax bracket rate equals what's withheld — brackets are marginal, not flat.</li>
+              <li>Expecting Social Security to stop above the wage base if you have multiple employers — the cap applies per employer.</li>
+              <li>Comparing per-paycheck numbers across different pay frequencies (weekly checks are smaller than biweekly by design).</li>
+              <li>Forgetting employer-paid benefits (e.g. company-paid life insurance over $50,000) are taxable wages.</li>
+              <li>Ignoring state disability-family-leave withholding (CA, NJ, NY, RI, HI, WA).</li>
+            </ul>
+
+            <h2>Related tools</h2>
+            <ul>
+              <li><a href="401k-calculator.html">401(k) Calculator</a> — project retirement savings with employer match.</li>
+              <li><a href="roth-ira-calculator.html">Roth IRA Calculator</a> — model tax-free growth from after-tax contributions.</li>
+              <li><a href="fire-calculator.html">FIRE Calculator</a> — see how today's take-home affects your financial independence date.</li>
+              <li><a href="sales-tax-calculator.html">Sales Tax Calculator</a> — think after-tax for any purchase-related decision.</li>
+            </ul>
+
+            <h2>Disclaimer</h2>
+            <p>This calculator provides educational estimates only and does not constitute tax, legal, or payroll advice. Actual withholding depends on your W-4 elections, state rules, and employer systems. Verify current-year figures on <a href="https://www.irs.gov/" rel="nofollow noopener">IRS.gov</a> and consult a licensed CPA or payroll professional.</p>
+          </div>
+        </section>
+
+          <h2>Frequently asked questions</h2>
+          <details class="faq card">
+            <summary>Is my state income tax included?</summary>
+            <p>No. Each state sets its own rate (or has none at all — TX, FL, WA, etc.). Add your state's
+              effective withholding rate manually or use your state's official calculator for precision.</p>
+          </details>
+          <details class="faq card">
+            <summary>Are 401(k) contributions subtracted before tax?</summary>
+            <p>Yes, for traditional 401(k). Roth 401(k) is post-tax and would not reduce today's taxable wage.</p>
+          </details>
+
+          <details class="faq card"><summary>How accurate is this paycheck calculator?</summary><p>Within about 2 percent for federal tax and FICA on a simple W-4 with no extra withholding. Accuracy drops with nonstandard W-4 elections, itemized deductions, or noncash benefits.</p></details>
+          <details class="faq card"><summary>Why is my first paycheck lower than later ones?</summary><p>Usually proration — you worked fewer hours that period, or benefits start the following month. Health premiums are sometimes charged twice in a month with three biweekly pay periods.</p></details>
+          <details class="faq card"><summary>What is the Social Security wage base for 2026?</summary><p>Wages stop accruing the 6.2 percent Social Security portion above the annual wage base, but continue to accrue the 1.45 percent Medicare portion (and the 0.9 percent Additional Medicare tax above 200,000 dollars single or 250,000 dollars married).</p></details>
+          <details class="faq card"><summary>What is the Additional Medicare Tax?</summary><p>0.9 percent on employee wages above 200,000 dollars single or 250,000 dollars married filing jointly, on top of the normal 1.45 percent Medicare. Employers withhold it automatically once wages cross the threshold.</p></details>
+          <details class="faq card"><summary>Do I get taxes back at year-end if I overpaid?</summary><p>Yes. Overwithheld amounts are refunded after filing your federal return, typically within 21 days of the IRS accepting an e-filed return.</p></details>
+          <details class="faq card"><summary>Is bonus income taxed differently?</summary><p>Supplemental wages can be withheld at a flat 22 percent federal rate (37 percent above 1 million dollars), but actual tax at filing is based on your bracket. Overwithheld bonus tax is refunded at filing.</p></details>
+          <details class="faq card"><summary>Do Roth 401(k) contributions reduce my paycheck now?</summary><p>They reduce take-home pay more than traditional 401(k) because they are post-tax, but produce tax-free qualified withdrawals at retirement. This calculator models traditional 401(k) only.</p></details>
+          <details class="faq card"><summary>Are FSA or HSA contributions pre-tax?</summary><p>Yes. Payroll-deducted FSA and HSA contributions reduce taxable wages for both FICA and federal income tax, effectively saving the 7.65 percent FICA share plus your marginal rate.</p></details>
+
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-tagline">InstaCalc USA — reliable calculators and converters for daily use.</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="delete-account.html">Delete Account</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Paycheck Calculator (US)",
+      "url": "https://instacalc.in/us/paycheck-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "inLanguage": "en-US",
+      "description": "Estimate US take-home pay with 2026 federal brackets, FICA, 401(k), and health-insurance deductions.",
+      "isAccessibleForFree": "true",
+      "publisher": { "@type": "Organization", "name": "InstaCalc", "url": "https://instacalc.in/" }
+    }
+  </script>
+
+  <script>
+    const fmt = v => '$' + Math.round(v).toLocaleString('en-US');
+    // 2026 IRS estimates (single & MFJ brackets after standard deduction)
+    // Note: These are ESTIMATES; IRS revises in autumn. Update before each year.
+    const BRACKETS = {
+      single: [[0, 11925, .10], [11925, 48475, .12], [48475, 103350, .22], [103350, 197300, .24], [197300, 250525, .32], [250525, 626350, .35], [626350, Infinity, .37]],
+      married: [[0, 23850, .10], [23850, 96950, .12], [96950, 206700, .22], [206700, 394600, .24], [394600, 501050, .32], [501050, 751600, .35], [751600, Infinity, .37]]
+    };
+    const STD = { single: 15750, married: 31500 };
+
+    document.getElementById('calcBtn').addEventListener('click', () => {
+      const gross = parseFloat(document.getElementById('annualSalary').value) || 0;
+      const freq = parseFloat(document.getElementById('payFreq').value) || 26;
+      const status = document.getElementById('filing').value;
+      const k401pct = (parseFloat(document.getElementById('k401').value) || 0) / 100;
+      const healthPP = parseFloat(document.getElementById('health').value) || 0;
+
+      const k401 = gross * k401pct;
+      const taxableWage = Math.max(0, gross - k401);
+      const taxable = Math.max(0, taxableWage - STD[status]);
+
+      let fed = 0;
+      let prev = 0;
+      for (const [lo, hi, rate] of BRACKETS[status]) {
+        if (taxable > lo) fed += (Math.min(taxable, hi) - lo) * rate;
+        prev = hi;
+      }
+      const ss = Math.min(taxableWage, 184500) * 0.062;
+      const medicare = taxableWage * 0.0145;
+      const addMedicare = taxableWage > 200000 ? (taxableWage - 200000) * 0.009 : 0;
+
+      const annualNet = taxableWage - fed - ss - medicare - addMedicare - healthPP * freq;
+      const perPay = annualNet / freq;
+
+      document.getElementById('perPay').textContent = fmt(perPay);
+      document.getElementById('annualNet').textContent = 'Annual net after all deductions: ' + fmt(annualNet);
+
+      const rows = [
+        ['Federal income tax', fed / freq, fed],
+        ['Social Security (6.2%)', ss / freq, ss],
+        ['Medicare (1.45%)', medicare / freq, medicare],
+        ['Additional Medicare (0.9%)', addMedicare / freq, addMedicare],
+        ['401(k) contribution', k401 / freq, k401],
+        ['Health insurance', healthPP, healthPP * freq],
+      ];
+      document.getElementById('breakdown').innerHTML = rows.map(([n, pp, ann]) =>
+        `<tr><td style="padding:0.4rem 0.6rem;border-bottom:1px solid #f1f5f9;">${n}</td>` +
+        `<td style="padding:0.4rem 0.6rem;border-bottom:1px solid #f1f5f9;">${fmt(pp)}</td>` +
+        `<td style="padding:0.4rem 0.6rem;border-bottom:1px solid #f1f5f9;">${fmt(ann)}</td></tr>`).join('');
+      document.getElementById('result').style.display = 'block';
+
+      // draw doughnut
+      if (typeof Chart !== 'undefined') {
+        if (paycheckChartInstance) paycheckChartInstance.destroy();
+        const labels = ['Take-home (annual)', rows.filter(r => r[2] > 0).map(r => r[0])].flat();
+        const data = [Math.max(0, annualNet), ...rows.filter(r => r[2] > 0).map(r => Math.round(r[2]))];
+        const cartOpts = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => ' ' + ctx.label + ': $' + Math.round(ctx.raw).toLocaleString('en-US') } } } };
+        paycheckChartInstance = new Chart(document.getElementById('paycheckChart').getContext('2d'), { type: 'doughnut', data: { labels: labels, datasets: [{ data: data, backgroundColor: ['#16a34a', '#0ea5e9', '#6366f1', '#a855f7', '#f59e0b', '#ef4444', '#64748b'], borderWidth: 0 }] }, options: cartOpts });
+      }
+    });
+
+    const NL_CHAR_PAYCHECK = String.fromCharCode(10);
+    let paycheckChartInstance = null;
+    let paycheckRows = []; // filled in handler
+
+    // inject rows capture into handler closure by re-listening and patching the existing rows variable via global
+    (function () {
+      const origBtn = document.getElementById('calcBtn');
+      origBtn.addEventListener('click', () => {
+        // rows are built inside the original handler above; capture result-side deduced rows on next tick
+        setTimeout(() => {
+          const tds = Array.from(document.querySelectorAll('#breakdown tr'));
+          paycheckRows = tds.map(tr => Array.from(tr.children).map(td => td.textContent));
+        }, 0);
+      });
+    })();
+
+    document.getElementById('downloadCsvBtn').addEventListener('click', () => {
+      if (!paycheckRows.length) return;
+      const csv = [['Item', 'Per paycheck', 'Annual']].concat(paycheckRows).map(r => r.map(x => '"' + String(x).replace(/[$,]/g, '') + '"').join(',')).join(NL_CHAR_PAYCHECK);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'paycheck-breakdown.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+
+</html>

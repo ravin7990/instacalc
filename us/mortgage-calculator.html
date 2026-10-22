@@ -8,16 +8,33 @@
   <meta name="keywords" content="mortgage calculator, home loan calculator, monthly mortgage payment, 30 year fixed mortgage, pmi calculator, amortization schedule usa">
   <meta name="author" content="InstaCalc USA">
   <meta name="robots" content="index,follow">
+  <!-- Verify site ownership & paste the actual codes: Google Search Console (Domain-wide verification), Bing Webmaster Tools -->
   <meta name="theme-color" content="#005f73">
 
   <link rel="icon" type="image/x-icon" href="../favicon.webp">
   <link rel="canonical" href="https://instacalc.in/us/mortgage-calculator.html">
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/mortgage-calculator.html">
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/emicalculator.html">
+  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/emicalculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/us/mortgage-calculator.html">
+  <meta property="og:title" content="Mortgage Calculator | Monthly Payment with Taxes, Insurance &amp; PMI">
+  <meta property="og:description" content="Calculate monthly mortgage payments for 15-year and 30-year fixed loans with interest (APR), property taxes, home insurance, PMI, and amortization schedule.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/us/mortgage-calculator.html">
+  <meta property="og:site_name" content="InstaCalc">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://instacalc.in/cover.png">
+  <meta name="twitter:title" content="Mortgage Calculator | Monthly Payment with Taxes, Insurance &amp; PMI">
+  <meta name="twitter:description" content="Calculate monthly mortgage payments for 15-year and 30-year fixed loans with interest (APR), property taxes, home insurance, PMI, and amortization schedule.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
-  <link rel="stylesheet" href="../instacalc-core.css">
+  <link rel="preload" href="../instacalc-core.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../instacalc-core.css"></noscript>
   <style>
     /* Studio Grid & Chart styles */
     .fin-studio-grid {
@@ -144,57 +161,154 @@
       }
       .projection-table .projection-year::before { display: none; }
     }
-    @media (max-width: 960px) {
-      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
-    }
-  </style>
-  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/mortgage-calculator.html">
-  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+       @media (max-width: 960px) {
+         .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+       }
+
+       /* ---- Redesign polish (page-scoped) ---- */
+
+       /* Tool tab bar: make it read clearly as tabs, aligned with the toggle button */
+       .calculator-header-row {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         gap: 0.75rem;
+         flex-wrap: wrap;
+         margin-bottom: 1.25rem;
+       }
+       .calculator-header-row .toggle-group { margin: 0; }
+       .calculator-header-row .toggle-btn {
+         display: inline-flex;
+         align-items: center;
+         gap: 0.4rem;
+         text-decoration: none;
+         white-space: nowrap;
+       }
+
+       /* Advanced 3-up grid: fixes the lopsided "2 wide + 1 stranded" layout */
+       .adv-grid {
+         display: grid;
+         grid-template-columns: repeat(3, minmax(0, 1fr));
+         gap: 0.85rem;
+         margin-top: 0.85rem;
+       }
+       @media (max-width: 860px) {
+         .adv-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+       }
+       @media (max-width: 560px) {
+         .adv-grid { grid-template-columns: 1fr; }
+       }
+
+       /* Advanced fields are hidden until toggled on */
+       .advanced-only-section,
+       .result-card.advanced-only { display: none; }
+       .calculator-shell.advanced-mode .advanced-only-section { display: block; }
+       .calculator-shell.advanced-mode .result-card.advanced-only { display: flex; }
+
+       /* Calmer studio cards */
+       .studio-inputs .field-card {
+         background: #ffffff;
+         border: 1px solid var(--ic-border);
+         border-radius: var(--ic-radius-md);
+         padding: 1.1rem 1.15rem;
+         margin-bottom: 0;
+         transition: border-color 0.18s ease, box-shadow 0.18s ease;
+       }
+       .studio-inputs .field-card:focus-within {
+         border-color: var(--ic-primary);
+         box-shadow: 0 0 0 3px var(--ic-primary-light);
+       }
+       .studio-inputs .field-card .field-head { margin-bottom: 0.65rem; }
+       .studio-inputs .inline-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+       @media (max-width: 560px) {
+         .studio-inputs .inline-grid { grid-template-columns: 1fr; }
+       }
+
+       /* Results summary: replace dark double-panel with a single clean card */
+       .outcome-chart-box { box-shadow: var(--ic-shadow-sm); }
+       .result-grid { margin-top: 0; }
+       .result-card {
+         background: #ffffff;
+         box-shadow: var(--ic-shadow-sm);
+         transition: border-color 0.18s ease;
+       }
+       .result-card:hover { border-color: #cbd5e1; }
+
+       /* Timeline + table section rhythm */
+       .growth-timeline-card { margin-top: 1.75rem; }
+       .table-tools { margin-top: 1.75rem; }
+
+       /* Tidy the amortization table header block */
+       .table-tools h3 { display: inline-flex; align-items: center; gap: 0.5rem; margin: 0; }
+    </style>
+
   <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "US Mortgage Calculator",
-      "url": "https://instacalc.in/us/mortgage-calculator.html",
-      "applicationCategory": "FinanceApplication",
-      "operatingSystem": "All",
-      "description": "Calculate monthly mortgage payments including principal, interest, property taxes, homeowners insurance, and PMI.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
+{
+"@context":"https://schema.org",
+"@type":"FAQPage",
+"mainEntity":[
+{"@type":"Question","name":"How much house can I afford?","acceptedAnswer":{"@type":"Answer","text":"The 28/36 rule: housing costs should stay under 28 percent of gross monthly income, and total debt under 36 percent. On an 85,000 dollar salary that suggests a mortgage payment near 1,980 dollars, including taxes and insurance."}},
+{"@type":"Question","name":"What is PMI and when can I remove it?","acceptedAnswer":{"@type":"Answer","text":"Private Mortgage Insurance is 0.3 to 1.5 percent of the loan per year, required on conventional loans below 20 percent down. It is removable once you reach 20 percent equity through payments or an appraisal."}},
+{"@type":"Question","name":"Should I choose a 15-year or 30-year mortgage?","acceptedAnswer":{"@type":"Answer","text":"The 30-year has lower monthly payments but much more total interest; the 15-year usually runs 0.5 to 0.75 percentage points lower and cuts total interest by more than half. Choose 30-year if cash flow is tight, 15-year to save."}},
+{"@type":"Question","name":"What are closing costs on a US mortgage?","acceptedAnswer":{"@type":"Answer","text":"Typically 2 to 5 percent of the loan amount — appraisal, title, origination, points, escrow, and recording fees. Always compare the Loan Estimates from at least three lenders."}},
+{"@type":"Question","name":"What is the current conforming loan limit for 2025?","acceptedAnswer":{"@type":"Answer","text":"806,500 dollars in most US counties, higher in high-cost areas. Loans above this are \"jumbo\" mortgages with stricter requirements."}},
+{"@type":"Question","name":"How does an ARM (adjustable-rate mortgage) work?","acceptedAnswer":{"@type":"Answer","text":"The rate is fixed for an initial period (5, 7, or 10 years), then adjusts annually based on an index plus a margin. Rate caps limit yearly adjustment, but resets can still jump payments significantly."}},
+{"@type":"Question","name":"Is it better to put 20 percent down or invest the extra cash?","acceptedAnswer":{"@type":"Answer","text":"Twenty percent down avoids PMI, cutting monthly cost. But if the mortgage rate is 5 percent and your investment return is 7 percent, investing extra may outperform — factoring in liquidity and risk preference."}},
+{"@type":"Question","name":"How much does property tax add to a mortgage payment?","acceptedAnswer":{"@type":"Answer","text":"Typically 1 to 2 percent of home value per year, escrowed in monthly installments. In New Jersey the average is over 2 percent, in Hawaii under 0.4 percent."}},
+{"@type":"Question","name":"What credit score do I need?","acceptedAnswer":{"@type":"Answer","text":"Conventional loans require a minimum score of 620; FHA loans accept 580 with 3.5 percent down (500 with 10 percent). Better credit means a lower rate — a 740-versus-680 score difference is roughly 0.5 to 1 percentage point."}},
+{"@type":"Question","name":"Can I pay off my mortgage early?","acceptedAnswer":{"@type":"Answer","text":"Most conforming loans have no prepayment penalty (verify in your note). Extra principal payments slash total interest — an extra 100 dollars per month on a 30-year 360,000 dollar loan saves roughly 35,000 dollars."}}
+]
+}
+</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Mortgage Calculator — InstaCalc",
+    "url": "https://instacalc.in/us/mortgage-calculator.html",
+    "applicationCategory": "FinanceApplication",
+    "inLanguage": "en-US",
+    "operatingSystem": "All",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "description": "Calculate monthly mortgage payments for 15-year and 30-year fixed loans with interest (APR), property taxes, home insurance, PMI, and amortization schedule.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "InstaCalc",
+      "url": "https://instacalc.in"
     }
+  }
   </script>
   <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What does PITI stand for in a mortgage?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "PITI stands for Principal, Interest, Taxes (property tax), and Insurance (homeowners hazard insurance). It represents the complete monthly housing cost."
-          }
-        },\n        {
-          "@type": "Question",
-          "name": "When can I remove Private Mortgage Insurance (PMI)?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "PMI is required if your down payment is less than 20%. Under federal law (Homeowners Protection Act), lenders must automatically cancel PMI once your loan balance reaches 78% of the home's original appraised value."
-          }
-        },\n        {
-          "@type": "Question",
-          "name": "Is a 15-year or 30-year fixed mortgage better?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A 15-year fixed mortgage has lower interest rates and saves tens of thousands in interest, but has higher monthly payments. A 30-year mortgage offers lower, more manageable monthly payments with greater cashflow flexibility."
-          }
-        }
-      ]
-    }
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "InstaCalc",
+        "item": "https://instacalc.in/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "US Calculators",
+        "item": "https://instacalc.in/us/index.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "US Mortgage Calculator",
+        "item": "https://instacalc.in/us/mortgage-calculator.html"
+      }
+    ]
+  }
   </script>
 </head>
 <body>
@@ -336,18 +450,27 @@
               </div>
 
               <div class="advanced-only-section" id="advancedFields">
-                <div class="inline-grid">
+                <div class="adv-grid">
                   <div class="field-card">
-                    <div class="field-head"><label for="propertyTaxRate">Annual Property Tax Rate (%)</label></div>
-                    <input type="number" id="propertyTaxRate" min="0" max="5" step="0.05" value="1.2">
+                    <div class="field-head"><label for="propertyTaxRate">Property Tax Rate (%)</label></div>
+                    <div class="input-with-adornment">
+                      <input type="number" id="propertyTaxRate" min="0" max="5" step="0.05" value="1.2" class="has-suffix">
+                      <span class="input-suffix">%</span>
+                    </div>
                   </div>
                   <div class="field-card">
-                    <div class="field-head"><label for="homeInsurance">Annual Home Insurance ($)</label></div>
-                    <input type="number" id="homeInsurance" min="0" step="100" value="1400">
+                    <div class="field-head"><label for="homeInsurance">Home Insurance ($/yr)</label></div>
+                    <div class="input-with-adornment">
+                      <span class="input-prefix">$</span>
+                      <input type="number" id="homeInsurance" min="0" step="100" value="1400" class="has-prefix">
+                    </div>
                   </div>
                   <div class="field-card">
-                    <div class="field-head"><label for="hoaFee">Monthly HOA Fees ($)</label></div>
-                    <input type="number" id="hoaFee" min="0" step="25" value="0">
+                    <div class="field-head"><label for="hoaFee">HOA Fees ($/mo)</label></div>
+                    <div class="input-with-adornment">
+                      <span class="input-prefix">$</span>
+                      <input type="number" id="hoaFee" min="0" step="25" value="0" class="has-prefix">
+                    </div>
                   </div>
                 </div>
               </div>
@@ -378,9 +501,9 @@
               </div>
 
               <div class="result-grid">
-                <div class="result-card positive"><h3>Total Monthly Payment</h3><div class="result-value" id="resTotalMonthly">-</div></div>
                 <div class="result-card"><h3>Loan Amount (Principal)</h3><div class="result-value" id="resPrincipalAmount">-</div></div>
                 <div class="result-card"><h3>Total Interest Paid</h3><div class="result-value" id="resTotalInterest">-</div></div>
+                <div class="result-card"><h3>Total Cost Over Term</h3><div class="result-value" id="resTotalCost">-</div></div>
                 <div class="result-card advanced-only"><h3>Monthly Property Tax</h3><div class="result-value" id="resMonthlyTax">-</div></div>
                 <div class="result-card advanced-only"><h3>Monthly Insurance</h3><div class="result-value" id="resMonthlyIns">-</div></div>
                 <div class="result-card advanced-only"><h3>Monthly PMI</h3><div class="result-value" id="resMonthlyPmi">-</div></div>
@@ -435,7 +558,75 @@
         </aside>
       </div>
     </section>
-  </main>
+  
+        <section class="section" id="how-use" style="margin-top:2rem">
+          <div class="prose">
+            <p>Mortgage Calculator helps you see the real monthly cost of a US home purchase — not just principal and interest, but taxes, insurance, PMI, and HOA fees on top.</p>
+            <h2>How to use this calculator</h2>
+            <ol>
+              <li>Enter the home purchase price.</li>
+              <li>Enter your down payment as a percent (20% avoids PMI on conventional loans).</li>
+              <li>Set the loan term (30-year is standard, 15-year saves interest).</li>
+              <li>Enter the interest rate — check current Freddie Mac PMMS averages for a realistic figure.</li>
+              <li>Add annual property tax, annual homeowners insurance, monthly HOA fees, and estimated PMI rate if down < 20%.</li>
+              <li>Click Calculate — the monthly breakdown spans principal, interest, taxes, insurance, PMI, and HOA.</li>
+            </ol>
+            <h2>The method behind the math</h2>
+            <p>Monthly P&I uses the standard amortization formula: P&I = P × r / (1 − (1+r)^−n), where P is the loan amount (price minus down payment), r the monthly rate (APR÷12), and n the number of months. Then taxes ÷ 12, insurance ÷ 12, PMI (loan × rate ÷ 12), and HOA are added on top. This matches how US lenders quote "PITI + HOA" in a Loan Estimate.</p>
+            <h2>Worked example</h2>
+            <p>On a $450,000 home with $90,000 down (20%), a 30-year fixed at 6.5%, $4,500/yr property tax, $1,800/yr insurance, and no HOA: loan is $360,000 at 0.5417% monthly over 360 months, giving P&I of about $2,275/mo. Adding property tax $375/mo and insurance $150/mo produces a total monthly cost of about $2,800 — a figure many first-time buyers underestimate by 30-40%.</p>
+            <h2>Rules and regulations that affect your result</h2>
+            <ul>
+              <li>Conventional loans require PMI below 20% down, typically 0.3-1.5% of the loan per year, removable once you reach 20% equity.</li>
+              <li>FHA loans (3.5% down minimum) require both upfront (1.75%) and annual mortgage insurance premiumsPaid for the life of the loan if you put under 10% down.</li>
+              <li>VA loans (eligible veterans and service members) have no monthly PMI but a one-time funding fee of 1.25-3.3%.</li>
+              <li>Property tax rates vary widely by state — New Jersey averages ~2.2% of home value, Hawaii ~0.3%.</li>
+              <li>The 2025 conforming loan limit is $806,500 in most counties, beyond which you need a jumbo loan.</li>
+            </ul>
+            <h2>Practical tips</h2>
+            <ul>
+              <li>Round up: paying $100 extra per month on a 30-year loan can save ~$35,000 in interest and shave ~3 years.</li>
+              <li>A 15-year fixed typically runs 0.5-0.75 percentage points lower than a 30-year and cuts total interest by more than half.</li>
+              <li>Points ("discount points") each cost 1% of the loan and reduce the rate by roughly 0.25% — worth it if you stay past the break-even period (~5-7 years).</li>
+              <li>Avoid adjustable-rate mortgages if you plan to stay in the home past the fixed period — rate reset risk is real.</li>
+              <li>Get pre-approved before house-hunting; sellers in competitive markets expect it.</li>
+            </ul>
+            <h2>Common mistakes to avoid</h2>
+            <ul>
+              <li>Comparing lenders by rate alone without comparing total Loan Estimate closing costs.</li>
+              <li>Forgetting to budget for maintenance (1-2% of home value per year is the standard recommendation).</li>
+              <li>Assuming the listing-price mortgage is the only cost — HOA, utilities, and repairs add 15-25% to true monthly cost.</li>
+              <li>Emptying savings for a 20% down payment and skipping the emergency fund, then missing payments when a repair hits.</li>
+              <li>Not shopping the rate — Fannie Mae research shows an average buyer saves ~$1,500 by getting just one additional quote.</li>
+            </ul>
+            <h2>Related tools</h2>
+            <ul>
+              <li><a href="retirement-calculator.html">Retirement Calculator — fit mortgage payments into your full retirement plan</a></li>
+              <li><a href="401k-calculator.html">401(k) Calculator — weigh extra mortgage payments against retirement matches</a></li>
+              <li><a href="paycheck-calculator.html">Paycheck Calculator — confirm the mortgage fits your take-home pay</a></li>
+            </ul>
+            <h2>Disclaimer</h2>
+            <p>This calculator provides educational estimates only and does not constitute mortgage, lending, or financial advice. Actual rates and closing costs depend on your credit, lender, and market. Consult a licensed mortgage professional (NMLS-registered) for personalized quotes.</p>
+          </div>
+        </section>
+
+
+        <section class="section" id="faq" style="margin-top:2rem">
+          <div class="prose">
+            <h2>Frequently asked questions</h2>
+            <details class="faq card"><summary>How much house can I afford?</summary><p>The 28/36 rule: housing costs should stay under 28 percent of gross monthly income, and total debt under 36 percent. On an 85,000 dollar salary that suggests a mortgage payment near 1,980 dollars, including taxes and insurance.</p></details>
+          <details class="faq card"><summary>What is PMI and when can I remove it?</summary><p>Private Mortgage Insurance is 0.3 to 1.5 percent of the loan per year, required on conventional loans below 20 percent down. It is removable once you reach 20 percent equity through payments or an appraisal.</p></details>
+          <details class="faq card"><summary>Should I choose a 15-year or 30-year mortgage?</summary><p>The 30-year has lower monthly payments but much more total interest; the 15-year usually runs 0.5 to 0.75 percentage points lower and cuts total interest by more than half. Choose 30-year if cash flow is tight, 15-year to save.</p></details>
+          <details class="faq card"><summary>What are closing costs on a US mortgage?</summary><p>Typically 2 to 5 percent of the loan amount — appraisal, title, origination, points, escrow, and recording fees. Always compare the Loan Estimates from at least three lenders.</p></details>
+          <details class="faq card"><summary>What is the current conforming loan limit for 2025?</summary><p>806,500 dollars in most US counties, higher in high-cost areas. Loans above this are "jumbo" mortgages with stricter requirements.</p></details>
+          <details class="faq card"><summary>How does an ARM (adjustable-rate mortgage) work?</summary><p>The rate is fixed for an initial period (5, 7, or 10 years), then adjusts annually based on an index plus a margin. Rate caps limit yearly adjustment, but resets can still jump payments significantly.</p></details>
+          <details class="faq card"><summary>Is it better to put 20 percent down or invest the extra cash?</summary><p>Twenty percent down avoids PMI, cutting monthly cost. But if the mortgage rate is 5 percent and your investment return is 7 percent, investing extra may outperform — factoring in liquidity and risk preference.</p></details>
+          <details class="faq card"><summary>How much does property tax add to a mortgage payment?</summary><p>Typically 1 to 2 percent of home value per year, escrowed in monthly installments. In New Jersey the average is over 2 percent, in Hawaii under 0.4 percent.</p></details>
+          <details class="faq card"><summary>What credit score do I need?</summary><p>Conventional loans require a minimum score of 620; FHA loans accept 580 with 3.5 percent down (500 with 10 percent). Better credit means a lower rate — a 740-versus-680 score difference is roughly 0.5 to 1 percentage point.</p></details>
+          <details class="faq card"><summary>Can I pay off my mortgage early?</summary><p>Most conforming loans have no prepayment penalty (verify in your note). Extra principal payments slash total interest — an extra 100 dollars per month on a 30-year 360,000 dollar loan saves roughly 35,000 dollars.</p></details>
+          </div>
+        </section>
+</main>
   <script>
     (function () {
       const formatUSD = (v) => "$" + Math.round(v).toLocaleString("en-US");
@@ -466,7 +657,7 @@
         corpusHeroDesc: document.getElementById("corpusHeroDesc"),
         resPiPayment: document.getElementById("resPiPayment"),
         resTaxInsPayment: document.getElementById("resTaxInsPayment"),
-        resTotalMonthly: document.getElementById("resTotalMonthly"),
+        resTotalCost: document.getElementById("resTotalCost"),
         resPrincipalAmount: document.getElementById("resPrincipalAmount"),
         resTotalInterest: document.getElementById("resTotalInterest"),
         resMonthlyTax: document.getElementById("resMonthlyTax"),
@@ -581,9 +772,9 @@
         elements.corpusHeroDesc.textContent = "P&I: " + formatUSD(monthlyPI) + " • Taxes & Ins: " + formatUSD(propTaxMonthly + insuranceMonthly + pmiMonthly + hoaMonthly);
         elements.resPiPayment.textContent = formatUSD(monthlyPI);
         elements.resTaxInsPayment.textContent = formatUSD(propTaxMonthly + insuranceMonthly + pmiMonthly + hoaMonthly);
-        elements.resTotalMonthly.textContent = formatUSD(totalMonthlyPayment);
         elements.resPrincipalAmount.textContent = formatUSD(principal);
         elements.resTotalInterest.textContent = formatUSD(totalInterestPaid);
+        elements.resTotalCost.textContent = formatUSD(principal + totalInterestPaid);
         elements.resMonthlyTax.textContent = formatUSD(propTaxMonthly);
         elements.resMonthlyIns.textContent = formatUSD(insuranceMonthly);
         elements.resMonthlyPmi.textContent = formatUSD(pmiMonthly);
@@ -760,20 +951,27 @@
         setupToggleAdvanced();
       }
 
-      wireEvents();
-      calculate();
-    })();
-  </script>
+           wireEvents();
+
+           // Chart.js is loaded via a classic <script> AFTER this inline block, so on
+           // first run `window.Chart` is undefined and renderCharts() bails out silently
+           // (that was the blank chart). Render once immediately for the numbers/table,
+           // then re-run when the library and full page are ready so charts paint.
+           calculate();
+           window.addEventListener("load", calculate);
+         })();
+      </script>
   <footer class="site-footer">
     <div class="container footer-inner">
       <p>InstaCalc USA - Smart financial calculators and planning tools for everyday decisions.</p>
       <div class="footer-links">
         <a href="index.html">US Home</a>
-        <a href="../aboutus.html">About Us</a>
-        <a href="../contactus.html">Contact Us</a>
-        <a href="../privacypolicy.html">Privacy Policy</a>
-        <a href="../terms.html">Terms &amp; Conditions</a>
-      </div>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      
+<a href="delete-account.html">Delete Account</a></div>
     </div>
   </footer>
   <script src="../currency-manager.js"></script>

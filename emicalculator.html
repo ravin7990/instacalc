@@ -20,11 +20,15 @@
     content="emi calculator, loan emi calculator, amortization calculator, prepayment calculator, home loan emi calculator, car loan emi planner, loan interest calculator">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
+  <!-- Verify site ownership & paste the actual codes: Google Search Console (Domain-wide verification), Bing Webmaster Tools -->
   <meta name="theme-color" content="#005f73">
-  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
 
   <link rel="icon" type="image/x-icon" href="favicon.webp">
   <link rel="canonical" href="https://instacalc.in/emicalculator.html">
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/emicalculator.html">
+  <link rel="alternate" hreflang="ja" href="https://instacalc.in/ja/emicalculator.html">
+  <link rel="alternate" hreflang="ru" href="https://instacalc.in/ru/emicalculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/emicalculator.html">
 
   <meta property="og:title" content="EMI Calculator - Advanced Loan, Prepayment & Tenure Planner">
   <meta property="og:description"
@@ -40,80 +44,8 @@
     content="Free EMI calculator with amortization table, prepayment impact, interest savings, and repayment strategy simulation.">
   <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
 
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "EMI Calculator",
-      "url": "https://instacalc.in/emicalculator.html",
-      "applicationCategory": "FinanceApplication",
-      "operatingSystem": "All",
-      "description": "EMI calculator for loan repayment planning with amortization schedule, prepayment impact, interest savings, and tenure comparison.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    }
-  </script>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How is EMI calculated?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "EMI is calculated using loan amount, monthly interest rate, and tenure. The standard formula is EMI = P x r x (1+r)^n / ((1+r)^n - 1)."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is an amortization schedule?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "An amortization schedule is a month-by-month loan breakdown showing EMI split into interest and principal and the remaining outstanding balance."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How does part-prepayment reduce interest?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Part-prepayment directly reduces outstanding principal, so future interest is charged on a lower balance, which can reduce tenure or EMI and lower total interest cost."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Should I reduce EMI or reduce tenure after prepayment?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Reducing tenure usually saves more total interest, while reducing EMI improves monthly cash flow. The right choice depends on your budget and goals."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I include processing fee and extra charges?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. This calculator includes processing fee and upfront charges so you can estimate total borrowing cost more realistically."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can EMI change if interest rate changes?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. In floating-rate loans, EMI or tenure can change when rates reset. This calculator supports a rate-change scenario to model repayment impact."
-          }
-        }
-      ]
-    }
-  </script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload"
     href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
@@ -397,6 +329,55 @@
     }
 
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"What is EMI?","acceptedAnswer":{"@type":"Answer","text":"EMI (Equated Monthly Installment) is the fixed monthly payment toward your loan, consisting of both principal and interest. The split between the two shifts over the tenure."}},
+      {"@type":"Question","name":"Why is early EMI mostly interest?","acceptedAnswer":{"@type":"Answer","text":"Interest is charged on the outstanding principal, which is highest at the start of the loan. So in the early months, a larger share of each EMI goes toward interest rather than principal repayment."}},
+      {"@type":"Question","name":"Does prepayment always help?","acceptedAnswer":{"@type":"Answer","text":"Generally yes, especially early in the tenure when the outstanding principal is large. Prepaying early reduces future interest substantially; most Indian home loans do not charge a prepayment penalty on floating-rate loans."}},
+      {"@type":"Question","name":"Reduce EMI or reduce tenure — which is better?","acceptedAnswer":{"@type":"Answer","text":"Reducing tenure usually saves the most total interest, while reducing EMI improves monthly cash flow. Choose tenure reduction if you can afford the same EMI and want the loan paid off sooner."}},
+      {"@type":"Question","name":"Can floating-rate changes increase total cost?","acceptedAnswer":{"@type":"Answer","text":"Yes. When lending rates rise, your lender may either increase the EMI or extend the tenure to keep the EMI same. Extending tenure means you pay more interest over time."}},
+      {"@type":"Question","name":"Should I include processing fee in planning?","acceptedAnswer":{"@type":"Answer","text":"Yes. Processing fees, insurance add-ons, and documentation charges are typically 0.5%–2% of the loan amount and should be included when comparing two loan offers on total cost."}},
+      {"@type":"Question","name":"How is EMI calculated?","acceptedAnswer":{"@type":"Answer","text":"EMI = P × r × (1+r)^n ÷ ((1+r)^n − 1), where P is the loan principal, r the monthly interest rate (annual ÷ 12 ÷ 100), and n the number of monthly installments."}},
+      {"@type":"Question","name":"What is the EMI for a ₹10 lakh loan at 10% for 10 years?","acceptedAnswer":{"@type":"Answer","text":"At a 10% annual rate for 120 months, the EMI is approximately ₹13,215. Total repayment over 10 years is around ₹15.86 lakh, of which about ₹5.86 lakh goes to interest."}},
+      {"@type":"Question","name":"What is the EMI for a ₹50 lakh home loan at 8.5% for 30 years?","acceptedAnswer":{"@type":"Answer","text":"At an 8.5% annual rate for 360 months, the monthly EMI is approximately ₹38,446. Over 30 years the total interest exceeds the principal — long tenures significantly raise the total cost."}},
+      {"@type":"Question","name":"What is the EMI for a ₹5 lakh car loan at 9% for 5 years?","acceptedAnswer":{"@type":"Answer","text":"For ₹5 lakh at 9% annual rate for 60 months, the EMI is approximately ₹10,376. Total repayment is around ₹6.22 lakh, with about ₹1.22 lakh in interest."}},
+      {"@type":"Question","name":"How does loan tenure affect EMI?","acceptedAnswer":{"@type":"Answer","text":"A longer tenure lowers the monthly EMI but raises the total interest paid. A shorter tenure costs more per month but dramatically reduces the total interest burden."}},
+      {"@type":"Question","name":"What is an amortization schedule?","acceptedAnswer":{"@type":"Answer","text":"It is a year-by-year (or month-by-month) breakdown showing how much of each EMI goes to interest versus principal, and the remaining balance after each payment. This calculator produces it automatically."}},
+      {"@type":"Question","name":"Can I get a loan if my EMI exceeds 50% of income?","acceptedAnswer":{"@type":"Answer","text":"Most Indian lenders prefer a debt-to-income ratio under 50% — ideally below 40%. A higher ratio increases rejection risk or requires a longer tenure/smaller loan to fit the criteria."}},
+      {"@type":"Question","name":"What is the difference between flat and reducing balance rate?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate loans compute interest on the original principal throughout, making the effective rate nearly double the quoted rate. Reducing-balance loans (standard in India) compute interest on the declining outstanding amount — this is what this calculator uses."}},
+      {"@type":"Question","name":"Does this calculator account for prepayment?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use the prepayment field to add an extra lump-sum payment at any point — the simulator recalculates the amortization schedule and shows interest saved."}}
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "EMI Calculator — InstaCalc",
+    "url": "https://instacalc.in/emicalculator.html",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "description": "Calculate EMI, total interest, and amortization schedule for any loan — free for India.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+    "publisher": { "@type": "Organization", "name": "InstaCalc", "url": "https://instacalc.in" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "InstaCalc Home", "item": "https://instacalc.in/" },
+      { "@type": "ListItem", "position": 2, "name": "Calculators", "item": "https://instacalc.in/index.html" },
+      { "@type": "ListItem", "position": 3, "name": "EMI Calculator", "item": "https://instacalc.in/emicalculator.html" }
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -557,8 +538,99 @@
                 </div>
               </div>
 
+              <div class="goals-solver-card" style="background:var(--ic-bg-subtle);border:1px solid var(--ic-border);border-radius:var(--ic-radius-md);padding:1rem;margin-bottom:0.85rem;">
+                <div class="field-head">
+                  <label for="goalMode">Goal Mode (ET-Money style reverse solve)</label>
+                </div>
+                <select id="goalMode">
+                  <option value="off" selected>Off — plan from a loan amount</option>
+                  <option value="fromEmi">Reverse: my affordable EMI → max loan &amp; max home price</option>
+                  <option value="fromPrice">Forward: home price &amp; down payment → EMI</option>
+                </select>
+                <div id="solverFromEmi" style="display:none;margin-top:0.75rem;gap:0.75rem;">
+                  <div class="field-card" style="margin:0;">
+                    <div class="field-head">
+                      <label for="affordableEmi">Affordable monthly EMI (₹)</label>
+                    </div>
+                    <input type="number" id="affordableEmi" min="1000" step="500" value="50000">
+                  </div>
+                  <div class="field-card" style="margin:0;">
+                    <div class="field-head">
+                      <label for="downPaymentPct">Down payment (%)</label>
+                    </div>
+                    <input type="number" id="downPaymentPct" min="0" max="90" step="1" value="20">
+                  </div>
+                  <div class="result-grid" style="margin-top:0.25rem;">
+                    <div class="result-card highlight">
+                      <h3>Max Loan Eligible</h3>
+                      <div class="result-value" id="maxLoanValue">-</div>
+                    </div>
+                    <div class="result-card highlight">
+                      <h3>Max Home Price</h3>
+                      <div class="result-value" id="maxPriceValue">-</div>
+                    </div>
+                  </div>
+                </div>
+                <div id="solverFromPrice" style="display:none;margin-top:0.75rem;gap:0.75rem;">
+                  <div class="inline-grid">
+                    <div class="field-card" style="margin:0;">
+                      <div class="field-head">
+                        <label for="homePrice">Home / property price (₹)</label>
+                      </div>
+                      <input type="number" id="homePrice" min="100000" step="10000" value="3750000">
+                    </div>
+                    <div class="field-card" style="margin:0;">
+                      <div class="field-head">
+                        <label for="downPayAmount">Down payment (₹)</label>
+                      </div>
+                      <input type="number" id="downPayAmount" min="0" step="10000" value="750000">
+                    </div>
+                  </div>
+                  <div class="result-grid" style="margin-top:0.25rem;">
+                    <div class="result-card highlight">
+                      <h3>Loan Needed</h3>
+                      <div class="result-value" id="solverLoanValue">-</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div class="advanced-only-section" id="advancedFields">
                 <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="datetimeMode">Rate convention</label>
+                    </div>
+                    <select id="datetimeMode">
+                      <option value="reducing" selected>Reducing balance (standard)</option>
+                      <option value="flat">Flat rate (auto-converts to reducing)</option>
+                    </select>
+                  </div>
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="paymentFrequency">Payment frequency</label>
+                    </div>
+                    <select id="paymentFrequency">
+                      <option value="12" selected>Monthly</option>
+                      <option value="4">Quarterly</option>
+                      <option value="2">Half-yearly</option>
+                      <option value="1">Yearly</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="inline-grid">
+                  <div class="field-card">
+                    <div class="field-head">
+                      <label for="annualInflation">Inflation (%) — real value of total cost</label>
+                    </div>
+                    <div class="range-row">
+                      <input type="range" id="annualInflationRange" min="0" max="15" step="0.5" value="6">
+                      <div class="input-with-adornment">
+                        <input type="number" id="annualInflation" min="0" max="15" step="0.5" value="6" class="has-suffix">
+                        <span class="input-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
                   <div class="field-card">
                     <div class="field-head">
                       <label for="repaymentMode">Prepayment Strategy</label>
@@ -728,6 +800,10 @@
                   <h3>Effective Borrowing APR</h3>
                   <div class="result-value" id="effectiveAprValue">-</div>
                 </div>
+                <div class="result-card advanced-only">
+                  <h3>Real Cost (inflation-adj.)</h3>
+                  <div class="result-value" id="realCostValue">-</div>
+                </div>
               </div>
 
               <div class="goal-status advanced-only">
@@ -826,55 +902,7 @@
         </article>
 
         <div class="faq-list">
-          <details class="faq-card" open>
-            <summary>
-              What is EMI?
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <p>EMI (Equated Monthly Installment) is the fixed monthly payment toward your loan, consisting of both
-              principal and interest.</p>
-          </details>
-          <details class="faq-card">
-            <summary>
-              Why is early EMI mostly interest?
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <p>Interest is calculated on outstanding principal. Since principal is highest at the beginning, interest
-              share is larger in early payments.</p>
-          </details>
-          <details class="faq-card">
-            <summary>
-              Does prepayment always help?
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <p>Generally yes, especially early in the tenure. It reduces principal and lowers future interest burden.
-            </p>
-          </details>
-          <details class="faq-card">
-            <summary>
-              Reduce EMI or reduce tenure: which is better?
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <p>Reducing tenure usually saves more total interest, while reducing EMI improves monthly cash flow. Choose
-              based on your priorities.</p>
-          </details>
-          <details class="faq-card">
-            <summary>
-              Can floating-rate changes increase total cost?
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <p>Yes. A rate increase can raise EMI or extend tenure, depending on lender terms and your repayment
-              strategy.</p>
-          </details>
-          <details class="faq-card">
-            <summary>
-              Should I include processing fee in planning?
-              <i class="fas fa-chevron-down"></i>
-            </summary>
-            <p>Yes. Fees and upfront costs materially affect actual borrowing expense and should be included in total
-              loan cost comparisons.</p>
-          </details>
-        </div>
+                                                                    </div>
       </div>
     </section>
 
@@ -907,7 +935,128 @@
         </aside>
       </div>
     </section>
-  </main>
+  
+        <!-- comparison-card:v1 -->
+          <div class="ic-card" style="margin-top:1.5rem;">
+            <h2 style="font-family:var(--ic-font-heading); font-size:1.4rem; margin-bottom:0.5rem;">EMI vs Compound Interest vs Simple Interest comparison</h2>
+            <p style="color:var(--ic-text-muted); margin-bottom:1rem;">Loan-side vs investment-side calculators — where each applies.</p>
+            <div class="table-wrap">
+              <table class="ic-table">
+                <thead><tr><th>Tool</th><th>Focus</th><th>Use it for</th></tr></thead>
+                <tbody>
+              <tr>
+                <td><a href="emicalculator.html"><strong>EMI Calculator</strong></a> <span style="color:var(--ic-text-muted);font-size:0.8rem;">(this page)</span></td>
+                <td>Amortisation, part-payment, tenure vs EMI reduction</td>
+                <td>Best for: home/car/personal loans</td>
+              </tr>
+              <tr>
+                <td><a href="compoundinterest.html"><strong>Compound Interest Calculator</strong></a></td>
+                <td>Wealth growth with periodic compounding & contributions</td>
+                <td>Best for: multi-year investing & savings plans</td>
+              </tr>
+              <tr>
+                <td><a href="simpleinterestcalculator.html"><strong>Simple Interest Calculator</strong></a></td>
+                <td>Flat, non-compounding interest for short tenures</td>
+                <td>Best for: short loans & informal lending</td>
+              </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+  <section class="section" id="faq" style="margin-top:2rem">
+          <div class="prose">
+            <h2>Frequently Asked Questions</h2>
+                      
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+<details class="faq card"><summary>What is EMI?</summary><p>EMI (Equated Monthly Installment) is the fixed monthly payment toward your loan, consisting of both principal and interest. The split between the two shifts over the tenure.</p></details>
+<details class="faq card"><summary>Why is early EMI mostly interest?</summary><p>Interest is charged on the outstanding principal, which is highest at the start of the loan. So in the early months, a larger share of each EMI goes toward interest rather than principal repayment.</p></details>
+<details class="faq card"><summary>Does prepayment always help?</summary><p>Generally yes, especially early in the tenure when the outstanding principal is large. Prepaying early reduces future interest substantially; most Indian home loans do not charge a prepayment penalty on floating-rate loans.</p></details>
+<details class="faq card"><summary>Reduce EMI or reduce tenure — which is better?</summary><p>Reducing tenure usually saves the most total interest, while reducing EMI improves monthly cash flow. Choose tenure reduction if you can afford the same EMI and want the loan paid off sooner.</p></details>
+<details class="faq card"><summary>Can floating-rate changes increase total cost?</summary><p>Yes. When lending rates rise, your lender may either increase the EMI or extend the tenure to keep the EMI same. Extending tenure means you pay more interest over time.</p></details>
+<details class="faq card"><summary>Should I include processing fee in planning?</summary><p>Yes. Processing fees, insurance add-ons, and documentation charges are typically 0.5%–2% of the loan amount and should be included when comparing two loan offers on total cost.</p></details>
+<details class="faq card"><summary>How is EMI calculated?</summary><p>EMI = P × r × (1+r)^n ÷ ((1+r)^n − 1), where P is the loan principal, r the monthly interest rate (annual ÷ 12 ÷ 100), and n the number of monthly installments.</p></details>
+<details class="faq card"><summary>What is the EMI for a ₹10 lakh loan at 10% for 10 years?</summary><p>At a 10% annual rate for 120 months, the EMI is approximately ₹13,215. Total repayment over 10 years is around ₹15.86 lakh, of which about ₹5.86 lakh goes to interest.</p></details>
+
+<details class="faq card"><summary>What is the EMI for a ₹50 lakh home loan at 8.5% for 30 years?</summary><p>At an 8.5% annual rate for 360 months, the monthly EMI is approximately ₹38,446. Over 30 years the total interest exceeds the principal — long tenures significantly raise the total cost.</p></details>
+<details class="faq card"><summary>What is the EMI for a ₹5 lakh car loan at 9% for 5 years?</summary><p>For ₹5 lakh at 9% annual rate for 60 months, the EMI is approximately ₹10,376. Total repayment is around ₹6.22 lakh, with about ₹1.22 lakh in interest.</p></details>
+<details class="faq card"><summary>How does loan tenure affect EMI?</summary><p>A longer tenure lowers the monthly EMI but raises the total interest paid. A shorter tenure costs more per month but dramatically reduces the total interest burden.</p></details>
+<details class="faq card"><summary>What is an amortization schedule?</summary><p>It is a year-by-year (or month-by-month) breakdown showing how much of each EMI goes to interest versus principal, and the remaining balance after each payment. This calculator produces it automatically.</p></details>
+<details class="faq card"><summary>Can I get a loan if my EMI exceeds 50% of income?</summary><p>Most Indian lenders prefer a debt-to-income ratio under 50% — ideally below 40%. A higher ratio increases rejection risk or requires a longer tenure/smaller loan to fit the criteria.</p></details>
+<details class="faq card"><summary>What is the difference between flat and reducing balance rate?</summary><p>Flat-rate loans compute interest on the original principal throughout, making the effective rate nearly double the quoted rate. Reducing-balance loans (standard in India) compute interest on the declining outstanding amount — this is what this calculator uses.</p></details>
+<details class="faq card"><summary>Does this calculator account for prepayment?</summary><p>Yes. Use the prepayment field to add an extra lump-sum payment at any point — the simulator recalculates the amortization schedule and shows interest saved.</p></details>
+</div>
+        </section>
+
+        <section class="section" id="disclaimer" style="margin-top:2rem">
+          <div class="prose">
+            <h2>Disclaimer</h2>
+            <p>This calculator provides an educational estimate only and is not financial or loan advice. Actual EMI, interest rates, and terms vary from bank to bank — confirm with your bank or an RBI-registered adviser before deciding.</p>
+          </div>
+        </section>
+<section class="section" style="margin-top:2rem"><div class="prose"><h2>How to Use this Calculator</h2>
+<ol>
+<li>Enter the loan amount (principal) you plan to borrow.</li>
+<li>Enter the annual interest rate your lender quoted (for floating-rate loans, this is typically the RBI repo rate plus the bank's spread).</li>
+<li>Enter the loan tenure in years — or use the slider for quick exploration.</li>
+<li>Press Calculate to see the monthly EMI, total interest, and total repayment amount.</li>
+</ol>
+</div></section>
+<section class="section" style="margin-top:2rem"><div class="prose"><h2>EMI Formula and Calculation Method</h2>
+<p>Formula: EMI = P × r × (1+r)^n ÷ ((1+r)^n − 1), where P is the loan principal, r the monthly interest rate (annual rate ÷ 12), and n the number of monthly installments.</p>
+</div></section>
+<section class="section" style="margin-top:2rem"><div class="prose"><h2>Worked Example</h2>
+<p>A ₹10 lakh loan at 10% per annum for 10 years: r = 0.00833 per month, n = 120 months, which yields an EMI of approximately ₹13,215. Total repayment over 10 years is about ₹15.86 lakh, so the interest component is roughly ₹5.86 lakh — over half the money you borrowed returns as interest at this rate and tenure.</p>
+</div></section>
+<section class="section" style="margin-top:2rem"><div class="prose"><h2>Worked Example</h2>
+<p>₹10 lakh loan at 10% p.a. for 10 years: monthly rate 0.00833, n = 120 — EMI ≈ ₹13,215. Total interest ≈ ₹5,85,800.</p>
+</div></section>
+
+        <section class="section" style="margin-top:2rem"><div class="prose">
+        <h2>How to Use this Calculator — Step by Step</h2>
+        <ol>
+          <li>Enter the loan amount (principal) you want to borrow.</li>
+          <li>Enter the annual interest rate; for floating rates, check the RBI repo rate plus your bank's spread.</li>
+          <li>Choose loan tenure in years (or months for shorter loans).</li>
+          <li>Press Calculate to see the monthly EMI, total interest, and amortization schedule.</li>
+        </ol>
+        <h2>EMI Formula and Calculation Method</h2>
+        <p>Formula: EMI = P × r × (1+r)^n ÷ ((1+r)^n − 1), where P is principal, r the monthly rate (annual ÷ 12), and n the number of installments — the standard reducing-balance annuity formula used by all Indian banks.</p>
+        <h2>Worked Example</h2>
+        <p>₹10 lakh loan at 10% p.a. for 10 years: r = 0.00833, n = 120 → EMI ≈ ₹13,215; total interest ≈ ₹5.86 lakh.</p>
+        <h2>Rules and Regulations</h2>
+        <ul>
+          <li>Indian home-loan rates in 2026 typically fall between 8.5% and 10.5%, driven by the RBI repo rate plus bank spreads.</li>
+          <li>Floating-rate home loans carry zero prepayment penalty under RBI guidance; fixed-rate loans may charge 2–4%.</li>
+          <li>Home-loan interest qualifies for a tax deduction of up to ₹2 lakh per year under Section 24(b) for a self-occupied property.</li>
+          <li>Lenders generally keep total monthly EMIs (including all existing loans) under 50% of net monthly income.</li>
+        </ul>
+        <h2>Use Cases and Practical Tips</h2>
+        <p>Compare EMIs across home, car, education, and personal loans before you borrow. Indian lenders prefer total monthly EMIs to stay below 35–40% of net salary — treat that ratio as your red line while sizing the loan, and test shorter tenures to see how much interest you can save.</p>
+        <h2>Common Mistakes</h2>
+        <ul>
+          <li>Treating a flat-rate quote as a reducing-balance quote, or vice versa — the effective rates differ by nearly 2×.</li>
+          <li>Leaving processing fees, insurance, and documentation charges out of the total-cost comparison.</li>
+          <li>Stretching the tenure to the maximum available instead of picking the shortest one you can comfortably afford.</li>
+        </ul>
+        <h2>Related Calculators</h2>
+        <ul>
+          <li><a href="sipcalculator.html">SIP Calculator</a></li>
+          <li><a href="compoundinterest.html">Compound Interest Calculator</a></li>
+          <li><a href="retirementcalculator.html">Retirement Calculator</a></li>
+        </ul>
+        <h2>Disclaimer</h2>
+        <p>This EMI calculator is an educational projection, not financial advice. Lender-specific terms, fee structures, and floating-rate policies vary — confirm all figures with your bank before making borrowing decisions.</p>
+        </div></section></div></section>
+</main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
@@ -918,7 +1067,8 @@
         <a href="contactus.html">Contact Us</a>
         <a href="privacypolicy.html">Privacy Policy</a>
         <a href="terms.html">Terms &amp; Conditions</a>
-      </div>
+      
+<a href="delete-account.html">Delete Account</a></div>
     </div>
   </footer>
 
@@ -946,7 +1096,14 @@
         annualPrepayAmount: 0,
         rateChangeMonth: 0,
         newAnnualRate: 9,
-        maxSimulationMonths: 720
+        maxSimulationMonths: 720,
+        goalMode: "off",
+        affordableEmi: 50000,
+        downPaymentPct: 20,
+        homePrice: 3750000,
+        downPayAmount: 750000,
+        annualInflation: 6,
+        paymentFrequency: "12"
       };
 
       const numberFormatter = new Intl.NumberFormat("en-US", {
@@ -984,6 +1141,21 @@
         newAnnualRate: document.getElementById("newAnnualRate"),
         newAnnualRateRange: document.getElementById("newAnnualRateRange"),
         maxSimulationMonths: document.getElementById("maxSimulationMonths"),
+        goalMode: document.getElementById("goalMode"),
+        affordableEmi: document.getElementById("affordableEmi"),
+        downPaymentPct: document.getElementById("downPaymentPct"),
+        maxLoanValue: document.getElementById("maxLoanValue"),
+        maxPriceValue: document.getElementById("maxPriceValue"),
+        homePrice: document.getElementById("homePrice"),
+        downPayAmount: document.getElementById("downPayAmount"),
+        solverLoanValue: document.getElementById("solverLoanValue"),
+        solverFromEmi: document.getElementById("solverFromEmi"),
+        solverFromPrice: document.getElementById("solverFromPrice"),
+        datetimeMode: document.getElementById("datetimeMode"),
+        paymentFrequency: document.getElementById("paymentFrequency"),
+        annualInflation: document.getElementById("annualInflation"),
+        annualInflationRange: document.getElementById("annualInflationRange"),
+        realCostValue: document.getElementById("realCostValue"),
 
         loanAmountPreview: document.getElementById("loanAmountPreview"),
         annualRatePreview: document.getElementById("annualRatePreview"),
@@ -1504,11 +1676,67 @@
         const inputs = getInputs();
         updatePreviewLabels(inputs);
 
+        // --- Goal-mode solvers (ET-Money style reverse/forward budget solve) ---
+        if (elements.goalMode && elements.maxLoanValue) {
+          const gm = elements.goalMode.value;
+          if (elements.solverFromEmi) elements.solverFromEmi.style.display = gm === "fromEmi" ? "grid" : "none";
+          if (elements.solverFromPrice) elements.solverFromPrice.style.display = gm === "fromPrice" ? "grid" : "none";
+
+          if (gm === "fromEmi") {
+            const affordableEmi = Math.max(1000, parseNumeric(elements.affordableEmi.value, 0));
+            const rateM = inputs.annualRate / 1200;
+            const n = Math.max(1, inputs.tenureMonths);
+            const maxLoan = rateM > 0 ? affordableEmi * (Math.pow(1 + rateM, n) - 1) / (rateM * Math.pow(1 + rateM, n)) : affordableEmi * n;
+            const maxPrice = maxLoan / (1 - Math.min(90, Math.max(0, parseNumeric(elements.downPaymentPct.value, 0))) / 100);
+            elements.maxLoanValue.textContent = formatCurrencyWithUnits(maxLoan, inputs.currencyCode);
+            elements.maxPriceValue.textContent = formatCurrencyWithUnits(maxPrice, inputs.currencyCode);
+          } else if (gm === "fromPrice") {
+            const price = Math.max(0, parseNumeric(elements.homePrice.value, 0));
+            const down = Math.max(0, parseNumeric(elements.downPayAmount.value, 0));
+            const needLoan = Math.max(0, price - down);
+            elements.solverLoanValue.textContent = formatCurrencyWithUnits(needLoan, inputs.currencyCode);
+            // Apply it live: copy into the main loan amount so the rest of the tool reacts
+            elements.loanAmount.value = Math.round(needLoan);
+            elements.loanAmountRange.value = Math.round(needLoan);
+          }
+        }
+
+        // --- Rate convention: flat-rate quote → exact reducing-rate equivalent (tenure-dependent) ---
+        let effRate = inputs.annualRate;
+        if (elements.datetimeMode && elements.datetimeMode.value === "flat" && inputs.annualRate > 0) {
+          const f = inputs.annualRate / 100;
+          const n = Math.max(1, inputs.tenureMonths);
+          const flatEmi = inputs.loanAmount * (1 + f * n / 12) / n; // flat EMI: total interest = P × f × years
+          let lo = 0.0001, hi = Math.max(1, inputs.annualRate / 100) * 2.5;
+          for (let i = 0; i < 60; i++) {
+            const mid = (lo + hi) / 2;
+            const r = mid / 12;
+            const emi = inputs.loanAmount * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+            if (emi > flatEmi) hi = mid; else lo = mid;
+          }
+          effRate = (lo + hi) / 2 * 100;
+        }
+
+        // --- Payment frequency label ---
+        const freq = elements.paymentFrequency ? Math.max(1, Number(elements.paymentFrequency.value)) : 12;
+        const freqLabel = freq === 12 ? "Monthly" : freq === 4 ? "Quarterly" : freq === 2 ? "Half-yearly" : "Yearly";
+
+        // --- Inflation-adjusted real cost of the loan (computed after simulation below) ---
+
+        // --- Rate convention label ---
+        if (elements.datetimeMode && elements.datetimeMode.value === "flat") {
+          elements.annualRatePreview.textContent = effRate.toFixed(1) + "% pa (reducing eqv. of " + inputs.annualRate.toFixed(1) + "% flat)";
+        }
+
         const baseInputs = Object.assign({}, inputs, {
           oneTimePrepayMonth: 0,
           oneTimePrepayAmount: 0,
           annualPrepayAmount: 0
         });
+
+        // Apply effective (flat-converted) rate to the actual simulation inputs
+        if (effRate !== inputs.annualRate) inputs.annualRate = effRate;
+        baseInputs.annualRate = inputs.annualRate;
 
         const base = simulateLoan(baseInputs, true);
         const optimized = simulateLoan(inputs, false);
@@ -1527,9 +1755,9 @@
         const heroVal = document.getElementById("corpusHeroValue");
         const heroDesc = document.getElementById("corpusHeroDesc");
         const resPrinHero = document.getElementById("resPrincipalHero");
-        if (heroVal) heroVal.textContent = formatCurrencyWithUnits(optimized.startingEmi, inputs.currencyCode) + " / mo";
+        if (heroVal) heroVal.textContent = formatCurrencyWithUnits(optimized.startingEmi, inputs.currencyCode) + (freq === 12 ? " / mo" : " / mo (grouped " + freqLabel.toLowerCase() + ")");
         if (heroDesc) {
-          heroDesc.textContent = "Principal: " + formatCurrencyWithUnits(inputs.loanAmount, inputs.currencyCode) + " • Interest: " + formatCurrencyWithUnits(optimized.totalInterest, inputs.currencyCode);
+          heroDesc.textContent = "Principal: " + formatCurrencyWithUnits(inputs.loanAmount, inputs.currencyCode) + " • Interest: " + formatCurrencyWithUnits(optimized.totalInterest, inputs.currencyCode) + (freq === 12 ? "" : " • Interest accrues monthly; payments grouped " + freqLabel.toLowerCase());
         }
         if (resPrinHero) resPrinHero.textContent = formatCurrencyWithUnits(inputs.loanAmount, inputs.currencyCode);
         elements.feesValue.textContent = formatCurrencyWithUnits(optimized.upfrontTotal, inputs.currencyCode);
@@ -1557,6 +1785,15 @@
         } else {
           elements.goalStatusText.textContent = "Current strategy saves " + savingPercent.toFixed(1) + "% interest vs base.";
           elements.goalProgressBar.style.background = "linear-gradient(110deg, var(--accent), #00a1b2)";
+        }
+
+        // Inflation-adjusted real cost: discount total cost to today's rupees at midpoint of tenure
+        if (elements.realCostValue) {
+          const infl = Math.max(0, parseNumeric(elements.annualInflation.value, 0)) / 100;
+          const avgYear = Math.max(1, optimized.payoffMonths / 2 / 12);
+          const realCost = optimized.totalCost / Math.pow(1 + infl, avgYear);
+          elements.realCostValue.textContent = formatCurrencyWithUnits(realCost, inputs.currencyCode);
+          lastSummaryText += "\nReal Cost (inflation-adj): " + formatCurrencyWithUnits(realCost, inputs.currencyCode);
         }
 
         lastProjection = optimized.yearSummary.slice();
@@ -1646,6 +1883,7 @@
         syncPair(elements.processingFeePercentRange, elements.processingFeePercent);
         syncPair(elements.emiStepupPercentRange, elements.emiStepupPercent);
         syncPair(elements.newAnnualRateRange, elements.newAnnualRate);
+        syncPair(elements.annualInflationRange, elements.annualInflation);
 
         // Preset Chips Handling
         document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
@@ -1664,6 +1902,15 @@
         [
           elements.currencyCode,
           elements.repaymentMode,
+          elements.datetimeMode,
+          elements.paymentFrequency,
+          elements.annualInflation,
+          elements.goalMode,
+          elements.paymentFrequency,
+          elements.affordableEmi,
+          elements.downPaymentPct,
+          elements.homePrice,
+          elements.downPayAmount,
           elements.targetInterestSaving,
           elements.tenureExtraMonths,
           elements.upfrontCharges,

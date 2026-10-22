@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      localStorage.setItem('user_lang', 'ja');
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>退職金手取り・退職所得控除シミュレーター | 税金（所得税・住民税）計算機【無料】 - InstaCalc</title>
+  <meta name="description"
+    content="退職金の額面金額と勤続年数から、実際の手取り額、退職所得控除額、所得税、住民税を瞬時に計算。勤続20年超の控除拡大部分（年70万円）、1/2課税の税制優遇、大企業・中小企業・公務員の退職金相場比較まで完全対応。">
+  <meta name="keywords"
+    content="退職金 手取り 計算, 退職所得控除 計算機, 退職金 税金 計算, 退職金 相場 大卒, 勤続年数 退職所得控除, 退職金 一時金 年金 比較, 退職金 控除額">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <!-- Verify site ownership & paste the actual codes from each platform: Google Search Console (Domain property meta tag), Bing Webmaster Tools, and Yahoo! Japan Site Explorer -->
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="canonical" href="https://instacalc.in/ja/taishokukin-calculator.html">
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/ja/taishokukin-calculator.html">
+  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/taishokukin-calculator.html">
+  <link rel="alternate" hreflang="ru" href="https://instacalc.in/ja/taishokukin-calculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/ja/taishokukin-calculator.html">
+
+  <meta property="og:title" content="退職金手取り・退職所得控除シミュレーター | 税金（所得税・住民税）計算機【無料】">
+  <meta property="og:description"
+    content="退職金の額面金額と勤続年数から手取り額、退職所得控除、所得税、住民税を簡単計算。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/ja/taishokukin-calculator.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="退職金手取り・退職所得控除シミュレーター | 税金計算機">
+  <meta name="twitter:description"
+    content="無料の退職金手取り計算機。勤続年数に応じた退職所得控除額、所得税・住民税・実質手取りを瞬時に算出。">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+
+  <link rel="stylesheet" href="../instacalc-core.css">
+  <style>
+    /* Japanese Retirement Severance Studio Styling */
+    .japanese-gratuity-hero {
+      background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
+      border: 1.5px solid rgba(2, 132, 199, 0.25);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--ic-shadow-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    @media (max-width: 640px) {
+      .japanese-gratuity-hero {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.25rem;
+      }
+    }
+    .japanese-gratuity-hero .banner-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .japanese-gratuity-hero .banner-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #0369a1;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .japanese-gratuity-hero .main-net {
+      font-family: var(--ic-font-heading, "Sora", sans-serif);
+      font-size: clamp(2rem, 4.5vw, 2.75rem);
+      font-weight: 800;
+      color: #0284c7;
+      line-height: 1.15;
+    }
+    .japanese-gratuity-hero .main-net-sub {
+      font-size: 0.92rem;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    /* Preset Chips */
+    .chips-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.6rem;
+    }
+    .chip-btn {
+      padding: 0.35rem 0.65rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chip-btn:hover {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0369a1;
+    }
+    .chip-btn.active {
+      background: #0284c7;
+      border-color: #0284c7;
+      color: #ffffff;
+    }
+
+    /* Tax Exemption Callout Card */
+    .deduction-card {
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border: 1.5px solid rgba(16, 185, 129, 0.3);
+      border-radius: var(--ic-radius-lg);
+      padding: 1.35rem;
+      margin: 1.5rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .deduction-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .deduction-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ic-font-heading, "Sora", sans-serif);
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #065f46;
+    }
+    .deduction-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+    }
+    @media (max-width: 640px) {
+      .deduction-grid {
+        grid-template-columns: 1fr;
+        gap: 0.6rem;
+      }
+    }
+    .deduction-box {
+      background: #ffffff;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 12px;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .deduction-box.highlight {
+      background: #065f46;
+      color: #ffffff;
+      border-color: #065f46;
+    }
+    .deduction-box-label {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #475569;
+    }
+    .deduction-box.highlight .deduction-box-label {
+      color: #a7f3d0;
+    }
+    .deduction-box-val {
+      font-family: var(--ic-font-heading, "Sora", sans-serif);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .deduction-box.highlight .deduction-box-val {
+      color: #ffffff;
+    }
+  </style>
+
+  <script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"FAQPage",
+"mainEntity":[
+{"@type":"Question","name":"退職金の平均額はいくらですか？","acceptedAnswer":{"@type":"Answer","text":"厚生労働省の調査では、勤続30年以上の退職者の平均退職金は大学卒約1,980万円、高卒約1,600万円ですが、企業規模や勤続年数により大きく変わります。"}},
+{"@type":"Question","name":"退職金の税金はどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"退職所得控除（前職勤続20年で約500万円＋20年を超える部分は1年40万円加重）が適用され、その後2分の1課税の後、税率がかかります。勤続20年超なら退職金をほぼ非課税にできるケースもあります。"}},
+{"@type":"Question","name":"退職金の受取方法（一時金・年金）のメリット・デメリットは？","acceptedAnswer":{"@type":"Answer","text":"一時金は退職所得控除を1回で使い切り、年金形式は公的年金等控除が適用されます。他の所得や退職後の収入により最適解が変わるため、両方で計算して比較しましょう。"}},
+{"@type":"Question","name":"確定拠出年金に退職金を移すメリットは？","acceptedAnswer":{"@type":"Answer","text":"60歳までの引替免許を受けて運用を継続でき、移換後の運用益にも税制優遇があります。退職所得控除が移換年度では使用されないため、後の控除タイミングを引き延ばせる点も有利です。"}},
+{"@type":"Question","name":"転職時の退職金はどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"勤続年数が短い場合、退職金制度のstandard では少額または0になることが多いです。控除の適用も短期勤続では活用しきれません。"}},
+{"@type":"Question","name":"退職金は失業保険に影響しますか？","acceptedAnswer":{"@type":"Answer","text":"自己都合退職の場合、60日以内の退職金支給は失業給付の給付制限期間に影響します。支給が「解約予告等」のみであれば影響しないケースもあります。"}},
+{"@type":"Question","name":"自営業者にも退職金制度はある？","acceptedAnswer":{"@type":"Answer","text":"小規模企業共済（月1,000〜7,000円の掛金で満期後に一時金）や小口共済を退職金の代用として利用できます。iDeCoや中小企業退職金共済（中退共）も手段です。"}},
+{"@type":"Question","name":"日本人の60歳時点での平均貯蓄は？","acceptedAnswer":{"@type":"Answer","text":"金融広報中央委員会の調査では40代単身（独身）の平均貯蓄は約400〜500万円、40代以上世帯では平均900〜1,200万円程度です。退職金を含めると老後資金のベースになります。"}},
+{"@type":"Question","name":"退職金をすぐに使わず運用するには？","acceptedAnswer":{"@type":"Answer","text":"退職金から繰延べ・一括投資（NISA口座で分散）、債券・定期預金に保存する方法があります。先に老後の予想支出期間と合計を計算し、必要分を確保して残りを株式に振り分けるのが基本です。"}},
+{"@type":"Question","name":"退職後の社会保険への加入は必要ですか？","acceptedAnswer":{"@type":"Answer","text":"60〜65歳までの後期高齢者医療加入、および国民年金の任意加入（60歳以上）が可能です。被扶養者（夫婦）がいる場合は健康保険への加入が必要です。"}}
+]
+}
+</script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "退職金手取り・退職所得控除シミュレーター",
+      "url": "https://instacalc.in/ja/taishokukin-calculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "inLanguage": "ja-JP",
+      "description": "退職金手取り・退職所得控除シミュレーター - 無料オンライン計算シミュレーター。",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc ホーム">
+        <img src="../logo.png" alt="InstaCalc ロゴ">
+        <span>InstaCalc.in</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="メニュー開閉" aria-expanded="false"
+        aria-controls="mainNav">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">ホーム</a>
+        <a href="salarycalculator.html" class="active">退職金手取り計算</a>
+        <a href="retirementcalculator.html">老後資金シミュレーター</a>
+        <a href="salarycalculator.html">給与手取り計算</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <i class="fas fa-award"></i>
+            退職所得・税金プランナー
+          </span>
+          <h1>退職金手取り・退職所得控除シミュレーター — 所得税＆住民税計算機</h1>
+          <p>退職金の支給額（額面）と勤続年数を入力するだけで、退職所得控除額、課税退職所得（1/2優遇）、所得税・住民税、実際の手取り退職金を瞬時に計算。勤続20年超の控除拡大部分（年70万円）や社会保険料非課税のメリットまで完全試算します。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#gratuity-planner">
+              <i class="fas fa-calculator"></i>
+              退職金計算を開始
+            </a>
+            <a class="btn btn-ghost" href="retirementcalculator.html">
+              <i class="fas fa-person-shelter"></i>
+              老後資金・年金シミュレーターへ
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-panel">
+          <h2><i class="fas fa-shield-halved" style="color: #38bdf8;"></i> 退職所得の超強力な優遇税制</h2>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>退職所得控除（20年超は年70万円加算）</strong>を自動計算</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>控除後の残額をさらに「1/2課税」</strong>する強力な減税</div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>社会保険料は一切天引きなし（0円）</strong></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>勤続年数の端数は「1日でも1年に切り上げ」</strong></div>
+          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>詳細な税額内訳テーブル＆CSVデータ保存</strong>対応</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="gratuity-planner" class="section">
+      <div class="container calc-layout">
+        <div class="calculator-shell">
+          <div class="calculator-header-row">
+            <div class="mode-switch" aria-label="計算モード">
+              <a href="salarycalculator.html" class="active"><i class="fas fa-award"></i> 退職金手取り計算</a>
+              <a href="retirementcalculator.html"><i class="fas fa-person-shelter"></i> 老後資金シミュレーター</a>
+            </div>
+            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-sliders"></i>
+              <span>詳細設定モード: オフ</span>
+            </button>
+          </div>
+
+          <!-- Hero Main Outcome Banner -->
+          <div class="japanese-gratuity-hero">
+            <div class="banner-text">
+              <span class="banner-tag"><i class="fas fa-hand-holding-dollar"></i> 退職金 手取り支給額（口座入金額）</span>
+              <div class="main-net" id="heroNetVal">- 万円</div>
+              <div class="main-net-sub" id="heroNetSub">額面支給額: - 万円 | 税金合計: - 円 (手取り率: 約 -%)</div>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" id="copyHeroBtn" title="結果をコピー">
+              <i class="fas fa-copy"></i> 結果をコピー
+            </button>
+          </div>
+
+          <!-- Input Controls Grid -->
+          <div class="input-grid">
+            <!-- Gross Severance Amount -->
+            <div class="field-card">
+              <div class="field-head">
+                <label for="severanceAmount">退職金の額面支給額 (総支給額)</label>
+                <span id="severanceAmountPreview" style="font-weight: 800; color: var(--ic-primary-dark);">2,000 万円 (大企業・公務員平均)</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="severanceAmountRange" min="1000000" max="50000000" step="500000" value="20000000">
+                <input type="number" id="severanceAmount" min="100000" max="200000000" step="500000" value="20000000">
+              </div>
+              <div class="chips-group">
+                <button type="button" class="chip-btn" data-sev-val="10000000">1,000万円 (中小企業)</button>
+                <button type="button" class="chip-btn" data-sev-val="15000000">1,500万円</button>
+                <button type="button" class="chip-btn active" data-sev-val="20000000">2,000万円 (大企業平均)</button>
+                <button type="button" class="chip-btn" data-sev-val="30000000">3,000万円</button>
+                <button type="button" class="chip-btn" data-sev-val="50000000">5,000万円 (役員等)</button>
+              </div>
+            </div>
+
+            <!-- Years of Service (勤続年数) -->
+            <div class="field-card">
+              <div class="field-head">
+                <label for="tenureYears">勤続年数 (1年未満の端数は切り上げ)</label>
+                <span id="tenureYearsPreview" style="font-weight: 800; color: var(--ic-primary-dark);">38 年間 (大卒新卒〜60歳定年)</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="tenureYearsRange" min="1" max="50" step="1" value="38">
+                <input type="number" id="tenureYears" min="1" max="50" step="1" value="38">
+              </div>
+              <div class="chips-group">
+                <button type="button" class="chip-btn" data-ten-val="10">10年</button>
+                <button type="button" class="chip-btn" data-ten-val="20">20年 (控除分岐点)</button>
+                <button type="button" class="chip-btn" data-ten-val="30">30年</button>
+                <button type="button" class="chip-btn active" data-ten-val="38">38年 (大卒新卒定年)</button>
+                <button type="button" class="chip-btn" data-ten-val="43">43年 (高卒新卒定年)</button>
+              </div>
+            </div>
+
+            <!-- Declaration Form Submission (申告書の提出) -->
+            <div class="field-card">
+              <div class="field-head">
+                <label for="declarationStatus">「退職所得申告書」の提出</label>
+              </div>
+              <select id="declarationStatus" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid #cbd5e1; font-weight:600;">
+                <option value="submitted" selected>提出あり (通常・1/2優遇＆控除適用)</option>
+                <option value="not_submitted">提出なし (一律20.42%源泉徴収・確定申告が必要)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="calculator-actions">
+            <button id="recalculateBtn" class="btn btn-primary" type="button"><i class="fas fa-arrows-rotate"></i> 再計算する</button>
+            <button id="resetBtn" class="btn btn-ghost" type="button"><i class="fas fa-rotate-left"></i> 初期設定に戻す</button>
+          </div>
+
+          <!-- Deduction & Tax-Exemption Callout Card -->
+          <div class="deduction-card">
+            <div class="deduction-header">
+              <div class="deduction-title">
+                <i class="fas fa-shield-halved"></i>
+                <span>退職所得控除（非課税枠）と課税対象額</span>
+              </div>
+              <span style="font-size:0.75rem; font-weight:800; background:#059669; color:#fff; padding:0.2rem 0.55rem; border-radius:999px;">非課税枠</span>
+            </div>
+
+            <div class="deduction-grid">
+              <div class="deduction-box highlight">
+                <span class="deduction-box-label">退職所得控除額 (非課税枠)</span>
+                <span class="deduction-box-val" id="deductionAmountVal">- 万円</span>
+              </div>
+              <div class="deduction-box">
+                <span class="deduction-box-label">課税退職所得金額 (1/2課税後)</span>
+                <span class="deduction-box-val" id="taxableRetirementIncomeVal" style="color:#0284c7;">- 万円</span>
+              </div>
+              <div class="deduction-box">
+                <span class="deduction-box-label">税金（所得税＋住民税）合計</span>
+                <span class="deduction-box-val" id="totalTaxVal" style="color:#dc2626;">- 円</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Result Grid Cards -->
+          <div class="result-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="result-card">
+              <h3>額面退職金（総支給額）</h3>
+              <div id="grossSeveranceVal" class="result-value">-</div>
+              <div class="val-sub">勤続年数: - 年間</div>
+            </div>
+
+            <div class="result-card positive">
+              <h3>手取り退職金（口座受取額）</h3>
+              <div id="netSeveranceVal" class="result-value" style="color:#059669;">-</div>
+              <div class="val-sub" id="netRatioSub">手取り率: -%</div>
+            </div>
+
+            <div class="result-card">
+              <h3>所得税（国税・復興税含む）</h3>
+              <div id="incomeTaxVal" class="result-value" style="color:#dc2626;">-</div>
+              <div class="val-sub">課税退職所得 × 累進税率</div>
+            </div>
+
+            <div class="result-card">
+              <h3>住民税（地方税 一律10%）</h3>
+              <div id="residentTaxVal" class="result-value" style="color:#6366f1;">-</div>
+              <div class="val-sub">課税退職所得 × 10%</div>
+            </div>
+          </div>
+
+          <!-- Charts -->
+          <div class="chart-grid" style="margin-top:1.5rem;">
+            <div class="chart-card" style="grid-column: 1 / -1;">
+              <h3><i class="fas fa-chart-pie" style="color: var(--ic-primary);"></i> 額面退職金の内訳（手取り額 vs 退職所得控除 vs 税金）</h3>
+              <div class="chart-wrap small">
+                <canvas id="gratuitySplitChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Projection Table -->
+          <div class="table-tools">
+            <h3><i class="fas fa-table-list" style="color: var(--ic-primary);"></i> 退職金手取りおよび税金詳細計算書</h3>
+            <button id="downloadCsvBtn" class="btn btn-ghost btn-sm" type="button">
+              <i class="fas fa-file-csv"></i> CSVファイルを保存
+            </button>
+          </div>
+
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>項目</th>
+                  <th>金額</th>
+                  <th>計算基準 / 根拠</th>
+                </tr>
+              </thead>
+              <tbody id="projectionTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="calculator-actions" style="margin-top: 1rem;">
+            <button id="copySummaryBtn" class="btn btn-ghost" type="button">
+              <i class="fas fa-copy"></i> シミュレーション結果をコピー
+            </button>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <div class="sidebar-card">
+            <h3><i class="fas fa-calculator" style="color: var(--ic-primary);"></i> 関連する金融計算ツール</h3>
+            <div class="link-list">
+              <a href="retirementcalculator.html"><i class="fas fa-arrow-right"></i> 老後資金・年金シミュレーター</a>
+              <a href="retirementcalculator.html"><i class="fas fa-arrow-right"></i> iDeCo・確定拠出年金計算機</a>
+              <a href="salarycalculator.html"><i class="fas fa-arrow-right"></i> 給与手取り・年収シミュレーター</a>
+              <a href="sipcalculator.html"><i class="fas fa-arrow-right"></i> 新NISA・毎月積立シミュレーション</a>
+              <a href="compoundinterest.html"><i class="fas fa-arrow-right"></i> 複利計算シミュレーター</a>
+            </div>
+          </div>
+
+          <div class="sidebar-card" style="background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%); border-color: #bae6fd;">
+            <h3><i class="fas fa-lightbulb" style="color: #0284c7;"></i> 端数切り上げの得するルール</h3>
+            <p style="font-size: 0.88rem; line-height: 1.55; color: #334155; margin: 0;">
+              退職所得控除では、勤続年数に<strong>「1日でも端数があれば1年に切り上げ」</strong>されます。例えば「30年と1日」勤務した場合、勤続年数は<strong>31年</strong>となり、非課税枠が<strong>70万円</strong>増額されます！
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Comprehensive Japanese Educational Article -->
+    <section class="section">
+      <div class="container">
+        <article class="content-card">
+          <h2>退職金の税金計算方法と退職所得控除の仕組み</h2>
+          <p>
+            退職金は長年の勤務に対する報労としての性質を持ち、老後生活の重要な資金源であるため、<strong>日本の税制において最も優遇された控除（退職所得控除・1/2課税・社会保険料免除）</strong>が適用されます。
+          </p>
+
+          <h3>1. 退職所得控除の計算式</h3>
+          <table class="projection-table" style="margin: 1rem 0;">
+            <thead>
+              <tr>
+                <th>勤続年数</th>
+                <th>退職所得控除額の計算式</th>
+                <th>具体例（控除額）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>20年以下</strong></td>
+                <td><strong>40万円 × 勤続年数</strong> (最低80万円)</td>
+                <td>勤続10年 ＝ <strong>400万円</strong></td>
+              </tr>
+              <tr>
+                <td><strong>20年超</strong></td>
+                <td><strong>800万円 ＋ 70万円 × (勤続年数 － 20年)</strong></td>
+                <td>勤続38年 ＝ <strong>2,060万円</strong></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>2. 日本の平均退職金相場（定年退職モデル）</h3>
+          <ul style="line-height: 1.8; margin-left: 1.2rem; color: var(--ic-text);">
+            <li><strong>大企業（大学卒・勤続38年）：</strong> 約 <strong>2,000万円 〜 2,500万円</strong></li>
+            <li><strong>中小企業（大学卒・勤続30〜38年）：</strong> 約 <strong>1,100万円 〜 1,500万円</strong></li>
+            <li><strong>国家公務員・地方公務員（定年退職）：</strong> 約 <strong>2,000万円 〜 2,200万円</strong></li>
+            <li><strong>大企業（高校卒・勤続43年）：</strong> 約 <strong>1,800万円 〜 2,100万円</strong></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  
+        <section class="section" id="faq" style="margin-top:2rem">
+          <div class="prose">
+            <h2>よくある質問</h2>
+            <details class="faq card"><summary>退職金の平均額はいくらですか？</summary><p>厚生労働省の調査では、勤続30年以上の退職者の平均退職金は大学卒約1,980万円、高卒約1,600万円ですが、企業規模や勤続年数により大きく変わります。</p></details>
+          <details class="faq card"><summary>退職金の税金はどうなりますか？</summary><p>退職所得控除（前職勤続20年で約500万円＋20年を超える部分は1年40万円加重）が適用され、その後2分の1課税の後、税率がかかります。勤続20年超なら退職金をほぼ非課税にできるケースもあります。</p></details>
+          <details class="faq card"><summary>退職金の受取方法（一時金・年金）のメリット・デメリットは？</summary><p>一時金は退職所得控除を1回で使い切り、年金形式は公的年金等控除が適用されます。他の所得や退職後の収入により最適解が変わるため、両方で計算して比較しましょう。</p></details>
+          <details class="faq card"><summary>確定拠出年金に退職金を移すメリットは？</summary><p>60歳までの引替免許を受けて運用を継続でき、移換後の運用益にも税制優遇があります。退職所得控除が移換年度では使用されないため、後の控除タイミングを引き延ばせる点も有利です。</p></details>
+          <details class="faq card"><summary>転職時の退職金はどうなりますか？</summary><p>勤続年数が短い場合、退職金制度のstandard では少額または0になることが多いです。控除の適用も短期勤続では活用しきれません。</p></details>
+          <details class="faq card"><summary>退職金は失業保険に影響しますか？</summary><p>自己都合退職の場合、60日以内の退職金支給は失業給付の給付制限期間に影響します。支給が「解約予告等」のみであれば影響しないケースもあります。</p></details>
+          <details class="faq card"><summary>自営業者にも退職金制度はある？</summary><p>小規模企業共済（月1,000〜7,000円の掛金で満期後に一時金）や小口共済を退職金の代用として利用できます。iDeCoや中小企業退職金共済（中退共）も手段です。</p></details>
+          <details class="faq card"><summary>日本人の60歳時点での平均貯蓄は？</summary><p>金融広報中央委員会の調査では40代単身（独身）の平均貯蓄は約400〜500万円、40代以上世帯では平均900〜1,200万円程度です。退職金を含めると老後資金のベースになります。</p></details>
+          <details class="faq card"><summary>退職金をすぐに使わず運用するには？</summary><p>退職金から繰延べ・一括投資（NISA口座で分散）、債券・定期預金に保存する方法があります。先に老後の予想支出期間と合計を計算し、必要分を確保して残りを株式に振り分けるのが基本です。</p></details>
+          <details class="faq card"><summary>退職後の社会保険への加入は必要ですか？</summary><p>60〜65歳までの後期高齢者医療加入、および国民年金の任意加入（60歳以上）が可能です。被扶養者（夫婦）がいる場合は健康保険への加入が必要です。</p></details>
+          </div>
+        </section>
+</main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc.in - 日常のあらゆる計算を速く、正確に、シンプルにする無料計算ツール群</p>
+      <div class="footer-links">
+        <a href="index.html">ホーム</a>
+        <a href="aboutus.html">運営者情報</a>
+        <a href="contactus.html">お問い合わせ</a>
+        <a href="privacypolicy.html">プライバシーポリシー</a>
+        <a href="terms.html">利用規約</a>
+      
+<a href="delete-account.html">アカウント削除</a></div>
+    </div>
+  </footer>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="ページ上部へ戻る">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script>
+    (function () {
+      const defaults = {
+        severanceAmount: 20000000,
+        tenureYears: 38,
+        declarationStatus: "submitted"
+      };
+
+      function formatYen(val) {
+        return "¥" + Math.round(val).toLocaleString('ja-JP');
+      }
+
+      function formatManYen(val) {
+        if (Math.abs(val) >= 100000000) {
+          const oku = Math.floor(val / 100000000);
+          const restMan = Math.round((val % 100000000) / 10000);
+          if (restMan > 0) {
+            return oku + "億" + restMan.toLocaleString('ja-JP') + "万円";
+          }
+          return oku + "億円";
+        }
+        if (Math.abs(val) >= 10000) {
+          const man = (val / 10000).toFixed(1).replace(/\.0$/, '');
+          return Number(man).toLocaleString('ja-JP') + "万円";
+        }
+        return Math.round(val).toLocaleString('ja-JP') + "円";
+      }
+
+      function formatFullJapaneseCurrency(val) {
+        return formatYen(val) + " (" + formatManYen(val) + ")";
+      }
+
+      const elements = {
+        menuToggle: document.getElementById("menuToggle"),
+        mainNav: document.getElementById("mainNav"),
+        backToTopBtn: document.getElementById("backToTopBtn"),
+        recalculateBtn: document.getElementById("recalculateBtn"),
+        resetBtn: document.getElementById("resetBtn"),
+        copySummaryBtn: document.getElementById("copySummaryBtn"),
+        copyHeroBtn: document.getElementById("copyHeroBtn"),
+        downloadCsvBtn: document.getElementById("downloadCsvBtn"),
+        toggleViewBtn: document.getElementById("toggleViewBtn"),
+
+        severanceAmount: document.getElementById("severanceAmount"),
+        severanceAmountRange: document.getElementById("severanceAmountRange"),
+        tenureYears: document.getElementById("tenureYears"),
+        tenureYearsRange: document.getElementById("tenureYearsRange"),
+        declarationStatus: document.getElementById("declarationStatus"),
+
+        severanceAmountPreview: document.getElementById("severanceAmountPreview"),
+        tenureYearsPreview: document.getElementById("tenureYearsPreview"),
+
+        heroNetVal: document.getElementById("heroNetVal"),
+        heroNetSub: document.getElementById("heroNetSub"),
+        deductionAmountVal: document.getElementById("deductionAmountVal"),
+        taxableRetirementIncomeVal: document.getElementById("taxableRetirementIncomeVal"),
+        totalTaxVal: document.getElementById("totalTaxVal"),
+
+        grossSeveranceVal: document.getElementById("grossSeveranceVal"),
+        netSeveranceVal: document.getElementById("netSeveranceVal"),
+        netRatioSub: document.getElementById("netRatioSub"),
+        incomeTaxVal: document.getElementById("incomeTaxVal"),
+        residentTaxVal: document.getElementById("residentTaxVal"),
+
+        projectionTableBody: document.getElementById("projectionTableBody"),
+        gratuitySplitChart: document.getElementById("gratuitySplitChart")
+      };
+
+      let splitChartInstance = null;
+      let lastSummaryText = "";
+      let lastTableRows = [];
+
+      function toggleNav() {
+        if (!elements.menuToggle || !elements.mainNav) return;
+        elements.menuToggle.addEventListener("click", function () {
+          const isOpen = elements.mainNav.classList.toggle("open");
+          elements.menuToggle.setAttribute("aria-expanded", String(isOpen));
+          elements.menuToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        elements.mainNav.querySelectorAll("a").forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.innerWidth < 960) {
+              elements.mainNav.classList.remove("open");
+              elements.menuToggle.setAttribute("aria-expanded", "false");
+              elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+      }
+
+      function setupBackToTop() {
+        if (!elements.backToTopBtn) return;
+        function syncButton() {
+          elements.backToTopBtn.classList.toggle("show", window.scrollY > 260);
+        }
+        window.addEventListener("scroll", syncButton);
+        elements.backToTopBtn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        syncButton();
+      }
+
+      function parseNum(input, fallback) {
+        const val = Number(input);
+        return Number.isFinite(val) ? val : fallback;
+      }
+
+      function syncPair(rangeEl, numberEl, onUpdate) {
+        if (!rangeEl || !numberEl) return;
+        rangeEl.addEventListener("input", function () {
+          numberEl.value = rangeEl.value;
+          if (onUpdate) onUpdate();
+          calculateAndRender();
+        });
+        numberEl.addEventListener("input", function () {
+          if (numberEl.value === "") return;
+          rangeEl.value = numberEl.value;
+          if (onUpdate) onUpdate();
+          calculateAndRender();
+        });
+      }
+
+      function calculateRetirementDeduction(tenure) {
+        const t = Math.max(1, Math.ceil(tenure));
+        if (t <= 20) {
+          return Math.max(800000, 400000 * t);
+        }
+        return 8000000 + 700000 * (t - 20);
+      }
+
+      function calculateIncomeTax(taxableIncome) {
+        if (taxableIncome <= 0) return 0;
+        let tax = 0;
+        if (taxableIncome <= 1950000) {
+          tax = taxableIncome * 0.05;
+        } else if (taxableIncome <= 3300000) {
+          tax = taxableIncome * 0.10 - 97500;
+        } else if (taxableIncome <= 6950000) {
+          tax = taxableIncome * 0.20 - 427500;
+        } else if (taxableIncome <= 9000000) {
+          tax = taxableIncome * 0.23 - 636000;
+        } else if (taxableIncome <= 18000000) {
+          tax = taxableIncome * 0.33 - 1536000;
+        } else if (taxableIncome <= 40000000) {
+          tax = taxableIncome * 0.40 - 2796000;
+        } else {
+          tax = taxableIncome * 0.45 - 4796000;
+        }
+        // Reconstruction Tax (+2.1%)
+        return Math.max(0, tax * 1.021);
+      }
+
+      function simulateSeverance(gross, tenure, isSubmitted) {
+        const deduction = calculateRetirementDeduction(tenure);
+
+        let taxableIncome = 0;
+        let incomeTax = 0;
+        let residentTax = 0;
+
+        if (isSubmitted) {
+          // Normal: (Gross - Deduction) * 1/2
+          const excess = Math.max(0, gross - deduction);
+          taxableIncome = Math.floor((excess * 0.5) / 1000) * 1000; // 1,000円未満切り捨て
+
+          incomeTax = calculateIncomeTax(taxableIncome);
+          residentTax = taxableIncome * 0.10; // 10%
+        } else {
+          // Not submitted: Flat 20.42% withholding on entire gross
+          taxableIncome = gross;
+          incomeTax = gross * 0.2042;
+          residentTax = 0;
+        }
+
+        const totalTax = incomeTax + residentTax;
+        const netSeverance = Math.max(0, gross - totalTax);
+        const netRatio = gross > 0 ? (netSeverance / gross) * 100 : 0;
+
+        return {
+          gross: gross,
+          tenure: tenure,
+          deduction: deduction,
+          taxableIncome: taxableIncome,
+          incomeTax: incomeTax,
+          residentTax: residentTax,
+          totalTax: totalTax,
+          netSeverance: netSeverance,
+          netRatio: netRatio
+        };
+      }
+
+      function updateChart(gross, net, tax, deduction) {
+        if (!elements.gratuitySplitChart || typeof Chart === "undefined") return;
+
+        const safeNet = Math.max(0, Math.round(net));
+        const safeTax = Math.max(0, Math.round(tax));
+
+        if (splitChartInstance) {
+          splitChartInstance.data.datasets[0].data = [safeNet, safeTax];
+          splitChartInstance.update();
+        } else if (elements.gratuitySplitChart) {
+          splitChartInstance = new Chart(elements.gratuitySplitChart, {
+            type: "doughnut",
+            data: {
+              labels: ["手取り受取額", "税金（所得税・住民税）"],
+              datasets: [{
+                data: [safeNet, safeTax],
+                backgroundColor: ["#0284c7", "#ef4444"],
+                borderWidth: 2,
+                borderColor: "#ffffff"
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { position: "bottom", labels: { boxWidth: 12, font: { family: 'Public Sans', size: 12 } } },
+                tooltip: {
+                  callbacks: {
+                    label: function (ctx) {
+                      const total = safeNet + safeTax;
+                      const pct = total > 0 ? ((ctx.raw / total) * 100).toFixed(1) : "0.0";
+                      return `${ctx.label}: ${formatYen(ctx.raw)} (${pct}%)`;
+                    }
+                  }
+                }
+              },
+              cutout: "68%"
+            }
+          });
+        }
+      }
+
+      function renderTable(sim) {
+        if (!elements.projectionTableBody) return;
+
+        const rows = [
+          { name: "① 退職金 額面総支給額", val: formatYen(sim.gross), note: "会社からの支給総額" },
+          { name: "② 退職所得控除額 (非課税枠)", val: formatYen(sim.deduction), note: `勤続${sim.tenure}年 (${sim.tenure <= 20 ? '40万×年数' : '800万＋70万×(年数-20)'})` },
+          { name: "③ 課税退職所得金額", val: formatYen(sim.taxableIncome), note: `(額面 － 控除) × 1/2` },
+          { name: "④ 所得税（復興特別所得税含む）", val: formatYen(sim.incomeTax), note: "累進税率 (5%〜45% ＋ 復興税2.1%)" },
+          { name: "⑤ 住民税（地方税）", val: formatYen(sim.residentTax), note: "課税退職所得 × 10%" },
+          { name: "⑥ 税金合計（所得税 ＋ 住民税）", val: formatYen(sim.totalTax), note: "源泉徴収される合計税額" },
+          { name: "⑦ 手取り退職金額", val: formatYen(sim.netSeverance), note: `手取り割合: ${sim.netRatio.toFixed(1)}% (口座振込額)` }
+        ];
+
+        lastTableRows = rows;
+
+        elements.projectionTableBody.innerHTML = rows.map(r => `
+          <tr style="${r.name.includes('⑦') ? 'font-weight:800; background:#f0f9ff; color:#0284c7;' : r.name.includes('①') ? 'font-weight:800; background:#f8fafc;' : ''}">
+            <td><strong>${r.name}</strong></td>
+            <td style="font-weight:700;">${r.val}</td>
+            <td style="color:#64748b; font-size:0.88rem;">${r.note}</td>
+          </tr>
+        `).join("");
+      }
+
+      function calculateAndRender() {
+        const gross = parseNum(elements.severanceAmount.value, defaults.severanceAmount);
+        const tenure = parseNum(elements.tenureYears.value, defaults.tenureYears);
+        const isSubmitted = elements.declarationStatus.value === "submitted";
+
+        // Previews
+        elements.severanceAmountPreview.textContent = formatFullJapaneseCurrency(gross);
+        elements.tenureYearsPreview.textContent = `${tenure} 年間 (控除枠: ${formatManYen(calculateRetirementDeduction(tenure))})`;
+
+        const sim = simulateSeverance(gross, tenure, isSubmitted);
+
+        // Top Hero
+        elements.heroNetVal.textContent = formatManYen(sim.netSeverance) + " (" + formatYen(sim.netSeverance) + ")";
+        elements.heroNetSub.textContent = `額面: ${formatManYen(gross)} | 税金合計: -${formatYen(sim.totalTax)} (手取り率: 約 ${sim.netRatio.toFixed(1)}%)`;
+
+        // Deduction Callout Card
+        elements.deductionAmountVal.textContent = formatManYen(sim.deduction);
+        elements.taxableRetirementIncomeVal.textContent = formatManYen(sim.taxableIncome);
+        elements.totalTaxVal.textContent = "-" + formatFullJapaneseCurrency(sim.totalTax);
+
+        // Result Grid
+        elements.grossSeveranceVal.textContent = formatFullJapaneseCurrency(gross);
+        elements.netSeveranceVal.textContent = formatFullJapaneseCurrency(sim.netSeverance);
+        elements.netRatioSub.textContent = `手取り率: 約 ${sim.netRatio.toFixed(1)}%`;
+        elements.incomeTaxVal.textContent = "-" + formatFullJapaneseCurrency(sim.incomeTax);
+        elements.residentTaxVal.textContent = "-" + formatFullJapaneseCurrency(sim.residentTax);
+
+        // Summary Text
+        lastSummaryText = [
+          `【退職金手取り・退職所得控除 計算結果】`,
+          `額面退職金額: ${formatFullJapaneseCurrency(gross)}`,
+          `勤続年数: ${tenure} 年間`,
+          `---------------------------------`,
+          `手取り退職金額: ${formatFullJapaneseCurrency(sim.netSeverance)} (手取り率: 約 ${sim.netRatio.toFixed(1)}%)`,
+          `退職所得控除額 (非課税枠): ${formatFullJapaneseCurrency(sim.deduction)}`,
+          `課税退職所得金額 (1/2優遇後): ${formatFullJapaneseCurrency(sim.taxableIncome)}`,
+          `所得税（復興税含む）: -${formatFullJapaneseCurrency(sim.incomeTax)}`,
+          `住民税（一律10%）: -${formatFullJapaneseCurrency(sim.residentTax)}`,
+          `税金合計: -${formatFullJapaneseCurrency(sim.totalTax)}`,
+          `---------------------------------`,
+          `計算元: InstaCalc (https://instacalc.in/ja/taishokukin-calculator.html)`
+        ].join('\n');
+
+        // Charts & Table
+        updateChart(gross, sim.netSeverance, sim.totalTax, sim.deduction);
+        renderTable(sim);
+      }
+
+      function wireEvents() {
+        syncPair(elements.severanceAmountRange, elements.severanceAmount);
+        syncPair(elements.tenureYearsRange, elements.tenureYears);
+
+        if (elements.declarationStatus) elements.declarationStatus.addEventListener("change", calculateAndRender);
+
+        // Chip Clicks
+        document.querySelectorAll(".chips-group button[data-sev-val]").forEach(btn => {
+          btn.addEventListener("click", function () {
+            this.parentElement.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            elements.severanceAmount.value = parseFloat(this.getAttribute("data-sev-val"));
+            elements.severanceAmountRange.value = elements.severanceAmount.value;
+            calculateAndRender();
+          });
+        });
+
+        document.querySelectorAll(".chips-group button[data-ten-val]").forEach(btn => {
+          btn.addEventListener("click", function () {
+            this.parentElement.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            elements.tenureYears.value = parseFloat(this.getAttribute("data-ten-val"));
+            elements.tenureYearsRange.value = elements.tenureYears.value;
+            calculateAndRender();
+          });
+        });
+
+        // Toggle Advanced Mode
+        if (elements.toggleViewBtn) {
+          elements.toggleViewBtn.addEventListener("click", function () {
+            const shell = document.querySelector(".calculator-shell");
+            const isAdv = shell.classList.toggle("advanced-mode");
+            elements.toggleViewBtn.querySelector("span").textContent = isAdv ? "詳細設定モード: オン" : "詳細設定モード: オフ";
+          });
+        }
+
+        // Recalculate & Reset
+        if (elements.recalculateBtn) elements.recalculateBtn.addEventListener("click", calculateAndRender);
+        if (elements.resetBtn) {
+          elements.resetBtn.addEventListener("click", function () {
+            elements.severanceAmount.value = defaults.severanceAmount;
+            elements.severanceAmountRange.value = defaults.severanceAmount;
+            elements.tenureYears.value = defaults.tenureYears;
+            elements.tenureYearsRange.value = defaults.tenureYears;
+            if (elements.declarationStatus) elements.declarationStatus.value = defaults.declarationStatus;
+            calculateAndRender();
+          });
+        }
+
+        // Copy Text
+        function copyText(text, btnEl) {
+          if (!navigator.clipboard || !text) return;
+          navigator.clipboard.writeText(text).then(() => {
+            const orig = btnEl.innerHTML;
+            btnEl.innerHTML = `<i class="fas fa-check"></i> コピー完了！`;
+            setTimeout(() => { btnEl.innerHTML = orig; }, 1800);
+          });
+        }
+
+        if (elements.copySummaryBtn) elements.copySummaryBtn.addEventListener("click", () => copyText(lastSummaryText, elements.copySummaryBtn));
+        if (elements.copyHeroBtn) elements.copyHeroBtn.addEventListener("click", () => copyText(lastSummaryText, elements.copyHeroBtn));
+
+        // CSV Export
+        if (elements.downloadCsvBtn) {
+          elements.downloadCsvBtn.addEventListener("click", function () {
+            if (!lastTableRows.length) return;
+            const headers = ["項目", "金額", "計算基準 / 根拠"];
+            const rows = lastTableRows.map(r => [
+              r.name,
+              r.val,
+              r.note
+            ]);
+
+            const csvContent = [headers.join(",")].concat(rows.map(r => r.join(","))).join("\n");
+            const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `退職金手取り_税金シミュレーション_${new Date().toISOString().slice(0, 10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          });
+        }
+      }
+
+      toggleNav();
+      setupBackToTop();
+      wireEvents();
+      calculateAndRender();
+    })();
+  </script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script src="../language-dialog.js" defer></script>
+</body>
+
+</html>

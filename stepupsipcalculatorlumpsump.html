@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+
+<head>
+  <script>
+    (function () {
+      const userLang = localStorage.getItem('user_lang');
+      const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+      if (userLang === 'ja' || (!userLang && browserLang.startsWith('ja'))) {
+        window.location.replace('./ja/sipcalculatorlumpsump.html');
+      }
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Step-Up SIP Calculator India – Annual Increase & Return</title>
+  <meta name="description" content="Step-up SIP calculator for Indian investors: increase your SIP by 5-10% yearly, see final corpus, XIRR, and compare with flat SIP to plan long-term wealth.">
+  <meta name="keywords" content="step up sip calculator, top up sip calculator, step up sip returns, annual increase sip, stepup sip india, top up mutual fund calculator, sip with yearly increase">
+  <meta name="author" content="InstaCalc">
+  <meta name="robots" content="index,follow">
+  <!-- Verify site ownership & paste the actual codes: Google Search Console (Domain-wide verification), Bing Webmaster Tools -->
+  <meta name="theme-color" content="#005f73">
+
+  <link rel="icon" type="image/x-icon" href="favicon.webp">
+  <link rel="canonical" href="https://instacalc.in/stepupsipcalculatorlumpsump.html">
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/stepupsipcalculatorlumpsump.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/stepupsipcalculatorlumpsump.html">
+
+  <meta property="og:title" content="Step-Up SIP Calculator India — Top-Up SIP Returns with Yearly Increase">
+  <meta property="og:description" content="See how increasing your SIP amount every year (top-up) accelerates corpus growth vs a flat SIP. Year-wise table + CSV.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/stepupsipcalculatorlumpsump.html">
+  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
+  <meta property="og:site_name" content="InstaCalc">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Step-Up SIP Calculator India — Top-Up SIP with Yearly Increase">
+  <meta name="twitter:description" content="Compare flat SIP vs step-up SIP growth side by side. Free, instant, with CSV export.">
+  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+  </noscript>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
+    onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+  </noscript>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="instacalc-core.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Step-Up SIP Calculator — InstaCalc",
+    "url": "https://instacalc.in/stepupsipcalculatorlumpsump.html",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "description": "Calculate mutual fund corpus growth with an annual step-up on your monthly SIP and compare against a flat SIP plan.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+    "publisher": { "@type": "Organization", "name": "InstaCalc", "url": "https://instacalc.in" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "InstaCalc Home", "item": "https://instacalc.in/" },
+      { "@type": "ListItem", "position": 2, "name": "Calculators", "item": "https://instacalc.in/index.html" },
+      { "@type": "ListItem", "position": 3, "name": "Step-Up SIP Calculator", "item": "https://instacalc.in/stepupsipcalculatorlumpsump.html" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "What is a step-up SIP?", "acceptedAnswer": { "@type": "Answer", "text": "A step-up (or top-up) SIP increases your monthly SIP amount by a fixed percentage every year, so your investment grows in line with your income instead of staying flat." } },
+      { "@type": "Question", "name": "What is a good step-up percentage?", "acceptedAnswer": { "@type": "Answer", "text": "Most planners use 5–15% yearly. A common starting point matches your expected annual increment — 10% is a widely used conservative assumption." } },
+      { "@type": "Question", "name": "How much more corpus does a 10% step-up create?", "acceptedAnswer": { "@type": "Answer", "text": "It depends on tenure and returns — over 15–20 years a 10% annual step-up commonly produces roughly 1.5× to 2× the corpus of a flat SIP on the same starting amount. Use the calculator above for your exact numbers." } },
+      { "@type": "Question", "name": "Can I do a step-up SIP in any mutual fund?", "acceptedAnswer": { "@type": "Answer", "text": "Most AMCs and platforms (Groww, Zerodha Coin, Kuvera, MF Utility) let you register an annual top-up mandate at purchase time; otherwise you can manually start a new SIP each year." } },
+      { "@type": "Question", "name": "What is the minimum top-up amount?", "acceptedAnswer": { "@type": "Answer", "text": "AMCs typically require the top-up to be in multiples of ₹500 or ₹1,000, differing per scheme. Check the scheme's step-up facility terms." } },
+      { "@type": "Question", "name": "Does the step-up SIP calculator account for inflation?", "acceptedAnswer": { "@type": "Answer", "text": "The calculator shows nominal corpus. If you want a real (inflation-adjusted) target, use our main SIP calculator's inflation-adjustment mode with your own inflation assumption." } },
+      { "@type": "Question", "name": "Is step-up SIP better than investing a flat higher amount from day one?", "acceptedAnswer": { "@type": "Answer", "text": "If you can afford a higher SIP today, investing more from the start wins because money compounds longer. Step-up is for when today's budget is limited but income is expected to grow." } },
+      { "@type": "Question", "name": "Can I pause or stop the step-up?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — registered top-up mandates can usually be cancelled or modified; the base SIP itself continues. Check your AMC's rules for notice periods." } },
+      { "@type": "Question", "name": "What return rate should I assume for equity SIPs?", "acceptedAnswer": { "@type": "Answer", "text": "Historically diversified equity funds in India have delivered roughly 10–12% annualised over long periods, but returns are not guaranteed. Run the plan at a conservative rate first." } },
+      { "@type": "Question", "name": "Is the step-up SIP calculator free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — the InstaCalc step-up SIP calculator is completely free, works in your browser, and includes a year-wise projection you can download as CSV." } }
+    ]
+  }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Public Sans', system-ui, sans-serif; margin: 0; color: #0f172a; background: #f8fafc; }
+    .container { width: min(1100px, 94vw); margin: 0 auto; padding: 0 1rem; }
+    .site-header { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 0.75rem 0; }
+    .header-inner { display: flex; align-items: center; gap: 1rem; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; text-decoration: none; color: #0f172a; }
+    .site-nav a { margin-left: 1rem; text-decoration: none; color: #334155; font-weight: 500; }
+    .hero { background: linear-gradient(180deg, #ffffff, #f0f9ff); padding: 3rem 0 2rem; text-align: center; }
+    .hero h1 { font-family: 'Sora', sans-serif; font-size: clamp(1.6rem, 3.5vw, 2.4rem); margin: 0.5rem 0; }
+    .hero p { color: #475569; max-width: 46rem; margin: 0 auto; }
+    .hero-actions { margin-top: 1.25rem; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+    .btn { padding: 0.65rem 1.25rem; border-radius: 0.6rem; font-weight: 600; text-decoration: none; border: none; cursor: pointer; font-size: 0.95rem; }
+    .btn-primary { background: #007f8b; color: #fff; }
+    .btn-ghost { background: #fff; border: 1px solid #cbd5e1; color: #0f172a; }
+    .calc-shell { background: #fff; border: 1px solid #e2e8f0; border-radius: 1rem; padding: 1.5rem; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06); }
+    .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; }
+    .field-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem; }
+    .field-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
+    .field-head label { font-weight: 600; font-size: 0.9rem; color: #334155; }
+    .field-preview { font-family: 'Sora', sans-serif; font-weight: 700; color: #007f8b; }
+    .range-row { display: flex; gap: 0.6rem; align-items: center; }
+    .range-row input[type="range"] { flex: 1; accent-color: #007f8b; }
+    .range-row input[type="number"] { width: 90px; padding: 0.4rem 0.5rem; border: 1px solid #cbd5e1; border-radius: 0.4rem; }
+    .result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1.25rem; }
+    .result-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem; }
+    .result-card.positive { background: #ecfdf5; border-color: #a7f3d0; }
+    .result-card h3 { margin: 0 0 0.35rem; font-size: 0.8rem; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+    .result-value { font-family: 'Sora', sans-serif; font-size: 1.35rem; font-weight: 700; }
+    .table-tools { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; }
+    .table-tools h3 { font-family: 'Sora', sans-serif; font-size: 1.15rem; margin: 0; }
+    .table-shell { overflow-x: auto; margin-top: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.75rem; }
+    table.projection-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .projection-table th { background: #f1f5f9; text-align: left; padding: 0.65rem 0.75rem; border-bottom: 1px solid #e2e8f0; white-space: nowrap; }
+    .projection-table td { padding: 0.55rem 0.75rem; border-bottom: 1px solid #f1f5f9; white-space: nowrap; }
+    .chart-wrap { position: relative; height: 300px; margin-top: 1.25rem; }
+    .section { padding: 2.5rem 0; }
+    .prose { max-width: 46rem; margin: 0 auto; }
+    .prose h2 { font-family: 'Sora', sans-serif; margin-top: 2rem; }
+    .prose p { color: #334155; line-height: 1.7; }
+    details.faq { background: #fff; border: 1px solid #e2e8f0; border-radius: 0.6rem; padding: 0.85rem 1rem; margin-bottom: 0.6rem; }
+    details.faq summary { font-weight: 600; cursor: pointer; }
+    details.faq p { color: #475569; margin: 0.5rem 0 0; }
+    .footer { background: #fff; border-top: 1px solid #e2e8f0; padding: 1.5rem 0; text-align: center; color: #64748b; font-size: 0.85rem; }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand" aria-label="InstaCalc home">
+        <img src="logo.png" alt="InstaCalc logo" width="38" height="38">
+        <span>InstaCalc.in</span>
+      </a>
+      <nav class="site-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="sipcalculator.html">SIP Calculator</a>
+        <a href="sipcalculatorlumpsump.html">Lumpsum</a>
+        <a href="aboutus.html">About</a>
+        <a href="contactus.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Step-Up SIP Calculator India — Top-Up SIP with Yearly Increase</h1>
+        <p>How much faster does your mutual fund corpus grow if you raise your SIP amount every year? Enter your current
+          SIP, expected annual step-up %, expected return and tenure to compare a step-up plan against a flat SIP.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#stepup-planner"><i class="fas fa-calculator"></i> Start Calculating</a>
+          <a class="btn btn-ghost" href="sipcalculator.html"><i class="fas fa-arrow-right-arrow-left"></i> Flat SIP
+            Calculator</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="stepup-planner" class="section" style="padding-top:1rem;">
+      <div class="container">
+        <div class="calc-shell">
+          <div class="input-grid">
+            <div class="field-card">
+              <div class="field-head">
+                <label for="monthlySip">Current Monthly SIP (₹)</label>
+                <span class="field-preview" id="monthlySipPreview">₹10,000</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="monthlySipRange" min="500" max="200000" step="500" value="10000">
+                <input type="number" id="monthlySip" min="500" max="200000" step="500" value="10000">
+              </div>
+            </div>
+            <div class="field-card">
+              <div class="field-head">
+                <label for="stepUpPct">Annual Step-up (%)</label>
+                <span class="field-preview" id="stepUpPctPreview">10%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="stepUpPctRange" min="0" max="30" step="0.5" value="10">
+                <input type="number" id="stepUpPct" min="0" max="30" step="0.5" value="10">
+              </div>
+            </div>
+            <div class="field-card">
+              <div class="field-head">
+                <label for="returnRate">Expected Return (% p.a.)</label>
+                <span class="field-preview" id="returnRatePreview">12%</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="returnRateRange" min="1" max="30" step="0.5" value="12">
+                <input type="number" id="returnRate" min="1" max="30" step="0.5" value="12">
+              </div>
+            </div>
+            <div class="field-card">
+              <div class="field-head">
+                <label for="years">Tenure (Years)</label>
+                <span class="field-preview" id="yearsPreview">15</span>
+              </div>
+              <div class="range-row">
+                <input type="range" id="yearsRange" min="1" max="40" step="1" value="15">
+                <input type="number" id="years" min="1" max="40" step="1" value="15">
+              </div>
+            </div>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <h3>Step-Up SIP Corpus</h3>
+              <div class="result-value" id="resStepUp">–</div>
+            </div>
+            <div class="result-card">
+              <h3>Flat SIP Corpus</h3>
+              <div class="result-value" id="resFlat">–</div>
+            </div>
+            <div class="result-card" id="resGainCard">
+              <h3>Extra Corpus from Step-Up</h3>
+              <div class="result-value" id="resGain">–</div>
+            </div>
+            <div class="result-card">
+              <h3>Total Invested (Step-Up)</h3>
+              <div class="result-value" id="resInvested">–</div>
+            </div>
+          </div>
+
+          <div class="chart-wrap">
+            <canvas id="compareChart"></canvas>
+          </div>
+
+          <div class="table-tools">
+            <h3><i class="fas fa-table-list" style="color:#007f8b;"></i> Year-wise Projection</h3>
+            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download
+              CSV</button>
+          </div>
+          <div class="table-shell">
+            <table class="projection-table">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Monthly SIP (that year)</th>
+                  <th>Invested to date</th>
+                  <th>Step-Up Corpus</th>
+                  <th>Flat SIP Corpus</th>
+                </tr>
+              </thead>
+              <tbody id="projectionBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container prose">
+        <h2>How to use: three steps</h2>
+        <p>Set your <strong>Current Monthly SIP</strong>, then the <strong>Annual Step-up</strong> you plan (e.g. 10%),
+          the <strong>Expected Return</strong>, and the <strong>Tenure</strong>. The table updates instantly and the
+          CSV button downloads the full projection. Step-up amount = current SIP multiplied by one plus the step-up
+          rate, applied every January-equivalent anniversary.</p>
+
+        <h2>Worked example</h2>
+        <p><strong>Example:</strong> a ₹10,000 SIP with a 10% yearly step-up for 15 years at 12% expected return invests
+          about ₹37.9 lakh and can reach roughly ₹78 lakh — versus about ₹50 lakh from the same ₹10,000 held flat —
+          because the yearly top-up rides compounding from year one. Run your own numbers above; the comparison chart
+          shows the two curves separating in the middle years.</p>
+
+        <h2>Practical tips and common mistakes</h2>
+        <ul>
+          <li><strong>Common mistake:</strong> assuming the step-up % equals your salary hike. Net savings rate grows
+            slower than CTC — model 60–70% of your increment as a realistic step-up.</li>
+          <li><strong>Common mistake:</strong> stopping the top-up after one year. The compounding advantage shows up
+            in years 8–12; quitting early forfeits most of the gain.</li>
+          <li><strong>Tip:</strong> keep the first SIP affordable. A ₹20,000 SIP you stop in month 8 under-performs a
+            ₹10,000 SIP plus consistent top-ups that run 15 years.</li>
+          <li><strong>Tip:</strong> use the flat-SIP line on the chart as your minimum-trust benchmark — if you
+            wouldn't sustain even that, renegotiate the step-up, not the base.</li>
+        </ul>
+
+        <h2>Rules and regulation notes</h2>
+        <p>AMC top-up mandates require the stepped SIP to respect the scheme's minimum application amount; step-up
+          intervals are commonly restricted to 6- or 12-month cycles, with the increment in multiples of ₹500/₹1,000.
+          Top-up registrations can typically be cancelled prospectively without touching the base SIP.</p>
+
+        <h2>Disclaimer</h2>
+        <p style="font-size:0.9rem;color:#64748b;">This tool is for educational purposes only and is not investment
+          advice; mutual-fund returns are market-linked and not guaranteed. Past performance does not indicate future
+          results — consult a SEBI-registered investment adviser before acting.</p>
+
+        <h2>How the Step-Up SIP calculation works</h2>
+        <p>Each year, your monthly SIP amount is multiplied by <code>(1 + step-up %)</code>. Within a year the SIP is
+          invested monthly and grows at the monthly-equivalent of the expected annual return, compounding monthly —
+          the same method used on our <a href="sipcalculator.html">main SIP calculator</a>. The flat-SIP comparison
+          keeps the initial amount constant over the same tenure.</p>
+        <p>Step-up SIPs suit salaried professionals whose income rises each year: your savings rate scales with your
+          salary instead of your purchasing power absorbing the raise. The extra corpus column shows exactly what that
+          discipline is worth.</p>
+
+        <h2>Related calculators</h2>
+        <p>Need the other side of the picture? Use the <a href="sipcalculator.html">SIP Calculator</a> for flat monthly
+          investing with goal mode and inflation adjustment, the <a href="sipcalculatorlumpsump.html">Lumpsum
+            Calculator</a> for a one-time windfall, or the <a href="swpcalculator.html">SWP Calculator</a> to plan
+          monthly withdrawals from an existing corpus in retirement.</p>
+      </div>
+    </section>
+
+    <section class="section" id="faq" style="margin-top:2rem">
+      <div class="container prose">
+        <h2>Frequently Asked Questions</h2>
+        <details class="faq"><summary>What is a step-up SIP?</summary><p>A step-up (or top-up) SIP increases your monthly SIP amount by a fixed percentage every year, so your investment grows in line with your income instead of staying flat.</p></details>
+        <details class="faq"><summary>What is a good step-up percentage?</summary><p>Most planners use 5–15% yearly. A common starting point matches your expected annual increment — 10% is a widely used conservative assumption.</p></details>
+        <details class="faq"><summary>How much more corpus does a 10% step-up create?</summary><p>It depends on tenure and returns — over 15–20 years a 10% annual step-up commonly produces roughly 1.5× to 2× the corpus of a flat SIP on the same starting amount. Use the calculator above for your exact numbers.</p></details>
+        <details class="faq"><summary>Can I do a step-up SIP in any mutual fund?</summary><p>Most AMCs and platforms (Groww, Zerodha Coin, Kuvera, MF Utility) let you register an annual top-up mandate at purchase time; otherwise you can manually start a new SIP each year.</p></details>
+        <details class="faq"><summary>What is the minimum top-up amount?</summary><p>AMCs typically require the top-up to be in multiples of ₹500 or ₹1,000, differing per scheme. Check the scheme's step-up facility terms.</p></details>
+        <details class="faq"><summary>Does the step-up SIP calculator account for inflation?</summary><p>The calculator shows nominal corpus. If you want a real (inflation-adjusted) target, use our main SIP calculator's inflation-adjustment mode with your own inflation assumption.</p></details>
+        <details class="faq"><summary>Is step-up SIP better than investing a flat higher amount from day one?</summary><p>If you can afford a higher SIP today, investing more from the start wins because money compounds longer. Step-up is for when today's budget is limited but income is expected to grow.</p></details>
+        <details class="faq"><summary>Can I pause or stop the step-up?</summary><p>Yes — registered top-up mandates can usually be cancelled or modified; the base SIP itself continues. Check your AMC's rules for notice periods.</p></details>
+        <details class="faq"><summary>What return rate should I assume for equity SIPs?</summary><p>Historically diversified equity funds in India have delivered roughly 10–12% annualised over long periods, but returns are not guaranteed. Run the plan at a conservative rate first.</p></details>
+        <details class="faq"><summary>Is the step-up SIP calculator free?</summary><p>Yes — the InstaCalc step-up SIP calculator is completely free, works in your browser, and includes a year-wise projection you can download as CSV.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 InstaCalc.in — Free online calculators for India. Estimates only; not investment
+      advice.</div>
+  </footer>
+
+  <script>
+    (function () {
+      const $ = (id) => document.getElementById(id);
+      const els = {
+        sip: $('monthlySip'), sipR: $('monthlySipRange'),
+        step: $('stepUpPct'), stepR: $('stepUpPctRange'),
+        rate: $('returnRate'), rateR: $('returnRateRange'),
+        years: $('years'), yearsR: $('yearsRange')
+      };
+      const fmtINR = (v) => '₹' + Math.round(v).toLocaleString('en-IN');
+      let chart = null, lastRows = [];
+
+      function syncPair(a, b) {
+        a.addEventListener('input', () => { b.value = a.value; calculate(); });
+      }
+      syncPair(els.sip, els.sipR); syncPair(els.sipR, els.sip);
+      syncPair(els.step, els.stepR); syncPair(els.stepR, els.step);
+      syncPair(els.rate, els.rateR); syncPair(els.rateR, els.rate);
+      syncPair(els.years, els.yearsR); syncPair(els.yearsR, els.years);
+
+      function simulate(stepUpPct) {
+        const sip0 = parseFloat(els.sip.value) || 0;
+        const rate = (parseFloat(els.rate.value) || 0) / 100;
+        const years = parseInt(els.years.value, 10) || 0;
+        const i = rate / 12;
+        let sip = sip0, corpus = 0, invested = 0;
+        const rows = [];
+        for (let y = 1; y <= years; y++) {
+          for (let m = 0; m < 12; m++) {
+            corpus = (corpus + sip) * (1 + i);
+            invested += sip;
+          }
+          rows.push({ year: y, sip, invested, corpus });
+          if (y < years) sip = sip * (1 + stepUpPct / 100);
+        }
+        return { rows, invested, corpus: rows.length ? rows[rows.length - 1].corpus : 0 };
+      }
+
+      function calculate() {
+        const stepUpPct = parseFloat(els.step.value) || 0;
+        $('monthlySipPreview').textContent = fmtINR(els.sip.value);
+        $('stepUpPctPreview').textContent = stepUpPct + '%';
+        $('returnRatePreview').textContent = (els.rate.value) + '%';
+        $('yearsPreview').textContent = els.years.value;
+
+        const stepped = simulate(stepUpPct);
+        const flat = simulate(0);
+        lastRows = stepped.rows;
+
+        $('resStepUp').textContent = fmtINR(stepped.corpus);
+        $('resFlat').textContent = fmtINR(flat.corpus);
+        $('resGain').textContent = fmtINR(stepped.corpus - flat.corpus);
+        $('resInvested').textContent = fmtINR(stepped.invested);
+
+        renderTable();
+
+        const labels = stepped.rows.map(r => 'Y' + r.year);
+        const data = { stepped: stepped.rows.map(r => r.corpus), flat: flat.rows.map(r => r.corpus) };
+        if (chart) chart.destroy();
+        chart = new Chart($('compareChart').getContext('2d'), {
+          type: 'line',
+          data: {
+            labels, datasets: [
+              { label: 'Step-Up SIP', data: data.stepped, borderColor: '#007f8b', backgroundColor: 'rgba(0,127,139,0.10)', fill: true, pointRadius: 0, tension: 0.3 },
+              { label: 'Flat SIP', data: data.flat, borderColor: '#94a3b8', borderDash: [6, 4], fill: false, pointRadius: 0, tension: 0.3 }
+            ]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+            plugins: { tooltip: { callbacks: { label: (c) => c.dataset.label + ': ' + fmtINR(c.raw) } } },
+            scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => '₹' + (v / 100000 || 0 && v >= 100000 ? (v / 100000).toFixed(1) + 'L' : v.toLocaleString('en-IN')) } } }
+          }
+        });
+      }
+
+      function renderTable() {
+        $('projectionBody').innerHTML = lastRows.map(r =>
+          `<tr><td>${r.year}</td><td>${fmtINR(r.sip)}</td><td>${fmtINR(r.invested)}</td><td>${fmtINR(r.corpus)}</td></tr>`
+        ).join('');
+      }
+
+      $('downloadCsvBtn').addEventListener('click', () => {
+        const rows = [['Year', 'Monthly SIP (Rs)', 'Invested to date (Rs)', 'Step-Up Corpus (Rs)']]
+          .concat(lastRows.map(r => ['Year ' + r.year, Math.round(r.sip), Math.round(r.invested), Math.round(r.corpus)]));
+        const flat = simulate(0).rows;
+        rows[0].push('Flat SIP Corpus (Rs)');
+        flat.forEach((r, idx) => rows[idx + 1].push(Math.round(r.corpus)));
+        const csv = rows.map((r) => r.join(',')).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'stepup-sip-projection.csv';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+
+      calculate();
+    })();
+  </script>
+</body>
+
+</html>

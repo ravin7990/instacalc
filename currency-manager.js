@@ -6,7 +6,11 @@
   let symbol = '₹';
   
   const path = window.location.pathname;
-  if (path.includes('/ja/')) {
+  if (path.includes('/us/')) {
+    locale = 'en-US';
+    currency = 'USD';
+    symbol = '$';
+  } else if (path.includes('/ja/')) {
     locale = 'ja-JP';
     currency = 'JPY';
     symbol = '¥';

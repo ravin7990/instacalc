@@ -16,11 +16,15 @@
     content="給与 手取り 計算, 年収 手取り 計算機, 額面 手取り 早見表, 所得税 住民税 計算, 社会保険料 計算, ふるさと納税 上限額, 月給 手取り シミュレーション, 手取り 割合">
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="index,follow">
+  <!-- Verify site ownership & paste the actual codes from each platform: Google Search Console (Domain property meta tag), Bing Webmaster Tools, and Yahoo! Japan Site Explorer -->
   <meta name="theme-color" content="#005f73">
-  <meta name="google-adsense-account" content="ca-pub-4943063856769784">
 
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
   <link rel="canonical" href="https://instacalc.in/ja/salarycalculator.html">
+  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/salarycalculator.html">
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/paycheck-calculator.html">
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/incometaxcalculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/incometaxcalculator.html">
 
   <meta property="og:title" content="給与手取り・年収シミュレーター | 額面から手取り・社会保険料・所得税・住民税を自動計算【無料】">
   <meta property="og:description"
@@ -36,64 +40,8 @@
     content="無料の給与手取り計算機。年収・月給から社会保険料・所得税・住民税・手取り率・ふるさと納税上限を瞬時に算出。">
   <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
 
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "給与手取り・年収シミュレーター (社会保険料・所得税・住民税計算機)",
-      "url": "https://instacalc.in/ja/salarycalculator.html",
-      "applicationCategory": "FinanceApplication",
-      "operatingSystem": "All",
-      "description": "額面年収・月給から手取り額、社会保険料（健康保険・厚生年金・雇用保険）、所得税、住民税、ふるさと納税上限目安を計算するツール。",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "JPY"
-      }
-    }
-  </script>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "額面年収に対する「手取り額の割合（手取り率）」の目安はどのくらいですか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "一般的に、額面年収に対する手取り額の割合は約75%〜85%です。年収300万円〜500万円前後では約80%前後、年収800万円で約75%、年収1,000万円を超えると累進課税の影響で約70%〜72%程度まで手取り率が低下します。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "給与から差し引かれる「社会保険料」の内訳は何ですか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "会社員の場合、健康保険料（約5%・協会けんぽ基準）、厚生年金保険料（9.15%・会社と折半）、雇用保険料（0.6%）、および40歳以上の場合は介護保険料（約0.8%）の合計約15%が毎月の額面給与から控除されます。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "所得税と住民税の違いは何ですか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "所得税は国に納める国税で、所得が高くなるほど税率が5%から45%まで段階的に上がる『累進課税』です。住民税は居住する自治体に納める地方税で、税率は所得に関わらず原則一律10%（都道府市民税＋市区町村民税）となります。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "ふるさと納税の限度額（実質2,000円で寄附できる上限）はどう決まりますか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "ふるさと納税の控除上限額は、その年の住民税所得割額の2割（20%）を上限として計算されます。年収や家族構成（配偶者控除・扶養控除の有無）によって異なり、年収500万円（独身）なら約6万円、年収700万円なら約10.8万円が寄附上限の目安となります。"
-          }
-        }
-      ]
-    }
-  </script>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload"
     href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
@@ -282,6 +230,42 @@
       gap: 1rem;
     }
   </style>
+
+  <script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"FAQPage",
+"mainEntity":[
+{"@type":"Question","name":"社会保険料の控除率はどう決まりますか？","acceptedAnswer":{"@type":"Answer","text":"健康保険は給与の約9.83〜10%（半分本人負担）、厚生年金18.3%（半分本人負担9.15%）、雇用保険は一般労働者0.55%です。給与天引き後に勤務者亚马逊は実際の健康保険協会の料率を確認できます。"}},
+{"@type":"Question","name":"源泉徴収税額はどう計算しますか？","acceptedAnswer":{"@type":"Answer","text":"国税庁の「給与所得の源泉徴収税額表」（月額表または年税額表）で扶養控除等申告書の提出有無により税率が決まります。多くの給与計算ソフトがこの表を内蔵しています。"}},
+{"@type":"Question","name":"手取りが想定より低い場合は？","acceptedAnswer":{"@type":"Answer","text":"①社会保険料の料率が予測より高い②住民税の前年所得に基づく③副業がある④控除証明の提出漏れ。まず給与明細の控除項目を確認しましょう。"}},
+{"@type":"Question","name":"独身（扶養なし）と家族持ちで控除はどう変わる？","acceptedAnswer":{"@type":"Answer","text":"同一生計の配偶者の所得が年48万円以下なら配偶者控除（38万円）、子ども（16歳以上）1人ごとに38万円の扶養控除が適用されます。基礎控除38万円は全員に適用です。"}},
+{"@type":"Question","name":"ボーナスの手取りの計算は？","acceptedAnswer":{"@type":"Answer","text":"ボーナスにも社会保険料は課せられ、所得税は源泉徴収税額表（賞与用）に基づき計算されます。ボーナス月の保険料上限が設定されています。"}},
+{"@type":"Question","name":"交通費・残業代にも税金がかかりますか？","acceptedAnswer":{"@type":"Answer","text":"定期券などの実費相当の通勤手当は非課税ですが、残業代やその他の職域手当は課税対象です。計算時は「課税対象の給与総額」を使用します。"}},
+{"@type":"Question","name":"市区町村の住民税率はどこで確認できますか？","acceptedAnswer":{"@type":"Answer","text":"多くの市区町村の標準税率は市民税6%、県民税4%で均等割5,000円を加えます。東京都は市民税 + 都民税の合計で6%ですが、税率構造が異なります。"}},
+{"@type":"Question","name":"401(k)型の企業年金を中国でどう呼びますか？","acceptedAnswer":{"@type":"Answer","text":"日本では401k的な「確定拠出年金（DC）」や「企業型年金」に相当し、給与天引き後の拠出で税制優遇があります。手取り計算では拠出額を控除した上で所得税が計算されます。"}},
+{"@type":"Question","name":"源泉徴収票の見方を教えてください","acceptedAnswer":{"@type":"Answer","text":"年末調整後の源泉徴収票に記載される主な項目は、支払金額（給与総額）、源泉徴収税額（年間に徴収された所得税）、社会保険料等の金額です。確定申告やローン審査に必要です。"}},
+{"@type":"Question","name":"月給と年収の換算はどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"月給×12＝年収の概算ですが、ボーナスを含む場合はボーナス月数（夏冬合計2〜4ヶ月分など）も加算します。額面と手取りの差は約20〜35%です。"}}
+]
+}
+</script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "給与手取り・年収シミュレーター",
+      "url": "https://instacalc.in/ja/salarycalculator.html",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "inLanguage": "ja-JP",
+      "description": "給与手取り・年収シミュレーター - 無料オンライン計算シミュレーター。",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "JPY"
+      }
+    }
+  </script>
 </head>
 
 <body>
@@ -635,7 +619,23 @@
         </article>
       </div>
     </section>
-  </main>
+  
+        <section class="section" id="faq" style="margin-top:2rem">
+          <div class="prose">
+            <h2>よくある質問</h2>
+            <details class="faq card"><summary>社会保険料の控除率はどう決まりますか？</summary><p>健康保険は給与の約9.83〜10%（半分本人負担）、厚生年金18.3%（半分本人負担9.15%）、雇用保険は一般労働者0.55%です。給与天引き後に勤務者亚马逊は実際の健康保険協会の料率を確認できます。</p></details>
+          <details class="faq card"><summary>源泉徴収税額はどう計算しますか？</summary><p>国税庁の「給与所得の源泉徴収税額表」（月額表または年税額表）で扶養控除等申告書の提出有無により税率が決まります。多くの給与計算ソフトがこの表を内蔵しています。</p></details>
+          <details class="faq card"><summary>手取りが想定より低い場合は？</summary><p>①社会保険料の料率が予測より高い②住民税の前年所得に基づく③副業がある④控除証明の提出漏れ。まず給与明細の控除項目を確認しましょう。</p></details>
+          <details class="faq card"><summary>独身（扶養なし）と家族持ちで控除はどう変わる？</summary><p>同一生計の配偶者の所得が年48万円以下なら配偶者控除（38万円）、子ども（16歳以上）1人ごとに38万円の扶養控除が適用されます。基礎控除38万円は全員に適用です。</p></details>
+          <details class="faq card"><summary>ボーナスの手取りの計算は？</summary><p>ボーナスにも社会保険料は課せられ、所得税は源泉徴収税額表（賞与用）に基づき計算されます。ボーナス月の保険料上限が設定されています。</p></details>
+          <details class="faq card"><summary>交通費・残業代にも税金がかかりますか？</summary><p>定期券などの実費相当の通勤手当は非課税ですが、残業代やその他の職域手当は課税対象です。計算時は「課税対象の給与総額」を使用します。</p></details>
+          <details class="faq card"><summary>市区町村の住民税率はどこで確認できますか？</summary><p>多くの市区町村の標準税率は市民税6%、県民税4%で均等割5,000円を加えます。東京都は市民税 + 都民税の合計で6%ですが、税率構造が異なります。</p></details>
+          <details class="faq card"><summary>401(k)型の企業年金を中国でどう呼びますか？</summary><p>日本では401k的な「確定拠出年金（DC）」や「企業型年金」に相当し、給与天引き後の拠出で税制優遇があります。手取り計算では拠出額を控除した上で所得税が計算されます。</p></details>
+          <details class="faq card"><summary>源泉徴収票の見方を教えてください</summary><p>年末調整後の源泉徴収票に記載される主な項目は、支払金額（給与総額）、源泉徴収税額（年間に徴収された所得税）、社会保険料等の金額です。確定申告やローン審査に必要です。</p></details>
+          <details class="faq card"><summary>月給と年収の換算はどうなりますか？</summary><p>月給×12＝年収の概算ですが、ボーナスを含む場合はボーナス月数（夏冬合計2〜4ヶ月分など）も加算します。額面と手取りの差は約20〜35%です。</p></details>
+          </div>
+        </section>
+</main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
@@ -645,8 +645,9 @@
         <a href="aboutus.html">運営者情報</a>
         <a href="contactus.html">お問い合わせ</a>
         <a href="privacypolicy.html">プライバシーポリシー</a>
-        <a href="../terms.html">利用規約</a>
-      </div>
+        <a href="terms.html">利用規約</a>
+      
+<a href="delete-account.html">アカウント削除</a></div>
     </div>
   </footer>
 
@@ -654,7 +655,7 @@
     <i class="fas fa-arrow-up"></i>
   </button>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <script>
     (function () {
       const defaults = {

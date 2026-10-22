@@ -1,751 +1,1691 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Diagonal Calculator (US) | Rectangle, TV Screen, Square & 3-4-5 Carpentry</title>
-  <meta name="description" content="Calculate diagonal of a rectangle, TV/monitor screen size, square, 3D box, and 3-4-5 carpentry squaring in inches, feet, and yards with visual geometry breakdown.">
-  <meta name="keywords" content="diagonal calculator, rectangle diagonal calculator, tv screen size calculator, screen diagonal, 3 4 5 rule calculator, square diagonal, hypotenuse calculator, room squaring calculator">
-  <meta name="author" content="InstaCalc USA">
-  <meta name="robots" content="index,follow">
-  <meta name="theme-color" content="#005f73">
+<meta charset="UTF-8">
+<script>
+(function() {
+  const pref = localStorage.getItem('user_lang');
+  const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+  if (pref === 'ru' || (!pref && browserLang.startsWith('ru'))) {
+    window.location.replace('../ru/moretools/diagonalcalculator.html');
+  } else if (pref === 'ja' || (!pref && browserLang.startsWith('ja'))) {
+    window.location.replace('../ja/moretools/diagonalcalculator.html');
+  } else if (pref === 'ko' || (!pref && browserLang.startsWith('ko'))) {
+    window.location.replace('../ko/moretools/diagonalcalculator.html');
+  }
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagonal Calculator (US) | TV & Carpentry</title>
+<meta name="description" content="Calculate diagonal of a rectangle, TV/monitor screen size, square, 3D box, and 3-4-5 carpentry squaring in inches, feet, and yards with visual geometry breakdown.">
+<meta name="keywords" content="diagonal calculator, rectangle diagonal calculator, tv screen size calculator, screen diagonal, 3 4 5 rule calculator, square diagonal, hypotenuse calculator, room squaring calculator">
+<meta name="author" content="InstaCalc USA">
+<meta name="robots" content="index,follow">
+  <!-- Verify site ownership & paste the actual codes: Google Search Console (Domain-wide verification), Bing Webmaster Tools -->
+<meta name="theme-color" content="#005f73">
 
-  <link rel="icon" type="image/x-icon" href="../favicon.webp">
-  <link rel="canonical" href="https://instacalc.in/us/diagonal-calculator.html">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
-  <link rel="stylesheet" href="../instacalc-core.css">
-  <style>
-    /* Studio Grid & Chart styles */
-    .fin-studio-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      gap: 1.75rem;
-      align-items: start;
-      margin-top: 1rem;
-      width: 100%;
-    }
-    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
-    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
-    .field-preview-badge {
-      font-family: 'Sora', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--ic-primary-dark);
-      background: var(--ic-primary-light);
-      padding: 0.2rem 0.65rem;
-      border-radius: 999px;
-    }
-    .outcome-chart-box {
-      background: #ffffff;
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 1.25rem 1.5rem;
-      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
-    .chart-wrap-doughnut {
-      position: relative;
-      width: 100%;
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .legend-stats-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      width: 100%;
-      padding-top: 0.85rem;
-      border-top: 1px solid var(--ic-border);
-    }
-    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
-    .legend-label {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--ic-text-muted);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-    .legend-val {
-      font-family: 'Sora', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--ic-text);
-    }
-    .legend-val.positive { color: #10b981; }
-    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-    .dot-invested { background: #0284c7; }
-    .dot-returns { background: #10b981; }
-    
-    /* Mode Pill Switcher */
-    .shape-nav-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.85rem;
-      border-bottom: 1px solid var(--ic-border);
-      width: 100%;
-    }
-    .mode-pill-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.5rem 0.85rem;
-      font-size: 0.84rem;
-      font-weight: 700;
-      border-radius: var(--ic-radius-full);
-      border: 1px solid var(--ic-border);
-      background: #ffffff;
-      color: var(--ic-text-muted);
-      cursor: pointer;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-    .mode-pill-btn:hover {
-      border-color: var(--ic-primary);
-      color: var(--ic-primary-dark);
-    }
-    .mode-pill-btn.active {
-      background: var(--ic-primary);
-      color: #ffffff;
-      border-color: var(--ic-primary);
-      box-shadow: 0 2px 8px rgba(0, 95, 115, 0.25);
-    }
-
-    /* Projection Table Mobile Card Grid */
-    @media (max-width: 640px) {
-      .table-shell { border: 0; background: transparent; overflow: visible; }
-      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
-      .projection-table thead { display: none; }
-      .projection-table tr {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        margin-bottom: 0.85rem;
-        border: 1px solid var(--ic-border);
-        border-radius: var(--ic-radius-md);
-        overflow: hidden;
-        background: #ffffff;
-        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
-      }
-      .projection-table td {
-        padding: 0.6rem 0.85rem;
-        border: 0;
-        border-bottom: 1px solid var(--ic-border);
-        font-family: 'Sora', sans-serif;
-        font-size: 0.92rem;
-        font-weight: 800;
-      }
-      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
-      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
-      .projection-table .projection-year {
-        grid-column: 1 / -1;
-        min-height: auto;
-        padding: 0.7rem 0.85rem;
-        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
-        border-right: 0;
-        color: var(--ic-primary-dark);
-        font-size: 0.95rem;
-      }
-      .projection-table td::before {
-        content: attr(data-label);
-        display: block;
-        margin-bottom: 0.25rem;
-        color: var(--ic-text-muted);
-        font-family: 'Public Sans', sans-serif;
-        font-size: 0.68rem;
-        font-weight: 800;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-      .projection-table .projection-year::before { display: none; }
-    }
-    @media (max-width: 960px) {
-      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
-    }
-    
-    .geo-canvas-card {
-      background: #ffffff;
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 1.25rem;
-      margin-top: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
-    }
-    .svg-geo-wrap { width: 100%; max-width: 440px; height: 220px; }
-    
-  </style>
+<link rel="icon" type="image/x-icon" href="../favicon.webp">
+<link rel="canonical" href="https://instacalc.in/us/diagonal-calculator.html">
   <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/diagonal-calculator.html">
-  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
-</head>
-<body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="brand" aria-label="InstaCalc US Home">
-        <img src="../logo.png" alt="InstaCalc logo">
-        <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
-      </a>
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/moretools/diagonalcalculator.html">
+  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/moretools/diagonalcalculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/us/diagonal-calculator.html">
+  <meta property="og:title" content="Diagonal Calculator (US) | Rectangle, TV Screen, Square &amp; 3-4-5 Carpentry">
+  <meta property="og:description" content="Calculate diagonal of a rectangle, TV/monitor screen size, square, 3D box, and 3-4-5 carpentry squaring in inches, feet, and yards with visual geometry breakdown.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/us/diagonal-calculator.html">
+  <meta property="og:site_name" content="InstaCalc">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://instacalc.in/cover.png">
+  <meta name="twitter:title" content="Diagonal Calculator (US) | Rectangle, TV Screen, Square &amp; 3-4-5 Carpentry">
+  <meta name="twitter:description" content="Calculate diagonal of a rectangle, TV/monitor screen size, square, 3D box, and 3-4-5 carpentry squaring in inches, feet, and yards with visual geometry breakdown.">
 
-      <div class="lang-switch">
-        <select id="langSelect" aria-label="Select Region / Language">
-          <option value="us" selected>United States ($ USD)</option>
-          <option value="in">India (₹ INR)</option>
-          <option value="ja">日本語 (Japan)</option>
-          <option value="ru">Русский (Russia)</option>
-        </select>
-      </div>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
+<link rel="preload" href="../instacalc-core.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../instacalc-core.css"></noscript>
 
-      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
-        <i class="fas fa-bars"></i>
-      </button>
+<style>
+/* Premium Diagonal Calculator Styles */
+.calc-layout-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+@media (max-width: 960px) {
+  .calc-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
-      <nav class="site-nav" id="mainNav">
-        <a href="index.html">All US Tools</a>
-        <a href="diagonal-calculator.html">Diagonal</a>
-        <a href="gallon-to-liter-calculator.html">Gallon to Liter</a>
-        <a href="concrete-calculator.html">Concrete</a>
-        <a href="triangle-calculator.html">Triangle</a>
-        <a href="mortgage-calculator.html">Mortgage</a>
-      </nav>
-    </div>
-  </header>
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <span class="eyebrow"><i class="fas fa-ruler-combined"></i> Geometry & Carpentry</span>
-          <h1>Diagonal Calculator (US)</h1>
-          <p>Quickly calculate the diagonal of rectangles, TV screens, square layouts, right triangles (Pythagorean 3-4-5), and 3D boxes in inches, feet, and yards.</p>
-        </div>
-        <aside class="hero-panel">
-          <h2>US Customary Units</h2>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Standard Inches (in), Feet (ft), Yards (yd) & Metric</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> TV & Monitor aspect ratio calculations (16:9, 21:9, 4:3)</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> 3-4-5 Framing & Construction Squaring check</div>
-        </aside>
-      </div>
-    </section>
+/* Nav mode switch */
+.mode-nav-shell {
+  background: #f1f5f9;
+  padding: 0.35rem;
+  border-radius: var(--ic-radius-lg);
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--ic-border);
+}
+.mode-switch-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.mode-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--ic-radius-md);
+  border: none;
+  background: transparent;
+  color: var(--ic-text-muted);
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mode-pill-btn i {
+  font-size: 0.95rem;
+  color: var(--ic-text-muted);
+  transition: color 0.2s ease;
+}
+.mode-pill-btn:hover {
+  color: var(--ic-primary-dark);
+  background: rgba(255, 255, 255, 0.7);
+}
+.mode-pill-btn.active {
+  background: #ffffff;
+  color: var(--ic-primary-dark);
+  font-weight: 700;
+  box-shadow: 0 3px 10px rgba(0, 95, 115, 0.12);
+}
+.mode-pill-btn.active i {
+  color: var(--ic-primary);
+}
 
-    <section class="section">
-      <div class="container calc-layout">
-        <div class="calculator-shell" id="calcTarget">
-          <div class="shape-nav-wrap">
-            <button type="button" class="mode-pill-btn active" data-mode="rectangle"><i class="fas fa-vector-square"></i> Rectangle / TV</button>
-            <button type="button" class="mode-pill-btn" data-mode="square"><i class="fas fa-square"></i> Square</button>
-            <button type="button" class="mode-pill-btn" data-mode="triangle"><i class="fas fa-play" style="transform:rotate(-90deg)"></i> 3-4-5 / Hypotenuse</button>
-            <button type="button" class="mode-pill-btn" data-mode="box3d"><i class="fas fa-cube"></i> 3D Box / Room</button>
-          </div>
+/* Hero Result Card */
+.hero-result-card {
+  background: linear-gradient(135deg, #f0fdfa 0%, #e6f7f6 100%);
+  border: 1px solid rgba(0, 127, 139, 0.25);
+  border-radius: var(--ic-radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+.hero-result-card .label-group {
+  display: grid;
+  gap: 0.2rem;
+}
+.hero-result-card .res-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ic-primary-dark);
+}
+.hero-result-card .res-val {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 800;
+  color: var(--ic-primary-dark);
+  line-height: 1.15;
+}
+.hero-result-card .res-desc {
+  font-size: 0.85rem;
+  color: var(--ic-text-muted);
+}
+.hero-result-card .quick-copy-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 127, 139, 0.25);
+  background: #ffffff;
+  color: var(--ic-primary-dark);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.hero-result-card .quick-copy-btn:hover {
+  background: var(--ic-primary-dark);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
 
-          <div class="mobile-summary-pill" id="mobileSummaryPill">
-            <span class="metric-label">Diagonal Length</span>
-            <span class="metric-val" id="mobileSummaryVal">-</span>
-          </div>
+/* Panels */
+.mode-panel {
+  display: none;
+  gap: 1.25rem;
+}
+.mode-panel.active {
+  display: grid;
+}
 
-          <div class="fin-studio-grid">
-            <div class="studio-inputs">
-              <!-- Unit Selector -->
-              <div class="field-card" style="background:#f8fafc;">
-                <div class="field-head">
-                  <label for="unitSelect"><i class="fas fa-ruler"></i> Measurement Unit</label>
-                </div>
-                <select id="unitSelect" style="font-weight:700;">
-                  <option value="in" selected>Inches (in)</option>
-                  <option value="ft">Feet (ft)</option>
-                  <option value="yd">Yards (yd)</option>
-                  <option value="cm">Centimeters (cm)</option>
-                  <option value="m">Meters (m)</option>
-                  <option value="mm">Millimeters (mm)</option>
-                </select>
-              </div>
+/* Form fields */
+.fields-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.85rem;
+}
 
-              <!-- Input A: Length / Width -->
-              <div class="field-card" id="fieldCardA">
-                <div class="field-head">
-                  <label for="inputA" id="labelA">Width / Length (a)</label>
-                  <span class="field-preview-badge" id="previewA">48 in</span>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="rangeA" min="1" max="240" step="0.5" value="48">
-                  <div class="input-with-adornment">
-                    <input type="number" id="inputA" min="0.1" max="10000" step="0.1" value="48" class="has-suffix">
-                    <span class="input-suffix unit-label">in</span>
-                  </div>
-                </div>
-                <div class="chips-wrap" data-target="inputA" data-range="rangeA" id="chipsA">
-                  <button type="button" class="chip" data-val="12">12"</button>
-                  <button type="button" class="chip" data-val="24">24"</button>
-                  <button type="button" class="chip" data-val="48">48"</button>
-                  <button type="button" class="chip" data-val="65">65"</button>
-                  <button type="button" class="chip" data-val="120">120"</button>
-                </div>
-              </div>
+/* Results Grid */
+.results-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+.res-card-mini {
+  background: #ffffff;
+  border: 1px solid var(--ic-border);
+  border-radius: var(--ic-radius-md);
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.res-card-mini .r-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ic-text-muted);
+  letter-spacing: 0.02em;
+}
+.res-card-mini .r-val {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ic-text);
+}
+.res-card-mini.featured {
+  background: linear-gradient(135deg, var(--ic-primary-dark), var(--ic-primary));
+  color: #ffffff;
+  border-color: transparent;
+}
+.res-card-mini.featured .r-label {
+  color: rgba(255, 255, 255, 0.85);
+}
+.res-card-mini.featured .r-val {
+  color: #ffffff;
+}
 
-              <!-- Input B: Height / Width -->
-              <div class="field-card" id="fieldCardB">
-                <div class="field-head">
-                  <label for="inputB" id="labelB">Height / Depth (b)</label>
-                  <span class="field-preview-badge" id="previewB">27 in</span>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="rangeB" min="1" max="240" step="0.5" value="27">
-                  <div class="input-with-adornment">
-                    <input type="number" id="inputB" min="0.1" max="10000" step="0.1" value="27" class="has-suffix">
-                    <span class="input-suffix unit-label">in</span>
-                  </div>
-                </div>
-                <div class="chips-wrap" data-target="inputB" data-range="rangeB" id="chipsB">
-                  <button type="button" class="chip" data-val="16">16"</button>
-                  <button type="button" class="chip" data-val="27">27"</button>
-                  <button type="button" class="chip" data-val="36">36"</button>
-                  <button type="button" class="chip" data-val="72">72"</button>
-                </div>
-              </div>
+/* Diagram Card */
+.visual-studio-card {
+  background: #ffffff;
+  border: 1px solid var(--ic-border);
+  border-radius: var(--ic-radius-lg);
+  padding: 1.25rem;
+  box-shadow: var(--ic-shadow-sm);
+  display: grid;
+  gap: 0.75rem;
+}
+.visual-studio-card .diagram-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ic-text);
+}
+.diagram-canvas-wrap {
+  border-radius: var(--ic-radius-md);
+  overflow: hidden;
+  background: radial-gradient(circle at center, #ffffff 0%, #f4fbfb 100%);
+  border: 1px solid var(--ic-border);
+  padding: 0.5rem;
+}
+.diagram-canvas-wrap svg {
+  width: 100%;
+  height: 230px;
+  display: block;
+}
 
-              <!-- Input C: 3D Depth / Height (Box only) -->
-              <div class="field-card" id="fieldCardC" style="display:none;">
-                <div class="field-head">
-                  <label for="inputC" id="labelC">Depth / Height (c)</label>
-                  <span class="field-preview-badge" id="previewC">18 in</span>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="rangeC" min="1" max="240" step="0.5" value="18">
-                  <div class="input-with-adornment">
-                    <input type="number" id="inputC" min="0.1" max="10000" step="0.1" value="18" class="has-suffix">
-                    <span class="input-suffix unit-label">in</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+/* History Box */
+.calc-log-card {
+  background: #ffffff;
+  border: 1px solid var(--ic-border);
+  border-radius: var(--ic-radius-lg);
+  padding: 1.25rem;
+  box-shadow: var(--ic-shadow-sm);
+}
+.history-scroll-box {
+  max-height: 220px;
+  overflow-y: auto;
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.history-entry {
+  border: 1px solid var(--ic-border);
+  border-radius: var(--ic-radius-sm);
+  background: var(--ic-bg-subtle);
+  padding: 0.6rem 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+.history-entry strong {
+  color: var(--ic-primary-dark);
+}
 
-            <div class="studio-outcome">
-              <div class="hero-result-card">
-                <div class="label-group">
-                  <span class="res-eyebrow"><i class="fas fa-ruler-combined"></i> Calculated Diagonal Length (d)</span>
-                  <div class="res-val" id="resHeroDiagonal">-</div>
-                  <div class="res-desc" id="resHeroFormula">Formula: d = √(a² + b²)</div>
-                </div>
-                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
-              </div>
+/* ===== Fraction / Decimal Input Mode ===== */
+.input-unit-group {
+  display: flex;
+  gap: 0.35rem;
+  align-items: stretch;
+}
+.input-unit-group .fraction-input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.input-unit-group .ic-input,
+.input-unit-group select {
+  min-width: 0;
+}
+.fraction-input {
+  font-family: 'Sora', ui-monospace, monospace;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.fraction-input.is-invalid {
+  border-color: #e76f51 !important;
+  box-shadow: 0 0 0 3px rgba(231, 111, 81, 0.15) !important;
+}
+.frac-hint {
+  font-size: 0.72rem;
+  color: var(--ic-text-muted);
+  margin-top: 0.2rem;
+  display: block;
+  min-height: 0.95rem;
+}
+.frac-hint.ok {
+  color: var(--ic-primary-dark);
+  font-weight: 600;
+}
+.frac-hint.err {
+  color: #e76f51;
+  font-weight: 600;
+}
+/* Input mode toggle (Decimal | Fraction) */
+.frac-mode-toggle {
+  display: inline-flex;
+  gap: 0.25rem;
+  background: #f1f5f9;
+  border: 1px solid var(--ic-border);
+  border-radius: 999px;
+  padding: 0.2rem;
+}
+.frac-mode-toggle button {
+  border: none;
+  background: transparent;
+  color: var(--ic-text-muted);
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  line-height: 1.1;
+}
+.frac-mode-toggle button:hover {
+  color: var(--ic-primary-dark);
+}
+.frac-mode-toggle button.active {
+  background: #ffffff;
+  color: var(--ic-primary-dark);
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 95, 115, 0.14);
+}
+/* Dedicated Fractional Keypad */
+.frac-keypad {
+  display: none;
+  margin-top: 0.75rem;
+  border: 1px solid rgba(0, 127, 139, 0.25);
+  border-radius: var(--ic-radius-md);
+  background: linear-gradient(180deg, #f8fdfd 0%, #eef8f7 100%);
+  padding: 0.85rem;
+  box-shadow: 0 6px 18px rgba(0, 95, 115, 0.08);
+}
+.frac-keypad.open {
+  display: block;
+  animation: fracPadIn 0.18s ease;
+}
+@keyframes fracPadIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.frac-keypad-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.65rem;
+  flex-wrap: wrap;
+}
+.frac-keypad-head .kp-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ic-primary-dark);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.frac-keypad-head .kp-live {
+  font-family: 'Sora', ui-monospace, monospace;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--ic-primary-dark);
+  background: #ffffff;
+  border: 1px solid rgba(0, 127, 139, 0.25);
+  border-radius: 10px;
+  padding: 0.25rem 0.7rem;
+  min-width: 120px;
+  text-align: right;
+}
+.frac-keypad .kp-active-field {
+  font-size: 0.75rem;
+  color: var(--ic-text-muted);
+  margin-bottom: 0.55rem;
+  font-weight: 600;
+}
+.frac-keypad .kp-active-field b {
+  color: var(--ic-primary-dark);
+}
+.kp-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+.kp-btn {
+  border: 1px solid var(--ic-border);
+  background: #ffffff;
+  color: var(--ic-text);
+  border-radius: 10px;
+  padding: 0.55rem 0.2rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: 'Sora', sans-serif;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  user-select: none;
+}
+.kp-btn:hover {
+  background: #e6f7f6;
+  border-color: rgba(0, 127, 139, 0.4);
+  color: var(--ic-primary-dark);
+}
+.kp-btn:active {
+  transform: scale(0.96);
+}
+.kp-btn.kp-num {
+  background: #fbfefe;
+}
+.kp-btn.kp-op {
+  background: #f1f5f9;
+  color: var(--ic-primary-dark);
+}
+.kp-btn.kp-frac {
+  background: #fff7ed;
+  border-color: #fed7aa;
+  color: #9a3412;
+}
+.kp-btn.kp-frac:hover {
+  background: #ffedd5;
+  border-color: #fdba74;
+  color: #7c2d12;
+}
+.kp-btn.kp-unit {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+  color: #3730a3;
+  font-size: 0.82rem;
+}
+.kp-btn.kp-unit:hover {
+  background: #e0e7ff;
+}
+.kp-btn.kp-action {
+  background: var(--ic-primary-dark);
+  border-color: var(--ic-primary-dark);
+  color: #ffffff;
+}
+.kp-btn.kp-action:hover {
+  background: var(--ic-primary);
+  border-color: var(--ic-primary);
+  color: #ffffff;
+}
+.kp-btn.kp-wide {
+  grid-column: span 2;
+}
+.kp-btn.kp-space {
+  font-size: 0.8rem;
+  color: var(--ic-text-muted);
+}
+@media (max-width: 560px) {
+  .kp-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .kp-btn { min-height: 38px; font-size: 0.85rem; }
+}
+/* Common fraction quick chips row */
+.kp-common-row {
+  margin-top: 0.55rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+}
+.kp-common-row .kp-common-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ic-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-right: 0.15rem;
+}
+.kp-common-btn {
+  border: 1px solid var(--ic-border);
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: 'Sora', sans-serif;
+  color: var(--ic-primary-dark);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.kp-common-btn:hover {
+  background: var(--ic-primary-dark);
+  color: #ffffff;
+  border-color: var(--ic-primary-dark);
+}
+</style>
 
-              <div class="geo-canvas-card">
-                <svg id="geoSvg" class="svg-geo-wrap" viewBox="0 0 400 200">
-                  <!-- Dynamic SVG rendering via JS -->
-                </svg>
-              </div>
-
-              <div class="result-grid">
-                <div class="result-card positive"><h3>Diagonal (d)</h3><div class="result-value" id="resDiagonal">-</div></div>
-                <div class="result-card"><h3>Surface Area</h3><div class="result-value" id="resArea">-</div></div>
-                <div class="result-card"><h3>Perimeter</h3><div class="result-value" id="resPerimeter">-</div></div>
-                <div class="result-card"><h3>Diagonal Angle (θ)</h3><div class="result-value" id="resAngle">-</div></div>
-              </div>
-
-              <div class="calculator-actions">
-                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
-                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
-                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="table-tools" style="margin-top:2rem;">
-            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Standard Dimensional & Unit Conversions</h3>
-            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
-          </div>
-          <div class="table-shell">
-            <table class="projection-table">
-              <thead>
-                <tr>
-                  <th>Unit</th>
-                  <th>Diagonal Length</th>
-                  <th>Side A (Width)</th>
-                  <th>Side B (Height)</th>
-                  <th>Area</th>
-                </tr>
-              </thead>
-              <tbody id="projectionTable"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <aside class="sidebar">
-          <div class="sidebar-card">
-            <h3>US Construction & Math Tools</h3>
-            <ul class="link-list">
-              <li><a href="triangle-calculator.html"><span>Triangle Calculator</span><i class="fas fa-arrow-right"></i></a></li>
-              <li><a href="concrete-calculator.html"><span>Concrete Calculator (Yds)</span><i class="fas fa-arrow-right"></i></a></li>
-              <li><a href="gallon-to-liter-calculator.html"><span>Gallon to Liter</span><i class="fas fa-arrow-right"></i></a></li>
-              <li><a href="mortgage-calculator.html"><span>Mortgage Calculator</span><i class="fas fa-arrow-right"></i></a></li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-    </section>
-  </main>
+  <script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"FAQPage",
+"mainEntity":[
+{"@type":"Question","name":"What is the rectangle diagonal formula?","acceptedAnswer":{"@type":"Answer","text":"d = √(length² + width²), the Pythagorean theorem. A 16×9 cm rectangle has a diagonal of √337 ≈ 18.36 cm."}},
+{"@type":"Question","name":"What is a square's diagonal?","acceptedAnswer":{"@type":"Answer","text":"d = s × √2. A 10 cm square has a diagonal of about 14.14 cm."}},
+{"@type":"Question","name":"What is the 3-4-5 rule in carpentry?","acceptedAnswer":{"@type":"Answer","text":"If legs are in a 3:4 ratio, the diagonal is exactly 5 units — a fast integer right-angle check used on decks, frames, and foundations."}},
+{"@type":"Question","name":"How do I check if a room is square?","acceptedAnswer":{"@type":"Answer","text":"Measure both diagonals corner-to-corner. If they match within 0.5 percent (about 3-4 mm per meter), the room is square."}},
+{"@type":"Question","name":"How is TV screen size measured?","acceptedAnswer":{"@type":"Answer","text":"As the diagonal in inches, excluding the bezel. A \"55-inch\" TV has a 55-inch panel diagonal — roughly 47.9 × 26.96 inches at 16:9 aspect."}},
+{"@type":"Question","name":"What is the space diagonal of a 3D box?","acceptedAnswer":{"@type":"Answer","text":"The inside corner-to-opposite-corner line, d = √(l² + w² + h²). Useful for shipping — the longest item to fit inside a box."}},
+{"@type":"Question","name":"How many diagonals does a polygon have?","acceptedAnswer":{"@type":"Answer","text":"Formula: n(n−3) ÷ 2. A pentagon has 5; a hexagon 9; a decagon 35."}},
+{"@type":"Question","name":"Are a rhombus's diagonals perpendicular?","acceptedAnswer":{"@type":"Answer","text":"Always — they bisect each other at right angles. Given one diagonal p and side a, the other is q = 2 × √(a² − (p/2)²)."}},
+{"@type":"Question","name":"How do I find a parallelogram diagonal?","acceptedAnswer":{"@type":"Answer","text":"Using the law of cosines: d = √(a² + b² − 2ab·cos θ), where a and b are adjacent sides and θ the included angle."}},
+{"@type":"Question","name":"What is the diagonal of a cube?","acceptedAnswer":{"@type":"Answer","text":"d = s × √3 — the space-diagonal formula when all three dimensions are equal."}}
+]
+}
+</script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "Diagonal Calculator (US)",
+    "name": "Diagonal Calculator (US) — InstaCalc",
     "url": "https://instacalc.in/us/diagonal-calculator.html",
-    "applicationCategory": "EducationalApplication",
+    "applicationCategory": "FinanceApplication",
+    "inLanguage": "en-US",
     "operatingSystem": "All",
-    "description": "Calculate diagonal length for rectangles, TV screens, squares, right triangles, and 3D boxes in inches, feet, and yards.",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "description": "Calculate diagonal of a rectangle, TV/monitor screen size, square, 3D box, and 3-4-5 carpentry squaring in inches, feet, and yards with visual geometry breakdown.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "InstaCalc",
+      "url": "https://instacalc.in"
+    }
   }
   </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
+    "@type": "BreadcrumbList",
+    "itemListElement": [
       {
-        "@type": "Question",
-        "name": "How to calculate the diagonal of a rectangle?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The diagonal is calculated using the Pythagorean theorem: d = sqrt(width² + height²). For example, a 36-inch by 48-inch rectangle has a diagonal of 60 inches."
-        }
+        "@type": "ListItem",
+        "position": 1,
+        "name": "InstaCalc",
+        "item": "https://instacalc.in/"
       },
       {
-        "@type": "Question",
-        "name": "What is the 3-4-5 rule in carpentry and squaring?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The 3-4-5 rule states that if one side of a corner measures 3 feet, the perpendicular side measures 4 feet, and the diagonal between them measures exactly 5 feet, the corner is a perfect 90-degree right angle."
-        }
+        "@type": "ListItem",
+        "position": 2,
+        "name": "US Calculators",
+        "item": "https://instacalc.in/us/index.html"
       },
       {
-        "@type": "Question",
-        "name": "How are TV screen sizes measured?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Television and computer monitor sizes (e.g. 55-inch or 65-inch) are measured diagonally from the top-left corner to the bottom-right corner of the viewable display panel."
-        }
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Diagonal Calculator (US)",
+        "item": "https://instacalc.in/us/diagonal-calculator.html"
       }
     ]
   }
   </script>
-  <script>
-    (function () {
-      let currentMode = "rectangle";
-      let lastSummaryText = "";
-      let lastTableData = [];
+</head>
 
-      const elements = {
-        unitSelect: document.getElementById("unitSelect"),
-        inputA: document.getElementById("inputA"),
-        rangeA: document.getElementById("rangeA"),
-        labelA: document.getElementById("labelA"),
-        previewA: document.getElementById("previewA"),
-        chipsA: document.getElementById("chipsA"),
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="brand" aria-label="InstaCalc US Home">
+      <img src="../logo.png" alt="InstaCalc logo">
+      <span>InstaCalc <small style="font-size:0.75rem; background:#0284c7; color:#fff; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">USA</small></span>
+    </a>
+    <div class="lang-switch">
+      <select id="langSelect" aria-label="Select Region / Language" class="ic-input" style="height: 38px; width: auto; padding: 0.2rem 0.6rem; font-size: 0.85rem;">
+        <option value="us" selected>United States ($ USD)</option>
+        <option value="in">India (₹ INR)</option>
+        <option value="ja">日本語 (Japan)</option>
+        <option value="ru">Русский (Russia)</option>
+      </select>
+    </div>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+    <nav class="site-nav" id="mainNav">
+      <a href="index.html" class="nav-link">US Home</a>
+      <a href="diagonal-calculator.html" class="nav-link">Diagonal</a>
+      <a href="gallon-to-liter-calculator.html" class="nav-link">Gallon to Liter</a>
+      <a href="concrete-calculator.html" class="nav-link">Concrete</a>
+      <a href="triangle-calculator.html" class="nav-link">Triangle</a>
+      <a href="mortgage-calculator.html" class="nav-link">Mortgage</a>
+    </nav>
+  </div>
+</header>
 
-        inputB: document.getElementById("inputB"),
-        rangeB: document.getElementById("rangeB"),
-        labelB: document.getElementById("labelB"),
-        previewB: document.getElementById("previewB"),
-        chipsB: document.getElementById("chipsB"),
-        fieldCardB: document.getElementById("fieldCardB"),
+<main>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow"><i class="fas fa-ruler-combined" style="margin-right:0.3rem;"></i> Geometry & Carpentry</span>
+        <h1>Diagonal Calculator (US)</h1>
+        <p>Quickly calculate the diagonal of rectangles, TV screens, square layouts, right triangles (Pythagorean 3-4-5), and 3D boxes in inches, feet, and yards.</p>
+        <div class="hero-actions">
+          <a href="#calculator" class="btn btn-primary"><i class="fas fa-calculator"></i> Calculate Now</a>
+          <a href="#formulaGuide" class="btn btn-ghost"><i class="fas fa-book-open"></i> Formula Guide</a>
+        </div>
+      </div>
+      <aside class="hero-panel">
+        <h2><i class="fas fa-bolt" style="margin-right: 0.4rem; color: #ffd166;"></i> US Customary Units</h2>
+        <div class="hero-point"><i class="fas fa-circle-check"></i> Standard Inches (in), Feet (ft), Yards (yd) & Metric</div>
+        <div class="hero-point"><i class="fas fa-circle-check"></i> TV & Monitor aspect ratio calculations (16:9, 21:9, 4:3)</div>
+        <div class="hero-point"><i class="fas fa-circle-check"></i> 3-4-5 Framing & Construction Squaring check</div>
+      </aside>
+    </div>
+  </section>
 
-        inputC: document.getElementById("inputC"),
-        rangeC: document.getElementById("rangeC"),
-        labelC: document.getElementById("labelC"),
-        previewC: document.getElementById("previewC"),
-        fieldCardC: document.getElementById("fieldCardC"),
+  <!-- Interactive Calculator Section -->
+  <section class="section" id="calculator">
+    <div class="container calc-layout-grid">
+      
+      <!-- Main Tool Shell -->
+      <article class="calculator-shell" style="padding: 1.5rem;">
+        
+        <!-- Mobile Sticky Summary Pill -->
+        <div class="mobile-summary-pill" id="mobileSummaryPill">
+          <span class="metric-label" id="mobileSummaryLabel">Diagonal</span>
+          <span class="metric-val" id="mobileSummaryVal">-</span>
+        </div>
 
-        resHeroDiagonal: document.getElementById("resHeroDiagonal"),
-        resHeroFormula: document.getElementById("resHeroFormula"),
-        resDiagonal: document.getElementById("resDiagonal"),
-        resArea: document.getElementById("resArea"),
-        resPerimeter: document.getElementById("resPerimeter"),
-        resAngle: document.getElementById("resAngle"),
-        mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+        <!-- Hero Result Card -->
+        <div class="hero-result-card">
+          <div class="label-group">
+            <span class="res-eyebrow" id="primaryEyebrow">Primary Result</span>
+            <div class="res-val" id="primaryValue">-</div>
+            <div class="res-desc" id="primaryContext">Enter dimensions below to calculate.</div>
+          </div>
+          <button type="button" class="quick-copy-btn" id="copyBtn" title="Copy Result">
+            <i class="fas fa-copy"></i>
+          </button>
+        </div>
 
-        geoSvg: document.getElementById("geoSvg"),
-        projectionTable: document.getElementById("projectionTable"),
-        recalculateBtn: document.getElementById("recalculateBtn"),
-        resetBtn: document.getElementById("resetBtn"),
-        copySummaryBtn: document.getElementById("copySummaryBtn"),
-        copyHeroBtn: document.getElementById("copyHeroBtn"),
-        downloadCsvBtn: document.getElementById("downloadCsvBtn")
-      };
+        <!-- Mode Switcher Navigation -->
+        <div class="mode-nav-shell">
+          <div class="mode-switch-grid" role="tablist" aria-label="Diagonal modes">
+            <button class="mode-pill-btn active" data-mode="rectangle" role="tab" aria-selected="true">
+              <i class="fas fa-vector-square"></i> Rectangle / TV
+            </button>
+            <button class="mode-pill-btn" data-mode="square" role="tab" aria-selected="false">
+              <i class="far fa-square"></i> Square
+            </button>
+            <button class="mode-pill-btn" data-mode="triangle" role="tab" aria-selected="false">
+              <i class="fas fa-play" style="transform: rotate(-90deg); font-size: 0.75rem;"></i> 3-4-5 / Hypotenuse
+            </button>
+            <button class="mode-pill-btn" data-mode="box3d" role="tab" aria-selected="false">
+              <i class="fas fa-cube"></i> 3D Box / Room
+            </button>
+          </div>
+        </div>
 
-      function sync(r, n) {
-        if (!r || !n) return;
-        r.addEventListener("input", () => { n.value = r.value; calculate(); });
-        n.addEventListener("input", () => { r.value = r.value; calculate(); });
-      }
+        <!-- 1. RECTANGLE PANEL -->
+        <section class="mode-panel active" data-panel="rectangle">
+          <div class="field-card">
+            <div class="field-head">
+              <span>Rectangle Dimensions</span>
+              <div class="frac-mode-toggle" data-toggle-for="rectangle" role="group" aria-label="Input mode">
+                <button type="button" class="active" data-ime="decimal">Decimal</button>
+                <button type="button" data-ime="fraction">Fraction</button>
+              </div>
+            </div>
+            <div class="fields-row">
+              <div class="field">
+                <label for="rectLength">Width / Length (a)</label>
+                <div class="input-unit-group">
+                  <input type="text" inputmode="decimal" class="ic-input fraction-input" id="rectLength" value="48" data-help="rectLengthHint" autocomplete="off">
+                </div>
+                <span class="frac-hint" id="rectLengthHint"></span>
+              </div>
+              <div class="field">
+                <label for="rectWidth">Height / Depth (b)</label>
+                <div class="input-unit-group">
+                  <input type="text" inputmode="decimal" class="ic-input fraction-input" id="rectWidth" value="27" data-help="rectWidthHint" autocomplete="off">
+                </div>
+                <span class="frac-hint" id="rectWidthHint"></span>
+              </div>
+              <div class="field">
+                <label for="rectUnit">Unit</label>
+                <select id="rectUnit"><option>in</option><option>ft</option><option>yd</option><option>cm</option><option>m</option><option>mm</option></select>
+              </div>
+            </div>
+            <div class="chips-wrap" style="margin-top: 0.6rem;">
+              <button type="button" class="chip" data-set='{"rectLength":"16","rectWidth":"9"}'>16 : 9</button>
+              <button type="button" class="chip" data-set='{"rectLength":"4","rectWidth":"3"}'>4 : 3</button>
+              <button type="button" class="chip" data-set='{"rectLength":"21","rectWidth":"9"}'>21 : 9</button>
+              <button type="button" class="chip" data-set='{"rectLength":"48","rectWidth":"27"}'>48 × 27 in</button>
+              <button type="button" class="chip" data-set="{&quot;rectLength&quot;:&quot;3&#39; 1/2\&quot;&quot;,&quot;rectWidth&quot;:&quot;2&#39; 1/4\&quot;&quot;}">3&#39; 1/2" × 2&#39; 1/4" (Fraction)</button>
+            </div>
+          </div>
+          
+          <div class="results-cards-grid">
+            <div class="res-card-mini featured">
+              <span class="r-label">Diagonal Length</span>
+              <div class="r-val" id="rectDiagonal">-</div>
+            </div>
+            <div class="res-card-mini">
+              <span class="r-label">Surface Area</span>
+              <div class="r-val" id="rectArea">-</div>
+            </div>
+            <div class="res-card-mini">
+              <span class="r-label">Perimeter</span>
+              <div class="r-val" id="rectPerimeter">-</div>
+            </div>
+            <div class="res-card-mini">
+              <span class="r-label">Diagonal Angle (θ)</span>
+              <div class="r-val" id="rectAngle">-</div>
+            </div>
+          </div>
+        </section>
 
-      function setupModes() {
-        document.querySelectorAll(".mode-pill-btn").forEach(btn => {
-          btn.addEventListener("click", function () {
-            document.querySelectorAll(".mode-pill-btn").forEach(b => b.classList.remove("active"));
-            this.classList.add("active");
-            currentMode = this.dataset.mode;
-            updateModeUI();
-            calculate();
-          });
-        });
-      }
+        <!-- 2. SQUARE PANEL -->
+        <section class="mode-panel" data-panel="square">
+          <div class="field-card">
+            <div class="field-head">
+              <span>Square Dimensions</span>
+              <div class="frac-mode-toggle" data-toggle-for="square" role="group" aria-label="Input mode">
+                <button type="button" class="active" data-ime="decimal">Decimal</button>
+                <button type="button" data-ime="fraction">Fraction</button>
+              </div>
+            </div>
+            <div class="fields-row">
+              <div class="field">
+                <label for="sqSide">Side Length (s)</label>
+                <input type="text" inputmode="decimal" class="ic-input fraction-input" id="sqSide" value="12" data-help="sqSideHint" autocomplete="off">
+                <span class="frac-hint" id="sqSideHint"></span>
+              </div>
+              <div class="field">
+                <label for="sqUnit">Unit</label>
+                <select id="sqUnit"><option>in</option><option>ft</option><option>yd</option><option>cm</option><option>m</option><option>mm</option></select>
+              </div>
+            </div>
+            <div class="chips-wrap" style="margin-top: 0.6rem;">
+              <button type="button" class="chip" data-set='{"sqSide":"10"}'>10</button>
+              <button type="button" class="chip" data-set='{"sqSide":"24"}'>24</button>
+              <button type="button" class="chip" data-set='{"sqSide":"36"}'>36</button>
+              <button type="button" class="chip" data-set='{"sqSide":"50"}'>50</button>
+              <button type="button" class="chip" data-set='{"sqSide":"100"}'>100</button>
+            </div>
+          </div>
+          
+          <div class="results-cards-grid">
+            <div class="res-card-mini featured">
+              <span class="r-label">Square Diagonal</span>
+              <div class="r-val" id="sqDiagonal">-</div>
+            </div>
+            <div class="res-card-mini">
+              <span class="r-label">Surface Area</span>
+              <div class="r-val" id="sqArea">-</div>
+            </div>
+            <div class="res-card-mini">
+              <span class="r-label">Perimeter</span>
+              <div class="r-val" id="sqPerimeter">-</div>
+            </div>
+            <div class="res-card-mini">
+              <span class="r-label">Diagonal Angle</span>
+              <div class="r-val">45°</div>
+            </div>
+          </div>
+        </section>
 
-      function updateModeUI() {
-        if (currentMode === "square") {
-          elements.labelA.textContent = "Square Side (s)";
-          elements.fieldCardB.style.display = "none";
-          elements.fieldCardC.style.display = "none";
-        } else if (currentMode === "box3d") {
-          elements.labelA.textContent = "Length (l)";
-          elements.labelB.textContent = "Width (w)";
-          elements.labelC.textContent = "Height (h)";
-          elements.fieldCardB.style.display = "block";
-          elements.fieldCardC.style.display = "block";
-        } else if (currentMode === "triangle") {
-          elements.labelA.textContent = "Leg A (Base)";
-          elements.labelB.textContent = "Leg B (Perpendicular)";
-          elements.fieldCardB.style.display = "block";
-          elements.fieldCardC.style.display = "none";
-        } else {
-          elements.labelA.textContent = "Width / Length (a)";
-          elements.labelB.textContent = "Height / Depth (b)";
-          elements.fieldCardB.style.display = "block";
-          elements.fieldCardC.style.display = "none";
-        }
-      }
+        <!-- 3. TRIANGLE PANEL -->
+        <section class="mode-panel" data-panel="triangle">
+          <div class="field-card">
+            <div class="field-head">
+              <span>Right Triangle (Hypotenuse) & 3-4-5 Squaring Mode</span>
+              <div class="frac-mode-toggle" data-toggle-for="triangle" role="group" aria-label="Input mode">
+                <button type="button" class="active" data-ime="decimal">Decimal</button>
+                <button type="button" data-ime="fraction">Fraction</button>
+              </div>
+            </div>
+            <div class="fields-row">
+              <div class="field">
+                <label for="triSideA">Leg A (Base)</label>
+                <input type="text" inputmode="decimal" class="ic-input fraction-input" id="triSideA" value="3" data-help="triSideAHint" autocomplete="off">
+                <span class="frac-hint" id="triSideAHint"></span>
+              </div>
+              <div class="field">
+                <label for="triSideB">Leg B (Perpendicular)</label>
+                <input type="text" inputmode="decimal" class="ic-input fraction-input" id="triSideB" value="4" data-help="triSideBHint" autocomplete="off">
+                <span class="frac-hint" id="triSideBHint"></span>
+              </div>
+              <div class="field">
+                <label for="triUnit">Unit</label>
+                <select id="triUnit"><option>in</option><option>ft</option><option>yd</option><option>cm</option><option>m</option><option>mm</option></select>
+              </div>
+            </div>
+            
+            <div class="chips-wrap" style="margin-top: 0.6rem;" id="triPresetChips">
+              <button type="button" class="chip" data-a="3" data-b="4">3-4-5 (Squaring)</button>
+              <button type="button" class="chip" data-a="5" data-b="12">5-12-13</button>
+              <button type="button" class="chip" data-a="6" data-b="8">6-8-10</button>
+              <button type="button" class="chip" data-a="8" data-b="15">8-15-17</button>
+            </div>
+          </div>
 
-      function calculate() {
-        const u = elements.unitSelect.value;
-        document.querySelectorAll(".unit-label").forEach(el => el.textContent = u);
+          <div class="results-cards-grid">
+            <div class="res-card-mini featured">
+              <span class="r-label">Hypotenuse (c)</span>
+              <div class="r-val" id="triResultValue">-</div>
+            </div>
+            <div class="res-card-mini">
+              <span class="r-label">Area</span>
+              <div class="r-val" id="triArea">-</div>
+            </div>
+            <div class="res-card-mini">
+              <span class="r-label">Perimeter</span>
+              <div class="r-val" id="triPerimeter">-</div>
+            </div>
+            <div class="res-card-mini">
+              <span class="r-label">Interior Angles</span>
+              <div class="r-val" id="triAngles" style="font-size: 0.88rem;">-</div>
+            </div>
+          </div>
+          <div style="font-size: 0.85rem; color: var(--ic-text-muted); background: var(--ic-bg-subtle); padding: 0.6rem 0.8rem; border-radius: var(--ic-radius-sm); border-left: 3px solid var(--ic-primary);">
+            <i class="fas fa-info-circle" style="color: var(--ic-primary); margin-right: 0.3rem;"></i>
+            <strong>Note:</strong> In carpentry and construction, the "diagonal" of a triangle refers to the <strong>Hypotenuse</strong> (c = √(a² + b²)).
+          </div>
+        </section>
 
-        const a = Number(elements.inputA.value) || 48;
-        const b = Number(elements.inputB.value) || 27;
-        const c = Number(elements.inputC.value) || 18;
+        <!-- 4. CUBOID PANEL -->
+        <section class="mode-panel" data-panel="box3d">
+          <div class="field-card">
+            <div class="field-head">
+              <span>3D Box / Room Dimensions</span>
+              <div class="frac-mode-toggle" data-toggle-for="box3d" role="group" aria-label="Input mode">
+                <button type="button" class="active" data-ime="decimal">Decimal</button>
+                <button type="button" data-ime="fraction">Fraction</button>
+              </div>
+            </div>
+            <div class="fields-row">
+              <div class="field"><label for="boxLength">Length (l)</label><input type="text" inputmode="decimal" class="ic-input fraction-input" id="boxLength" value="48" data-help="boxLengthHint" autocomplete="off"><span class="frac-hint" id="boxLengthHint"></span></div>
+              <div class="field"><label for="boxWidth">Width (w)</label><input type="text" inputmode="decimal" class="ic-input fraction-input" id="boxWidth" value="36" data-help="boxWidthHint" autocomplete="off"><span class="frac-hint" id="boxWidthHint"></span></div>
+              <div class="field"><label for="boxHeight">Height (h)</label><input type="text" inputmode="decimal" class="ic-input fraction-input" id="boxHeight" value="18" data-help="boxHeightHint" autocomplete="off"><span class="frac-hint" id="boxHeightHint"></span></div>
+              <div class="field"><label for="boxUnit">Unit</label><select id="boxUnit"><option>in</option><option>ft</option><option>yd</option><option>cm</option><option>m</option><option>mm</option></select></div>
+            </div>
+            <div class="chips-wrap" style="margin-top: 0.6rem;">
+              <button type="button" class="chip" data-set='{"boxLength":"10","boxWidth":"10","boxHeight":"10"}'>10×10×10 (Cube)</button>
+              <button type="button" class="chip" data-set='{"boxLength":"48","boxWidth":"36","boxHeight":"18"}'>48×36×18 in</button>
+            </div>
+          </div>
+          <div class="results-cards-grid">
+            <div class="res-card-mini featured">
+              <span class="r-label">3D Space Diagonal</span>
+              <div class="r-val" id="boxDiagonal">-</div>
+            </div>
+            <div class="res-card-mini">
+              <span class="r-label">Surface Area</span>
+              <div class="r-val" id="boxArea">-</div>
+            </div>
+            <div class="res-card-mini">
+              <span class="r-label">Perimeter</span>
+              <div class="r-val" id="boxPerimeter">-</div>
+            </div>
+            <div class="res-card-mini">
+              <span class="r-label">Diagonal Angle</span>
+              <div class="r-val" id="boxAngle">-</div>
+            </div>
+          </div>
+        </section>
 
-        elements.previewA.textContent = a + " " + u;
-        elements.previewB.textContent = b + " " + u;
-        elements.previewC.textContent = c + " " + u;
+        <!-- ===== Dedicated Fractional Keyboard ===== -->
+        <div class="frac-keypad" id="fracKeypad" aria-label="Fraction input keypad">
+          <div class="frac-keypad-head">
+            <span class="kp-title"><i class="fas fa-keyboard"></i> Fraction Keypad</span>
+            <span class="kp-live" id="kpLive" title="Parsed decimal value">0</span>
+            <button type="button" class="kp-btn" id="kpClose" style="width:auto; padding:0.3rem 0.6rem; min-height:30px; font-size:0.75rem; background:#fff; color:var(--ic-text-muted); border-radius:999px;" title="Close keypad"><i class="fas fa-xmark"></i></button>
+          </div>
+          <div class="kp-active-field" id="kpActiveField">Editing: <b id="kpActiveName">—</b> <span id="kpActiveUnit"></span></div>
+          <div class="kp-grid" id="kpGrid">
+            <button type="button" class="kp-btn kp-num" data-kp="1">1</button>
+            <button type="button" class="kp-btn kp-num" data-kp="2">2</button>
+            <button type="button" class="kp-btn kp-num" data-kp="3">3</button>
+            <button type="button" class="kp-btn kp-frac" data-kp="/" title="Fraction bar / slash">/</button>
+            <button type="button" class="kp-btn kp-frac" data-kp="&frac12;" title="One half (1/2)">&frac12;</button>
+            <button type="button" class="kp-btn kp-frac" data-kp="&frac14;" title="One quarter (1/4)">&frac14;</button>
 
-        let diag = 0;
-        let area = 0;
-        let perim = 0;
-        let angleDeg = 0;
-        let formulaText = "";
+            <button type="button" class="kp-btn kp-num" data-kp="4">4</button>
+            <button type="button" class="kp-btn kp-num" data-kp="5">5</button>
+            <button type="button" class="kp-btn kp-num" data-kp="6">6</button>
+            <button type="button" class="kp-btn kp-frac" data-kp="&frac34;" title="Three quarters (3/4)">&frac34;</button>
+            <button type="button" class="kp-btn kp-frac" data-kp="&frac18;" title="One eighth (1/8)">&frac18;</button>
+            <button type="button" class="kp-btn kp-frac" data-kp="&frac38;" title="Three eighths (3/8)">&frac38;</button>
 
-        if (currentMode === "square") {
-          diag = a * Math.SQRT2;
-          area = a * a;
-          perim = 4 * a;
-          angleDeg = 45;
-          formulaText = "Formula: d = s × √2 = " + a + " × 1.4142";
-        } else if (currentMode === "box3d") {
-          diag = Math.sqrt(a * a + b * b + c * c);
-          area = 2 * (a * b + b * c + a * c);
-          perim = 4 * (a + b + c);
-          angleDeg = (Math.atan2(c, Math.sqrt(a * a + b * b)) * 180) / Math.PI;
-          formulaText = "Formula: d = √(l² + w² + h²)";
-        } else if (currentMode === "triangle") {
-          diag = Math.sqrt(a * a + b * b);
-          area = 0.5 * a * b;
-          perim = a + b + diag;
-          angleDeg = (Math.atan2(b, a) * 180) / Math.PI;
-          formulaText = "Formula: Hypotenuse c = √(a² + b²)";
-        } else {
-          diag = Math.sqrt(a * a + b * b);
-          area = a * b;
-          perim = 2 * (a + b);
-          angleDeg = (Math.atan2(b, a) * 180) / Math.PI;
-          formulaText = "Formula: d = √(width² + height²)";
-        }
+            <button type="button" class="kp-btn kp-num" data-kp="7">7</button>
+            <button type="button" class="kp-btn kp-num" data-kp="8">8</button>
+            <button type="button" class="kp-btn kp-num" data-kp="9">9</button>
+            <button type="button" class="kp-btn kp-num" data-kp="0">0</button>
+            <button type="button" class="kp-btn kp-op" data-kp="." title="Decimal point">.</button>
+            <button type="button" class="kp-btn kp-space" data-kp=" " title="Space (separates whole number and fraction)">Space</button>
 
-        const diagStr = diag.toFixed(2) + " " + u;
-        elements.resHeroDiagonal.textContent = diagStr;
-        elements.resHeroFormula.textContent = formulaText;
-        elements.resDiagonal.textContent = diagStr;
-        elements.resArea.textContent = area.toFixed(2) + " " + (currentMode === "box3d" ? "sq " + u + " (SA)" : "sq " + u);
-        elements.resPerimeter.textContent = perim.toFixed(2) + " " + u;
-        elements.resAngle.textContent = angleDeg.toFixed(1) + "°";
-        elements.mobileSummaryVal.textContent = diagStr;
+            <button type="button" class="kp-btn kp-unit" data-kp="'" title="Feet mark (5')">' ft</button>
+            <button type="button" class="kp-btn kp-unit" data-kp='"' title="Inch mark (6&quot;)">&quot; in</button>
+            <button type="button" class="kp-btn kp-op" data-kp="ft " title="Feet word">ft</button>
+            <button type="button" class="kp-btn kp-op" data-kp="in " title="Inch word">in</button>
+            <button type="button" class="kp-btn kp-op" data-kp="-" title="Minus / dash (3-1/2)">-</button>
+            <button type="button" class="kp-btn kp-op" data-kp="backspace" title="Backspace"><i class="fas fa-delete-left"></i></button>
 
-        drawSvg(a, currentMode === "square" ? a : b, diag, currentMode);
-        renderConversions(diag, a, b, area, u);
+            <button type="button" class="kp-btn kp-wide" data-kp="clear" title="Clear active field"><i class="fas fa-eraser"></i> Clear</button>
+            <button type="button" class="kp-btn kp-wide kp-action" data-kp="done" title="Apply and calculate"><i class="fas fa-check"></i> Done</button>
+            <button type="button" class="kp-btn kp-wide" data-kp="next" title="Jump to next input"><i class="fas fa-arrow-right"></i> Next Field</button>
+          </div>
+          <div class="kp-common-row" id="kpCommonRow">
+            <span class="kp-common-label">Quick:</span>
+            <button type="button" class="kp-common-btn" data-kpcommon="1/2">1/2</button>
+            <button type="button" class="kp-common-btn" data-kpcommon="1/4">1/4</button>
+            <button type="button" class="kp-common-btn" data-kpcommon="3/4">3/4</button>
+            <button type="button" class="kp-common-btn" data-kpcommon="1/8">1/8</button>
+            <button type="button" class="kp-common-btn" data-kpcommon="3/8">3/8</button>
+            <button type="button" class="kp-common-btn" data-kpcommon="5/8">5/8</button>
+            <button type="button" class="kp-common-btn" data-kpcommon="7/8">7/8</button>
+            <button type="button" class="kp-common-btn" data-kpcommon="1/16">1/16</button>
+            <button type="button" class="kp-common-btn" data-kpcommon="1/3">1/3</button>
+            <button type="button" class="kp-common-btn" data-kpcommon="2/3">2/3</button>
+          </div>
+        </div>
 
-        lastSummaryText = [
-          "Diagonal Calculation Summary (" + currentMode.toUpperCase() + ")",
-          "Unit: " + u,
-          "Side A: " + a + " " + u,
-          currentMode !== "square" ? "Side B: " + b + " " + u : "",
-          currentMode === "box3d" ? "Side C: " + c + " " + u : "",
-          "Diagonal: " + diagStr,
-          "Area: " + area.toFixed(2) + " sq " + u,
-          "Perimeter: " + perim.toFixed(2) + " " + u
-        ].filter(Boolean).join("\n");
-      }
+        <!-- Action Buttons -->
+        <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.25rem;">
+          <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
+          <button class="btn btn-ghost" id="openKeypadBtn" type="button"><i class="fas fa-keyboard"></i> Fraction Keypad</button>
+          <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
+        </div>
 
-      function drawSvg(w, h, d, mode) {
-        const svg = elements.geoSvg;
-        const maxW = 340, maxH = 160;
-        const aspect = w / (h || 1);
-        let renderW = maxW, renderH = maxW / aspect;
-        if (renderH > maxH) { renderH = maxH; renderW = maxH * aspect; }
-        const offsetX = (400 - renderW) / 2;
-        const offsetY = (200 - renderH) / 2;
+      </article>
 
-        if (mode === "triangle") {
-          svg.innerHTML = `
-            <polygon points="${offsetX},${offsetY + renderH} ${offsetX + renderW},${offsetY + renderH} ${offsetX + renderW},${offsetY}" fill="#e0f2fe" stroke="#0284c7" stroke-width="2" />
-            <line x1="${offsetX}" y1="${offsetY + renderH}" x2="${offsetX + renderW}" y2="${offsetY}" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="5,4" />
-            <text x="${offsetX + renderW / 2}" y="${offsetY + renderH + 16}" font-size="12" fill="#0369a1" font-weight="bold" text-anchor="middle">Base: ${w}</text>
-            <text x="${offsetX + renderW + 12}" y="${offsetY + renderH / 2}" font-size="12" fill="#0369a1" font-weight="bold" text-anchor="start">Height: ${h}</text>
-            <text x="${offsetX + renderW / 2 - 10}" y="${offsetY + renderH / 2 - 8}" font-size="13" fill="#dc2626" font-weight="800">d = ${d.toFixed(1)}</text>
-          `;
-        } else {
-          svg.innerHTML = `
-            <rect x="${offsetX}" y="${offsetY}" width="${renderW}" height="${renderH}" fill="#e0f2fe" stroke="#0284c7" stroke-width="2" rx="4" />
-            <line x1="${offsetX}" y1="${offsetY + renderH}" x2="${offsetX + renderW}" y2="${offsetY}" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="5,4" />
-            <text x="${offsetX + renderW / 2}" y="${offsetY + renderH + 16}" font-size="12" fill="#0369a1" font-weight="bold" text-anchor="middle">${w}</text>
-            <text x="${offsetX - 8}" y="${offsetY + renderH / 2}" font-size="12" fill="#0369a1" font-weight="bold" text-anchor="end">${h}</text>
-            <text x="${offsetX + renderW / 2 - 10}" y="${offsetY + renderH / 2 - 8}" font-size="13" fill="#dc2626" font-weight="800">d = ${d.toFixed(1)}</text>
-          `;
-        }
-      }
+      <!-- Sidebar Area -->
+      <aside style="display: grid; gap: 1.25rem;">
+        
+        <!-- Live Visual Canvas -->
+        <div class="visual-studio-card">
+          <div class="diagram-head">
+            <span><i class="fas fa-eye" style="color: var(--ic-primary); margin-right: 0.4rem;"></i> Live Visual Diagram</span>
+            <span style="font-size: 0.75rem; color: var(--ic-text-muted); font-weight: 500;">Scale Auto-fits</span>
+          </div>
+          <div class="diagram-canvas-wrap">
+            <svg id="liveDiagram" viewBox="0 0 320 220" role="img" aria-label="Live diagonal diagram"></svg>
+          </div>
+          <div style="font-size: 0.82rem; color: var(--ic-text-muted);" id="diagramCaption">
+            Live representative diagram updates based on selected mode and inputs.
+          </div>
+        </div>
 
-      function renderConversions(dInUnit, aInUnit, bInUnit, areaInUnit, curU) {
-        // Convert to inches first
-        const toInches = { "in": 1, "ft": 12, "yd": 36, "cm": 0.393701, "m": 39.3701, "mm": 0.0393701 };
-        const dIn = dInUnit * toInches[curU];
-        const aIn = aInUnit * toInches[curU];
-        const bIn = bInUnit * toInches[curU];
+        <!-- Quick Links -->
+        <div class="card" style="padding: 1.25rem;">
+          <h3 style="font-size: 1rem; font-family: 'Sora', sans-serif; margin-bottom: 0.75rem;"><i class="fas fa-link" style="color: var(--ic-primary); margin-right: 0.4rem;"></i> US Construction & Math Tools</h3>
+          <ul class="link-list">
+            <li><a href="triangle-calculator.html"><span>Triangle Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+            <li><a href="concrete-calculator.html"><span>Concrete Calculator (Yds)</span> <i class="fas fa-chevron-right"></i></a></li>
+            <li><a href="gallon-to-liter-calculator.html"><span>Gallon to Liter</span> <i class="fas fa-chevron-right"></i></a></li>
+            <li><a href="mortgage-calculator.html"><span>Mortgage Calculator</span> <i class="fas fa-chevron-right"></i></a></li>
+          </ul>
+        </div>
 
-        const units = [
-          { name: "Inches (in)", factor: 1, sym: "in", areaSym: "sq in" },
-          { name: "Feet (ft)", factor: 1 / 12, sym: "ft", areaSym: "sq ft" },
-          { name: "Yards (yd)", factor: 1 / 36, sym: "yd", areaSym: "sq yd" },
-          { name: "Centimeters (cm)", factor: 2.54, sym: "cm", areaSym: "sq cm" },
-          { name: "Meters (m)", factor: 0.0254, sym: "m", areaSym: "sq m" }
-        ];
+      </aside>
 
-        lastTableData = units.map(u => {
-          const dVal = (dIn * u.factor).toFixed(2) + " " + u.sym;
-          const aVal = (aIn * u.factor).toFixed(2) + " " + u.sym;
-          const bVal = (bIn * u.factor).toFixed(2) + " " + u.sym;
-          const arVal = ((aIn * u.factor) * (bIn * u.factor)).toFixed(2) + " " + u.areaSym;
-          return { name: u.name, d: dVal, a: aVal, b: bVal, area: arVal };
-        });
+    </div>
+  </section>
 
-        elements.projectionTable.innerHTML = lastTableData.map(r => `
-          <tr>
-            <td class="projection-year">${r.name}</td>
-            <td data-label="Diagonal Length">${r.d}</td>
-            <td data-label="Side A">${r.a}</td>
-            <td data-label="Side B">${r.b}</td>
-            <td data-label="Area">${r.area}</td>
-          </tr>
-        `).join("");
-      }
-
-      function wireEvents() {
-        sync(elements.rangeA, elements.inputA);
-        sync(elements.rangeB, elements.inputB);
-        sync(elements.rangeC, elements.inputC);
-
-        elements.unitSelect.addEventListener("change", calculate);
-        elements.recalculateBtn.addEventListener("click", calculate);
-
-        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
-          btn.addEventListener("click", function () {
-            const wrap = this.parentElement;
-            const tInput = document.getElementById(wrap.dataset.target);
-            const tRange = document.getElementById(wrap.dataset.range);
-            if (tInput) tInput.value = this.dataset.val;
-            if (tRange) tRange.value = this.dataset.val;
-            calculate();
-          });
-        });
-
-        elements.resetBtn.addEventListener("click", () => {
-          elements.inputA.value = 48; elements.rangeA.value = 48;
-          elements.inputB.value = 27; elements.rangeB.value = 27;
-          elements.inputC.value = 18; elements.rangeC.value = 18;
-          elements.unitSelect.value = "in";
-          calculate();
-        });
-
-        elements.copySummaryBtn.addEventListener("click", () => {
-          navigator.clipboard.writeText(lastSummaryText).then(() => {
-            elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
-          });
-        });
-
-        elements.copyHeroBtn.addEventListener("click", () => {
-          navigator.clipboard.writeText(lastSummaryText).then(() => {
-            const orig = elements.copyHeroBtn.innerHTML;
-            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
-            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
-          });
-        });
-
-        elements.downloadCsvBtn.addEventListener("click", () => {
-          if (!lastTableData.length) return;
-          const headers = ["Unit", "Diagonal Length", "Side A", "Side B", "Area"];
-          const rows = lastTableData.map(r => [r.name, r.d, r.a, r.b, r.area].join(","));
-          const csv = [headers.join(","), rows.join("\n")].join("\n");
-          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "diagonal-measurements.csv";
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        });
-
-        setupModes();
-      }
-
-      wireEvents();
-      calculate();
-    })();
-  </script>
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>InstaCalc USA - Smart financial, math, and construction calculators for everyday decisions.</p>
-      <div class="footer-links">
-        <a href="index.html">US Home</a>
-        <a href="../aboutus.html">About Us</a>
-        <a href="../contactus.html">Contact Us</a>
-        <a href="../privacypolicy.html">Privacy Policy</a>
-        <a href="../terms.html">Terms &amp; Conditions</a>
+  <!-- Formula & Educational Guide Section -->
+  <section class="section" id="formulaGuide">
+    <div class="container">
+      <div class="head">
+        <h2>Complete Diagonal Formulas & Measurement Guide</h2>
+        <p>Comprehensive geometric formulas, carpentry rules of thumb, and construction cross-measurement techniques.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3><i class="fas fa-vector-square" style="color: var(--ic-primary); margin-right: 0.4rem;"></i> Rectangle Diagonal Formula</h3>
+          <p>Connecting two opposite corners using the Pythagorean theorem.</p>
+          <div class="formula">d = √(length² + width²)</div>
+        </article>
+        <article class="card">
+          <h3><i class="far fa-square" style="color: var(--ic-primary); margin-right: 0.4rem;"></i> Square Diagonal Formula</h3>
+          <p>Equal sides simplified Pythagorean relationship.</p>
+          <div class="formula">d = side × √2</div>
+        </article>
+        <article class="card">
+          <h3><i class="fas fa-play" style="color: var(--ic-primary); margin-right: 0.4rem; transform: rotate(-90deg); font-size: 0.8rem;"></i> Right Triangle "Diagonal" (Hypotenuse)</h3>
+          <p>Carpentry squaring using the 3-4-5 rule and Pythagorean theorem.</p>
+          <div class="formula">c = √(a² + b²)</div>
+        </article>
+        <article class="card">
+          <h3><i class="fas fa-cube" style="color: var(--ic-primary); margin-right: 0.4rem;"></i> 3D Cuboid Space Diagonal</h3>
+          <p>Interior longest distance from one corner through center to opposite corner.</p>
+          <div class="formula">d = √(l² + w² + h²)</div>
+        </article>
       </div>
     </div>
-  </footer>
-  <script src="../currency-manager.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-  <script defer src="../fullscreen-mode.js"></script>
-  <script>
-    document.getElementById("menuToggle").addEventListener("click", function() {
-      document.getElementById("mainNav").classList.toggle("open");
+  </section>
+
+                <section class="section" id="how-use" style="margin-top:2rem">
+          <div class="prose">
+            <h2>Rectangle Diagonal, TV Screen & 3-4-5 Carpentry Calculator</h2>
+            <p>The InstaCalc <strong>Diagonal Calculator</strong> computes the hypotenuse and corner-to-corner diagonal distance for rectangles, squares, electronic display screens, and construction framing layouts. Based on the fundamental Pythagorean theorem ($a^2 + b^2 = c^2$), this tool provides instantaneous measurements in inches, feet, yards, and metric equivalents. Whether you are verifying that a concrete foundation form is perfectly square or determining the actual viewing area of a 65-inch television screen, this utility delivers millimeter-accurate results.</p>
+
+            <h2>How to Use This Calculator</h2>
+            <ol>
+              <li><strong>Enter Length & Width:</strong> Input the two side dimensions of your rectangle or square in inches or feet.</li>
+              <li><strong>Select Unit Mode:</strong> Choose imperial (inches, feet) or metric (centimeters, meters) outputs.</li>
+              <li><strong>Review Diagonal Dimensions:</strong> View the exact hypotenuse length, total perimeter, aspect ratio, and surface area.</li>
+              <li><strong>Export or Copy:</strong> Copy the dimensions directly to your clipboard for construction plans or purchasing specs.</li>
+            </ol>
+
+            <h2>The Pythagorean Formula Behind the Math</h2>
+            <p>The diagonal of any right-angled rectangle is the Euclidean hypotenuse linking opposite corners:</p>
+            <p><div class="callout" style="background:#f8fafc; border-left:4px solid var(--ic-primary); padding:0.85rem 1.25rem; border-radius:8px; font-family:monospace; font-size:1.05rem; margin:0.75rem 0;"><strong>d</strong> = √(w² + h²)</div></p>
+            <p>Where:</p>
+            <ul>
+              <li><strong><em>d</em>:</strong> Diagonal distance connecting opposite corners.</li>
+              <li><strong><em>w</em>:</strong> Width or base of the rectangle.</li>
+              <li><strong><em>h</em>:</strong> Height or length of the rectangle.</li>
+            </ul>
+
+            <h2>Worked Example: TV Screen Dimensions</h2>
+            <p>Televisions are marketed commercially by their diagonal screen measurement across a standard <strong>16:9 widescreen aspect ratio</strong>. For a <strong>65-inch TV screen</strong>:</p>
+            <ul>
+              <li><strong>Aspect Ratio Equation:</strong> $\text{Width} = 16x, \quad \text{Height} = 9x$.</li>
+              <li><strong>Diagonal Formulation:</strong> $\sqrt{(16x)^2 + (9x)^2} = \sqrt{337} x \approx 18.3576 x = 65\text{ inches}$.</li>
+              <li><strong>Solving for $x$:</strong> $x \approx 3.5407$.</li>
+              <li><strong>Actual Width:</strong> $16 \times 3.5407 = $ **$56.65$ inches**.</li>
+              <li><strong>Actual Height:</strong> $9 \times 3.5407 = $ **$31.87$ inches**.</li>
+              <li><strong>Total Screen Viewing Area:</strong> $56.65 \times 31.87 = $ **$1,805.4$ sq inches** ($12.54\text{ sq ft}$).</li>
+            </ul>
+
+            <h2>Construction Squaring: The 3-4-5 Rule</h2>
+            <p>Professional carpenters, deck builders, and masons verify that corners are true 90-degree right angles using Pythagorean triples:</p>
+            <ul>
+              <li>Measure <strong>3 feet</strong> along one wall or form board from the corner and mark it.</li>
+              <li>Measure <strong>4 feet</strong> along the perpendicular board from the same corner and mark it.</li>
+              <li>Measure the diagonal span between the two marks. If the corner is square, the diagonal will measure exactly <strong>5 feet</strong> ($3^2 + 4^2 = 9 + 16 = 25 = 5^2$).</li>
+              <li>For larger structures such as house footings, scale up the triple to <strong>6-8-10</strong> or <strong>9-12-15</strong> feet for greater precision.</li>
+            </ul>
+
+            <h2>Common Mistakes to Avoid</h2>
+            <ul>
+              <li><strong>Measuring Outside Beveled Framing:</strong> Always measure from inside string lines or the true corner apex; measuring from flared footing edges introduces angular skew.</li>
+              <li><strong>TV Bezel Distortion:</strong> Believing a 65" TV fits in a 65" wide cabinet. The 65" is diagonal; the width is ~56.7", but TV frame bezels and stand legs add 1–2 inches.</li>
+              <li><strong>Mixing Fractional and Decimal Units:</strong> Ensure fractions of an inch (such as $3/8" = 0.375"$) are properly converted before calculation.</li>
+            </ul>
+
+            <h2>Related Math & Construction Tools</h2>
+            <ul>
+              <li><a href="triangle-calculator.html">Triangle Calculator</a> — Solve right, equilateral, and scalene triangles with Heron's formula.</li>
+              <li><a href="concrete-calculator.html">Concrete Calculator</a> — Calculate cubic yard volume for squared slabs and footings.</li>
+              <li><a href="gallon-to-liter-calculator.html">Gallon to Liter Calculator</a> — Convert liquid volumes and finishes for renovation projects.</li>
+            </ul>
+
+            <h2>Disclaimer</h2>
+            <p>Calculations are for geometric estimation and structural layout. Real-world construction framing should account for lumber shrinkage, thermal expansion, and local building code tolerances.</p>
+          </div>
+        </section>
+
+
+        <section class="section" id="faq" style="margin-top:2rem">
+          <div class="prose">
+            <h2>Frequently asked questions</h2>
+            <details class="faq card"><summary>What is the rectangle diagonal formula?</summary><p>d = √(length² + width²), the Pythagorean theorem. A 16×9 cm rectangle has a diagonal of √337 ≈ 18.36 cm.</p></details>
+          <details class="faq card"><summary>What is a square's diagonal?</summary><p>d = s × √2. A 10 cm square has a diagonal of about 14.14 cm.</p></details>
+          <details class="faq card"><summary>What is the 3-4-5 rule in carpentry?</summary><p>If legs are in a 3:4 ratio, the diagonal is exactly 5 units — a fast integer right-angle check used on decks, frames, and foundations.</p></details>
+          <details class="faq card"><summary>How do I check if a room is square?</summary><p>Measure both diagonals corner-to-corner. If they match within 0.5 percent (about 3-4 mm per meter), the room is square.</p></details>
+          <details class="faq card"><summary>How is TV screen size measured?</summary><p>As the diagonal in inches, excluding the bezel. A "55-inch" TV has a 55-inch panel diagonal — roughly 47.9 × 26.96 inches at 16:9 aspect.</p></details>
+          <details class="faq card"><summary>What is the space diagonal of a 3D box?</summary><p>The inside corner-to-opposite-corner line, d = √(l² + w² + h²). Useful for shipping — the longest item to fit inside a box.</p></details>
+          <details class="faq card"><summary>How many diagonals does a polygon have?</summary><p>Formula: n(n−3) ÷ 2. A pentagon has 5; a hexagon 9; a decagon 35.</p></details>
+          <details class="faq card"><summary>Are a rhombus's diagonals perpendicular?</summary><p>Always — they bisect each other at right angles. Given one diagonal p and side a, the other is q = 2 × √(a² − (p/2)²).</p></details>
+          <details class="faq card"><summary>How do I find a parallelogram diagonal?</summary><p>Using the law of cosines: d = √(a² + b² − 2ab·cos θ), where a and b are adjacent sides and θ the included angle.</p></details>
+          <details class="faq card"><summary>What is the diagonal of a cube?</summary><p>d = s × √3 — the space-diagonal formula when all three dimensions are equal.</p></details>
+          </div>
+        </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>InstaCalc USA - Smart financial, math, and construction calculators for everyday decisions.</p>
+    <div class="footer-links">
+      <a href="index.html">US Home</a>
+      <a href="aboutus.html">About Us</a>
+      <a href="contactus.html">Contact Us</a>
+      <a href="privacypolicy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    
+<a href="delete-account.html">Delete Account</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const els={
+    menuToggle:$("menuToggle"),
+    mainNav:$("mainNav"),
+    modeBtns:[...document.querySelectorAll('.mode-pill-btn')],
+    panels:[...document.querySelectorAll('.mode-panel')],
+    primaryValue:$("primaryValue"),
+    primaryContext:$("primaryContext"),
+    primaryEyebrow:$("primaryEyebrow"),
+    copyBtn:$("copyBtn"),
+    copySummaryBtn:$("copySummaryBtn"),
+    resetBtn:$("resetBtn"),
+    liveDiagram:$("liveDiagram"),
+    diagramCaption:$("diagramCaption")
+  };
+  
+  let mode='rectangle', primary={mode:'rectangle',label:'Diagonal',value:NaN,unit:'',context:''};
+  const fmt=(v,d=4)=>Number.isFinite(v)?v.toLocaleString('en-US',{maximumFractionDigits:d}):'-';
+  const diag=(a,b)=>Math.sqrt(a*a+b*b);
+  const angle=(a,b)=>(Math.atan2(b, a) * 180) / Math.PI;
+
+  /* ============================================================
+     FRACTION / FEET-INCH PARSER
+     Accepts many US-customary input styles and returns a decimal:
+       Decimal        : 3.75, .5, 12
+       Simple fraction: 3/4, 1/2, .75
+       Mixed number   : 5 1/2  (also 5-1/2)
+       Unicode frac   : 1½, 3¾, 5 ⅜
+       Feet + inches  : 3' 4", 3'4", 1 ft 2 in, 3ft 4in, 3' 1/2"
+       Any combo      : 5' 6 1/2"  -> 5 ft 6.5 in (in feet units)
+     The parser never throws; on failure it returns the 2nd element
+     as a human-readable error string.
+     ============================================================ */
+  const UNI_FRAC = {'\u00bd':[1,2],'\u00bc':[1,4],'\u00be':[3,4],'\u215b':[1,8],'\u215c':[3,8],'\u215d':[5,8],'\u215e':[7,8],'\u2153':[1,3],'\u2154':[2,3],'\u2150':[1,7],'\u2151':[1,9],'\u2152':[1,10],'\u2159':[1,6],'\u215a':[5,6],'\u2155':[1,5],'\u2156':[2,5],'\u2157':[3,5],'\u2158':[4,5],'\u00b1':null};
+  const KEYPAD_UNITS = ['in','ft','yd','mm','cm','m'];
+
+  // Parse a single token that is either a decimal or a fraction (a/b, mixed n a/b, unicode)
+  function parseToken(tok){
+    if(tok==null) return {ok:false};
+    let t = String(tok).trim();
+    if(!t) return {ok:false};
+    // First: split a whole number glued to a unicode fraction, e.g. "3\u00bd" -> "3 1/2"
+    t = t.replace(/(\d)\s*([\u00bd\u00bc\u00be\u215b\u215c\u215d\u215e\u2153\u2154\u2150\u2151\u2152\u2159\u215a\u2155\u2156\u2157\u2158])/g, '$1 $2');
+    // Replace unicode vulgar fractions with "num/den"
+    t = t.replace(/[\u00bd\u00bc\u00be\u215b\u215c\u215d\u215e\u2153\u2154\u2150\u2151\u2152\u2159\u215a\u2155\u2156\u2157\u2158]/g, m=>{
+      const p = UNI_FRAC[m]; return p ? (p[0]+'/'+p[1]) : m;
     });
-    document.getElementById("langSelect").addEventListener("change", function() {
-      if (this.value === "in") window.location.href = "../index.html";
-      else if (this.value === "ja") window.location.href = "../ja/index.html";
-      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    // Convert patterns like "5 1/2", "5-1/2", "5_1/2" to a sum
+    let m = t.match(/^(\d+)\s*[\s-]\s*(\d+)\s*\/\s*(\d+)$/);
+    if(m) return {ok:true, value: Number(m[1]) + Number(m[2])/Number(m[3])};
+    // Plain fraction a/b
+    m = t.match(/^(\d+)\s*\/\s*(\d+)$/);
+    if(m){ const den=Number(m[2]); if(den===0) return {ok:false}; return {ok:true, value: Number(m[1])/den}; }
+    // Plain decimal / integer
+    if(/^-?\d*\.?\d+$/.test(t)){ const v=Number(t); if(Number.isFinite(v)) return {ok:true, value:v}; }
+    return {ok:false};
+  }
+
+  // Full field parser: understands feet/inch marks and returns {value, unitFromInput, display}
+  function parseMeasurement(raw){
+    if(raw==null) return {value:NaN, unitFromInput:'', error:'empty'};
+    let s = String(raw).trim();
+    if(!s) return {value:NaN, unitFromInput:'', error:'empty'};
+    // Normalize unicode primes and quotes
+    s = s.replace(/[\u2019\u2032]/g,"'").replace(/[\u201d\u2033]/g,'"');
+    s = s.replace(/,/g,' ');
+    const hasFeet = /(?:'|\bft\b|\bfeet\b|\bfoot\b)/i.test(s);
+    const hasInch = /(?:"|\binch|\bin\b|\binches\b)/i.test(s);
+
+    // If feet or inch marks present, parse as US compound measurement (result normalised to INCHES)
+    if(hasFeet || hasInch){
+      let totalInches = 0;
+      // Feet portion: number (or fraction) directly before ' / ft / feet
+      const feetRe = /([-\d./\u00bd\u00bc\u00be\u215b\u215c\u215d\u215e\s]+?)\s*(?:'|\bft\b|\bfeet\b|\bfoot\b)/i;
+      const fm = s.match(feetRe);
+      let feetVal = 0;
+      if(fm){
+        const p = parseToken(fm[1]);
+        if(p.ok) feetVal = p.value;
+      }
+      totalInches += feetVal * 12;
+      // Inches portion: everything after the feet marker, or if no feet, the whole string
+      let inchStr = s;
+      if(fm) inchStr = s.slice(fm.index + fm[0].length);
+      inchStr = inchStr.replace(/"|\binch(es)?\b|\bin\b/gi,' ').trim();
+      if(inchStr){
+        const p = parseToken(inchStr);
+        if(p.ok) totalInches += p.value;
+      }
+      if(totalInches<=0 && !(feetVal>0)) return {value:NaN, unitFromInput:'', error:'Enter a valid feet/inch value'};
+      if(!Number.isFinite(totalInches)) return {value:NaN, unitFromInput:'', error:'Enter a valid feet/inch value'};
+      return {value: totalInches, unitFromInput:'in', normalizedInches: totalInches};
+    }
+
+    // No unit marks: treat as inches by default (panel unit applies), but still parse fractions
+    const p = parseToken(s);
+    if(p.ok) return {value: p.value, unitFromInput:''};
+    return {value:NaN, unitFromInput:'', error:'Use 3/4, 5 1/2 or 1\' 2"'};
+  }
+
+  // Read a field and return numeric value in the FIELD's declared unit
+  function readField(id, unit){
+    const el = $(id);
+    if(!el) return NaN;
+    const raw = el.value;
+    const rgb = parseMeasurement(raw);
+    const hint = document.getElementById(id+'Hint');
+    const group = (unit==='in') ? 'in' : null;
+    const inUnit = rgb.normalizedInches!=null ? 'in' : (rgb.unitFromInput||unit||'in');
+    if(!Number.isFinite(rgb.value)){
+      if(hint && raw.trim()){ hint.textContent = rgb.error==='empty' ? '' : '\u26a0 '+ (rgb.error==='custom'? 'Invalid': rgb.error); hint.className='frac-hint err'; }
+      else if(hint){ hint.textContent=''; hint.className='frac-hint'; }
+      if(el.classList) el.classList.add('is-invalid');
+      return NaN;
+    }
+    if(el.classList) el.classList.remove('is-invalid');
+    // Convert compound inch input into the field's selected unit
+    let value = rgb.value;
+    if(rgb.normalizedInches!=null && unit && unit!=='in'){
+      value = convertLength(rgb.normalizedInches, 'in', unit);
+    }
+    if(hint){
+      const usesFraction = /[\d]\s*\/\s*\d|['\"]|\bft\b|\bin\b|[\u00bd\u00bc\u00be\u215b\u215c\u215d\u215e]/i.test(raw);
+      if(usesFraction){
+        hint.textContent = '= ' + trimNum(value) + (unit?' '+unit:'');
+        hint.className='frac-hint ok';
+      } else { hint.textContent=''; hint.className='frac-hint'; }
+    }
+    return value;
+  }
+
+  const LEN_TO_IN = {in:1, ft:12, yd:36, mm:1/25.4, cm:1/2.54, m:39.3700787402};
+  function convertLength(v, from, to){
+    if(!Number.isFinite(v) || !from || !to || from===to) return v;
+    const inFrom = LEN_TO_IN[from]; const inTo = LEN_TO_IN[to];
+    if(!inFrom || !inTo) return v;
+    return v * inFrom / inTo;
+  }
+  const trimNum=(v,d=4)=>Number.isFinite(v)?Number(v.toFixed(d)).toString():'';
+
+  // Keep backward-compatible num() so existing code keeps working
+  const num = elOrId => {
+    if(elOrId && elOrId.nodeType===1){
+      const p = parseMeasurement(elOrId.value);
+      return p.value;
+    }
+    return NaN;
+  };
+
+  function setPrimary(m,label,val,unit,ctx){
+    primary={mode:m,label:label,value:val,unit:unit||'',context:ctx||''};
+    const formattedVal = Number.isFinite(val)?fmt(val)+(unit?' '+unit:''):'-';
+    // When imperial units are in play, also show a nearest-fraction (1/16)" equivalent
+    let fracNote = '';
+    if(Number.isFinite(val) && ['in','ft','yd'].includes(unit)){
+      const inInches = unit==='in'?val:(unit==='ft'?val*12:val*36);
+      const fi = toFeetInchFraction(inInches, 16);
+      if(fi) fracNote = ' \u2248 ' + fi;
+    }
+    els.primaryValue.textContent = formattedVal;
+    els.primaryContext.textContent = (ctx||'Enter valid dimensions.') + fracNote;
+    els.primaryEyebrow.textContent = label;
+
+    const mobVal = document.getElementById("mobileSummaryVal");
+    const mobLabel = document.getElementById("mobileSummaryLabel");
+    if(mobVal) mobVal.textContent = formattedVal;
+    if(mobLabel) mobLabel.textContent = label;
+  }
+
+  // Convert a decimal inch value to nearest feet + inch + reduced fraction, e.g. 3' 6 1/2"
+  function toFeetInchFraction(inches, denom){
+    if(!Number.isFinite(inches) || inches<=0) return '';
+    const d = denom || 16;
+    const total = Math.round(inches * d);           // total count of 1/d-inch units
+    const perFoot = 12 * d;
+    const feet = Math.floor(total / perFoot);
+    const rem  = total - feet*perFoot;              // remaining 1/d-inch units
+    const whole = Math.floor(rem / d);              // whole inches
+    let num = rem - whole*d;                        // numerator in 1/d-inch units
+    let den = d;
+    const gcd = (a,b)=>b ? gcd(b, a%b) : a;
+    if(num>0){ const g = gcd(num, den) || 1; num /= g; den /= g; }
+    const inchStr = inchPartsNow(whole, num, den);
+    const sep = (feet>0 && inchStr) ? ' \u00b7 ' : '';
+    let out = '';
+    if(feet>0) out += feet + "'";
+    if(inchStr) out += sep + inchStr + '"';
+    else if(feet>0) out += ' 0"';
+    return out.trim();
+  }
+  function inchPartsNow(whole, num, den){
+    const parts = [];
+    if(whole>0) parts.push(String(whole));
+    if(num>0) parts.push(num + '/' + den);
+    return parts.join(' ');
+  }
+
+  function drawPlaceholder(msg){
+    if(!els.liveDiagram)return;
+    els.liveDiagram.innerHTML='<rect x="14" y="14" width="292" height="192" rx="12" fill="#f4fbfa" stroke="#c7dedc"/><text x="160" y="110" text-anchor="middle" fill="#4b6768" font-size="13">'+msg+'</text>';
+    if(els.diagramCaption)els.diagramCaption.textContent=msg;
+  }
+
+  function drawDiagram(){
+    if(!els.liveDiagram)return;
+    const W=320,H=220,P=26;
+    if(mode==='rectangle'){
+      const u=$('rectUnit').value;
+      const l=readField('rectLength',u),w=readField('rectWidth',u);
+      if(!(l>0&&w>0)){drawPlaceholder('Enter rectangle length and width.');return;}
+      const d=diag(l,w);
+      const s=Math.min((W-2*P)/l,(H-2*P)/w),rw=l*s,rh=w*s,x=(W-rw)/2,y=(H-rh)/2,mx=x+rw/2,my=y+rh/2;
+      els.liveDiagram.innerHTML=
+        '<rect x="'+x.toFixed(2)+'" y="'+y.toFixed(2)+'" width="'+rw.toFixed(2)+'" height="'+rh.toFixed(2)+'" rx="6" fill="#d9f1ef" stroke="#0f7d78" stroke-width="2"/>'+
+        '<line x1="'+x.toFixed(2)+'" y1="'+y.toFixed(2)+'" x2="'+(x+rw).toFixed(2)+'" y2="'+(y+rh).toFixed(2)+'" stroke="#e76f51" stroke-width="2.6" stroke-dasharray="6 4"/>'+
+        '<text x="'+mx.toFixed(2)+'" y="'+(y-8).toFixed(2)+'" text-anchor="middle" fill="#0c5f5b" font-weight="700" font-size="12">Length = '+fmt(l,2)+' '+u+'</text>'+
+        '<text x="'+(x-8).toFixed(2)+'" y="'+my.toFixed(2)+'" text-anchor="end" fill="#0c5f5b" font-weight="700" font-size="12">Width = '+fmt(w,2)+' '+u+'</text>'+
+        '<text x="'+(mx+8).toFixed(2)+'" y="'+(my+4).toFixed(2)+'" fill="#e76f51" font-weight="700" font-size="12">d = '+fmt(d,2)+' '+u+'</text>';
+      if(els.diagramCaption)els.diagramCaption.textContent='Rectangle: d = √(l² + w²)';
+      return;
+    }
+    if(mode==='square'){
+      const u=$('sqUnit').value;
+      const sVal=readField('sqSide',u);
+      if(!(sVal>0)){drawPlaceholder('Enter square side.');return;}
+      const d=sVal*Math.sqrt(2);
+      const side=Math.max(42,Math.min(Math.min(W-2*P,H-2*P),sVal*8)),x=(W-side)/2,y=(H-side)/2,mx=x+side/2,my=y+side/2;
+      els.liveDiagram.innerHTML=
+        '<rect x="'+x.toFixed(2)+'" y="'+y.toFixed(2)+'" width="'+side.toFixed(2)+'" height="'+side.toFixed(2)+'" rx="6" fill="#d9f1ef" stroke="#0f7d78" stroke-width="2"/>'+
+        '<line x1="'+x.toFixed(2)+'" y1="'+y.toFixed(2)+'" x2="'+(x+side).toFixed(2)+'" y2="'+(y+side).toFixed(2)+'" stroke="#e76f51" stroke-width="2.6" stroke-dasharray="6 4"/>'+
+        '<text x="'+mx.toFixed(2)+'" y="'+(y-8).toFixed(2)+'" text-anchor="middle" fill="#0c5f5b" font-weight="700" font-size="12">Side = '+fmt(sVal,2)+' '+u+'</text>'+
+        '<text x="'+(mx+8).toFixed(2)+'" y="'+(my+4).toFixed(2)+'" fill="#e76f51" font-weight="700" font-size="12">d = '+fmt(d,2)+' '+u+'</text>';
+      if(els.diagramCaption)els.diagramCaption.textContent='Square: d = s × √2';
+      return;
+    }
+    if(mode==='triangle'){
+      const u=$('triUnit').value;
+      const a=readField('triSideA',u),b=readField('triSideB',u);
+      if(!(a>0&&b>0)){drawPlaceholder('Enter Leg A and Leg B.');return;}
+      const c=diag(a,b);
+      const s=Math.min((W-2*P)/a,(H-2*P)/b),rw=a*s,rh=b*s,x=(W-rw)/2+10,y=(H-rh)/2,
+        x1=x,y1=y+rh,x2=x+rw,y2=y+rh,x3=x,y3=y;
+      const sq=Math.min(14,Math.min(rw,rh)*0.2);
+      els.liveDiagram.innerHTML=
+        '<polygon points="'+x1.toFixed(1)+','+y1.toFixed(1)+' '+x2.toFixed(1)+','+y2.toFixed(1)+' '+x3.toFixed(1)+','+y3.toFixed(1)+'" fill="#d9f1ef" stroke="#0f7d78" stroke-width="2"/>'+
+        '<path d="M '+(x1+sq).toFixed(1)+' '+y1.toFixed(1)+' L '+(x1+sq).toFixed(1)+' '+(y1-sq).toFixed(1)+' L '+x1.toFixed(1)+' '+(y1-sq).toFixed(1)+'" fill="none" stroke="#0f7d78" stroke-width="1.5"/>'+
+        '<line x1="'+x3.toFixed(1)+'" y1="'+y3.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'" stroke="#e76f51" stroke-width="2.8" stroke-dasharray="6 4"/>'+
+        '<text x="'+(x1+rw/2).toFixed(1)+'" y="'+(y1+18).toFixed(1)+'" text-anchor="middle" fill="#0c5f5b" font-weight="700" font-size="12">Leg A = '+fmt(a,2)+' '+u+'</text>'+
+        '<text x="'+(x+8).toFixed(1)+'" y="'+(y+rh/2).toFixed(1)+'" text-anchor="start" fill="#0c5f5b" font-weight="700" font-size="12">Leg B = '+fmt(b,2)+' '+u+'</text>'+
+        '<text x="'+(x1+rw/2).toFixed(1)+'" y="'+(y1+rh/2-8).toFixed(1)+'" fill="#e76f51" font-weight="700" font-size="12">c = '+fmt(c,2)+' '+u+'</text>';
+      if(els.diagramCaption)els.diagramCaption.textContent='Hypotenuse: c = √(a² + b²)';
+      return;
+    }
+    if(mode==='box3d'){
+      const u=$('boxUnit').value;
+      const l=readField('boxLength',u),w=readField('boxWidth',u),h=readField('boxHeight',u);
+      if(!(l>0&&w>0&&h>0)){drawPlaceholder('Enter length, width, and height.');return;}
+      const d=Math.sqrt(l*l+w*w+h*h);
+      const s=Math.min((W-2*P)/l,(H-2*P)/Math.max(w,h),30),rw=l*s,rw1=w*s,rh=Math.max(w,h)*s,
+        x=(W-rw)/2,y=(H-rh)/2,mx=x+rw/2,my=y+rh/2;
+      els.liveDiagram.innerHTML=
+        '<polygon points="'+x.toFixed(1)+','+(y+rh).toFixed(1)+' '+(x+rw1).toFixed(1)+','+y.toFixed(1)+' '+(x+rw+rw1).toFixed(1)+','+(y+rh).toFixed(1)+' '+(x+rw).toFixed(1)+','+(y+2*rh).toFixed(1)+'" fill="#d9f1ef" stroke="#0f7d78" stroke-width="2"/>'+
+        '<line x1="'+x.toFixed(1)+'" y1="'+(y+rh).toFixed(1)+'" x2="'+(x+rw+rw1).toFixed(1)+'" y2="'+(y+rh).toFixed(1)+'" stroke="#e76f51" stroke-width="2.8" stroke-dasharray="6 4"/>'+
+        '<text x="'+mx.toFixed(1)+'" y="'+(y-8).toFixed(1)+'" text-anchor="middle" fill="#0c5f5b" font-weight="700" font-size="12">Length = '+fmt(l,2)+' '+u+'</text>'+
+        '<text x="'+(x-8).toFixed(1)+'" y="'+my.toFixed(1)+'" text-anchor="end" fill="#0c5f5b" font-weight="700" font-size="12">Width = '+fmt(w,2)+' '+u+'</text>'+
+        '<text x="'+(mx+rw1/2).toFixed(1)+'" y="'+(y+rh+12).toFixed(1)+'" text-anchor="middle" fill="#0c5f5b" font-weight="700" font-size="12">Height = '+fmt(h,2)+' '+u+'</text>'+
+        '<text x="'+(x+rw+rw1-8).toFixed(1)+'" y="'+(y+rh/2).toFixed(1)+'" text-anchor="end" fill="#e76f51" font-weight="700" font-size="12">d = '+fmt(d,2)+' '+u+'</text>';
+      if(els.diagramCaption)els.diagramCaption.textContent='3D Space Diagonal: d = √(l² + w² + h²)';
+      return;
+    }
+    drawPlaceholder('Enter values to see diagram.');
+  }
+
+  function updateModeUI(){
+    els.panels.forEach(p=>p.classList.remove('active'));
+    els.modeBtns.forEach(b=>b.classList.remove('active'));
+    const activePanel = $(`[data-panel="${mode}"]`);
+    const activeBtn = $(`[data-mode="${mode}"]`);
+    if(activePanel) activePanel.classList.add('active');
+    if(activeBtn) activeBtn.classList.add('active');
+    calculate();
+  }
+
+  function calculate(){
+    const u = els.modeBtns.find(b=>b.classList.contains('active')).dataset.mode;
+    mode = u;
+
+    if(mode==='rectangle'){
+      const u=$('rectUnit').value;
+      const l=readField('rectLength',u),w=readField('rectWidth',u);
+      if(l>0&&w>0){
+        const d=diag(l,w),a=l*w,p=2*(l+w),ang=angle(l,w);
+        setPrimary('rectangle','Diagonal Length',d,u,`Formula: d = √(l² + w²)`);
+        $('rectDiagonal').textContent = fmt(d,2) + u;
+        $('rectArea').textContent = fmt(a,2) + ` sq ${u}`;
+        $('rectPerimeter').textContent = fmt(p,2) + u;
+        $('rectAngle').textContent = fmt(ang,1) + '°';
+        drawDiagram();
+      }else{drawPlaceholder('Enter rectangle dimensions.');}
+    }else if(mode==='square'){
+      const u=$('sqUnit').value;
+      const sVal=readField('sqSide',u);
+      if(sVal>0){
+        const d=sVal*Math.sqrt(2),a=sVal*sVal,p=4*sVal;
+        setPrimary('square','Square Diagonal',d,u,'Formula: d = s × √2');
+        $('sqDiagonal').textContent = fmt(d,2) + u;
+        $('sqArea').textContent = fmt(a,2) + ` sq ${u}`;
+        $('sqPerimeter').textContent = fmt(p,2) + u;
+        drawDiagram();
+      }else{drawPlaceholder('Enter square side.');}
+    }else if(mode==='triangle'){
+      const u=$('triUnit').value;
+      const a=readField('triSideA',u),b=readField('triSideB',u);
+      if(a>0&&b>0){
+        const c=diag(a,b),area=0.5*a*b,p=a+b+c,ang=angle(a,b);
+        setPrimary('triangle','Hypotenuse (c)',c,u,`Formula: c = √(a² + b²)`);
+        $('triResultValue').textContent = fmt(c,2) + u;
+        $('triArea').textContent = fmt(area,2) + ` sq ${u}`;
+        $('triPerimeter').textContent = fmt(p,2) + u;
+        const angA = (Math.atan2(a,b)*180)/Math.PI, angB = 90-angA;
+        $('triAngles').textContent = `A: ${fmt(angA,1)}°, B: ${fmt(angB,1)}°, C: 90°`;
+        drawDiagram();
+      }else{drawPlaceholder('Enter Leg A and Leg B.');}
+    }else if(mode==='box3d'){
+      const u=$('boxUnit').value;
+      const l=readField('boxLength',u),w=readField('boxWidth',u),h=readField('boxHeight',u);
+      if(l>0&&w>0&&h>0){
+        const d=Math.sqrt(l*l+w*w+h*h),a=2*(l*w+w*h+l*h),p=4*(l+w+h),ang=Math.atan2(h,Math.sqrt(l*l+w*w))*180/Math.PI;
+        setPrimary('box3d','3D Space Diagonal',d,u,'Formula: d = √(l² + w² + h²)');
+        $('boxDiagonal').textContent = fmt(d,2) + u;
+        $('boxArea').textContent = fmt(a,2) + ` sq ${u}`;
+        $('boxPerimeter').textContent = fmt(p,2) + u;
+        $('boxAngle').textContent = fmt(ang,1) + '°';
+        drawDiagram();
+      }else{drawPlaceholder('Enter 3D box dimensions.');}
+    }
+  }
+
+  function copySummary(){
+    const summary = `Diagonal Calculation Summary (${mode.toUpperCase()})\n${document.getElementById('primaryEyebrow').textContent}: ${document.getElementById('primaryValue').textContent}\n${document.getElementById('primaryContext').textContent}`;
+    navigator.clipboard.writeText(summary).then(()=>{
+      els.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+      setTimeout(()=>els.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
     });
-  </script>
-  <script src="../language-dialog.js" defer></script>
+  }
+
+  function reset(){
+    if(mode==='rectangle'){
+      $('rectLength').value = '48'; $('rectWidth').value = '27'; $('rectUnit').value = 'in';
+    }else if(mode==='square'){
+      $('sqSide').value = '12'; $('sqUnit').value = 'in';
+    }else if(mode==='triangle'){
+      $('triSideA').value = '3'; $('triSideB').value = '4'; $('triUnit').value = 'in';
+    }else if(mode==='box3d'){
+      $('boxLength').value = '48'; $('boxWidth').value = '36'; $('boxHeight').value = '18'; $('boxUnit').value = 'in';
+    }
+    calculate();
+  }
+
+  els.modeBtns.forEach(btn=>{
+    btn.addEventListener('click',function(){
+      mode = this.dataset.mode;
+      updateModeUI();
+    });
+  });
+
+  // Attach input listeners to all mode panels
+  document.querySelectorAll('.mode-panel').forEach(panel=>{
+    panel.querySelectorAll('input,select').forEach(el=>{
+      el.addEventListener('input',calculate);
+    });
+  });
+
+  els.copySummaryBtn.addEventListener('click',copySummary);
+  els.resetBtn.addEventListener('click',reset);
+  
+  // Preset chips: fill the fields they reference (data-set is a JSON map of id -> value)
+  document.querySelectorAll('.chip[data-set]').forEach(chip=>{
+    chip.addEventListener('click',()=>{
+      let set;
+      try{ set = JSON.parse(chip.getAttribute('data-set')); }catch(e){ return; }
+      Object.keys(set).forEach(id=>{
+        const el = $(id);
+        if(!el) return;
+        el.value = set[id];
+        el.classList.remove('is-invalid');
+      });
+      calculate();
+      refreshKeypad();
+    });
+  });
+
+  /* ============================================================
+     INPUT MODE TOGGLE  (Decimal <->  Fraction)
+     Switching to Fraction: focus a dimension field and open keypad.
+     Switching to Decimal : close keypad, convert values to plain
+                            decimals so the native value is numeric.
+     ============================================================ */
+  let inputMode = localStorage.getItem('ic_diag_input_mode') || 'decimal';
+  const FRACTION_FIELDS = {
+    rectangle:['rectLength','rectWidth'],
+    square:['sqSide'],
+    triangle:['triSideA','triSideB'],
+    box3d:['boxLength','boxWidth','boxHeight']
+  };
+  function setInputMode(m){
+    inputMode = m;
+    try{ localStorage.setItem('ic_diag_input_mode', m); }catch(e){}
+    document.querySelectorAll('.frac-mode-toggle button').forEach(b=>{
+      b.classList.toggle('active', b.dataset.ime===m);
+    });
+    document.querySelectorAll('input.fraction-input').forEach(el=>{
+      el.setAttribute('inputmode', m==='fraction' ? 'text' : 'decimal');
+    });
+    if(m !== 'fraction'){ closeKeypad(); }
+    calculate();
+  }
+  document.querySelectorAll('.frac-mode-toggle').forEach(tg=>{
+    tg.querySelectorAll('button').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        setInputMode(btn.dataset.ime);
+        if(btn.dataset.ime==='fraction'){
+          const first = FRACTION_FIELDS[mode] && FRACTION_FIELDS[mode][0];
+          if(first){ const el=$(first); if(el){ el.focus(); openKeypad(el); } }
+        }
+      });
+    });
+  });
+
+  /* ============================================================
+     DEDICATED FRACTION KEYPAD
+     Tracks the "active" fraction field, inserts characters /
+     words at the caret, and shows a live parsed preview.
+     ============================================================ */
+  const pad = {
+    root: document.getElementById('fracKeypad'),
+    live: document.getElementById('kpLive'),
+    activeName: document.getElementById('kpActiveName'),
+    activeUnit: document.getElementById('kpActiveUnit'),
+    target: null
+  };
+  function openKeypad(el){
+    if(!pad.root) return;
+    if(el && el.classList && el.classList.contains('fraction-input')) pad.target = el;
+    pad.root.classList.add('open');
+    refreshKeypad();
+  }
+  function closeKeypad(){
+    if(pad.root) pad.root.classList.remove('open');
+    pad.target = null;
+  }
+  function fieldLabel(el){
+    if(!el) return '\u2014';
+    const lbl = document.querySelector('label[for="'+el.id+'"]');
+    return lbl ? lbl.textContent.trim() : el.id;
+  }
+  function fieldUnitFor(el){
+    if(!el) return '';
+    const modeUnits = {rectUnit:'rectUnit', sqUnit:'sqUnit', triUnit:'triUnit', boxUnit:'boxUnit'};
+    const map = {rectLength:'rectUnit', rectWidth:'rectUnit', sqSide:'sqUnit', triSideA:'triUnit', triSideB:'triUnit', boxLength:'boxUnit', boxWidth:'boxUnit', boxHeight:'boxUnit'};
+    const unitId = map[el.id];
+    const sel = unitId && $(unitId);
+    return sel ? sel.value : '';
+  }
+  function refreshKeypad(){
+    if(!pad.target){
+      if(pad.activeName) pad.activeName.textContent = '\u2014';
+      if(pad.activeUnit) pad.activeUnit.textContent = '';
+      if(pad.live) pad.live.textContent = '0';
+      return;
+    }
+    if(pad.activeName) pad.activeName.textContent = fieldLabel(pad.target);
+    const u = fieldUnitFor(pad.target);
+    if(pad.activeUnit) pad.activeUnit.textContent = u ? '('+u+')' : '';
+    const rgb = parseMeasurement(pad.target.value);
+    if(pad.live){
+      if(Number.isFinite(rgb.value)){
+        pad.live.textContent = trimNum(rgb.value) + (rgb.normalizedInches!=null ? ' in' : (u?' '+u:''));
+      }else{
+        pad.live.textContent = '\u2026';
+      }
+    }
+  }
+  // Insert text at caret of the active field
+  function insertAtCaret(el, text){
+    if(!el) return;
+    const start = el.selectionStart!=null ? el.selectionStart : el.value.length;
+    const end   = el.selectionEnd!=null ? el.selectionEnd : el.value.length;
+    const before = el.value.slice(0,start);
+    const after  = el.value.slice(end);
+    el.value = before + text + after;
+    const pos = start + text.length;
+    try{ el.setSelectionRange(pos,pos); }catch(e){}
+  }
+  function keypadKey(k){
+    const el = pad.target;
+    if(!el){
+      const first = FRACTION_FIELDS[mode] && FRACTION_FIELDS[mode][0];
+      if(!first) return;
+      pad.target = $(first);
+    }
+    switch(k){
+      case 'backspace':
+        if(pad.target.selectionStart===pad.target.selectionEnd && pad.target.selectionStart>0){
+          const s = pad.target.selectionStart;
+          pad.target.value = pad.target.value.slice(0,s-1) + pad.target.value.slice(pad.target.selectionEnd!=null?pad.target.selectionEnd:s);
+          try{ pad.target.setSelectionRange(s-1,s-1); }catch(e){}
+        }else{
+          insertAtCaret(pad.target,'');
+        }
+        break;
+      case 'clear':
+        pad.target.value = '';
+        break;
+      case 'done':
+        closeKeypad();
+        break;
+      case 'next': {
+        const list = FRACTION_FIELDS[mode] || [];
+        const idx = list.indexOf(pad.target.id);
+        const nextId = list[(idx+1) % (list.length||1)];
+        if(nextId){ const nx=$(nextId); if(nx){ nx.focus(); pad.target = nx; } }
+        break;
+      }
+      default:
+        insertAtCaret(pad.target, k);
+    }
+    calculate();
+    refreshKeypad();
+  }
+  if(pad.root){
+    pad.root.querySelectorAll('[data-kp]').forEach(btn=>{
+      btn.addEventListener('click', ()=> keypadKey(btn.getAttribute('data-kp')));
+    });
+    pad.root.querySelectorAll('[data-kpcommon]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(!pad.target){
+          const first = FRACTION_FIELDS[mode] && FRACTION_FIELDS[mode][0];
+          if(first) pad.target = $(first);
+        }
+        if(!pad.target) return;
+        insertAtCaret(pad.target, btn.getAttribute('data-kpcommon'));
+        calculate(); refreshKeypad();
+        try{ pad.target.focus(); }catch(e){}
+      });
+    });
+    const closeBtn = document.getElementById('kpClose');
+    if(closeBtn) closeBtn.addEventListener('click', closeKeypad);
+  }
+  const openBtn = document.getElementById('openKeypadBtn');
+  if(openBtn){
+    openBtn.addEventListener('click', ()=>{
+      const first = FRACTION_FIELDS[mode] && FRACTION_FIELDS[mode][0];
+      const el = first ? $(first) : null;
+      if(pad.root.classList.contains('open') && pad.target===el){ closeKeypad(); }
+      else { setInputMode('fraction'); if(el){ el.focus(); openKeypad(el); } }
+    });
+  }
+  // Track which fraction field is focused; typing on a physical keyboard is allowed too
+  document.querySelectorAll('input.fraction-input').forEach(el=>{
+    el.addEventListener('focus', ()=>{ setTimeout(()=>openKeypad(el), 0); });
+    el.addEventListener('click', ()=> openKeypad(el));
+  });
+  // Apply saved mode on load
+  setInputMode(inputMode);
+
+  // Initial calculation
+  calculate();
+  drawDiagram();
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 </body>
 </html>

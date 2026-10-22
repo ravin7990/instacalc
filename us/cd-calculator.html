@@ -1,193 +1,966 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CD Calculator | Certificate of Deposit Interest & APY Growth</title>
-  <meta name="description" content="Calculate CD earnings and maturity value with latest APY interest rates, compounding frequencies (daily, monthly, quarterly), and early withdrawal penalty estimations.">
+  <meta name="description" content="Calculate CD earnings and maturity value with latest APY interest rates, compounding frequencies (daily, monthly, quarterly), and early withdrawal penalty.">
   <meta name="keywords" content="cd calculator, certificate of deposit calculator, cd interest calculator, apy calculator, cd ladder calculator, high yield cd rates">
   <meta name="author" content="InstaCalc USA">
   <meta name="robots" content="index,follow">
+  <!-- Verify site ownership & paste the actual codes: Google Search Console (Domain-wide verification), Bing Webmaster Tools -->
   <meta name="theme-color" content="#005f73">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4943063856769784" crossorigin="anonymous"></script>
 
   <link rel="icon" type="image/x-icon" href="../favicon.webp">
   <link rel="canonical" href="https://instacalc.in/us/cd-calculator.html">
+  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/cd-calculator.html">
+  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/fdcalculator.html">
+  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/fdcalculator.html">
+  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/us/cd-calculator.html">
+  <meta property="og:title" content="CD Calculator | Certificate of Deposit Interest &amp; APY Growth">
+  <meta property="og:description" content="Calculate CD earnings and maturity value with latest APY interest rates, compounding frequencies (daily, monthly, quarterly), and early withdrawal penalty estimations in a single screen.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://instacalc.in/us/cd-calculator.html">
+  <meta property="og:site_name" content="InstaCalc">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://instacalc.in/cover.png">
+  <meta name="twitter:title" content="CD Calculator | Certificate of Deposit Interest &amp; APY Growth">
+  <meta name="twitter:description" content="Calculate CD earnings and maturity value with latest APY interest rates, compounding frequencies (daily, monthly, quarterly), and early withdrawal penalty estimations in a single screen.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
-  <link rel="stylesheet" href="../instacalc-core.css">
+  <link rel="preload" href="../instacalc-core.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../instacalc-core.css"></noscript>
+
   <style>
-    /* Studio Grid & Chart styles */
-    .fin-studio-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      gap: 1.75rem;
-      align-items: start;
-      margin-top: 1rem;
-      width: 100%;
+    /* ==========================================================================
+       CD CALCULATOR - SINGLE-SCREEN HIGH DENSITY REDESIGN
+       Scoped strictly to this page to fit entirely above the fold on desktop
+       ========================================================================== */
+    
+    :root {
+      --cd-teal-dark: #005f73;
+      --cd-teal: #0a9396;
+      --cd-teal-light: #e6f4f6;
+      --cd-cyan: #0284c7;
+      --cd-green: #0d9488;
+      --cd-surface: #ffffff;
+      --cd-bg: #f8fafc;
+      --cd-border: #e2e8f0;
+      --cd-border-hover: #cbd5e1;
+      --cd-text-main: #0f172a;
+      --cd-text-muted: #64748b;
     }
-    .studio-inputs { display: flex; flex-direction: column; gap: 0.85rem; }
-    .studio-outcome { display: flex; flex-direction: column; gap: 1rem; }
-    .field-preview-badge {
-      font-family: 'Sora', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--ic-primary-dark);
-      background: var(--ic-primary-light);
-      padding: 0.2rem 0.65rem;
-      border-radius: 999px;
+
+    /* Compact site header on this page */
+    .site-header {
+      padding: 0.45rem 0 !important;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
     }
-    .outcome-chart-box {
-      background: #ffffff;
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 1.25rem 1.5rem;
-      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
+
+    /* Page Shell */
+    .cd-page-main {
+      padding: 0.5rem 0 2rem;
+      background: var(--cd-bg);
+      min-height: calc(100vh - 55px);
     }
-    .chart-wrap-doughnut {
-      position: relative;
-      width: 100%;
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+
+    .cd-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1rem;
     }
-    .legend-stats-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      width: 100%;
-      padding-top: 0.85rem;
-      border-top: 1px solid var(--ic-border);
-    }
-    .legend-stat { display: flex; flex-direction: column; gap: 0.2rem; }
-    .legend-label {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--ic-text-muted);
+
+    /* Compact Top Header Bar (replaces 350px hero) */
+    .cd-top-bar {
       display: flex;
       align-items: center;
-      gap: 0.4rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.4rem 0 0.65rem;
+      border-bottom: 1px solid var(--cd-border);
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
     }
-    .legend-val {
+
+    .cd-title-group {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .cd-main-heading {
       font-family: 'Sora', sans-serif;
       font-size: 1.25rem;
       font-weight: 800;
-      color: var(--ic-text);
+      color: var(--cd-teal-dark);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      line-height: 1.2;
     }
-    .legend-val.positive { color: #10b981; }
-    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-    .dot-invested { background: #0284c7; }
-    .dot-returns { background: #10b981; }
-    .growth-timeline-card {
-      background: #ffffff;
-      border: 1px solid var(--ic-border);
-      border-radius: var(--ic-radius-md);
-      padding: 1.5rem;
-      margin-top: 2rem;
-      box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.05);
-    }
-    .chart-wrap-timeline { position: relative; width: 100%; height: 280px; }
 
-    /* Projection Table Mobile Card Grid */
-    @media (max-width: 640px) {
-      .table-shell { border: 0; background: transparent; overflow: visible; }
-      .projection-table, .projection-table tbody, .projection-table tr, .projection-table td { display: block; width: 100%; }
-      .projection-table thead { display: none; }
-      .projection-table tr {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        margin-bottom: 0.85rem;
-        border: 1px solid var(--ic-border);
-        border-radius: var(--ic-radius-md);
-        overflow: hidden;
-        background: #ffffff;
-        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
-      }
-      .projection-table td {
-        padding: 0.6rem 0.85rem;
-        border: 0;
-        border-bottom: 1px solid var(--ic-border);
-        font-family: 'Sora', sans-serif;
-        font-size: 0.92rem;
-        font-weight: 800;
-      }
-      .projection-table td:nth-child(odd):not(.projection-year) { border-right: 1px solid var(--ic-border); }
-      .projection-table td:nth-last-child(-n + 2) { border-bottom: 0; }
-      .projection-table .projection-year {
-        grid-column: 1 / -1;
-        min-height: auto;
-        padding: 0.7rem 0.85rem;
-        background: linear-gradient(90deg, var(--ic-primary-light), #ffffff);
-        border-right: 0;
-        color: var(--ic-primary-dark);
-        font-size: 0.95rem;
-      }
-      .projection-table td::before {
-        content: attr(data-label);
-        display: block;
-        margin-bottom: 0.25rem;
-        color: var(--ic-text-muted);
-        font-family: 'Public Sans', sans-serif;
-        font-size: 0.68rem;
-        font-weight: 800;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-      .projection-table .projection-year::before { display: none; }
+    .cd-main-heading i {
+      color: var(--cd-cyan);
+      font-size: 1.15rem;
     }
+
+    .cd-top-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #0369a1;
+      background: #e0f2fe;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      letter-spacing: 0.01em;
+    }
+
+    .cd-top-subtext {
+      font-size: 0.8rem;
+      color: var(--cd-text-muted);
+      font-weight: 500;
+    }
+
+    .cd-category-pills {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #ffffff;
+      padding: 3px;
+      border: 1px solid var(--cd-border);
+      border-radius: 8px;
+    }
+
+    .cd-category-pill {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--cd-text-muted);
+      text-decoration: none;
+      padding: 0.28rem 0.65rem;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .cd-category-pill:hover {
+      color: var(--cd-teal-dark);
+      background: #f1f5f9;
+    }
+
+    .cd-category-pill.active {
+      color: #ffffff;
+      background: var(--cd-teal-dark);
+    }
+
+    /* Single-Screen 2-Column Desktop Grid */
+    .cd-single-screen-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+      gap: 1.15rem;
+      align-items: start;
+    }
+
+    /* Left Console: Inputs */
+    .cd-inputs-console {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .cd-input-card {
+      background: var(--cd-surface);
+      border: 1px solid var(--cd-border);
+      border-radius: 10px;
+      padding: 0.65rem 0.9rem;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .cd-input-card:focus-within {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+    }
+
+    .cd-field-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+      gap: 0.5rem;
+    }
+
+    .cd-field-label {
+      font-family: 'Public Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--cd-text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .cd-field-label i {
+      color: var(--cd-cyan);
+      font-size: 0.85rem;
+    }
+
+    .cd-field-input-box {
+      display: inline-flex;
+      align-items: center;
+      background: #f8fafc;
+      border: 1px solid var(--cd-border);
+      border-radius: 6px;
+      padding: 0 0.5rem;
+      height: 32px;
+      width: 140px;
+      transition: all 0.15s ease;
+    }
+
+    .cd-field-input-box:focus-within {
+      background: #ffffff;
+      border-color: #0284c7;
+    }
+
+    .cd-input-affix {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--cd-text-muted);
+      user-select: none;
+    }
+
+    .cd-field-input-box input {
+      border: 0;
+      background: transparent;
+      outline: none;
+      font-family: 'Sora', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--cd-text-main);
+      width: 100%;
+      text-align: right;
+      padding: 0 0.25rem;
+    }
+
+    /* Slim Slider */
+    .cd-slider-wrap {
+      display: flex;
+      align-items: center;
+      margin: 0.35rem 0 0.45rem;
+    }
+
+    .cd-slider-wrap input[type="range"] {
+      width: 100%;
+      height: 5px;
+      background: #e2e8f0;
+      border-radius: 5px;
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .cd-slider-wrap input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--cd-cyan);
+      border: 2px solid #ffffff;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+
+    .cd-slider-wrap input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.18);
+    }
+
+    /* Compact Chip Presets */
+    .cd-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .cd-chip {
+      background: #f1f5f9;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 0.18rem 0.55rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.12s ease;
+      line-height: 1.2;
+    }
+
+    .cd-chip:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .cd-chip.active {
+      background: var(--cd-teal-dark);
+      color: #ffffff;
+    }
+
+    /* Dual Dropdown Row */
+    .cd-dual-options-card {
+      background: var(--cd-surface);
+      border: 1px solid var(--cd-border);
+      border-radius: 10px;
+      padding: 0.65rem 0.9rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+
+    .cd-option-unit label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--cd-text-muted);
+      margin-bottom: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .cd-option-unit select {
+      width: 100%;
+      height: 32px;
+      background: #f8fafc;
+      border: 1px solid var(--cd-border);
+      border-radius: 6px;
+      padding: 0 0.5rem;
+      font-family: 'Public Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--cd-text-main);
+      cursor: pointer;
+      outline: none;
+    }
+
+    .cd-option-unit select:focus {
+      border-color: #0284c7;
+      background: #ffffff;
+    }
+
+    /* Console Action Buttons */
+    .cd-action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding-top: 0.2rem;
+    }
+
+    .cd-btn-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      height: 32px;
+      padding: 0 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+
+    .cd-btn-ghost {
+      background: transparent;
+      color: var(--cd-text-muted);
+      border-color: var(--cd-border);
+    }
+
+    .cd-btn-ghost:hover {
+      background: #ffffff;
+      color: var(--cd-text-main);
+      border-color: var(--cd-border-hover);
+    }
+
+    .cd-btn-secondary {
+      background: #ffffff;
+      color: var(--cd-cyan);
+      border-color: #bae6fd;
+    }
+
+    .cd-btn-secondary:hover {
+      background: #f0f9ff;
+      border-color: #7dd3fc;
+    }
+
+    .cd-btn-link {
+      background: transparent;
+      color: var(--cd-teal-dark);
+      font-weight: 700;
+      padding: 0 0.4rem;
+    }
+
+    .cd-btn-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Right Console: Results & Visualization */
+    .cd-outcome-console {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    /* Hero Outcome Card */
+    .cd-hero-card {
+      background: linear-gradient(135deg, #004b5c 0%, #005f73 60%, #0a7386 100%);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 0.9rem 1.15rem;
+      box-shadow: 0 4px 14px rgba(0, 95, 115, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cd-hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.2rem;
+    }
+
+    .cd-hero-label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #7dd3fc;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .cd-copy-btn {
+      background: rgba(255, 255, 255, 0.15);
+      border: 0;
+      color: #ffffff;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      transition: background 0.15s ease;
+    }
+
+    .cd-copy-btn:hover {
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .cd-hero-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin: 0.15rem 0 0.3rem;
+    }
+
+    .cd-hero-breakdown {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      color: #e0f2fe;
+    }
+
+    .cd-hero-pill {
+      background: rgba(0, 0, 0, 0.18);
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .cd-hero-pill strong {
+      color: #ffffff;
+    }
+
+    .cd-hero-pill.pill-interest {
+      background: rgba(13, 148, 136, 0.35);
+      border: 1px solid rgba(45, 212, 191, 0.3);
+      color: #a7f3d0;
+    }
+    .cd-hero-pill.pill-interest strong {
+      color: #6ee7b7;
+    }
+
+    /* Key Stats Row (3 compact tiles) */
+    .cd-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    .cd-stat-tile {
+      background: var(--cd-surface);
+      border: 1px solid var(--cd-border);
+      border-radius: 8px;
+      padding: 0.55rem 0.65rem;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+    }
+
+    .cd-stat-label {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--cd-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.15rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .cd-stat-val {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--cd-text-main);
+      line-height: 1.2;
+    }
+
+    .cd-stat-val.positive {
+      color: var(--cd-green);
+    }
+
+    /* Compact Chart Card with Segmented Switcher */
+    .cd-chart-card {
+      background: var(--cd-surface);
+      border: 1px solid var(--cd-border);
+      border-radius: 10px;
+      padding: 0.65rem 0.85rem;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cd-chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .cd-chart-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--cd-text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin: 0;
+    }
+
+    .cd-chart-title i {
+      color: var(--cd-cyan);
+    }
+
+    /* Tab Switcher */
+    .cd-segmented-ctrl {
+      display: inline-flex;
+      background: #f1f5f9;
+      padding: 2px;
+      border-radius: 6px;
+      border: 1px solid var(--cd-border);
+    }
+
+    .cd-seg-btn {
+      border: 0;
+      background: transparent;
+      padding: 0.18rem 0.55rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--cd-text-muted);
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: all 0.12s ease;
+    }
+
+    .cd-seg-btn:hover {
+      color: var(--cd-text-main);
+    }
+
+    .cd-seg-btn.active {
+      background: #ffffff;
+      color: var(--cd-teal-dark);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Chart Canvas Container */
+    .cd-chart-canvas-box {
+      position: relative;
+      width: 100%;
+      height: 125px; /* Ultra-compact height fits single screen */
+    }
+
+    .cd-chart-view {
+      position: absolute;
+      inset: 0;
+      display: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    .cd-chart-view.active {
+      display: block;
+    }
+
+    /* Compact Chart Legends */
+    .cd-chart-legend {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-top: 0.35rem;
+      padding-top: 0.35rem;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .cd-leg-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      color: var(--cd-text-muted);
+      font-weight: 600;
+    }
+
+    .cd-leg-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+    }
+
+    .cd-leg-val {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      color: var(--cd-text-main);
+    }
+
+    /* Below the fold: Month-by-month Schedule Table */
+    .cd-schedule-drawer {
+      margin-top: 1.5rem;
+      background: #ffffff;
+      border: 1px solid var(--cd-border);
+      border-radius: 12px;
+      padding: 1.15rem 1.25rem;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+      position: relative;
+      clear: both;
+      width: 100%;
+    }
+
+    .cd-table-shell {
+      width: 100%;
+      border: 1px solid var(--cd-border);
+      border-radius: 8px;
+      background: #ffffff;
+      max-height: 420px;
+      overflow-y: auto;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+    }
+
+    .cd-schedule-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.85rem;
+    }
+
+    .cd-drawer-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--cd-text-main);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .cd-drawer-desc {
+      font-size: 0.8rem;
+      color: var(--cd-text-muted);
+      margin: 0.2rem 0 0;
+    }
+
+    /* Responsive adjustments */
     @media (max-width: 960px) {
-      .fin-studio-grid { grid-template-columns: 1fr !important; gap: 1.25rem !important; }
+      .cd-single-screen-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .cd-page-main {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .cd-top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .cd-category-pills {
+        width: 100%;
+        overflow-x: auto;
+      }
+      .cd-stats-row {
+        grid-template-columns: 1fr 1fr;
+      }
+      .cd-stats-row .cd-stat-tile:last-child {
+        grid-column: span 2;
+      }
+      .cd-dual-options-card {
+        grid-template-columns: 1fr;
+      }
+      .cd-schedule-drawer {
+        padding: 0.85rem 0.75rem;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        clear: both !important;
+      }
+      .table-shell,
+      .cd-table-shell {
+        max-height: none !important;
+        height: auto !important;
+        overflow: visible !important;
+        border: 0 !important;
+        background: transparent !important;
+      }
+      .projection-table tbody {
+        display: grid !important;
+        gap: 0.75rem !important;
+        width: 100% !important;
+      }
+      .projection-table tbody tr {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        background: #ffffff !important;
+        border: 1px solid var(--cd-border) !important;
+        border-radius: 10px !important;
+        overflow: hidden !important;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
+      }
+      .projection-table .projection-year {
+        grid-column: 1 / -1 !important;
+        background: #f1f5f9 !important;
+        color: var(--cd-teal-dark) !important;
+        padding: 0.55rem 0.75rem !important;
+        font-weight: 800 !important;
+        border-bottom: 1px solid var(--cd-border) !important;
+      }
+      .projection-table td[data-label] {
+        padding: 0.5rem 0.75rem !important;
+        font-size: 0.88rem !important;
+        border-bottom: 1px solid var(--cd-border) !important;
+      }
+      .projection-table td[data-label]::before {
+        content: attr(data-label) !important;
+        display: block !important;
+        font-size: 0.65rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        color: var(--cd-text-muted) !important;
+        margin-bottom: 0.15rem !important;
+      }
+    }
+
+    /* Ad Placement Styling (Google AdSense Compliant) */
+    .cd-ad-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin: 0.65rem 0;
+    }
+
+    .cd-ad-caption {
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 0.25rem;
+      text-align: center;
+      user-select: none;
+      line-height: 1;
+    }
+
+    .cd-ad-frame {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid var(--cd-border);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-height: 90px;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.02);
+    }
+
+    .cd-ad-sidebar-frame {
+      min-height: 90px;
+      max-height: 200px;
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+    }
+
+    .cd-ad-mid-frame {
+      max-width: 970px;
+      margin: 0 auto;
+      min-height: 90px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+    }
+
+    .cd-ad-footer-frame {
+      max-width: 970px;
+      margin: 0 auto;
+      min-height: 90px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+    }
+
+    .cd-ad-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem;
+      color: #94a3b8;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .cd-ad-placeholder i {
+      font-size: 1rem;
+      color: #cbd5e1;
+    }
+
+    .cd-ad-frame:has(iframe) .cd-ad-placeholder,
+    .cd-ad-frame:has(ins[data-ad-status="filled"]) .cd-ad-placeholder {
+      display: none;
+    }
+
+    /* Hide fullscreen toggle button on desktop and tablet; only available on mobile */
+    @media (min-width: 768px) {
+      .insta-fs-btn,
+      .insta-fs-toast {
+        display: none !important;
+      }
     }
   </style>
-  <link rel="alternate" hreflang="en-US" href="https://instacalc.in/us/cd-calculator.html">
-  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/">
+
   <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Certificate of Deposit (CD) Calculator",
-      "url": "https://instacalc.in/us/cd-calculator.html",
-      "applicationCategory": "FinanceApplication",
-      "operatingSystem": "All",
-      "description": "Calculate guaranteed interest earnings and APY compounding on Certificates of Deposit.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
+{
+"@context":"https://schema.org",
+"@type":"FAQPage",
+"mainEntity":[
+{"@type":"Question","name":"How much FDIC insurance do I get?","acceptedAnswer":{"@type":"Answer","text":"Up to 250,000 dollars per depositor, per bank, per ownership category (individual, joint, trust, retirement). Amounts above can be split across banks or capitalized as brokered deposits."}},
+{"@type":"Question","name":"What happens if I withdraw early?","acceptedAnswer":{"@type":"Answer","text":" penalties: typically 3 to 6 months of interest for short-term CDs, 12+ months for longer terms. In some cases, the penalty can exceed the interest earned and eat into principal."}},
+{"@type":"Question","name":"What is the best CD rate right now?","acceptedAnswer":{"@type":"Answer","text":"Rates change weekly with the Fed funds rate. Shop online banks and credit unions — they routinely pay 0.75 to 1.5 percentage points more than major brick-and-mortar banks."}},
+{"@type":"Question","name":"Are CDs safe?","acceptedAnswer":{"@type":"Answer","text":"Yes — FDIC-insured up to the limit at member banks (NCUA-insured at credit unions). The principal is guaranteed by the government, unlike stocks or bond funds."}},
+{"@type":"Question","name":"Should I ladder CDs?","acceptedAnswer":{"@type":"Answer","text":"Usually yes. A ladder (1, 2, 3, 4, 5-year tranches) balances higher long-term rates with annual liquidity, smoothing reinvestment risk as rates change."}},
+{"@type":"Question","name":"Are CD interest earnings taxable?","acceptedAnswer":{"@type":"Answer","text":"Yes — as ordinary income in the year earned, even if the CD has not matured.1099-INT is issued each January."}},
+{"@type":"Question","name":"What is an IRA CD?","acceptedAnswer":{"@type":"Answer","text":"A CD held inside an IRA wrapper — the interest accrues tax-deferred (traditional) or tax-free (Roth). FDIC-insured and very conservative, though growth is limited."}},
+{"@type":"Question","name":"What is a jumbo CD?","acceptedAnswer":{"@type":"Answer","text":"Typically 100,000 dollars or more. Rates can be slightly better but the amount exceeds standard FDIC coverage at a single bank — check limits before depositing."}},
+{"@type":"Question","name":"What is a no-penalty CD?","acceptedAnswer":{"@type":"Answer","text":"A CD with a single withdrawal permitted before maturity without penalty, in exchange for a slightly lower rate. Trades yield for liquidity."}},
+{"@type":"Question","name":"What happens at CD maturity?","acceptedAnswer":{"@type":"Answer","text":"Most banks auto-renew into the then-current rate for the same term unless you act. A 7-10 day grace period lets you withdraw, add, or change terms without penalty — mark the date."}}
+]
+}
+</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CD Calculator — InstaCalc",
+    "url": "https://instacalc.in/us/cd-calculator.html",
+    "applicationCategory": "FinanceApplication",
+    "inLanguage": "en-US",
+    "operatingSystem": "All",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "description": "Calculate CD earnings and maturity value with latest APY interest rates, compounding frequencies (daily, monthly, quarterly), and early withdrawal penalty estimations in a single screen.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "InstaCalc",
+      "url": "https://instacalc.in"
     }
+  }
   </script>
   <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is the difference between APY and interest rate on a CD?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The interest rate is the nominal annual rate without compounding. APY (Annual Percentage Yield) reflects the actual total return including the effect of daily or monthly compounding over a year."
-          }
-        },\n        {
-          "@type": "Question",
-          "name": "Are Certificates of Deposit (CDs) safe?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. CDs held at FDIC-insured banks or NCUA-insured credit unions are backed by the full faith and credit of the US government up to $250,000 per depositor, per institution."
-          }
-        }
-      ]
-    }
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "InstaCalc",
+        "item": "https://instacalc.in/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "US Calculators",
+        "item": "https://instacalc.in/us/index.html"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "CD Calculator",
+        "item": "https://instacalc.in/us/cd-calculator.html"
+      }
+    ]
+  }
   </script>
 </head>
 <body>
@@ -221,208 +994,407 @@
       </nav>
     </div>
   </header>
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <span class="eyebrow"><i class="fas fa-vault"></i> Guaranteed Fixed Yield</span>
-          <h1>CD Calculator (Certificate of Deposit)</h1>
-          <p>Calculate your guaranteed return, total interest earned, and ending balance on high-yield Certificates of Deposit (CDs).</p>
+
+  <main class="cd-page-main">
+    <div class="cd-container">
+      
+      <!-- Sleek Top Header Bar (Zero-scroll, replaces bulky hero) -->
+      <div class="cd-top-bar">
+        <div class="cd-title-group">
+          <h1 class="cd-main-heading"><i class="fas fa-vault"></i> CD Calculator</h1>
+          <span class="cd-top-badge"><i class="fas fa-shield-halved"></i> FDIC-Insured up to $250k</span>
+          <span class="cd-top-subtext">Fixed Yield &amp; Compound Interest</span>
         </div>
-        <aside class="hero-panel">
-          <h2>CD Benefits</h2>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> FDIC-insured guaranteed returns up to $250,000</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Fixed APY protected against Fed rate cuts</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> Daily, monthly, and quarterly compounding options</div>
-        </aside>
+
+        <div class="cd-category-pills">
+          <a href="cd-calculator.html" class="cd-category-pill active"><i class="fas fa-vault"></i> CD Rates</a>
+          <a href="monthly-investment-calculator.html" class="cd-category-pill"><i class="fas fa-chart-line"></i> DCA Index</a>
+          <a href="roth-ira-calculator.html" class="cd-category-pill"><i class="fas fa-coins"></i> Roth IRA</a>
+          <a href="compound-interest-calculator.html" class="cd-category-pill"><i class="fas fa-arrow-trend-up"></i> Compound</a>
+        </div>
       </div>
-    </section>
 
-    <section class="section">
-      <div class="container calc-layout">
-        <div class="calculator-shell" id="calcTarget">
-          <div class="calculator-header-row">
-            <div class="toggle-group">
-              <a href="cd-calculator.html" class="toggle-btn active"><i class="fas fa-vault"></i> CD Rates</a>
-              <a href="monthly-investment-calculator.html" class="toggle-btn"><i class="fas fa-chart-line"></i> DCA / Index</a>
-              <a href="roth-ira-calculator.html" class="toggle-btn"><i class="fas fa-coins"></i> Roth IRA</a>
-            </div>
-            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
-              <i class="fas fa-sliders"></i> <span>Compounding & Penalties: Off</span>
-            </button>
-          </div>
+      <!-- Mobile quick summary pill -->
+      <div class="mobile-summary-pill" id="mobileSummaryPill" style="margin-bottom:0.75rem;">
+        <span class="metric-label">Total CD Maturity Value</span>
+        <span class="metric-val" id="mobileSummaryVal">-</span>
+      </div>
 
-          <div class="mobile-summary-pill" id="mobileSummaryPill">
-            <span class="metric-label">Total CD Maturity Value</span>
-            <span class="metric-val" id="mobileSummaryVal">-</span>
-          </div>
-
-          <div class="fin-studio-grid">
-            <div class="studio-inputs">
-              <div class="field-card">
-                <div class="field-head">
-                  <label for="initialDeposit">Initial CD Deposit ($)</label>
-                  <span class="field-preview-badge" id="depositPreview">$25,000</span>
-                </div>
-                <div class="range-row">
-                  <input type="range" id="initialDepositRange" min="500" max="250000" step="500" value="25000">
-                  <div class="input-with-adornment">
-                    <span class="input-prefix">$</span>
-                    <input type="number" id="initialDeposit" min="500" max="250000" step="500" value="25000" class="has-prefix">
-                  </div>
-                </div>
-                <div class="chips-wrap" data-target="initialDeposit" data-range="initialDepositRange">
-                  <button type="button" class="chip" data-val="5000">$5,000</button>
-                  <button type="button" class="chip" data-val="10000">$10,000</button>
-                  <button type="button" class="chip" data-val="25000">$25,000</button>
-                  <button type="button" class="chip" data-val="50000">$50,000</button>
-                  <button type="button" class="chip" data-val="100000">$100,000</button>
+      <!-- Main Calculator Shell (Target for Fullscreen & Zero-Scroll Fit) -->
+      <div class="calculator-shell" id="calcTarget" style="border:0; padding:0; background:transparent; box-shadow:none;">
+        <div class="cd-single-screen-grid">
+          
+          <!-- LEFT CONSOLE: High-Density Input Controls -->
+          <div class="cd-inputs-console">
+            
+            <!-- Card 1: Initial Deposit -->
+            <div class="cd-input-card">
+              <div class="cd-field-header">
+                <label for="initialDeposit" class="cd-field-label">
+                  <i class="fas fa-wallet"></i> Initial CD Deposit
+                </label>
+                <div class="cd-field-input-box">
+                  <span class="cd-input-affix">$</span>
+                  <input type="text" inputmode="numeric" id="initialDeposit" value="25,000">
                 </div>
               </div>
-
-              <div class="inline-grid">
-                <div class="field-card">
-                  <div class="field-head">
-                    <label for="apyRate">Annual Percentage Yield (APY %)</label>
-                    <span class="field-preview-badge" id="apyPreview">5.0%</span>
-                  </div>
-                  <div class="range-row">
-                    <input type="range" id="apyRateRange" min="0.5" max="12" step="0.05" value="5.0">
-                    <div class="input-with-adornment">
-                      <input type="number" id="apyRate" min="0.5" max="12" step="0.05" value="5.0" class="has-suffix">
-                      <span class="input-suffix">%</span>
-                    </div>
-                  </div>
-                  <div class="chips-wrap" data-target="apyRate" data-range="apyRateRange" style="margin-top:0.5rem;">
-                    <button type="button" class="chip" data-val="4.25">4.25%</button>
-                    <button type="button" class="chip" data-val="4.75">4.75%</button>
-                    <button type="button" class="chip" data-val="5.25">5.25%</button>
-                  </div>
-                </div>
-
-                <div class="field-card">
-                  <div class="field-head">
-                    <label for="cdTermMonths">CD Term (Months)</label>
-                    <span class="field-preview-badge" id="termPreview">12 Months (1 Yr)</span>
-                  </div>
-                  <div class="range-row">
-                    <input type="range" id="cdTermMonthsRange" min="3" max="120" step="1" value="12">
-                    <div class="input-with-adornment">
-                      <input type="number" id="cdTermMonths" min="3" max="120" step="1" value="12" class="has-suffix">
-                      <span class="input-suffix">Mo</span>
-                    </div>
-                  </div>
-                  <div class="chips-wrap" data-target="cdTermMonths" data-range="cdTermMonthsRange" style="margin-top:0.5rem;">
-                    <button type="button" class="chip" data-val="6">6 Mo</button>
-                    <button type="button" class="chip" data-val="12">12 Mo (1 Yr)</button>
-                    <button type="button" class="chip" data-val="24">24 Mo (2 Yrs)</button>
-                    <button type="button" class="chip" data-val="60">60 Mo (5 Yrs)</button>
-                  </div>
-                </div>
+              <div class="cd-slider-wrap">
+                <input type="range" id="initialDepositRange" min="500" max="250000" step="500" value="25000">
               </div>
-
-              <div class="advanced-only-section" id="advancedFields">
-                <div class="inline-grid">
-                  <div class="field-card">
-                    <div class="field-head"><label for="compoundingFreq">Compounding Frequency</label></div>
-                    <select id="compoundingFreq">
-                      <option value="365" selected>Daily (365 times/year)</option>
-                      <option value="12">Monthly (12 times/year)</option>
-                      <option value="4">Quarterly (4 times/year)</option>
-                      <option value="1">Annually (Once/year)</option>
-                    </select>
-                  </div>
-                  <div class="field-card">
-                    <div class="field-head"><label for="earlyWithdrawalPenalty">Early Withdrawal Penalty</label></div>
-                    <select id="earlyWithdrawalPenalty">
-                      <option value="0" selected>None (Maturity hold)</option>
-                      <option value="3">3 Months Interest Penalty</option>
-                      <option value="6">6 Months Interest Penalty</option>
-                    </select>
-                  </div>
-                </div>
+              <div class="cd-chips-row" data-target="initialDeposit" data-range="initialDepositRange">
+                <button type="button" class="cd-chip" data-val="5000">$5,000</button>
+                <button type="button" class="cd-chip" data-val="10000">$10,000</button>
+                <button type="button" class="cd-chip active" data-val="25000">$25,000</button>
+                <button type="button" class="cd-chip" data-val="50000">$50,000</button>
+                <button type="button" class="cd-chip" data-val="100000">$100,000</button>
+                <button type="button" class="cd-chip" data-val="250000">$250,000</button>
               </div>
             </div>
 
-            <div class="studio-outcome">
-              <div class="hero-result-card">
-                <div class="label-group">
-                  <span class="res-eyebrow"><i class="fas fa-vault"></i> Total CD Maturity Payout</span>
-                  <div class="res-val" id="corpusHeroValue">-</div>
-                  <div class="res-desc" id="corpusHeroDesc">Deposit: - | Total Interest: -</div>
-                </div>
-                <button type="button" class="quick-copy-btn" id="copyHeroBtn" title="Copy Calculation Summary"><i class="fas fa-copy"></i></button>
-              </div>
-
-              <div class="outcome-chart-box">
-                <div class="chart-wrap-doughnut"><canvas id="splitChart"></canvas></div>
-                <div class="legend-stats-row">
-                  <div class="legend-stat">
-                    <div class="legend-label"><span class="dot dot-invested"></span> Initial Principal</div>
-                    <div class="legend-val" id="resPrincipal">-</div>
-                  </div>
-                  <div class="legend-stat">
-                    <div class="legend-label"><span class="dot dot-returns"></span> Interest Earned</div>
-                    <div class="legend-val positive" id="resInterest">-</div>
-                  </div>
+            <!-- Card 2: APY Interest Rate -->
+            <div class="cd-input-card">
+              <div class="cd-field-header">
+                <label for="apyRate" class="cd-field-label">
+                  <i class="fas fa-percent"></i> Interest Rate (APY)
+                </label>
+                <div class="cd-field-input-box">
+                  <input type="number" id="apyRate" min="0.1" max="15" step="0.05" value="5.00">
+                  <span class="cd-input-affix">%</span>
                 </div>
               </div>
-
-              <div class="result-grid">
-                <div class="result-card positive"><h3>Total Payout at Maturity</h3><div class="result-value" id="resMaturityTotal">-</div></div>
-                <div class="result-card"><h3>Total Interest Earned</h3><div class="result-value" id="resInterestEarned">-</div></div>
-                <div class="result-card"><h3>Effective Annual APY</h3><div class="result-value" id="resEffectiveApy">-</div></div>
+              <div class="cd-slider-wrap">
+                <input type="range" id="apyRateRange" min="0.5" max="12" step="0.05" value="5.0">
               </div>
-
-              <div class="calculator-actions">
-                <button class="btn btn-primary" id="copySummaryBtn" type="button"><i class="fas fa-copy"></i> Copy Summary</button>
-                <button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> Reset</button>
-                <button class="btn btn-ghost" id="recalculateBtn" type="button"><i class="fas fa-bolt"></i> Recalculate</button>
+              <div class="cd-chips-row" data-target="apyRate" data-range="apyRateRange">
+                <button type="button" class="cd-chip" data-val="4.25">4.25%</button>
+                <button type="button" class="cd-chip" data-val="4.50">4.50%</button>
+                <button type="button" class="cd-chip" data-val="4.75">4.75%</button>
+                <button type="button" class="cd-chip active" data-val="5.00">5.00%</button>
+                <button type="button" class="cd-chip" data-val="5.25">5.25%</button>
+                <button type="button" class="cd-chip" data-val="5.50">5.50%</button>
               </div>
             </div>
-          </div>
 
-          <div class="growth-timeline-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-              <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-chart-line" style="color:var(--ic-primary);"></i> CD Guaranteed Balance Accumulation Curve</h3>
-              <span style="font-size:0.85rem; color:var(--ic-text-muted);">Maturity Balance Growth Over Term</span>
+            <!-- Card 3: CD Term -->
+            <div class="cd-input-card">
+              <div class="cd-field-header">
+                <label for="cdTermMonths" class="cd-field-label">
+                  <i class="fas fa-calendar"></i> CD Term Length
+                </label>
+                <div class="cd-field-input-box">
+                  <input type="number" id="cdTermMonths" min="1" max="120" step="1" value="12">
+                  <span class="cd-input-affix">Mo</span>
+                </div>
+              </div>
+              <div class="cd-slider-wrap">
+                <input type="range" id="cdTermMonthsRange" min="3" max="120" step="1" value="12">
+              </div>
+              <div class="cd-chips-row" data-target="cdTermMonths" data-range="cdTermMonthsRange">
+                <button type="button" class="cd-chip" data-val="6">6 Mo</button>
+                <button type="button" class="cd-chip active" data-val="12">12 Mo (1 Yr)</button>
+                <button type="button" class="cd-chip" data-val="24">24 Mo (2 Yrs)</button>
+                <button type="button" class="cd-chip" data-val="36">36 Mo (3 Yrs)</button>
+                <button type="button" class="cd-chip" data-val="60">60 Mo (5 Yrs)</button>
+              </div>
             </div>
-            <div class="chart-wrap-timeline"><canvas id="growthChart"></canvas></div>
+
+            <!-- Card 4: Compounding & Early Penalty (Dual Inline Options) -->
+            <div class="cd-dual-options-card">
+              <div class="cd-option-unit">
+                <label for="compoundingFreq"><i class="fas fa-arrows-rotate"></i> Compounding</label>
+                <select id="compoundingFreq">
+                  <option value="365" selected>Daily (365/yr)</option>
+                  <option value="12">Monthly (12/yr)</option>
+                  <option value="4">Quarterly (4/yr)</option>
+                  <option value="1">Annually (1/yr)</option>
+                </select>
+              </div>
+              <div class="cd-option-unit">
+                <label for="earlyWithdrawalPenalty"><i class="fas fa-triangle-exclamation"></i> Early Penalty</label>
+                <select id="earlyWithdrawalPenalty">
+                  <option value="0" selected>None (Full Term)</option>
+                  <option value="3">3 Mos. Interest</option>
+                  <option value="6">6 Mos. Interest</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="cd-action-bar">
+              <button class="cd-btn-action cd-btn-ghost" id="resetBtn" type="button">
+                <i class="fas fa-rotate-left"></i> Reset
+              </button>
+              <button class="cd-btn-action cd-btn-secondary" id="copySummaryBtn" type="button">
+                <i class="fas fa-copy"></i> Copy Summary
+              </button>
+              <a href="#scheduleSection" class="cd-btn-action cd-btn-link" id="viewScheduleLink">
+                <i class="fas fa-table-list"></i> Full Schedule <i class="fas fa-arrow-down" style="font-size:0.7rem;"></i>
+              </a>
+            </div>
+
           </div>
 
-          <div class="table-tools" style="margin-top:2rem;">
-            <h3 style="font-family:'Sora',sans-serif; font-size:1.15rem; color:var(--ic-text);"><i class="fas fa-table-list" style="color:var(--ic-primary);"></i> Month-by-Month Interest Accrual Schedule</h3>
-            <button class="btn btn-ghost" id="downloadCsvBtn" type="button"><i class="fas fa-file-csv"></i> Download CSV</button>
+          <!-- RIGHT CONSOLE: Instant Results & Interactive Visualizer -->
+          <div class="cd-outcome-console">
+            
+            <!-- Hero Maturity Outcome Card -->
+            <div class="cd-hero-card">
+              <div class="cd-hero-top">
+                <span class="cd-hero-label"><i class="fas fa-vault"></i> Total Maturity Payout</span>
+                <button type="button" class="cd-copy-btn" id="copyHeroBtn" title="Copy calculation summary">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+              <div class="cd-hero-val" id="corpusHeroValue">$26,250</div>
+              <div class="cd-hero-breakdown" id="corpusHeroDesc">
+                <span class="cd-hero-pill">Deposit: <strong id="resPrincipal">$25,000</strong></span>
+                <span class="cd-hero-pill pill-interest">Guaranteed Interest: <strong id="resInterest">$1,250</strong></span>
+              </div>
+            </div>
+
+            <!-- Key Metrics 3-Stat Row -->
+            <div class="cd-stats-row">
+              <div class="cd-stat-tile">
+                <span class="cd-stat-label">Total Interest</span>
+                <div class="cd-stat-val positive" id="resInterestEarned">$1,250</div>
+              </div>
+              <div class="cd-stat-tile">
+                <span class="cd-stat-label">Effective APY</span>
+                <div class="cd-stat-val" id="resEffectiveApy">5.00%</div>
+              </div>
+              <div class="cd-stat-tile">
+                <span class="cd-stat-label">Monthly Earning</span>
+                <div class="cd-stat-val" id="resMonthlyInterest">$104</div>
+              </div>
+            </div>
+
+            <!-- Visualization Card with Segmented Switcher -->
+            <div class="cd-chart-card">
+              <div class="cd-chart-header">
+                <div class="cd-chart-title">
+                  <i class="fas fa-chart-pie"></i> Visual Breakdown
+                </div>
+                <div class="cd-segmented-ctrl">
+                  <button type="button" class="cd-seg-btn active" data-chart-view="split">
+                    <i class="fas fa-chart-bar"></i> Split
+                  </button>
+                  <button type="button" class="cd-seg-btn" data-chart-view="growth">
+                    <i class="fas fa-chart-line"></i> Growth
+                  </button>
+                </div>
+              </div>
+
+              <!-- Compact Chart Canvas Container (125px high fits screen perfectly) -->
+              <div class="cd-chart-canvas-box">
+                <div class="cd-chart-view active" id="viewSplit">
+                  <canvas id="splitChart"></canvas>
+                </div>
+                <div class="cd-chart-view" id="viewGrowth">
+                  <canvas id="growthChart"></canvas>
+                </div>
+              </div>
+
+              <!-- Compact Legend -->
+              <div class="cd-chart-legend">
+                <div class="cd-leg-item">
+                  <span class="cd-leg-dot" style="background:#0284c7;"></span>
+                  <span>Principal:</span>
+                  <span class="cd-leg-val" id="legendPrincipal">$25,000</span>
+                </div>
+                <div class="cd-leg-item">
+                  <span class="cd-leg-dot" style="background:#0d9488;"></span>
+                  <span>Interest:</span>
+                  <span class="cd-leg-val" id="legendInterest">$1,250</span>
+                </div>
+              </div>
+            </div>
+
           </div>
-          <div class="table-shell">
-            <table class="projection-table">
-              <thead>
-                <tr>
-                  <th>Period</th>
-                  <th>Starting Balance</th>
-                  <th>Interest Accrued</th>
-                  <th>Ending Balance</th>
-                </tr>
-              </thead>
-              <tbody id="projectionTable"></tbody>
-            </table>
+
+        </div>
+      </div>
+
+      <!-- Hidden hook elements to maintain 100% backward JS/plugin compatibility -->
+      <span id="depositPreview" style="display:none;"></span>
+      <span id="apyPreview" style="display:none;"></span>
+      <span id="termPreview" style="display:none;"></span>
+      <button id="toggleViewBtn" style="display:none;" type="button"><span></span></button>
+      <button id="recalculateBtn" style="display:none;" type="button"></button>
+
+      <!-- Ad Placement 2: High-Visibility Mid-Page Leaderboard (Between Calculator & Accrual Schedule) -->
+      <div class="cd-ad-section" style="margin: 1.5rem 0 1rem;">
+        <span class="cd-ad-caption">Advertisement</span>
+        <div class="cd-ad-frame cd-ad-mid-frame">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4943063856769784"
+               data-ad-slot="auto"
+               data-ad-format="horizontal"
+               data-full-width-responsive="true"></ins>
+          <div class="cd-ad-placeholder">
+            <i class="fas fa-rectangle-ad"></i>
+            <span>Responsive Leaderboard (728x90 / 320x50)</span>
           </div>
         </div>
+      </div>
 
-        <aside class="sidebar">
-          <div class="sidebar-card">
-            <h3>US Savings & Investment</h3>
-            <ul class="link-list">
-              <li><a href="monthly-investment-calculator.html"><span>DCA Index Fund Calculator</span><i class="fas fa-arrow-right"></i></a></li>
-              <li><a href="roth-ira-calculator.html"><span>Roth IRA Calculator</span><i class="fas fa-arrow-right"></i></a></li>
-              <li><a href="401k-calculator.html"><span>401(k) Planner</span><i class="fas fa-arrow-right"></i></a></li>
-              <li><a href="compound-interest-calculator.html"><span>Compound Interest</span><i class="fas fa-arrow-right"></i></a></li>
+      <!-- Full Accrual Schedule Drawer (Accessible below the fold or via link) -->
+      <section class="cd-schedule-drawer" id="scheduleSection" style="clear:both; position:relative; width:100%;">
+        <div class="cd-schedule-top">
+          <div>
+            <h2 class="cd-drawer-title"><i class="fas fa-table-list" style="color:var(--cd-cyan);"></i> Month-by-Month Accrual Schedule</h2>
+            <p class="cd-drawer-desc">Track initial balance, compound interest accrued each month, and cumulative ending balance.</p>
+          </div>
+          <button class="btn btn-ghost btn-sm" id="downloadCsvBtn" type="button">
+            <i class="fas fa-file-csv"></i> Download CSV
+          </button>
+        </div>
+
+        <div class="table-shell cd-table-shell">
+          <table class="projection-table">
+            <thead>
+              <tr>
+                <th>Period</th>
+                <th>Starting Balance</th>
+                <th>Interest Accrued</th>
+                <th>Ending Balance</th>
+              </tr>
+            </thead>
+            <tbody id="projectionTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Ad Placement 3: Pre-Footer Display Unit -->
+      <div class="cd-ad-section" style="margin: 1.75rem auto 1rem; clear: both; position: relative; width: 100%;">
+        <span class="cd-ad-caption">Advertisement</span>
+        <div class="cd-ad-frame cd-ad-footer-frame">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-4943063856769784"
+               data-ad-slot="auto"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <div class="cd-ad-placeholder">
+            <i class="fas fa-rectangle-ad"></i>
+            <span>Sponsored Content / Display Banner</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related US Tools Bar -->
+      <div style="margin-top: 1.5rem; clear: both; position: relative; width: 100%;">
+        <div class="related-tools">
+          <span class="related-tools-label"><i class="fas fa-arrow-right-arrow-left"></i> Related US Tools</span>
+          <a href="monthly-investment-calculator.html">DCA Index Fund</a>
+          <a href="roth-ira-calculator.html">Roth IRA</a>
+          <a href="401k-calculator.html">401(k) Planner</a>
+          <a href="compound-interest-calculator.html">Compound Interest</a>
+          <a href="mortgage-calculator.html">Mortgage Calculator</a>
+        </div>
+      </div>
+
+    </div>
+  
+        <section class="section" id="how-use" style="margin-top:2rem">
+          <div class="prose">
+            <p>CD Calculator for savers: if you are comparing a certificate of deposit against a savings account or Treasury bill, this tool projects exactly what your deposit earns at a fixed rate. Enter your deposit amount, the bank's APY, and the term length below, and the calculator shows your maturity value, total interest, and the effective yield after early-withdrawal penalties — FDIC-insured up to $250,000 per depositor per institution.</p>
+            <h2>How to use this calculator</h2>
+            <ol>
+              <li>Enter the deposit amount (typically $500 minimum, up to FDIC-insured $250,000 per depositor per institution).</li>
+              <li>Enter the annual percentage yield (APY) the bank quotes.</li>
+              <li>Choose the term (3 months to 10 years — 12-month and 18-month are the most common).</li>
+              <li>Pick the compounding frequency (daily is most common; the APY already includes it).</li>
+              <li>Click Calculate — you'll see ending balance, total interest earned, and monthly-equivalent interest.</li>
+            </ol>
+            <h2>The method behind the math</h2>
+            <p>A = P(1 + APY)^t, where P is the deposit, APY the annual percentage yield, and t the term in years. APY already reflects compounding, so no further adjustments are needed. A $25,000 CD at 4.35% APY for 12 months grows to $26,087.50 — $1,087.50 in guaranteed interest.</p>
+            <h2>Worked example</h2>
+            <p>$25,000 in a 12-month CD at 4.35% APY earns $1,087.50. The same money in a 5-year CD at 4.0% earns about $5,416 — but you lose access for 5 years. The "ladder" strategy (splitting across 1-, 2-, 3-, 4-, and 5-year terms) gives you both yield and liquidity.</p>
+            <h2>Rules and regulations that affect your result</h2>
+            <ul>
+              <li>FDIC insurance covers up to $250,000 per depositor, per bank, per ownership category (individual/joint/trust).</li>
+              <li>Early-withdrawal penalties are severe — typically 3-6 months of interest for short-term CDs, 12+ months for longer terms.</li>
+              <li>CDs are NOT liquid — the money is locked until maturity.</li>
+              <li>Interest earned is taxable as ordinary income in the year earned (except within an IRA-CD).</li>
+              <li>CD rates track the Fed funds rate — when the Fed cuts, new CD rates follow lower within weeks.</li>
             </ul>
+            <h2>Practical tips</h2>
+            <ul>
+              <li>Use a "CD ladder" to balance yield and liquidity — one CD maturing each year.</li>
+              <li>Shop across banks — online banks routinely pay 1 percentage point more than major brick-and-mortar banks.</li>
+              <li>Check FDIC insurance limits before depositing — amounts above $250,000 can be split across banks.</li>
+              <li>Brokered CDs (through Fidelity/Schwab) offer longer terms and sometimes better rates, but carry liquidity and call risk.</li>
+              <li>Watch for promotional "bonus CD" rates that require a linked checking account.</li>
+            </ul>
+            <h2>Common mistakes to avoid</h2>
+            <ul>
+              <li>Locking money you might need — CDs are not for emergency funds.</li>
+              <li>Cashing out early and eating the penalty — sometimes it's cheaper to take a personal loan.</li>
+              <li>Not comparing APY (which includes compounding) across banks.</li>
+              <li>Ignoring the maturity date — many banks auto-renew into a lower-rate CD unless you act in the grace period (typically 7-10 days).</li>
+              <li>Depositing over FDIC limits at a single bank.</li>
+            </ul>
+            <h2>Related tools</h2>
+            <ul>
+              <li><a href="compound-interest-calculator.html">Compound Interest Calculator — flexible growth modeling</a></li>
+              <li><a href="simple-interest-calculator.html">Simple Interest Calculator — comparison baseline</a></li>
+              <li><a href="retirement-calculator.html">Retirement Calculator — where CDs fit in a portfolio</a></li>
+            </ul>
+            <h2>Disclaimer</h2>
+            <p>This calculator provides educational estimates only and does not constitute financial advice. CD rates change frequently — verify current rates with your bank and FDIC insurance coverage at fdic.gov.</p>
           </div>
-        </aside>
-      </div>
-    </section>
-  </main>
+        </section>
+
+
+        <section class="section" id="faq" style="margin-top:2rem">
+          <div class="prose">
+            <h2>Frequently asked questions</h2>
+            <details class="faq card"><summary>How much FDIC insurance do I get?</summary><p>Up to 250,000 dollars per depositor, per bank, per ownership category (individual, joint, trust, retirement). Amounts above can be split across banks or capitalized as brokered deposits.</p></details>
+          <details class="faq card"><summary>What happens if I withdraw early?</summary><p> penalties: typically 3 to 6 months of interest for short-term CDs, 12+ months for longer terms. In some cases, the penalty can exceed the interest earned and eat into principal.</p></details>
+          <details class="faq card"><summary>What is the best CD rate right now?</summary><p>Rates change weekly with the Fed funds rate. Shop online banks and credit unions — they routinely pay 0.75 to 1.5 percentage points more than major brick-and-mortar banks.</p></details>
+          <details class="faq card"><summary>Are CDs safe?</summary><p>Yes — FDIC-insured up to the limit at member banks (NCUA-insured at credit unions). The principal is guaranteed by the government, unlike stocks or bond funds.</p></details>
+          <details class="faq card"><summary>Should I ladder CDs?</summary><p>Usually yes. A ladder (1, 2, 3, 4, 5-year tranches) balances higher long-term rates with annual liquidity, smoothing reinvestment risk as rates change.</p></details>
+          <details class="faq card"><summary>Are CD interest earnings taxable?</summary><p>Yes — as ordinary income in the year earned, even if the CD has not matured.1099-INT is issued each January.</p></details>
+          <details class="faq card"><summary>What is an IRA CD?</summary><p>A CD held inside an IRA wrapper — the interest accrues tax-deferred (traditional) or tax-free (Roth). FDIC-insured and very conservative, though growth is limited.</p></details>
+          <details class="faq card"><summary>What is a jumbo CD?</summary><p>Typically 100,000 dollars or more. Rates can be slightly better but the amount exceeds standard FDIC coverage at a single bank — check limits before depositing.</p></details>
+          <details class="faq card"><summary>What is a no-penalty CD?</summary><p>A CD with a single withdrawal permitted before maturity without penalty, in exchange for a slightly lower rate. Trades yield for liquidity.</p></details>
+          <details class="faq card"><summary>What happens at CD maturity?</summary><p>Most banks auto-renew into the then-current rate for the same term unless you act. A 7-10 day grace period lets you withdraw, add, or change terms without penalty — mark the date.</p></details>
+          </div>
+        </section>
+</main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>InstaCalc USA - Smart financial calculators and planning tools for everyday decisions.</p>
+      <div class="footer-links">
+        <a href="index.html">US Home</a>
+        <a href="aboutus.html">About Us</a>
+        <a href="contactus.html">Contact Us</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      
+<a href="delete-account.html">Delete Account</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../currency-manager.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script defer src="../fullscreen-mode.js"></script>
+  <script>
+    document.getElementById("menuToggle").addEventListener("click", function() {
+      document.getElementById("mainNav").classList.toggle("open");
+    });
+    document.getElementById("langSelect").addEventListener("change", function() {
+      if (this.value === "in") window.location.href = "../index.html";
+      else if (this.value === "ja") window.location.href = "../ja/index.html";
+      else if (this.value === "ru") window.location.href = "../ru/index.html";
+    });
+  </script>
+  <script src="../language-dialog.js" defer></script>
+
+  <!-- Calculation & Interaction Logic -->
   <script>
     (function () {
       const formatUSD = (v) => "$" + Math.round(v).toLocaleString("en-US");
@@ -450,17 +1422,17 @@
         corpusHeroDesc: document.getElementById("corpusHeroDesc"),
         resPrincipal: document.getElementById("resPrincipal"),
         resInterest: document.getElementById("resInterest"),
-        resMaturityTotal: document.getElementById("resMaturityTotal"),
         resInterestEarned: document.getElementById("resInterestEarned"),
         resEffectiveApy: document.getElementById("resEffectiveApy"),
+        resMonthlyInterest: document.getElementById("resMonthlyInterest"),
         mobileSummaryVal: document.getElementById("mobileSummaryVal"),
+        legendPrincipal: document.getElementById("legendPrincipal"),
+        legendInterest: document.getElementById("legendInterest"),
 
         splitChart: document.getElementById("splitChart"),
         growthChart: document.getElementById("growthChart"),
         projectionTable: document.getElementById("projectionTable"),
-        toggleViewBtn: document.getElementById("toggleViewBtn"),
         calcTarget: document.getElementById("calcTarget"),
-        recalculateBtn: document.getElementById("recalculateBtn"),
         resetBtn: document.getElementById("resetBtn"),
         copySummaryBtn: document.getElementById("copySummaryBtn"),
         copyHeroBtn: document.getElementById("copyHeroBtn"),
@@ -471,24 +1443,37 @@
       let timelineChartInstance = null;
       let lastProjection = [];
       let lastSummaryText = "";
+      let activeView = "split";
 
-      function sync(r, n) {
+      function sync(r, n, isCurrency) {
         if (!r || !n) return;
-        r.addEventListener("input", () => { n.value = r.value; calculate(); });
-        n.addEventListener("input", () => { r.value = r.value; calculate(); });
+        r.addEventListener("input", () => {
+          n.value = isCurrency ? Number(r.value).toLocaleString("en-US") : r.value;
+          updateActiveChips();
+          calculate();
+        });
+        n.addEventListener("input", () => {
+          const raw = String(n.value).replace(/[^\d.]/g, "");
+          r.value = raw || 0;
+          updateActiveChips();
+          calculate();
+        });
       }
 
-      function setupToggleAdvanced() {
-        let isAdv = false;
-        elements.toggleViewBtn.addEventListener("click", () => {
-          isAdv = !isAdv;
-          elements.calcTarget.classList.toggle("advanced-mode", isAdv);
-          elements.toggleViewBtn.querySelector("span").textContent = isAdv ? "Compounding & Penalties: On" : "Compounding & Penalties: Off";
+      function updateActiveChips() {
+        document.querySelectorAll(".cd-chips-row").forEach(row => {
+          const target = document.getElementById(row.dataset.target);
+          if (!target) return;
+          const currentVal = Number(String(target.value).replace(/[^\d.]/g, ""));
+          row.querySelectorAll(".cd-chip").forEach(chip => {
+            const chipVal = Number(chip.dataset.val);
+            chip.classList.toggle("active", Math.abs(chipVal - currentVal) < 0.001);
+          });
         });
       }
 
       function calculate() {
-        const principal = Number(elements.deposit.value) || 25000;
+        const principal = Number(String(elements.deposit.value).replace(/[^\d.]/g, "")) || 25000;
         const apy = (Number(elements.apy.value) || 5.0) / 100;
         const months = Number(elements.term.value) || 12;
         const years = months / 12;
@@ -497,11 +1482,11 @@
         // Nominal rate calculation from APY: APY = (1 + r/n)^n - 1 => r = n * ((1 + APY)^(1/n) - 1)
         const nominalRate = n * (Math.pow(1 + apy, 1 / n) - 1);
 
-        elements.depositPreview.textContent = formatUSD(principal);
-        elements.apyPreview.textContent = (apy * 100).toFixed(2) + "% APY";
-        elements.termPreview.textContent = months + " Months (" + (years >= 1 ? years.toFixed(1) + " Yrs" : months + " Mo") + ")";
+        if (elements.depositPreview) elements.depositPreview.textContent = formatUSD(principal);
+        if (elements.apyPreview) elements.apyPreview.textContent = (apy * 100).toFixed(2) + "% APY";
+        if (elements.termPreview) elements.termPreview.textContent = months + " Months (" + (years >= 1 ? years.toFixed(1) + " Yrs" : months + " Mo") + ")";
 
-        // Step by step monthly schedule
+        // Month-by-month calculation
         let balance = principal;
         const monthlyData = [];
         const labels = ["Month 0"];
@@ -509,7 +1494,6 @@
 
         for (let m = 1; m <= months; m++) {
           const startBal = balance;
-          // Compounding for this 1 month
           const t = 1 / 12;
           const endBal = startBal * Math.pow(1 + nominalRate / n, n * t);
           const interestEarned = endBal - startBal;
@@ -522,20 +1506,34 @@
             closing: balance
           });
 
-          labels.push("Month " + m);
+          labels.push("M" + m);
           balanceSeries.push(balance);
         }
 
         const totalInterest = Math.max(0, balance - principal);
 
-        elements.corpusHeroValue.textContent = formatUSD(balance);
-        elements.corpusHeroDesc.textContent = "Principal: " + formatUSD(principal) + " • Total Interest: " + formatUSD(totalInterest);
+        // Early withdrawal penalty
+        const penaltyMonths = Number(elements.penalty ? elements.penalty.value : 0) || 0;
+        const firstYearMonthlyInterest = (principal * apy) / 12;
+        const penaltyAmount = penaltyMonths > 0
+          ? Math.min(totalInterest, penaltyMonths * firstYearMonthlyInterest)
+          : 0;
+        const netPayout = balance - penaltyAmount;
+        const netInterest = Math.max(0, totalInterest - penaltyAmount);
+
+        elements.corpusHeroValue.textContent = formatUSD(netPayout);
         elements.resPrincipal.textContent = formatUSD(principal);
-        elements.resInterest.textContent = formatUSD(totalInterest);
-        elements.resMaturityTotal.textContent = formatUSD(balance);
+        elements.resInterest.textContent = (penaltyAmount > 0 ? "+" + formatUSD(netInterest) : "+" + formatUSD(totalInterest));
+        if (elements.legendPrincipal) elements.legendPrincipal.textContent = formatUSD(principal);
+        if (elements.legendInterest) elements.legendInterest.textContent = formatUSD(totalInterest);
+
+        const effectiveApy = years > 0 ? Math.pow(balance / principal, 1 / years) - 1 : 0;
+        const avgMonthlyInterest = months > 0 ? totalInterest / months : 0;
+
         elements.resInterestEarned.textContent = formatUSD(totalInterest);
-        elements.resEffectiveApy.textContent = (apy * 100).toFixed(2) + "%";
-        elements.mobileSummaryVal.textContent = formatUSD(balance);
+        elements.resEffectiveApy.textContent = (effectiveApy * 100).toFixed(2) + "%";
+        elements.resMonthlyInterest.textContent = formatUSD(avgMonthlyInterest);
+        if (elements.mobileSummaryVal) elements.mobileSummaryVal.textContent = formatUSD(netPayout);
 
         lastProjection = monthlyData;
 
@@ -544,121 +1542,205 @@
           <tr>
             <td class="projection-year">Month ${r.month}</td>
             <td data-label="Starting Balance">${formatUSD(r.opening)}</td>
-            <td data-label="Interest Accrued">${formatUSD(r.interest)}</td>
-            <td data-label="Ending Balance">${formatUSD(r.closing)}</td>
+            <td data-label="Interest Accrued" style="color:#0d9488; font-weight:700;">+${formatUSD(r.interest)}</td>
+            <td data-label="Ending Balance" style="font-weight:700;">${formatUSD(r.closing)}</td>
           </tr>
         `).join("");
 
         renderCharts(labels, balanceSeries, principal, totalInterest);
 
         lastSummaryText = [
-          "Certificate of Deposit (CD) Summary",
+          "Certificate of Deposit (CD) Summary - InstaCalc",
           "Initial Deposit: " + formatUSD(principal),
           "APY Rate: " + (apy * 100).toFixed(2) + "%",
-          "Term: " + months + " Months",
+          "Term: " + months + " Months (" + (years >= 1 ? years.toFixed(1) + " Yrs" : months + " Mo") + ")",
+          "Compounding: " + (n === 365 ? "Daily" : n === 12 ? "Monthly" : n === 4 ? "Quarterly" : "Annually"),
           "Total Interest Earned: " + formatUSD(totalInterest),
-          "Total Maturity Payout: " + formatUSD(balance)
-        ].join("\n");
+          penaltyAmount > 0 ? "Early Withdrawal Penalty: -" + formatUSD(penaltyAmount) : null,
+          (penaltyAmount > 0 ? "Net Maturity Payout: " : "Total Maturity Payout: ") + formatUSD(netPayout)
+        ].filter(Boolean).join("\n");
       }
 
       function renderCharts(labels, balanceSeries, principal, interest) {
         if (!window.Chart) return;
+
+        // Horizontal Stacked Bar (Split View)
         if (splitChartInstance) splitChartInstance.destroy();
         splitChartInstance = new Chart(elements.splitChart.getContext("2d"), {
-          type: "doughnut",
+          type: "bar",
           data: {
-            labels: ["Initial Principal", "Guaranteed Interest"],
-            datasets: [{
-              data: [principal, interest],
-              backgroundColor: ["#0284c7", "#10b981"],
-              borderWidth: 1
-            }]
+            labels: ["CD Split"],
+            datasets: [
+              {
+                label: "Principal",
+                data: [principal],
+                backgroundColor: "#0284c7",
+                borderRadius: { topLeft: 6, bottomLeft: 6, topRight: 0, bottomRight: 0 },
+                borderSkipped: false,
+                barThickness: 34
+              },
+              {
+                label: "Interest",
+                data: [interest],
+                backgroundColor: "#0d9488",
+                borderRadius: { topRight: 6, bottomRight: 6, topLeft: 0, bottomLeft: 0 },
+                borderSkipped: false,
+                barThickness: 34
+              }
+            ]
           },
           options: {
+            indexAxis: "y",
             responsive: true,
             maintainAspectRatio: false,
+            animation: { duration: 0 },
+            scales: {
+              x: {
+                stacked: true,
+                grid: { display: false },
+                ticks: { callback: (v) => formatCompact(v), maxTicksLimit: 5, font: { size: 10 } }
+              },
+              y: { stacked: true, display: false }
+            },
             plugins: {
-              legend: { position: "bottom" },
-              tooltip: { callbacks: { label: (c) => c.label + ": " + formatUSD(c.parsed) } }
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: (c) => c.dataset.label + ": " + formatUSD(c.parsed.x)
+                }
+              }
             }
           }
         });
 
+        // Timeline Line Chart (Growth View)
         if (timelineChartInstance) timelineChartInstance.destroy();
         const ctx = elements.growthChart.getContext("2d");
-        const grad = ctx.createLinearGradient(0, 0, 0, 300);
-        grad.addColorStop(0, "rgba(2, 132, 199, 0.28)");
-        grad.addColorStop(1, "rgba(2, 132, 199, 0.015)");
+        const grad = ctx.createLinearGradient(0, 0, 0, 120);
+        grad.addColorStop(0, "rgba(2, 132, 199, 0.3)");
+        grad.addColorStop(1, "rgba(2, 132, 199, 0.02)");
 
         timelineChartInstance = new Chart(ctx, {
           type: "line",
           data: {
             labels: labels,
             datasets: [{
-              label: "CD Balance",
+              label: "Balance",
               data: balanceSeries,
               borderColor: "#0284c7",
               backgroundColor: grad,
               fill: true,
               tension: 0.25,
-              borderWidth: 3,
+              borderWidth: 2.5,
               pointRadius: 0,
-              pointHoverRadius: 5
+              pointHoverRadius: 4
             }]
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
-            scales: { y: { ticks: { callback: (v) => formatCompact(v) } } },
+            animation: { duration: 0 },
+            interaction: { mode: "index", intersect: false },
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: { autoSkip: true, maxTicksLimit: 6, maxRotation: 0, font: { size: 10 } }
+              },
+              y: {
+                grid: { color: "rgba(148,163,184,0.15)" },
+                ticks: { callback: (v) => formatCompact(v), font: { size: 10 }, maxTicksLimit: 4 }
+              }
+            },
             plugins: {
-              legend: { position: "top" },
-              tooltip: { callbacks: { label: (c) => c.dataset.label + ": " + formatUSD(c.parsed.y) } }
+              legend: { display: false },
+              tooltip: { callbacks: { label: (c) => "Balance: " + formatUSD(c.parsed.y) } }
             }
           }
         });
       }
 
       function wireEvents() {
-        sync(elements.depositRange, elements.deposit);
-        sync(elements.apyRange, elements.apy);
-        sync(elements.termRange, elements.term);
+        sync(elements.depositRange, elements.deposit, true);
+        sync(elements.apyRange, elements.apy, false);
+        sync(elements.termRange, elements.term, false);
+
+        function formatDeposit() {
+          const v = Number(String(elements.deposit.value).replace(/[^\d.]/g, ""));
+          if (Number.isFinite(v) && v > 0) elements.deposit.value = v.toLocaleString("en-US");
+        }
+        function unformatDeposit() {
+          elements.deposit.value = String(elements.deposit.value).replace(/[^\d.]/g, "");
+        }
+        elements.deposit.addEventListener("blur", formatDeposit);
+        elements.deposit.addEventListener("focus", unformatDeposit);
 
         if (elements.freq) elements.freq.addEventListener("change", calculate);
-        elements.recalculateBtn.addEventListener("click", calculate);
+        if (elements.penalty) elements.penalty.addEventListener("change", calculate);
 
-        document.querySelectorAll(".chips-wrap button.chip").forEach(btn => {
+        // Chips click handlers
+        document.querySelectorAll(".cd-chips-row button.cd-chip").forEach(btn => {
           btn.addEventListener("click", function () {
-            const wrap = this.parentElement;
-            const tInput = document.getElementById(wrap.dataset.target);
-            const tRange = document.getElementById(wrap.dataset.range);
-            if (tInput) tInput.value = this.dataset.val;
-            if (tRange) tRange.value = this.dataset.val;
+            const row = this.parentElement;
+            const tInput = document.getElementById(row.dataset.target);
+            const tRange = document.getElementById(row.dataset.range);
+            const val = this.dataset.val;
+
+            if (tInput) {
+              tInput.value = (row.dataset.target === "initialDeposit") ? Number(val).toLocaleString("en-US") : val;
+            }
+            if (tRange) tRange.value = val;
+
+            updateActiveChips();
             calculate();
           });
         });
 
+        // Reset
         elements.resetBtn.addEventListener("click", () => {
-          elements.deposit.value = 25000; elements.depositRange.value = 25000;
-          elements.apy.value = 5.0; elements.apyRange.value = 5.0;
-          elements.term.value = 12; elements.termRange.value = 12;
+          elements.deposit.value = "25,000";
+          elements.depositRange.value = 25000;
+          elements.apy.value = "5.00";
+          elements.apyRange.value = 5.0;
+          elements.term.value = "12";
+          elements.termRange.value = 12;
+          if (elements.freq) elements.freq.value = "365";
+          if (elements.penalty) elements.penalty.value = "0";
+          updateActiveChips();
           calculate();
         });
 
+        // Copy Summary
         elements.copySummaryBtn.addEventListener("click", () => {
           navigator.clipboard.writeText(lastSummaryText).then(() => {
             elements.copySummaryBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 2000);
+            setTimeout(() => elements.copySummaryBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Summary', 1800);
           });
         });
 
+        // Copy Hero
         elements.copyHeroBtn.addEventListener("click", () => {
           navigator.clipboard.writeText(lastSummaryText).then(() => {
-            const orig = elements.copyHeroBtn.innerHTML;
-            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#1f9f67"></i>';
-            setTimeout(() => elements.copyHeroBtn.innerHTML = orig, 1800);
+            elements.copyHeroBtn.innerHTML = '<i class="fas fa-check" style="color:#6ee7b7"></i>';
+            setTimeout(() => elements.copyHeroBtn.innerHTML = '<i class="fas fa-copy"></i>', 1800);
           });
         });
 
+        // Chart View Switcher
+        document.querySelectorAll("[data-chart-view]").forEach(btn => {
+          btn.addEventListener("click", function () {
+            document.querySelectorAll("[data-chart-view]").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            activeView = this.dataset.chartView;
+
+            document.getElementById("viewSplit").classList.toggle("active", activeView === "split");
+            document.getElementById("viewGrowth").classList.toggle("active", activeView === "growth");
+
+            if (activeView === "split" && splitChartInstance) splitChartInstance.resize();
+            if (activeView === "growth" && timelineChartInstance) timelineChartInstance.resize();
+          });
+        });
+
+        // Download CSV
         elements.downloadCsvBtn.addEventListener("click", () => {
           if (!lastProjection.length) return;
           const headers = ["Month", "Starting Balance", "Interest Accrued", "Ending Balance"];
@@ -675,38 +1757,24 @@
           URL.revokeObjectURL(url);
         });
 
-        setupToggleAdvanced();
+        updateActiveChips();
       }
 
       wireEvents();
       calculate();
+      window.addEventListener("load", () => {
+        calculate();
+        // Initialize Google AdSense units safely
+        try {
+          const ads = document.querySelectorAll(".adsbygoogle");
+          ads.forEach(() => {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+          });
+        } catch (e) {
+          // Fallback or ad blocker active
+        }
+      });
     })();
   </script>
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>InstaCalc USA - Smart financial calculators and planning tools for everyday decisions.</p>
-      <div class="footer-links">
-        <a href="index.html">US Home</a>
-        <a href="../aboutus.html">About Us</a>
-        <a href="../contactus.html">Contact Us</a>
-        <a href="../privacypolicy.html">Privacy Policy</a>
-        <a href="../terms.html">Terms &amp; Conditions</a>
-      </div>
-    </div>
-  </footer>
-  <script src="../currency-manager.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-  <script defer src="../fullscreen-mode.js"></script>
-  <script>
-    document.getElementById("menuToggle").addEventListener("click", function() {
-      document.getElementById("mainNav").classList.toggle("open");
-    });
-    document.getElementById("langSelect").addEventListener("change", function() {
-      if (this.value === "in") window.location.href = "../index.html";
-      else if (this.value === "ja") window.location.href = "../ja/index.html";
-      else if (this.value === "ru") window.location.href = "../ru/index.html";
-    });
-  </script>
-  <script src="../language-dialog.js" defer></script>
 </body>
 </html>

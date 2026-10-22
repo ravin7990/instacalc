@@ -1,0 +1,74 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Lets the deploy job publish to GitHub Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: instacalc-react/package-lock.json
+
+      - name: Install
+        working-directory: instacalc-react
+        run: npm ci
+
+      - name: Typecheck
+        working-directory: instacalc-react
+        run: npx tsc --noEmit
+
+      - name: Unit tests (calculator engines)
+        working-directory: instacalc-react
+        run: npm test
+
+      - name: Build and prerender all pages
+        working-directory: instacalc-react
+        # VITE_BASE must match the deployment path. For a custom domain
+        # (instacalc.in) it is "/"; for a project site it is "/<repo>/".
+        env:
+          VITE_BASE: ${{ vars.VITE_BASE || '/' }}
+        run: npm run build
+
+      - name: Verify SEO parity
+        working-directory: instacalc-react
+        run: npm run check:seo
+
+      - name: Verify markup and Core Web Vitals basics
+        working-directory: instacalc-react
+        run: npm run check:markup
+
+      - name: Bundle report
+        working-directory: instacalc-react
+        run: npm run report:bundle
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: instacalc-react/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

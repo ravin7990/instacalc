@@ -58,7 +58,7 @@
 
     var style = document.createElement("style");
     style.textContent = ""
-      + ".insta-fs-btn{position:fixed;left:16px;bottom:16px;z-index:99999;"
+      + ".insta-fs-btn{position:fixed;right:16px;bottom:16px;z-index:99999;"
       + "border:1px solid rgba(0,95,115,.3);background:#ffffff;color:#005f73;"
       + "border-radius:999px;padding:.62rem .95rem;display:inline-flex;align-items:center;"
       + "gap:.45rem;font:600 13px/1.1 'Public Sans',Arial,sans-serif;box-shadow:0 10px 28px rgba(15,23,42,.18);"
@@ -81,7 +81,8 @@
       + "overflow-y:auto !important;overflow-x:hidden !important;padding:20px 24px 84px !important;"
       + "box-sizing:border-box !important;background:#fff !important;-webkit-overflow-scrolling:touch !important;"
       + "overscroll-behavior:contain !important;touch-action:pan-y !important;}"
-      + "@media (min-width: 800px){.insta-fs-toast{left:auto;right:16px;max-width:420px;}}";
+      + "@media (min-width: 800px){.insta-fs-toast{left:auto;right:16px;max-width:420px;}}"
+      + "@media (min-width: 768px){.insta-fs-btn,.insta-fs-toast{display:none !important;}}";
     document.head.appendChild(style);
 
     target.classList.add("insta-fs-target");
@@ -248,7 +249,16 @@
       window.visualViewport.addEventListener("scroll", syncWithVisualViewport);
     }
 
-    window.addEventListener("resize", syncWithVisualViewport);
+    window.addEventListener("resize", function () {
+      if (window.innerWidth >= 768 && isActive()) {
+        if (fsElement()) {
+          exitNative().finally(updateButton);
+        } else if (pseudoEnabled()) {
+          setPseudoMode(false);
+        }
+      }
+      syncWithVisualViewport();
+    });
     document.addEventListener("focusin", function (e) {
       if (!isActive() || !target.contains(e.target)) {
         return;
