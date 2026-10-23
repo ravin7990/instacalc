@@ -12,6 +12,7 @@ import { formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
 import { JaCagrArticle } from "@/components/articles/ja/JaCagrArticle";
 import { RuCagrArticle } from "@/components/articles/ru/RuCagrArticle";
 import { InCagrArticle } from "@/components/articles/in/InCagrArticle";
+import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 
 /**
@@ -77,6 +78,29 @@ export default function CagrCalculator({ seo }: { seo: SeoRecord }) {
       ]
     : [];
 
+  const timelineData = useMemo(() => {
+    if (!result || years <= 0) return null;
+    const cagrRate = mode === 0 ? result.cagr / 100 : rate / 100;
+    const labels: string[] = [];
+    const valArr: number[] = [];
+    const initialArr: number[] = [];
+
+    for (let y = 0; y <= years; y++) {
+      labels.push(`Yr ${y}`);
+      const val = Math.round(initial * Math.pow(1 + cagrRate, y));
+      valArr.push(val);
+      initialArr.push(initial);
+    }
+
+    return {
+      labels,
+      datasets: [
+        { label: c.maturity, data: valArr, color: "#10b981", fill: true },
+        { label: c.initialValue, data: initialArr, color: "#0284c7", dashed: true },
+      ],
+    };
+  }, [result, years, mode, rate, initial, c.maturity, c.initialValue]);
+
   return (
     <>
       <SeoHead seo={seo} appCategory="FinanceApplication" />
@@ -139,16 +163,38 @@ export default function CagrCalculator({ seo }: { seo: SeoRecord }) {
             </>
           }
           results={
-            <ul className="kv-list">
-              {rows.map((r) => (
-                <li key={r.key}>
-                  <span className="kv-key">{r.key}</span>
-                  <span className="kv-value">{r.value}</span>
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="kv-list">
+                {rows.map((r) => (
+                  <li key={r.key}>
+                    <span className="kv-key">{r.key}</span>
+                    <span className="kv-value">{r.value}</span>
+                  </li>
+                ))}
+              </ul>
+              {result ? (
+                <BreakdownDonutChart
+                  locale={seo.locale}
+                  centerLabel={c.profit}
+                  items={[
+                    { label: c.initialValue, value: initial, color: "#0284c7" },
+                    { label: c.profit, value: result.profit, color: "#10b981" },
+                  ]}
+                />
+              ) : null}
+            </>
           }
-        />
+        >
+          {timelineData ? (
+            <TimelineGrowthChart
+              title="CAGR Wealth Trajectory"
+              subtitle="Projected compounding growth over the investment horizon"
+              labels={timelineData.labels}
+              datasets={timelineData.datasets}
+              locale={seo.locale}
+            />
+          ) : null}
+        </CalculatorShell>
 
         {seo.locale === "ja" && <JaCagrArticle />}
         {seo.locale === "ru" && <RuCagrArticle />}

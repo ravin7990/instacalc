@@ -13,6 +13,7 @@ import { formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@
 import { JaMutualFundArticle } from "@/components/articles/ja/JaMutualFundArticle";
 import { RuMutualFundArticle } from "@/components/articles/ru/RuMutualFundArticle";
 import { InSipArticle } from "@/components/articles/in/InSipArticle";
+import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 const SCENARIOS: RiskScenario[] = ["conservative", "base", "aggressive"];
 
@@ -174,17 +175,47 @@ export default function MutualFundCalculator({ seo }: { seo: SeoRecord }) {
             </>
           }
           results={
-            <ul className="kv-list">
-              {/* Net redemption is the headline; not repeated here. */}
-              {rows.map((r) => (
-                <li key={r.k}>
-                  <span className="kv-key">{r.k}</span>
-                  <span className="kv-value">{r.v}</span>
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="kv-list">
+                {/* Net redemption is the headline; not repeated here. */}
+                {rows.map((r) => (
+                  <li key={r.k}>
+                    <span className="kv-key">{r.k}</span>
+                    <span className="kv-value">{r.v}</span>
+                  </li>
+                ))}
+              </ul>
+              <BreakdownDonutChart
+                items={[
+                  { label: c.totalInvested, value: result.invested, color: "#0284c7" },
+                  { label: c.estimatedReturns, value: Math.max(0, result.grossCorpus - result.invested), color: "#10b981" },
+                ]}
+                centerLabel={c.estimatedReturns}
+                locale={seo.locale}
+              />
+            </>
           }
         >
+          <TimelineGrowthChart
+            title={seo.locale === "ja" ? "投資信託資産推移グラフ" : "Mutual Fund Growth Trajectory"}
+            subtitle={seo.locale === "ja" ? "投資元本と運用資産の推移" : "Projected gross corpus vs invested amount over tenure"}
+            labels={result.rows.map((r) => `${seo.locale === "ja" ? "" : "Yr "}${r.year}${seo.locale === "ja" ? "年目" : ""}`)}
+            datasets={[
+              {
+                label: c.grossCorpus,
+                data: result.rows.map((r) => r.grossCorpus),
+                color: "#0284c7",
+                fill: true,
+              },
+              {
+                label: c.totalInvested,
+                data: result.rows.map((r) => r.invested),
+                color: "#64748b",
+                dashed: true,
+              },
+            ]}
+            locale={seo.locale}
+          />
           <ProjectionTable
             caption={c.yearsTable}
             head={[c.year, c.totalInvested, c.grossCorpus, c.netRedemption]}

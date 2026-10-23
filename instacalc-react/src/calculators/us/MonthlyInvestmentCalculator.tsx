@@ -47,6 +47,32 @@ export default createCalculatorPage((locale: Locale) => {
       { label: c.totalContributed, value: (r) => money(r.totalInvested) },
       { label: c.totalGrowth, value: (r) => money(r.totalInterest) },
     ],
+    donut: (r) => ({
+      centerLabel: c.totalGrowth,
+      items: [
+        { label: c.totalContributed, value: r.totalInvested, color: "#0284c7" },
+        { label: c.totalGrowth, value: r.totalInterest, color: "#10b981" },
+      ],
+    }),
+    timeline: (r) => ({
+      title: "Wealth Growth Trajectory",
+      subtitle: "Monthly investment compound growth and contributions over time",
+      labels: r.rows.map((row: any) => `${c.year} ${row.year}`),
+      datasets: [
+        {
+          label: c.corpus,
+          data: r.rows.map((row: any) => row.amount),
+          color: "#10b981",
+          fill: true,
+        },
+        {
+          label: c.totalContributed,
+          data: r.rows.map((row: any) => row.invested),
+          color: "#0284c7",
+          dashed: true,
+        },
+      ],
+    }),
     table: {
       caption: c.yearsTable,
       head: [c.year, c.totalContributed, c.totalGrowth, c.corpus],

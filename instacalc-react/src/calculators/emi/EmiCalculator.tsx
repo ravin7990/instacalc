@@ -71,6 +71,26 @@ export default createCalculatorPage((locale: Locale) => {
       { label: c.totalPayment, value: (r) => money(r.totalPayment) },
       { label: c.totalInterest, value: (r) => money(r.totalInterest) },
     ],
+    donut: (r, s) => ({
+      items: [
+        { label: c.invested, value: s.principal, color: "#0284c7" },
+        { label: c.totalInterest, value: r.totalInterest, color: "#f59e0b" },
+      ],
+      centerLabel: c.totalInterest,
+    }),
+    timeline: (r) => ({
+      title: isJa ? "住宅ローン・融資返済残高推移" : isRu ? "График погашения кредита" : "Loan Balance Amortization Payoff Curve",
+      subtitle: isJa ? "借入残高の年次推移グラフ" : isRu ? "Динамика уменьшения остатка долга" : "Remaining balance over loan tenure",
+      labels: r.rows.map((row: any) => `${isJa ? "" : "Yr "}${row.year}${isJa ? "年目" : ""}`),
+      datasets: [
+        {
+          label: isJa ? "返済残高" : isRu ? "Остаток долга" : "Remaining Balance",
+          data: r.rows.map((row: any) => row.closing),
+          color: "#0284c7",
+          fill: true,
+        },
+      ],
+    }),
     table: {
       caption: c.yearsTable,
       head: [c.schedule, c.amount, c.interest, c.invested],

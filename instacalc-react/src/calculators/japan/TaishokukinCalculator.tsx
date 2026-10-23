@@ -9,6 +9,7 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateTaishokukin } from "@/engines/japan";
 import { formatNumber } from "@/lib/currency";
 import { JaTaishokukinArticle } from "@/components/articles/ja/JaTaishokukinArticle";
+import { BreakdownDonutChart } from "@/components/calculator/FinancialCharts";
 
 /** 退職金・退職所得控除 手取り計算シミュレーター */
 export default function TaishokukinCalculator({ seo }: { seo: SeoRecord }) {
@@ -96,14 +97,25 @@ export default function TaishokukinCalculator({ seo }: { seo: SeoRecord }) {
           summary={{ label: "退職金 手取り支給額", value: `¥${n(result.netSeverance)}` }}
           inputs={fields.map((f) => <Field key={f.key} spec={f} onChange={set(f.key as keyof typeof s)} />)}
           results={
-            <ul className="kv-list">
-              {rows.map((r) => (
-                <li key={r.k}>
-                  <span className="kv-key">{r.k}</span>
-                  <span className="kv-value">{r.v}</span>
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="kv-list">
+                {rows.map((r) => (
+                  <li key={r.k}>
+                    <span className="kv-key">{r.k}</span>
+                    <span className="kv-value">{r.v}</span>
+                  </li>
+                ))}
+              </ul>
+              <BreakdownDonutChart
+                locale={seo.locale}
+                centerLabel="手取り額"
+                items={[
+                  { label: "退職金 手取り支給額", value: result.netSeverance, color: "#10b981" },
+                  { label: "所得税（復興特別税含）", value: result.incomeTax, color: "#0284c7" },
+                  { label: "住民税（10%）", value: result.residentTax, color: "#6366f1" },
+                ]}
+              />
+            </>
           }
         />
 

@@ -133,6 +133,33 @@ export default createCalculatorPage((locale: Locale) => {
       { label: "Medicare (Annual)", value: (r) => money(r.medicare + r.additionalMedicare) },
       { label: "Effective Tax Rate", value: (r) => `${r.effectiveTaxRate.toFixed(1)}%` },
     ],
+    donut: (r, s) => {
+      const fica = r.socialSecurity + r.medicare + r.additionalMedicare;
+      const preTaxDeductions = Math.max(
+        0,
+        s.salary - r.annualNet - r.federalTax - r.stateTax - fica
+      );
+      return {
+        centerLabel: "Take-Home Net",
+        items: [
+          { label: "Take-Home Net", value: r.annualNet, color: "#10b981" },
+          { label: "Federal Income Tax", value: r.federalTax, color: "#0284c7" },
+          ...(r.stateTax > 0
+            ? [{ label: "State Income Tax", value: r.stateTax, color: "#6366f1" }]
+            : []),
+          { label: "FICA (Social Security & Medicare)", value: fica, color: "#f59e0b" },
+          ...(preTaxDeductions > 0
+            ? [
+                {
+                  label: "Pre-Tax Deductions (401k/Health)",
+                  value: preTaxDeductions,
+                  color: "#8b5cf6",
+                },
+              ]
+            : []),
+        ],
+      };
+    },
     table: {
       caption: "Paycheck Deduction Breakdown",
       head: ["Item", "Per Paycheck", "Annual Amount"],

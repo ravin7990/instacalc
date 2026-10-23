@@ -58,6 +58,32 @@ export default createCalculatorPage((locale: Locale) => {
       { label: c.totalInvested, value: (r) => money(r.totalInvested) },
       { label: c.totalInterest, value: (r) => money(r.totalInterest) },
     ],
+    donut: (r) => ({
+      items: [
+        { label: c.totalInvested, value: r.totalInvested, color: "#0284c7" },
+        { label: c.totalInterest, value: r.totalInterest, color: "#10b981" },
+      ],
+      centerLabel: c.totalInterest,
+    }),
+    timeline: (r) => ({
+      title: locale === "ja" ? "PPF資産形成推移" : locale === "ru" ? "Динамика накоплений PPF" : "PPF Growth Trajectory",
+      subtitle: locale === "ja" ? "投資元本と非課税利息の推移グラフ" : locale === "ru" ? "Рост баланса фонда по годам" : "Accumulated balance vs total invested over tenure",
+      labels: r.rows.map((row: any) => `${locale === "ja" ? "" : "Yr "}${row.year}${locale === "ja" ? "年目" : ""}`),
+      datasets: [
+        {
+          label: c.maturity,
+          data: r.rows.map((row: any) => row.closing),
+          color: "#0284c7",
+          fill: true,
+        },
+        {
+          label: c.totalInvested,
+          data: r.rows.map((row: any) => row.invested),
+          color: "#64748b",
+          dashed: true,
+        },
+      ],
+    }),
     table: {
       caption: c.yearsTable,
       head: [c.year, c.investment, c.totalInterest, c.balance],

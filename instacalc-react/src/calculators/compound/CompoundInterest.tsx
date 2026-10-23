@@ -117,6 +117,32 @@ export default createCalculatorPage((locale: Locale) => {
       { label: isRu ? "Вложенные средства" : c.investedTotal, value: (r) => money(r.totalInvested) },
       { label: isRu ? "Начисленные проценты" : c.interest, value: (r) => money(r.totalInterest) },
     ],
+    donut: (r) => ({
+      items: [
+        { label: isRu ? "Вложенные средства" : c.investedTotal, value: r.totalInvested, color: "#0284c7" },
+        { label: isRu ? "Начисленные проценты" : c.interest, value: r.totalInterest, color: "#10b981" },
+      ],
+      centerLabel: isRu ? "Доход" : c.interest,
+    }),
+    timeline: (r) => ({
+      title: isRu ? "Динамика сложного процента" : locale === "ja" ? "複利運用による資産推移" : "Compound Growth Trajectory",
+      subtitle: isRu ? "Рост баланса капитала по годам" : "Accumulated balance vs total invested over time",
+      labels: r.rows.map((row: any) => `${locale === "ja" ? "" : "Yr "}${row.year}${locale === "ja" ? "年目" : ""}`),
+      datasets: [
+        {
+          label: isRu ? "Итоговый капитал" : c.maturity,
+          data: r.rows.map((row: any) => row.amount),
+          color: "#0284c7",
+          fill: true,
+        },
+        {
+          label: isRu ? "Вложенные средства" : c.investedTotal,
+          data: r.rows.map((row: any) => row.invested),
+          color: "#64748b",
+          dashed: true,
+        },
+      ],
+    }),
     table: {
       caption: c.yearsTable,
       head: isRu

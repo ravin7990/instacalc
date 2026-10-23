@@ -12,6 +12,7 @@ import { planCopy } from "@/i18n/retirement-labels";
 import { formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
 import { RuEpfArticle } from "@/components/articles/ru/RuEpfArticle";
 import { InEpfArticle } from "@/components/articles/in/InEpfArticle";
+import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 /** EPF, EPS and VPF projection. */
 export default function EpfCalculator({ seo }: { seo: SeoRecord }) {
@@ -80,21 +81,52 @@ export default function EpfCalculator({ seo }: { seo: SeoRecord }) {
             {advancedFields.map((f) => <Field key={f.key} spec={f} onChange={set(f.key as keyof typeof s)} />)}
           </>}
           results={
-            <ResultList
-              // "corpus" is the headline and is not repeated as a tile.
-              items={[
-                { label: c.corpusReal, value: money(result.corpusReal) },
-                { label: c.monthlyPension, value: money(result.monthlyPension) },
-                { label: c.monthlyEpf, value: money(result.monthlyEpf) },
-                { label: c.totalInvested, value: money(result.totalInvested) },
-                { label: c.totalInterest, value: money(result.totalInterest) },
-                { label: c.employee, value: money(result.totalEmployee) },
-                { label: c.employer, value: money(result.totalEmployer) },
-                { label: c.eps, value: money(result.totalEps) },
-              ]}
-            />
+            <>
+              <ResultList
+                // "corpus" is the headline and is not repeated as a tile.
+                items={[
+                  { label: c.corpusReal, value: money(result.corpusReal) },
+                  { label: c.monthlyPension, value: money(result.monthlyPension) },
+                  { label: c.monthlyEpf, value: money(result.monthlyEpf) },
+                  { label: c.totalInvested, value: money(result.totalInvested) },
+                  { label: c.totalInterest, value: money(result.totalInterest) },
+                  { label: c.employee, value: money(result.totalEmployee) },
+                  { label: c.employer, value: money(result.totalEmployer) },
+                  { label: c.eps, value: money(result.totalEps) },
+                ]}
+              />
+              <BreakdownDonutChart
+                items={[
+                  { label: c.employee, value: result.totalEmployee, color: "#0284c7" },
+                  { label: c.employer, value: result.totalEmployer, color: "#0d9488" },
+                  { label: c.totalInterest, value: result.totalInterest, color: "#10b981" },
+                ]}
+                centerLabel={c.totalInterest}
+                locale={seo.locale}
+              />
+            </>
           }
         >
+          <TimelineGrowthChart
+            title={seo.locale === "ja" ? "EPF資産形成推移" : seo.locale === "ru" ? "Динамика пенсионных накоплений EPF" : "EPF Balance Accumulation"}
+            subtitle={seo.locale === "ja" ? "従業員拠出・会社拠出・利息累計の推移グラフ" : seo.locale === "ru" ? "Рост баланса фонда и процентов" : "Employee share, employer share, and compounding interest over career"}
+            labels={result.rows.map((r) => `Age ${r.age}`)}
+            datasets={[
+              {
+                label: c.balance,
+                data: result.rows.map((r) => r.balance),
+                color: "#0284c7",
+                fill: true,
+              },
+              {
+                label: `${c.employee} + ${c.employer}`,
+                data: result.rows.map((r) => r.employee + r.employer),
+                color: "#64748b",
+                dashed: true,
+              },
+            ]}
+            locale={seo.locale}
+          />
           <ProjectionTable
             caption={c.yearsTable}
             head={[c.year, c.age, c.employee, c.employer, c.interest, c.balance]}

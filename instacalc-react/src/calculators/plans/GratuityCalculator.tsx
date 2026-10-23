@@ -11,6 +11,7 @@ import { planCopy } from "@/i18n/retirement-labels";
 import { formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
 import { RuGratuityArticle } from "@/components/articles/ru/RuGratuityArticle";
 import { InGratuityArticle } from "@/components/articles/in/InGratuityArticle";
+import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 /** Gratuity under the Payment of Gratuity Act, or the uncovered rate. */
 export default function GratuityCalculator({ seo }: { seo: SeoRecord }) {
@@ -33,6 +34,33 @@ export default function GratuityCalculator({ seo }: { seo: SeoRecord }) {
       }),
     [salary, years, months, covered],
   );
+
+  const timelineData = useMemo(() => {
+    const horizon = Math.max(years + 5, 20);
+    const labels: string[] = [];
+    const gratuityArr: number[] = [];
+    const taxFreeArr: number[] = [];
+
+    for (let y = 1; y <= horizon; y++) {
+      labels.push(`Yr ${y}`);
+      const g = calculateGratuity({
+        lastSalary: salary,
+        yearsOfService: y,
+        extraMonths: 0,
+        isCovered: covered === 1,
+      });
+      gratuityArr.push(g.gratuity);
+      taxFreeArr.push(g.taxFree);
+    }
+
+    return {
+      labels,
+      datasets: [
+        { label: c.gratuity, data: gratuityArr, color: "#10b981", fill: true },
+        { label: c.taxFree, data: taxFreeArr, color: "#0284c7", dashed: true },
+      ],
+    };
+  }, [salary, covered, years, c.gratuity, c.taxFree]);
 
   const fields: FieldSpec[] = [
     {
@@ -105,17 +133,39 @@ export default function GratuityCalculator({ seo }: { seo: SeoRecord }) {
             </>
           }
           results={
-            <ResultList
-              // "gratuity" is the headline and is not repeated as a tile.
-              items={[
-                { label: c.taxFree, value: money(result.taxFree) },
-                { label: c.taxable, value: money(result.taxable) },
-                { label: c.yearsOfService, value: `${result.effectiveTenure} ${c.years}` },
-                { label: c.eligibility, value: result.eligible ? c.eligible : c.notEligible },
-              ]}
-            />
+            <>
+              <ResultList
+                // "gratuity" is the headline and is not repeated as a tile.
+                items={[
+                  { label: c.taxFree, value: money(result.taxFree) },
+                  { label: c.taxable, value: money(result.taxable) },
+                  { label: c.yearsOfService, value: `${result.effectiveTenure} ${c.years}` },
+                  { label: c.eligibility, value: result.eligible ? c.eligible : c.notEligible },
+                ]}
+              />
+              {result.gratuity > 0 ? (
+                <BreakdownDonutChart
+                  locale={seo.locale}
+                  centerLabel={c.gratuity}
+                  items={[
+                    { label: c.taxFree, value: result.taxFree, color: "#10b981" },
+                    ...(result.taxable > 0
+                      ? [{ label: c.taxable, value: result.taxable, color: "#f59e0b" }]
+                      : []),
+                  ]}
+                />
+              ) : null}
+            </>
           }
-        />
+        >
+          <TimelineGrowthChart
+            title="Gratuity Entitlement Trajectory"
+            subtitle="Projected gratuity accumulation across years of continuous service"
+            labels={timelineData.labels}
+            datasets={timelineData.datasets}
+            locale={seo.locale}
+          />
+        </CalculatorShell>
 
         {seo.locale === "ru" && <RuGratuityArticle />}
         {seo.locale === "en" && <InGratuityArticle />}

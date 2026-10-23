@@ -9,6 +9,7 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateSalary, type SpouseMode } from "@/engines/japan";
 import { formatNumber } from "@/lib/currency";
 import { JaSalaryArticle } from "@/components/articles/ja/JaSalaryArticle";
+import { BreakdownDonutChart } from "@/components/calculator/FinancialCharts";
 
 
 /** Japanese 年収/PR Calculator — salary tax, social insurance and net pay. */
@@ -80,14 +81,26 @@ export default function SalaryCalculator({ seo }: { seo: SeoRecord }) {
           summary={{ label: "年間手取り", value: `¥${n(result.net)}` }}
           inputs={fields.map((f) => <Field key={f.key} spec={f} onChange={set(f.key as keyof typeof s)} />)}
           results={
-            <ul className="kv-list">
-              {rows.map((r) => (
-                <li key={r.k}>
-                  <span className="kv-key">{r.k}</span>
-                  <span className="kv-value">{r.v}</span>
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="kv-list">
+                {rows.map((r) => (
+                  <li key={r.k}>
+                    <span className="kv-key">{r.k}</span>
+                    <span className="kv-value">{r.v}</span>
+                  </li>
+                ))}
+              </ul>
+              <BreakdownDonutChart
+                locale={seo.locale}
+                centerLabel="年間手取り"
+                items={[
+                  { label: "年間手取り額", value: result.net, color: "#10b981" },
+                  { label: "社会保険料", value: result.socialInsurance, color: "#0284c7" },
+                  { label: "住民税", value: result.residentTax, color: "#6366f1" },
+                  { label: "所得税", value: result.incomeTax, color: "#f59e0b" },
+                ]}
+              />
+            </>
           }
         />
 

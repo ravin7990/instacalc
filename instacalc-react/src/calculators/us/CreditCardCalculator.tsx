@@ -112,6 +112,37 @@ export default createCalculatorPage((locale: Locale) => {
         value: (_r, s) => money(s.payment + s.extra),
       },
     ],
+    donut: (r, s) => ({
+      centerLabel: "Principal Debt",
+      items: [
+        { label: "Principal Balance", value: s.balance, color: "#0284c7" },
+        { label: "Total Interest", value: r.totalInterest, color: "#f59e0b" },
+      ],
+    }),
+    timeline: (r) => {
+      let cumPaid = 0;
+      let cumInterest = 0;
+      const paidArr: number[] = [];
+      const interestArr: number[] = [];
+      const balanceArr: number[] = [];
+      r.rows.forEach((row: any) => {
+        cumPaid += row.paid;
+        cumInterest += row.interest;
+        paidArr.push(cumPaid);
+        interestArr.push(cumInterest);
+        balanceArr.push(row.closing);
+      });
+      return {
+        title: "Credit Card Payoff Trajectory",
+        subtitle: "Debt elimination curve and cumulative interest over time",
+        labels: r.rows.map((row: any) => `Yr ${row.year}`),
+        datasets: [
+          { label: "Remaining Balance", data: balanceArr, color: "#ef4444", fill: true },
+          { label: "Total Payments", data: paidArr, color: "#10b981" },
+          { label: "Interest Charged", data: interestArr, color: "#f59e0b" },
+        ],
+      };
+    },
     table: {
       caption: "Credit Card Debt Payoff Schedule",
       head: ["Year", "Opening Balance", "Payments Made", "Interest Charged", "Ending Balance"],

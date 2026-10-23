@@ -9,6 +9,12 @@ import { FaqAccordion } from "@/components/calculator/FaqAccordion";
 import { ProjectionTable } from "@/components/calculator/ProjectionTable";
 import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { symbol } from "@/lib/currency";
+import {
+  BreakdownDonutChart,
+  TimelineGrowthChart,
+  type DonutItem,
+  type TimelineDataset,
+} from "@/components/calculator/FinancialCharts";
 
 /**
  * Declarative calculator page factory.
@@ -48,6 +54,15 @@ export interface CalculatorSpec {
   engine: (state: Record<string, number>) => any;
   results: ResultSpec[];
   table?: TableSpec;
+  /** Optional breakdown doughnut chart */
+  donut?: (result: any, state: Record<string, number>) => { items: DonutItem[]; centerLabel?: string } | null;
+  /** Optional timeline / area growth chart */
+  timeline?: (result: any, state: Record<string, number>) => {
+    title?: string;
+    subtitle?: string;
+    labels: string[];
+    datasets: TimelineDataset[];
+  } | null;
   /** Formats a raw number for display in results and table cells. */
   format: (value: number) => string;
   /** Modes rendered as a segmented control (SIP vs Lumpsum, etc.). */
@@ -67,6 +82,9 @@ export function createCalculatorPage(specFor: (locale: Locale) => CalculatorSpec
 
     const result = useMemo(() => spec.engine(state), [spec, state]);
     const set = (key: string) => (v: number) => setState((s) => ({ ...s, [key]: v }));
+
+    const donutData = spec.donut?.(result, state);
+    const timelineData = spec.timeline?.(result, state);
 
     // The figure with `emphasis` (else the first) becomes the headline result;
     // the rest render as supporting tiles beneath it.
@@ -118,14 +136,32 @@ export function createCalculatorPage(specFor: (locale: Locale) => CalculatorSpec
               </>
             }
             results={
-              <ResultList
-                items={supporting.map((r) => ({
-                  label: r.label,
-                  value: r.value(result, state),
-                }))}
-              />
+              <>
+                <ResultList
+                  items={supporting.map((r) => ({
+                    label: r.label,
+                    value: r.value(result, state),
+                  }))}
+                />
+                {donutData ? (
+                  <BreakdownDonutChart
+                    items={donutData.items}
+                    centerLabel={donutData.centerLabel}
+                    locale={locale}
+                  />
+                ) : null}
+              </>
             }
           >
+            {timelineData ? (
+              <TimelineGrowthChart
+                title={timelineData.title}
+                subtitle={timelineData.subtitle}
+                labels={timelineData.labels}
+                datasets={timelineData.datasets}
+                locale={locale}
+              />
+            ) : null}
             {spec.table ? (
               <ProjectionTable
                 caption={spec.table.caption}

@@ -134,6 +134,39 @@ export default createCalculatorPage((locale: Locale) => {
       { label: "Sales Tax (Financed)", value: (r) => money(r.salesTaxAmount) },
       { label: "Total Purchase Cost", value: (r) => money(r.totalCost) },
     ],
+    donut: (r, s) => ({
+      centerLabel: "Vehicle Loan",
+      items: [
+        { label: "Loan Amount", value: r.loanAmount, color: "#0284c7" },
+        { label: "Total Interest", value: r.totalInterest, color: "#f59e0b" },
+        { label: "Sales Tax", value: r.salesTaxAmount, color: "#6366f1" },
+        { label: "Down & Trade-In", value: s.down + s.tradeIn, color: "#10b981" },
+      ],
+    }),
+    timeline: (r) => {
+      let cumPaid = 0;
+      let cumInterest = 0;
+      const paidArr: number[] = [];
+      const interestArr: number[] = [];
+      const balanceArr: number[] = [];
+      r.rows.forEach((row: any) => {
+        cumPaid += row.paid;
+        cumInterest += row.interest;
+        paidArr.push(cumPaid);
+        interestArr.push(cumInterest);
+        balanceArr.push(row.closing);
+      });
+      return {
+        title: "Auto Loan Payoff Trajectory",
+        subtitle: "Remaining loan balance and cumulative payments over term",
+        labels: r.rows.map((row: any) => `Yr ${row.year}`),
+        datasets: [
+          { label: "Remaining Balance", data: balanceArr, color: "#0284c7", fill: true },
+          { label: "Payments Made", data: paidArr, color: "#10b981" },
+          { label: "Interest Paid", data: interestArr, color: "#f59e0b" },
+        ],
+      };
+    },
     table: {
       caption: "Auto Loan Amortization Schedule",
       head: ["Year", "Opening Balance", "Payments Made", "Interest Paid", "Ending Balance"],

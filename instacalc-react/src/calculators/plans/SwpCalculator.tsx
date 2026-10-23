@@ -67,6 +67,26 @@ export default createCalculatorPage((locale: Locale) => {
         value: (r) => (r.sustainable ? c.sustainable : `${r.exhaustedYear} ${c.years} — ${c.unsustainable}`),
       },
     ],
+    donut: (r) => ({
+      items: [
+        { label: c.totalWithdrawal, value: r.totalWithdrawal, color: "#10b981" },
+        { label: c.balance, value: r.rows.length ? r.rows[r.rows.length - 1].closing : 0, color: "#0284c7" },
+      ],
+      centerLabel: c.totalWithdrawal,
+    }),
+    timeline: (r) => ({
+      title: locale === "ja" ? "SWP取崩し・資産残高推移" : "SWP Portfolio Balance Trajectory",
+      subtitle: locale === "ja" ? "年間取崩し額と残高推移" : "Remaining portfolio corpus over withdrawal period",
+      labels: r.rows.map((row: any) => `${locale === "ja" ? "" : "Yr "}${row.year}${locale === "ja" ? "年目" : ""}`),
+      datasets: [
+        {
+          label: c.balance,
+          data: r.rows.map((row: any) => row.closing),
+          color: "#0284c7",
+          fill: true,
+        },
+      ],
+    }),
     table: {
       caption: c.yearsTable,
       head: [c.year, c.withdrawal, c.totalInterest, c.balance],

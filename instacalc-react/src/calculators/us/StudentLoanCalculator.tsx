@@ -111,6 +111,37 @@ export default createCalculatorPage((locale: Locale) => {
             : "Standard schedule",
       },
     ],
+    donut: (r, s) => ({
+      centerLabel: "Loan Principal",
+      items: [
+        { label: "Principal Balance", value: s.balance, color: "#0284c7" },
+        { label: "Total Interest", value: r.totalInterest, color: "#f59e0b" },
+      ],
+    }),
+    timeline: (r) => {
+      let cumPaid = 0;
+      let cumInterest = 0;
+      const paidArr: number[] = [];
+      const interestArr: number[] = [];
+      const balanceArr: number[] = [];
+      r.rows.forEach((row: any) => {
+        cumPaid += row.paid;
+        cumInterest += row.interest;
+        paidArr.push(cumPaid);
+        interestArr.push(cumInterest);
+        balanceArr.push(row.closing);
+      });
+      return {
+        title: "Student Loan Amortization Schedule",
+        subtitle: "Loan balance reduction and cumulative repayment trajectory",
+        labels: r.rows.map((row: any) => `Yr ${row.year}`),
+        datasets: [
+          { label: "Remaining Balance", data: balanceArr, color: "#0284c7", fill: true },
+          { label: "Total Paid", data: paidArr, color: "#10b981" },
+          { label: "Interest Paid", data: interestArr, color: "#f59e0b" },
+        ],
+      };
+    },
     table: {
       caption: "Student Loan Repayment Schedule",
       head: ["Year", "Opening Balance", "Payments Made", "Interest Paid", "Ending Balance"],

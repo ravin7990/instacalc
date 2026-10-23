@@ -55,6 +55,32 @@ export default createCalculatorPage((locale: Locale) => {
       { label: c.totalContributed, value: (r) => money(r.totalContributed) },
       { label: c.totalGrowth, value: (r) => money(r.totalGrowth) },
     ],
+    donut: (r) => ({
+      centerLabel: c.totalGrowth,
+      items: [
+        { label: c.totalContributed, value: r.totalContributed, color: "#0284c7" },
+        { label: c.totalGrowth, value: r.totalGrowth, color: "#10b981" },
+      ],
+    }),
+    timeline: (r) => {
+      let cumContribution = 0;
+      const contribArr: number[] = [];
+      const corpusArr: number[] = [];
+      r.rows.forEach((row: any) => {
+        cumContribution += row.contribution;
+        contribArr.push(cumContribution);
+        corpusArr.push(row.closing);
+      });
+      return {
+        title: "Roth IRA Growth Trajectory",
+        subtitle: "Tax-free balance accumulation versus annual contributions",
+        labels: r.rows.map((row: any) => `${c.year} ${row.year}`),
+        datasets: [
+          { label: c.corpus, data: corpusArr, color: "#10b981", fill: true },
+          { label: c.totalContributed, data: contribArr, color: "#0284c7", dashed: true },
+        ],
+      };
+    },
     table: {
       caption: c.yearsTable,
       head: [c.year, c.annualContribution, c.totalGrowth, c.corpus],

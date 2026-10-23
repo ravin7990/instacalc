@@ -57,6 +57,47 @@ export default createCalculatorPage((locale: Locale) => {
       { label: c.totalInterest, value: (r) => money(r.totalInterest) },
       { label: c.apy, value: (r) => `${r.nominalRate.toFixed(3)}% nominal` },
     ],
+    donut: (r, s) => ({
+      centerLabel: c.totalInterest,
+      items: [
+        { label: c.amount, value: s.deposit, color: "#0284c7" },
+        { label: c.totalInterest, value: r.totalInterest, color: "#10b981" },
+        ...(r.penaltyAmount > 0
+          ? [{ label: c.earlyPenalty, value: r.penaltyAmount, color: "#f59e0b" }]
+          : []),
+      ],
+    }),
+    timeline: (r, s) => {
+      const totalMonths = Math.max(1, Math.round(s.months));
+      const step = totalMonths <= 12 ? 1 : totalMonths <= 36 ? 3 : 6;
+      const labels: string[] = [];
+      const balanceData: number[] = [];
+      const interestData: number[] = [];
+      const n = s.freq === 0 ? 365 : 12;
+      const nominal = r.nominalRate / 100;
+
+      for (let m = 0; m <= totalMonths; m += step) {
+        labels.push(`Mo ${m}`);
+        const bal = Math.round(s.deposit * Math.pow(1 + nominal / n, n * (m / 12)));
+        balanceData.push(bal);
+        interestData.push(Math.max(0, bal - s.deposit));
+      }
+      if (totalMonths % step !== 0) {
+        labels.push(`Mo ${totalMonths}`);
+        balanceData.push(r.balance);
+        interestData.push(r.totalInterest);
+      }
+
+      return {
+        title: "Certificate of Deposit Growth",
+        subtitle: "Compound balance accumulation over the CD term",
+        labels,
+        datasets: [
+          { label: c.netPayout, data: balanceData, color: "#10b981", fill: true },
+          { label: c.totalInterest, data: interestData, color: "#0284c7" },
+        ],
+      };
+    },
     guide: <UsCdArticle />,
   };
 });

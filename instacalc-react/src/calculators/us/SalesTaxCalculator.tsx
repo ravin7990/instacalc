@@ -43,6 +43,13 @@ export default createCalculatorPage((locale: Locale) => {
       { label: c.amount, value: (r) => money(r.baseAmount) },
       { label: c.taxAmount, value: (r) => money(r.taxAmount) },
     ],
+    donut: (r) => ({
+      centerLabel: c.taxAmount,
+      items: [
+        { label: c.amount, value: r.baseAmount, color: "#0284c7" },
+        { label: c.taxAmount, value: r.taxAmount, color: "#f59e0b" },
+      ],
+    }),
     guide: <UsSalesTaxArticle />,
   };
 });

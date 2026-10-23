@@ -14,6 +14,7 @@ import { UsRetirementArticle } from "@/components/articles/us/UsRetirementArticl
 import { JaRetirementArticle } from "@/components/articles/ja/JaRetirementArticle";
 import { RuRetirementArticle } from "@/components/articles/ru/RuRetirementArticle";
 import { InCompoundArticle } from "@/components/articles/in/InCompoundArticle";
+import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 /**
  * Full retirement planner: accumulation to retirement, then drawdown to life
@@ -169,17 +170,47 @@ export default function RetirementCalculator({ seo }: { seo: SeoRecord }) {
             </>
           }
           results={
-            <ul className="kv-list">
-              {/* Projected corpus is the headline; not repeated here. */}
-              {rows.map((r) => (
-                <li key={r.k}>
-                  <span className="kv-key">{r.k}</span>
-                  <span className="kv-value">{r.v}</span>
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="kv-list">
+                {/* Projected corpus is the headline; not repeated here. */}
+                {rows.map((r) => (
+                  <li key={r.k}>
+                    <span className="kv-key">{r.k}</span>
+                    <span className="kv-value">{r.v}</span>
+                  </li>
+                ))}
+              </ul>
+              <BreakdownDonutChart
+                items={[
+                  { label: c.totalContributed, value: result.totalInvested, color: "#0284c7" },
+                  { label: c.totalGrowth, value: Math.max(0, result.projectedCorpus - result.totalInvested), color: "#10b981" },
+                ]}
+                centerLabel={c.totalGrowth}
+                locale={seo.locale}
+              />
+            </>
           }
         >
+          <TimelineGrowthChart
+            title={seo.locale === "ja" ? "老後資産形成シミュレーション推移" : seo.locale === "ru" ? "Динамика формирования пенсионного капитала" : "Retirement Corpus Accumulation"}
+            subtitle={seo.locale === "ja" ? "退職までの積立額と予想資産残高の推移" : "Projected retirement savings vs cumulative contributions"}
+            labels={result.accumulation.map((r) => `Age ${r.age}`)}
+            datasets={[
+              {
+                label: c.corpus,
+                data: result.accumulation.map((r) => r.balance),
+                color: "#0284c7",
+                fill: true,
+              },
+              {
+                label: c.totalContributed,
+                data: result.accumulation.map((r) => r.totalInvested),
+                color: "#64748b",
+                dashed: true,
+              },
+            ]}
+            locale={seo.locale}
+          />
           <ProjectionTable
             caption={c.yearsTable}
             head={[c.year, "Age", c.annualContribution, c.totalContributed, c.corpus]}

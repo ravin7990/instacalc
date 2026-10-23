@@ -9,6 +9,7 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateKoigyoKyosai, type KyosaiPayoutReason } from "@/engines/japan";
 import { formatNumber } from "@/lib/currency";
 import { JaKoigyoKyosaiArticle } from "@/components/articles/ja/JaKoigyoKyosaiArticle";
+import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 const REASONS: Array<{ key: KyosaiPayoutReason; label: string }> = [
   { key: "kyosai_a", label: "共済金A: 事業廃業・法人解散（退職所得控除・最高利率）" },
@@ -97,6 +98,35 @@ export default function KoigyoKyosaiCalculator({ seo }: { seo: SeoRecord }) {
     { k: "受取共済金＋節税累計の総合メリット", v: `+¥${n(result.netBenefit)}` },
   ];
 
+  const timelineData = useMemo(() => {
+    const labels: string[] = [];
+    const contribArr: number[] = [];
+    const taxSavedArr: number[] = [];
+    const payoutArr: number[] = [];
+
+    for (let y = 1; y <= s.years; y++) {
+      labels.push(`${y}年目`);
+      const k = calculateKoigyoKyosai({
+        monthlyAmount: s.monthly,
+        durationYears: y,
+        taxableIncome: s.income,
+        payoutReason,
+      });
+      contribArr.push(k.totalContributed);
+      taxSavedArr.push(k.totalTaxSaved);
+      payoutArr.push(k.payoutAmount);
+    }
+
+    return {
+      labels,
+      datasets: [
+        { label: "満期受取共済金目安", data: payoutArr, color: "#10b981", fill: true },
+        { label: "掛金累計（自己負担）", data: contribArr, color: "#0284c7" },
+        { label: "掛金節税 累計総額", data: taxSavedArr, color: "#f59e0b", dashed: true },
+      ],
+    };
+  }, [s.monthly, s.years, s.income, payoutReason]);
+
   return (
     <>
       <SeoHead seo={seo} appCategory="FinanceApplication" />
@@ -114,16 +144,34 @@ export default function KoigyoKyosaiCalculator({ seo }: { seo: SeoRecord }) {
           summary={{ label: "満期受取共済金の目安", value: `¥${n(result.payoutAmount)}` }}
           inputs={fields.map((f) => <Field key={f.key} spec={f} onChange={set(f.key as keyof typeof s)} />)}
           results={
-            <ul className="kv-list">
-              {rows.map((r) => (
-                <li key={r.k}>
-                  <span className="kv-key">{r.k}</span>
-                  <span className="kv-value">{r.v}</span>
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="kv-list">
+                {rows.map((r) => (
+                  <li key={r.k}>
+                    <span className="kv-key">{r.k}</span>
+                    <span className="kv-value">{r.v}</span>
+                  </li>
+                ))}
+              </ul>
+              <BreakdownDonutChart
+                locale={seo.locale}
+                centerLabel="節税効果"
+                items={[
+                  { label: "掛金累計", value: result.totalContributed, color: "#0284c7" },
+                  { label: "節税累計メリット", value: result.totalTaxSaved, color: "#10b981" },
+                ]}
+              />
+            </>
           }
-        />
+        >
+          <TimelineGrowthChart
+            title="小規模企業共済 資産形成・節税推移"
+            subtitle="受取共済金・掛金元本累計・所得控除による節税累計のシミュレーション"
+            labels={timelineData.labels}
+            datasets={timelineData.datasets}
+            locale={seo.locale}
+          />
+        </CalculatorShell>
 
         <JaKoigyoKyosaiArticle />
 

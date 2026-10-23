@@ -9,6 +9,7 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateSukanya, COURSE_COSTS, type Course } from "@/engines/japan";
 import { formatNumber } from "@/lib/currency";
 import { JaSukanyaArticle } from "@/components/articles/ja/JaSukanyaArticle";
+import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 
 const COURSES: Course[] = ["national", "private_arts", "private_science", "medical"];
@@ -65,6 +66,33 @@ export default function SukanyaCalculator({ seo }: { seo: SeoRecord }) {
     },
   ];
 
+  const timelineData = useMemo(() => {
+    const years = Math.max(1, 18 - s.age);
+    const monthlyRate = s.rate / 100 / 12;
+    const labels: string[] = [];
+    const corpusArr: number[] = [];
+    const targetArr: number[] = [];
+
+    for (let y = 0; y <= years; y++) {
+      labels.push(`${s.age + y}歳`);
+      const totalDep = s.monthly * 12 * y;
+      const m = y * 12;
+      const corpus =
+        monthlyRate > 0 && m > 0
+          ? Math.round(s.monthly * ((Math.pow(1 + monthlyRate, m) - 1) / monthlyRate))
+          : totalDep;
+      corpusArr.push(corpus);
+      targetArr.push(result.courseCost);
+    }
+
+    return {
+      labels,
+      datasets: [
+        { label: "積立総額推移", data: corpusArr, color: "#10b981", fill: true },
+        { label: "進学目標コース費用", data: targetArr, color: "#ef4444", dashed: true },
+      ],
+    };
+  }, [s.age, s.monthly, s.rate, result.courseCost]);
 
   return (
     <>
@@ -79,16 +107,34 @@ export default function SukanyaCalculator({ seo }: { seo: SeoRecord }) {
           summary={{ label: "積立額", value: `¥${n(result.finalAmount)}` }}
           inputs={fields.map((f) => <Field key={f.key} spec={f} onChange={set(f.key as keyof typeof s)} />)}
           results={
-            <ul className="kv-list">
-              {rows.map((r) => (
-                <li key={r.k}>
-                  <span className="kv-key">{r.k}</span>
-                  <span className="kv-value">{r.v}</span>
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="kv-list">
+                {rows.map((r) => (
+                  <li key={r.k}>
+                    <span className="kv-key">{r.k}</span>
+                    <span className="kv-value">{r.v}</span>
+                  </li>
+                ))}
+              </ul>
+              <BreakdownDonutChart
+                locale={seo.locale}
+                centerLabel="運用利益"
+                items={[
+                  { label: "積立元本累計", value: result.totalContributed, color: "#0284c7" },
+                  { label: "運用利益（利息）", value: result.interestEarned, color: "#10b981" },
+                ]}
+              />
+            </>
           }
-        />
+        >
+          <TimelineGrowthChart
+            title="すまいる積立金 資産推移シミュレーション"
+            subtitle="大学進学18歳時点までの積立推移と目標進学費用の比較"
+            labels={timelineData.labels}
+            datasets={timelineData.datasets}
+            locale={seo.locale}
+          />
+        </CalculatorShell>
 
         <JaSukanyaArticle />
 

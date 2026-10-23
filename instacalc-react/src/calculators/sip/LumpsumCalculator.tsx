@@ -12,6 +12,7 @@ import { calculateCompound } from "@/engines/interest";
 import { formatCompact, formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
 import { sipCopy } from "@/i18n/calculator-copy";
 import { JaLumpsumArticle } from "@/components/articles/ja/JaLumpsumArticle";
+import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 
 /** One-time lumpsum investment, mirroring the SIP page's structure and styling. */
@@ -101,15 +102,45 @@ export default function LumpsumCalculator({ seo }: { seo: SeoRecord }) {
             </>
           }
           results={
-            <ResultList
-              // "corpus" is the headline and is not repeated as a tile.
-              items={[
-                { label: c.invested, value: money(result.totalInvested) },
-                { label: c.returns, value: money(result.totalInterest) },
-              ]}
-            />
+            <>
+              <ResultList
+                // "corpus" is the headline and is not repeated as a tile.
+                items={[
+                  { label: c.invested, value: money(result.totalInvested) },
+                  { label: c.returns, value: money(result.totalInterest) },
+                ]}
+              />
+              <BreakdownDonutChart
+                items={[
+                  { label: c.invested, value: result.totalInvested, color: "#0284c7" },
+                  { label: c.returns, value: result.totalInterest, color: "#10b981" },
+                ]}
+                centerLabel={c.returns}
+                locale={seo.locale}
+              />
+            </>
           }
         >
+          <TimelineGrowthChart
+            title={seo.locale === "ja" ? "一括投資資産形成グラフ" : "Lumpsum Wealth Growth Journey"}
+            subtitle={seo.locale === "ja" ? "元本と複利運用の資産推移" : "Projected corpus vs initial investment over time"}
+            labels={result.rows.map((r) => `${seo.locale === "ja" ? "" : "Yr "}${r.year}${seo.locale === "ja" ? "年目" : ""}`)}
+            datasets={[
+              {
+                label: c.corpus,
+                data: result.rows.map((r) => r.amount),
+                color: "#0284c7",
+                fill: true,
+              },
+              {
+                label: c.invested,
+                data: result.rows.map((r) => r.invested),
+                color: "#64748b",
+                dashed: true,
+              },
+            ]}
+            locale={seo.locale}
+          />
           <ProjectionTable
             caption={c.progress}
             head={["#", c.invested, c.corpus, c.returns]}

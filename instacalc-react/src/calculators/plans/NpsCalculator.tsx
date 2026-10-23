@@ -56,6 +56,13 @@ export default createCalculatorPage((locale: Locale) => {
       { label: c.pension, value: (r) => money(r.monthlyPension) },
       { label: c.totalInvested, value: (r) => money(r.invested) },
     ],
+    donut: (r) => ({
+      items: [
+        { label: c.totalInvested, value: r.invested, color: "#0284c7" },
+        { label: locale === "ja" ? "運用益" : locale === "ru" ? "Инвестиционный доход" : "Wealth Gain", value: Math.max(0, r.corpus - r.invested), color: "#10b981" },
+      ],
+      centerLabel: locale === "ja" ? "収益比率" : "Gain",
+    }),
     guide: locale === "ja" ? <JaNpsArticle /> : locale === "ru" ? <RuNpsArticle /> : <InNpsArticle />,
   };
 });

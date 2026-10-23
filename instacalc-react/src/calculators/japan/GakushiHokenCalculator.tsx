@@ -9,6 +9,7 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateGakushiHoken, type Course, COURSE_COSTS } from "@/engines/japan";
 import { formatNumber } from "@/lib/currency";
 import { JaGakushiHokenArticle } from "@/components/articles/ja/JaGakushiHokenArticle";
+import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 const COURSES: Array<{ key: Course; label: string }> = [
   { key: "national", label: "国公立大学（目安 300万円）" },
@@ -107,6 +108,39 @@ export default function GakushiHokenCalculator({ seo }: { seo: SeoRecord }) {
     { k: "目標学費に対する達成率", v: `${result.achievementRate}%` },
   ];
 
+  const timelineData = useMemo(() => {
+    const years = Math.max(1, 18 - s.childAge);
+    const monthlyRate = s.nisaRate / 100 / 12;
+    const labels: string[] = [];
+    const nisaArr: number[] = [];
+    const gakushiArr: number[] = [];
+    const targetArr: number[] = [];
+
+    for (let y = 0; y <= years; y++) {
+      labels.push(`${s.childAge + y}歳`);
+      const totalContributed = s.monthly * 12 * y;
+      const m = y * 12;
+      const nisaCorpus =
+        monthlyRate > 0 && m > 0
+          ? Math.round(s.monthly * ((Math.pow(1 + monthlyRate, m) - 1) / monthlyRate))
+          : totalContributed;
+      const gakushiCorpus = Math.round(totalContributed * (s.gakushiRate / 100));
+
+      nisaArr.push(nisaCorpus);
+      gakushiArr.push(gakushiCorpus);
+      targetArr.push(result.courseCost);
+    }
+
+    return {
+      labels,
+      datasets: [
+        { label: "新NISA 想定受取額", data: nisaArr, color: "#10b981", fill: true },
+        { label: "学資保険 満期額", data: gakushiArr, color: "#0284c7" },
+        { label: "目標大学目安学費", data: targetArr, color: "#ef4444", dashed: true },
+      ],
+    };
+  }, [s.childAge, s.monthly, s.nisaRate, s.gakushiRate, result.courseCost]);
+
   return (
     <>
       <SeoHead seo={seo} appCategory="FinanceApplication" />
@@ -124,16 +158,34 @@ export default function GakushiHokenCalculator({ seo }: { seo: SeoRecord }) {
           summary={{ label: "新NISA 18歳到達時想定資産", value: `¥${n(result.nisaFinalAmount)}` }}
           inputs={fields.map((f) => <Field key={f.key} spec={f} onChange={set(f.key as keyof typeof s)} />)}
           results={
-            <ul className="kv-list">
-              {rows.map((r) => (
-                <li key={r.k}>
-                  <span className="kv-key">{r.k}</span>
-                  <span className="kv-value">{r.v}</span>
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="kv-list">
+                {rows.map((r) => (
+                  <li key={r.k}>
+                    <span className="kv-key">{r.k}</span>
+                    <span className="kv-value">{r.v}</span>
+                  </li>
+                ))}
+              </ul>
+              <BreakdownDonutChart
+                locale={seo.locale}
+                centerLabel="新NISA運用益"
+                items={[
+                  { label: "18歳までの積立元本", value: result.totalContributed, color: "#0284c7" },
+                  { label: "新NISA運用益", value: result.nisaGains, color: "#10b981" },
+                ]}
+              />
+            </>
           }
-        />
+        >
+          <TimelineGrowthChart
+            title="教育資金 積立推移シミュレーション"
+            subtitle="大学進学18歳時点までの新NISAと学資保険の資産形成比較"
+            labels={timelineData.labels}
+            datasets={timelineData.datasets}
+            locale={seo.locale}
+          />
+        </CalculatorShell>
 
         <JaGakushiHokenArticle />
 

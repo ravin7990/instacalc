@@ -64,6 +64,39 @@ export default createCalculatorPage((locale: Locale) => {
       { label: c.totalInterest, value: (r) => money(r.totalInterest) },
       { label: c.downPayment, value: (r) => money(r.downPayment) },
     ],
+    donut: (r, s) => ({
+      centerLabel: c.principalInterest,
+      items: [
+        { label: "Loan Principal", value: r.principal, color: "#0284c7" },
+        { label: c.totalInterest, value: r.totalInterest, color: "#f59e0b" },
+        { label: c.propertyTax, value: r.monthlyTax * 12 * s.years, color: "#6366f1" },
+        { label: c.insurance, value: s.insurance * s.years, color: "#10b981" },
+      ],
+    }),
+    timeline: (r) => {
+      let cumPrincipal = 0;
+      let cumInterest = 0;
+      const principalArr: number[] = [];
+      const interestArr: number[] = [];
+      const balanceArr: number[] = [];
+      r.rows.forEach((row: any) => {
+        cumPrincipal += row.principalPaid;
+        cumInterest += row.interestPaid;
+        principalArr.push(cumPrincipal);
+        interestArr.push(cumInterest);
+        balanceArr.push(row.closing);
+      });
+      return {
+        title: "Mortgage Amortization Trajectory",
+        subtitle: "Loan balance payoff versus cumulative principal and interest",
+        labels: r.rows.map((row: any) => `${c.year} ${row.year}`),
+        datasets: [
+          { label: c.remainingBalance, data: balanceArr, color: "#0284c7", fill: true },
+          { label: c.principalPaid, data: principalArr, color: "#10b981" },
+          { label: c.totalInterest, data: interestArr, color: "#f59e0b" },
+        ],
+      };
+    },
     table: {
       caption: c.yearsTable,
       head: [c.year, c.principalPaid, c.totalInterest, c.remainingBalance],

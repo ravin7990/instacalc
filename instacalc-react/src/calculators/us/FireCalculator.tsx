@@ -10,6 +10,7 @@ import { calculateFire, type FireTier, type FireTiming } from "@/engines/us-reti
 import { usCopy } from "@/i18n/us-labels";
 import { formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
 import { UsFireArticle } from "@/components/articles/us/UsFireArticle";
+import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 const TIERS: FireTier[] = ["lean", "standard", "fat"];
 const TIMINGS: FireTiming[] = ["monthly", "start", "end"];
@@ -67,6 +68,38 @@ export default function FireCalculator({ seo }: { seo: SeoRecord }) {
   const pct = Math.round(result.progressPercent);
   const years = result.yearsToFire === null ? "—" : result.yearsToFire === 0 ? "Reached" : `${result.yearsToFire} ${c.year}`;
 
+  const timelineData = useMemo(() => {
+    const horizon = Math.min(35, Math.max(10, (result.yearsToFire ?? 20) + 5));
+    const labels: string[] = [];
+    const netWorthArr: number[] = [];
+    const targetArr: number[] = [];
+    const r = Math.min(0.2, Math.max(0.001, s.ret / 100));
+
+    let balance = s.netWorth;
+    for (let y = 0; y <= horizon; y++) {
+      labels.push(`Yr ${y}`);
+      netWorthArr.push(Math.round(balance));
+      targetArr.push(Math.round(result.target));
+      if (y < horizon) {
+        const opening = balance;
+        const returns =
+          s.timing === 1
+            ? (opening + s.savings) * r
+            : s.timing === 2
+            ? opening * r
+            : (opening + s.savings / 2) * r;
+        balance = opening + s.savings + returns;
+      }
+    }
+    return {
+      labels,
+      datasets: [
+        { label: c.netWorth, data: netWorthArr, color: "#10b981", fill: true },
+        { label: c.fireTarget, data: targetArr, color: "#f59e0b", dashed: true },
+      ],
+    };
+  }, [s, result.target, result.yearsToFire, c.netWorth, c.fireTarget]);
+
   return (
     <>
       <SeoHead seo={seo} appCategory="FinanceApplication" />
@@ -122,39 +155,57 @@ export default function FireCalculator({ seo }: { seo: SeoRecord }) {
             </>
           }
           results={
-            <ul className="kv-list">
-              {/* FIRE target is the headline; not repeated here. */}
-              <li>
-                <span className="kv-key">{c.leanFire}</span>
-                <span className="kv-value">{money(result.leanTarget)}</span>
-              </li>
-              <li>
-                <span className="kv-key">{c.standardFire}</span>
-                <span className="kv-value">{money(result.standardTarget)}</span>
-              </li>
-              <li>
-                <span className="kv-key">{c.fatFire}</span>
-                <span className="kv-value">{money(result.fatTarget)}</span>
-              </li>
-              <li>
-                <span className="kv-key">{c.yearsToFire}</span>
-                <span className="kv-value">{years}</span>
-              </li>
-              <li>
-                <span className="kv-key">{c.remaining}</span>
-                <span className="kv-value">{money(result.remaining)}</span>
-              </li>
-              <li>
-                <span className="kv-key">{c.monthlyIncome}</span>
-                <span className="kv-value">{money(result.safeMonthlyIncome)}</span>
-              </li>
-              <li>
-                <span className="kv-key">{c.multiple}</span>
-                <span className="kv-value">{result.multiple}x</span>
-              </li>
-            </ul>
+            <>
+              <ul className="kv-list">
+                {/* FIRE target is the headline; not repeated here. */}
+                <li>
+                  <span className="kv-key">{c.leanFire}</span>
+                  <span className="kv-value">{money(result.leanTarget)}</span>
+                </li>
+                <li>
+                  <span className="kv-key">{c.standardFire}</span>
+                  <span className="kv-value">{money(result.standardTarget)}</span>
+                </li>
+                <li>
+                  <span className="kv-key">{c.fatFire}</span>
+                  <span className="kv-value">{money(result.fatTarget)}</span>
+                </li>
+                <li>
+                  <span className="kv-key">{c.yearsToFire}</span>
+                  <span className="kv-value">{years}</span>
+                </li>
+                <li>
+                  <span className="kv-key">{c.remaining}</span>
+                  <span className="kv-value">{money(result.remaining)}</span>
+                </li>
+                <li>
+                  <span className="kv-key">{c.monthlyIncome}</span>
+                  <span className="kv-value">{money(result.safeMonthlyIncome)}</span>
+                </li>
+                <li>
+                  <span className="kv-key">{c.multiple}</span>
+                  <span className="kv-value">{result.multiple}x</span>
+                </li>
+              </ul>
+              <BreakdownDonutChart
+                locale={seo.locale}
+                centerLabel={c.fireTarget}
+                items={[
+                  { label: c.netWorth, value: s.netWorth, color: "#0284c7" },
+                  { label: c.remaining, value: result.remaining, color: "#10b981" },
+                ]}
+              />
+            </>
           }
-        />
+        >
+          <TimelineGrowthChart
+            title="FIRE Net Worth Accumulation Trajectory"
+            subtitle="Projected portfolio growth toward financial independence target"
+            labels={timelineData.labels}
+            datasets={timelineData.datasets}
+            locale={seo.locale}
+          />
+        </CalculatorShell>
 
         <UsFireArticle />
 

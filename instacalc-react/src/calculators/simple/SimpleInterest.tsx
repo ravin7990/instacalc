@@ -72,6 +72,32 @@ export default createCalculatorPage((locale: Locale) => {
       { label: c.investedTotal, value: (r) => money(r.totalInvested) },
       { label: c.interest, value: (r) => money(r.totalInterest) },
     ],
+    donut: (r) => ({
+      items: [
+        { label: c.investedTotal, value: r.totalInvested, color: "#0284c7" },
+        { label: c.interest, value: r.totalInterest, color: "#10b981" },
+      ],
+      centerLabel: c.interest,
+    }),
+    timeline: (r) => ({
+      title: locale === "ja" ? "単利運用による資産推移" : "Simple Interest Growth Trajectory",
+      subtitle: locale === "ja" ? "投資元本と利息の推移グラフ" : "Accumulated balance vs principal over time",
+      labels: r.rows.map((row: any) => `${locale === "ja" ? "" : "Yr "}${row.year}${locale === "ja" ? "年目" : ""}`),
+      datasets: [
+        {
+          label: c.maturity,
+          data: r.rows.map((row: any) => row.amount),
+          color: "#0284c7",
+          fill: true,
+        },
+        {
+          label: c.investedTotal,
+          data: r.rows.map((row: any) => row.invested),
+          color: "#64748b",
+          dashed: true,
+        },
+      ],
+    }),
     table: {
       caption: c.yearsTable,
       head: [c.schedule, c.investedTotal, c.interest, c.maturity],

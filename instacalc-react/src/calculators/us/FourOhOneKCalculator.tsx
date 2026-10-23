@@ -11,6 +11,7 @@ import { calculate401k } from "@/engines/us-retirement";
 import { usCopy } from "@/i18n/us-labels";
 import { formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
 import { Us401kArticle } from "@/components/articles/us/Us401kArticle";
+import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 /** 401(k) projection with employer match and the indexed IRS deferral limit. */
 export default function FourOhOneKCalculator({ seo }: { seo: SeoRecord }) {
@@ -91,18 +92,43 @@ export default function FourOhOneKCalculator({ seo }: { seo: SeoRecord }) {
             </>
           }
           results={
-            <ResultList
-              // "corpus" is the headline and is not repeated as a tile.
-              items={[
-                { label: c.totalContributed, value: money(result.totalContributed) },
-                { label: c.totalGrowth, value: money(result.totalGrowth) },
-                { label: c.employee, value: money(result.totalEmployee) },
-                { label: c.employer, value: money(result.totalEmployer) },
-                { label: c.retireAge, value: `${result.retireAge}` },
-              ]}
-            />
+            <>
+              <ResultList
+                // "corpus" is the headline and is not repeated as a tile.
+                items={[
+                  { label: c.totalContributed, value: money(result.totalContributed) },
+                  { label: c.totalGrowth, value: money(result.totalGrowth) },
+                  { label: c.employee, value: money(result.totalEmployee) },
+                  { label: c.employer, value: money(result.totalEmployer) },
+                  { label: c.retireAge, value: `${result.retireAge}` },
+                ]}
+              />
+              <BreakdownDonutChart
+                locale={seo.locale}
+                centerLabel={c.totalGrowth}
+                items={[
+                  { label: c.employee, value: result.totalEmployee, color: "#0284c7" },
+                  { label: c.employer, value: result.totalEmployer, color: "#6366f1" },
+                  { label: c.totalGrowth, value: result.totalGrowth, color: "#10b981" },
+                ]}
+              />
+            </>
           }
         >
+          <TimelineGrowthChart
+            title="401(k) Retirement Corpus Growth"
+            subtitle="Projected account balance accumulation from employee and employer contributions"
+            labels={result.rows.map((r) => `Age ${r.age}`)}
+            datasets={[
+              {
+                label: c.corpus,
+                data: result.rows.map((r) => r.balance),
+                color: "#10b981",
+                fill: true,
+              },
+            ]}
+            locale={seo.locale}
+          />
           <ProjectionTable
             caption={c.yearsTable}
             head={[c.year, c.employee, c.employer, c.totalGrowth, c.corpus]}

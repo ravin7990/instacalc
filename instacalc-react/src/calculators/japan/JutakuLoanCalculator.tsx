@@ -9,6 +9,7 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateJutakuLoan, type HouseType } from "@/engines/japan";
 import { formatNumber } from "@/lib/currency";
 import { JaJutakuLoanArticle } from "@/components/articles/ja/JaJutakuLoanArticle";
+import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 /** 住宅ローン控除（住宅借入金等特別控除）シミュレーター */
 export default function JutakuLoanCalculator({ seo }: { seo: SeoRecord }) {
@@ -82,6 +83,21 @@ export default function JutakuLoanCalculator({ seo }: { seo: SeoRecord }) {
     { k: "住民税からの年間控除目安（上限9.75万円）", v: `¥${n(result.residentTaxCredit)}` },
   ];
 
+  const timelineData = useMemo(() => {
+    const labels: string[] = [];
+    const cumArr: number[] = [];
+    for (let y = 1; y <= result.years; y++) {
+      labels.push(`${y}年目`);
+      cumArr.push(Math.round(result.annualDeduction * y));
+    }
+    return {
+      labels,
+      datasets: [
+        { label: "累計減税額（控除総額）", data: cumArr, color: "#10b981", fill: true },
+      ],
+    };
+  }, [result.years, result.annualDeduction]);
+
   return (
     <>
       <SeoHead seo={seo} appCategory="FinanceApplication" />
@@ -99,16 +115,34 @@ export default function JutakuLoanCalculator({ seo }: { seo: SeoRecord }) {
           summary={{ label: "初年度の年間控除額", value: `¥${n(result.annualDeduction)}` }}
           inputs={fields.map((f) => <Field key={f.key} spec={f} onChange={set(f.key as keyof typeof s)} />)}
           results={
-            <ul className="kv-list">
-              {rows.map((r) => (
-                <li key={r.k}>
-                  <span className="kv-key">{r.k}</span>
-                  <span className="kv-value">{r.v}</span>
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="kv-list">
+                {rows.map((r) => (
+                  <li key={r.k}>
+                    <span className="kv-key">{r.k}</span>
+                    <span className="kv-value">{r.v}</span>
+                  </li>
+                ))}
+              </ul>
+              <BreakdownDonutChart
+                locale={seo.locale}
+                centerLabel="初年度控除"
+                items={[
+                  { label: "所得税からの還付", value: result.incomeTaxCredit, color: "#0284c7" },
+                  { label: "住民税からの減額", value: result.residentTaxCredit, color: "#10b981" },
+                ]}
+              />
+            </>
           }
-        />
+        >
+          <TimelineGrowthChart
+            title="住宅ローン控除 累計減税シミュレーション"
+            subtitle={`${result.years}年間の所得税還付・住民税減額の累計推移`}
+            labels={timelineData.labels}
+            datasets={timelineData.datasets}
+            locale={seo.locale}
+          />
+        </CalculatorShell>
 
         <JaJutakuLoanArticle />
 

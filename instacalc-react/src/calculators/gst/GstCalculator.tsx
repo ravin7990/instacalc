@@ -104,6 +104,21 @@ export default createCalculatorPage((locale: Locale) => {
         value: (r) => money(r.totalAmount),
       },
     ],
+    donut: (r) => ({
+      items: [
+        {
+          label: ruLocale ? "Сумма без НДС" : jaLocale ? "税抜本体価格" : c.baseAmount,
+          value: r.baseAmount,
+          color: "#0284c7",
+        },
+        {
+          label: ruLocale ? "Сумма НДС" : jaLocale ? "消費税額" : c.taxAmount,
+          value: r.taxAmount,
+          color: "#f59e0b",
+        },
+      ],
+      centerLabel: ruLocale ? "НДС" : jaLocale ? "税率" : "Tax",
+    }),
     guide: jaLocale ? <JaGstArticle /> : ruLocale ? <RuVatArticle /> : <InGstArticle />,
   };
 });

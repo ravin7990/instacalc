@@ -13,6 +13,7 @@ import { sipCopy } from "@/i18n/calculator-copy";
 import { JaSipArticle } from "@/components/articles/ja/JaSipArticle";
 import { RuCompoundArticle } from "@/components/articles/ru/RuCompoundArticle";
 import { InSipArticle } from "@/components/articles/in/InSipArticle";
+import { SipBreakdownChart, SipGrowthChart } from "@/components/calculator/SipCharts";
 
 
 export default function SipCalculator({ seo }: { seo: SeoRecord }) {
@@ -132,21 +133,29 @@ export default function SipCalculator({ seo }: { seo: SeoRecord }) {
             </>
           }
           results={
-            <ResultList
-              // "corpus" is the headline and is not repeated as a tile.
-              items={[
-                { label: c.invested, value: money(result.totalInvested) },
-                { label: c.returns, value: money(result.estimatedReturns) },
-                ...(advanced
-                  ? [
-                      { label: c.realCorpus, value: money(result.inflationAdjustedCorpus) },
-                      { label: c.realReturns, value: money(result.realReturns) },
-                    ]
-                  : []),
-              ]}
-            />
+            <>
+              <ResultList
+                // "corpus" is the headline and is not repeated as a tile.
+                items={[
+                  { label: c.invested, value: money(result.totalInvested) },
+                  { label: c.returns, value: money(result.estimatedReturns) },
+                  ...(advanced
+                    ? [
+                        { label: c.realCorpus, value: money(result.inflationAdjustedCorpus) },
+                        { label: c.realReturns, value: money(result.realReturns) },
+                      ]
+                    : []),
+                ]}
+              />
+              <SipBreakdownChart
+                invested={result.totalInvested}
+                returns={result.estimatedReturns}
+                locale={seo.locale}
+              />
+            </>
           }
         >
+          <SipGrowthChart rows={result.rows} locale={seo.locale} />
           <ProjectionTable
             caption={c.progress}
             head={["#", c.invested, c.corpus, c.returns]}

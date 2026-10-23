@@ -9,6 +9,7 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateIdeco, type IdecoJobCategory, IDECO_CAPS } from "@/engines/japan";
 import { formatNumber } from "@/lib/currency";
 import { JaIdecoArticle } from "@/components/articles/ja/JaIdecoArticle";
+import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 const CATEGORIES: Array<{ key: IdecoJobCategory; label: string }> = [
   { key: "company_none", label: "会社員（企業年金なし・上限2.3万円/月）" },
@@ -113,6 +114,35 @@ export default function IdecoCalculator({ seo }: { seo: SeoRecord }) {
     { k: "iDeCoトータル経済効果（運用益＋節税累計）", v: `¥${n(result.totalBenefit)}` },
   ];
 
+  const timelineData = useMemo(() => {
+    const monthlyRate = s.rate / 100 / 12;
+    const actualMonthly = Math.min(s.monthly, maxAllowed);
+    const years = result.years;
+    const labels: string[] = [];
+    const corpusArr: number[] = [];
+    const contribArr: number[] = [];
+
+    for (let y = 0; y <= years; y++) {
+      labels.push(`${s.currentAge + y}歳`);
+      const totalDep = actualMonthly * 12 * y;
+      const m = y * 12;
+      const corpus =
+        monthlyRate > 0 && m > 0
+          ? Math.round(actualMonthly * ((Math.pow(1 + monthlyRate, m) - 1) / monthlyRate))
+          : totalDep;
+      corpusArr.push(corpus);
+      contribArr.push(totalDep);
+    }
+
+    return {
+      labels,
+      datasets: [
+        { label: "想定資産総額", data: corpusArr, color: "#10b981", fill: true },
+        { label: "拠出元本累計", data: contribArr, color: "#0284c7", dashed: true },
+      ],
+    };
+  }, [s.rate, s.monthly, maxAllowed, result.years, s.currentAge]);
+
   return (
     <>
       <SeoHead seo={seo} appCategory="FinanceApplication" />
@@ -130,16 +160,34 @@ export default function IdecoCalculator({ seo }: { seo: SeoRecord }) {
           summary={{ label: "60歳時点の想定資産総額", value: `¥${n(result.finalCorpus)}` }}
           inputs={fields.map((f) => <Field key={f.key} spec={f} onChange={set(f.key as keyof typeof s)} />)}
           results={
-            <ul className="kv-list">
-              {rows.map((r) => (
-                <li key={r.k}>
-                  <span className="kv-key">{r.k}</span>
-                  <span className="kv-value">{r.v}</span>
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="kv-list">
+                {rows.map((r) => (
+                  <li key={r.k}>
+                    <span className="kv-key">{r.k}</span>
+                    <span className="kv-value">{r.v}</span>
+                  </li>
+                ))}
+              </ul>
+              <BreakdownDonutChart
+                locale={seo.locale}
+                centerLabel="運用益"
+                items={[
+                  { label: "拠出元本累計", value: result.totalContributed, color: "#0284c7" },
+                  { label: "想定運用益", value: result.investmentGains, color: "#10b981" },
+                ]}
+              />
+            </>
           }
-        />
+        >
+          <TimelineGrowthChart
+            title="iDeCo 資産形成シミュレーション"
+            subtitle="60歳受取時までの積立元本と想定運用益の資産推移"
+            labels={timelineData.labels}
+            datasets={timelineData.datasets}
+            locale={seo.locale}
+          />
+        </CalculatorShell>
 
         <JaIdecoArticle />
 

@@ -9,6 +9,7 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateFurusato, type FurusatoFamily } from "@/engines/japan";
 import { formatNumber } from "@/lib/currency";
 import { JaFurusatoArticle } from "@/components/articles/ja/JaFurusatoArticle";
+import { BreakdownDonutChart } from "@/components/calculator/FinancialCharts";
 
 /** ふるさと納税 控除上限額・実質負担2,000円シミュレーター */
 export default function FurusatoCalculator({ seo }: { seo: SeoRecord }) {
@@ -114,14 +115,27 @@ export default function FurusatoCalculator({ seo }: { seo: SeoRecord }) {
           summary={{ label: "控除上限額の目安", value: `¥${n(result.limit)}` }}
           inputs={fields.map((f) => <Field key={f.key} spec={f} onChange={set(f.key as keyof typeof s)} />)}
           results={
-            <ul className="kv-list">
-              {rows.map((r) => (
-                <li key={r.k}>
-                  <span className="kv-key">{r.k}</span>
-                  <span className="kv-value">{r.v}</span>
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="kv-list">
+                {rows.map((r) => (
+                  <li key={r.k}>
+                    <span className="kv-key">{r.k}</span>
+                    <span className="kv-value">{r.v}</span>
+                  </li>
+                ))}
+              </ul>
+              <BreakdownDonutChart
+                locale={seo.locale}
+                centerLabel="控除上限額"
+                items={[
+                  { label: "控除・節税額", value: result.taxSaved, color: "#10b981" },
+                  { label: "実質自己負担", value: result.effectiveContribution, color: "#0284c7" },
+                  ...(result.excess > 0
+                    ? [{ label: "上限超過（全額自己負担）", value: result.excess, color: "#f59e0b" }]
+                    : []),
+                ]}
+              />
+            </>
           }
         />
 

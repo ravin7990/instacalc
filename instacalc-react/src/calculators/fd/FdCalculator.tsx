@@ -85,6 +85,32 @@ export default createCalculatorPage((locale: Locale) => {
       { label: isRu ? "Начисленные проценты" : c.interest, value: (r) => money(r.totalInterest) },
       { label: isRu ? "Налог (НДФЛ)" : c.taxAmount, value: (r) => money(r.tax) },
     ],
+    donut: (r, s) => ({
+      items: [
+        { label: isRu ? "Сумма вклада" : c.amount, value: s.principal, color: "#0284c7" },
+        { label: isRu ? "Начисленные проценты" : c.interest, value: r.totalInterest, color: "#10b981" },
+      ],
+      centerLabel: isRu ? "Доход" : c.interest,
+    }),
+    timeline: (r) => ({
+      title: locale === "ja" ? "定期預金残高推移" : isRu ? "Динамика роста вклада" : "Fixed Deposit Growth Trajectory",
+      subtitle: locale === "ja" ? "元本と利息累計の推移" : isRu ? "Рост баланса депозита по годам" : "Maturity balance vs principal over time",
+      labels: r.rows.map((row: any) => `${locale === "ja" ? "" : "Yr "}${row.year}${locale === "ja" ? "年目" : ""}`),
+      datasets: [
+        {
+          label: isRu ? "Баланс депозита" : c.maturity,
+          data: r.rows.map((row: any) => row.balance),
+          color: "#0284c7",
+          fill: true,
+        },
+        {
+          label: isRu ? "Сумма вклада" : c.amount,
+          data: r.rows.map((row: any) => row.deposited),
+          color: "#64748b",
+          dashed: true,
+        },
+      ],
+    }),
     table: {
       caption: c.yearsTable,
       head: isRu ? ["Год", "Депозит", "Проценты", "Баланс"] : [c.schedule, c.amount, c.interest, c.maturity],
