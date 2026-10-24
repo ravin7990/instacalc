@@ -17,6 +17,7 @@ const targets = [
   ["delete-account.html", "Delete Account"],
   ["ja/privacypolicy.html", "Privacy (ja)"],
   ["ru/aboutus.html", "About (ru)"],
+  ["ko/privacypolicy.html", "Privacy (ko)"],
 ];
 
 let bad = 0;

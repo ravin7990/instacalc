@@ -26,7 +26,7 @@ const LEGACY = join(ROOT, "..");
 const TARGETS = [
   { file: "aboutus.html", locales: ["", "ja/", "ru/"] },
   { file: "contactus.html", locales: ["", "ja/", "ru/"] },
-  { file: "privacypolicy.html", locales: ["", "ja/", "ru/"] },
+  { file: "privacypolicy.html", locales: ["", "ja/", "ru/", "ko/"] },
   { file: "terms.html", locales: ["", "ja/", "ru/"] },
   { file: "delete-account.html", locales: ["", "ja/", "ru/"] },
 ];

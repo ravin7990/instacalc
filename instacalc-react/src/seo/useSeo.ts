@@ -89,12 +89,20 @@ export function buildJsonLd(meta: SeoMeta, extra: JsonLd[] = []): JsonLd[] {
 
   if (meta.appCategory) {
     out.push({
-      "@type": "WebApplication",
+      "@type": "WebPage",
       name: meta.title.split(/[-|(]/)[0].trim(),
       url: canonical,
-      applicationCategory: meta.appCategory,
-      operatingSystem: "All",
       description: meta.description,
+      isPartOf: {
+        "@type": "WebSite",
+        name: "InstaCalc",
+        url: `${ORIGIN}/`,
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "InstaCalc",
+        url: `${ORIGIN}/`,
+      },
     });
   }
   if (meta.faq?.length) {

@@ -65,10 +65,12 @@ function buildUrlset(items) {
       const priority = p.path === "/" ? "1.0" : /calculator|interest|emi|gst/.test(p.path) ? "0.8" : "0.6";
 
       const alts = (p.alternates ?? [])
-        .map(
-          (a) =>
-            `    <xhtml:link rel="alternate" hreflang="${esc(a.hreflang)}" href="${esc(a.href)}"/>`,
-        )
+        .map((a) => {
+          let href = a.href;
+          if (href.endsWith("/index.html")) href = href.slice(0, -"index.html".length);
+          else if (href === `${ORIGIN}/index.html`) href = `${ORIGIN}/`;
+          return `    <xhtml:link rel="alternate" hreflang="${esc(a.hreflang)}" href="${esc(href)}"/>`;
+        })
         .join("\n");
 
       return `  <url>

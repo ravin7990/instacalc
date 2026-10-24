@@ -188,6 +188,77 @@ const JA_GROUPS: ToolGroup[] = [
 
 const KO_GROUPS: ToolGroup[] = [
   {
+    id: "labor-salary",
+    name: "급여·퇴직금 및 노무 계산기",
+    tools: [
+      { path: "salary-calculator.html", label: "연봉 실수령액 계산기 (2026 4대보험·소득세 공제)" },
+      { path: "severance-pay-calculator.html", label: "법정 퇴직금 계산기 (고용노동부 기준·상여금 안분)" },
+      { path: "weekly-holiday-pay-calculator.html", label: "주휴수당 계산기 (2026 최저시급 10,320원·알바 월급)" },
+      { path: "unemployment-benefit-calculator.html", label: "실업급여(구직급여) 계산기 (2026 상한액 68,100원)" },
+      { path: "annual-leave-pay-calculator.html", label: "미사용 연차수당 계산기 (209시간 통상임금 기준)" },
+      { path: "parental-leave-pay-calculator.html", label: "육아휴직 급여 계산기 (2026 상한 250만·6+6 부모휴직)" },
+    ],
+  },
+  {
+    id: "savings-banking",
+    name: "예적금·목돈 모으기 및 파킹통장",
+    tools: [
+      { path: "deposit-calculator.html", label: "정기예금 계산기 (단리·월복리·세금우대 1.4%·비과세)" },
+      { path: "savings-calculator.html", label: "정기적금 계산기 (정액적립식 단리·선납이연·회차별 이자)" },
+      { path: "parking-account-calculator.html", label: "파킹통장 / CMA 계산기 (일복리 매일 이자·비상금 통장)" },
+      { path: "windmill-savings-calculator.html", label: "적금 풍차돌리기 계산기 (12개월 연속 가입·만기 플랜)" },
+      { path: "youth-leap-calculator.html", label: "청년도약계좌 계산기 (소득별 정부기여금·비과세 5천만원)" },
+    ],
+  },
+  {
+    id: "stocks-investment",
+    name: "주식·복리 투자 및 가상자산",
+    tools: [
+      { path: "stock-average-down-calculator.html", label: "주식 물타기 계산기 (평단가 인하·목표 평단가 필요 주수)" },
+      { path: "compound-investment-calculator.html", label: "적립식 복리 투자 계산기 (월 적립 DCA·72의 법칙)" },
+      { path: "overseas-stock-tax-calculator.html", label: "해외주식 양도소득세 계산기 (연 250만 기본공제·22% 세금)" },
+      { path: "dividend-tax-calculator.html", label: "미국 배당금 실수령액 계산기 (15% 원천징수·종합과세 2천만)" },
+      { path: "crypto-profit-calculator.html", label: "가상자산(코인) 수익률 계산기 (업비트·빗썸 수수료·손익분기)" },
+    ],
+  },
+  {
+    id: "tax-pension",
+    name: "절세·연금 및 연말정산",
+    tools: [
+      { path: "isa-calculator.html", label: "중개형 ISA 절세 계산기 (200만/400만 비과세·9.9% 분리과세)" },
+      { path: "pension-savings-irp-calculator.html", label: "연금저축 & IRP 세액공제 계산기 (연 900만·16.5% 환급)" },
+      { path: "national-pension-calculator.html", label: "국민연금 예상수령액 계산기 (기준소득월액·만 65세 노령연금)" },
+      { path: "year-end-tax-calculator.html", label: "연말정산 카드 소득공제 계산기 (총급여 25% 문턱·체크카드 30%)" },
+      { path: "card-deduction-optimizer-calculator.html", label: "신용카드 소득공제 황금비율 계산기 (총급여 25% 최적화)" },
+      { path: "inheritance-gift-tax-calculator.html", label: "증여세 및 상속세 계산기 (10년 주기 합산·누진세율)" },
+      { path: "health-insurance-dependent-calculator.html", label: "건강보험 피부양자 자격 및 지역보험료 계산기 (2천만원 기준)" },
+    ],
+  },
+  {
+    id: "real-estate-vehicle",
+    name: "부동산·자동차 및 대출",
+    tools: [
+      { path: "capital-gains-tax-calculator.html", label: "부동산 양도소득세 계산기 (1세대 1주택 12억 비과세·장특공)" },
+      { path: "housing-subscription-score-calculator.html", label: "주택청약 가점 계산기 (청약홈 84점 만점 기준)" },
+      { path: "policy-housing-loan-calculator.html", label: "디딤돌·버팀목 대출 계산기 (주택도시기금 우대금리)" },
+      { path: "loan-prepayment-penalty-calculator.html", label: "대출 중도상환수수료 계산기 (3년 슬라이딩 감면·대환 손익)" },
+      { path: "brokerage-fee-calculator.html", label: "부동산 중개수수료 계산기 (매매·전세·월세 복비 상한)" },
+      { path: "acquisition-tax-calculator.html", label: "주택 취득세 계산기 (다주택 중과세·생애최초 감면)" },
+      { path: "loan-dsr-calculator.html", label: "대출이자 & DSR 계산기 (원리금균등·DSR 40% 한도)" },
+      { path: "jeonse-wolse-calculator.html", label: "전월세 전환 계산기 (법정 전환율 상한선 기준)" },
+      { path: "car-tax-calculator.html", label: "자동차세 연납 할인 & 취등록세 계산기 (배기량별·1월 5% 할인)" },
+    ],
+  },
+  {
+    id: "daily-measurement",
+    name: "생활·나이 및 에너지·면적 변환기",
+    tools: [
+      { path: "electricity-bill-calculator.html", label: "전기요금 누진세 계산기 (한전 주택용 저압/고압·하계 에어컨)" },
+      { path: "pyeong-calculator.html", label: "평수 계산기 (평 ↔ 제곱미터 ㎡ 면적 변환)" },
+      { path: "korean-age-calculator.html", label: "만 나이 계산기 (2023 만 나이 통일법·연나이·띠)" },
+    ],
+  },
+  {
     id: "construction-geometry",
     name: "실용·건축·토목 및 기하학 도구",
     tools: [

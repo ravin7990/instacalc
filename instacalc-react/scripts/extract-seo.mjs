@@ -58,10 +58,12 @@ function extract(html) {
   const ogImage = pick(html, /<meta property="og:image" content="([^"]*)"/);
   const ogTitle = decode(pick(html, /<meta property="og:title" content="([^"]*)"/) ?? "");
 
-  const alternates = [...html.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)].map((m) => ({
-    hreflang: m[1],
-    href: m[2],
-  }));
+  const alternates = [...html.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)].map((m) => {
+    let href = m[2];
+    if (href.endsWith("/index.html")) href = href.slice(0, -"index.html".length);
+    else if (href === "https://instacalc.in/index.html") href = "https://instacalc.in/";
+    return { hreflang: m[1], href };
+  });
 
   const jsonLd = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
     .map((m) => {
@@ -93,17 +95,14 @@ function extract(html) {
       });
     } else {
       const existing = jsonLd[existingFaqIdx];
-      const count = existing["@type"] === "FAQPage" ? (existing.mainEntity?.length ?? 0) : 0;
-      if (detailsFaqs.length > count) {
-        if (existing["@type"] === "FAQPage") {
-          existing.mainEntity = detailsFaqs;
-        } else {
-          jsonLd.push({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: detailsFaqs,
-          });
-        }
+      if (existing["@type"] === "FAQPage") {
+        existing.mainEntity = detailsFaqs;
+      } else {
+        jsonLd.push({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: detailsFaqs,
+        });
       }
     }
   }
@@ -191,13 +190,20 @@ if (!pages["us/auto-loan-calculator.html"]) {
     jsonLd: [
       {
         "@context": "https://schema.org",
-        "@type": "WebApplication",
+        "@type": "WebPage",
         name: "Auto Loan Calculator (US)",
         url: "https://instacalc.in/us/auto-loan-calculator.html",
-        applicationCategory: "FinanceApplication",
-        operatingSystem: "All",
         description: "Calculate monthly auto loan payments with vehicle price, down payment, trade-in, and sales tax.",
-        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        isPartOf: {
+          "@type": "WebSite",
+          name: "InstaCalc",
+          url: "https://instacalc.in/",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "InstaCalc",
+          url: "https://instacalc.in/",
+        },
       },
       {
         "@context": "https://schema.org",

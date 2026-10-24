@@ -1,5 +1,6 @@
+import { useState, useEffect } from "react";
 import type { SeoRecord } from "@/data/seo-types";
-import type { ContentBlock } from "@/data/content";
+import type { ContentBlock, ContentPage as ContentPageType } from "@/data/content";
 import { getContent } from "@/data/content";
 import { Layout } from "@/components/layout/Layout";
 import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
@@ -13,10 +14,24 @@ import { localeHome } from "@/components/layout/Layout";
  */
 export default function ContentPage({ seo }: { seo: SeoRecord }) {
   const page = getContent(seo.path, seo);
+  const [contentPage, setContentPage] = useState<ContentPageType>(page);
   const faq = extractFaq(seo);
 
+  useEffect(() => {
+    if (page.blocks.length === 0) {
+      import("@/data/content.generated.json").then((mod) => {
+        const fileName = seo.path.split("/").pop() ?? "";
+        const localeDir = seo.path.split("/").slice(1, -1).join("/");
+        const key = localeDir ? `${localeDir}/${fileName}` : fileName;
+        const loaded = (mod.default as Record<string, ContentPageType>)[key];
+        if (loaded) setContentPage(loaded);
+      });
+    }
+  }, [seo.path, page.blocks.length]);
+
+  const activePage = contentPage.blocks.length > 0 ? contentPage : page;
   // The hero H1 is already rendered by the hero block, so drop it from the body.
-  const blocks = page.blocks.filter((b) => !(b.type === "h" && b.level === 1));
+  const blocks = activePage.blocks.filter((b) => !(b.type === "h" && b.level === 1));
 
   return (
     <>
@@ -26,8 +41,8 @@ export default function ContentPage({ seo }: { seo: SeoRecord }) {
           <div className="container">
             <div className="hero-copy">
               <span className="eyebrow">{seo.title.split(/[-|(]/)[0].trim()}</span>
-              <h1>{page.hero.h1}</h1>
-              {page.hero.lead ? <p>{page.hero.lead}</p> : null}
+              <h1>{activePage.hero.h1}</h1>
+              {activePage.hero.lead ? <p>{activePage.hero.lead}</p> : null}
               <div className="hero-actions">
                 <a className="btn btn-primary" href={localeHome(seo.locale)}>
                   {seo.locale === "ru"

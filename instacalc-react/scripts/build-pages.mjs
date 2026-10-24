@@ -77,8 +77,49 @@ function buildHead(page, css, entry, body, opts = {}) {
     .map((a) => `<link rel="alternate" hreflang="${esc(a.hreflang)}" href="${esc(a.href)}">`)
     .join("\n  ");
 
-  // JSON-LD is reproduced verbatim from the legacy page.
-  const jsonLd = (page.jsonLd ?? [])
+  // JSON-LD with WebApplication and BreadcrumbList rich schemas
+  const allJsonLd = [...(page.jsonLd ?? [])];
+  const hasApp = allJsonLd.some((j) => j && (j["@type"] === "WebApplication" || j["@type"] === "SoftwareApplication"));
+  if (!hasApp && /calculator|tax|interest|pay|dsr|isa|pension|benefit/.test(page.path)) {
+    allJsonLd.push({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: (page.ogTitle ?? page.title).split(/\s+[|\-–—]\s+/)[0].trim(),
+      url: canonical,
+      description: page.description,
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "All",
+      browserRequirements: "Requires JavaScript. Requires HTML5.",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: page.locale === "ko" ? "KRW" : page.locale === "ja" ? "JPY" : page.locale === "us" ? "USD" : page.locale === "ru" ? "RUB" : "INR",
+      },
+    });
+  }
+  const hasBreadcrumb = allJsonLd.some((j) => j && j["@type"] === "BreadcrumbList");
+  if (!hasBreadcrumb && page.path !== "/" && !page.path.endsWith("/")) {
+    allJsonLd.push({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: page.locale === "ko" ? "홈" : page.locale === "ja" ? "ホーム" : "Home",
+          item: `${ORIGIN}${page.locale === "en" ? "/" : `/${page.locale}/`}`,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: (page.ogTitle ?? page.title).split(/\s+[|\-–—]\s+/)[0].trim(),
+          item: canonical,
+        },
+      ],
+    });
+  }
+
+  const jsonLd = allJsonLd
     .map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`)
     .join("\n  ");
 
@@ -163,7 +204,7 @@ function buildHead(page, css, entry, body, opts = {}) {
   ${page.keywords ? `<meta name="keywords" content="${esc(page.keywords)}">` : ""}
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="${robots}">
-  <meta name="naver-site-verification" content="instacalc-naver-verification">${adsenseTag}
+  <meta name="naver-site-verification" content="${esc(process.env.NAVER_SITE_VERIFICATION || "instacalc-naver-verification")}">${adsenseTag}
   <meta name="theme-color" content="${esc(page.themeColor ?? "#0284c7")}">
   <link rel="canonical" href="${esc(canonical)}">
   ${alternates}
@@ -172,6 +213,8 @@ function buildHead(page, css, entry, body, opts = {}) {
   <meta property="og:type" content="website">
   <meta property="og:url" content="${esc(canonical)}">
   <meta property="og:image" content="${esc(page.ogImage ?? `${ORIGIN}/instatheme.webp`)}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="InstaCalc">
   <meta property="og:locale" content="${esc(page.ogLocale ?? (page.locale === "us" ? "en_US" : page.locale === "ja" ? "ja_JP" : page.locale === "ko" ? "ko_KR" : page.locale === "ru" ? "ru_RU" : "en_IN"))}">
   <meta name="twitter:card" content="summary_large_image">

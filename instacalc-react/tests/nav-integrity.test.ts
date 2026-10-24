@@ -66,7 +66,7 @@ describe("localeOrRoot", () => {
 
   it("falls back to the English original when the locale has none", () => {
     expect(localeOrRoot("us", "aboutus.html")).toBe("/aboutus.html");
-    expect(localeOrRoot("ko", "privacypolicy.html")).toBe("/privacypolicy.html");
+    expect(localeOrRoot("ko", "aboutus.html")).toBe("/aboutus.html");
   });
 
   it("returns null when neither the locale nor the root has the page", () => {
@@ -124,7 +124,7 @@ describe("buildNav", () => {
       "/ko/",
       "/aboutus.html",
       "/contactus.html",
-      "/privacypolicy.html",
+      "/ko/privacypolicy.html",
     ]);
   });
 
@@ -174,8 +174,7 @@ describe("toolGroups", () => {
     expect(count("en")).toBe(30);
     expect(count("us")).toBe(23);
     expect(count("ru")).toBeLessThan(count("en"));
-    // /ko/ carries only three pages, and they are all in the catalogue, so its
-    // homepage lists three real tools rather than an empty section.
-    expect(count("ko")).toBe(3);
+    // /ko/ now carries 38 localized calculators in its catalogue.
+    expect(count("ko")).toBe(38);
   });
 });

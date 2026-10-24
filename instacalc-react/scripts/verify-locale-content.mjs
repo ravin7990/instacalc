@@ -17,6 +17,7 @@ const pairs = [
   ["aboutus.html", "ru/aboutus.html"],
   ["contactus.html", "ru/contactus.html"],
   ["privacypolicy.html", "ru/privacypolicy.html"],
+  ["privacypolicy.html", "ko/privacypolicy.html"],
 ];
 
 const read = (file) => readFileSync(join(DIST, file), "utf8");
@@ -46,10 +47,10 @@ for (const [enFile, localeFile] of pairs) {
   } else {
     console.log(`  OK    ${localeFile.padEnd(26)} ${loc.blocks.length} blocks vs en ${en.blocks.length}`);
     console.log(`        h1: ${loc.hero.h1.slice(0, 60)}`);
-    // A translated page should contain characters outside the Latin range.
-    const nonLatin = /[\u3040-\u30ff\u0400-\u04ff]/.test(loc.hero.h1 + JSON.stringify(loc.blocks));
+    // A translated page should contain characters outside the Latin range (Kana/Kanji, Cyrillic, Hangul).
+    const nonLatin = /[\u3040-\u30ff\u0400-\u04ff\uac00-\ud7af]/.test(loc.hero.h1 + JSON.stringify(loc.blocks));
     if (!nonLatin) {
-      console.log(`        WARN  ${lang}: no ${lang === "ja" ? "kana/kanji" : "Cyrillic"} detected in content`);
+      console.log(`        WARN  ${lang}: no non-Latin characters detected in content`);
       bad++;
     }
   }

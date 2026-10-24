@@ -2,7 +2,7 @@ import { getSeo } from "@/data/seo";
 import type { SeoRecord } from "@/data/seo-types";
 import { resolveRoute, loadPage, type PageComponent } from "@/app/router";
 import NotFound from "@/pages/NotFound";
-import { lazy, useMemo, Suspense } from "react";
+import { lazy, useMemo, Suspense, useState, useEffect } from "react";
 
 /**
  * Root component. Resolves the current path to a route and renders its page.
@@ -28,7 +28,23 @@ export default function App({ path }: { path: string }) {
   }
 
   const route = resolveRoute(path);
-  const seo = getSeo(path) ?? fallbackSeo(path, route.locale);
+  const initialSeo = getSeo(path) ?? fallbackSeo(path, route.locale);
+  const [seo, setSeo] = useState<SeoRecord>(initialSeo);
+
+  useEffect(() => {
+    if (seo.description === "") {
+      import("@/data/seo.generated.json").then((mod) => {
+        const pages = mod.default.pages as Record<string, SeoRecord>;
+        const cleanPath = path.endsWith("/index.html") ? path.slice(0, -"index.html".length) : path;
+        for (const p of Object.values(pages)) {
+          if (p.path === cleanPath || p.path === path) {
+            setSeo(p);
+            break;
+          }
+        }
+      });
+    }
+  }, [path, seo.description]);
 
   const Page = useMemo(() => lazy(() => route.load()) as PageComponent, [route.load]);
 

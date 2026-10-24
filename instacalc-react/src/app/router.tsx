@@ -107,6 +107,7 @@ export const ROUTES: RouteDef[] = [
   { path: "/ru/aboutus.html", locale: "ru", load: () => import("@/pages/ContentPage"), implemented: true },
   { path: "/ru/contactus.html", locale: "ru", load: () => import("@/pages/ContactPage"), implemented: true },
   { path: "/ru/privacypolicy.html", locale: "ru", load: () => import("@/pages/ContentPage"), implemented: true },
+  { path: "/ko/privacypolicy.html", locale: "ko", load: () => import("@/pages/ContentPage"), implemented: true },
 
 
   // --- Retirement, tax and withdrawal plans ---
@@ -203,6 +204,43 @@ export const ROUTES: RouteDef[] = [
   { path: "/ja/taishokukin-calculator.html", locale: "ja", load: () => import("@/calculators/japan/TaishokukinCalculator"), implemented: true },
   { path: "/ja/gakushihoken-calculator.html", locale: "ja", load: () => import("@/calculators/japan/GakushiHokenCalculator"), implemented: true },
   { path: "/ja/koigyo-kyosai-calculator.html", locale: "ja", load: () => import("@/calculators/japan/KoigyoKyosaiCalculator"), implemented: true },
+
+  // --- Korean-only tools ---
+  { path: "/ko/salary-calculator.html", locale: "ko", load: () => import("@/calculators/korea/SalaryCalculator"), implemented: true },
+  { path: "/ko/severance-pay-calculator.html", locale: "ko", load: () => import("@/calculators/korea/SeveranceCalculator"), implemented: true },
+  { path: "/ko/weekly-holiday-pay-calculator.html", locale: "ko", load: () => import("@/calculators/korea/WeeklyHolidayCalculator"), implemented: true },
+  { path: "/ko/pyeong-calculator.html", locale: "ko", load: () => import("@/calculators/korea/PyeongCalculator"), implemented: true },
+  { path: "/ko/korean-age-calculator.html", locale: "ko", load: () => import("@/calculators/korea/KoreanAgeCalculator"), implemented: true },
+  { path: "/ko/brokerage-fee-calculator.html", locale: "ko", load: () => import("@/calculators/korea/BrokerageCalculator"), implemented: true },
+  { path: "/ko/jeonse-wolse-calculator.html", locale: "ko", load: () => import("@/calculators/korea/JeonseWolseCalculator"), implemented: true },
+  { path: "/ko/acquisition-tax-calculator.html", locale: "ko", load: () => import("@/calculators/korea/AcquisitionTaxCalculator"), implemented: true },
+  { path: "/ko/loan-dsr-calculator.html", locale: "ko", load: () => import("@/calculators/korea/LoanDsrCalculator"), implemented: true },
+  { path: "/ko/unemployment-benefit-calculator.html", locale: "ko", load: () => import("@/calculators/korea/UnemploymentCalculator"), implemented: true },
+  { path: "/ko/deposit-calculator.html", locale: "ko", load: () => import("@/calculators/korea/DepositCalculator"), implemented: true },
+  { path: "/ko/savings-calculator.html", locale: "ko", load: () => import("@/calculators/korea/SavingsCalculator"), implemented: true },
+  { path: "/ko/parking-account-calculator.html", locale: "ko", load: () => import("@/calculators/korea/ParkingAccountCalculator"), implemented: true },
+  { path: "/ko/windmill-savings-calculator.html", locale: "ko", load: () => import("@/calculators/korea/WindmillSavingsCalculator"), implemented: true },
+  { path: "/ko/youth-leap-calculator.html", locale: "ko", load: () => import("@/calculators/korea/YouthLeapCalculator"), implemented: true },
+  { path: "/ko/stock-average-down-calculator.html", locale: "ko", load: () => import("@/calculators/korea/StockAverageDownCalculator"), implemented: true },
+  { path: "/ko/compound-investment-calculator.html", locale: "ko", load: () => import("@/calculators/korea/CompoundInvestmentCalculator"), implemented: true },
+  { path: "/ko/overseas-stock-tax-calculator.html", locale: "ko", load: () => import("@/calculators/korea/OverseasStockTaxCalculator"), implemented: true },
+  { path: "/ko/dividend-tax-calculator.html", locale: "ko", load: () => import("@/calculators/korea/DividendTaxCalculator"), implemented: true },
+  { path: "/ko/crypto-profit-calculator.html", locale: "ko", load: () => import("@/calculators/korea/CryptoProfitCalculator"), implemented: true },
+  { path: "/ko/isa-calculator.html", locale: "ko", load: () => import("@/calculators/korea/IsaCalculator"), implemented: true },
+  { path: "/ko/pension-savings-irp-calculator.html", locale: "ko", load: () => import("@/calculators/korea/PensionSavingsIrpCalculator"), implemented: true },
+  { path: "/ko/national-pension-calculator.html", locale: "ko", load: () => import("@/calculators/korea/NationalPensionCalculator"), implemented: true },
+  { path: "/ko/year-end-tax-calculator.html", locale: "ko", load: () => import("@/calculators/korea/YearEndTaxCalculator"), implemented: true },
+  { path: "/ko/car-tax-calculator.html", locale: "ko", load: () => import("@/calculators/korea/CarTaxCalculator"), implemented: true },
+  { path: "/ko/capital-gains-tax-calculator.html", locale: "ko", load: () => import("@/calculators/korea/CapitalGainsTaxCalculator"), implemented: true },
+  { path: "/ko/housing-subscription-score-calculator.html", locale: "ko", load: () => import("@/calculators/korea/HousingSubscriptionScoreCalculator"), implemented: true },
+  { path: "/ko/annual-leave-pay-calculator.html", locale: "ko", load: () => import("@/calculators/korea/AnnualLeavePayCalculator"), implemented: true },
+  { path: "/ko/card-deduction-optimizer-calculator.html", locale: "ko", load: () => import("@/calculators/korea/CardDeductionOptimizerCalculator"), implemented: true },
+  { path: "/ko/inheritance-gift-tax-calculator.html", locale: "ko", load: () => import("@/calculators/korea/InheritanceGiftTaxCalculator"), implemented: true },
+  { path: "/ko/parental-leave-pay-calculator.html", locale: "ko", load: () => import("@/calculators/korea/ParentalLeavePayCalculator"), implemented: true },
+  { path: "/ko/loan-prepayment-penalty-calculator.html", locale: "ko", load: () => import("@/calculators/korea/LoanPrepaymentPenaltyCalculator"), implemented: true },
+  { path: "/ko/health-insurance-dependent-calculator.html", locale: "ko", load: () => import("@/calculators/korea/HealthInsuranceDependentCalculator"), implemented: true },
+  { path: "/ko/electricity-bill-calculator.html", locale: "ko", load: () => import("@/calculators/korea/ElectricityBillCalculator"), implemented: true },
+  { path: "/ko/policy-housing-loan-calculator.html", locale: "ko", load: () => import("@/calculators/korea/PolicyHousingLoanCalculator"), implemented: true },
 ];
 
 

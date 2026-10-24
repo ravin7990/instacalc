@@ -2,13 +2,21 @@ import type { Locale } from "@/config/site";
 
 /** JSON-LD graph entries a page can emit. Mirrors the legacy markup exactly. */
 export type JsonLd =
-  | { "@type": "WebApplication"; name: string; url: string; applicationCategory: string; operatingSystem: string; description: string }
+  | { "@type": "WebApplication"; name: string; url: string; applicationCategory: string; operatingSystem: string; description: string; browserRequirements?: string; offers?: { "@type": "Offer"; price: string; priceCurrency: string } }
   | { "@type": "FAQPage"; mainEntity: Array<{ "@type": "Question"; name: string; acceptedAnswer: { "@type": "Answer"; text: string } }> }
   | { "@type": "BreadcrumbList"; itemListElement: Array<{ "@type": "ListItem"; position: number; name: string; item: string }> }
   | { "@type": "HowTo"; name: string; step: Array<{ "@type": "HowToStep"; position: number; name: string; text: string }> }
   | { "@type": "WebSite"; name: string; url: string }
   | { "@type": "Organization"; name: string; url: string }
-  | { "@type": "WebPage"; name: string; url: string };
+  | {
+      "@type": "WebPage";
+      name: string;
+      url: string;
+      description?: string;
+      inLanguage?: string;
+      isPartOf?: { "@type": "WebSite"; name: string; url: string };
+      publisher?: { "@type": "Organization"; name: string; url: string };
+    };
 
 export interface HreflangLink {
   hreflang: string;

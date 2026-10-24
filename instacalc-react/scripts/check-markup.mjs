@@ -87,6 +87,13 @@ const IMPLEMENTED = new Set([
   "/ja/salarycalculator.html", "/ja/sukanyasamriddhicalculator.html",
   "/ja/duration/datecalculator.html", "/ja/duration/daycountercalculator.html",
 
+  // Korean-only tools
+  "/ko/salary-calculator.html", "/ko/severance-pay-calculator.html",
+  "/ko/weekly-holiday-pay-calculator.html", "/ko/pyeong-calculator.html",
+  "/ko/korean-age-calculator.html", "/ko/brokerage-fee-calculator.html",
+  "/ko/jeonse-wolse-calculator.html", "/ko/acquisition-tax-calculator.html",
+  "/ko/loan-dsr-calculator.html", "/ko/unemployment-benefit-calculator.html",
+
   // Locale variants routed to shared components
   "/ja/catagecalculator.html", "/ru/catagecalculator.html",
   "/ja/emicalculator.html", "/ru/emicalculator.html",
@@ -121,6 +128,7 @@ const KV_SUBJECTS = [
   "datecalculator", "daycounter", "salary", "sukanya",
   "diagonal", "trignometry", "triangle", "concrete", "gallon", "gst", "sales-tax",
   "gratuity", "cagr", "nps", "fire", "cd-calculator",
+  "severance", "holiday", "pyeong", "brokerage", "jeonse", "acquisition", "unemployment",
 ];
 
 /** True when the page is one of the key/value-style tools. */

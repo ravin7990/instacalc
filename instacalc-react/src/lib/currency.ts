@@ -199,3 +199,23 @@ export function formatDate(
   }).format(d);
 }
 
+/**
+ * Formats a KRW amount into native Korean 4-digit units (만, 억).
+ * e.g. 20_642_960 -> "약 2,064만 원", 150_000_000 -> "약 1억 5,000만 원"
+ */
+export function formatKoreanWonText(value: number): string {
+  if (!Number.isFinite(value)) return "—";
+  const abs = Math.abs(value);
+  const sign = value < 0 ? "-" : "";
+  if (abs >= 1e8) {
+    const eok = Math.floor(abs / 1e8);
+    const man = Math.round((abs % 1e8) / 1e4);
+    return man > 0 ? `약 ${sign}${eok}억 ${man.toLocaleString("ko-KR")}만 원` : `약 ${sign}${eok}억 원`;
+  }
+  if (abs >= 1e4) {
+    return `약 ${sign}${Math.round(abs / 1e4).toLocaleString("ko-KR")}만 원`;
+  }
+  return `${sign}${Math.round(abs).toLocaleString("ko-KR")}원`;
+}
+
+

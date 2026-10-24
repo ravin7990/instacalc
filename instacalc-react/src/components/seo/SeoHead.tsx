@@ -46,12 +46,55 @@ export function SeoHead({
   const entries: JsonLdType[] = [];
   if (appCategory) {
     entries.push({
+      "@type": "WebPage",
+      name: seo.title.split(/\s+[|\-–—]\s+/)[0].trim(),
+      url: absoluteUrl(seo.path),
+      description: seo.description,
+      isPartOf: {
+        "@type": "WebSite",
+        name: "InstaCalc",
+        url: absoluteUrl("/"),
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "InstaCalc",
+        url: absoluteUrl("/"),
+      },
+    });
+
+    entries.push({
       "@type": "WebApplication",
       name: seo.title.split(/\s+[|\-–—]\s+/)[0].trim(),
       url: absoluteUrl(seo.path),
+      description: seo.description,
       applicationCategory: appCategory,
       operatingSystem: "All",
-      description: seo.description,
+      browserRequirements: "Requires JavaScript. Requires HTML5.",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: seo.locale === "ko" ? "KRW" : seo.locale === "ja" ? "JPY" : seo.locale === "us" ? "USD" : seo.locale === "ru" ? "RUB" : "INR",
+      },
+    });
+  }
+
+  if (seo.path !== "/" && !seo.path.endsWith("/")) {
+    entries.push({
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: seo.locale === "ko" ? "홈" : seo.locale === "ja" ? "ホーム" : "Home",
+          item: absoluteUrl(seo.locale === "en" ? "/" : `/${seo.locale}/`),
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: seo.title.split(/\s+[|\-–—]\s+/)[0].trim(),
+          item: absoluteUrl(seo.path),
+        },
+      ],
     });
   }
   const faq = extractFaq(seo);
