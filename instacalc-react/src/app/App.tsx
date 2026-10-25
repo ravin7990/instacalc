@@ -3,6 +3,8 @@ import type { SeoRecord } from "@/data/seo-types";
 import { resolveRoute, loadPage, type PageComponent } from "@/app/router";
 import NotFound from "@/pages/NotFound";
 import { lazy, useMemo, Suspense, useState, useEffect } from "react";
+import { trackPageView } from "@/lib/analytics";
+import { PageContext } from "@/app/PageContext";
 
 /**
  * Root component. Resolves the current path to a route and renders its page.
@@ -32,6 +34,10 @@ export default function App({ path }: { path: string }) {
   const [seo, setSeo] = useState<SeoRecord>(initialSeo);
 
   useEffect(() => {
+    trackPageView(path, seo.title, seo.locale);
+  }, [path, seo.title, seo.locale]);
+
+  useEffect(() => {
     if (seo.description === "") {
       import("@/data/seo.generated.json").then((mod) => {
         const pages = mod.default.pages as Record<string, SeoRecord>;
@@ -49,9 +55,11 @@ export default function App({ path }: { path: string }) {
   const Page = useMemo(() => lazy(() => route.load()) as PageComponent, [route.load]);
 
   return (
-    <Suspense fallback={<div className="page-loading" aria-busy="true" />}>
-      <Page seo={seo} />
-    </Suspense>
+    <PageContext.Provider value={{ path, locale: route.locale, seo }}>
+      <Suspense fallback={<div className="page-loading" aria-busy="true" />}>
+        <Page seo={seo} />
+      </Suspense>
+    </PageContext.Provider>
   );
 }
 

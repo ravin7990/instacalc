@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { SeoRecord } from "@/data/seo";
 import type { Locale } from "@/config/site";
 import { Layout } from "@/components/layout/Layout";
@@ -9,6 +9,7 @@ import { FaqAccordion } from "@/components/calculator/FaqAccordion";
 import { ProjectionTable } from "@/components/calculator/ProjectionTable";
 import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { symbol } from "@/lib/currency";
+import { readUrlParams, syncUrlState } from "@/lib/urlState";
 import {
   BreakdownDonutChart,
   TimelineGrowthChart,
@@ -80,6 +81,17 @@ export function createCalculatorPage(specFor: (locale: Locale) => CalculatorSpec
     const [state, setState] = useState<Record<string, number>>(spec.defaults);
     const [advanced, setAdvanced] = useState(false);
 
+    useEffect(() => {
+      const fromUrl = readUrlParams(spec.defaults);
+      if (fromUrl !== spec.defaults) {
+        setState(fromUrl);
+      }
+    }, [spec.defaults]);
+
+    useEffect(() => {
+      syncUrlState(state, spec.defaults);
+    }, [state, spec.defaults]);
+
     const result = useMemo(() => spec.engine(state), [spec, state]);
     const set = (key: string) => (v: number) => setState((s) => ({ ...s, [key]: v }));
 
@@ -115,6 +127,7 @@ export function createCalculatorPage(specFor: (locale: Locale) => CalculatorSpec
           <CalculatorShell
             locale={locale}
             id={spec.anchor}
+            path={seo.path}
             advanced={advanced}
             onToggleAdvanced={spec.advancedFields?.length ? () => setAdvanced((v) => !v) : undefined}
             modes={spec.modes}

@@ -361,11 +361,11 @@ export function calculateCardDeductionOptimizer(
   let optimalAdvice = "";
   if (!isThresholdMet) {
     const shortage = thresholdAmount - totalSpend;
-    optimalAdvice = `현재 총 지출이 총급여 25% 문턱에 약 ₩${shortage.toLocaleString()} 미달합니다. 문턱까지는 포인트·할인 혜택이 많은 신용카드를 집중 사용하세요.`;
+    optimalAdvice = `현재 총 지출이 총급여 25% 문턱에 약 ₩${shortage.toLocaleString("ko-KR")} 미달합니다. 문턱까지는 포인트·할인 혜택이 많은 신용카드를 집중 사용하세요.`;
   } else if (creditCardSpend < thresholdAmount) {
-    optimalAdvice = `총급여 25% 문턱을 체크카드로 일부 채웠습니다. 문턱(₩${thresholdAmount.toLocaleString()})까지는 신용카드로 결제해 부가혜택을 챙기고, 초과분부터 체크카드(30%)를 쓰는 것이 황금비율입니다.`;
+    optimalAdvice = `총급여 25% 문턱을 체크카드로 일부 채웠습니다. 문턱(₩${thresholdAmount.toLocaleString("ko-KR")})까지는 신용카드로 결제해 부가혜택을 챙기고, 초과분부터 체크카드(30%)를 쓰는 것이 황금비율입니다.`;
   } else {
-    optimalAdvice = `문턱 달성 후 체크카드 및 현금영수증 공제율(30%)이 신용카드(15%)의 2배입니다. 한도(최대 ₩${maxDeductionLimit.toLocaleString()}) 채울 때까지 체크카드를 적극 사용하세요.`;
+    optimalAdvice = `문턱 달성 후 체크카드 및 현금영수증 공제율(30%)이 신용카드(15%)의 2배입니다. 한도(최대 ₩${maxDeductionLimit.toLocaleString("ko-KR")}) 채울 때까지 체크카드를 적극 사용하세요.`;
   }
 
   return {
@@ -677,7 +677,7 @@ export function calculateHealthInsuranceDependent(
     disqualificationReason = "사업자등록이 없는 프리랜서 사업소득이 연 500만 원을 초과하여 제외됩니다.";
   } else if (totalAnnualIncome > 20_000_000) {
     isEligible = false;
-    disqualificationReason = `연간 합산소득(₩${(totalAnnualIncome / 10_000).toLocaleString()}만 원)이 기준선인 2,000만 원을 초과하여 피부양자에서 탈락합니다.`;
+    disqualificationReason = `연간 합산소득(₩${(totalAnnualIncome / 10_000).toLocaleString("ko-KR")}만 원)이 기준선인 2,000만 원을 초과하여 피부양자에서 탈락합니다.`;
   } else if (propertyTaxBase > 900_000_000) {
     isEligible = false;
     disqualificationReason = `재산세 과세표준(₩${(propertyTaxBase / 100_000_000).toFixed(1)}억 원)이 9억 원을 초과하여 피부양자에서 탈락합니다.`;
@@ -835,7 +835,7 @@ export function calculatePolicyHousingLoan(input: PolicyHousingLoanInput): Polic
     const incomeLimit = householdType === "newlywed" ? 85_000_000 : 60_000_000;
     if (annualIncome > incomeLimit) {
       isEligible = false;
-      ineligibilityReason = `소득 기준(연 ₩${(incomeLimit / 10_000).toLocaleString()}만 원)을 초과했습니다.`;
+      ineligibilityReason = `소득 기준(연 ₩${(incomeLimit / 10_000).toLocaleString("ko-KR")}만 원)을 초과했습니다.`;
     }
     if (housePriceOrDeposit > 500_000_000 && householdType !== "newlywed") {
       isEligible = false;
@@ -862,7 +862,7 @@ export function calculatePolicyHousingLoan(input: PolicyHousingLoanInput): Polic
     const incomeLimit = householdType === "newlywed" ? 75_000_000 : 50_000_000;
     if (annualIncome > incomeLimit) {
       isEligible = false;
-      ineligibilityReason = `소득 기준(연 ₩${(incomeLimit / 10_000).toLocaleString()}만 원)을 초과했습니다.`;
+      ineligibilityReason = `소득 기준(연 ₩${(incomeLimit / 10_000).toLocaleString("ko-KR")}만 원)을 초과했습니다.`;
     }
 
     if (householdType === "newlywed") {

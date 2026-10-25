@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import type { Locale } from "@/config/site";
 import { localeOrRoot } from "@/data/pageExists";
+import { trackCookieConsent } from "@/lib/analytics";
 
 const COOKIE_STORAGE_KEY = "ic_cookie_consent";
 
@@ -67,6 +68,7 @@ export function CookieBanner({ locale }: CookieBannerProps) {
     } catch {
       // ignore
     }
+    trackCookieConsent(val === "all" ? "accept_all" : "essential_only");
     setVisible(false);
   };
 

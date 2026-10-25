@@ -11,6 +11,13 @@ import { JaHomeArticle } from "@/components/articles/ja/JaHomeArticle";
 import { KoHomeArticle } from "@/components/articles/ko/KoHomeArticle";
 import { RuHomeArticle } from "@/components/articles/ru/RuHomeArticle";
 import { InHomeArticle } from "@/components/articles/in/InHomeArticle";
+import {
+  trackSearch,
+  trackSearchResultClick,
+  trackQuickLinkClick,
+  trackNavClick,
+  trackEvent,
+} from "@/lib/analytics";
 
 
 export default function Home({ seo }: { seo: SeoRecord }) {
@@ -127,14 +134,20 @@ export default function Home({ seo }: { seo: SeoRecord }) {
                   }
                   autoComplete="off"
                   value={query}
-                  onChange={(e) => setQuery(e.target.value)}
+                  onChange={(e) => {
+                    setQuery(e.target.value);
+                    trackSearch(e.target.value, results.length);
+                  }}
                 />
                 {query ? (
                   <button
                     type="button"
                     className="hero-search-clear"
                     aria-label={isJa ? "検索をクリア" : isKo ? "검색어 지우기" : isRu ? "Очистить поиск" : "Clear search"}
-                    onClick={() => setQuery("")}
+                    onClick={() => {
+                      setQuery("");
+                      trackEvent("search_clear");
+                    }}
                   >
                     ×
                   </button>
@@ -144,7 +157,11 @@ export default function Home({ seo }: { seo: SeoRecord }) {
                   <ul className="search-results" aria-label="Search results">
                     {suggestions.map((t) => (
                       <li key={t.path}>
-                        <a className="search-result" href={prefix(seo.locale, t.path)}>
+                        <a
+                          className="search-result"
+                          href={prefix(seo.locale, t.path)}
+                          onClick={() => trackSearchResultClick(query, t.label, t.path)}
+                        >
                           <span className="search-result-label">{t.label}</span>
                           <span className="search-result-group">{t.groupName}</span>
                         </a>
@@ -154,6 +171,7 @@ export default function Home({ seo }: { seo: SeoRecord }) {
                       <a
                         href="#calculator-library"
                         onClick={() => {
+                          trackEvent("search_view_all_click", { query, count: results.length });
                           document
                             .getElementById("calculator-library")
                             ?.scrollIntoView({ behavior: "smooth" });
@@ -173,10 +191,18 @@ export default function Home({ seo }: { seo: SeoRecord }) {
               </div>
 
               <div className="hero-actions">
-                <a className="btn btn-primary" href="#calculator-library">
+                <a
+                  className="btn btn-primary"
+                  href="#calculator-library"
+                  onClick={() => trackNavClick("hero_cta", "Browse all tools", "#calculator-library")}
+                >
                   {isJa ? `全${total}種のツールを見る` : isKo ? `전체 ${total}종 계산기 보기` : isRu ? `Все калькуляторы (${total})` : `Browse all ${total} tools`}
                 </a>
-                <a className="btn btn-ghost" href="#unit-converter">
+                <a
+                  className="btn btn-ghost"
+                  href="#unit-converter"
+                  onClick={() => trackNavClick("hero_cta", "Try unit converter", "#unit-converter")}
+                >
                   {isJa ? "単位換算ツールを試す" : isKo ? "스마트 단위 변환기" : isRu ? "Конвертер величин" : "Try unit converter"}
                 </a>
               </div>
@@ -187,7 +213,11 @@ export default function Home({ seo }: { seo: SeoRecord }) {
               <ul className="quick-links">
                 {popular.map((t) => (
                   <li key={t.path}>
-                    <a className="quick-link" href={prefix(seo.locale, t.path)}>
+                    <a
+                      className="quick-link"
+                      href={prefix(seo.locale, t.path)}
+                      onClick={() => trackQuickLinkClick(t.label, t.path)}
+                    >
                       <span>{t.label}</span>
                       <span aria-hidden="true">→</span>
                     </a>
@@ -213,7 +243,10 @@ export default function Home({ seo }: { seo: SeoRecord }) {
                 type="button"
                 className="filter-chip"
                 aria-pressed={activeGroup === "all"}
-                onClick={() => setActiveGroup("all")}
+                onClick={() => {
+                  setActiveGroup("all");
+                  trackEvent("category_filter_click", { category_id: "all" });
+                }}
               >
                 {isJa ? "すべて" : isKo ? "전체" : isRu ? "Все" : "All"} <span className="filter-chip-count">{total}</span>
               </button>
@@ -223,7 +256,11 @@ export default function Home({ seo }: { seo: SeoRecord }) {
                   type="button"
                   className="filter-chip"
                   aria-pressed={activeGroup === g.id}
-                  onClick={() => setActiveGroup(activeGroup === g.id ? "all" : g.id)}
+                  onClick={() => {
+                    const next = activeGroup === g.id ? "all" : g.id;
+                    setActiveGroup(next);
+                    trackEvent("category_filter_click", { category_id: g.id, category_name: g.name });
+                  }}
                 >
                   {g.name} <span className="filter-chip-count">{g.tools.length}</span>
                 </button>
@@ -251,7 +288,12 @@ export default function Home({ seo }: { seo: SeoRecord }) {
             {results.length ? (
               <div className="tool-grid">
                 {results.map((t) => (
-                  <a className="tool-card" key={t.path} href={prefix(seo.locale, t.path)}>
+                  <a
+                    className="tool-card"
+                    key={t.path}
+                    href={prefix(seo.locale, t.path)}
+                    onClick={() => trackEvent("tool_card_click", { tool_label: t.label, tool_path: t.path })}
+                  >
                     <span className="tool-card-label">{t.label}</span>
                     <span className="tool-card-group">{t.groupName}</span>
                   </a>

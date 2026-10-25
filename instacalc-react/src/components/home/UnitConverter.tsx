@@ -8,6 +8,7 @@ import {
 } from "@/engines/units";
 
 import type { Locale } from "@/config/site";
+import { trackUnitConvert, trackEvent } from "@/lib/analytics";
 
 /**
  * Natural-language converter: type "15 meter to foot" and get the answer.
@@ -75,14 +76,21 @@ export function UnitConverter({ locale = "en" }: { locale?: Locale }) {
               spellCheck={false}
               enterKeyHint="go"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => {
+                const val = e.target.value;
+                setInput(val);
+                trackUnitConvert(val, !!conversion, parsed?.from, parsed?.to);
+              }}
             />
             {input ? (
               <button
                 type="button"
                 className="converter-clear"
                 aria-label={isJa ? "入力をクリア" : isKo ? "입력 지우기" : isRu ? "Очистить ввод" : "Clear input"}
-                onClick={() => setInput("")}
+                onClick={() => {
+                  setInput("");
+                  trackEvent("unit_convert_clear");
+                }}
               >
                 ×
               </button>
@@ -97,7 +105,9 @@ export function UnitConverter({ locale = "en" }: { locale?: Locale }) {
                     type="button"
                     onClick={() => {
                       const num = parsed?.value ?? 0;
-                      setInput(`${num} ${s.alias} to ${parsed?.to ?? s.unit.id}`);
+                      const next = `${num} ${s.alias} to ${parsed?.to ?? s.unit.id}`;
+                      setInput(next);
+                      trackEvent("unit_suggestion_click", { unit: s.alias, category: s.category.name });
                     }}
                   >
                     <strong>{s.alias}</strong>
@@ -139,7 +149,11 @@ export function UnitConverter({ locale = "en" }: { locale?: Locale }) {
               type="button"
               className="toggle-categories-btn"
               aria-expanded={showCategories}
-              onClick={() => setShowCategories((v) => !v)}
+              onClick={() => {
+                const next = !showCategories;
+                setShowCategories(next);
+                trackEvent("unit_categories_toggle", { is_open: next });
+              }}
             >
               {isJa
                 ? showCategories ? "対応カテゴリーを隠す" : "対応カテゴリーを表示"

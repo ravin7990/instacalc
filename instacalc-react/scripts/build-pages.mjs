@@ -223,6 +223,7 @@ function buildHead(page, css, entry, body, opts = {}) {
   <meta name="twitter:image" content="${esc(page.ogImage ?? `${ORIGIN}/instatheme.webp`)}">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/webp" href="/favicon.webp">
+  <link rel="manifest" href="/manifest.json">
   ${jsonLd}
   <style>${css}</style>
 </head>
@@ -231,6 +232,28 @@ function buildHead(page, css, entry, body, opts = {}) {
   ${inlineSeo}
   ${inlineContent}
   <script type="module" src="${entry}"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+    try {
+      const firebaseConfig = {
+        apiKey: "AIzaSyBoHOL_ZoQOpsrNBIFwEqKzTZtXDOUDrEc",
+        authDomain: "instacalc-40640.firebaseapp.com",
+        projectId: "instacalc-40640",
+        storageBucket: "instacalc-40640.firebasestorage.app",
+        messagingSenderId: "720029503645",
+        appId: "1:720029503645:web:2e9e1ea8532bc2fe6c4474",
+        measurementId: "G-J0ZWXR3T5P"
+      };
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      window.__FIREBASE_APP__ = app;
+      window.__FIREBASE_ANALYTICS__ = analytics;
+      window.__FIREBASE_LOG_EVENT__ = logEvent;
+    } catch (e) {
+      /* offline / adblock fallback */
+    }
+  </script>
 </body>
 </html>`;
 }
@@ -264,6 +287,12 @@ const ROOT_ASSETS = ["robots.txt", "ads.txt", "app-ads.txt", "CNAME", "favicon.i
 for (const f of ROOT_ASSETS) {
   const src = join(LEGACY, f);
   if (existsSync(src)) copyFileSync(src, join(DIST, f));
+}
+const PUBLIC_DIR = join(ROOT, "public");
+if (existsSync(PUBLIC_DIR)) {
+  for (const f of readdirSync(PUBLIC_DIR)) {
+    copyFileSync(join(PUBLIC_DIR, f), join(DIST, f));
+  }
 }
 if (existsSync(join(LEGACY, "images"))) {
   mkdirSync(join(DIST, "images"), { recursive: true });

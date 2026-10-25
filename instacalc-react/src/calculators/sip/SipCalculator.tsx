@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { SeoRecord } from "@/data/seo";
 import { Layout } from "@/components/layout/Layout";
 import { CalculatorHero } from "@/components/layout/CalculatorHero";
@@ -14,6 +14,7 @@ import { JaSipArticle } from "@/components/articles/ja/JaSipArticle";
 import { RuCompoundArticle } from "@/components/articles/ru/RuCompoundArticle";
 import { InSipArticle } from "@/components/articles/in/InSipArticle";
 import { SipBreakdownChart, SipGrowthChart } from "@/components/calculator/SipCharts";
+import { readUrlParams, syncUrlState } from "@/lib/urlState";
 
 
 export default function SipCalculator({ seo }: { seo: SeoRecord }) {
@@ -28,6 +29,27 @@ export default function SipCalculator({ seo }: { seo: SeoRecord }) {
   const [advanced, setAdvanced] = useState(false);
   const [goalTarget, setGoalTarget] = useState(10_000_000);
   const [goalYears, setGoalYears] = useState(15);
+
+  const defaults = useMemo(
+    () => ({ monthly: 25000, rate: 12, years: 10, stepUp: 0, inflation: 0 }),
+    [],
+  );
+
+  useEffect(() => {
+    const p = readUrlParams(defaults);
+    if (p.monthly !== undefined) setMonthly(p.monthly);
+    if (p.rate !== undefined) setRate(p.rate);
+    if (p.years !== undefined) setYears(p.years);
+    if (p.stepUp !== undefined) setStepUp(p.stepUp);
+    if (p.inflation !== undefined) setInflation(p.inflation);
+  }, [defaults]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      syncUrlState({ monthly, rate, years, stepUp, inflation }, defaults);
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [monthly, rate, years, stepUp, inflation, defaults]);
 
   const result = useMemo(
     () => calculateSip({ monthly, annualRate: rate, years, stepUpPercent: stepUp, inflationPercent: inflation }),
@@ -106,6 +128,7 @@ export default function SipCalculator({ seo }: { seo: SeoRecord }) {
           locale={seo.locale}
           id="sip-planner"
           title={c.corpus}
+          path={seo.path}
           advanced={advanced}
           onToggleAdvanced={() => setAdvanced((v) => !v)}
           summary={{ label: c.corpus, value: formatCompact(seo.locale, result.corpus) }}
@@ -198,25 +221,19 @@ function GoalPlanner({
 }) {
   const c = sipCopy(locale);
   return (
-    <div className="field-card">
-      <div className="field-head">
-        <label htmlFor="goalTarget">{c.goalTarget}</label>
-      </div>
-      <div className="input-with-adornment">
-        <span className="input-prefix" aria-hidden="true">
-          {prefix}
-        </span>
-        <input
-          id="goalTarget"
-          type="number"
-          className="has-prefix"
-          min={100000}
-          max={1000000000}
-          step={100000}
-          value={target}
-          onChange={(e) => onTarget(Number(e.target.value) || 0)}
-        />
-      </div>
+    <>
+      <Field
+        spec={{
+          key: "goalTarget",
+          label: c.goalTarget,
+          value: target,
+          min: 100000,
+          max: 1000000000,
+          step: 100000,
+          prefix,
+        }}
+        onChange={onTarget}
+      />
       <Field
         spec={{ key: "goalYears", label: c.goalYears, value: years, min: 1, max: 40, step: 1, suffix: c.yearsSuffix }}
         onChange={onYears}
@@ -224,6 +241,6 @@ function GoalPlanner({
       <p className="field-result">
         {c.requiredSip}: <strong>{formatCurrency(locale, required)}</strong>
       </p>
-    </div>
+    </>
   );
 }

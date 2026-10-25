@@ -3,6 +3,7 @@ import { SITE, LOCALES, LOCALE_META, LANG_STORAGE_KEY } from "@/config/site";
 import type { Locale } from "@/config/site";
 import { ui } from "@/i18n/ui";
 import { localeHome } from "@/components/layout/Layout";
+import { trackLanguageSwitch, trackNavClick, trackEvent } from "@/lib/analytics";
 
 export interface NavLink {
   href: string;
@@ -57,7 +58,12 @@ export function SiteHeader({ locale, nav, homeHref, badge }: SiteHeaderProps) {
   return (
     <header className="site-header">
       <div className="container header-inner">
-        <a href={homeHref} className="brand" aria-label={`${SITE.name} home`}>
+        <a
+          href={homeHref}
+          className="brand"
+          aria-label={`${SITE.name} home`}
+          onClick={() => trackNavClick("header_brand", SITE.displayName, homeHref)}
+        >
           {/* Attributes match the CSS (38x38) and the 500x500 source aspect
               ratio, so the box is correct before the stylesheet loads and no
               layout shift occurs on slow connections. */}
@@ -85,6 +91,7 @@ export function SiteHeader({ locale, nav, homeHref, badge }: SiteHeaderProps) {
             value={locale}
             onChange={(e) => {
               const next = e.target.value as Locale;
+              trackLanguageSwitch(locale, next);
               try {
                 window.localStorage.setItem(LANG_STORAGE_KEY, next);
               } catch {
@@ -108,7 +115,11 @@ export function SiteHeader({ locale, nav, homeHref, badge }: SiteHeaderProps) {
           aria-label="Toggle navigation"
           aria-expanded={open}
           aria-controls="mainNav"
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => {
+            const next = !open;
+            setOpen(next);
+            trackEvent("mobile_menu_toggle", { is_open: next });
+          }}
         >
           <Icon name={open ? "close" : "menu"} />
         </button>
@@ -120,7 +131,11 @@ export function SiteHeader({ locale, nav, homeHref, badge }: SiteHeaderProps) {
           aria-label="Main"
         >
           {nav.map((l) => (
-            <a key={l.href} href={l.href}>
+            <a
+              key={l.href}
+              href={l.href}
+              onClick={() => trackNavClick("header_nav", l.label, l.href)}
+            >
               {l.label}
             </a>
           ))}

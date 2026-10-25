@@ -2,6 +2,7 @@ import { ui } from "@/i18n/ui";
 import type { Locale } from "@/config/site";
 import type { SeoRecord } from "@/data/seo";
 import { localeHome } from "@/components/layout/Layout";
+import { trackFaqToggle } from "@/lib/analytics";
 
 export interface FaqItem {
   q: string;
@@ -24,7 +25,11 @@ export function FaqAccordion({ locale, items }: { locale: Locale; items: FaqItem
         </h2>
         <div className="faq-list">
           {items.map((f) => (
-            <details key={f.q} className="faq-item">
+            <details
+              key={f.q}
+              className="faq-item"
+              onToggle={(e) => trackFaqToggle(f.q, e.currentTarget.open)}
+            >
               <summary>
                 <span>{f.q}</span>
                 <svg
