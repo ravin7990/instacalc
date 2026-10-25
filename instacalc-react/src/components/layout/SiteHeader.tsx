@@ -56,7 +56,7 @@ export function SiteHeader({ locale, nav, homeHref, badge }: SiteHeaderProps) {
   }, [open]);
 
   return (
-    <header className="site-header">
+    <header className={`site-header${open ? " is-menu-open" : ""}`}>
       <div className="container header-inner">
         <a
           href={homeHref}
@@ -134,7 +134,10 @@ export function SiteHeader({ locale, nav, homeHref, badge }: SiteHeaderProps) {
             <a
               key={l.href}
               href={l.href}
-              onClick={() => trackNavClick("header_nav", l.label, l.href)}
+              onClick={() => {
+                setOpen(false);
+                trackNavClick("header_nav", l.label, l.href);
+              }}
             >
               {l.label}
             </a>

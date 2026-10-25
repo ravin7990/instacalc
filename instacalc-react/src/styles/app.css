@@ -87,8 +87,23 @@ select {
   top: 0;
   z-index: 40;
   background: var(--ic-card-glass);
-  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--ic-border);
+}
+
+/* Glass blur on pseudo-element so backdrop-filter does not turn .site-header
+   into a containing block for position: fixed descendants (e.g. mobile drawer). */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.site-header.is-menu-open {
+  z-index: 1100;
 }
 
 .header-inner {
@@ -215,23 +230,24 @@ select {
    file, because `.site-nav`'s display is toggled in three places and having
    them scattered is how the drawer silently stopped hiding.
 
-   NOTE: the drawer is `position: fixed` inside `.site-header`, which carries
-   `backdrop-filter`. A backdrop-filter ancestor becomes the containing block
-   for fixed descendants, so `inset` resolves against the header box rather
-   than the viewport. `inset-block-start` is therefore derived from the header
-   height, and the drawer is also given a z-index above the header so it is
-   never clipped by it. */
+   NOTE: The drawer is `position: fixed`. With backdrop-filter moved to
+   .site-header::before, the containing block is the browser viewport, allowing
+   the drawer to cleanly cover the viewport from header down to bottom. */
 @media (max-width: 767px) {
   .site-nav {
     display: flex;
     flex-direction: column;
     gap: 0;
     position: fixed;
-    inset: var(--ic-header-h) 0 0;
-    z-index: 45;
+    top: var(--ic-header-h);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1100;
     padding: var(--ic-gap);
     background: var(--ic-card-bg);
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   /* The drawer stays hidden until the header script adds `.open`. */
   .site-nav:not(.open) {
@@ -1534,6 +1550,83 @@ img[width][height] {
 .date-input:focus {
   border-color: var(--ic-border-focus);
   outline: none;
+}
+
+/* Age Calculator balanced layout & Lifetime Units */
+.age-dates-grid {
+  display: grid;
+  gap: var(--ic-gap);
+}
+@media (min-width: 620px) {
+  .age-dates-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+.age-date-group {
+  display: flex;
+  flex-direction: column;
+}
+.age-date-group .field-card {
+  margin-bottom: 0;
+}
+.lifetime-units-card {
+  margin-top: var(--ic-gap-sm);
+  padding: 1.15rem;
+  background: var(--ic-card-bg);
+  border: 1px solid var(--ic-border);
+  border-radius: var(--ic-radius-md);
+  box-shadow: var(--ic-shadow-sm);
+}
+.lifetime-units-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+  font-weight: 700;
+  font-size: var(--ic-fs-sm);
+  color: var(--ic-text);
+}
+.lifetime-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+}
+@media (min-width: 480px) {
+  .lifetime-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 720px) {
+  .lifetime-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+.lifetime-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 0.5rem;
+  background: var(--ic-bg-subtle);
+  border: 1px solid var(--ic-border);
+  border-radius: var(--ic-radius-sm);
+  text-align: center;
+}
+.lifetime-val {
+  font-family: var(--ic-font-heading);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--ic-primary-dark);
+  line-height: 1.2;
+}
+.lifetime-lbl {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ic-text-muted);
+  margin-top: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 /* Horizontal chip groups scroll rather than wrap on narrow screens. */

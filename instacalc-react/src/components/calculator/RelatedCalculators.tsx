@@ -40,6 +40,12 @@ function resolveIcon(path: string): string {
   return "🧮";
 }
 
+const PATH_ALIASES: Record<string, string> = {
+  "agecalculator.html": "duration/agecalculator.html",
+  "cargcalculator.html": "cagrcalculator.html",
+  "coumpoundinterest.html": "compoundinterest.html",
+};
+
 function normalizeToRelativePath(path: string, locale: Locale): string {
   let clean = path.split("?")[0].split("#")[0];
   if (clean.startsWith("/")) clean = clean.slice(1);
@@ -59,9 +65,12 @@ export function RelatedCalculators({ locale, currentPath, limit = 6 }: RelatedCa
     if (!groups.length) return [];
 
     const relPath = normalizeToRelativePath(rawPath, locale);
+    const canonicalPath = PATH_ALIASES[relPath] || relPath;
 
-    // 1. Find group matching this tool
-    let primaryGroup = groups.find((g) => g.tools.some((tool) => tool.path === relPath));
+    // 1. Find group matching this tool (checking both relPath and canonicalPath)
+    let primaryGroup = groups.find((g) =>
+      g.tools.some((tool) => tool.path === canonicalPath || tool.path === relPath)
+    );
     if (!primaryGroup) {
       primaryGroup = groups[0];
     }
@@ -70,6 +79,12 @@ export function RelatedCalculators({ locale, currentPath, limit = 6 }: RelatedCa
     const seen = new Set<string>();
 
     if (relPath) seen.add(relPath);
+    if (canonicalPath) seen.add(canonicalPath);
+    for (const [alias, target] of Object.entries(PATH_ALIASES)) {
+      if (target === canonicalPath || target === relPath) {
+        seen.add(alias);
+      }
+    }
 
     // Add sibling tools from primary group
     for (const tool of primaryGroup.tools) {

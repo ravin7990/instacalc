@@ -120,6 +120,113 @@ export default function AgeCalculator({ seo }: { seo: SeoRecord }) {
   const n = (v: number) => formatNumber(seo.locale, v);
   const today = toIsoDate(new Date());
 
+  // Presets for Date of Birth: pick a quick age
+  const dobPresets = useMemo(() => {
+    const isJa = seo.locale === "ja";
+    const isKo = seo.locale === "ko";
+    const isRu = seo.locale === "ru";
+    const isUs = seo.locale === "us";
+
+    if (isJa) {
+      return [
+        { label: "18歳", iso: toIsoDate(addToDate(new Date(), { years: -18 })) },
+        { label: "20歳 (成人)", iso: toIsoDate(addToDate(new Date(), { years: -20 })) },
+        { label: "25歳", iso: toIsoDate(addToDate(new Date(), { years: -25 })) },
+        { label: "60歳 (還暦)", iso: toIsoDate(addToDate(new Date(), { years: -60 })) },
+      ];
+    }
+    if (isKo) {
+      return [
+        { label: "18세", iso: toIsoDate(addToDate(new Date(), { years: -18 })) },
+        { label: "20세", iso: toIsoDate(addToDate(new Date(), { years: -20 })) },
+        { label: "25세", iso: toIsoDate(addToDate(new Date(), { years: -25 })) },
+        { label: "60세", iso: toIsoDate(addToDate(new Date(), { years: -60 })) },
+      ];
+    }
+    if (isRu) {
+      return [
+        { label: "18 лет", iso: toIsoDate(addToDate(new Date(), { years: -18 })) },
+        { label: "21 год", iso: toIsoDate(addToDate(new Date(), { years: -21 })) },
+        { label: "25 лет", iso: toIsoDate(addToDate(new Date(), { years: -25 })) },
+        { label: "60 лет", iso: toIsoDate(addToDate(new Date(), { years: -60 })) },
+      ];
+    }
+    if (isUs) {
+      return [
+        { label: "18 yrs", iso: toIsoDate(addToDate(new Date(), { years: -18 })) },
+        { label: "21 yrs", iso: toIsoDate(addToDate(new Date(), { years: -21 })) },
+        { label: "25 yrs", iso: toIsoDate(addToDate(new Date(), { years: -25 })) },
+        { label: "65 yrs", iso: toIsoDate(addToDate(new Date(), { years: -65 })) },
+      ];
+    }
+    return [
+      { label: "18 yrs", iso: toIsoDate(addToDate(new Date(), { years: -18 })) },
+      { label: "21 yrs", iso: toIsoDate(addToDate(new Date(), { years: -21 })) },
+      { label: "25 yrs", iso: toIsoDate(addToDate(new Date(), { years: -25 })) },
+      { label: "60 yrs", iso: toIsoDate(addToDate(new Date(), { years: -60 })) },
+    ];
+  }, [seo.locale]);
+
+  // Presets for Target Date (Age as of Date)
+  const targetPresets = useMemo(() => {
+    const now = new Date();
+    const todayIso = toIsoDate(now);
+    const nextYearIso = toIsoDate(addToDate(now, { years: 1 }));
+
+    if (seo.locale === "en") {
+      const thisYearAug1 = new Date(now.getFullYear(), 7, 1);
+      const upcomingAug1 = thisYearAug1 < now ? new Date(now.getFullYear() + 1, 7, 1) : thisYearAug1;
+      const upcomingJan1 = new Date(now.getFullYear() + 1, 0, 1);
+      return [
+        { label: c.today, iso: todayIso },
+        { label: "1 Aug (UPSC)", iso: toIsoDate(upcomingAug1) },
+        { label: "1 Jan (SSC)", iso: toIsoDate(upcomingJan1) },
+        { label: "+1 Year", iso: nextYearIso },
+      ];
+    }
+
+    if (seo.locale === "us") {
+      const eoy = new Date(now.getFullYear(), 11, 31);
+      return [
+        { label: c.today, iso: todayIso },
+        { label: "End of Year", iso: toIsoDate(eoy) },
+        { label: "+1 Year", iso: nextYearIso },
+      ];
+    }
+
+    if (seo.locale === "ja") {
+      const eoy = new Date(now.getFullYear(), 11, 31);
+      return [
+        { label: c.today, iso: todayIso },
+        { label: "年末", iso: toIsoDate(eoy) },
+        { label: "+1年", iso: nextYearIso },
+      ];
+    }
+
+    if (seo.locale === "ru") {
+      const eoy = new Date(now.getFullYear(), 11, 31);
+      return [
+        { label: c.today, iso: todayIso },
+        { label: "Конец года", iso: toIsoDate(eoy) },
+        { label: "+1 год", iso: nextYearIso },
+      ];
+    }
+
+    if (seo.locale === "ko") {
+      const eoy = new Date(now.getFullYear(), 11, 31);
+      return [
+        { label: c.today, iso: todayIso },
+        { label: "연말", iso: toIsoDate(eoy) },
+        { label: "+1년", iso: nextYearIso },
+      ];
+    }
+
+    return [
+      { label: c.today, iso: todayIso },
+      { label: "+1 Year", iso: nextYearIso },
+    ];
+  }, [c.today, seo.locale]);
+
   return (
     <>
       <SeoHead seo={seo} appCategory="UtilitiesApplication" />
@@ -132,50 +239,67 @@ export default function AgeCalculator({ seo }: { seo: SeoRecord }) {
           title={c.age}
           summary={result ? { label: c.age, value: formatAgeSummary(seo.locale, result.years, result.months, result.days) } : null}
           inputs={
-            <>
-              <DateField label={c.dob} value={dob} onChange={setDob} max={today} />
-              <DatePresets
-                presets={[
-                  { label: c.today, iso: today },
-                  { label: c.oneYearAgo, iso: toIsoDate(addToDate(new Date(), { years: -1 })) },
-                  { label: c.tenYearsAgo, iso: toIsoDate(addToDate(new Date(), { years: -10 })) },
-                  { label: c.twentyFiveYearsAgo, iso: toIsoDate(addToDate(new Date(), { years: -25 })) },
-                ]}
-                onPick={setTarget}
-              />
-              <DateField label={c.target} value={target} onChange={setTarget} />
-            </>
+            <div className="age-inputs-stack">
+              <div className="age-dates-grid">
+                <div className="age-date-group">
+                  <DateField label={c.dob} value={dob} onChange={setDob} max={today} />
+                  <DatePresets presets={dobPresets} onPick={setDob} />
+                </div>
+                <div className="age-date-group">
+                  <DateField label={c.target} value={target} onChange={setTarget} />
+                  <DatePresets presets={targetPresets} onPick={setTarget} />
+                </div>
+              </div>
+
+              {result ? (
+                <div className="lifetime-units-card">
+                  <div className="lifetime-units-head">
+                    <span aria-hidden="true">⏱️</span>
+                    <span>
+                      {seo.locale === "ja"
+                        ? "これまでに経過した時間"
+                        : seo.locale === "ru"
+                        ? "Истекшие единицы времени"
+                        : seo.locale === "ko"
+                        ? "생애 총 경과 시간"
+                        : "Lifetime Elapsed Units"}
+                    </span>
+                  </div>
+                  <div className="lifetime-grid">
+                    <div className="lifetime-stat">
+                      <span className="lifetime-val">{n(result.totalMonths)}</span>
+                      <span className="lifetime-lbl">{c.totalMonths}</span>
+                    </div>
+                    <div className="lifetime-stat">
+                      <span className="lifetime-val">{n(result.totalWeeks)}</span>
+                      <span className="lifetime-lbl">{c.totalWeeks}</span>
+                    </div>
+                    <div className="lifetime-stat">
+                      <span className="lifetime-val">{n(result.totalDays)}</span>
+                      <span className="lifetime-lbl">{c.totalDays}</span>
+                    </div>
+                    <div className="lifetime-stat">
+                      <span className="lifetime-val">{n(result.totalHours)}</span>
+                      <span className="lifetime-lbl">{c.totalHours}</span>
+                    </div>
+                    <div className="lifetime-stat">
+                      <span className="lifetime-val">{n(result.totalMinutes)}</span>
+                      <span className="lifetime-lbl">{c.totalMinutes}</span>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+            </div>
           }
           results={
             result ? (
               <ul className="kv-list">
-                {/* No "Exact Age" row here: the shell already renders it as the
-                    headline result, and repeating it read as a duplicate. */}
+                {/* Primary milestones and astrological data */}
                 <li>
                   <span className="kv-key">{c.nextBirthday}</span>
                   <span className="kv-value">
                     {result.daysToNextBirthday === 0 ? c.today : `${n(result.daysToNextBirthday)} ${c.days}`}
                   </span>
-                </li>
-                <li>
-                  <span className="kv-key">{c.totalMonths}</span>
-                  <span className="kv-value">{n(result.totalMonths)}</span>
-                </li>
-                <li>
-                  <span className="kv-key">{c.totalWeeks}</span>
-                  <span className="kv-value">{n(result.totalWeeks)}</span>
-                </li>
-                <li>
-                  <span className="kv-key">{c.totalDays}</span>
-                  <span className="kv-value">{n(result.totalDays)}</span>
-                </li>
-                <li>
-                  <span className="kv-key">{c.totalHours}</span>
-                  <span className="kv-value">{n(result.totalHours)}</span>
-                </li>
-                <li>
-                  <span className="kv-key">{c.totalMinutes}</span>
-                  <span className="kv-value">{n(result.totalMinutes)}</span>
                 </li>
                 <li>
                   <span className="kv-key">{c.bornOn}</span>
@@ -216,6 +340,27 @@ export default function AgeCalculator({ seo }: { seo: SeoRecord }) {
                 <li>
                   <span className="kv-key">{c.leapYears}</span>
                   <span className="kv-value">{n(result.leapYears)}</span>
+                </li>
+                {/* Hidden items preserved for CSV/PDF report scraping */}
+                <li className="sr-only">
+                  <span className="kv-key">{c.totalMonths}</span>
+                  <span className="kv-value">{n(result.totalMonths)}</span>
+                </li>
+                <li className="sr-only">
+                  <span className="kv-key">{c.totalWeeks}</span>
+                  <span className="kv-value">{n(result.totalWeeks)}</span>
+                </li>
+                <li className="sr-only">
+                  <span className="kv-key">{c.totalDays}</span>
+                  <span className="kv-value">{n(result.totalDays)}</span>
+                </li>
+                <li className="sr-only">
+                  <span className="kv-key">{c.totalHours}</span>
+                  <span className="kv-value">{n(result.totalHours)}</span>
+                </li>
+                <li className="sr-only">
+                  <span className="kv-key">{c.totalMinutes}</span>
+                  <span className="kv-value">{n(result.totalMinutes)}</span>
                 </li>
               </ul>
             ) : (
