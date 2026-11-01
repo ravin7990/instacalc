@@ -29,6 +29,15 @@ const seo = JSON.parse(readFileSync(join(ROOT, "src", "data", "seo.generated.jso
 const pages = seo.pages;
 const content = JSON.parse(readFileSync(join(ROOT, "src", "data", "content.generated.json"), "utf8"));
 
+// Optional site verification codes for search engines (Bing, Google, Yandex, Naver)
+let verifications = { bing: "", google: "", yandex: "", naver: "instacalc-naver-verification" };
+const verifFile = join(ROOT, "src", "data", "site-verification.json");
+if (existsSync(verifFile)) {
+  try {
+    verifications = { ...verifications, ...JSON.parse(readFileSync(verifFile, "utf8")) };
+  } catch {}
+}
+
 const ORIGIN = "https://instacalc.in";
 const esc = (s) =>
   String(s ?? "")
@@ -194,6 +203,18 @@ function buildHead(page, css, entry, body, opts = {}) {
     ? ""
     : '\n  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4943063856769784" crossorigin="anonymous"></script>';
 
+  const bingCode = process.env.BING_SITE_VERIFICATION || process.env.MSVALIDATE_01 || verifications.bing;
+  const googleCode = process.env.GOOGLE_SITE_VERIFICATION || verifications.google;
+  const yandexCode = process.env.YANDEX_SITE_VERIFICATION || verifications.yandex;
+  const naverCode = process.env.NAVER_SITE_VERIFICATION || verifications.naver || "instacalc-naver-verification";
+
+  const verificationTags = [
+    bingCode ? `<meta name="msvalidate.01" content="${esc(bingCode)}">` : "",
+    googleCode ? `<meta name="google-site-verification" content="${esc(googleCode)}">` : "",
+    yandexCode ? `<meta name="yandex-verification" content="${esc(yandexCode)}">` : "",
+    naverCode ? `<meta name="naver-site-verification" content="${esc(naverCode)}">` : "",
+  ].filter(Boolean).join("\n  ");
+
   return `<!doctype html>
 <html lang="${htmlLang}"${marker}>
 <head>
@@ -204,7 +225,7 @@ function buildHead(page, css, entry, body, opts = {}) {
   ${page.keywords ? `<meta name="keywords" content="${esc(page.keywords)}">` : ""}
   <meta name="author" content="InstaCalc">
   <meta name="robots" content="${robots}">
-  <meta name="naver-site-verification" content="${esc(process.env.NAVER_SITE_VERIFICATION || "instacalc-naver-verification")}">${adsenseTag}
+  ${verificationTags ? `${verificationTags}` : ""}${adsenseTag}
   <meta name="theme-color" content="${esc(page.themeColor ?? "#0284c7")}">
   <link rel="canonical" href="${esc(canonical)}">
   ${alternates}
@@ -283,7 +304,7 @@ console.log(`[build-pages] prerendered ${written} pages -> dist/${failed ? ` (${
 if (failed) process.exitCode = 1;
 
 // --- static assets that must ship for SEO and monetisation -----------------
-const ROOT_ASSETS = ["robots.txt", "ads.txt", "app-ads.txt", "CNAME", "favicon.ico", "favicon.webp", "logo.png", "instatheme.webp"];
+const ROOT_ASSETS = ["robots.txt", "ads.txt", "app-ads.txt", "CNAME", "favicon.ico", "favicon.webp", "logo.png", "instatheme.webp", "BingSiteAuth.xml"];
 for (const f of ROOT_ASSETS) {
   const src = join(LEGACY, f);
   if (existsSync(src)) copyFileSync(src, join(DIST, f));
