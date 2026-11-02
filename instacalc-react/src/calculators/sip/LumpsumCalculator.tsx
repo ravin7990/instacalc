@@ -12,6 +12,7 @@ import { calculateCompound } from "@/engines/interest";
 import { formatCompact, formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
 import { sipCopy } from "@/i18n/calculator-copy";
 import { JaLumpsumArticle } from "@/components/articles/ja/JaLumpsumArticle";
+import { InLumpsumArticle } from "@/components/articles/in/InLumpsumArticle";
 import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 
@@ -154,6 +155,7 @@ export default function LumpsumCalculator({ seo }: { seo: SeoRecord }) {
         </CalculatorShell>
 
         {seo.locale === "ja" && <JaLumpsumArticle />}
+        {seo.locale === "en" && <InLumpsumArticle />}
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />
       </Layout>
 

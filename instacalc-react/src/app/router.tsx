@@ -41,6 +41,8 @@ export const ROUTES: RouteDef[] = [
   // India financial calculators
   { path: "/sipcalculator.html", locale: "en", load: () => import("@/calculators/sip/SipCalculator"), implemented: true },
   { path: "/sipcalculatorlumpsump.html", locale: "en", load: () => import("@/calculators/sip/LumpsumCalculator"), implemented: true },
+  { path: "/stepupsipcalculatorlumpsump.html", locale: "en", load: () => import("@/calculators/sip/StepUpSipCalculator"), implemented: true },
+  { path: "/incometaxcalculator.html", locale: "en", load: () => import("@/calculators/plans/IncomeTaxCalculator"), implemented: true },
   { path: "/emicalculator.html", locale: "en", load: () => import("@/calculators/emi/EmiCalculator"), implemented: true },
   { path: "/fdcalculator.html", locale: "en", load: () => import("@/calculators/fd/FdCalculator"), implemented: true },
   { path: "/rdcalculator.html", locale: "en", load: () => import("@/calculators/rd/RdCalculator"), implemented: true },

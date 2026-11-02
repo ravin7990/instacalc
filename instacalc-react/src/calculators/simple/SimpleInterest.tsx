@@ -5,7 +5,7 @@ import { fieldCopy } from "@/i18n/field-labels";
 import type { Locale } from "@/config/site";
 import { UsSimpleInterestArticle } from "@/components/articles/us/UsSimpleInterestArticle";
 import { JaSimpleInterestArticle } from "@/components/articles/ja/JaSimpleInterestArticle";
-import { InCompoundArticle } from "@/components/articles/in/InCompoundArticle";
+import { InSimpleInterestArticle } from "@/components/articles/in/InSimpleInterestArticle";
 
 
 export default createCalculatorPage((locale: Locale) => {
@@ -115,7 +115,7 @@ export default createCalculatorPage((locale: Locale) => {
       ) : locale === "ja" ? (
         <JaSimpleInterestArticle />
       ) : (
-        <InCompoundArticle />
+        <InSimpleInterestArticle />
       ),
   };
 });

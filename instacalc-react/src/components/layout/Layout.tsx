@@ -22,20 +22,56 @@ import { pageExists, localeOrRoot } from "@/data/pageExists";
  */
 export function buildNav(locale: Locale): NavLink[] {
   const t = ui(locale);
-  const candidates: Array<[string, string]> = [
-    ["", t.home],
+  const home = localeHome(locale);
+
+  // Category links tailored per regional edition for clear AdSense category navigation
+  const categoryLinks: Record<Locale, NavLink[]> = {
+    en: [
+      { href: "/#financial", label: "Financial" },
+      { href: "/#date-time", label: "Date & Time" },
+      { href: "/#more-tools", label: "Math & Tools" },
+    ],
+    us: [
+      { href: "/us/#retirement", label: "Retirement" },
+      { href: "/us/#investing", label: "Investing" },
+      { href: "/us/#money", label: "Loans & Tax" },
+    ],
+    ja: [
+      { href: "/ja/#japan-tax", label: "税金・給与" },
+      { href: "/ja/#japan-invest", label: "NISA・投資" },
+      { href: "/ja/#japan-life", label: "生活・日付" },
+    ],
+    ru: [
+      { href: "/ru/#ru-finance", label: "Финансы" },
+      { href: "/ru/#ru-construction", label: "Строительство" },
+      { href: "/ru/#ru-time", label: "Время" },
+    ],
+    ko: [
+      { href: "/ko/#salary-tax", label: "급여·세금" },
+      { href: "/ko/#real-estate-loan", label: "부동산·대출" },
+      { href: "/ko/#finance-invest", label: "재테크" },
+    ],
+  };
+
+  const pages: Array<[string, string]> = [
     ["aboutus.html", t.about],
     ["contactus.html", t.contact],
     ["privacypolicy.html", t.privacy],
   ];
 
-  const links: NavLink[] = [];
-  for (const [file, label] of candidates) {
-    // Home is special-cased: `localeHome` resolves a missing homepage to the
-    // site root, so the brand and nav always have somewhere real to point.
-    const href = file === "" ? localeHome(locale) : localeOrRoot(locale, file);
+  const links: NavLink[] = [{ href: home, label: t.home }];
+
+  // Append functional category links in the header
+  if (categoryLinks[locale]) {
+    links.push(...categoryLinks[locale]);
+  }
+
+  // Append essential trust & policy pages
+  for (const [file, label] of pages) {
+    const href = localeOrRoot(locale, file);
     if (href) links.push({ href, label });
   }
+
   return links;
 }
 

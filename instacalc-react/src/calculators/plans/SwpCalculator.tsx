@@ -4,6 +4,7 @@ import { planCopy } from "@/i18n/retirement-labels";
 import { formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
 import type { Locale } from "@/config/site";
 import { JaSwpArticle } from "@/components/articles/ja/JaSwpArticle";
+import { InSwpArticle } from "@/components/articles/in/InSwpArticle";
 
 export default createCalculatorPage((locale: Locale) => {
   const c = planCopy(locale);
@@ -98,6 +99,6 @@ export default createCalculatorPage((locale: Locale) => {
           money(row.closing),
         ]),
     },
-    guide: locale === "ja" ? <JaSwpArticle /> : undefined,
+    guide: locale === "ja" ? <JaSwpArticle /> : <InSwpArticle />,
   };
 });

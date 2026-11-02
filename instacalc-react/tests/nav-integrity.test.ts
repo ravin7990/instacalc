@@ -97,11 +97,12 @@ describe("buildNav", () => {
   });
 
   it("serves the English page where the locale has none", () => {
-    // /us/ never had translated About/Contact/Privacy. Dropping them left the
-    // nav three links short; the English page is the same convention the
-    // footer already uses for root-only pages.
+    // /us/ includes category navigation and English trust pages
     expect(buildNav("us").map((l) => l.href)).toEqual([
       "/us/",
+      "/us/#retirement",
+      "/us/#investing",
+      "/us/#money",
       "/aboutus.html",
       "/contactus.html",
       "/privacypolicy.html",
@@ -109,19 +110,32 @@ describe("buildNav", () => {
   });
 
   it("keeps the locale's own About/Contact/Privacy for ja and ru", () => {
-    for (const locale of ["ja", "ru"] as const) {
-      expect(buildNav(locale).map((l) => l.href)).toEqual([
-        `/${locale}/`,
-        `/${locale}/aboutus.html`,
-        `/${locale}/contactus.html`,
-        `/${locale}/privacypolicy.html`,
-      ]);
-    }
+    expect(buildNav("ja").map((l) => l.href)).toEqual([
+      "/ja/",
+      "/ja/#japan-tax",
+      "/ja/#japan-invest",
+      "/ja/#japan-life",
+      "/ja/aboutus.html",
+      "/ja/contactus.html",
+      "/ja/privacypolicy.html",
+    ]);
+    expect(buildNav("ru").map((l) => l.href)).toEqual([
+      "/ru/",
+      "/ru/#ru-finance",
+      "/ru/#ru-construction",
+      "/ru/#ru-time",
+      "/ru/aboutus.html",
+      "/ru/contactus.html",
+      "/ru/privacypolicy.html",
+    ]);
   });
 
   it("renders a full nav for /ko/, pointing home to /ko/", () => {
     expect(buildNav("ko").map((l) => l.href)).toEqual([
       "/ko/",
+      "/ko/#salary-tax",
+      "/ko/#real-estate-loan",
+      "/ko/#finance-invest",
       "/aboutus.html",
       "/contactus.html",
       "/ko/privacypolicy.html",

@@ -5,7 +5,7 @@ import { fieldCopy } from "@/i18n/field-labels";
 import type { Locale } from "@/config/site";
 import { JaRdArticle } from "@/components/articles/ja/JaRdArticle";
 import { RuDepositArticle } from "@/components/articles/ru/RuDepositArticle";
-import { InFdArticle } from "@/components/articles/in/InFdArticle";
+import { InRdArticle } from "@/components/articles/in/InRdArticle";
 
 export default createCalculatorPage((locale: Locale) => {
   const c = fieldCopy(locale);
@@ -123,6 +123,6 @@ export default createCalculatorPage((locale: Locale) => {
           money(row.balance),
         ]),
     },
-    guide: locale === "ja" ? <JaRdArticle /> : isRu ? <RuDepositArticle /> : <InFdArticle />,
+    guide: locale === "ja" ? <JaRdArticle /> : isRu ? <RuDepositArticle /> : <InRdArticle />,
   };
 });

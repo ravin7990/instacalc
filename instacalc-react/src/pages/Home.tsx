@@ -29,8 +29,21 @@ export default function Home({ seo }: { seo: SeoRecord }) {
     if (typeof window !== "undefined") {
       const qParam = new URLSearchParams(window.location.search).get("q");
       if (qParam) setQuery(qParam);
+
+      const syncFromHash = () => {
+        const hash = window.location.hash.replace("#", "");
+        if (hash && groups.some((g) => g.id === hash)) {
+          setActiveGroup(hash);
+          const el = document.getElementById("calculator-library");
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }
+      };
+
+      syncFromHash();
+      window.addEventListener("hashchange", syncFromHash);
+      return () => window.removeEventListener("hashchange", syncFromHash);
     }
-  }, []);
+  }, [groups]);
 
   const total = groups.reduce((n, g) => n + g.tools.length, 0);
 
@@ -230,6 +243,14 @@ export default function Home({ seo }: { seo: SeoRecord }) {
 
         <UnitConverter locale={seo.locale} />
 
+        {groups.map((g) => (
+          <span
+            key={g.id}
+            id={g.id}
+            style={{ display: "block", position: "relative", top: "-80px", visibility: "hidden" }}
+            aria-hidden="true"
+          />
+        ))}
         <section id="calculator-library" className="section">
           <div className="container">
             <div className="section-head">

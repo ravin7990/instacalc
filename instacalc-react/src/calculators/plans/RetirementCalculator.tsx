@@ -13,7 +13,7 @@ import { formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@
 import { UsRetirementArticle } from "@/components/articles/us/UsRetirementArticle";
 import { JaRetirementArticle } from "@/components/articles/ja/JaRetirementArticle";
 import { RuRetirementArticle } from "@/components/articles/ru/RuRetirementArticle";
-import { InCompoundArticle } from "@/components/articles/in/InCompoundArticle";
+import { InRetirementArticle } from "@/components/articles/in/InRetirementArticle";
 import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 /**
@@ -227,7 +227,7 @@ export default function RetirementCalculator({ seo }: { seo: SeoRecord }) {
         {seo.locale === "us" && <UsRetirementArticle />}
         {seo.locale === "ja" && <JaRetirementArticle />}
         {seo.locale === "ru" && <RuRetirementArticle />}
-        {seo.locale === "en" && <InCompoundArticle />}
+        {seo.locale === "en" && <InRetirementArticle />}
 
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />
       </Layout>
