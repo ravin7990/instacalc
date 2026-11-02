@@ -39,7 +39,8 @@ describe("pageExists", () => {
 
   it("rejects a locale path that was never built", () => {
     expect(pageExists("us", "/us/aboutus.html")).toBe(false);
-    expect(pageExists("ko", "/ko/aboutus.html")).toBe(false);
+    expect(pageExists("ko", "/ko/aboutus.html")).toBe(true);
+    expect(pageExists("ko", "/ko/nonexistent.html")).toBe(false);
   });
 
   it("external and same-page hrefs are always accepted", () => {
@@ -66,7 +67,7 @@ describe("localeOrRoot", () => {
 
   it("falls back to the English original when the locale has none", () => {
     expect(localeOrRoot("us", "aboutus.html")).toBe("/aboutus.html");
-    expect(localeOrRoot("ko", "aboutus.html")).toBe("/aboutus.html");
+    expect(localeOrRoot("ko", "aboutus.html")).toBe("/ko/aboutus.html");
   });
 
   it("returns null when neither the locale nor the root has the page", () => {
@@ -109,7 +110,7 @@ describe("buildNav", () => {
     ]);
   });
 
-  it("keeps the locale's own About/Contact/Privacy for ja and ru", () => {
+  it("keeps the locale's own About/Contact/Privacy for ja, ru, and ko", () => {
     expect(buildNav("ja").map((l) => l.href)).toEqual([
       "/ja/",
       "/ja/#japan-tax",
@@ -136,8 +137,8 @@ describe("buildNav", () => {
       "/ko/#salary-tax",
       "/ko/#real-estate-loan",
       "/ko/#finance-invest",
-      "/aboutus.html",
-      "/contactus.html",
+      "/ko/aboutus.html",
+      "/ko/contactus.html",
       "/ko/privacypolicy.html",
     ]);
   });

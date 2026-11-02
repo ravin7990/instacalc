@@ -109,6 +109,8 @@ export const ROUTES: RouteDef[] = [
   { path: "/ru/aboutus.html", locale: "ru", load: () => import("@/pages/ContentPage"), implemented: true },
   { path: "/ru/contactus.html", locale: "ru", load: () => import("@/pages/ContactPage"), implemented: true },
   { path: "/ru/privacypolicy.html", locale: "ru", load: () => import("@/pages/ContentPage"), implemented: true },
+  { path: "/ko/aboutus.html", locale: "ko", load: () => import("@/pages/ContentPage"), implemented: true },
+  { path: "/ko/contactus.html", locale: "ko", load: () => import("@/pages/ContactPage"), implemented: true },
   { path: "/ko/privacypolicy.html", locale: "ko", load: () => import("@/pages/ContentPage"), implemented: true },
 
 
