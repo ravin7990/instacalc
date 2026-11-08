@@ -2,73 +2,118 @@ export function UsGallonArticle() {
   return (
     <article className="section seo-section prose-page">
       <div className="container prose">
-        <h2>US Liquid Gallons, Imperial Gallons & Liters: Conversions & Standards</h2>
+        <h2>Gallon to Liter Guide: US Liquid, Imperial Units and Metric Conversions</h2>
         <p>
-          Converting between gallons and liters is one of the most frequent volumetric calculations encountered in trade,
-          international travel, automotive engineering, and recipe scaling. Because the United States remains on the US Customary
-          measurement system while the rest of the world utilizes the International System of Units (metric liters), precision in
-          conversion factors is essential to prevent costly liquid measurement errors.
+          Converting between gallons and liters is one of the most frequent volumetric tasks encountered in international
+          commerce, cross-border travel, automotive engineering, and culinary scaling. Because the United States continues to rely
+          on the US Customary measurement system while virtually all other industrialized nations use the International System of
+          Units (metric liters), precision in conversion standards is vital. A minor rounding discrepancy can disrupt chemical
+          treatment ratios, lead to incorrect fuel economy assessments, or throw off industrial shipping volumes.
         </p>
 
-        <h3>Defining the US Liquid Gallon Under NIST Standards</h3>
+        <h3>The NIST Statutory Definition of the US Liquid Gallon</h3>
         <p>
-          In the United States, liquid volume standards are codified by the National Institute of Standards and Technology (NIST).
-          Under statutory definition dating back to Queen Anne's wine gallon of 1707, one <strong>US liquid gallon</strong> is defined
-          as exactly <strong>231 cubic inches</strong>, which equals:
+          In the United States, official weights and measures are maintained and standardized by the National Institute of
+          Standards and Technology (NIST). Under statutory definitions tracing back to Queen Anne wine gallon of 1707, one US liquid
+          gallon is defined as exactly 231 cubic inches.
         </p>
         <p>
-          <code>1 US Liquid Gallon = 3.785411784 Liters ≈ 3.785 Liters</code>
+          In metric volume, this definition establishes an exact international equivalence:
         </p>
         <p>
-          To convert US gallons to liters, multiply by 3.78541:
-          <code> Liters = Gallons × 3.78541</code>.
+          <code>{"1 US Liquid Gallon = 3.785411784 Liters ≈ 3.78541 Liters"}</code>
         </p>
         <p>
-          To reverse liters into US gallons, divide by 3.78541 (or multiply by 0.264172):
-          <code> Gallons = Liters × 0.264172</code>.
+          To convert a quantity of US gallons into liters, multiply the gallon figure by 3.78541:
         </p>
-
-        <h3>US Liquid Gallon vs. British Imperial Gallon vs. US Dry Gallon</h3>
         <p>
-          A common source of confusion in international shipping and recipes is the distinction among three different gallons:
+          <code>{"Liters = US Gallons × 3.78541"}</code>
         </p>
-        <ul>
-          <li><strong>US Liquid Gallon (3.7854 L):</strong> The standard unit used across the United States for gasoline, milk, paint, and consumer beverages.</li>
-          <li><strong>British Imperial Gallon (4.54609 L):</strong> Established by the British Weights and Measures Act of 1824 and historically used in the UK, Canada, Australia, and New Zealand. The Imperial gallon is approximately <strong>20.1% larger</strong> than the US liquid gallon.</li>
-          <li><strong>US Dry Gallon (4.40488 L):</strong> Defined as one-eighth of a US Winchester bushel (268.8025 cubic inches), historically used in agricultural commodity trading for grains, berries, and dry goods.</li>
-        </ul>
-
-        <h3>The US Customary Liquid Hierarchy: Quarts, Pints & Ounces</h3>
         <p>
-          Within the US Customary system, liquid volume units follow an intuitive binary division:
+          For instance, filling a 15-gallon automotive fuel tank requires 15 multiplied by 3.78541, which equals 56.78 liters of
+          gasoline.
         </p>
-        <ul>
-          <li>1 US Gallon = <strong>4 Quarts</strong> (1 quart = 0.94635 L)</li>
-          <li>1 US Gallon = <strong>8 Pints</strong> (1 pint = 473.176 mL)</li>
-          <li>1 US Gallon = <strong>16 Cups</strong> (1 standard US cup = 8 fl oz = 236.588 mL)</li>
-          <li>1 US Gallon = <strong>128 US Fluid Ounces</strong> (1 US fl oz = 29.5735 mL)</li>
-        </ul>
         <p>
-          Crucially, a US fluid ounce (29.57 mL) is slightly larger than a British Imperial fluid ounce (28.41 mL), even though the Imperial
-          gallon contains 160 Imperial fluid ounces compared to the US gallon's 128 ounces.
+          To reverse metric liters into US liquid gallons, divide the liter total by 3.78541, or multiply by the reciprocal conversion
+          factor of 0.264172:
+        </p>
+        <p>
+          <code>{"US Gallons = Liters × 0.264172"}</code>
+        </p>
+        <p>
+          A common 2-liter soda bottle contains 2 multiplied by 0.264172, or approximately 0.528 US gallons (slightly more than half
+          a gallon).
         </p>
 
-        <h3>Automotive Fuel Economy: US MPG vs. L/100km</h3>
+        <h3>Three Different Gallons: US Liquid, British Imperial, and US Dry</h3>
         <p>
-          When comparing vehicle fuel efficiency between the United States and metric countries, the non-linear relationship between
-          miles per gallon (MPG) and liters per 100 kilometers (L/100km) is governed by the conversion formula:
+          A frequent pitfall in international logistics, aviation, and vintage recipe books is the assumption that a gallon
+          represents a single worldwide measurement. In reality, history produced three distinct gallon definitions:
         </p>
         <p>
-          <code>L/100km = 235.215 / US MPG</code>
+          The US Liquid Gallon measures 3.78541 liters (231 cubic inches). It serves as the legal commercial standard for liquid fuels,
+          dairy products, household chemicals, and consumer beverages across the United States.
         </p>
         <p>
-          For example, a car rated at 30 US MPG consumes approximately <code>235.215 / 30 = 7.84 L/100km</code>. Note that British
-          automotive publications reporting fuel economy in MPG use the larger Imperial gallon (<code>Imperial MPG = US MPG × 1.201</code>),
-          which inflates British MPG figures by 20% compared to US EPA ratings for identical vehicles.
+          The British Imperial Gallon measures 4.54609 liters (approximately 277.42 cubic inches). Established by the British
+          Weights and Measures Act of 1824, the Imperial gallon was defined as the exact volume occupied by ten pounds of distilled
+          water weighed at 62 degrees Fahrenheit with atmospheric pressure at 30 inches of mercury. The Imperial gallon is
+          approximately 20.1 percent larger than the US liquid gallon. It remains a colloquial reference in the United Kingdom,
+          Canada, and parts of the Caribbean.
         </p>
         <p>
-          In home brewing, swimming pool chlorination, and freshwater aquarium maintenance, calculating water volume precisely in US liquid gallons ensures
-          accurate chemical dosing and water conditioner treatment ratios, preventing both ineffective under-dosing and harmful chemical toxicity.
+          The US Dry Gallon measures 4.40488 liters (268.8025 cubic inches). Historically defined as one-eighth of a Winchester bushel,
+          the dry gallon was utilized in agricultural commodity markets for grain, berries, and dried fruit. It is rarely
+          encountered outside specialized agricultural processing.
+        </p>
+
+        <h3>The US Customary Liquid Hierarchy and Fluid Ounce Variations</h3>
+        <p>
+          Liquid volumes within the US Customary system follow an orderly binary hierarchy:
+        </p>
+        <p>
+          One US gallon contains 4 quarts, with each quart equaling 0.94635 liters. That same gallon contains 8 pints, with each
+          pint equaling 473.18 milliliters. Expanding further, one gallon contains 16 cups (each 8 fluid ounces), and exactly 128 US
+          fluid ounces.
+        </p>
+        <p>
+          A critical nuance exists between American and British fluid ounces. Because an Imperial gallon holds 160 Imperial fluid
+          ounces while a US gallon holds 128 US fluid ounces, an individual US fluid ounce (29.57 milliliters) is actually four
+          percent larger than a British Imperial fluid ounce (28.41 milliliters). When following British recipes or cocktail
+          guides, bartender measurements must account for this subtle volumetric gap.
+        </p>
+
+        <h3>Automotive Fuel Economy: US MPG Versus Metric L/100km</h3>
+        <p>
+          Comparing vehicle fuel efficiency between the United States and metric countries involves an inverse mathematical curve
+          rather than a simple multiplication factor:
+        </p>
+        <p>
+          In the United States, fuel economy is measured as distance traveled per unit of fuel consumed: Miles Per Gallon (MPG). In
+          metric jurisdictions like Europe, Canada, and Australia, fuel consumption is expressed as the volume of fuel required to
+          travel a fixed distance: Liters per 100 Kilometers (L/100km).
+        </p>
+        <p>
+          The exact mathematical conversion formula is:
+        </p>
+        <p>
+          <code>{"L/100km = 235.215 / US MPG"}</code>
+        </p>
+        <p>
+          A compact sedan rated at 30 US MPG consumes 235.215 divided by 30, which equals 7.84 L/100km. A hybrid achieving 50 US
+          MPG requires 4.70 L/100km.
+        </p>
+        <p>
+          In automotive media, British reviews often cause confusion by reporting significantly higher MPG figures for identical car
+          models. Because the UK uses the larger Imperial gallon, British MPG ratings are 20.1 percent higher than American EPA
+          figures:
+        </p>
+        <p>
+          <code>{"Imperial MPG = US MPG × 1.20095"}</code>
+        </p>
+        <p>
+          A car achieving 40 MPG under US testing appears as 48 MPG in a British magazine, even though both vehicles burn fuel at the
+          identical physical rate.
         </p>
       </div>
     </article>

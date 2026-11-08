@@ -2,85 +2,114 @@ export function UsTimeDurationArticle() {
   return (
     <article className="section seo-section prose-page">
       <div className="container prose">
-        <h2>Complete Guide to Time Duration: Addition, Subtraction & Sexagesimal Arithmetic</h2>
+        <h2>Time Duration Guide: Sexagesimal Arithmetic, Elapsed Intervals and Professional Timing</h2>
         <p>
-          Calculating elapsed time, adding time intervals, or converting between units of time is an indispensable skill across
-          professional consulting, aviation flight planning, athletic endurance training, and software operations in the United
-          States. Unlike decimal metric systems that operate in powers of ten, time measurement relies on an ancient <strong>sexagesimal
-          (base-60) system</strong> inherited from Babylonian mathematics, necessitating specialized arithmetic algorithms to calculate
-          precise durations without error.
+          Calculating elapsed time, adding multi-segment time intervals, or converting between units of duration is an
+          everyday requirement across legal practice, aviation flight planning, athletic endurance training, and software
+          operations in the United States. Unlike decimal metric systems that scale neatly in powers of ten, time measurement
+          relies on an ancient sexagesimal (base-60) structure inherited from Babylonian mathematics. Because minutes and
+          seconds reset at sixty rather than one hundred, standard decimal calculations produce serious errors unless converted
+          through proper algorithms.
         </p>
 
-        <h3>The Mechanics of Sexagesimal Time Arithmetic</h3>
+        <h3>The Mechanics of Base-60 Sexagesimal Arithmetic</h3>
         <p>
-          The standard units of chronological time follow mixed-base subdivisions:
-        </p>
-        <ul>
-          <li>1 Day = 24 Hours</li>
-          <li>1 Hour = 60 Minutes = 3,600 Seconds</li>
-          <li>1 Minute = 60 Seconds = 60,000 Milliseconds</li>
-        </ul>
-        <p>
-          Because minutes and seconds reset at 60 rather than 100, attempting to add or subtract time values using standard decimal
-          math produces severe errors (e.g., treating 2 hours 45 minutes plus 1 hour 35 minutes as 2.45 + 1.35 = 3.80 instead of the
-          true 4 hours 20 minutes).
+          Chronological time uses a mixed-base counting system. A standard calendar day contains 24 hours. Each hour subdivides
+          into 60 minutes, which equals 3,600 seconds. Individual minutes break down into 60 seconds, or 60,000 milliseconds.
         </p>
         <p>
-          The universal algorithm for multi-unit time addition or subtraction converts all values into a single base unit of
-          <strong>total seconds</strong>, executes the mathematical operation, and converts the resulting total back into hours,
-          minutes, and seconds:
+          Attempting to add or subtract time values using standard decimal arithmetic leads to disastrous mistakes. For example,
+          consider adding 2 hours 45 minutes to 1 hour 35 minutes. An untrained person might enter 2.45 plus 1.35 into a
+          standard calculator, producing 3.80. That erroneous result bears no resemblance to the true duration of 4 hours and 20
+          minutes. Sixty minutes form a whole hour, not one hundred.
         </p>
         <p>
-          <code>Total Seconds = (Hours × 3,600) + (Minutes × 60) + Seconds</code>
+          The reliable mathematical approach for multi-unit time addition or subtraction converts all values into a single base
+          unit of total seconds:
         </p>
         <p>
-          To reverse total seconds back into standardized Hours:Minutes:Seconds (HMS) format:
+          <code>{"Total Seconds = (Hours × 3,600) + (Minutes × 60) + Seconds"}</code>
         </p>
-        <ul>
-          <li><code>Hours = Math.floor(Total Seconds / 3,600)</code></li>
-          <li><code>Minutes = Math.floor((Total Seconds % 3,600) / 60)</code></li>
-          <li><code>Seconds = Total Seconds % 60</code></li>
-        </ul>
+        <p>
+          Once all durations are converted into total seconds, you perform straightforward addition or subtraction. To convert
+          the final integer back into standardized Hours:Minutes:Seconds format, use simple integer division and modulus
+          operations:
+        </p>
+        <p>
+          <code>{"Hours = Math.floor(Total Seconds / 3,600)"}</code>
+        </p>
+        <p>
+          <code>{"Minutes = Math.floor((Total Seconds % 3,600) / 60)"}</code>
+        </p>
+        <p>
+          <code>{"Seconds = Total Seconds % 60"}</code>
+        </p>
+        <p>
+          This universal algorithm handles any number of multi-step durations cleanly without cumulative rounding drift.
+        </p>
+
+        <h3>Solving Cross-Midnight Time Intervals</h3>
+        <p>
+          A common calculation challenge occurs when an activity begins in the late evening and concludes the following morning.
+          For example, a cargo flight might depart at 10:15 PM (22:15) and touch down at 3:45 AM (03:45).
+        </p>
+        <p>
+          Subtracting the starting time from the ending time yields a negative value: 03:45 minus 22:15 equals negative 18 hours
+          and 30 minutes. Real-world elapsed time cannot be negative. To resolve overnight spans, add twenty-four hours (1,440
+          minutes or 86,400 seconds) to the concluding timestamp:
+        </p>
+        <p>
+          <code>{"Elapsed Time = (03:45 + 24:00) - 22:15 = 27:45 - 22:15 = 5 Hours 30 Minutes"}</code>
+        </p>
+        <p>
+          Whether using standard 12-hour AM/PM notation or 24-hour military time, adding twenty-four hours to the arrival time
+          instantly resolves the date line crossing.
+        </p>
 
         <h3>Professional Applications: Legal Billing in Tenths of an Hour</h3>
         <p>
-          In US legal, management consulting, and public accounting practices, client engagements are billed in <strong>tenths of
-          an hour (6-minute increments)</strong>:
+          In American legal firms, management consultancies, and CPA practices, professionals bill client work in tenths of an
+          hour, meaning six-minute intervals:
         </p>
-        <ul>
-          <li>1 to 6 minutes = <strong>0.1 hour</strong></li>
-          <li>7 to 12 minutes = <strong>0.2 hour</strong></li>
-          <li>13 to 18 minutes = <strong>0.3 hour</strong></li>
-          <li>19 to 24 minutes = <strong>0.4 hour</strong></li>
-          <li>25 to 30 minutes = <strong>0.5 hour</strong></li>
-        </ul>
         <p>
-          Accurately summing multiple short phone consultations, court appearances, and brief reviews across a workday ensures precise,
-          transparent client invoices while satisfying professional ethical standards.
+          Work lasting 1 to 6 minutes is billed as 0.1 hour. Work spanning 7 to 12 minutes counts as 0.2 hour. Tasks lasting 13 to
+          18 minutes convert to 0.3 hour, while 19 to 24 minutes equal 0.4 hour. Work extending from 25 to 30 minutes is billed as
+          0.5 hour.
+        </p>
+        <p>
+          Accurately summing dozens of short phone consultations, court appearances, and email reviews throughout a business day
+          ensures ethical billing compliance while eliminating lost billable revenue.
         </p>
 
-        <h3>Athletic Pacing & Aviation Flight Timing</h3>
+        <h3>Athletic Pacing and Aviation Navigation</h3>
         <p>
-          Endurance athletes running marathons, half-marathons, or 5K races use time duration arithmetic to determine <strong>running
-          pace per mile</strong>:
+          Endurance runners and cyclists rely on time duration math to track pacing targets across marathon, half-marathon, and
+          triathlon courses. Running pace measures the time required to complete a single statute mile:
         </p>
         <p>
-          <code>Pace (Minutes:Seconds per Mile) = Total Race Time in Seconds / Distance in Miles</code>
+          <code>{"Pace per Mile (Seconds) = Total Race Time in Seconds / Distance in Miles"}</code>
         </p>
         <p>
-          For instance, completing a half-marathon (13.109 miles) in 1 hour 45 minutes (6,300 seconds) requires an average pace of
-          <code> 6,300 / 13.109 = 480.6 seconds per mile</code>, which equals exactly <strong>8 minutes and 1 second per mile</strong>.
-          Similarly, Federal Aviation Administration (FAA) cross-country flight plans require pilots to compute Estimated Time Enroute
-          (ETE) based on true airspeed, groundspeed, and wind correction angles using precise sexagesimal duration formulas.
+          Completing a half-marathon (13.109 miles) in 1 hour 45 minutes (6,300 seconds) requires maintaining an average pace of
+          480.6 seconds per mile, which equals 8 minutes and 1 second per mile.
+        </p>
+        <p>
+          In civil aviation, Federal Aviation Administration (FAA) cross-country flight plans mandate that pilots calculate
+          Estimated Time Enroute (ETE) and block time. Block time measures the exact duration from the moment the aircraft moves
+          under its own power at departure until wheels are chocked at the arrival gate. Pilots log this duration in hours and tenths
+          of an hour to track maintenance intervals and legal crew duty limitations.
         </p>
 
-        <h3>Broadcast Media & Video Production Timing</h3>
+        <h3>Broadcast Media and Video Frame Timing</h3>
         <p>
-          In US digital video production and television broadcasting, precise duration calculation extends into sub-second frames.
-          The Society of Motion Picture and Television Engineers (SMPTE) standardizes time representation into <strong>Hours:Minutes:Seconds:Frames</strong>
-          (HH:MM:SS:FF). In standard North American NTSC broadcasting running at 29.97 frames per second, drop-frame timecode calculation
-          drops two frame numbers each minute (except every tenth minute) to synchronize recorded SMPTE time with real-world wall clock time,
-          preventing live broadcast transmission drift.
+          In digital video editing and broadcast television, precision time measurement extends into individual video frames. The
+          Society of Motion Picture and Television Engineers (SMPTE) standardizes timecode into Hours:Minutes:Seconds:Frames.
+        </p>
+        <p>
+          Standard North American television runs at 29.97 frames per second. Because 29.97 is slightly slower than an even 30
+          frames per second, unadjusted timecode drifts by roughly 3.6 seconds every hour. Broadcasters use SMPTE drop-frame
+          timecode, which drops two frame numbers at the start of every minute except every tenth minute, keeping broadcast
+          programming perfectly synchronized with real-world atomic clock time.
         </p>
       </div>
     </article>

@@ -2,65 +2,143 @@ export function UsCdArticle() {
   return (
     <article className="section seo-section prose-page">
       <div className="container prose">
-        <h2>Complete Guide to Certificates of Deposit (CDs): APY, Terms & CD Ladders</h2>
+        <h2>US Certificate of Deposit Guide: APY Yields, CD Ladders and Early Withdrawal Penalties</h2>
         <p>
-          A Certificate of Deposit (CD) is a federally insured time-deposit account offered by banks and credit unions across the
-          United States. In exchange for agreeing to leave your principal untouched for a predetermined maturity term—ranging from
-          3 months to 5 years or longer—financial institutions guarantee a fixed rate of interest that is typically higher than
-          standard liquid savings or checking accounts.
+          A Certificate of Deposit is a federally insured time-deposit account offered by banks and credit unions across
+          the United States. In exchange for agreeing to leave your money untouched for a specified maturity term ranging
+          from three months to five years, financial institutions guarantee a fixed rate of return that is generally higher
+          than traditional liquid savings or checking accounts.
+        </p>
+        <p>
+          For risk-averse savers and retirees looking to protect cash reserves, Certificates of Deposit eliminate stock
+          market volatility while locking in reliable cash yields backed by the federal government.
         </p>
 
-        <h3>Understanding APY, Nominal APR & Daily Compounding</h3>
+        <h3>Understanding APY, Nominal Interest Rates and Compounding Schedules</h3>
         <p>
-          When shopping for CD yields, the headline metric to examine is the <strong>Annual Percentage Yield (APY)</strong> rather than
-          the nominal Annual Percentage Rate (APR). While APR reflects the base interest rate before compounding, APY accounts for the
-          compounding frequency throughout a full calendar year:
+          When comparing Certificates of Deposit across American banking institutions, the key figure to evaluate is the
+          Annual Percentage Yield rather than the nominal Annual Percentage Rate.
         </p>
         <p>
-          <code>APY = (1 + r/n)^n - 1</code>
+          While the nominal APR represents the raw annual interest rate before intra-year compounding, the APY measures
+          your true total return across a full twelve-month period:
         </p>
         <p>
-          Where <em>r</em> is the nominal interest rate and <em>n</em> is the compounding frequency per year. Most modern competitive
-          US online banks compound CD interest <strong>daily (n = 365)</strong>, which yields slightly more earned interest over time than
-          monthly or annual compounding. For example, a $25,000 deposit in a 12-month CD with a 5.00% APY will generate exactly $1,250 in
-          interest earnings upon reaching maturity.
+          <code>{"APY = (1 + r/n)^n - 1"}</code>
+        </p>
+        <p>
+          In this equation, r represents the nominal annual interest rate and n represents the number of compounding cycles
+          per calendar year.
+        </p>
+        <p>
+          Most competitive online banks and credit unions compound CD interest on a daily basis (365 times per year), which
+          produces slightly higher earnings than monthly or quarterly compounding.
+        </p>
+        <p>
+          Consider depositing $20,000 into a 12-month CD with a 5.00 percent APY:
+        </p>
+        <p>
+          At maturity, your deposit generates exactly $1,000.00 in interest, bringing your final balance to $21,000.00.
+          Unlike bond funds that fluctuate in value when interest rates change, a fixed-rate CD guarantees your principal
+          and return from day one.
         </p>
 
-        <h3>Federal Deposit Insurance: FDIC & NCUA Protections</h3>
+        <h3>Federal Deposit Insurance: FDIC and NCUA Protections</h3>
         <p>
-          Certificates of Deposit are among the safest investment vehicles available to American savers. Unlike stocks, corporate bonds,
-          or mutual funds that carry market risk, CD deposits are backed by the full faith and credit of the United States government:
+          Certificates of Deposit represent one of the safest financial assets available to American depositors because they
+          carry statutory federal insurance:
         </p>
-        <ul>
-          <li><strong>FDIC Insurance (Banks):</strong> Covered by the Federal Deposit Insurance Corporation up to <strong>$250,000</strong> per depositor, per insured bank, for each account ownership category.</li>
-          <li><strong>NCUA Insurance (Credit Unions):</strong> Covered by the National Credit Union Share Insurance Fund (NCUSIF) up to <strong>$250,000</strong> per member, per insured credit union, providing identical statutory protections.</li>
-        </ul>
         <p>
-          Depositors with more than $250,000 can easily protect multi-million dollar balances by spreading deposits across separate
-          institutions or structuring accounts across different ownership categories (such as individual, joint, and revocable trust accounts).
+          Bank CDs are insured by the Federal Deposit Insurance Corporation up to $250,000 per depositor, per insured
+          institution, for each legal account ownership category.
+        </p>
+        <p>
+          Credit union CDs (formally known as share certificates) are insured by the National Credit Union Administration
+          through the National Credit Union Share Insurance Fund up to identical $250,000 limits.
+        </p>
+        <p>
+          Savers managing large cash balances exceeding $250,000 can protect several million dollars in total principal
+          simply by distributing deposits across different institutions or opening accounts under different legal ownership
+          categories, including individual accounts, joint accounts with a spouse, and payable-on-death revocable trusts.
         </p>
 
-        <h3>Early Withdrawal Penalties (EWP) & The CD Ladder Strategy</h3>
+        <h3>Early Withdrawal Penalties and How They Threaten Principal</h3>
         <p>
-          If you liquidate your CD prior to its contracted maturity date, the issuing financial institution assesses an
-          <strong>Early Withdrawal Penalty (EWP)</strong>. Federal banking rules (Regulation D) establish minimum penalties, but individual
-          banks set their own terms:
-        </p>
-        <ul>
-          <li><strong>Short-Term CDs (≤ 12 months):</strong> Penalty typically forfeits 90 days (3 months) worth of simple interest.</li>
-          <li><strong>Medium-Term CDs (1 to 3 years):</strong> Penalty usually forfeits 180 days (6 months) of interest.</li>
-          <li><strong>Long-Term CDs (3 to 5+ years):</strong> Penalty often forfeits 270 to 365 days (9 to 12 months) of interest.</li>
-        </ul>
-        <p>
-          To maintain liquidity while capturing peak long-term interest rates, savvy savers employ a <strong>CD Ladder</strong>. Instead of
-          locking $50,000 into a single 5-year CD, you split the funds equally ($10,000 each) across 1-year, 2-year, 3-year, 4-year, and 5-year
-          CDs. Each year, one CD matures, providing access to liquid cash without penalty. If the cash is not needed, you simply roll that
-          matured CD into a new 5-year CD at prevailing market rates, creating a perpetual rolling income stream.
+          When you open a Certificate of Deposit, you enter into a binding contractual agreement with the bank to keep
+          funds deposited until the stated maturity date. If you liquidate the account before that date, the institution
+          assesses an Early Withdrawal Penalty.
         </p>
         <p>
-          Interest earned on standard bank CDs is taxable as ordinary income in the tax year it is credited, reported annually on IRS Form 1099-INT.
-          Investors seeking higher liquidity may also consider brokered CDs traded through major brokerage accounts, which can be sold on secondary markets
-          before maturity without bank early withdrawal penalties, subject to prevailing market value fluctuations.
+          Under federal banking rules outlined in Regulation D, financial institutions establish their own contractual
+          penalty schedules, typically based on a set number of months of interest:
+        </p>
+        <p>
+          Short-term CDs lasting twelve months or less generally assess a penalty equal to 90 days (three months) of simple
+          interest. Medium-term CDs spanning one to three years typically forfeit 180 days (six months) of interest.
+          Long-term CDs lasting four to five years often assess penalties of 270 to 365 days of interest.
+        </p>
+        <p>
+          Savers must recognize that early withdrawal penalties can eat directly into your original deposit principal. If
+          you deposit $20,000 into a one-year CD at 5.00 percent with a 90-day interest penalty and withdraw the money after
+          only 30 days:
+        </p>
+        <p>
+          Your account has accumulated approximately $41.67 in interest, but the 90-day penalty equals roughly $246.58. The
+          bank takes your $41.67 in earned interest and deducts the remaining $204.91 penalty directly from your original
+          deposit, returning only $19,795.09.
+        </p>
+
+        <h3>The CD Ladder Strategy for Continuous Liquidity</h3>
+        <p>
+          To avoid early withdrawal penalties while locking in favorable multi-year yields, experienced savers build a CD
+          Ladder. Instead of depositing your entire savings into a single long-term CD, you divide the capital equally across
+          multiple staggered maturities.
+        </p>
+        <p>
+          Suppose you have $50,000 in cash reserves:
+        </p>
+        <p>
+          You deposit $10,000 into a 1-year CD, $10,000 into a 2-year CD, $10,000 into a 3-year CD, $10,000 into a 4-year
+          CD, and $10,000 into a 5-year CD.
+        </p>
+        <p>
+          One year later, your 1-year CD matures, freeing up $10,000 in cash plus accumulated interest. If you do not need
+          the money for living expenses, you reinvest that $10,000 into a brand-new 5-year CD. At the end of year two, your
+          2-year CD matures and is rolled into another 5-year CD.
+        </p>
+        <p>
+          Within five years, you hold a mature rolling ladder where every single CD earns top-tier five-year interest rates,
+          yet one CD matures every twelve months, giving you regular penalty-free access to liquid capital.
+        </p>
+
+        <h3>Brokered CDs and Secondary Market Trading</h3>
+        <p>
+          Savers can also purchase brokered CDs through major brokerage accounts such as Fidelity, Charles Schwab, and
+          Vanguard.
+        </p>
+        <p>
+          Brokered CDs originate from banks nationwide, giving investors access to national yields without opening new
+          checking or savings accounts at dozens of separate institutions. Unlike traditional bank certificates, brokered
+          CDs do not charge early withdrawal penalties. If you need cash before maturity, you can sell your brokered CD on the
+          secondary market at prevailing market prices.
+        </p>
+        <p>
+          However, selling a brokered CD on the secondary market exposes you to interest rate risk. If market rates have
+          risen since you purchased the CD, buyers will only purchase your lower-yielding certificate at a discounted market
+          price below face value.
+        </p>
+
+        <h3>Taxation and Maturity Grace Periods</h3>
+        <p>
+          Interest earned on standard bank CDs is treated as ordinary income by the IRS and is taxed at your marginal income
+          tax bracket rate. Financial institutions report your annual interest earnings on IRS Form 1099-INT. On multi-year
+          CDs, you owe taxes on credited interest each calendar year, even if the certificate has not yet matured.
+        </p>
+        <p>
+          When a bank CD reaches maturity, the institution initiates a maturity grace period, typically lasting 7 to 10
+          calendar days. During this window, you can withdraw your principal and interest, deposit additional cash, or
+          alter your maturity term without paying fees. If you take no action during the grace period, the bank automatically
+          rolls your balance into a new CD of the same duration at prevailing market rates.
         </p>
       </div>
     </article>

@@ -2,69 +2,142 @@ export function UsSalesTaxArticle() {
   return (
     <article className="section seo-section prose-page">
       <div className="container prose">
-        <h2>Complete Guide to US Sales Tax: Combined Rates, NOMAD States & Calculations</h2>
+        <h2>US Sales Tax Guide: Combined Rates, NOMAD States and Reverse Calculations</h2>
         <p>
-          Unlike most industrialized countries that enforce a unified national Value Added Tax (VAT), the United States has no
-          federal sales tax. Instead, the administration of consumption taxes is delegated entirely to the individual states and local
-          municipalities. This decentralized structure creates a dynamic sales tax landscape consisting of over 11,000 distinct taxing
-          jurisdictions across the nation, each with its own statutory rates, base exemptions, and administrative regulations.
+          Unlike most developed nations that rely on a unified national Value Added Tax, the United States has no federal
+          sales tax. Instead, the power to levy consumption taxes is delegated to state legislatures, county
+          commissioners, city councils, and special local taxing districts.
+        </p>
+        <p>
+          This decentralized framework creates a complex system of more than 11,000 separate taxing jurisdictions across
+          the country. Each jurisdiction establishes its own statutory rates, taxable categories, and product exemptions.
+        </p>
+        <p>
+          Understanding how multiple tax layers stack together, how online purchases are sourced, and how to reverse
+          calculate pre-tax amounts from total receipts prevents surprises at checkout and keeps business invoicing
+          accurate.
         </p>
 
-        <h3>How Combined US Sales Tax Rates Work</h3>
+        <h3>Understanding Combined US Sales Tax Layers</h3>
         <p>
-          In most states, the total sales tax percentage assessed on retail goods and taxable services is a combined total of multiple
-          overlapping local tax layers:
+          When you purchase goods at a retail store or online in the United States, the total tax percentage charged at
+          checkout rarely represents a single state levy. In most states, sales tax is an aggregation of multiple local
+          taxing authorities stacked on top of one another.
         </p>
         <p>
-          <code>Total Combined Sales Tax Rate = State Base Rate + County Rate + City Municipal Rate + Special District Rate</code>
+          The formula for the total combined sales tax rate is:
         </p>
         <p>
-          Forty-five states and the District of Columbia impose a statewide general sales tax. State base rates range from 2.90% in
-          Colorado to 7.25% in California. However, when local counties, municipalities, and special taxation districts (such as public
-          transit authorities, fire protection districts, or sports stadium bonds) layer on local option taxes, total combined retail sales
-          tax rates frequently exceed 9% to 10% in major metropolitan centers such as Chicago (Illinois), Seattle (Washington), New Orleans
-          (Louisiana), and Los Angeles (California).
-        </p>
-
-        <h3>The Five "NOMAD" States with No General Sales Tax</h3>
-        <p>
-          Five US states do not levy a general statewide retail sales tax, collectively known by the acronym <strong>NOMAD</strong>:
-        </p>
-        <ul>
-          <li><strong>New Hampshire:</strong> No state sales tax and no personal wage income tax (maintains limited meals and rooms taxes).</li>
-          <li><strong>Oregon:</strong> No state or local retail sales tax (funds state services primarily via progressive personal income taxes).</li>
-          <li><strong>Montana:</strong> No statewide general sales tax, although select resort communities are authorized to assess local resort taxes up to 3%.</li>
-          <li><strong>Alaska:</strong> No statewide general sales tax; however, home-rule municipalities and boroughs are legally permitted to levy local sales taxes (ranging from 1% to 7.5%).</li>
-          <li><strong>Delaware:</strong> No state or local retail sales tax (assesses a gross receipts tax on business enterprises instead).</li>
-        </ul>
-
-        <h3>Tax-Exclusive Pricing & Reversing Sales Tax from Receipts</h3>
-        <p>
-          In American retail commerce, shelf prices and online advertised rates are almost universally displayed <strong>tax-exclusive</strong>
-          (pre-tax). Applicable sales taxes are automatically calculated and added at the cash register or checkout screen.
+          <code>{"Combined Sales Tax Rate = State Base Rate + County Rate + City Rate + Special District Rate"}</code>
         </p>
         <p>
-          When you need to back-calculate or reverse sales tax from a final invoice or cash register receipt to determine the pre-tax base cost:
+          Forty-five states plus Washington, D.C., enforce a statewide retail sales tax. State base rates range from 2.90
+          percent in Colorado to 7.25 percent in California.
         </p>
         <p>
-          <code>Pre-Tax Base Amount = Final Receipt Total / (1 + Sales Tax Rate as a Decimal)</code>
+          However, local option taxes drastically alter what consumers actually pay at the register. In major
+          metropolitan areas, county and municipal governments frequently add several percentage points to fund public
+          transit, municipal parks, school districts, and convention centers.
         </p>
         <p>
-          <code>Sales Tax Paid = Final Receipt Total - Pre-Tax Base Amount</code>
+          Consider purchasing a $1,200 computer in Chicago, Illinois:
         </p>
         <p>
-          For example, on a $108.00 purchase in a jurisdiction with an 8% combined sales tax:
-          <code> Base Amount = $108.00 / 1.08 = $100.00</code>, confirming exactly $8.00 in total sales tax collected.
+          The State of Illinois charges a 6.25 percent base rate. Cook County adds 1.75 percent, the City of Chicago adds
+          1.25 percent, and the Regional Transportation Authority levies another 1.00 percent. The final combined sales tax
+          rate reaches 10.25 percent. The shopper pays $123.00 in sales tax, bringing the final checkout total to
+          $1,323.00. Similar double-digit combined rates apply in cities across Louisiana, Washington, and Tennessee.
         </p>
 
-        <h3>Common State Exemptions & E-Commerce Nexus</h3>
+        <h3>The Five NOMAD States Without Statewide Sales Tax</h3>
         <p>
-          Many US states carve out specific statutory exemptions for essential consumer staples. Most states completely exempt
-          unprepared grocery food items and prescription medications from general sales tax, while several states—such as Pennsylvania,
-          Minnesota, and New Jersey, as well as New York for items under $110—exempt general apparel and footwear. Under the US Supreme
-          Court's landmark 2018 ruling in <em>South Dakota v. Wayfair</em>, out-of-state online retailers and e-commerce platforms
-          are legally required to collect and remit sales tax once they exceed statutory economic nexus thresholds (typically $100,000
-          in annual sales or 200 separate transactions within a state).
+          Five states do not impose a general statewide retail sales tax. The personal finance community commonly
+          remembers them through the acronym NOMAD:
+        </p>
+        <p>
+          New Hampshire levies no general state sales tax and no personal wage income tax, though it collects selective
+          excise taxes on restaurant meals, hotel stays, and vehicle rentals.
+        </p>
+        <p>
+          Oregon charges zero state or local sales tax, choosing to fund state government operations primarily through
+          progressive personal income taxes.
+        </p>
+        <p>
+          Montana imposes no general statewide sales tax, although designated ski resort towns and tourist communities are
+          authorized to collect local resort taxes up to 3 percent.
+        </p>
+        <p>
+          Alaska does not levy a statewide sales tax, but its home-rule municipalities and boroughs possess statutory
+          authority to enforce local retail sales taxes ranging from 1 percent to 7.5 percent.
+        </p>
+        <p>
+          Delaware has no state or local retail sales tax, assessing an alternative gross receipts tax on business revenues
+          instead.
+        </p>
+
+        <h3>Reversing Sales Tax from Cash Receipts and Invoices</h3>
+        <p>
+          American retailers almost universally display merchandise prices pre-tax on price tags, menus, and online
+          product listings. Sales tax is added at the point of sale.
+        </p>
+        <p>
+          When reconciling business expense accounts, logging contractor reimbursements, or completing accounting entries,
+          you often need to reverse calculate the pre-tax base cost from a tax-inclusive final receipt.
+        </p>
+        <p>
+          The reverse calculation requires two straightforward mathematical steps:
+        </p>
+        <p>
+          <code>{"Pre-Tax Base Amount = Final Receipt Total / (1 + Combined Tax Rate as a Decimal)"}</code>
+        </p>
+        <p>
+          <code>{"Sales Tax Paid = Final Receipt Total - Pre-Tax Base Amount"}</code>
+        </p>
+        <p>
+          Suppose an invoice shows an all-inclusive charge of $5,437.50 in a jurisdiction with an 8.75 percent sales tax
+          rate. Convert 8.75 percent into a decimal (0.0875) and add 1 to get 1.0875. Dividing $5,437.50 by 1.0875 yields
+          an exact pre-tax base cost of $5,000.00. Subtracting $5,000.00 from the receipt reveals that you paid exactly
+          $437.50 in sales tax.
+        </p>
+
+        <h3>Sourcing Rules, E-Commerce Nexus and Use Tax</h3>
+        <p>
+          How sales tax is applied to shipped merchandise depends on state sourcing legislation:
+        </p>
+        <p>
+          Origin-based states calculate sales tax based on the physical location of the seller. If you order an item from a
+          store located in an origin-based state like Texas or Ohio, sales tax is assessed at the merchant's business
+          location rate.
+        </p>
+        <p>
+          Destination-based states, which represent the vast majority of American states, assess sales tax based on where
+          the buyer takes delivery. If an item ships to your home address, the seller must apply the combined tax rate in
+          effect at your doorstep.
+        </p>
+        <p>
+          Under the United States Supreme Court ruling in South Dakota v. Wayfair (2018), states can mandate out-of-state
+          online merchants and digital marketplaces to collect local sales tax once they surpass economic nexus
+          thresholds, commonly set at $100,000 in gross annual sales or 200 individual transactions delivered into the
+          state.
+        </p>
+        <p>
+          If an out-of-state retailer fails to collect sales tax on an online order, state laws technically require the buyer
+          to declare and pay a companion use tax on their annual state income tax return.
+        </p>
+
+        <h3>Statutory Exemptions and Sales Tax Holidays</h3>
+        <p>
+          State tax codes frequently exempt essential survival goods from the consumption tax base. Most states completely
+          exempt unprepared grocery food, prescription medications, and medical prosthetics from retail sales tax.
+        </p>
+        <p>
+          Clothing enjoys preferential treatment in select states: Pennsylvania, Minnesota, and New Jersey exempt general
+          apparel completely, while New York exempts clothing and footwear purchases under $110 per item.
+        </p>
+        <p>
+          Nearly twenty states host annual sales tax holidays, typically scheduled during late summer. These promotional
+          weekends suspend state and local sales taxes on qualifying school supplies, computers, backpacks, and hurricane
+          emergency gear, offering temporary cash relief for working households.
         </p>
       </div>
     </article>

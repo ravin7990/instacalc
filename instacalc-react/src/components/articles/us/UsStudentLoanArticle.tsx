@@ -2,57 +2,116 @@ export function UsStudentLoanArticle() {
   return (
     <article className="section seo-section prose-page">
       <div className="container prose">
-        <h2>Navigating Student Loans in the US: Repayment Plans, Forgiveness & Interest</h2>
+        <h2>US Student Loan Guide: Repayment Plans, Daily Interest and Loan Forgiveness</h2>
         <p>
-          Student loan debt represents one of the largest consumer debt categories in the United States, impacting over 43 million
-          borrowers. Whether managing Direct Subsidized and Unsubsidized federal loans, Direct PLUS loans for parents and graduate students,
-          or private bank loans, choosing an optimal repayment framework can save thousands of dollars and shave years off your payoff timeline.
+          Student loan debt affects more than 43 million American borrowers, totaling over $1.7 trillion in outstanding
+          liabilities. Whether you hold Federal Direct Subsidized and Unsubsidized loans, Parent PLUS loans, Graduate PLUS
+          loans, or commercial private bank loans, your repayment strategy dictates your financial flexibility throughout
+          your twenties and thirties.
+        </p>
+        <p>
+          Choosing between the standard ten-year amortization schedule, extended repayment options, and income-driven
+          repayment plans can mean the difference between paying off debt efficiently or surrendering tens of thousands of
+          extra dollars to compounded finance charges.
         </p>
 
-        <h3>How Student Loan Interest Accrues Daily</h3>
+        <h3>How Student Loan Interest Accrues and Capitalizes</h3>
         <p>
-          Unlike mortgages which compound monthly, student loans in the United States accrue simple interest on a daily basis. The daily
-          interest formula is:
+          Unlike residential mortgages that compound monthly, student loans in the United States accrue simple interest on
+          a daily basis.
         </p>
         <p>
-          <code>Daily Interest Accrual = Outstanding Principal Balance × (Annual Interest Rate / 365.25)</code>
+          The daily interest accrual formula is:
         </p>
         <p>
-          When you make your monthly remittance, your payment is applied in a statutory order: first toward outstanding collection fees
-          (if delinquent), second toward interest accrued since your last payment date, and third toward the principal loan balance.
-          Making bi-weekly payments or targeting additional voluntary principal payments directly reduces your balance, decreasing future
-          daily interest accumulation.
-        </p>
-
-        <h3>Federal Repayment Options: Standard 10-Year vs. Income-Driven Repayment</h3>
-        <p>
-          The US Department of Education offers multiple statutory repayment structures designed for different career trajectories:
-        </p>
-        <ul>
-          <li><strong>Standard 10-Year Repayment Plan:</strong> Fixed monthly installments designed to pay off the entire balance within 120 months (10 years). This is the default plan and results in the lowest cumulative interest paid among standard federal schedules.</li>
-          <li><strong>Graduated Repayment Plan:</strong> Monthly payments start low and increase every two years over a 10-year period, accommodating anticipated salary progression.</li>
-          <li><strong>Extended Repayment Plan:</strong> Extends the repayment timeline up to 25 years with fixed or graduated payments for borrowers with more than $30,000 in outstanding federal debt.</li>
-          <li><strong>Income-Driven Repayment (IDR) Plans:</strong> Structures such as Income-Based Repayment (IBR), Pay As You Earn (PAYE), and the Saving on a Valuable Education (SAVE) plan cap monthly payments at a percentage (typically 5% to 15%) of your discretionary income above federal poverty guidelines, with remaining balances eligible for discharge after 20 or 25 years.</li>
-        </ul>
-
-        <h3>Public Service Loan Forgiveness (PSLF) & Tax Deductions</h3>
-        <p>
-          Borrowers employed full-time by qualifying 501(c)(3) non-profit organizations, federal, state, local, or tribal government entities
-          can pursue <strong>Public Service Loan Forgiveness (PSLF)</strong>. Under PSLF, after making 120 qualifying monthly payments under
-          an eligible IDR plan, the entire remaining federal loan balance is forgiven 100% tax-free under federal law.
+          <code>{"Daily Interest = Outstanding Principal Balance * (Annual Interest Rate / 365.25)"}</code>
         </p>
         <p>
-          Additionally, under Section 221 of the Internal Revenue Code, eligible borrowers may claim an above-the-line tax deduction of
-          up to <strong>$2,500</strong> for student loan interest paid during the tax year (reported on IRS Form 1098-E). This deduction can
-          be claimed even if you take the standard deduction, subject to annual Modified Adjusted Gross Income (MAGI) phase-out limits.
+          If you carry an outstanding balance of $38,000 at a 6.50 percent interest rate, your loan generates approximately
+          $6.76 in interest charges each day ($38,000 multiplied by 0.065 divided by 365.25). Over a thirty-day billing
+          cycle, your loan accumulates roughly $203 in interest charges before any money touches the underlying principal.
+        </p>
+        <p>
+          When your monthly payment is processed, federal servicer rules dictate a strict application order: payments
+          satisfy outstanding late fees first, accrued unpaid interest second, and remaining funds third to pay down loan
+          principal.
+        </p>
+        <p>
+          Borrowers must also understand loan capitalization. Capitalization occurs when unpaid accrued interest is
+          officially added to your principal balance. Once interest capitalizes, future daily interest is calculated on
+          that new, larger principal sum. Key triggering events include exiting a post-graduation six-month grace period,
+          leaving a period of voluntary forbearance, or switching between certain federal repayment structures.
         </p>
 
-        <h3>Private Student Loan Refinancing: Opportunities & Risks</h3>
+        <h3>Standard 10-Year Plan vs. Extended 25-Year Amortization</h3>
         <p>
-          High-income borrowers with excellent credit (FICO 720+) and stable employment often evaluate refinancing private student loans with
-          commercial lenders (such as SoFi, Laurel Road, or Earnest) to secure lower interest rates and shorten their payoff horizons.
-          However, refinancing <em>federal</em> student loans into private loans permanently surrenders access to federal income-driven repayment
-          plans, federal administrative forbearance options, total and permanent disability discharge, and PSLF forgiveness programs.
+          The default repayment framework for all Federal Direct loans is the Standard 10-Year Repayment Plan. This plan
+          divides your loan balance into 120 equal monthly installments calculated to pay off both principal and interest in
+          exactly ten years.
+        </p>
+        <p>
+          While the standard schedule requires higher monthly payments than income-driven options, it produces the lowest
+          cumulative interest cost among all standard federal amortization schedules.
+        </p>
+        <p>
+          For borrowers carrying more than $30,000 in federal debt, the Department of Education offers an Extended Repayment
+          Plan that stretches payments across 25 years (300 monthly installments):
+        </p>
+        <p>
+          On that same $38,000 loan balance at 6.50 percent interest:
+        </p>
+        <p>
+          Under the Standard 10-Year Plan, your monthly installment is $431.48. Over 120 payments, you pay $13,778 in total
+          interest, bringing your complete repayment outlay to $51,778.
+        </p>
+        <p>
+          Under the Extended 25-Year Plan, your monthly payment drops to $256.59, freeing up $174.89 in monthly household
+          cash flow. However, stretching repayment over 25 years causes total interest to skyrocket to $38,977. Your total
+          lifetime outlay jumps to $76,977. You end up paying more in pure interest charges than the entire amount
+          originally borrowed.
+        </p>
+        <p>
+          Adding extra principal payments dramatically reverses this interest burden. Making a $100 voluntary extra payment
+          each month ($531.48 total) on the standard ten-year plan clears the $38,000 loan in just seven years and four
+          months, saving $4,120 in interest costs.
+        </p>
+
+        <h3>Income-Driven Repayment Plans and Public Service Forgiveness</h3>
+        <p>
+          For graduates whose student loan debt exceeds their annual starting salary, federal Income-Driven Repayment (IDR)
+          plans provide an essential safety net. Programs such as Saving on a Valuable Education (SAVE), Income-Based
+          Repayment (IBR), and Pay As You Earn (PAYE) calculate monthly payments based on a percentage (typically 5 to 15
+          percent) of your discretionary income rather than your total loan balance. Discretionary income represents the
+          difference between your adjusted gross income and federal poverty guidelines.
+        </p>
+        <p>
+          Borrowers employed full-time by eligible government agencies, public schools, or 501(c)(3) charitable non-profit
+          organizations can qualify for Public Service Loan Forgiveness (PSLF). Under the PSLF program, after you make 120
+          qualifying monthly payments under an eligible income-driven plan, the federal government forgives the entire
+          remaining loan balance 100 percent tax-free.
+        </p>
+        <p>
+          Unlike standard corporate forgiveness programs that treat canceled debt as taxable income, PSLF discharges are
+          completely exempt from federal income taxes.
+        </p>
+
+        <h3>Student Loan Interest Tax Deductions and Private Refinancing</h3>
+        <p>
+          Under Section 221 of the Internal Revenue Code, qualifying borrowers can claim an above-the-line federal tax
+          deduction of up to $2,500 per year for student loan interest paid on eligible federal and private loans. Because
+          this is an above-the-line adjustment to income, you can claim it even if you take the standard deduction on your
+          annual tax return, subject to statutory Modified Adjusted Gross Income phase-out limits.
+        </p>
+        <p>
+          Borrowers with high earned income, strong credit scores (720 and above), and stable private-sector employment
+          often consider refinancing student loans through private lenders like SoFi or Earnest to secure lower interest
+          rates.
+        </p>
+        <p>
+          While private refinancing can reduce interest rates significantly on existing high-rate private loans,
+          refinancing federal student loans into private debt is irreversible. Doing so forfeits all federal income-driven
+          repayment options, administrative forbearance flexibility, disability discharge provisions, and Public Service
+          Loan Forgiveness eligibility.
         </p>
       </div>
     </article>

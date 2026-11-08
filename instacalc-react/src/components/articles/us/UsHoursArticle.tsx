@@ -2,61 +2,103 @@ export function UsHoursArticle() {
   return (
     <article className="section seo-section prose-page">
       <div className="container prose">
-        <h2>Complete Guide to Work Hours, FLSA Overtime & Decimal Timesheets in the US</h2>
+        <h2>Work Hours and Overtime Guide: Timesheets, FLSA Regulations and Decimal Conversions</h2>
         <p>
-          Accurate recording of working hours is a mandatory statutory responsibility for American businesses and employees alike.
-          Governed primarily by the federal Fair Labor Standards Act (FLSA) and enforced by the US Department of Labor (DOL) Wage
-          and Hour Division, precise time tracking ensures non-exempt employees receive lawful compensation, compliant overtime wages,
-          and proper break deductions.
+          Accurate recording of working hours is a mandatory legal responsibility for American businesses and workers.
+          Governed primarily by the federal Fair Labor Standards Act (FLSA) and enforced by the US Department of Labor Wage
+          and Hour Division, precise time tracking ensures non-exempt employees receive lawful compensation, compliant
+          overtime wages, and proper meal deductions. Miscalculating shift hours or misapplying break rules creates
+          substantial legal liability, including back-wage assessments and liquidated damages.
         </p>
 
-        <h3>How Shift Hours & Meal Deductions are Calculated</h3>
+        <h3>How Shift Hours and Meal Deductions are Calculated</h3>
         <p>
-          Calculating payable work hours requires determining total elapsed time between clock-in and clock-out timestamps, then
-          deducting non-compensable meal breaks:
+          Calculating net payable work hours requires determining total elapsed time between clock-in and clock-out
+          timestamps, followed by deducting non-compensable meal periods.
         </p>
         <p>
-          <code>Net Payable Hours = (End Time - Start Time) - Unpaid Break Duration</code>
+          The baseline formula subtracts your starting time from your ending time:
         </p>
         <p>
-          For shifts that span midnight (overnight third shifts), standard clock subtraction yields a negative number. The correct
-          formula adds 24 hours (1,440 minutes) to the end timestamp before subtracting the start timestamp:
-          <code> Elapsed Time = (End Time + 24:00) - Start Time</code>.
+          <code>{"Net Payable Hours = (End Time - Start Time) - Unpaid Break Duration"}</code>
+        </p>
+        <p>
+          Complications often arise when workers pull overnight third shifts that cross midnight. For example, a nurse or
+          warehouse employee might clock in at 10:00 PM and clock out at 6:30 AM the next morning. Direct clock subtraction
+          yields a negative number. To solve overnight shift math, add twenty-four hours to the departure timestamp before
+          subtracting the arrival time:
+        </p>
+        <p>
+          <code>{"Elapsed Time = (06:30 + 24:00) - 22:00 = 30:30 - 22:00 = 8.5 Hours"}</code>
+        </p>
+        <p>
+          Deducting a 30-minute unpaid lunch break leaves 8.0 net payable hours. Precision matters. Rounding or guessing shift
+          totals leads to payroll discrepancies that quickly accumulate over a fiscal year.
         </p>
 
-        <h3>Federal FLSA Overtime Rules vs. State Daily Overtime</h3>
+        <h3>Federal FLSA Overtime Versus State Daily Overtime</h3>
         <p>
-          The federal standard for overtime compensation applies to all non-exempt covered employees under the FLSA:
+          Under federal law, the Fair Labor Standards Act establishes a strict 40-hour workweek standard for non-exempt
+          employees. Employers must pay overtime at a rate not less than one and one-half times the employee regular hourly
+          rate for all hours worked exceeding 40 during a designated, fixed seven-consecutive-day payroll workweek. Federal law
+          does not require overtime pay simply for working more than eight hours in a single calendar day, nor does it mandate
+          overtime pay for working on Saturdays, Sundays, or holidays.
         </p>
-        <ul>
-          <li><strong>Federal 40-Hour Threshold:</strong> Employers must pay overtime at a rate not less than <strong>one and one-half times (1.5×)</strong> the employee's regular hourly rate for all hours worked in excess of 40 hours during a designated, fixed seven-consecutive-day workweek.</li>
-          <li><strong>California Daily Overtime:</strong> California labor law mandates overtime pay of 1.5× regular pay for all hours worked beyond 8 hours up to 12 hours in a single calendar workday, and <strong>double time (2.0×)</strong> for all hours worked beyond 12 hours in a single workday or for work beyond 8 hours on the seventh consecutive day of work.</li>
-          <li><strong>Nevada & Alaska Rules:</strong> Nevada requires daily overtime (over 8 hours) for employees earning below statutory minimum multiples, while Alaska enforces daily overtime after 8 hours for employers with 4 or more workers.</li>
-        </ul>
+        <p>
+          However, several state labor statutes enforce substantially stricter daily overtime protections:
+        </p>
+        <p>
+          California enforces the most comprehensive daily overtime system in the country. Non-exempt employees in California
+          earn 1.5 times their regular pay rate for all hours worked beyond eight hours up to twelve hours in a single workday,
+          and for the first eight hours worked on the seventh consecutive workday in a workweek. Any work exceeding twelve
+          hours in a single workday or exceeding eight hours on the seventh consecutive day must be compensated at double time,
+          meaning twice the employee regular pay rate.
+        </p>
+        <p>
+          Nevada requires daily overtime pay after eight hours for employees earning less than one and one-half times the state
+          minimum wage. Alaska requires daily overtime for employers with four or more staff whenever a non-exempt employee
+          exceeds eight hours in a day. Colorado also mandates daily overtime after twelve hours of work in a single shift,
+          regardless of weekly totals.
+        </p>
 
-        <h3>Compensable Time: Rest Breaks vs. Bona Fide Meal Periods</h3>
+        <h3>Compensable Rest Breaks Versus Bona Fide Meal Periods</h3>
         <p>
-          Federal labor regulations (29 CFR § 785) strictly define which break intervals are compensable:
+          Federal wage regulations outlined in Title 29 of the Code of Federal Regulations (29 CFR Part 785) draw a sharp legal
+          line between paid rest breaks and unpaid meal periods:
         </p>
-        <ul>
-          <li><strong>Short Rest Breaks (5 to 20 minutes):</strong> Rest intervals lasting 20 minutes or fewer are considered to promote employee efficiency and <strong>must be counted and compensated as hours worked</strong>.</li>
-          <li><strong>Bona Fide Meal Periods (30+ minutes):</strong> Meal periods are generally non-compensable (unpaid), provided the employee is <strong>completely relieved from all active duty</strong> and free to leave their work post. If an employee is required to monitor a desk or answer phones while eating, the entire meal period must be paid.</li>
-        </ul>
+        <p>
+          Rest breaks lasting twenty minutes or less are legally considered to benefit worker productivity. Federal law
+          mandates that employers count and compensate these short breaks as paid hours worked. If an office worker steps away
+          for a 15-minute coffee break or a factory employee takes a 10-minute rest, their timecard must remain on the clock.
+        </p>
+        <p>
+          In contrast, meal periods lasting thirty minutes or longer can be deducted as unpaid time, provided they meet the
+          legal definition of a bona fide meal break. Under federal regulations, an employee must be completely relieved from all
+          duties for the entire duration of the meal. If an administrative assistant is asked to monitor office phones while
+          eating lunch at their desk, that break is not bona fide, and the entire meal period must be paid as regular work time.
+        </p>
 
-        <h3>Converting Minutes to Decimal Hours for Payroll (The 7-Minute Rule)</h3>
+        <h3>Decimal Hour Conversion and the FLSA 7-Minute Rounding Rule</h3>
         <p>
-          Because payroll software operates on decimal currency arithmetic, minutes must be converted into decimal fractions of an hour:
-          <code> Decimal Hours = Hours + (Minutes / 60)</code>. Common reference conversions include:
+          Because modern payroll software processes wages using standard dollar decimals, work hours and minutes must be
+          converted into decimal fractions:
         </p>
-        <ul>
-          <li>15 minutes = <strong>0.25 hours</strong></li>
-          <li>30 minutes = <strong>0.50 hours</strong></li>
-          <li>45 minutes = <strong>0.75 hours</strong></li>
-        </ul>
         <p>
-          Under FLSA regulations (29 CFR § 785.48(b)), employers are permitted to round employee punch times to the nearest 15 minutes
-          using the <strong>7-minute rule</strong>: minutes from 1 to 7 are rounded down to the nearest quarter-hour, while minutes from
-          8 to 14 are rounded up. Over time, rounding systems must average out fairly without systematically underpaying workers.
+          <code>{"Decimal Hours = Hours + (Minutes / 60)"}</code>
+        </p>
+        <p>
+          For instance, an employee working 7 hours and 45 minutes completed 7.75 decimal hours. Working 8 hours and 20 minutes
+          translates to 8.333 decimal hours.
+        </p>
+        <p>
+          To simplify time tracking on physical punch clocks, federal regulations permit employers to round employee starting
+          and stopping times to the nearest five minutes, six minutes, or fifteen minutes (29 CFR Section 785.48(b)). The most
+          common system is the 7-minute quarter-hour rule: minutes from 1 to 7 are rounded down to the nearest quarter hour, while
+          minutes from 8 to 14 are rounded up to the next quarter hour.
+        </p>
+        <p>
+          Federal law strictly requires that rounding practices average out neutrally over time. An employer cannot manipulate
+          rounding rules to systematically shave time or underpay employee labor.
         </p>
       </div>
     </article>
