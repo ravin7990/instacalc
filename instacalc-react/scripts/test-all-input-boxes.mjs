@@ -157,9 +157,9 @@ for (let pIdx = 0; pIdx < koPages.length; pIdx++) {
     for (let i = 0; i < selects.length; i++) {
       const sel = selects[i];
       const name = (await sel.getAttribute("name")) || (await sel.getAttribute("id")) || `select #${i}`;
-      // Skip global lang switch
-      const isLangSwitch = await sel.evaluate((el) => !!el.closest(".lang-switch"));
-      if (isLangSwitch) continue;
+      // Skip global lang/currency switch
+      const isGlobalSwitch = await sel.evaluate((el) => !!el.closest(".lang-switch, .currency-switch, .calc-currency-selector"));
+      if (isGlobalSwitch) continue;
 
       const options = await sel.$$eval("option", (opts) => opts.map((o) => o.value));
       for (const optVal of options) {

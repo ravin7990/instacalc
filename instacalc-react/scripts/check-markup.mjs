@@ -82,20 +82,20 @@ const IMPLEMENTED = new Set([
 
   // Spanish edition (/es/)
   "/es/aboutus.html", "/es/contactus.html", "/es/privacypolicy.html", "/es/terms.html",
-  "/es/compoundinterest.html", "/es/simpleinterestcalculator.html",
-  "/es/emicalculator.html", "/es/mortgage-calculator.html",
-  "/es/sipcalculator.html", "/es/sipcalculatorlumpsump.html",
-  "/es/fdcalculator.html", "/es/rdcalculator.html",
-  "/es/gstcalculator.html", "/es/cagrcalculator.html",
-  "/es/retirementcalculator.html", "/es/fire-calculator.html",
-  "/es/swpcalculator.html", "/es/mutualfundreturncalculator.html",
-  "/es/duration/agecalculator.html", "/es/catagecalculator.html",
-  "/es/duration/birthdaycalculator.html", "/es/duration/dayscalculator.html",
-  "/es/duration/weekcalculator.html", "/es/duration/hourcalculator.html",
-  "/es/duration/minutes-hourscalculator.html", "/es/duration/timezonecalculator.html",
-  "/es/moretools/trianglecalculator.html", "/es/moretools/diagonalcalculator.html",
-  "/es/moretools/trignometrycalculator.html", "/es/moretools/concretecalculator.html",
-  "/es/gallontolitercalculator.html",
+  "/es/calculadora-interes-compuesto.html", "/es/calculadora-interes-simple.html",
+  "/es/calculadora-prestamos.html", "/es/calculadora-hipoteca.html",
+  "/es/calculadora-inversion-mensual.html", "/es/calculadora-inversion-suma-global.html",
+  "/es/calculadora-deposito-plazo-fijo.html", "/es/calculadora-ahorro-programado.html",
+  "/es/calculadora-iva.html", "/es/calculadora-cagr.html",
+  "/es/calculadora-jubilacion.html", "/es/calculadora-fire.html",
+  "/es/calculadora-retiro-sistematico.html", "/es/calculadora-fondos-inversion.html",
+  "/es/calculadora-edad.html", "/es/calculadora-edad-gatos.html",
+  "/es/calculadora-cumpleanos.html", "/es/calculadora-dias-entre-fechas.html",
+  "/es/calculadora-semanas.html", "/es/calculadora-horas-trabajo.html",
+  "/es/calculadora-minutos-a-horas.html", "/es/calculadora-zona-horaria.html",
+  "/es/calculadora-triangulos.html", "/es/calculadora-diagonal.html",
+  "/es/calculadora-trigonometria.html", "/es/calculadora-hormigon-concreto.html",
+  "/es/calculadora-galon-a-litro.html",
 
   // Mutual fund and remaining date tools
   "/mutualfundreturncalculator.html", "/ja/mutualfundreturncalculator.html",
@@ -150,6 +150,8 @@ const KV_SUBJECTS = [
   "diagonal", "trignometry", "triangle", "concrete", "gallon", "gst", "sales-tax",
   "gratuity", "cagr", "nps", "fire", "cd-calculator",
   "severance", "holiday", "pyeong", "brokerage", "jeonse", "acquisition", "unemployment",
+  "iva", "edad", "cumpleanos", "dias", "semanas", "horas", "minutos",
+  "zona-horaria", "triangulos", "trigonometria", "hormigon", "galon",
 ];
 
 /** True when the page is one of the key/value-style tools. */

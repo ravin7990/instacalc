@@ -157,8 +157,8 @@ for (let pIdx = 0; pIdx < jaCalcs.length; pIdx++) {
     const selects = await page.$$("select");
     for (let i = 0; i < selects.length; i++) {
       const sel = selects[i];
-      const isLangSwitch = await sel.evaluate((el) => !!el.closest(".lang-switch"));
-      if (isLangSwitch) continue;
+      const isGlobalSwitch = await sel.evaluate((el) => !!el.closest(".lang-switch, .currency-switch, .calc-currency-selector"));
+      if (isGlobalSwitch) continue;
 
       const name = (await sel.getAttribute("name")) || (await sel.getAttribute("id")) || `select #${i}`;
       const options = await sel.$$eval("option", (opts) => opts.map((o) => o.value));

@@ -83,7 +83,10 @@ export default function LumpsumCalculator({ seo }: { seo: SeoRecord }) {
   ];
 
   // Resolve cross-link to SIP page for locales that ship both.
-  const sipHref = localeOrRoot(seo.locale, "sipcalculator.html");
+  const sipHref =
+    seo.locale === "es"
+      ? "/es/calculadora-inversion-mensual.html"
+      : localeOrRoot(seo.locale, "sipcalculator.html");
 
   return (
     <>

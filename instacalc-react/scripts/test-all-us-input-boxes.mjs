@@ -154,9 +154,10 @@ for (let pIdx = 0; pIdx < usCalcs.length; pIdx++) {
     }
 
     // 4. Test select dropdowns
-    const selectCount = await page.$$eval("select:not(#langSelect)", (els) => els.length);
+    const selectSelector = "select:not(#langSelect):not(#currencySelect):not(#mobileCurrencySelect):not(#calcCurrencySelect)";
+    const selectCount = await page.$$eval(selectSelector, (els) => els.length);
     for (let i = 0; i < selectCount; i++) {
-      const select = (await page.$$("select:not(#langSelect)"))[i];
+      const select = (await page.$$(selectSelector))[i];
       if (!select) continue;
       const options = await select.$$eval("option", (opts) => opts.map((o) => o.value));
       if (options.length > 1) {

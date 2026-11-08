@@ -12,6 +12,7 @@ import {
   trackCalculatorEmbed,
   trackCalculatorHistory,
   trackNavClick,
+  trackEvent,
 } from "@/lib/analytics";
 import { exportFinancialWorkbookCsv, exportHistoryBatchCsv, exportTableToCsv, scrapeTableData } from "@/lib/csvExport";
 import { computeScenarioDelta } from "@/lib/urlState";
@@ -25,6 +26,8 @@ import {
   type HistoryInputItem,
 } from "@/lib/calcHistory";
 import { RelatedCalculators } from "@/components/calculator/RelatedCalculators";
+import { useCurrency } from "@/app/CurrencyContext";
+import { SUPPORTED_CURRENCIES, getEffectiveCurrency } from "@/lib/currency";
 
 export interface ResultItem {
   label: string;
@@ -83,6 +86,8 @@ export function CalculatorShell({
   children?: ReactNode;
 }) {
   const t = ui(locale);
+  const { currencyCode, setCurrency } = useCurrency();
+  const defaultCurrency = getEffectiveCurrency(locale, "AUTO");
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
   const [exportedCsv, setExportedCsv] = useState(false);
@@ -762,6 +767,27 @@ export function CalculatorShell({
             )}
 
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <div className="calc-currency-selector">
+                <label className="sr-only" htmlFor="calcCurrencySelect">
+                  Currency
+                </label>
+                <select
+                  id="calcCurrencySelect"
+                  value={currencyCode}
+                  onChange={(e) => {
+                    const next = e.target.value;
+                    setCurrency(next);
+                    trackEvent("currency_switch", { from: currencyCode, to: next, surface: "calc_shell" });
+                  }}
+                >
+                  <option value="AUTO">Auto ({defaultCurrency.symbol})</option>
+                  {SUPPORTED_CURRENCIES.map((c) => (
+                    <option key={c.code} value={c.code}>
+                      {c.code} ({c.symbol})
+                    </option>
+                  ))}
+                </select>
+              </div>
               {!isOnline && (
                 <div className="offline-ready-pill" role="status">
                   <span className="offline-dot" aria-hidden="true" />

@@ -8,7 +8,8 @@ import { Field, type FieldSpec } from "@/components/calculator/CalculatorField";
 import { FaqAccordion } from "@/components/calculator/FaqAccordion";
 import { ProjectionTable } from "@/components/calculator/ProjectionTable";
 import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
-import { symbol } from "@/lib/currency";
+import { symbol, isCurrencySymbol, replaceCurrencySymbol } from "@/lib/currency";
+import { useCurrency } from "@/app/CurrencyContext";
 import { readUrlParams, syncUrlState } from "@/lib/urlState";
 import {
   BreakdownDonutChart,
@@ -76,7 +77,8 @@ export function createCalculatorPage(specFor: (locale: Locale) => CalculatorSpec
   return function CalculatorPage({ seo }: { seo: SeoRecord }) {
     const locale = seo.locale;
     const spec = specFor(locale);
-    const prefix = spec.currencySymbol ?? symbol(locale);
+    const { symbol: activeSym } = useCurrency();
+    const prefix = spec.currencySymbol ?? activeSym;
 
     const [state, setState] = useState<Record<string, number>>(spec.defaults);
     const [advanced, setAdvanced] = useState(false);
@@ -109,14 +111,23 @@ export function createCalculatorPage(specFor: (locale: Locale) => CalculatorSpec
       ...supporting.map((r) => `${r.label}: ${r.value(result, state)}`),
     ].join("\n");
 
-    const bind = (f: FieldSpec): FieldSpec => ({
+    const bind = (f: FieldSpec): FieldSpec => {
+      const isCur = f.prefix && isCurrencySymbol(f.prefix);
+      const effectivePrefix = isCur ? activeSym : (f.prefix === "\u0000" ? activeSym : f.prefix);
+      return ({
       ...f,
       value: state[f.key] ?? f.value,
-      prefix: f.prefix === "\u0000" ? prefix : f.prefix,
+      prefix: effectivePrefix,
       chips: f.chips?.map((c) =>
-        c.label === "\u0000" ? { ...c, label: `${prefix}${c.value / 1000}K` } : c,
+        c.label === "\u0000"
+          ? { ...c, label: `${activeSym}${c.value / 1000}K` }
+          : c.label && isCurrencySymbol(c.label.charAt(0))
+          ? { ...c, label: replaceCurrencySymbol(c.label, activeSym) }
+          : c,
       ),
     });
+  };
+
 
     return (
       <>

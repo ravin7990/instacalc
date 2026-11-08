@@ -4,6 +4,8 @@ import type { Locale } from "@/config/site";
 import { ui } from "@/i18n/ui";
 import { localeHome } from "@/components/layout/Layout";
 import { trackLanguageSwitch, trackNavClick, trackEvent } from "@/lib/analytics";
+import { useCurrency } from "@/app/CurrencyContext";
+import { SUPPORTED_CURRENCIES, getEffectiveCurrency } from "@/lib/currency";
 
 export interface NavLink {
   href: string;
@@ -43,6 +45,8 @@ export interface SiteHeaderProps {
 export function SiteHeader({ locale, nav, homeHref, badge }: SiteHeaderProps) {
   const [open, setOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const { currencyCode, currency, setCurrency } = useCurrency();
+  const defaultCurrency = getEffectiveCurrency(locale, "AUTO");
 
   // Close the mobile drawer on Escape and lock body scroll while open.
   useEffect(() => {
@@ -80,34 +84,59 @@ export function SiteHeader({ locale, nav, homeHref, badge }: SiteHeaderProps) {
           </span>
         </a>
 
-        {/* Region / language pill, centred between the brand and the nav.
-            A native <select> keeps it keyboard- and screen-reader-friendly
-            with no custom JS, and costs no layout until it renders. */}
-        <div className="lang-switch">
-          <label className="sr-only" htmlFor="langSelect">
-            {ui(locale).language}
-          </label>
-          <select
-            id="langSelect"
-            value={locale}
-            onChange={(e) => {
-              const next = e.target.value as Locale;
-              trackLanguageSwitch(locale, next);
-              try {
-                window.localStorage.setItem(LANG_STORAGE_KEY, next);
-              } catch {
-                /* private mode — navigation still works */
-              }
-              window.location.href = localeHref(next);
-            }}
-          >
-            {LOCALES.map((l) => (
-              <option key={l} value={l}>
-                {SWITCHER_LABEL[l]} · {LOCALE_META[l].label}
+        {/* Region & Currency controls, centred between brand and nav on desktop */}
+        <div className="header-controls">
+          <div className="lang-switch">
+            <label className="sr-only" htmlFor="langSelect">
+              {ui(locale).language}
+            </label>
+            <select
+              id="langSelect"
+              value={locale}
+              onChange={(e) => {
+                const next = e.target.value as Locale;
+                trackLanguageSwitch(locale, next);
+                try {
+                  window.localStorage.setItem(LANG_STORAGE_KEY, next);
+                } catch {
+                  /* private mode — navigation still works */
+                }
+                window.location.href = localeHref(next);
+              }}
+            >
+              {LOCALES.map((l) => (
+                <option key={l} value={l}>
+                  {SWITCHER_LABEL[l]} · {LOCALE_META[l].label}
+                </option>
+              ))}
+            </select>
+            <Icon name="globe" size={16} />
+          </div>
+
+          <div className="currency-switch">
+            <label className="sr-only" htmlFor="currencySelect">
+              Currency
+            </label>
+            <select
+              id="currencySelect"
+              value={currencyCode}
+              onChange={(e) => {
+                const next = e.target.value;
+                setCurrency(next);
+                trackEvent("currency_switch", { from: currencyCode, to: next });
+              }}
+              title="Select Currency"
+            >
+              <option value="AUTO">
+                Auto ({defaultCurrency.symbol})
               </option>
-            ))}
-          </select>
-          <Icon name="globe" size={16} />
+              {SUPPORTED_CURRENCIES.map((c) => (
+                <option key={c.code} value={c.code}>
+                  {c.code} ({c.symbol})
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <button
@@ -131,6 +160,35 @@ export function SiteHeader({ locale, nav, homeHref, badge }: SiteHeaderProps) {
           ref={navRef}
           aria-label="Main"
         >
+          <div className="mobile-drawer-controls">
+            <span className="drawer-control-label">Currency</span>
+            <div className="currency-switch currency-switch-drawer">
+              <label className="sr-only" htmlFor="mobileCurrencySelect">
+                Currency
+              </label>
+              <select
+                id="mobileCurrencySelect"
+                value={currencyCode}
+                onChange={(e) => {
+                  const next = e.target.value;
+                  setCurrency(next);
+                  trackEvent("currency_switch", { from: currencyCode, to: next, surface: "mobile_drawer" });
+                }}
+              >
+                <option value="AUTO">
+                  AUTO · {defaultCurrency.code} ({defaultCurrency.symbol})
+                </option>
+                {SUPPORTED_CURRENCIES.map((c) => (
+                  <option key={c.code} value={c.code}>
+                    {c.code} ({c.symbol}) · {c.name}
+                  </option>
+                ))}
+              </select>
+              <span className="currency-badge" aria-hidden="true">
+                {currency.symbol}
+              </span>
+            </div>
+          </div>
           {nav.map((l) => (
             <a
               key={l.href}

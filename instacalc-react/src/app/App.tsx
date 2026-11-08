@@ -5,6 +5,7 @@ import NotFound from "@/pages/NotFound";
 import { lazy, useMemo, Suspense, useState, useEffect } from "react";
 import { trackPageView } from "@/lib/analytics";
 import { PageContext } from "@/app/PageContext";
+import { CurrencyProvider } from "@/app/CurrencyContext";
 
 /**
  * Root component. Resolves the current path to a route and renders its page.
@@ -55,11 +56,13 @@ export default function App({ path }: { path: string }) {
   const Page = useMemo(() => lazy(() => route.load()) as PageComponent, [route.load]);
 
   return (
-    <PageContext.Provider value={{ path, locale: route.locale, seo }}>
+    <CurrencyProvider locale={route.locale}>
+      <PageContext.Provider value={{ path, locale: route.locale, seo }}>
       <Suspense fallback={<div className="page-loading" aria-busy="true" />}>
         <Page seo={seo} />
       </Suspense>
-    </PageContext.Provider>
+      </PageContext.Provider>
+    </CurrencyProvider>
   );
 }
 

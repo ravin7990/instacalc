@@ -361,3 +361,55 @@ if (existsSync(join(LEGACY, "images"))) {
 }
 
 console.log("[build-pages] copied robots.txt, ads.txt, app-ads.txt, CNAME, favicons, images");
+
+// --- Legacy Spanish redirect stubs ---
+const SPANISH_REDIRECTS = [
+  ["es/emicalculator.html", "/es/calculadora-prestamos.html", "Calculadora de Préstamos"],
+  ["es/gstcalculator.html", "/es/calculadora-iva.html", "Calculadora de IVA"],
+  ["es/fdcalculator.html", "/es/calculadora-deposito-plazo-fijo.html", "Calculadora de Depósito a Plazo Fijo"],
+  ["es/rdcalculator.html", "/es/calculadora-ahorro-programado.html", "Calculadora de Ahorro Programado"],
+  ["es/sipcalculator.html", "/es/calculadora-inversion-mensual.html", "Calculadora de Inversión Mensual"],
+  ["es/sipcalculatorlumpsump.html", "/es/calculadora-inversion-suma-global.html", "Calculadora de Inversión de Suma Global"],
+  ["es/swpcalculator.html", "/es/calculadora-retiro-sistematico.html", "Calculadora de Retiro Sistemático (SWP)"],
+  ["es/compoundinterest.html", "/es/calculadora-interes-compuesto.html", "Calculadora de Interés Compuesto"],
+  ["es/simpleinterestcalculator.html", "/es/calculadora-interes-simple.html", "Calculadora de Interés Simple"],
+  ["es/mortgage-calculator.html", "/es/calculadora-hipoteca.html", "Calculadora de Hipoteca y Amortización"],
+  ["es/cagrcalculator.html", "/es/calculadora-cagr.html", "Calculadora CAGR de Crecimiento Anual"],
+  ["es/mutualfundreturncalculator.html", "/es/calculadora-fondos-inversion.html", "Calculadora de Fondos de Inversión"],
+  ["es/retirementcalculator.html", "/es/calculadora-jubilacion.html", "Calculadora de Jubilación y Pensión"],
+  ["es/fire-calculator.html", "/es/calculadora-fire.html", "Calculadora FIRE de Independencia Financiera"],
+  ["es/duration/agecalculator.html", "/es/calculadora-edad.html", "Calculadora de Edad Exacta"],
+  ["es/catagecalculator.html", "/es/calculadora-edad-gatos.html", "Calculadora de Edad de Gatos"],
+  ["es/duration/birthdaycalculator.html", "/es/calculadora-cumpleanos.html", "Calculadora de Cumpleaños"],
+  ["es/duration/dayscalculator.html", "/es/calculadora-dias-entre-fechas.html", "Calculadora de Días Entre Fechas"],
+  ["es/duration/weekcalculator.html", "/es/calculadora-semanas.html", "Calculadora de Semanas"],
+  ["es/duration/hourcalculator.html", "/es/calculadora-horas-trabajo.html", "Calculadora de Horas Trabajadas"],
+  ["es/duration/minutes-hourscalculator.html", "/es/calculadora-minutos-a-horas.html", "Calculadora de Minutos a Horas"],
+  ["es/duration/timezonecalculator.html", "/es/calculadora-zona-horaria.html", "Conversor de Zona Horaria"],
+  ["es/moretools/trianglecalculator.html", "/es/calculadora-triangulos.html", "Calculadora de Triángulos"],
+  ["es/moretools/diagonalcalculator.html", "/es/calculadora-diagonal.html", "Calculadora de Diagonal"],
+  ["es/moretools/trignometrycalculator.html", "/es/calculadora-trigonometria.html", "Calculadora de Trigonometría"],
+  ["es/moretools/concretecalculator.html", "/es/calculadora-hormigon-concreto.html", "Calculadora de Hormigón y Concreto"],
+  ["es/gallontolitercalculator.html", "/es/calculadora-galon-a-litro.html", "Conversor de Galones a Litros"],
+];
+
+for (const [oldRel, newPath, title] of SPANISH_REDIRECTS) {
+  const target = join(DIST, oldRel);
+  mkdirSync(dirname(target), { recursive: true });
+  const html = `<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirigiendo a ${title}...</title>
+  <meta http-equiv="refresh" content="0; url=${newPath}">
+  <link rel="canonical" href="https://instacalc.in${newPath}">
+  <meta name="robots" content="noindex, follow">
+  <script>window.location.replace("${newPath}");</script>
+</head>
+<body>
+  <p>Redirigiendo a <a href="${newPath}">${title}</a>...</p>
+</body>
+</html>`;
+  wf(target, html, "utf8");
+}
+console.log(`[build-pages] emitted ${SPANISH_REDIRECTS.length} legacy Spanish redirect stubs`);
