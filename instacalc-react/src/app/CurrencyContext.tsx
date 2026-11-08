@@ -6,6 +6,7 @@ import {
   getEffectiveCurrency,
   getActiveCurrencyCode,
   setActiveCurrencyCode,
+  initCountryAutoDetection,
   symbol as getSymbol,
   formatCurrency as fmtCurrency,
   formatCompact as fmtCompact,
@@ -46,17 +47,22 @@ export function CurrencyProvider({
   const [selectedCode, setSelectedCode] = useState<string>(() => {
     return getActiveCurrencyCode() ?? "AUTO";
   });
+  const [tick, setTick] = useState<number>(0);
 
   useEffect(() => {
+    initCountryAutoDetection();
+
     const handleStorage = (e: StorageEvent) => {
       if (e.key === "user_currency") {
         setSelectedCode(e.newValue || "AUTO");
+        setTick((t) => t + 1);
       }
     };
 
     const handleCustom = (e: Event) => {
       const customEvent = e as CustomEvent<string>;
       setSelectedCode(customEvent.detail || "AUTO");
+      setTick((t) => t + 1);
     };
 
     window.addEventListener("storage", handleStorage);
@@ -71,11 +77,12 @@ export function CurrencyProvider({
     const normalized = (code || "AUTO").toUpperCase();
     setSelectedCode(normalized);
     setActiveCurrencyCode(normalized);
+    setTick((t) => t + 1);
   };
 
   const effectiveCurrency = useMemo(
     () => getEffectiveCurrency(locale, selectedCode === "AUTO" ? undefined : selectedCode),
-    [locale, selectedCode]
+    [locale, selectedCode, tick]
   );
 
   const value: CurrencyContextValue = useMemo(

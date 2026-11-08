@@ -14,6 +14,76 @@
     MXN: 'es-MX', NZD: 'en-NZ', THB: 'th-TH', IDR: 'id-ID', TRY: 'tr-TR'
   };
 
+  const COUNTRY_TO_CURRENCY = {
+    IN: 'INR', US: 'USD', PR: 'USD', GU: 'USD', VI: 'USD',
+    GB: 'GBP', JP: 'JPY', CA: 'CAD', AU: 'AUD', AE: 'AED',
+    SG: 'SGD', CH: 'CHF', LI: 'CHF', CN: 'CNY', KR: 'KRW',
+    RU: 'RUB', BY: 'RUB', BR: 'BRL', SA: 'SAR', MX: 'MXN',
+    NZ: 'NZD', TH: 'THB', ID: 'IDR', TR: 'TRY',
+    ES: 'EUR', DE: 'EUR', FR: 'EUR', IT: 'EUR', NL: 'EUR',
+    BE: 'EUR', AT: 'EUR', IE: 'EUR', PT: 'EUR', FI: 'EUR',
+    GR: 'EUR', CY: 'EUR', EE: 'EUR', LV: 'EUR', LT: 'EUR',
+    LU: 'EUR', MT: 'EUR', SK: 'EUR', SI: 'EUR', HR: 'EUR'
+  };
+
+  function getCurrencyForCountry(country) {
+    if (!country) return 'USD';
+    const c = country.trim().toUpperCase();
+    const cur = COUNTRY_TO_CURRENCY[c];
+    if (cur && CURRENCY_SYMBOLS[cur]) {
+      return cur;
+    }
+    return 'USD';
+  }
+
+  function detectAutoCurrency() {
+    // 1. Check cached country in session storage
+    try {
+      const cached = window.sessionStorage.getItem('instacalc_detected_country');
+      if (cached) return getCurrencyForCountry(cached);
+    } catch (e) {}
+
+    // 2. Check browser timezone
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if (tz) {
+        if (/Calcutta|Kolkata/i.test(tz)) return 'INR';
+        if (/Tokyo/i.test(tz)) return 'JPY';
+        if (/Seoul/i.test(tz)) return 'KRW';
+        if (/London|Belfast/i.test(tz)) return 'GBP';
+        if (/Moscow|Samara|Yekaterinburg/i.test(tz)) return 'RUB';
+        if (/Madrid|Canary|Berlin|Paris|Rome|Amsterdam|Brussels|Vienna|Dublin|Lisbon|Helsinki|Athens/i.test(tz)) return 'EUR';
+        if (/Toronto|Vancouver|Montreal|Edmonton/i.test(tz)) return 'CAD';
+        if (/Sydney|Melbourne|Brisbane|Perth|Adelaide/i.test(tz)) return 'AUD';
+        if (/Dubai/i.test(tz)) return 'AED';
+        if (/Riyadh/i.test(tz)) return 'SAR';
+        if (/Singapore/i.test(tz)) return 'SGD';
+        if (/Zurich/i.test(tz)) return 'CHF';
+        if (/Shanghai|Urumqi|Beijing/i.test(tz)) return 'CNY';
+        if (/Sao_Paulo|Manaus|Fortaleza|Recife/i.test(tz)) return 'BRL';
+        if (/Mexico_City|Cancun|Monterrey|Tijuana/i.test(tz)) return 'MXN';
+        if (/Auckland/i.test(tz)) return 'NZD';
+        if (/Bangkok/i.test(tz)) return 'THB';
+        if (/Jakarta/i.test(tz)) return 'IDR';
+        if (/Istanbul/i.test(tz)) return 'TRY';
+        if (/New_York|Chicago|Denver|Los_Angeles|Phoenix|Anchorage|Honolulu|Detroit|Indiana/i.test(tz)) return 'USD';
+      }
+    } catch (e) {}
+
+    // 3. Check navigator language region
+    try {
+      const lang = navigator.language || (navigator.languages && navigator.languages[0]) || '';
+      const parts = lang.split('-');
+      if (parts.length > 1) {
+        const country = parts[1].toUpperCase();
+        return getCurrencyForCountry(country);
+      }
+    } catch (e) {}
+
+    // Default fallback is dollar if country not in list
+    return 'USD';
+  }
+
   let defaultLocale = 'en-IN';
   let defaultCurrency = 'INR';
   let defaultSymbol = '₹';
@@ -53,18 +123,38 @@
         symbol = CURRENCY_SYMBOLS[stored];
         locale = CURRENCY_LOCALES[stored] || defaultLocale;
       } else {
-        locale = defaultLocale;
-        currency = defaultCurrency;
-        symbol = defaultSymbol;
+        const detected = detectAutoCurrency();
+        currency = detected;
+        symbol = CURRENCY_SYMBOLS[detected] || '$';
+        locale = CURRENCY_LOCALES[detected] || 'en-US';
       }
     } catch (e) {
-      locale = defaultLocale;
-      currency = defaultCurrency;
-      symbol = defaultSymbol;
+      currency = 'USD';
+      symbol = '$';
+      locale = 'en-US';
     }
   }
 
   updateActiveCurrency();
+
+  // Async GeoIP detection
+  if (typeof window !== 'undefined') {
+    try {
+      const cached = window.sessionStorage.getItem('instacalc_detected_country');
+      if (!cached) {
+        fetch('https://api.country.is/')
+          .then(res => res.json())
+          .then(data => {
+            if (data && data.country) {
+              window.sessionStorage.setItem('instacalc_detected_country', data.country);
+              updateActiveCurrency();
+              window.currencyManager.triggerChange();
+            }
+          })
+          .catch(() => {});
+      }
+    } catch (e) {}
+  }
 
   function getFormatter() {
     return new Intl.NumberFormat(locale, {
@@ -108,8 +198,8 @@
         if (abs >= 100000000) return sign + symbol + (abs / 100000000).toFixed(1) + "億円";
         if (abs >= 10000) return sign + symbol + (abs / 10000).toFixed(0) + "万円";
       } else if (currency === 'KRW') {
-        if (abs >= 100000000) return sign + symbol + (abs / 100000000).toFixed(1) + "억";
-        if (abs >= 10000) return sign + symbol + (abs / 10000).toFixed(0) + "만";
+        if (abs >= 100000000) return sign + symbol + (abs / 100000000).toFixed(1) + "억원";
+        if (abs >= 10000) return sign + symbol + (abs / 10000).toFixed(0) + "만원";
       } else if (currency === 'RUB') {
         if (abs >= 1000000000) return sign + (abs / 1000000000).toFixed(1) + " млрд ₽";
         if (abs >= 1000000) return sign + (abs / 1000000).toFixed(1) + " млн ₽";
@@ -129,8 +219,8 @@
         if (abs >= 100000000) return sign + (abs / 100000000).toFixed(1) + "億円";
         if (abs >= 10000) return sign + (abs / 10000).toFixed(0) + "万円";
       } else if (currency === 'KRW') {
-        if (abs >= 100000000) return sign + (abs / 100000000).toFixed(1) + "억";
-        if (abs >= 10000) return sign + (abs / 10000).toFixed(0) + "만";
+        if (abs >= 100000000) return sign + (abs / 100000000).toFixed(1) + "억원";
+        if (abs >= 10000) return sign + (abs / 10000).toFixed(0) + "만원";
       } else if (currency === 'RUB') {
         if (abs >= 1000000000) return sign + (abs / 1000000000).toFixed(1) + " млрд ₽";
         if (abs >= 1000000) return sign + (abs / 1000000).toFixed(1) + " млн ₽";

@@ -51,6 +51,383 @@ const CONFIG: Record<Locale, { locale: string; currency: string; symbol: string 
   es: { locale: "es-ES", currency: "EUR", symbol: "€" },
 };
 
+/**
+ * Maps ISO 3166-1 alpha-2 country codes to national currency codes.
+ */
+export const COUNTRY_TO_CURRENCY: Record<string, string> = {
+  // Directly supported in list:
+  IN: "INR",
+  US: "USD", PR: "USD", GU: "USD", VI: "USD", AS: "USD", MP: "USD",
+  GB: "GBP",
+  JP: "JPY",
+  CA: "CAD",
+  AU: "AUD",
+  AE: "AED",
+  SG: "SGD",
+  CH: "CHF", LI: "CHF",
+  CN: "CNY",
+  KR: "KRW",
+  RU: "RUB", BY: "RUB",
+  BR: "BRL",
+  SA: "SAR",
+  MX: "MXN",
+  NZ: "NZD",
+  TH: "THB",
+  ID: "IDR",
+  TR: "TRY",
+  // Eurozone:
+  ES: "EUR", DE: "EUR", FR: "EUR", IT: "EUR", NL: "EUR", BE: "EUR",
+  AT: "EUR", IE: "EUR", PT: "EUR", FI: "EUR", GR: "EUR", CY: "EUR",
+  EE: "EUR", LV: "EUR", LT: "EUR", LU: "EUR", MT: "EUR", SK: "EUR",
+  SI: "EUR", HR: "EUR", AD: "EUR", MC: "EUR", SM: "EUR", VA: "EUR",
+  ME: "EUR", XK: "EUR",
+};
+
+/**
+ * Maps IANA timezones to ISO country codes.
+ */
+export const TIMEZONE_TO_COUNTRY: Record<string, string> = {
+  // India
+  "Asia/Kolkata": "IN",
+  "Asia/Calcutta": "IN",
+
+  // United States & Territories
+  "America/New_York": "US",
+  "America/Detroit": "US",
+  "America/Kentucky/Louisville": "US",
+  "America/Kentucky/Monticello": "US",
+  "America/Indiana/Indianapolis": "US",
+  "America/Indiana/Vincennes": "US",
+  "America/Indiana/Winamac": "US",
+  "America/Indiana/Marengo": "US",
+  "America/Indiana/Petersburg": "US",
+  "America/Indiana/Vevay": "US",
+  "America/Indiana/Tell_City": "US",
+  "America/Indiana/Knox": "US",
+  "America/Chicago": "US",
+  "America/Menominee": "US",
+  "America/North_Dakota/Center": "US",
+  "America/North_Dakota/New_Salem": "US",
+  "America/North_Dakota/Beulah": "US",
+  "America/Denver": "US",
+  "America/Boise": "US",
+  "America/Phoenix": "US",
+  "America/Los_Angeles": "US",
+  "America/Anchorage": "US",
+  "America/Juneau": "US",
+  "America/Sitka": "US",
+  "America/Metlakatla": "US",
+  "America/Yakutat": "US",
+  "America/Nome": "US",
+  "America/Adak": "US",
+  "Pacific/Honolulu": "US",
+  "America/Puerto_Rico": "PR",
+  "Pacific/Guam": "GU",
+
+  // United Kingdom
+  "Europe/London": "GB",
+  "Europe/Belfast": "GB",
+
+  // Eurozone
+  "Europe/Madrid": "ES",
+  "Atlantic/Canary": "ES",
+  "Africa/Ceuta": "ES",
+  "Europe/Berlin": "DE",
+  "Europe/Busingen": "DE",
+  "Europe/Paris": "FR",
+  "Europe/Rome": "IT",
+  "Europe/Amsterdam": "NL",
+  "Europe/Brussels": "BE",
+  "Europe/Vienna": "AT",
+  "Europe/Dublin": "IE",
+  "Europe/Lisbon": "PT",
+  "Atlantic/Madeira": "PT",
+  "Atlantic/Azores": "PT",
+  "Europe/Helsinki": "FI",
+  "Europe/Athens": "GR",
+  "Asia/Nicosia": "CY",
+  "Europe/Tallinn": "EE",
+  "Europe/Riga": "LV",
+  "Europe/Vilnius": "LT",
+  "Europe/Luxembourg": "LU",
+  "Europe/Malta": "MT",
+  "Europe/Bratislava": "SK",
+  "Europe/Ljubljana": "SI",
+  "Europe/Zagreb": "HR",
+
+  // Japan
+  "Asia/Tokyo": "JP",
+
+  // Canada
+  "America/Toronto": "CA",
+  "America/Vancouver": "CA",
+  "America/Montreal": "CA",
+  "America/Edmonton": "CA",
+  "America/Winnipeg": "CA",
+  "America/Halifax": "CA",
+  "America/St_Johns": "CA",
+  "America/Regina": "CA",
+
+  // Australia
+  "Australia/Sydney": "AU",
+  "Australia/Melbourne": "AU",
+  "Australia/Brisbane": "AU",
+  "Australia/Perth": "AU",
+  "Australia/Adelaide": "AU",
+  "Australia/Hobart": "AU",
+  "Australia/Darwin": "AU",
+
+  // UAE
+  "Asia/Dubai": "AE",
+
+  // Singapore
+  "Asia/Singapore": "SG",
+
+  // Switzerland
+  "Europe/Zurich": "CH",
+
+  // China
+  "Asia/Shanghai": "CN",
+  "Asia/Urumqi": "CN",
+
+  // South Korea
+  "Asia/Seoul": "KR",
+
+  // Russia
+  "Europe/Moscow": "RU",
+  "Europe/Samara": "RU",
+  "Europe/Kaliningrad": "RU",
+  "Asia/Yekaterinburg": "RU",
+  "Asia/Omsk": "RU",
+  "Asia/Novosibirsk": "RU",
+  "Asia/Krasnoyarsk": "RU",
+  "Asia/Irkutsk": "RU",
+  "Asia/Yakutsk": "RU",
+  "Asia/Vladivostok": "RU",
+
+  // Brazil
+  "America/Sao_Paulo": "BR",
+  "America/Manaus": "BR",
+  "America/Fortaleza": "BR",
+  "America/Recife": "BR",
+  "America/Belem": "BR",
+
+  // Saudi Arabia
+  "Asia/Riyadh": "SA",
+
+  // Mexico
+  "America/Mexico_City": "MX",
+  "America/Cancun": "MX",
+  "America/Monterrey": "MX",
+  "America/Tijuana": "MX",
+
+  // New Zealand
+  "Pacific/Auckland": "NZ",
+
+  // Thailand
+  "Asia/Bangkok": "TH",
+
+  // Indonesia
+  "Asia/Jakarta": "ID",
+
+  // Turkey
+  "Europe/Istanbul": "TR",
+  "Asia/Istanbul": "TR",
+};
+
+/**
+ * Returns the currency code for a given country code:
+ * - If country's currency is in SUPPORTED_CURRENCIES -> that currency code
+ * - Otherwise -> "USD" (Dollar)
+ */
+export function getCurrencyForCountry(countryCode?: string | null): string {
+  if (!countryCode) return "USD";
+  const normalized = countryCode.trim().toUpperCase();
+  const currency = COUNTRY_TO_CURRENCY[normalized];
+  if (currency && CURRENCY_MAP.has(currency)) {
+    return currency;
+  }
+  return "USD";
+}
+
+/**
+ * Detects country from an IANA timezone string.
+ */
+export function detectCountryFromTimezone(tz?: string): string | null {
+  if (!tz) return null;
+  if (TIMEZONE_TO_COUNTRY[tz]) return TIMEZONE_TO_COUNTRY[tz];
+  if (/Calcutta|Kolkata/i.test(tz)) return "IN";
+  if (/Tokyo/i.test(tz)) return "JP";
+  if (/Seoul/i.test(tz)) return "KR";
+  if (/London|Belfast/i.test(tz)) return "GB";
+  if (/Madrid|Canary|Berlin|Paris|Rome|Amsterdam|Brussels|Vienna|Dublin|Lisbon|Helsinki|Athens/i.test(tz)) return "ES";
+  if (/Toronto|Vancouver|Montreal|Edmonton/i.test(tz)) return "CA";
+  if (/Sydney|Melbourne|Brisbane|Perth|Adelaide/i.test(tz)) return "AU";
+  if (/Dubai/i.test(tz)) return "AE";
+  if (/Riyadh/i.test(tz)) return "SA";
+  if (/Singapore/i.test(tz)) return "SG";
+  if (/Zurich/i.test(tz)) return "CH";
+  if (/Shanghai|Beijing|Urumqi/i.test(tz)) return "CN";
+  if (/Moscow|Samara|Yekaterinburg|Novosibirsk/i.test(tz)) return "RU";
+  if (/Sao_Paulo|Manaus|Fortaleza/i.test(tz)) return "BR";
+  if (/Mexico_City|Cancun|Monterrey|Tijuana/i.test(tz)) return "MX";
+  if (/Auckland/i.test(tz)) return "NZ";
+  if (/Bangkok/i.test(tz)) return "TH";
+  if (/Jakarta/i.test(tz)) return "ID";
+  if (/Istanbul/i.test(tz)) return "TR";
+  if (/New_York|Chicago|Denver|Los_Angeles|Phoenix|Anchorage|Honolulu|Detroit|Indiana/i.test(tz)) return "US";
+  return null;
+}
+
+/**
+ * Detects country from a locale string (e.g. "en-US" -> "US", "es-ES" -> "ES").
+ */
+export function detectCountryFromLocale(loc?: string): string | null {
+  if (!loc) return null;
+  const parts = loc.split(/[-_]/);
+  if (parts.length > 1 && parts[1].length === 2) {
+    return parts[1].toUpperCase();
+  }
+  return null;
+}
+
+let cachedDetectedCountry: string | null = null;
+
+/**
+ * Detects user's country based on browser environment (sessionStorage, timezone, navigator locale).
+ */
+export function detectUserCountry(): string | null {
+  if (cachedDetectedCountry) return cachedDetectedCountry;
+  if (typeof window === "undefined") return null;
+
+  try {
+    const sessionSaved = window.sessionStorage.getItem("instacalc_detected_country");
+    if (sessionSaved) {
+      cachedDetectedCountry = sessionSaved.toUpperCase();
+      return cachedDetectedCountry;
+    }
+  } catch {
+    // private browsing
+  }
+
+  // 1. Check browser timezone
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const countryFromTz = detectCountryFromTimezone(tz);
+    if (countryFromTz) {
+      cachedDetectedCountry = countryFromTz;
+      return cachedDetectedCountry;
+    }
+  } catch {
+    // ignore
+  }
+
+  // 2. Check navigator language
+  try {
+    const navLang = navigator.language || (navigator.languages && navigator.languages[0]);
+    const countryFromNav = detectCountryFromLocale(navLang);
+    if (countryFromNav) {
+      cachedDetectedCountry = countryFromNav;
+      return cachedDetectedCountry;
+    }
+  } catch {
+    // ignore
+  }
+
+  return null;
+}
+
+/**
+ * Returns the auto-detected currency code for the current user:
+ * - If country's currency is in the supported list -> that currency
+ * - Otherwise -> "USD" (Dollar)
+ */
+export function getAutoDetectedCurrencyCode(): string {
+  const country = detectUserCountry();
+  return getCurrencyForCountry(country);
+}
+
+let isGeoDetectionInitialized = false;
+
+/**
+ * Asynchronously checks geolocation via free GeoIP endpoints in the browser
+ * and triggers currency update if country changes and user has not set a manual override.
+ */
+export function initCountryAutoDetection(): void {
+  if (isGeoDetectionInitialized || typeof window === "undefined") return;
+  isGeoDetectionInitialized = true;
+
+  try {
+    const stored = window.localStorage.getItem(CURRENCY_STORAGE_KEY);
+    if (stored && stored !== "AUTO") {
+      // User has manually chosen a currency; do not override
+      return;
+    }
+
+    const sessionSaved = window.sessionStorage.getItem("instacalc_detected_country");
+    if (sessionSaved) {
+      cachedDetectedCountry = sessionSaved.toUpperCase();
+      return;
+    }
+  } catch {
+    // private mode
+  }
+
+  // Asynchronous network detection with fallback
+  const fetchEndpoint = async () => {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3500);
+      const res = await fetch("https://api.country.is/", { signal: controller.signal });
+      clearTimeout(timeoutId);
+      if (res.ok) {
+        const data = await res.json();
+        if (data && typeof data.country === "string" && data.country.length === 2) {
+          return data.country.toUpperCase();
+        }
+      }
+    } catch {
+      // try fallback
+    }
+
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3500);
+      const res = await fetch("https://ipapi.co/country/", { signal: controller.signal });
+      clearTimeout(timeoutId);
+      if (res.ok) {
+        const text = (await res.text()).trim().toUpperCase();
+        if (text.length === 2) {
+          return text;
+        }
+      }
+    } catch {
+      // network failure or offline
+    }
+
+    return null;
+  };
+
+  fetchEndpoint().then((country) => {
+    if (country) {
+      const prevCountry = cachedDetectedCountry;
+      cachedDetectedCountry = country;
+      try {
+        window.sessionStorage.setItem("instacalc_detected_country", country);
+      } catch {
+        // private mode
+      }
+
+      const prevCurrency = getCurrencyForCountry(prevCountry);
+      const newCurrency = getCurrencyForCountry(country);
+      if (newCurrency !== prevCurrency) {
+        window.dispatchEvent(new CustomEvent("instacalc:currency-change", { detail: "AUTO" }));
+        listeners.forEach((fn) => fn("AUTO"));
+      }
+    }
+  });
+}
+
 let inMemoryActiveCurrency: string | null = null;
 const listeners = new Set<(code: string) => void>();
 
@@ -99,6 +476,13 @@ export function getEffectiveCurrency(locale: Locale, explicitCode?: string): Cur
   const code = (explicitCode ?? getActiveCurrencyCode())?.toUpperCase();
   if (code && code !== "AUTO" && CURRENCY_MAP.has(code)) {
     return CURRENCY_MAP.get(code)!;
+  }
+  // When AUTO is active in browser, resolve currency based on auto-detected location:
+  if (typeof window !== "undefined") {
+    const autoCode = getAutoDetectedCurrencyCode();
+    if (autoCode && CURRENCY_MAP.has(autoCode)) {
+      return CURRENCY_MAP.get(autoCode)!;
+    }
   }
   const fallback = CONFIG[locale] ?? CONFIG.en;
   return {

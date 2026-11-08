@@ -2,10 +2,12 @@ import { StrictMode } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "@/app/App";
 import { initAutoTracking } from "@/lib/analytics";
+import { initCountryAutoDetection } from "@/lib/currency";
 import "@/styles/tokens.css";
 import "@/styles/app.css";
 
 initAutoTracking();
+initCountryAutoDetection();
 
 const container = document.getElementById("root")!;
 const path = window.location.pathname;
@@ -39,4 +41,3 @@ if (typeof window !== "undefined" && "serviceWorker" in navigator) {
     }).catch(() => {});
   });
 }
-

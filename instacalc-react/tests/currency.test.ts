@@ -11,6 +11,10 @@ import {
   money,
   isCurrencySymbol,
   replaceCurrencySymbol,
+  getCurrencyForCountry,
+  detectCountryFromTimezone,
+  detectCountryFromLocale,
+  COUNTRY_TO_CURRENCY,
 } from "@/lib/currency";
 
 describe("Global Currency Selection & Formatting", () => {
@@ -33,10 +37,102 @@ describe("Global Currency Selection & Formatting", () => {
     expect(codes).toContain("CAD");
     expect(codes).toContain("AUD");
     expect(codes).toContain("AED");
+    expect(codes).toContain("SGD");
+    expect(codes).toContain("CHF");
+    expect(codes).toContain("CNY");
+    expect(codes).toContain("KRW");
+    expect(codes).toContain("RUB");
+    expect(codes).toContain("BRL");
+    expect(codes).toContain("SAR");
+    expect(codes).toContain("MXN");
+    expect(codes).toContain("NZD");
+    expect(codes).toContain("THB");
+    expect(codes).toContain("IDR");
+    expect(codes).toContain("TRY");
+  });
+
+  describe("Country auto-detection & currency resolution", () => {
+    it("returns currency if available in supported list", () => {
+      expect(getCurrencyForCountry("IN")).toBe("INR");
+      expect(getCurrencyForCountry("US")).toBe("USD");
+      expect(getCurrencyForCountry("GB")).toBe("GBP");
+      expect(getCurrencyForCountry("ES")).toBe("EUR");
+      expect(getCurrencyForCountry("DE")).toBe("EUR");
+      expect(getCurrencyForCountry("FR")).toBe("EUR");
+      expect(getCurrencyForCountry("IT")).toBe("EUR");
+      expect(getCurrencyForCountry("JP")).toBe("JPY");
+      expect(getCurrencyForCountry("CA")).toBe("CAD");
+      expect(getCurrencyForCountry("AU")).toBe("AUD");
+      expect(getCurrencyForCountry("AE")).toBe("AED");
+      expect(getCurrencyForCountry("SG")).toBe("SGD");
+      expect(getCurrencyForCountry("CH")).toBe("CHF");
+      expect(getCurrencyForCountry("KR")).toBe("KRW");
+      expect(getCurrencyForCountry("RU")).toBe("RUB");
+      expect(getCurrencyForCountry("BR")).toBe("BRL");
+      expect(getCurrencyForCountry("MX")).toBe("MXN");
+      expect(getCurrencyForCountry("NZ")).toBe("NZD");
+      expect(getCurrencyForCountry("TH")).toBe("THB");
+      expect(getCurrencyForCountry("ID")).toBe("IDR");
+      expect(getCurrencyForCountry("TR")).toBe("TRY");
+    });
+
+    it("falls back to Dollar (USD) when country currency is NOT in supported list", () => {
+      // Pakistan (PKR not in list) -> USD
+      expect(getCurrencyForCountry("PK")).toBe("USD");
+      // Philippines (PHP not in list) -> USD
+      expect(getCurrencyForCountry("PH")).toBe("USD");
+      // Nigeria (NGN not in list) -> USD
+      expect(getCurrencyForCountry("NG")).toBe("USD");
+      // Bangladesh (BDT not in list) -> USD
+      expect(getCurrencyForCountry("BD")).toBe("USD");
+      // South Africa (ZAR not in list) -> USD
+      expect(getCurrencyForCountry("ZA")).toBe("USD");
+      // Kenya (KES not in list) -> USD
+      expect(getCurrencyForCountry("KE")).toBe("USD");
+      // Argentina (ARS not in list) -> USD
+      expect(getCurrencyForCountry("AR")).toBe("USD");
+      // Colombia (COP not in list) -> USD
+      expect(getCurrencyForCountry("CO")).toBe("USD");
+      // Unknown or null country -> USD
+      expect(getCurrencyForCountry("XYZ")).toBe("USD");
+      expect(getCurrencyForCountry(null)).toBe("USD");
+      expect(getCurrencyForCountry(undefined)).toBe("USD");
+      expect(getCurrencyForCountry("")).toBe("USD");
+    });
+
+    it("detects country code from IANA timezone strings", () => {
+      expect(detectCountryFromTimezone("Asia/Kolkata")).toBe("IN");
+      expect(detectCountryFromTimezone("Asia/Calcutta")).toBe("IN");
+      expect(detectCountryFromTimezone("America/New_York")).toBe("US");
+      expect(detectCountryFromTimezone("America/Los_Angeles")).toBe("US");
+      expect(detectCountryFromTimezone("Europe/London")).toBe("GB");
+      expect(detectCountryFromTimezone("Europe/Madrid")).toBe("ES");
+      expect(detectCountryFromTimezone("Europe/Berlin")).toBe("DE");
+      expect(detectCountryFromTimezone("Asia/Tokyo")).toBe("JP");
+      expect(detectCountryFromTimezone("America/Toronto")).toBe("CA");
+      expect(detectCountryFromTimezone("Australia/Sydney")).toBe("AU");
+      expect(detectCountryFromTimezone("Asia/Dubai")).toBe("AE");
+      expect(detectCountryFromTimezone("America/Sao_Paulo")).toBe("BR");
+      expect(detectCountryFromTimezone("America/Mexico_City")).toBe("MX");
+    });
+
+    it("detects country code from locale strings", () => {
+      expect(detectCountryFromLocale("en-US")).toBe("US");
+      expect(detectCountryFromLocale("en-IN")).toBe("IN");
+      expect(detectCountryFromLocale("en-GB")).toBe("GB");
+      expect(detectCountryFromLocale("es-ES")).toBe("ES");
+      expect(detectCountryFromLocale("es-MX")).toBe("MX");
+      expect(detectCountryFromLocale("pt-BR")).toBe("BR");
+      expect(detectCountryFromLocale("ja-JP")).toBe("JP");
+      expect(detectCountryFromLocale("ko-KR")).toBe("KR");
+      expect(detectCountryFromLocale("de-DE")).toBe("DE");
+      expect(detectCountryFromLocale("invalid")).toBeNull();
+      expect(detectCountryFromLocale("")).toBeNull();
+    });
   });
 
   describe("Default locale currency resolution", () => {
-    it("resolves default currency per locale when AUTO is active", () => {
+    it("resolves default currency per locale when AUTO is active in node/ssr", () => {
       expect(getEffectiveCurrency("en").code).toBe("INR");
       expect(getEffectiveCurrency("en").symbol).toBe("₹");
 
