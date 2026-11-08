@@ -6,32 +6,38 @@ import type { Locale } from "@/config/site";
 import { UsSimpleInterestArticle } from "@/components/articles/us/UsSimpleInterestArticle";
 import { JaSimpleInterestArticle } from "@/components/articles/ja/JaSimpleInterestArticle";
 import { InSimpleInterestArticle } from "@/components/articles/in/InSimpleInterestArticle";
-
+import { EsSimpleInterestArticle } from "@/components/articles/es/EsFinanceArticles";
 
 export default createCalculatorPage((locale: Locale) => {
   const c = fieldCopy(locale);
   const p = symbol(locale);
   const money = (v: number) => moneyFormat(locale, v);
+  const isEs = locale === "es";
 
   return {
     appCategory: "FinanceApplication",
-    eyebrow: "Investment Planner",
+    eyebrow: isEs ? "Planificador de ahorro" : "Investment Planner",
     points: [c.maturity, c.investedTotal, c.interest],
     anchor: "simple-interest-calculator",
-    defaults: { principal: 200_000, rate: 8, years: 10, recurring: 0 },
+    defaults: { principal: isEs ? 20_000 : 200_000, rate: isEs ? 5 : 8, years: 10, recurring: 0 },
     fields: [
       {
         key: "principal",
         label: c.amount,
-        value: 200_000,
+        value: isEs ? 20_000 : 200_000,
         min: 100,
         max: 100_000_000,
         step: 100,
-        slider: { min: 1000, max: 10_000_000, step: 1000 },
+        slider: { min: 1000, max: isEs ? 500_000 : 10_000_000, step: 1000 },
         prefix: p,
         chips: locale === "us"
           ? [10_000, 25_000, 50_000, 100_000, 250_000].map((v) => ({
               label: `${p}${v / 1000}K`,
+              value: v,
+            }))
+          : isEs
+          ? [5_000, 10_000, 20_000, 50_000, 100_000].map((v) => ({
+              label: `${v / 1000}K €`,
               value: v,
             }))
           : [50_000, 100_000, 200_000, 500_000, 1_000_000].map((v) => ({
@@ -42,12 +48,12 @@ export default createCalculatorPage((locale: Locale) => {
       {
         key: "rate",
         label: c.rate,
-        value: 8,
+        value: isEs ? 5 : 8,
         min: 0.1,
         max: 30,
         step: 0.1,
         suffix: c.percent,
-        chips: [4, 6, 8, 10, 12].map((v) => ({ label: `${v}%`, value: v })),
+        chips: [4, 5, 6, 8, 10].map((v) => ({ label: `${v}%`, value: v })),
       },
       {
         key: "years",
@@ -80,9 +86,21 @@ export default createCalculatorPage((locale: Locale) => {
       centerLabel: c.interest,
     }),
     timeline: (r) => ({
-      title: locale === "ja" ? "単利運用による資産推移" : "Simple Interest Growth Trajectory",
-      subtitle: locale === "ja" ? "投資元本と利息の推移グラフ" : "Accumulated balance vs principal over time",
-      labels: r.rows.map((row: any) => `${locale === "ja" ? "" : "Yr "}${row.year}${locale === "ja" ? "年目" : ""}`),
+      title:
+        locale === "ja"
+          ? "単利運用による資産推移"
+          : isEs
+          ? "Evolución del interés simple"
+          : "Simple Interest Growth Trajectory",
+      subtitle:
+        locale === "ja"
+        ? "投資元本と利息の推移グラフ"
+        : isEs
+        ? "Capital acumulado frente al capital inicial por año"
+        : "Accumulated balance vs principal over time",
+      labels: r.rows.map((row: any) =>
+        isEs ? `Año ${row.year}` : `${locale === "ja" ? "" : "Yr "}${row.year}${locale === "ja" ? "年目" : ""}`,
+      ),
       datasets: [
         {
           label: c.maturity,
@@ -114,9 +132,10 @@ export default createCalculatorPage((locale: Locale) => {
         <UsSimpleInterestArticle />
       ) : locale === "ja" ? (
         <JaSimpleInterestArticle />
+      ) : locale === "es" ? (
+        <EsSimpleInterestArticle />
       ) : (
         <InSimpleInterestArticle />
       ),
   };
 });
-

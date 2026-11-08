@@ -13,6 +13,7 @@ import { sipCopy } from "@/i18n/calculator-copy";
 import { JaSipArticle } from "@/components/articles/ja/JaSipArticle";
 import { RuCompoundArticle } from "@/components/articles/ru/RuCompoundArticle";
 import { InSipArticle } from "@/components/articles/in/InSipArticle";
+import { EsSipArticle } from "@/components/articles/es/EsFinanceArticles";
 import { SipBreakdownChart, SipGrowthChart } from "@/components/calculator/SipCharts";
 import { readUrlParams, syncUrlState } from "@/lib/urlState";
 
@@ -20,19 +21,20 @@ import { readUrlParams, syncUrlState } from "@/lib/urlState";
 export default function SipCalculator({ seo }: { seo: SeoRecord }) {
   const c = sipCopy(seo.locale);
   const prefix = symbol(seo.locale);
+  const isEs = seo.locale === "es";
 
-  const [monthly, setMonthly] = useState(25000);
-  const [rate, setRate] = useState(12);
-  const [years, setYears] = useState(10);
+  const [monthly, setMonthly] = useState(isEs ? 300 : 25000);
+  const [rate, setRate] = useState(isEs ? 8 : 12);
+  const [years, setYears] = useState(isEs ? 15 : 10);
   const [stepUp, setStepUp] = useState(0);
   const [inflation, setInflation] = useState(0);
   const [advanced, setAdvanced] = useState(false);
-  const [goalTarget, setGoalTarget] = useState(10_000_000);
+  const [goalTarget, setGoalTarget] = useState(isEs ? 250_000 : 10_000_000);
   const [goalYears, setGoalYears] = useState(15);
 
   const defaults = useMemo(
-    () => ({ monthly: 25000, rate: 12, years: 10, stepUp: 0, inflation: 0 }),
-    [],
+    () => ({ monthly: isEs ? 300 : 25000, rate: isEs ? 8 : 12, years: isEs ? 15 : 10, stepUp: 0, inflation: 0 }),
+    [isEs],
   );
 
   useEffect(() => {
@@ -72,12 +74,14 @@ export default function SipCalculator({ seo }: { seo: SeoRecord }) {
       key: "monthly",
       label: c.monthly,
       value: monthly,
-      min: 500,
+      min: isEs ? 50 : 500,
       max: 500000,
-      step: 500,
-      slider: { min: 500, max: 200000, step: 500 },
+      step: isEs ? 50 : 500,
+      slider: { min: isEs ? 50 : 500, max: isEs ? 5000 : 200000, step: isEs ? 50 : 500 },
       prefix,
-      chips: [1000, 5000, 10000, 25000, 50000].map((v) => ({ label: `${prefix}${v / 1000}K`, value: v })),
+      chips: isEs
+        ? [100, 300, 500, 1000, 2000].map((v) => ({ label: `${v} €`, value: v }))
+        : [1000, 5000, 10000, 25000, 50000].map((v) => ({ label: `${prefix}${v / 1000}K`, value: v })),
     },
     {
       key: "rate",
@@ -193,6 +197,7 @@ export default function SipCalculator({ seo }: { seo: SeoRecord }) {
 
         {seo.locale === "ja" && <JaSipArticle />}
         {seo.locale === "ru" && <RuCompoundArticle />}
+        {seo.locale === "es" && <EsSipArticle />}
         {seo.locale === "en" && <InSipArticle />}
         <FaqAccordion locale={seo.locale} items={faq} />
       </Layout>
@@ -220,6 +225,7 @@ function GoalPlanner({
   onYears: (v: number) => void;
 }) {
   const c = sipCopy(locale);
+  const isEs = locale === "es";
   return (
     <>
       <Field
@@ -227,9 +233,9 @@ function GoalPlanner({
           key: "goalTarget",
           label: c.goalTarget,
           value: target,
-          min: 100000,
+          min: isEs ? 10000 : 100000,
           max: 1000000000,
-          step: 100000,
+          step: isEs ? 10000 : 100000,
           prefix,
         }}
         onChange={onTarget}

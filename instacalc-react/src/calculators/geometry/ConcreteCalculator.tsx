@@ -14,6 +14,7 @@ import { JaConcreteArticle } from "@/components/articles/ja/JaConcreteArticle";
 import { KoConcreteArticle } from "@/components/articles/ko/KoConcreteArticle";
 import { RuConcreteArticle } from "@/components/articles/ru/RuConcreteArticle";
 import { InConcreteArticle } from "@/components/articles/in/InConcreteArticle";
+import { EsConcreteArticle } from "@/components/articles/es/EsGeometryArticles";
 
 const SHAPES: Array<[ConcreteShape, "slab" | "column" | "beam" | "footing" | "staircase" | "circle" | "wall"]> = [
   ["slab", "slab"],
@@ -48,6 +49,7 @@ export default function ConcreteCalculator({ seo }: { seo: SeoRecord }) {
   const isUs = seo.locale === "us";
   const isKo = seo.locale === "ko";
   const isRu = seo.locale === "ru";
+  const isEs = seo.locale === "es";
   const cuYds = (result.wetVolume * 1.30795).toFixed(2);
   const cuFt = (result.wetVolume * 35.3147).toFixed(1);
   const bags80 = Math.ceil(result.wetVolume * 1.30795 * 45);
@@ -57,8 +59,9 @@ export default function ConcreteCalculator({ seo }: { seo: SeoRecord }) {
   const bags40 = Math.ceil(result.cementWeight / 40);
   const remiconTrucks = (result.wetVolume / 6).toFixed(1);
 
-  // Russian cement standard: 1 bag = 50 kg (ГОСТ 31108)
+  // Russian / LatAm cement standard: 50 kg; Spain / EU standard: 25 kg
   const bags50 = Math.ceil(result.cementWeight / 50);
+  const bags25 = Math.ceil(result.cementWeight / 25);
   const mixerTrucks7 = (result.wetVolume / 7).toFixed(1);
 
   const rows = isUs
@@ -88,6 +91,16 @@ export default function ConcreteCalculator({ seo }: { seo: SeoRecord }) {
         { key: "Щебень гранитный (5-20 мм)", value: `${result.aggregateWeight} кг (${result.aggregateVolume.toFixed(2)} м³)` },
         { key: "Пропорция смеси (Ц:П:Щ)", value: result.mix.join(" : ") },
       ]
+    : isEs
+    ? [
+        { key: "Volumen húmedo (con merma)", value: `${result.wetVolume} m³` },
+        { key: "Cemento (sacos de 25 kg / 50 kg)", value: `${bags25} sacos (25 kg) · ${bags50} sacos (50 kg)` },
+        { key: "Peso total de cemento", value: `${result.cementWeight} kg` },
+        { key: "Camión hormigonera (7 m³)", value: `aprox. ${mixerTrucks7} viajes` },
+        { key: c.sand, value: `${result.sandWeight} kg (${result.sandVolume.toFixed(2)} m³)` },
+        { key: c.aggregate, value: `${result.aggregateWeight} kg (${result.aggregateVolume.toFixed(2)} m³)` },
+        { key: c.mixRatio, value: result.mix.join(" : ") },
+      ]
     : [
         { key: c.volume, value: `${result.wetVolume} m³` },
         { key: c.cementBags, value: `${result.cementBags} bags` },
@@ -110,6 +123,8 @@ export default function ConcreteCalculator({ seo }: { seo: SeoRecord }) {
               ? ["루베(m³) 체적", "40kg 시멘트 포대", "레미콘 대수", "모래·자갈 배합"]
               : isRu
               ? ["Объем в кубах (м³)", "Мешки цемента по 50 кг", "Рейсы миксера", "Песок и щебень по ГОСТ"]
+              : isEs
+              ? ["Volumen en m³", "Sacos de 25 kg y 50 kg", "Camión hormigonera", "Arena y grava"]
               : [c.volume, c.cementBags, c.sand, c.aggregate]
           }
         />
@@ -117,10 +132,33 @@ export default function ConcreteCalculator({ seo }: { seo: SeoRecord }) {
         <CalculatorShell
           locale={seo.locale}
           id="concrete-calculator"
-          title={isUs ? "Required Concrete" : isKo ? "총 소요 체적 (루베)" : isRu ? "Необходимый объем бетона" : c.dryVolume}
+          title={
+            isUs
+              ? "Required Concrete"
+              : isKo
+              ? "총 소요 체적 (루베)"
+              : isRu
+              ? "Необходимый объем бетона"
+              : isEs
+              ? "Volumen de hormigón necesario"
+              : c.dryVolume
+          }
           summary={{
-            label: isUs ? "Volume Required" : isKo ? "총 소요 체적 (루베)" : isRu ? "Необходимый объем бетона" : c.dryVolume,
-            value: isUs ? `${(result.requiredVolume * 1.30795).toFixed(2)} cu yd` : `${result.requiredVolume} м³`,
+            label:
+              isUs
+                ? "Volume Required"
+                : isKo
+                ? "총 소요 체적 (루베)"
+                : isRu
+                ? "Необходимый объем бетона"
+                : isEs
+                ? "Volumen necesario"
+                : c.dryVolume,
+            value: isUs
+              ? `${(result.requiredVolume * 1.30795).toFixed(2)} cu yd`
+              : isRu
+              ? `${result.requiredVolume} м³`
+              : `${result.requiredVolume} m³`,
           }}
           inputs={
             <>
@@ -201,6 +239,7 @@ export default function ConcreteCalculator({ seo }: { seo: SeoRecord }) {
         {seo.locale === "ja" && <JaConcreteArticle />}
         {seo.locale === "ko" && <KoConcreteArticle />}
         {seo.locale === "ru" && <RuConcreteArticle />}
+        {seo.locale === "es" && <EsConcreteArticle />}
         {seo.locale === "en" && <InConcreteArticle />}
 
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />

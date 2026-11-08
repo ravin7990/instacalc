@@ -133,7 +133,29 @@ const ko: SipCopy = {
   oneTime: "일시 납입액",
 };
 
-const ALL: Record<Locale, SipCopy> = { en, us, ja, ru, ko };
+const es: SipCopy = {
+  monthly: "Aportación mensual",
+  rate: "Rentabilidad anual esperada",
+  rateSuffix: "%",
+  years: "Horizonte de inversión",
+  yearsSuffix: "años",
+  stepUp: "Incremento anual de aportación",
+  inflation: "Inflación esperada",
+  invested: "Total aportado",
+  corpus: "Capital estimado",
+  returns: "Ganancias estimadas",
+  realCorpus: "Capital ajustado a la inflación",
+  realReturns: "Ganancias reales",
+  progress: "Evolución año por año",
+  goal: "Planificador de objetivos",
+  goalTarget: "Capital objetivo",
+  goalYears: "Años hasta el objetivo",
+  requiredSip: "Aportación mensual necesaria",
+  advanced: "Opciones avanzadas",
+  oneTime: "Inversión única",
+};
+
+const ALL: Record<Locale, SipCopy> = { en, us, ja, ru, ko, es };
 
 export function sipCopy(locale: Locale): SipCopy {
   return ALL[locale] ?? en;

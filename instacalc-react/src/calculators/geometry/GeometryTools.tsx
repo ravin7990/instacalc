@@ -14,6 +14,7 @@ import {
   squareDiagonal,
 } from "@/engines/geometry";
 import { geoCopy } from "@/i18n/geometry-labels";
+import { GeometryDiagram } from "@/calculators/geometry/GeometryDiagram";
 import { UsDiagonalArticle } from "@/components/articles/us/UsDiagonalArticle";
 import { UsTriangleArticle } from "@/components/articles/us/UsTriangleArticle";
 import { JaGeometryArticle } from "@/components/articles/ja/JaGeometryArticle";
@@ -23,6 +24,7 @@ import { RuDiagonalArticle } from "@/components/articles/ru/RuDiagonalArticle";
 import { RuTrigonometryArticle } from "@/components/articles/ru/RuTrigonometryArticle";
 import { InDiagonalArticle } from "@/components/articles/in/InDiagonalArticle";
 import { InTrigonometryArticle } from "@/components/articles/in/InTrigonometryArticle";
+import { EsDiagonalArticle, EsTrigonometryArticle } from "@/components/articles/es/EsGeometryArticles";
 
 type Shape = "rectangle" | "square" | "right" | "cuboid" | "polygon";
 
@@ -140,6 +142,10 @@ export default function GeometryTools({ seo }: { seo: SeoRecord }) {
                 ? right.classification.includes("Isosceles")
                   ? "직각이등변삼각형 (45°-45°-90°)"
                   : "부등변 직각삼각형"
+                : seo.locale === "es"
+                ? right.classification.includes("Isosceles")
+                  ? "Triángulo rectángulo isósceles (45°-45°-90°)"
+                  : "Triángulo rectángulo escaleno"
                 : right.classification,
           },
         ]
@@ -190,14 +196,24 @@ export default function GeometryTools({ seo }: { seo: SeoRecord }) {
             </>
           }
           results={
-            <ul className="kv-list">
-              {rows.map((r) => (
-                <li key={r.key}>
-                  <span className="kv-key">{r.key}</span>
-                  <span className="kv-value">{r.value}</span>
-                </li>
-              ))}
-            </ul>
+            <>
+              <GeometryDiagram
+                shape={shape}
+                values={v}
+                result={result}
+                right={right}
+                labels={c}
+                locale={seo.locale}
+              />
+              <ul className="kv-list">
+                {rows.map((r) => (
+                  <li key={r.key}>
+                    <span className="kv-key">{r.key}</span>
+                    <span className="kv-value">{r.value}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
           }
         />
 
@@ -208,6 +224,8 @@ export default function GeometryTools({ seo }: { seo: SeoRecord }) {
         {seo.locale === "ko" && isTriangle && <KoTrigonometryArticle />}
         {seo.locale === "ru" && !isTriangle && <RuDiagonalArticle />}
         {seo.locale === "ru" && isTriangle && <RuTrigonometryArticle />}
+        {seo.locale === "es" && !isTriangle && <EsDiagonalArticle />}
+        {seo.locale === "es" && isTriangle && <EsTrigonometryArticle />}
         {seo.locale === "en" && !isTriangle && <InDiagonalArticle />}
         {seo.locale === "en" && isTriangle && <InTrigonometryArticle />}
 
@@ -216,4 +234,3 @@ export default function GeometryTools({ seo }: { seo: SeoRecord }) {
     </>
   );
 }
-

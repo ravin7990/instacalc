@@ -37,6 +37,8 @@ const IMPLEMENTED = new Set([
 
   // Geometry, construction and volume
   "/moretools/diagonalcalculator.html", "/moretools/trignometrycalculator.html",
+  "/moretools/trianglecalculator.html",
+  "/moretools/obtusetrianglecalculator.html",
   "/moretools/concretecalculator.html", "/gallontolitercalculator.html",
   "/ja/moretools/concretecalculator.html", "/ru/moretools/concretecalculator.html",
   "/ko/moretools/concretecalculator.html",
@@ -45,7 +47,9 @@ const IMPLEMENTED = new Set([
   "/ja/moretools/trignometrycalculator.html", "/ru/moretools/trignometrycalculator.html",
   "/ko/moretools/trignometrycalculator.html",
   "/us/gallon-to-liter-calculator.html", "/us/concrete-calculator.html",
-  "/us/diagonal-calculator.html", "/us/triangle-calculator.html",
+  "/us/diagonal-calculator.html", "/us/triangle-calculator.html", "/us/trianglecalculator.html",
+  "/ja/moretools/trianglecalculator.html", "/ru/moretools/trianglecalculator.html",
+  "/ko/moretools/trianglecalculator.html",
 
   // Prose pages
   "/aboutus.html", "/contactus.html", "/privacypolicy.html", "/terms.html",
@@ -74,7 +78,24 @@ const IMPLEMENTED = new Set([
   "/ru/retirementcalculator.html", "/us/retirement-calculator.html",
 
   // Locale homepages
-  "/ja/", "/ru/", "/us/",
+  "/ja/", "/ru/", "/us/", "/es/",
+
+  // Spanish edition (/es/)
+  "/es/aboutus.html", "/es/contactus.html", "/es/privacypolicy.html", "/es/terms.html",
+  "/es/compoundinterest.html", "/es/simpleinterestcalculator.html",
+  "/es/emicalculator.html", "/es/mortgage-calculator.html",
+  "/es/sipcalculator.html", "/es/sipcalculatorlumpsump.html",
+  "/es/fdcalculator.html", "/es/rdcalculator.html",
+  "/es/gstcalculator.html", "/es/cagrcalculator.html",
+  "/es/retirementcalculator.html", "/es/fire-calculator.html",
+  "/es/swpcalculator.html", "/es/mutualfundreturncalculator.html",
+  "/es/duration/agecalculator.html", "/es/catagecalculator.html",
+  "/es/duration/birthdaycalculator.html", "/es/duration/dayscalculator.html",
+  "/es/duration/weekcalculator.html", "/es/duration/hourcalculator.html",
+  "/es/duration/minutes-hourscalculator.html", "/es/duration/timezonecalculator.html",
+  "/es/moretools/trianglecalculator.html", "/es/moretools/diagonalcalculator.html",
+  "/es/moretools/trignometrycalculator.html", "/es/moretools/concretecalculator.html",
+  "/es/gallontolitercalculator.html",
 
   // Mutual fund and remaining date tools
   "/mutualfundreturncalculator.html", "/ja/mutualfundreturncalculator.html",

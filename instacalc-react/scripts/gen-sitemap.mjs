@@ -95,7 +95,7 @@ ${urls}
 writeFileSync(join(DIST, "sitemap.xml"), buildUrlset(entries), "utf8");
 
 // 2. Write regional sitemaps
-const locales = ["us", "ja", "ru", "ko"];
+const locales = ["us", "ja", "ru", "ko", "es"];
 for (const loc of locales) {
   const locEntries = entries.filter((p) => p.locale === loc || p.path.startsWith(`/${loc}/`));
   if (locEntries.length > 0) {

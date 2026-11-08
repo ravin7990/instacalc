@@ -73,7 +73,7 @@ export function SeoHead({
       offers: {
         "@type": "Offer",
         price: "0",
-        priceCurrency: seo.locale === "ko" ? "KRW" : seo.locale === "ja" ? "JPY" : seo.locale === "us" ? "USD" : seo.locale === "ru" ? "RUB" : "INR",
+        priceCurrency: seo.locale === "ko" ? "KRW" : seo.locale === "ja" ? "JPY" : seo.locale === "us" ? "USD" : seo.locale === "ru" ? "RUB" : seo.locale === "es" ? "EUR" : "INR",
       },
     });
   }
@@ -85,7 +85,7 @@ export function SeoHead({
         {
           "@type": "ListItem",
           position: 1,
-          name: seo.locale === "ko" ? "홈" : seo.locale === "ja" ? "ホーム" : "Home",
+          name: seo.locale === "ko" ? "홈" : seo.locale === "ja" ? "ホーム" : seo.locale === "ru" ? "Главная" : seo.locale === "es" ? "Inicio" : "Home",
           item: absoluteUrl(seo.locale === "en" ? "/" : `/${seo.locale}/`),
         },
         {

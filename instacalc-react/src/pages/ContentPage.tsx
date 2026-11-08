@@ -51,6 +51,8 @@ export default function ContentPage({ seo }: { seo: SeoRecord }) {
                     ? "すべての計算ツールを見る"
                     : seo.locale === "ko"
                     ? "계산기 전체 목록"
+                    : seo.locale === "es"
+                    ? "Ver todas las calculadoras"
                     : "Browse calculators"}
                 </a>
               </div>

@@ -102,7 +102,7 @@ function buildHead(page, css, entry, body, opts = {}) {
       offers: {
         "@type": "Offer",
         price: "0",
-        priceCurrency: page.locale === "ko" ? "KRW" : page.locale === "ja" ? "JPY" : page.locale === "us" ? "USD" : page.locale === "ru" ? "RUB" : "INR",
+        priceCurrency: page.locale === "ko" ? "KRW" : page.locale === "ja" ? "JPY" : page.locale === "us" ? "USD" : page.locale === "ru" ? "RUB" : page.locale === "es" ? "EUR" : "INR",
       },
     });
   }
@@ -115,7 +115,7 @@ function buildHead(page, css, entry, body, opts = {}) {
         {
           "@type": "ListItem",
           position: 1,
-          name: page.locale === "ko" ? "홈" : page.locale === "ja" ? "ホーム" : "Home",
+          name: page.locale === "ko" ? "홈" : page.locale === "ja" ? "ホーム" : page.locale === "ru" ? "Главная" : page.locale === "es" ? "Inicio" : "Home",
           item: `${ORIGIN}${page.locale === "en" ? "/" : `/${page.locale}/`}`,
         },
         {
@@ -192,6 +192,8 @@ function buildHead(page, css, entry, body, opts = {}) {
       ? "ko"
       : page.locale === "ru"
       ? "ru"
+      : page.locale === "es"
+      ? "es"
       : "en";
 
   const isNoAdPage =
@@ -237,7 +239,7 @@ function buildHead(page, css, entry, body, opts = {}) {
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="InstaCalc">
-  <meta property="og:locale" content="${esc(page.ogLocale ?? (page.locale === "us" ? "en_US" : page.locale === "ja" ? "ja_JP" : page.locale === "ko" ? "ko_KR" : page.locale === "ru" ? "ru_RU" : "en_IN"))}">
+  <meta property="og:locale" content="${esc(page.ogLocale ?? (page.locale === "us" ? "en_US" : page.locale === "ja" ? "ja_JP" : page.locale === "ko" ? "ko_KR" : page.locale === "ru" ? "ru_RU" : page.locale === "es" ? "es_ES" : "en_IN"))}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${esc(page.ogTitle ?? page.title)}">
   <meta name="twitter:description" content="${esc(page.description)}">

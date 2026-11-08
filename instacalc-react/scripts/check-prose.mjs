@@ -18,6 +18,9 @@ const targets = [
   ["ja/privacypolicy.html", "Privacy (ja)"],
   ["ru/aboutus.html", "About (ru)"],
   ["ko/privacypolicy.html", "Privacy (ko)"],
+  ["es/aboutus.html", "About (es)"],
+  ["es/privacypolicy.html", "Privacy (es)"],
+  ["es/terms.html", "Terms (es)"],
 ];
 
 let bad = 0;

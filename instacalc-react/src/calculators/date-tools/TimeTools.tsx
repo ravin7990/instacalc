@@ -10,6 +10,7 @@ import { breakDuration, parseTimeString } from "@/engines/life";
 import { dateCopy } from "@/i18n/date-labels";
 import { UsHoursArticle } from "@/components/articles/us/UsHoursArticle";
 import { UsTimeDurationArticle } from "@/components/articles/us/UsTimeDurationArticle";
+import { EsTimeArticle } from "@/components/articles/es/EsDateTimeArticles";
 
 /**
  * Time arithmetic. Serves the hours calculator (start/end minus breaks) and the
@@ -99,6 +100,7 @@ export default function TimeTools({ seo }: { seo: SeoRecord }) {
 
           {seo.locale === "us" && seo.path.includes("hour-calculator") && <UsHoursArticle />}
           {seo.locale === "us" && seo.path.includes("time-duration-calculator") && <UsTimeDurationArticle />}
+          {seo.locale === "es" && <EsTimeArticle seo={seo} />}
 
           <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />
         </Layout>
@@ -120,6 +122,8 @@ export default function TimeTools({ seo }: { seo: SeoRecord }) {
           inputs={<Field spec={minuteField} onChange={setMinutes} />}
           results={result ? <TimeResult c={c} r={result} /> : null}
         />
+
+        {seo.locale === "es" && <EsTimeArticle seo={seo} />}
 
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />
       </Layout>

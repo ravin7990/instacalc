@@ -6,32 +6,39 @@ import type { Locale } from "@/config/site";
 import { JaFdArticle } from "@/components/articles/ja/JaFdArticle";
 import { RuDepositArticle } from "@/components/articles/ru/RuDepositArticle";
 import { InFdArticle } from "@/components/articles/in/InFdArticle";
+import { EsDepositArticle } from "@/components/articles/es/EsFinanceArticles";
 
 export default createCalculatorPage((locale: Locale) => {
   const c = fieldCopy(locale);
   const p = symbol(locale);
   const money = (v: number) => moneyFormat(locale, v);
   const isRu = locale === "ru";
+  const isEs = locale === "es";
 
   return {
     appCategory: "FinanceApplication",
-    eyebrow: isRu ? "Калькулятор вкладов" : "Deposit Planner",
+    eyebrow: isRu ? "Калькулятор вкладов" : isEs ? "Depósito a plazo fijo" : "Deposit Planner",
     points: [c.maturity, c.interest, c.taxAmount],
     anchor: "fd-calculator",
-    defaults: { principal: 500_000, rate: 7, years: 5, taxRate: 0 },
+    defaults: { principal: isEs ? 25_000 : 500_000, rate: isEs ? 3.5 : 7, years: 5, taxRate: isEs ? 19 : 0 },
     fields: [
       {
         key: "principal",
         label: isRu ? "Сумма вклада (руб.)" : c.amount,
-        value: 500_000,
+        value: isEs ? 25_000 : 500_000,
         min: 1000,
         max: 100_000_000,
         step: 1000,
-        slider: { min: 10_000, max: 10_000_000, step: 10_000 },
+        slider: { min: isEs ? 1_000 : 10_000, max: isEs ? 500_000 : 10_000_000, step: isEs ? 1_000 : 10_000 },
         prefix: p,
         chips: isRu
           ? [100_000, 300_000, 500_000, 1_000_000, 1_400_000].map((v) => ({
               label: v >= 1_000_000 ? `${v / 1_000_000} млн ₽` : `${v / 1000} тыс. ₽`,
+              value: v,
+            }))
+          : isEs
+          ? [5_000, 10_000, 25_000, 50_000, 100_000].map((v) => ({
+              label: `${v / 1000}K €`,
               value: v,
             }))
           : [100_000, 250_000, 500_000, 1_000_000, 2_000_000].map((v) => ({
@@ -43,12 +50,12 @@ export default createCalculatorPage((locale: Locale) => {
       {
         key: "rate",
         label: isRu ? "Процентная ставка по вкладу" : c.rate,
-        value: 7,
-        min: 1,
+        value: isEs ? 3.5 : 7,
+        min: 0.5,
         max: 20,
         step: 0.1,
         suffix: c.percent,
-        chips: [4, 6, 7, 8, 10].map((v) => ({ label: `${v}%`, value: v })),
+        chips: (isEs ? [2.5, 3, 3.5, 4, 5] : [4, 6, 7, 8, 10]).map((v) => ({ label: `${v}%`, value: v })),
       },
       {
         key: "years",
@@ -66,12 +73,15 @@ export default createCalculatorPage((locale: Locale) => {
       {
         key: "taxRate",
         label: isRu ? "Ставка налога на процентный доход (НДФЛ)" : c.taxRate,
-        value: 0,
+        value: isEs ? 19 : 0,
         min: 0,
         max: 50,
         step: 0.5,
         suffix: c.percent,
-        chips: (isRu ? [0, 13, 15] : [0, 15, 20, 30]).map((v) => ({ label: `${v}%`, value: v })),
+        chips: (isRu ? [0, 13, 15] : isEs ? [0, 19, 21, 23] : [0, 15, 20, 30]).map((v) => ({
+          label: `${v}%`,
+          value: v,
+        })),
       },
     ],
     engine: (s) => {
@@ -93,9 +103,25 @@ export default createCalculatorPage((locale: Locale) => {
       centerLabel: isRu ? "Доход" : c.interest,
     }),
     timeline: (r) => ({
-      title: locale === "ja" ? "定期預金残高推移" : isRu ? "Динамика роста вклада" : "Fixed Deposit Growth Trajectory",
-      subtitle: locale === "ja" ? "元本と利息累計の推移" : isRu ? "Рост баланса депозита по годам" : "Maturity balance vs principal over time",
-      labels: r.rows.map((row: any) => `${locale === "ja" ? "" : "Yr "}${row.year}${locale === "ja" ? "年目" : ""}`),
+      title:
+        locale === "ja"
+          ? "定期預金残高推移"
+          : isRu
+          ? "Динамика роста вклада"
+          : isEs
+          ? "Evolución del depósito a plazo fijo"
+          : "Fixed Deposit Growth Trajectory",
+      subtitle:
+        locale === "ja"
+          ? "元本と利息累計の推移"
+          : isRu
+          ? "Рост баланса депозита по годам"
+          : isEs
+          ? "Saldo al vencimiento frente al capital depositado"
+          : "Maturity balance vs principal over time",
+      labels: r.rows.map((row: any) =>
+        isEs ? `Año ${row.year}` : `${locale === "ja" ? "" : "Yr "}${row.year}${locale === "ja" ? "年目" : ""}`,
+      ),
       datasets: [
         {
           label: isRu ? "Баланс депозита" : c.maturity,
@@ -122,6 +148,6 @@ export default createCalculatorPage((locale: Locale) => {
           money(row.balance),
         ]),
     },
-    guide: locale === "ja" ? <JaFdArticle /> : isRu ? <RuDepositArticle /> : <InFdArticle />,
+    guide: locale === "ja" ? <JaFdArticle /> : isRu ? <RuDepositArticle /> : isEs ? <EsDepositArticle /> : <InFdArticle />,
   };
 });

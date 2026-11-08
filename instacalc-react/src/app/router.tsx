@@ -37,6 +37,7 @@ export const ROUTES: RouteDef[] = [
   { path: "/ko/", locale: "ko", load: () => import("@/pages/Home"), implemented: true },
   { path: "/ru/", locale: "ru", load: () => import("@/pages/Home"), implemented: true },
   { path: "/us/", locale: "us", load: () => import("@/pages/Home"), implemented: true },
+  { path: "/es/", locale: "es", load: () => import("@/pages/Home"), implemented: true },
 
   // India financial calculators
   { path: "/sipcalculator.html", locale: "en", load: () => import("@/calculators/sip/SipCalculator"), implemented: true },
@@ -72,6 +73,8 @@ export const ROUTES: RouteDef[] = [
   { path: "/moretools/diagonalcalculator.html", locale: "en", load: () => import("@/calculators/geometry/GeometryTools"), implemented: true },
   { path: "/moretools/trignometrycalculator.html", locale: "en", load: () => import("@/calculators/geometry/GeometryTools"), implemented: true },
   { path: "/moretools/concretecalculator.html", locale: "en", load: () => import("@/calculators/geometry/ConcreteCalculator"), implemented: true },
+  { path: "/moretools/trianglecalculator.html", locale: "en", load: () => import("@/calculators/geometry/TriangleCalculator"), implemented: true },
+  { path: "/moretools/obtusetrianglecalculator.html", locale: "en", load: () => import("@/calculators/geometry/TriangleCalculator"), implemented: true },
   { path: "/gallontolitercalculator.html", locale: "en", load: () => import("@/calculators/volume/GallonConverter"), implemented: true },
 
   // --- Locale variants of the date and geometry tools ---
@@ -84,6 +87,9 @@ export const ROUTES: RouteDef[] = [
   { path: "/ru/moretools/diagonalcalculator.html", locale: "ru", load: () => import("@/calculators/geometry/GeometryTools"), implemented: true },
   { path: "/ko/moretools/diagonalcalculator.html", locale: "ko", load: () => import("@/calculators/geometry/GeometryTools"), implemented: true },
   { path: "/ja/moretools/trignometrycalculator.html", locale: "ja", load: () => import("@/calculators/geometry/GeometryTools"), implemented: true },
+  { path: "/ja/moretools/trianglecalculator.html", locale: "ja", load: () => import("@/calculators/geometry/TriangleCalculator"), implemented: true },
+  { path: "/ru/moretools/trianglecalculator.html", locale: "ru", load: () => import("@/calculators/geometry/TriangleCalculator"), implemented: true },
+  { path: "/ko/moretools/trianglecalculator.html", locale: "ko", load: () => import("@/calculators/geometry/TriangleCalculator"), implemented: true },
   { path: "/ru/moretools/trignometrycalculator.html", locale: "ru", load: () => import("@/calculators/geometry/GeometryTools"), implemented: true },
   { path: "/ko/moretools/trignometrycalculator.html", locale: "ko", load: () => import("@/calculators/geometry/GeometryTools"), implemented: true },
   { path: "/us/age-calculator.html", locale: "us", load: () => import("@/calculators/age/AgeCalculator"), implemented: true },
@@ -92,7 +98,8 @@ export const ROUTES: RouteDef[] = [
   { path: "/us/gallon-to-liter-calculator.html", locale: "us", load: () => import("@/calculators/volume/GallonConverter"), implemented: true },
   { path: "/us/concrete-calculator.html", locale: "us", load: () => import("@/calculators/geometry/ConcreteCalculator"), implemented: true },
   { path: "/us/diagonal-calculator.html", locale: "us", load: () => import("@/calculators/geometry/GeometryTools"), implemented: true },
-  { path: "/us/triangle-calculator.html", locale: "us", load: () => import("@/calculators/geometry/GeometryTools"), implemented: true },
+  { path: "/us/triangle-calculator.html", locale: "us", load: () => import("@/calculators/geometry/TriangleCalculator"), implemented: true },
+  { path: "/us/trianglecalculator.html", locale: "us", load: () => import("@/calculators/geometry/TriangleCalculator"), implemented: true },
 
   // --- Prose pages: about, contact, privacy, terms, disclaimer, data deletion ---
   { path: "/aboutus.html", locale: "en", load: () => import("@/pages/ContentPage"), implemented: true },
@@ -112,6 +119,10 @@ export const ROUTES: RouteDef[] = [
   { path: "/ko/aboutus.html", locale: "ko", load: () => import("@/pages/ContentPage"), implemented: true },
   { path: "/ko/contactus.html", locale: "ko", load: () => import("@/pages/ContactPage"), implemented: true },
   { path: "/ko/privacypolicy.html", locale: "ko", load: () => import("@/pages/ContentPage"), implemented: true },
+  { path: "/es/aboutus.html", locale: "es", load: () => import("@/pages/ContentPage"), implemented: true },
+  { path: "/es/contactus.html", locale: "es", load: () => import("@/pages/ContactPage"), implemented: true },
+  { path: "/es/privacypolicy.html", locale: "es", load: () => import("@/pages/ContentPage"), implemented: true },
+  { path: "/es/terms.html", locale: "es", load: () => import("@/pages/ContentPage"), implemented: true },
 
 
   // --- Retirement, tax and withdrawal plans ---
@@ -245,6 +256,35 @@ export const ROUTES: RouteDef[] = [
   { path: "/ko/health-insurance-dependent-calculator.html", locale: "ko", load: () => import("@/calculators/korea/HealthInsuranceDependentCalculator"), implemented: true },
   { path: "/ko/electricity-bill-calculator.html", locale: "ko", load: () => import("@/calculators/korea/ElectricityBillCalculator"), implemented: true },
   { path: "/ko/policy-housing-loan-calculator.html", locale: "ko", load: () => import("@/calculators/korea/PolicyHousingLoanCalculator"), implemented: true },
+
+  // --- Spanish edition (/es/) ---
+  { path: "/es/compoundinterest.html", locale: "es", load: () => import("@/calculators/compound/CompoundInterest"), implemented: true },
+  { path: "/es/simpleinterestcalculator.html", locale: "es", load: () => import("@/calculators/simple/SimpleInterest"), implemented: true },
+  { path: "/es/emicalculator.html", locale: "es", load: () => import("@/calculators/emi/EmiCalculator"), implemented: true },
+  { path: "/es/mortgage-calculator.html", locale: "es", load: () => import("@/calculators/us/MortgageCalculator"), implemented: true },
+  { path: "/es/sipcalculator.html", locale: "es", load: () => import("@/calculators/sip/SipCalculator"), implemented: true },
+  { path: "/es/sipcalculatorlumpsump.html", locale: "es", load: () => import("@/calculators/sip/LumpsumCalculator"), implemented: true },
+  { path: "/es/fdcalculator.html", locale: "es", load: () => import("@/calculators/fd/FdCalculator"), implemented: true },
+  { path: "/es/rdcalculator.html", locale: "es", load: () => import("@/calculators/rd/RdCalculator"), implemented: true },
+  { path: "/es/gstcalculator.html", locale: "es", load: () => import("@/calculators/gst/GstCalculator"), implemented: true },
+  { path: "/es/cagrcalculator.html", locale: "es", load: () => import("@/calculators/plans/CagrCalculator"), implemented: true },
+  { path: "/es/retirementcalculator.html", locale: "es", load: () => import("@/calculators/plans/RetirementCalculator"), implemented: true },
+  { path: "/es/fire-calculator.html", locale: "es", load: () => import("@/calculators/us/FireCalculator"), implemented: true },
+  { path: "/es/swpcalculator.html", locale: "es", load: () => import("@/calculators/plans/SwpCalculator"), implemented: true },
+  { path: "/es/mutualfundreturncalculator.html", locale: "es", load: () => import("@/calculators/plans/MutualFundCalculator"), implemented: true },
+  { path: "/es/duration/agecalculator.html", locale: "es", load: () => import("@/calculators/age/AgeCalculator"), implemented: true },
+  { path: "/es/catagecalculator.html", locale: "es", load: () => import("@/calculators/catage/CatAgeCalculator"), implemented: true },
+  { path: "/es/duration/birthdaycalculator.html", locale: "es", load: () => import("@/calculators/date-tools/BirthdayCalculator"), implemented: true },
+  { path: "/es/duration/dayscalculator.html", locale: "es", load: () => import("@/calculators/date-tools/DateTools"), implemented: true },
+  { path: "/es/duration/weekcalculator.html", locale: "es", load: () => import("@/calculators/date-tools/DateTools"), implemented: true },
+  { path: "/es/duration/hourcalculator.html", locale: "es", load: () => import("@/calculators/date-tools/TimeTools"), implemented: true },
+  { path: "/es/duration/minutes-hourscalculator.html", locale: "es", load: () => import("@/calculators/date-tools/TimeTools"), implemented: true },
+  { path: "/es/duration/timezonecalculator.html", locale: "es", load: () => import("@/calculators/date-tools/TimeZoneCalculator"), implemented: true },
+  { path: "/es/moretools/trianglecalculator.html", locale: "es", load: () => import("@/calculators/geometry/TriangleCalculator"), implemented: true },
+  { path: "/es/moretools/diagonalcalculator.html", locale: "es", load: () => import("@/calculators/geometry/GeometryTools"), implemented: true },
+  { path: "/es/moretools/trignometrycalculator.html", locale: "es", load: () => import("@/calculators/geometry/GeometryTools"), implemented: true },
+  { path: "/es/moretools/concretecalculator.html", locale: "es", load: () => import("@/calculators/geometry/ConcreteCalculator"), implemented: true },
+  { path: "/es/gallontolitercalculator.html", locale: "es", load: () => import("@/calculators/volume/GallonConverter"), implemented: true },
 ];
 
 
@@ -254,7 +294,7 @@ const ROUTE_MAP = new Map(ROUTES.map((r) => [r.path, r]));
 const genericLoader: PageLoader = () => import("@/pages/GenericPage");
 
 /** Locale prefixes that appear in site paths. */
-const LOCALE_SEGMENTS = new Set(["us", "ja", "ru", "ko"]);
+const LOCALE_SEGMENTS = new Set(["us", "ja", "ru", "ko", "es"]);
 
 /**
  * Derives the locale from a path. Derived rather than looked up so the router

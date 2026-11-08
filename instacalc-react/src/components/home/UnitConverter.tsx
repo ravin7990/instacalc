@@ -34,13 +34,34 @@ export function UnitConverter({ locale = "en" }: { locale?: Locale }) {
   const isKo = locale === "ko";
   const isJa = locale === "ja";
   const isRu = locale === "ru";
+  const isEs = locale === "es";
 
   return (
     <section className="section" id="unit-converter">
       <div className="container">
         <div className="section-head">
-          <span className="eyebrow">{isJa ? "高精度単位換算" : isKo ? "스마트 단위 변환" : isRu ? "Быстрая конвертация величин" : "Built-in Converter"}</span>
-          <h2>{isJa ? "スマート単位換算ツール" : isKo ? "실시간 단위 변환기" : isRu ? "Умный конвертер единиц" : "Smart Unit Converter"}</h2>
+          <span className="eyebrow">
+            {isJa
+              ? "高精度単位換算"
+              : isKo
+              ? "스마트 단위 변환"
+              : isRu
+              ? "Быстрая конвертация величин"
+              : isEs
+              ? "Conversor integrado"
+              : "Built-in Converter"}
+          </span>
+          <h2>
+            {isJa
+              ? "スマート単位換算ツール"
+              : isKo
+              ? "실시간 단위 변환기"
+              : isRu
+              ? "Умный конвертер единиц"
+              : isEs
+              ? "Conversor inteligente de unidades"
+              : "Smart Unit Converter"}
+          </h2>
           <p>
             {isJa ? (
               <>自然な入力ですぐに換算できます（例: <strong>5 km to mile</strong>、<strong>100 c to f</strong>、<strong>15 meter to foot</strong>）。</>
@@ -48,6 +69,8 @@ export function UnitConverter({ locale = "en" }: { locale?: Locale }) {
               <>자연어로 쉽게 입력하여 실시간 환산하세요 (예: <strong>5 km to mile</strong>, <strong>100 c to f</strong>, <strong>15 meter to foot</strong>).</>
             ) : isRu ? (
               <>Вводите величины в формате: <code>5 km to mile</code>, <code>100 c to f</code> или <code>15 m to ft</code>.</>
+            ) : isEs ? (
+              <>Escribe de forma directa, por ejemplo: <strong>5 km to mile</strong>, <strong>100 c to f</strong> o <strong>15 meter to foot</strong>.</>
             ) : (
               <>Type naturally, for example: <strong>5 km to mile</strong> or <strong>100 c to f</strong>.</>
             )}
@@ -57,7 +80,7 @@ export function UnitConverter({ locale = "en" }: { locale?: Locale }) {
         <div className="converter-shell">
           <div className="converter-input-wrap">
             <label htmlFor="conversion-input" className="sr-only">
-              {isRu ? "Введите запрос на конвертацию" : "Enter a conversion"}
+              {isRu ? "Введите запрос на конвертацию" : isEs ? "Introduce una conversión" : "Enter a conversion"}
             </label>
             <input
               type="text"
@@ -70,6 +93,8 @@ export function UnitConverter({ locale = "en" }: { locale?: Locale }) {
                   ? "예: 15 meter to foot, 100 kg to pound"
                   : isRu
                   ? "Например: 15 m to ft, 100 kg to lb"
+                  : isEs
+                  ? "Ej.: 15 meter to foot, 100 kg to pound"
                   : "e.g., 15 meter to foot"
               }
               autoComplete="off"
@@ -86,7 +111,17 @@ export function UnitConverter({ locale = "en" }: { locale?: Locale }) {
               <button
                 type="button"
                 className="converter-clear"
-                aria-label={isJa ? "入力をクリア" : isKo ? "입력 지우기" : isRu ? "Очистить ввод" : "Clear input"}
+                aria-label={
+                  isJa
+                    ? "入力をクリア"
+                    : isKo
+                    ? "입력 지우기"
+                    : isRu
+                    ? "Очистить ввод"
+                    : isEs
+                    ? "Borrar entrada"
+                    : "Clear input"
+                }
                 onClick={() => {
                   setInput("");
                   trackEvent("unit_convert_clear");
@@ -139,6 +174,8 @@ export function UnitConverter({ locale = "en" }: { locale?: Locale }) {
                   ? "단위를 입력하면 실시간으로 변환 결과가 표시됩니다."
                   : isRu
                   ? "Начните вводить величины для мгновенного перевода."
+                  : isEs
+                  ? "Empieza a escribir para ver la conversión instantánea."
                   : "Start typing to see instant conversions."}
               </p>
             )}
@@ -161,6 +198,8 @@ export function UnitConverter({ locale = "en" }: { locale?: Locale }) {
                 ? showCategories ? "지원 단위 목록 닫기" : "지원 단위 목록 보기"
                 : isRu
                 ? showCategories ? "Скрыть поддерживаемые величины" : "Показать доступные величины"
+                : isEs
+                ? showCategories ? "Ocultar categorías compatibles" : "Mostrar categorías compatibles"
                 : showCategories ? "Hide supported categories" : "Show supported categories"}
             </button>
           </div>
@@ -204,12 +243,27 @@ export function UnitConverter({ locale = "en" }: { locale?: Locale }) {
                     : c.id === "energy" ? "에너지"
                     : c.id === "pressure" ? "압력"
                     : c.name
+                  : isEs
+                  ? c.id === "length" ? "Longitud"
+                    : c.id === "mass" ? "Masa"
+                    : c.id === "area" ? "Área"
+                    : c.id === "volume" ? "Volumen"
+                    : c.id === "temperature" ? "Temperatura"
+                    : c.id === "time" ? "Tiempo"
+                    : c.id === "speed" ? "Velocidad"
+                    : c.id === "digital" ? "Datos digitales"
+                    : c.id === "energy" ? "Energía"
+                    : c.id === "pressure" ? "Presión"
+                    : c.name
                   : c.name;
 
                 return (
                   <li key={c.id}>
                     <strong>{localizedName}</strong>
-                    <span>{c.units.length} {isJa ? "単位" : isKo ? "개 단위" : isRu ? "единиц" : "units"}</span>
+                    <span>
+                      {c.units.length}{" "}
+                      {isJa ? "単位" : isKo ? "개 단위" : isRu ? "единиц" : isEs ? "unidades" : "units"}
+                    </span>
                   </li>
                 );
               })}

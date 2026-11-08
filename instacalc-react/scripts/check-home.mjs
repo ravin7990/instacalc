@@ -16,6 +16,7 @@ const PAGES = [
   ["dist/us/index.html", "/us/"],
   ["dist/ja/index.html", "/ja/"],
   ["dist/ru/index.html", "/ru/"],
+  ["dist/es/index.html", "/es/"],
 ];
 
 for (const [rel, base] of PAGES) {

@@ -13,6 +13,7 @@ const PAGES = [
   ["dist/us/index.html", "/us/"],
   ["dist/ja/index.html", "/ja/"],
   ["dist/ru/index.html", "/ru/"],
+  ["dist/es/index.html", "/es/"],
   // /ko/ ships only three tool pages and has no home page in the legacy source,
   // so check it via a real ko page instead of an index that does not exist.
   ["dist/ko/moretools/concretecalculator.html", "/ko/moretools/"],
@@ -41,9 +42,9 @@ for (const [rel, base] of PAGES) {
     (m) => `${m[1]}=${m[2].trim()}`,
   );
   console.log(`   options (${options.length}): ${options.join(" | ")}`);
-  if (options.length !== 5) {
+  if (options.length !== 6) {
     failed = true;
-    console.error(`   ! expected 5 locale options, got ${options.length}`);
+    console.error(`   ! expected 6 locale options, got ${options.length}`);
   }
 
   // Every option must carry a globe-adjacent label, and the select needs a
@@ -71,7 +72,7 @@ for (const [rel, base] of PAGES) {
     // wrong `../terms.html` on /ko/moretools/ pass.
     const pageUrl = `https://instacalc.in${base}`;
     const url = new URL(terms[1], pageUrl);
-    const expectedTerms = base.startsWith("/ja/") ? "/ja/terms.html" : "/terms.html";
+    const expectedTerms = base.startsWith("/ja/") ? "/ja/terms.html" : base.startsWith("/es/") ? "/es/terms.html" : "/terms.html";
     if (url.pathname !== expectedTerms) {
       failed = true;
       console.error(`   ! terms resolves to ${url.pathname}, expected ${expectedTerms}`);

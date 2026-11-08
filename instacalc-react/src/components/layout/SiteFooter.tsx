@@ -21,7 +21,7 @@ export function SiteFooter({ locale, nav }: SiteFooterProps) {
   // fallback cleanly to site root via localeOrRoot.
   const legal: NavLinkItem[] = [
     { href: localeOrRoot(locale, "terms.html") ?? "/terms.html", label: t.terms },
-    { href: "/disclaimer.html", label: locale === "ja" ? "免責事項" : locale === "ru" ? "Отказ от ответственности" : locale === "ko" ? "면책 조항" : "Disclaimer" },
+    { href: "/disclaimer.html", label: locale === "ja" ? "免責事項" : locale === "ru" ? "Отказ от ответственности" : locale === "ko" ? "면책 조항" : locale === "es" ? "Aviso legal" : "Disclaimer" },
     { href: localeOrRoot(locale, "delete-account.html") ?? "/delete-account.html", label: t.deleteAccount },
   ];
 
@@ -49,6 +49,7 @@ export function SiteFooter({ locale, nav }: SiteFooterProps) {
           <a href="/ja/" hrefLang="ja-JP" onClick={() => trackNavClick("footer_region", "日本 (日本語)", "/ja/")}>🇯🇵 日本 (日本語)</a>
           <a href="/ko/" hrefLang="ko-KR" onClick={() => trackNavClick("footer_region", "대한민국 (한국어)", "/ko/")}>🇰🇷 대한민국 (한국어)</a>
           <a href="/ru/" hrefLang="ru-RU" onClick={() => trackNavClick("footer_region", "Россия (Русский)", "/ru/")}>🇷🇺 Россия (Русский)</a>
+          <a href="/es/" hrefLang="es" onClick={() => trackNavClick("footer_region", "Español", "/es/")}>🇪🇸 Español</a>
         </div>
       </div>
       <div className="container footer-bottom">

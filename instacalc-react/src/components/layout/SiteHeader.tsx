@@ -17,6 +17,7 @@ const SWITCHER_LABEL: Record<Locale, string> = {
   ja: "JP (JA)",
   ru: "RU (RU)",
   ko: "KR (KO)",
+  es: "ES (ES)",
 };
 
 /**

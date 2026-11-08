@@ -13,6 +13,7 @@ import { formatCompact, formatCurrency, formatWithUnits, symbol, money as moneyF
 import { sipCopy } from "@/i18n/calculator-copy";
 import { JaLumpsumArticle } from "@/components/articles/ja/JaLumpsumArticle";
 import { InLumpsumArticle } from "@/components/articles/in/InLumpsumArticle";
+import { EsLumpsumArticle } from "@/components/articles/es/EsFinanceArticles";
 import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 
@@ -20,9 +21,10 @@ import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculato
 export default function LumpsumCalculator({ seo }: { seo: SeoRecord }) {
   const c = sipCopy(seo.locale);
   const p = symbol(seo.locale);
+  const isEs = seo.locale === "es";
 
-  const [amount, setAmount] = useState(500_000);
-  const [rate, setRate] = useState(12);
+  const [amount, setAmount] = useState(isEs ? 25_000 : 500_000);
+  const [rate, setRate] = useState(isEs ? 8 : 12);
   const [years, setYears] = useState(10);
 
   const result = useMemo(
@@ -40,12 +42,22 @@ export default function LumpsumCalculator({ seo }: { seo: SeoRecord }) {
       min: 1000,
       max: 100_000_000,
       step: 1000,
-      slider: { min: 10_000, max: 10_000_000, step: 10_000 },
+      slider: { min: isEs ? 1_000 : 10_000, max: isEs ? 500_000 : 10_000_000, step: isEs ? 1_000 : 10_000 },
       prefix: p,
-      chips: [100_000, 250_000, 500_000, 1_000_000, 2_000_000].map((v) => ({
-        label: `${p}${v / 100_000}L`,
-        value: v,
-      })),
+      chips: isEs
+        ? [5_000, 10_000, 25_000, 50_000, 100_000].map((v) => ({
+            label: `${v / 1000}K €`,
+            value: v,
+          }))
+        : seo.locale === "ja"
+        ? [100_000, 250_000, 500_000, 1_000_000, 2_000_000].map((v) => ({
+            label: `${v / 10_000}万円`,
+            value: v,
+          }))
+        : [100_000, 250_000, 500_000, 1_000_000, 2_000_000].map((v) => ({
+            label: `${p}${v / 100_000}L`,
+            value: v,
+          })),
     },
     {
       key: "rate",
@@ -55,7 +67,7 @@ export default function LumpsumCalculator({ seo }: { seo: SeoRecord }) {
       max: 30,
       step: 0.5,
       suffix: c.rateSuffix,
-      chips: [8, 10, 12, 14, 16].map((v) => ({ label: `${v}%`, value: v })),
+      chips: [6, 8, 10, 12, 14].map((v) => ({ label: `${v}%`, value: v })),
     },
     {
       key: "years",
@@ -70,9 +82,7 @@ export default function LumpsumCalculator({ seo }: { seo: SeoRecord }) {
     },
   ];
 
-  // Only /en/ and /ja/ ship this page, and both ship the SIP page too, but
-  // resolve it properly anyway so adding a locale that has one and not the
-  // other cannot silently reintroduce a dead cross-link.
+  // Resolve cross-link to SIP page for locales that ship both.
   const sipHref = localeOrRoot(seo.locale, "sipcalculator.html");
 
   return (
@@ -83,7 +93,20 @@ export default function LumpsumCalculator({ seo }: { seo: SeoRecord }) {
           seo={seo}
           eyebrow={c.advanced}
           points={[c.corpus, c.returns, c.progress]}
-          actions={sipHref ? [{ href: sipHref, label: "Switch to SIP" }] : []}
+          actions={
+            sipHref
+              ? [
+                  {
+                    href: sipHref,
+                    label: isEs
+                      ? "Cambiar a inversión mensual"
+                      : seo.locale === "ja"
+                      ? "積立投資へ切替"
+                      : "Switch to SIP",
+                  },
+                ]
+              : []
+          }
         />
 
         <CalculatorShell
@@ -123,9 +146,23 @@ export default function LumpsumCalculator({ seo }: { seo: SeoRecord }) {
           }
         >
           <TimelineGrowthChart
-            title={seo.locale === "ja" ? "一括投資資産形成グラフ" : "Lumpsum Wealth Growth Journey"}
-            subtitle={seo.locale === "ja" ? "元本と複利運用の資産推移" : "Projected corpus vs initial investment over time"}
-            labels={result.rows.map((r) => `${seo.locale === "ja" ? "" : "Yr "}${r.year}${seo.locale === "ja" ? "年目" : ""}`)}
+            title={
+              seo.locale === "ja"
+                ? "一括投資資産形成グラフ"
+                : isEs
+                ? "Evolución de la inversión de suma global"
+                : "Lumpsum Wealth Growth Journey"
+            }
+            subtitle={
+              seo.locale === "ja"
+                ? "元本と複利運用の資産推移"
+                : isEs
+                ? "Capital proyectado frente al desembolso único inicial"
+                : "Projected corpus vs initial investment over time"
+            }
+            labels={result.rows.map((r) =>
+              isEs ? `Año ${r.year}` : `${seo.locale === "ja" ? "" : "Yr "}${r.year}${seo.locale === "ja" ? "年目" : ""}`,
+            )}
             datasets={[
               {
                 label: c.corpus,
@@ -155,6 +192,7 @@ export default function LumpsumCalculator({ seo }: { seo: SeoRecord }) {
         </CalculatorShell>
 
         {seo.locale === "ja" && <JaLumpsumArticle />}
+        {seo.locale === "es" && <EsLumpsumArticle />}
         {seo.locale === "en" && <InLumpsumArticle />}
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />
       </Layout>

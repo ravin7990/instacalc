@@ -6,6 +6,7 @@ import type { Locale } from "@/config/site";
 import { JaGstArticle } from "@/components/articles/ja/JaGstArticle";
 import { RuVatArticle } from "@/components/articles/ru/RuVatArticle";
 import { InGstArticle } from "@/components/articles/in/InGstArticle";
+import { EsVatArticle } from "@/components/articles/es/EsFinanceArticles";
 
 export default createCalculatorPage((locale: Locale) => {
   const c = fieldCopy(locale);
@@ -14,24 +15,37 @@ export default createCalculatorPage((locale: Locale) => {
   const usLocale = locale === "us";
   const jaLocale = locale === "ja";
   const ruLocale = locale === "ru";
+  const esLocale = locale === "es";
 
   return {
     appCategory: "FinanceApplication",
-    eyebrow: ruLocale ? "Калькулятор НДС" : usLocale ? "Sales Tax" : jaLocale ? "消費税" : "GST",
+    eyebrow: ruLocale
+      ? "Калькулятор НДС"
+      : esLocale
+      ? "Calculadora de IVA"
+      : usLocale
+      ? "Sales Tax"
+      : jaLocale
+      ? "消費税"
+      : "GST",
     points: ruLocale
       ? ["Сумма без НДС", "Сумма НДС (20% / 10%)", "Итоговая сумма с НДС"]
       : [c.baseAmount, c.taxAmount, c.total],
     anchor: "gst-calculator",
-    defaults: { amount: 10_000, rate: ruLocale ? 20 : jaLocale ? 10 : 18, inclusive: 0 },
+    defaults: {
+      amount: esLocale ? 1_000 : 10_000,
+      rate: ruLocale ? 20 : esLocale ? 21 : jaLocale ? 10 : 18,
+      inclusive: 0,
+    },
     fields: [
       {
         key: "amount",
         label: ruLocale ? "Сумма операции (руб.)" : jaLocale ? "金額（円）" : c.amount,
-        value: 10_000,
+        value: esLocale ? 1_000 : 10_000,
         min: 0,
         max: 100_000_000,
-        step: 100,
-        slider: { min: 100, max: 1_000_000, step: 100 },
+        step: esLocale ? 10 : 100,
+        slider: { min: esLocale ? 10 : 100, max: esLocale ? 50_000 : 1_000_000, step: esLocale ? 10 : 100 },
         prefix: p,
       },
       {
@@ -41,7 +55,7 @@ export default createCalculatorPage((locale: Locale) => {
           : jaLocale
           ? "消費税率（標準10%・軽減8%）"
           : c.gstRate,
-        value: ruLocale ? 20 : jaLocale ? 10 : 18,
+        value: ruLocale ? 20 : esLocale ? 21 : jaLocale ? 10 : 18,
         min: 0,
         max: 28,
         step: 0.25,
@@ -52,6 +66,8 @@ export default createCalculatorPage((locale: Locale) => {
           ? [8, 10]
           : ruLocale
           ? [0, 5, 7, 10, 20]
+          : esLocale
+          ? [0, 4, 10, 16, 19, 21]
           : GST_RATES
         ).map((v) => ({
           label: `${v}%`,
@@ -62,6 +78,8 @@ export default createCalculatorPage((locale: Locale) => {
         key: "inclusive",
         label: ruLocale
           ? "Режим расчета НДС"
+          : esLocale
+          ? "¿El importe ya incluye IVA?"
           : usLocale
           ? "Tax already included?"
           : jaLocale
@@ -81,9 +99,14 @@ export default createCalculatorPage((locale: Locale) => {
               { label: "税抜価格（外税・消費税を加算）", value: 0 },
               { label: "税込価格（内税・消費税を逆算）", value: 1 },
             ]
+          : esLocale
+          ? [
+              { label: "No (añadir IVA)", value: 0 },
+              { label: "Sí (desglosar IVA)", value: 1 },
+            ]
           : [
-              { label: usLocale ? "No (add tax)" : "いいえ（税を加算）", value: 0 },
-              { label: usLocale ? "Yes (remove tax)" : "はい（税を除算）", value: 1 },
+              { label: "No (add tax)", value: 0 },
+              { label: "Yes (remove tax)", value: 1 },
             ],
       },
     ],
@@ -117,8 +140,8 @@ export default createCalculatorPage((locale: Locale) => {
           color: "#f59e0b",
         },
       ],
-      centerLabel: ruLocale ? "НДС" : jaLocale ? "税率" : "Tax",
+      centerLabel: ruLocale ? "НДС" : esLocale ? "IVA" : jaLocale ? "税率" : "Tax",
     }),
-    guide: jaLocale ? <JaGstArticle /> : ruLocale ? <RuVatArticle /> : <InGstArticle />,
+    guide: jaLocale ? <JaGstArticle /> : ruLocale ? <RuVatArticle /> : esLocale ? <EsVatArticle /> : <InGstArticle />,
   };
 });

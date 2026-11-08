@@ -5,49 +5,75 @@ import { formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
 import type { Locale } from "@/config/site";
 import { JaSwpArticle } from "@/components/articles/ja/JaSwpArticle";
 import { InSwpArticle } from "@/components/articles/in/InSwpArticle";
+import { EsSwpArticle } from "@/components/articles/es/EsFinanceArticles";
 
 export default createCalculatorPage((locale: Locale) => {
   const c = planCopy(locale);
   const p = symbol(locale);
   const money = (n: number) => moneyFormat(locale, n);
+  const isEs = locale === "es";
 
   return {
     appCategory: "FinanceApplication",
     eyebrow: c.eyebrow,
     points: [c.withdrawal, c.corpusAtRetirement, c.totalWithdrawal, c.totalInterest],
     anchor: "swp-calculator",
-    defaults: { corpus: 20_000_000, withdrawal: 50_000, rate: 8, years: 20, inflation: 6 },
+    defaults: {
+      corpus: isEs ? 300_000 : 20_000_000,
+      withdrawal: isEs ? 1_200 : 50_000,
+      rate: isEs ? 6 : 8,
+      years: 20,
+      inflation: isEs ? 3 : 6,
+    },
     fields: [
       {
-        key: "corpus", label: c.corpusAtRetirement, value: 20_000_000,
-        min: 100_000, max: 1_000_000_000, step: 100_000,
-        slider: { min: 500_000, max: 100_000_000, step: 500_000 },
+        key: "corpus",
+        label: c.corpusAtRetirement,
+        value: isEs ? 300_000 : 20_000_000,
+        min: isEs ? 10_000 : 100_000,
+        max: 1_000_000_000,
+        step: isEs ? 10_000 : 100_000,
+        slider: { min: isEs ? 25_000 : 500_000, max: isEs ? 2_000_000 : 100_000_000, step: isEs ? 25_000 : 500_000 },
         prefix: p,
-        chips: [5_000_000, 10_000_000, 20_000_000, 50_000_000, 100_000_000].map((v) => ({
-          label: locale === "ja" ? (v >= 100_000_000 ? `${v / 100_000_000}億円` : `${v / 10_000}万円`) : `${p}${v / 10_000_000}Cr`,
-          value: v,
-        })),
+        chips: isEs
+          ? [100_000, 200_000, 300_000, 500_000, 1_000_000].map((v) => ({
+              label: v >= 1_000_000 ? `${v / 1_000_000}M €` : `${v / 1000}K €`,
+              value: v,
+            }))
+          : [5_000_000, 10_000_000, 20_000_000, 50_000_000, 100_000_000].map((v) => ({
+              label: locale === "ja" ? (v >= 100_000_000 ? `${v / 100_000_000}億円` : `${v / 10_000}万円`) : `${p}${v / 10_000_000}Cr`,
+              value: v,
+            })),
       },
       {
-        key: "withdrawal", label: c.withdrawal, value: 50_000,
-        min: 1_000, max: 5_000_000, step: 1_000,
-        slider: { min: 5_000, max: 500_000, step: 5_000 },
+        key: "withdrawal",
+        label: c.withdrawal,
+        value: isEs ? 1_200 : 50_000,
+        min: isEs ? 100 : 1_000,
+        max: 5_000_000,
+        step: isEs ? 50 : 1_000,
+        slider: { min: isEs ? 200 : 5_000, max: isEs ? 10_000 : 500_000, step: isEs ? 100 : 5_000 },
         prefix: p,
-        chips: [20_000, 50_000, 100_000, 200_000, 300_000].map((v) => ({
-          label: locale === "ja" ? `${v / 10_000}万円` : `${p}${v / 1000}K`,
-          value: v,
-        })),
+        chips: isEs
+          ? [600, 1_000, 1_500, 2_000, 3_000].map((v) => ({
+              label: `${v} €`,
+              value: v,
+            }))
+          : [20_000, 50_000, 100_000, 200_000, 300_000].map((v) => ({
+              label: locale === "ja" ? `${v / 10_000}万円` : `${p}${v / 1000}K`,
+              value: v,
+            })),
       },
-      { key: "rate", label: c.returnRate, value: 8, min: 0, max: 20, step: 0.5, suffix: "%",
-        chips: [6, 8, 10, 12].map((v) => ({ label: `${v}%`, value: v })) },
+      { key: "rate", label: c.returnRate, value: isEs ? 6 : 8, min: 0, max: 20, step: 0.5, suffix: "%",
+        chips: [4, 6, 8, 10, 12].map((v) => ({ label: `${v}%`, value: v })) },
       { key: "years", label: c.years, value: 20, min: 1, max: 50, step: 1,
         slider: { min: 5, max: 40, step: 1 },
         suffix: c.years,
         chips: [10, 15, 20, 25, 30].map((v) => ({ label: `${v}`, value: v })) },
     ],
     advancedFields: [
-      { key: "inflation", label: c.inflation, value: 6, min: 0, max: 15, step: 0.5, suffix: "%",
-        chips: [0, 4, 6, 8].map((v) => ({ label: `${v}%`, value: v })) },
+      { key: "inflation", label: c.inflation, value: isEs ? 3 : 6, min: 0, max: 15, step: 0.5, suffix: "%",
+        chips: [0, 3, 4, 6, 8].map((v) => ({ label: `${v}%`, value: v })) },
     ],
     engine: (s) =>
       calculateSwp({
@@ -76,9 +102,21 @@ export default createCalculatorPage((locale: Locale) => {
       centerLabel: c.totalWithdrawal,
     }),
     timeline: (r) => ({
-      title: locale === "ja" ? "SWP取崩し・資産残高推移" : "SWP Portfolio Balance Trajectory",
-      subtitle: locale === "ja" ? "年間取崩し額と残高推移" : "Remaining portfolio corpus over withdrawal period",
-      labels: r.rows.map((row: any) => `${locale === "ja" ? "" : "Yr "}${row.year}${locale === "ja" ? "年目" : ""}`),
+      title:
+        locale === "ja"
+          ? "SWP取崩し・資産残高推移"
+          : isEs
+          ? "Evolución del saldo de la cartera (SWP)"
+          : "SWP Portfolio Balance Trajectory",
+      subtitle:
+        locale === "ja"
+          ? "年間取崩し額と残高推移"
+          : isEs
+          ? "Patrimonio restante durante el periodo de retiros sistemáticos"
+          : "Remaining portfolio corpus over withdrawal period",
+      labels: r.rows.map((row: any) =>
+        isEs ? `Año ${row.year}` : `${locale === "ja" ? "" : "Yr "}${row.year}${locale === "ja" ? "年目" : ""}`,
+      ),
       datasets: [
         {
           label: c.balance,
@@ -99,6 +137,6 @@ export default createCalculatorPage((locale: Locale) => {
           money(row.closing),
         ]),
     },
-    guide: locale === "ja" ? <JaSwpArticle /> : <InSwpArticle />,
+    guide: locale === "ja" ? <JaSwpArticle /> : isEs ? <EsSwpArticle /> : <InSwpArticle />,
   };
 });

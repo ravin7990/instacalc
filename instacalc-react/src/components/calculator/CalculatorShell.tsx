@@ -146,7 +146,7 @@ export function CalculatorShell({
   useEffect(() => {
     try {
       const dateLocale =
-        locale === "ja" ? "ja-JP" : locale === "ko" ? "ko-KR" : locale === "ru" ? "ru-RU" : "en-US";
+        locale === "ja" ? "ja-JP" : locale === "ko" ? "ko-KR" : locale === "ru" ? "ru-RU" : locale === "es" ? "es-ES" : "en-US";
       setPrintDate(
         new Intl.DateTimeFormat(dateLocale, {
           year: "numeric",
@@ -1134,6 +1134,8 @@ export function CalculatorShell({
                     ? "Внимание: расчет носит информационно-ознакомительный характер и не является индивидуальной финансовой, налоговой или инвестиционной рекомендацией."
                     : locale === "ko"
                     ? "※ 본 계산 결과는 단순 모의 시뮬레이션용 수치이며 실제 지급액이나 공제액과 차이가 있을 수 있습니다. 공인 재무·세무 전문가와 상담하시기 바랍니다."
+                    : locale === "es"
+                    ? "Aviso: Los cálculos y proyecciones tienen fines meramente educativos e ilustrativos y no constituyen asesoramiento financiero, fiscal ni de inversión certificado."
                     : "Disclaimer: Calculations and projections are for educational and illustrative purposes only and do not constitute certified financial, tax, or investment advice."}
                 </small>
               </div>

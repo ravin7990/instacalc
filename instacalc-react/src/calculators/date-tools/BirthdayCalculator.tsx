@@ -10,6 +10,7 @@ import { birthdayInfo, toIsoDate } from "@/engines/dates";
 import { dateCopy } from "@/i18n/date-labels";
 import { formatNumber, formatDate, formatWeekday } from "@/lib/currency";
 import { JaBirthdayArticle } from "@/components/articles/ja/JaBirthdayArticle";
+import { EsBirthdayArticle } from "@/components/articles/es/EsDateTimeArticles";
 
 /** Birthday countdown and milestone details. */
 export default function BirthdayCalculator({ seo }: { seo: SeoRecord }) {
@@ -80,6 +81,7 @@ export default function BirthdayCalculator({ seo }: { seo: SeoRecord }) {
         />
 
         {seo.locale === "ja" && <JaBirthdayArticle />}
+        {seo.locale === "es" && <EsBirthdayArticle />}
 
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />
       </Layout>

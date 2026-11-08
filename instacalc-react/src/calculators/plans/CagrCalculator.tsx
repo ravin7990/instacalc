@@ -12,6 +12,7 @@ import { formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
 import { JaCagrArticle } from "@/components/articles/ja/JaCagrArticle";
 import { RuCagrArticle } from "@/components/articles/ru/RuCagrArticle";
 import { InCagrArticle } from "@/components/articles/in/InCagrArticle";
+import { EsCagrArticle } from "@/components/articles/es/EsFinanceArticles";
 import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 
@@ -23,11 +24,12 @@ export default function CagrCalculator({ seo }: { seo: SeoRecord }) {
   const c = planCopy(seo.locale);
   const p = symbol(seo.locale);
   const money = (n: number) => moneyFormat(seo.locale, n);
+  const isEs = seo.locale === "es";
 
   const [mode, setMode] = useState(0);
-  const [initial, setInitial] = useState(100_000);
-  const [finalValue, setFinalValue] = useState(250_000);
-  const [rate, setRate] = useState(12);
+  const [initial, setInitial] = useState(isEs ? 10_000 : 100_000);
+  const [finalValue, setFinalValue] = useState(isEs ? 25_000 : 250_000);
+  const [rate, setRate] = useState(isEs ? 9 : 12);
   const [years, setYears] = useState(10);
 
   const result = useMemo(
@@ -43,14 +45,14 @@ export default function CagrCalculator({ seo }: { seo: SeoRecord }) {
       ? [
           {
             key: "initial", label: c.initialValue, value: initial,
-            min: 1, max: 1_000_000_000, step: 1000,
-            slider: { min: 10_000, max: 10_000_000, step: 10_000 },
+            min: 1, max: 1_000_000_000, step: isEs ? 500 : 1000,
+            slider: { min: isEs ? 1_000 : 10_000, max: isEs ? 500_000 : 10_000_000, step: isEs ? 1_000 : 10_000 },
             prefix: p,
           },
           {
             key: "final", label: c.finalValue, value: finalValue,
-            min: 1, max: 1_000_000_000, step: 1000,
-            slider: { min: 10_000, max: 10_000_000, step: 10_000 },
+            min: 1, max: 1_000_000_000, step: isEs ? 500 : 1000,
+            slider: { min: isEs ? 1_000 : 10_000, max: isEs ? 500_000 : 10_000_000, step: isEs ? 1_000 : 10_000 },
             prefix: p,
           },
           { key: "years", label: c.years, value: years, min: 1, max: 60, step: 1,
@@ -59,8 +61,8 @@ export default function CagrCalculator({ seo }: { seo: SeoRecord }) {
       : [
           {
             key: "initial", label: c.initialValue, value: initial,
-            min: 1, max: 1_000_000_000, step: 1000,
-            slider: { min: 10_000, max: 10_000_000, step: 10_000 },
+            min: 1, max: 1_000_000_000, step: isEs ? 500 : 1000,
+            slider: { min: isEs ? 1_000 : 10_000, max: isEs ? 500_000 : 10_000_000, step: isEs ? 1_000 : 10_000 },
             prefix: p,
           },
           { key: "rate", label: c.cagr, value: rate, min: 0.1, max: 50, step: 0.5, suffix: "%",
@@ -86,7 +88,7 @@ export default function CagrCalculator({ seo }: { seo: SeoRecord }) {
     const initialArr: number[] = [];
 
     for (let y = 0; y <= years; y++) {
-      labels.push(`Yr ${y}`);
+      labels.push(isEs ? `Año ${y}` : seo.locale === "ja" ? `${y}年目` : `Yr ${y}`);
       const val = Math.round(initial * Math.pow(1 + cagrRate, y));
       valArr.push(val);
       initialArr.push(initial);
@@ -99,7 +101,7 @@ export default function CagrCalculator({ seo }: { seo: SeoRecord }) {
         { label: c.initialValue, data: initialArr, color: "#0284c7", dashed: true },
       ],
     };
-  }, [result, years, mode, rate, initial, c.maturity, c.initialValue]);
+  }, [result, years, mode, rate, initial, c.maturity, c.initialValue, isEs, seo.locale]);
 
   return (
     <>
@@ -128,7 +130,7 @@ export default function CagrCalculator({ seo }: { seo: SeoRecord }) {
           inputs={
             <>
               <div className="field-card">
-                <div className="chips-scroll" role="group" aria-label="Calculator mode">
+                <div className="chips-scroll" role="group" aria-label={isEs ? "Modo de cálculo" : "Calculator mode"}>
                   <button
                     type="button"
                     className={`chip${mode === 0 ? " active" : ""}`}
@@ -187,8 +189,18 @@ export default function CagrCalculator({ seo }: { seo: SeoRecord }) {
         >
           {timelineData ? (
             <TimelineGrowthChart
-              title="CAGR Wealth Trajectory"
-              subtitle="Projected compounding growth over the investment horizon"
+              title={
+                isEs
+                  ? "Trayectoria de crecimiento CAGR"
+                  : seo.locale === "ja"
+                  ? "CAGR複利成長グラフ"
+                  : "CAGR Wealth Trajectory"
+              }
+              subtitle={
+                isEs
+                  ? "Evolución proyectada del capital compuesto durante el horizonte temporal"
+                  : "Projected compounding growth over the investment horizon"
+              }
               labels={timelineData.labels}
               datasets={timelineData.datasets}
               locale={seo.locale}
@@ -198,6 +210,7 @@ export default function CagrCalculator({ seo }: { seo: SeoRecord }) {
 
         {seo.locale === "ja" && <JaCagrArticle />}
         {seo.locale === "ru" && <RuCagrArticle />}
+        {seo.locale === "es" && <EsCagrArticle />}
         {seo.locale === "en" && <InCagrArticle />}
 
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />

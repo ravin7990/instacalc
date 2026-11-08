@@ -103,7 +103,41 @@ const ru: FundCopy = {
   year: "Год",
 };
 
-const ALL: Record<Locale, FundCopy> = { en, us: en, ja: en, ru, ko: en };
+const es: FundCopy = {
+  eyebrow: "Fondos de inversión y ETFs",
+  initialInvestment: "Inversión inicial",
+  monthlyTopup: "Aportación mensual",
+  returnRate: "Rentabilidad esperada (CAGR)",
+  years: "Plazo de inversión",
+  stepUp: "Incremento anual de aportación",
+  expenseRatio: "Comisión anual del fondo (TER)",
+  inflation: "Inflación esperada",
+  exitLoad: "Comisión de reembolso",
+  ltcgRate: "Impuesto sobre plusvalías",
+  ltcgExemption: "Mínimo exento de plusvalías",
+  netRedemption: "Valor neto al reembolso",
+  grossCorpus: "Capital bruto acumulado",
+  totalInvested: "Total invertido",
+  estimatedReturns: "Rendimientos estimados",
+  expenseDrag: "Impacto de comisiones",
+  exitLoadAmount: "Comisión de salida aplicada",
+  taxAmount: "Impuestos estimados",
+  realTerms: "Valor en poder adquisitivo actual",
+  effectiveCagr: "CAGR efectivo neto",
+  cumulativeSwp: "Total retirado (SWP)",
+  targetCorpus: "Capital objetivo",
+  requiredInitial: "Capital inicial necesario",
+  scenario: "Escenario de riesgo",
+  conservative: "Conservador",
+  base: "Escenario base",
+  aggressive: "Dinámico / Agresivo",
+  swpStartYear: "Año de inicio de retiros",
+  swpMonthly: "Retiro mensual programado",
+  yearsTable: "Evolución año por año",
+  year: "Año",
+};
+
+const ALL: Record<Locale, FundCopy> = { en, us: en, ja: en, ru, ko: en, es };
 
 export function fundCopy(locale: Locale): FundCopy {
   return ALL[locale] ?? en;

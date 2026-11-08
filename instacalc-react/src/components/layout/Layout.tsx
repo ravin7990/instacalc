@@ -51,6 +51,11 @@ export function buildNav(locale: Locale): NavLink[] {
       { href: "/ko/#real-estate-loan", label: "부동산·대출" },
       { href: "/ko/#finance-invest", label: "재테크" },
     ],
+    es: [
+      { href: "/es/#es-finance", label: "Finanzas" },
+      { href: "/es/#es-time", label: "Fecha y hora" },
+      { href: "/es/#es-geometry", label: "Geometría y obra" },
+    ],
   };
 
   const pages: Array<[string, string]> = [

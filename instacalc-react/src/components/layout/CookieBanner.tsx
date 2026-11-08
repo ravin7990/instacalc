@@ -40,6 +40,12 @@ const COPY: Record<Locale, { text: string; privacy: string; accept: string; esse
     accept: "모두 동의",
     essential: "필수 항목만",
   },
+  es: {
+    text: "Utilizamos cookies y tecnologías similares (incluidos Google AdSense y Analytics) para garantizar la seguridad, analizar el tráfico y personalizar tu experiencia.",
+    privacy: "Política de privacidad",
+    accept: "Aceptar todas",
+    essential: "Solo esenciales",
+  },
 };
 
 export function CookieBanner({ locale }: CookieBannerProps) {

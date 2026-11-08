@@ -62,8 +62,9 @@ export function BreakdownDonutChart({
   items,
   centerLabel,
   locale,
-  ariaLabel = "Financial breakdown chart",
+  ariaLabel,
 }: BreakdownDonutProps) {
+  const resolvedAriaLabel = ariaLabel ?? (locale === "es" ? "Gráfico de desglose financiero" : "Financial breakdown chart");
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartRef = useRef<ChartJS | null>(null);
 
@@ -143,7 +144,7 @@ export function BreakdownDonutChart({
   return (
     <div className="chart-breakdown-card">
       <div className="chart-wrap-doughnut">
-        <canvas ref={canvasRef} aria-label={ariaLabel} role="img" />
+        <canvas ref={canvasRef} aria-label={resolvedAriaLabel} role="img" />
         <div className="chart-center-metric" aria-hidden="true">
           <span className="chart-center-val">{centerDisplayVal}</span>
           <span className="chart-center-sub">{centerDisplaySub}</span>
@@ -184,13 +185,15 @@ export interface TimelineGrowthProps {
  * Reusable growth & trajectory chart for loan payoff, deposit growth, and retirement curves.
  */
 export function TimelineGrowthChart({
-  title = "Growth Trajectory",
+  title,
   subtitle,
   labels,
   datasets,
   locale,
-  ariaLabel = "Growth timeline chart",
+  ariaLabel,
 }: TimelineGrowthProps) {
+  const resolvedTitle = title ?? (locale === "es" ? "Trayectoria de crecimiento" : "Growth Trajectory");
+  const resolvedAriaLabel = ariaLabel ?? (locale === "es" ? "Gráfico de evolución temporal" : "Growth timeline chart");
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const chartRef = useRef<ChartJS | null>(null);
 
@@ -317,12 +320,12 @@ export function TimelineGrowthChart({
     <div className="growth-timeline-card">
       <div className="growth-timeline-header">
         <div>
-          <h3 className="chart-heading">{title}</h3>
+          <h3 className="chart-heading">{resolvedTitle}</h3>
           {subtitle ? <p className="chart-subheading">{subtitle}</p> : null}
         </div>
       </div>
       <div className="chart-wrap-timeline">
-        <canvas ref={canvasRef} aria-label={ariaLabel} role="img" />
+        <canvas ref={canvasRef} aria-label={resolvedAriaLabel} role="img" />
       </div>
     </div>
   );

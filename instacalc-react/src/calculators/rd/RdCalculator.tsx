@@ -6,32 +6,43 @@ import type { Locale } from "@/config/site";
 import { JaRdArticle } from "@/components/articles/ja/JaRdArticle";
 import { RuDepositArticle } from "@/components/articles/ru/RuDepositArticle";
 import { InRdArticle } from "@/components/articles/in/InRdArticle";
+import { EsRdArticle } from "@/components/articles/es/EsFinanceArticles";
 
 export default createCalculatorPage((locale: Locale) => {
   const c = fieldCopy(locale);
   const p = symbol(locale);
   const money = (v: number) => moneyFormat(locale, v);
   const isRu = locale === "ru";
+  const isEs = locale === "es";
 
   return {
     appCategory: "FinanceApplication",
-    eyebrow: isRu ? "Калькулятор пополняемого вклада" : "Deposit Planner",
+    eyebrow: isRu
+      ? "Калькулятор пополняемого вклада"
+      : isEs
+      ? "Plan de ahorro programado"
+      : "Deposit Planner",
     points: [c.maturity, c.investedTotal, c.interest],
     anchor: "rd-calculator",
-    defaults: { deposit: 50_000, rate: 7, years: 10, taxRate: 0 },
+    defaults: { deposit: isEs ? 3_600 : 50_000, rate: isEs ? 3.5 : 7, years: 10, taxRate: isEs ? 19 : 0 },
     fields: [
       {
         key: "deposit",
         label: isRu ? "Регулярный взнос (руб.)" : c.annual,
-        value: 50_000,
-        min: 500,
+        value: isEs ? 3_600 : 50_000,
+        min: isEs ? 100 : 500,
         max: 10_000_000,
-        step: 500,
-        slider: { min: 1000, max: 500_000, step: 1000 },
+        step: isEs ? 100 : 500,
+        slider: { min: isEs ? 500 : 1000, max: isEs ? 50_000 : 500_000, step: isEs ? 500 : 1000 },
         prefix: p,
         chips: isRu
           ? [5000, 10_000, 25_000, 50_000, 100_000].map((v) => ({
               label: `${v / 1000} тыс. ₽`,
+              value: v,
+            }))
+          : isEs
+          ? [1_200, 2_400, 3_600, 6_000, 12_000].map((v) => ({
+              label: `${(v / 1000).toFixed(v % 1000 === 0 ? 0 : 1)}K €`,
               value: v,
             }))
           : [5000, 10_000, 25_000, 50_000, 100_000].map((v) => ({
@@ -43,12 +54,12 @@ export default createCalculatorPage((locale: Locale) => {
       {
         key: "rate",
         label: isRu ? "Процентная ставка по вкладу" : c.rate,
-        value: 7,
-        min: 1,
+        value: isEs ? 3.5 : 7,
+        min: 0.5,
         max: 20,
         step: 0.1,
         suffix: c.percent,
-        chips: [4, 6, 7, 8, 10].map((v) => ({ label: `${v}%`, value: v })),
+        chips: (isEs ? [2.5, 3, 3.5, 4, 5] : [4, 6, 7, 8, 10]).map((v) => ({ label: `${v}%`, value: v })),
       },
       {
         key: "years",
@@ -66,12 +77,15 @@ export default createCalculatorPage((locale: Locale) => {
       {
         key: "taxRate",
         label: isRu ? "Ставка налога на процентный доход (НДФЛ)" : c.taxRate,
-        value: 0,
+        value: isEs ? 19 : 0,
         min: 0,
         max: 50,
         step: 0.5,
         suffix: c.percent,
-        chips: (isRu ? [0, 13, 15] : [0, 15, 20, 30]).map((v) => ({ label: `${v}%`, value: v })),
+        chips: (isRu ? [0, 13, 15] : isEs ? [0, 19, 21, 23] : [0, 15, 20, 30]).map((v) => ({
+          label: `${v}%`,
+          value: v,
+        })),
       },
     ],
     engine: (s) => {
@@ -94,9 +108,25 @@ export default createCalculatorPage((locale: Locale) => {
       centerLabel: isRu ? "Доход" : c.interest,
     }),
     timeline: (r) => ({
-      title: locale === "ja" ? "積立預金残高推移" : isRu ? "Динамика накоплений на вкладе" : "Recurring Deposit Growth Trajectory",
-      subtitle: locale === "ja" ? "積立累計額と利息の推移グラフ" : isRu ? "Рост баланса пополняемого вклада" : "Accumulated balance vs total deposited over time",
-      labels: r.rows.map((row: any) => `${locale === "ja" ? "" : "Yr "}${row.year}${locale === "ja" ? "年目" : ""}`),
+      title:
+        locale === "ja"
+          ? "積立預金残高推移"
+          : isRu
+          ? "Динамика накоплений на вкладе"
+          : isEs
+          ? "Evolución del ahorro programado"
+          : "Recurring Deposit Growth Trajectory",
+      subtitle:
+        locale === "ja"
+          ? "積立累計額と利息の推移グラフ"
+          : isRu
+          ? "Рост баланса пополняемого вклада"
+          : isEs
+          ? "Saldo acumulado frente al total aportado a lo largo del plazo"
+          : "Accumulated balance vs total deposited over time",
+      labels: r.rows.map((row: any) =>
+        isEs ? `Año ${row.year}` : `${locale === "ja" ? "" : "Yr "}${row.year}${locale === "ja" ? "年目" : ""}`,
+      ),
       datasets: [
         {
           label: isRu ? "Итоговый баланс" : c.maturity,
@@ -123,6 +153,6 @@ export default createCalculatorPage((locale: Locale) => {
           money(row.balance),
         ]),
     },
-    guide: locale === "ja" ? <JaRdArticle /> : isRu ? <RuDepositArticle /> : <InRdArticle />,
+    guide: locale === "ja" ? <JaRdArticle /> : isRu ? <RuDepositArticle /> : isEs ? <EsRdArticle /> : <InRdArticle />,
   };
 });

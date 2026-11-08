@@ -38,7 +38,7 @@ export default function App({ path }: { path: string }) {
   }, [path, seo.title, seo.locale]);
 
   useEffect(() => {
-    if (seo.description === "") {
+    if (seo.description === "" || seo.jsonLd.length === 0 || !getSeo(path)) {
       import("@/data/seo.generated.json").then((mod) => {
         const pages = mod.default.pages as Record<string, SeoRecord>;
         const cleanPath = path.endsWith("/index.html") ? path.slice(0, -"index.html".length) : path;
@@ -107,7 +107,7 @@ function fallbackSeo(path: string, locale: SeoRecord["locale"] = "en"): SeoRecor
     canonical: path,
     canonicalMismatch: false,
     title: "InstaCalc",
-    description: "Free online calculators and unit converters.",
+    description: "",
     keywords: "",
     h1: "",
     themeColor: "#0284c7",

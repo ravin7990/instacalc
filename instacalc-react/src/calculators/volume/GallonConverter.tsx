@@ -11,8 +11,22 @@ import { convert } from "@/engines/units";
 import { volCopy } from "@/i18n/volume-labels";
 import { UsGallonArticle } from "@/components/articles/us/UsGallonArticle";
 import { JaGallonArticle } from "@/components/articles/ja/JaGallonArticle";
+import { EsGallonArticle } from "@/components/articles/es/EsGeometryArticles";
 
 function getUnits(locale: Locale) {
+  if (locale === "es") {
+    return [
+      { id: "gal", name: "Galón estadounidense (US gal)" },
+      { id: "impgal", name: "Galón imperial británico (UK gal)" },
+      { id: "drygal", name: "Galón seco EE. UU." },
+      { id: "l", name: "Litro (L)" },
+      { id: "qt", name: "Cuarto de galón (qt)" },
+      { id: "pt", name: "Pinta (pt)" },
+      { id: "cup", name: "Taza (cup)" },
+      { id: "floz", name: "Onza líquida (fl oz)" },
+      { id: "ml", name: "Mililitro (mL)" },
+    ];
+  }
   const isUs = locale === "us";
   return [
     { id: "gal", name: "US Gallon" },
@@ -43,12 +57,12 @@ export default function GallonConverter({ seo }: { seo: SeoRecord }) {
   // Litres is already the headline result, so it is not repeated here.
   const related = useMemo(
     () => [
-      { key: c.usGallons, value: toGallons(amount, from) },
-      { key: c.quarts, value: toUnit(amount, from, "qt") },
-      { key: c.fluidOunces, value: toUnit(amount, from, "floz") },
-      { key: c.millilitres, value: toUnit(amount, from, "ml") },
+      { key: c.usGallons, value: toGallons(amount, from, seo.locale) },
+      { key: c.quarts, value: toUnit(amount, from, "qt", seo.locale) },
+      { key: c.fluidOunces, value: toUnit(amount, from, "floz", seo.locale) },
+      { key: c.millilitres, value: toUnit(amount, from, "ml", seo.locale) },
     ],
-    [amount, from, c],
+    [amount, from, c, seo.locale],
   );
 
   const fields: FieldSpec[] = [
@@ -78,7 +92,7 @@ export default function GallonConverter({ seo }: { seo: SeoRecord }) {
           locale={seo.locale}
           id="gallon-converter"
           title={c.result}
-          summary={result ? { label: c.litres, value: toLitres(amount, from) } : null}
+          summary={result ? { label: c.litres, value: toLitres(amount, from, seo.locale) } : null}
           inputs={
             <>
               {fields.map((spec) => (
@@ -139,7 +153,7 @@ export default function GallonConverter({ seo }: { seo: SeoRecord }) {
                   <span className="kv-key">
                     {amount} {from} =
                   </span>
-                  <span className="kv-value">{result ? `${fmt(result.result)} ${to}` : "—"}</span>
+                  <span className="kv-value">{result ? `${fmt(result.result, seo.locale)} ${to}` : "—"}</span>
                 </li>
                 {related.map((r) => (
                   <li key={r.key}>
@@ -154,6 +168,7 @@ export default function GallonConverter({ seo }: { seo: SeoRecord }) {
 
         {seo.locale === "us" && <UsGallonArticle />}
         {seo.locale === "ja" && <JaGallonArticle />}
+        {seo.locale === "es" && <EsGallonArticle />}
 
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />
       </Layout>
@@ -161,15 +176,16 @@ export default function GallonConverter({ seo }: { seo: SeoRecord }) {
   );
 }
 
-const fmt = (n: number) => Number(n.toPrecision(8)).toLocaleString("en-US");
+const fmt = (n: number, locale: Locale) =>
+  Number(n.toPrecision(8)).toLocaleString(locale === "es" ? "es-ES" : "en-US");
 
-function toLitres(amount: number, from: string) {
-  return `${fmt(convert(amount, from, "l")?.result ?? 0)} L`;
+function toLitres(amount: number, from: string, locale: Locale) {
+  return `${fmt(convert(amount, from, "l")?.result ?? 0, locale)} L`;
 }
-function toGallons(amount: number, from: string) {
-  return `${fmt(convert(amount, from, "gal")?.result ?? 0)} gal`;
+function toGallons(amount: number, from: string, locale: Locale) {
+  return `${fmt(convert(amount, from, "gal")?.result ?? 0, locale)} gal`;
 }
-function toUnit(amount: number, from: string, to: string) {
+function toUnit(amount: number, from: string, to: string, locale: Locale) {
   const r = convert(amount, from, to);
-  return r ? `${fmt(r.result)} ${to}` : "—";
+  return r ? `${fmt(r.result, locale)} ${to}` : "—";
 }

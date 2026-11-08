@@ -175,7 +175,36 @@ const ko: FieldCopy = {
   inclusive: "세금 포함 금액",
 };
 
-const ALL: Record<Locale, FieldCopy> = { en, us, ja, ru, ko };
+const es: FieldCopy = {
+  principal: "Capital / Importe del préstamo",
+  rate: "Tasa de interés anual",
+  percent: "%",
+  years: "Plazo",
+  yearsSuffix: "años",
+  amount: "Importe",
+  invested: "Capital aportado",
+  interest: "Intereses",
+  total: "Total",
+  maturity: "Valor al vencimiento",
+  emi: "Cuota mensual",
+  totalPayment: "Pago total",
+  totalInterest: "Intereses totales",
+  annual: "Aportación anual",
+  monthly: "Aportación mensual",
+  oneTime: "Inversión única",
+  yearsTable: "Desglose año por año",
+  schedule: "Año",
+  investedTotal: "Total aportado",
+  taxRate: "Tipo impositivo",
+  taxAmount: "Importe de impuestos",
+  netAmount: "Importe neto",
+  gstRate: "Tipo de IVA",
+  baseAmount: "Base imponible",
+  exclusive: "Importe sin IVA",
+  inclusive: "Importe con IVA",
+};
+
+const ALL: Record<Locale, FieldCopy> = { en, us, ja, ru, ko, es };
 
 export function fieldCopy(locale: Locale): FieldCopy {
   return ALL[locale] ?? en;

@@ -16,7 +16,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = join(import.meta.dirname, "..");
-const LOCALES = ["en", "us", "ja", "ru", "ko"];
+const LOCALES = ["en", "us", "ja", "ru", "ko", "es"];
 
 const seo = JSON.parse(readFileSync(join(ROOT, "src/data/seo.generated.json"), "utf8"));
 const paths = Object.values(seo.pages).map((p) => p.path);

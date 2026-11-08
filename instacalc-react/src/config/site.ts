@@ -16,7 +16,7 @@ export const SITE = {
   ga: "G-J0ZWXR3T5P",
 } as const;
 
-export const LOCALES = ["en", "us", "ja", "ru", "ko"] as const;
+export const LOCALES = ["en", "us", "ja", "ru", "ko", "es"] as const;
 export type Locale = (typeof LOCALES)[number];
 
 export const LOCALE_META: Record<Locale, { label: string; ogLocale: string; htmlLang: string }> = {
@@ -25,6 +25,7 @@ export const LOCALE_META: Record<Locale, { label: string; ogLocale: string; html
   ja: { label: "日本語", ogLocale: "ja_JP", htmlLang: "ja" },
   ru: { label: "Русский", ogLocale: "ru_RU", htmlLang: "ru" },
   ko: { label: "한국어", ogLocale: "ko_KR", htmlLang: "ko" },
+  es: { label: "Español", ogLocale: "es_ES", htmlLang: "es" },
 };
 
 /** Storage key used by the legacy language switcher/dialog. */

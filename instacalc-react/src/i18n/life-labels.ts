@@ -81,7 +81,22 @@ const ko: CatCopy = {
   yearsSuffix: "년",
 };
 
-const ALL: Record<Locale, CatCopy> = { en, us, ja, ru, ko };
+const es: CatCopy = {
+  eyebrow: "Edad de mascotas",
+  catAge: "Edad del gato",
+  humanAge: "Edad equivalente humana",
+  lifeStage: "Etapa de vida",
+  lifeExpectancy: "Esperanza de vida media",
+  remainingYears: "Años estimados restantes",
+  lifespanUsed: "de esperanza de vida",
+  projection: "Conversión año por año",
+  rounding: "Redondeo",
+  oneDecimal: "Un decimal",
+  wholeYears: "Años enteros",
+  yearsSuffix: "años",
+};
+
+const ALL: Record<Locale, CatCopy> = { en, us, ja, ru, ko, es };
 
 export function catCopy(locale: Locale): CatCopy {
   return ALL[locale] ?? en;

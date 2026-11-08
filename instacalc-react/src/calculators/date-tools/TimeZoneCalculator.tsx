@@ -7,9 +7,10 @@ import { FaqAccordion } from "@/components/calculator/FaqAccordion";
 import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { dateCopy } from "@/i18n/date-labels";
 import { UsTimeZoneArticle } from "@/components/articles/us/UsTimeZoneArticle";
+import { EsTimeZoneArticle } from "@/components/articles/es/EsDateTimeArticles";
 
 /** A small, widely used set of zones covering the site's main audiences. */
-const ZONES = [
+const ZONES_DEFAULT = [
   { id: "Asia/Kolkata", label: "India (IST)" },
   { id: "America/New_York", label: "New York (ET)" },
   { id: "America/Los_Angeles", label: "Los Angeles (PT)" },
@@ -22,7 +23,19 @@ const ZONES = [
   { id: "UTC", label: "UTC" },
 ];
 
-const labelFor = (zone: string) => ZONES.find((z) => z.id === zone)?.label ?? zone;
+const ZONES_ES = [
+  { id: "Europe/Madrid", label: "España — Madrid (CET/CEST)" },
+  { id: "Atlantic/Canary", label: "España — Canarias (WET/WEST)" },
+  { id: "America/Mexico_City", label: "Ciudad de México (CST)" },
+  { id: "America/Bogota", label: "Bogotá / Lima (COT/PET)" },
+  { id: "America/Argentina/Buenos_Aires", label: "Buenos Aires (ART)" },
+  { id: "America/Santiago", label: "Santiago de Chile (CLT)" },
+  { id: "America/New_York", label: "Nueva York / Miami (ET)" },
+  { id: "America/Los_Angeles", label: "Los Ángeles (PT)" },
+  { id: "Europe/London", label: "Londres (GMT/BST)" },
+  { id: "Asia/Tokyo", label: "Tokio (JST)" },
+  { id: "UTC", label: "UTC" },
+];
 
 /** UTC offset in milliseconds for a zone at a given instant, DST included. */
 function offsetOf(instant: number, zone: string): number {
@@ -56,9 +69,13 @@ function offsetLabel(instant: number, zone: string): string {
 /** Converts a wall-clock time between two IANA time zones. */
 export default function TimeZoneCalculator({ seo }: { seo: SeoRecord }) {
   const c = dateCopy(seo.locale);
+  const isEs = seo.locale === "es";
+  const zones = isEs ? ZONES_ES : ZONES_DEFAULT;
+  const labelFor = (zone: string) => zones.find((z) => z.id === zone)?.label ?? zone;
+
   const [time, setTime] = useState("12:00");
-  const [from, setFrom] = useState("America/New_York");
-  const [to, setTo] = useState("Asia/Kolkata");
+  const [from, setFrom] = useState(isEs ? "Europe/Madrid" : "America/New_York");
+  const [to, setTo] = useState(isEs ? "America/Mexico_City" : "Asia/Kolkata");
 
   const result = useMemo(() => {
     const [h, m] = time.split(":").map(Number);
@@ -69,19 +86,19 @@ export default function TimeZoneCalculator({ seo }: { seo: SeoRecord }) {
     const guess = Date.UTC(2026, 0, 15, h, m);
     const instant = new Date(guess - offsetOf(guess, from));
 
-    const formatted = new Intl.DateTimeFormat("en-US", {
+    const formatted = new Intl.DateTimeFormat(isEs ? "es-ES" : "en-US", {
       timeZone: to,
       dateStyle: "full",
       timeStyle: "short",
     }).format(instant);
 
     return { formatted, fromLabel: labelFor(from), toLabel: labelFor(to), instant };
-  }, [time, from, to]);
+  }, [time, from, to, isEs]);
 
   const rows = result
     ? [
-        { k: c.fromDate, v: `${result.fromLabel} (${offsetLabel(result.instant.getTime(), from)})` },
-        { k: c.toDate, v: `${result.toLabel} (${offsetLabel(result.instant.getTime(), to)})` },
+        { k: isEs ? "Zona de origen" : c.fromDate, v: `${result.fromLabel} (${offsetLabel(result.instant.getTime(), from)})` },
+        { k: isEs ? "Zona de destino" : c.toDate, v: `${result.toLabel} (${offsetLabel(result.instant.getTime(), to)})` },
       ]
     : [];
 
@@ -89,13 +106,21 @@ export default function TimeZoneCalculator({ seo }: { seo: SeoRecord }) {
     <>
       <SeoHead seo={seo} appCategory="UtilitiesApplication" />
       <Layout locale={seo.locale}>
-        <CalculatorHero seo={seo} eyebrow={c.eyebrow} points={[c.fromDate, c.toDate, c.today]} />
+        <CalculatorHero
+          seo={seo}
+          eyebrow={c.eyebrow}
+          points={
+            isEs
+              ? ["Zona de origen", "Zona de destino", "Horario de verano (DST)"]
+              : [c.fromDate, c.toDate, c.today]
+          }
+        />
 
         <CalculatorShell
           locale={seo.locale}
           id="time-zone-calculator"
-          title="Converted Time"
-          summary={result ? { label: "To", value: result.formatted } : null}
+          title={isEs ? "Hora convertida" : "Converted Time"}
+          summary={result ? { label: isEs ? "Hora en destino" : "To", value: result.formatted } : null}
           inputs={
             <>
               <div className="field-card">
@@ -113,19 +138,19 @@ export default function TimeZoneCalculator({ seo }: { seo: SeoRecord }) {
 
               <div className="field-card">
                 <div className="field-head">
-                  <label htmlFor="tzFrom">{c.fromDate}</label>
+                  <label htmlFor="tzFrom">{isEs ? "Zona de origen" : c.fromDate}</label>
                 </div>
                 <select id="tzFrom" className="date-input" value={from} onChange={(e) => setFrom(e.target.value)}>
-                  {ZONES.map((z) => (
+                  {zones.map((z) => (
                     <option key={z.id} value={z.id}>{z.label}</option>
                   ))}
                 </select>
 
                 <div className="field-head" style={{ marginTop: "0.75rem" }}>
-                  <label htmlFor="tzTo">{c.toDate}</label>
+                  <label htmlFor="tzTo">{isEs ? "Zona de destino" : c.toDate}</label>
                 </div>
                 <select id="tzTo" className="date-input" value={to} onChange={(e) => setTo(e.target.value)}>
-                  {ZONES.map((z) => (
+                  {zones.map((z) => (
                     <option key={z.id} value={z.id}>{z.label}</option>
                   ))}
                 </select>
@@ -145,7 +170,7 @@ export default function TimeZoneCalculator({ seo }: { seo: SeoRecord }) {
           }
         />
 
-        <UsTimeZoneArticle />
+        {isEs ? <EsTimeZoneArticle /> : <UsTimeZoneArticle />}
 
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />
       </Layout>

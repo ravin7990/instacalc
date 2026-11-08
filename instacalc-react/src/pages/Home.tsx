@@ -10,6 +10,7 @@ import { UsHomeArticle } from "@/components/articles/us/UsHomeArticle";
 import { JaHomeArticle } from "@/components/articles/ja/JaHomeArticle";
 import { KoHomeArticle } from "@/components/articles/ko/KoHomeArticle";
 import { RuHomeArticle } from "@/components/articles/ru/RuHomeArticle";
+import { EsHomeArticle } from "@/components/articles/es/EsHomeArticle";
 import { InHomeArticle } from "@/components/articles/in/InHomeArticle";
 import {
   trackSearch,
@@ -74,6 +75,7 @@ export default function Home({ seo }: { seo: SeoRecord }) {
   const isJa = seo.locale === "ja";
   const isUs = seo.locale === "us";
   const isRu = seo.locale === "ru";
+  const isEs = seo.locale === "es";
 
   const popular =
     isJa
@@ -100,6 +102,15 @@ export default function Home({ seo }: { seo: SeoRecord }) {
           { path: "duration/agecalculator.html", label: "Калькулятор возраста и стажа" },
           { path: "compoundinterest.html", label: "Сложные проценты и капитализация" },
         ]
+      : isEs
+      ? [
+          { path: "compoundinterest.html", label: "Calculadora de interés compuesto" },
+          { path: "mortgage-calculator.html", label: "Calculadora de hipoteca y cuota" },
+          { path: "gstcalculator.html", label: "Calculadora de IVA (21%, 16%, 10%)" },
+          { path: "duration/agecalculator.html", label: "Calculadora de edad exacta" },
+          { path: "moretools/trianglecalculator.html", label: "Calculadora de triángulos" },
+          { path: "moretools/concretecalculator.html", label: "Calculadora de hormigón (m³)" },
+        ]
       : groups[0]?.tools.slice(0, 6) ?? [];
 
   return (
@@ -118,6 +129,8 @@ export default function Home({ seo }: { seo: SeoRecord }) {
                   ? `대한민국 표준 무료 온라인 계산기 ${total}선`
                   : isRu
                   ? `Бесплатные онлайн-калькуляторы (${total})`
+                  : isEs
+                  ? `${total} calculadoras gratuitas en línea`
                   : `${total} free calculator tools`}
               </span>
               <h1>{seo.h1 || seo.title}</h1>
@@ -125,7 +138,15 @@ export default function Home({ seo }: { seo: SeoRecord }) {
 
               <div className="hero-search">
                 <label htmlFor="tool-search" className="sr-only">
-                  {isJa ? "計算機を検索" : isKo ? "계산기 검색" : isRu ? "Поиск калькулятора" : "Search calculators"}
+                  {isJa
+                    ? "計算機を検索"
+                    : isKo
+                    ? "계산기 검색"
+                    : isRu
+                    ? "Поиск калькулятора"
+                    : isEs
+                    ? "Buscar calculadoras"
+                    : "Search calculators"}
                 </label>
                 <span className="hero-search-icon" aria-hidden="true">
                   <Icon name="search" size={18} />
@@ -141,6 +162,8 @@ export default function Home({ seo }: { seo: SeoRecord }) {
                       ? "계산기 검색 — 「콘크리트 루베」, 「대각선·TV 화면」, 「삼각함수」 등…"
                       : isRu
                       ? "Поиск калькуляторов — «кредит», «вклад», «НДС», «бетон», «возраст»…"
+                      : isEs
+                      ? "Buscar calculadoras — prueba «hipoteca», «interés compuesto», «IVA», «edad»…"
                       : isUs
                       ? "Search calculators — try “Mortgage”, “401(k)” or “Paycheck”…"
                       : "Search calculators — try “EMI”, “GST” or “age”…"
@@ -156,7 +179,17 @@ export default function Home({ seo }: { seo: SeoRecord }) {
                   <button
                     type="button"
                     className="hero-search-clear"
-                    aria-label={isJa ? "検索をクリア" : isKo ? "검색어 지우기" : isRu ? "Очистить поиск" : "Clear search"}
+                    aria-label={
+                      isJa
+                        ? "検索をクリア"
+                        : isKo
+                        ? "검색어 지우기"
+                        : isRu
+                        ? "Очистить поиск"
+                        : isEs
+                        ? "Borrar búsqueda"
+                        : "Clear search"
+                    }
                     onClick={() => {
                       setQuery("");
                       trackEvent("search_clear");
@@ -196,6 +229,8 @@ export default function Home({ seo }: { seo: SeoRecord }) {
                           ? `일치하는 계산기 전체 보기 (${results.length}개)`
                           : isRu
                           ? `Показать все подходящие калькуляторы (${results.length})`
+                          : isEs
+                          ? `Ver las ${results.length} calculadoras coincidentes`
                           : `See all ${results.length} matching calculator${results.length === 1 ? "" : "s"}`}
                       </a>
                     </li>
@@ -209,20 +244,46 @@ export default function Home({ seo }: { seo: SeoRecord }) {
                   href="#calculator-library"
                   onClick={() => trackNavClick("hero_cta", "Browse all tools", "#calculator-library")}
                 >
-                  {isJa ? `全${total}種のツールを見る` : isKo ? `전체 ${total}종 계산기 보기` : isRu ? `Все калькуляторы (${total})` : `Browse all ${total} tools`}
+                  {isJa
+                    ? `全${total}種のツールを見る`
+                    : isKo
+                    ? `전체 ${total}종 계산기 보기`
+                    : isRu
+                    ? `Все калькуляторы (${total})`
+                    : isEs
+                    ? `Ver las ${total} herramientas`
+                    : `Browse all ${total} tools`}
                 </a>
                 <a
                   className="btn btn-ghost"
                   href="#unit-converter"
                   onClick={() => trackNavClick("hero_cta", "Try unit converter", "#unit-converter")}
                 >
-                  {isJa ? "単位換算ツールを試す" : isKo ? "스마트 단위 변환기" : isRu ? "Конвертер величин" : "Try unit converter"}
+                  {isJa
+                    ? "単位換算ツールを試す"
+                    : isKo
+                    ? "스마트 단위 변환기"
+                    : isRu
+                    ? "Конвертер величин"
+                    : isEs
+                    ? "Probar conversor de unidades"
+                    : "Try unit converter"}
                 </a>
               </div>
             </div>
 
             <aside className="hero-panel">
-              <h2>{isJa ? "人気の計算ツール" : isKo ? "주요 추천 계산기" : isRu ? "Популярные калькуляторы" : "Popular calculators"}</h2>
+              <h2>
+                {isJa
+                  ? "人気の計算ツール"
+                  : isKo
+                  ? "주요 추천 계산기"
+                  : isRu
+                  ? "Популярные калькуляторы"
+                  : isEs
+                  ? "Calculadoras populares"
+                  : "Popular calculators"}
+              </h2>
               <ul className="quick-links">
                 {popular.map((t) => (
                   <li key={t.path}>
@@ -254,12 +315,56 @@ export default function Home({ seo }: { seo: SeoRecord }) {
         <section id="calculator-library" className="section">
           <div className="container">
             <div className="section-head">
-              <span className="eyebrow">{isJa ? "計算ツール一覧" : isKo ? "계산기 전체 목록" : isRu ? "Каталог калькуляторов" : "Calculator Library"}</span>
-              <h2>{isJa ? "カテゴリー別 全計算ツール" : isKo ? "분야별 온라인 계산 도구" : isRu ? "Все калькуляторы по разделам" : "Every tool, organised by category"}</h2>
-              <p>{isJa ? "カテゴリーを選択するか、キーワード検索で素早く絞り込めます。" : isKo ? "카테고리를 선택하거나 검색어를 입력하여 원하는 도구를 빠르게 찾아보세요." : isRu ? "Выберите раздел или воспользуйтесь быстрым поиском по названию." : "Pick a category or search to narrow things down."}</p>
+              <span className="eyebrow">
+                {isJa
+                  ? "計算ツール一覧"
+                  : isKo
+                  ? "계산기 전체 목록"
+                  : isRu
+                  ? "Каталог калькуляторов"
+                  : isEs
+                  ? "Biblioteca de calculadoras"
+                  : "Calculator Library"}
+              </span>
+              <h2>
+                {isJa
+                  ? "カテゴリー別 全計算ツール"
+                  : isKo
+                  ? "분야별 온라인 계산 도구"
+                  : isRu
+                  ? "Все калькуляторы по разделам"
+                  : isEs
+                  ? "Todas las herramientas organizadas por categoría"
+                  : "Every tool, organised by category"}
+              </h2>
+              <p>
+                {isJa
+                  ? "カテゴリーを選択するか、キーワード検索で素早く絞り込めます。"
+                  : isKo
+                  ? "카테고리를 선택하거나 검색어를 입력하여 원하는 도구를 빠르게 찾아보세요."
+                  : isRu
+                  ? "Выберите раздел или воспользуйтесь быстрым поиском по названию."
+                  : isEs
+                  ? "Selecciona una categoría o busca por palabra clave para encontrar tu herramienta."
+                  : "Pick a category or search to narrow things down."}
+              </p>
             </div>
 
-            <div className="filter-bar" role="group" aria-label={isJa ? "カテゴリーで絞り込み" : isKo ? "카테고리별 필터" : isRu ? "Фильтр по разделам" : "Filter by category"}>
+            <div
+              className="filter-bar"
+              role="group"
+              aria-label={
+                isJa
+                  ? "カテゴリーで絞り込み"
+                  : isKo
+                  ? "카테고리별 필터"
+                  : isRu
+                  ? "Фильтр по разделам"
+                  : isEs
+                  ? "Filtrar por categoría"
+                  : "Filter by category"
+              }
+            >
               <button
                 type="button"
                 className="filter-chip"
@@ -269,7 +374,8 @@ export default function Home({ seo }: { seo: SeoRecord }) {
                   trackEvent("category_filter_click", { category_id: "all" });
                 }}
               >
-                {isJa ? "すべて" : isKo ? "전체" : isRu ? "Все" : "All"} <span className="filter-chip-count">{total}</span>
+                {isJa ? "すべて" : isKo ? "전체" : isRu ? "Все" : isEs ? "Todas" : "All"}{" "}
+                <span className="filter-chip-count">{total}</span>
               </button>
               {groups.map((g) => (
                 <button
@@ -296,14 +402,18 @@ export default function Home({ seo }: { seo: SeoRecord }) {
                   ? `「${query.trim()}」 검색 결과: ${results.length}개`
                   : isRu
                   ? `Результаты поиска «${query.trim()}»: ${results.length}`
+                  : isEs
+                  ? `${results.length} resultado${results.length === 1 ? "" : "s"} para «${query.trim()}»`
                   : `${results.length} match${results.length === 1 ? "" : "es"} for “${query.trim()}”`
                 : isJa
-                  ? `全${results.length}件の計算ツールを表示中`
-                  : isKo
-                  ? `전체 ${results.length}개의 계산기 표시 중`
-                  : isRu
-                  ? `Отображаются все калькуляторы (${results.length})`
-                  : `Showing all ${results.length} calculators`}
+                ? `全${results.length}件の計算ツールを表示中`
+                : isKo
+                ? `전체 ${results.length}개의 계산기 표시 중`
+                : isRu
+                ? `Отображаются все калькуляторы (${results.length})`
+                : isEs
+                ? `Mostrando las ${results.length} calculadoras`
+                : `Showing all ${results.length} calculators`}
             </p>
 
             {results.length ? (
@@ -328,6 +438,8 @@ export default function Home({ seo }: { seo: SeoRecord }) {
                   <>「<strong>{query.trim()}</strong>」에 일치하는 계산기를 찾을 수 없습니다. 다른 검색어를 입력하거나 카테고리를 선택해주세요.</>
                 ) : isRu ? (
                   <>По запросу «<strong>{query.trim()}</strong>» ничего не найдено. Попробуйте изменить формулировку или выберите раздел выше.</>
+                ) : isEs ? (
+                  <>Ninguna calculadora coincide con «<strong>{query.trim()}</strong>». Prueba con un término más corto o elige otra categoría.</>
                 ) : (
                   <>No calculators match <strong>“{query.trim()}”</strong>. Try a shorter word, or pick a different category.</>
                 )}
@@ -340,6 +452,7 @@ export default function Home({ seo }: { seo: SeoRecord }) {
         {seo.locale === "ja" && <JaHomeArticle />}
         {seo.locale === "ko" && <KoHomeArticle />}
         {seo.locale === "ru" && <RuHomeArticle />}
+        {seo.locale === "es" && <EsHomeArticle />}
         {seo.locale === "en" && <InHomeArticle />}
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />
 

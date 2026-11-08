@@ -37,7 +37,7 @@ export function InSwpArticle() {
           Each monthly SWP installment is treated as an independent redemption of mutual fund units subject to First-In-First-Out (FIFO) accounting rules:
         </p>
         <ul>
-          <li><strong>Equity-Oriented Mutual Funds (&gt;65% Equity):</strong> Units held for more than 12 months qualify as Long-Term Capital Gains (LTCG). Under Union Budget rules, LTCG across all equity redemptions up to <strong>₹1,25,000 per financial year is 100% tax-free</strong>. Net long-term gains exceeding ₹1.25 Lakh are taxed at a flat rate of <strong>12.5%</strong> (without indexation). Short-Term Capital Gains (held for ≤12 months) are taxed at <strong>20%</strong>.</li>
+          <li><strong>Equity-Oriented Mutual Funds ({'>'}65% Equity):</strong> Units held for more than 12 months qualify as Long-Term Capital Gains (LTCG). Under Union Budget rules, LTCG across all equity redemptions up to <strong>₹1,25,000 per financial year is 100% tax-free</strong>. Net long-term gains exceeding ₹1.25 Lakh are taxed at a flat rate of <strong>12.5%</strong> (without indexation). Short-Term Capital Gains (held for ≤12 months) are taxed at <strong>20%</strong>.</li>
           <li><strong>Debt Mutual Funds:</strong> For debt fund investments made on or after April 1, 2023, all capital gains upon redemption are treated as short-term and taxed at the investor's applicable income tax slab rate.</li>
           <li><strong>Equity Savings & Conservative Hybrid Funds:</strong> Offer balanced risk profiles that combine equity upside with debt stability, making them popular vehicles for long-term SWP strategies.</li>
         </ul>
@@ -49,7 +49,7 @@ export function InSwpArticle() {
         <ul>
           <li><strong>Conservative (4.0% to 5.0% p.a.):</strong> Highly sustainable over 25–30 year retirement horizons. A ₹1 Crore portfolio supports an initial monthly withdrawal of ₹35,000 to ₹40,000 with a high probability of preserving and growing real capital.</li>
           <li><strong>Moderate (6.0% to 7.0% p.a.):</strong> Suitable for 15–20 year timeframes, assuming a balanced hybrid or multi-asset allocation delivering 9% to 11% average annualized returns.</li>
-          <li><strong>Aggressive (&gt;8.0% p.a.):</strong> High probability of capital depletion during prolonged market drawdowns (Sequence of Returns Risk).</li>
+          <li><strong>Aggressive ({'>'}8.0% p.a.):</strong> High probability of capital depletion during prolonged market drawdowns (Sequence of Returns Risk).</li>
         </ul>
 
         <h3>Best Practices for Structuring an SWP</h3>

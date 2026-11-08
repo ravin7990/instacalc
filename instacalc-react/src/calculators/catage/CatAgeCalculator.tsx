@@ -14,6 +14,7 @@ import { catCopy } from "@/i18n/life-labels";
 import { JaCatAgeArticle } from "@/components/articles/ja/JaCatAgeArticle";
 import { RuCatAgeArticle } from "@/components/articles/ru/RuCatAgeArticle";
 import { InCatAgeArticle } from "@/components/articles/in/InCatAgeArticle";
+import { EsCatAgeArticle } from "@/components/articles/es/EsDateTimeArticles";
 
 export default function CatAgeCalculator({ seo }: { seo: SeoRecord }) {
   const c = catCopy(seo.locale);
@@ -131,6 +132,13 @@ export default function CatAgeCalculator({ seo }: { seo: SeoRecord }) {
                         : result.lifeStage === "Mature" ? "壮年期（7〜10歳）"
                         : result.lifeStage === "Senior" ? "シニア期（11〜14歳）"
                         : "スーパーシニア（15歳以上）"
+                      : seo.locale === "es"
+                      ? result.lifeStage === "Kitten" ? "Gatito (<1 año)"
+                        : result.lifeStage === "Junior" ? "Joven (1-2 años)"
+                        : result.lifeStage === "Prime Adult" ? "Adulto en plenitud (3-6 años)"
+                        : result.lifeStage === "Mature" ? "Maduro (7-10 años)"
+                        : result.lifeStage === "Senior" ? "Sénior (11-14 años)"
+                        : "Geriátrico (15+ años)"
                       : result.lifeStage,
                 },
                 { label: c.remainingYears, value: `${result.humanYearsRemaining} ${c.yearsSuffix}` },
@@ -159,6 +167,13 @@ export default function CatAgeCalculator({ seo }: { seo: SeoRecord }) {
                   : r.stage === "Mature" ? "壮年"
                   : r.stage === "Senior" ? "シニア"
                   : "スーパーシニア"
+                : seo.locale === "es"
+                ? r.stage === "Kitten" ? "Gatito"
+                  : r.stage === "Junior" ? "Joven"
+                  : r.stage === "Prime Adult" ? "Adulto"
+                  : r.stage === "Mature" ? "Maduro"
+                  : r.stage === "Senior" ? "Sénior"
+                  : "Geriátrico"
                 : r.stage,
             ])}
           />
@@ -166,6 +181,7 @@ export default function CatAgeCalculator({ seo }: { seo: SeoRecord }) {
 
         {seo.locale === "ja" && <JaCatAgeArticle />}
         {seo.locale === "ru" && <RuCatAgeArticle />}
+        {seo.locale === "es" && <EsCatAgeArticle />}
         {seo.locale === "en" && <InCatAgeArticle />}
 
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />

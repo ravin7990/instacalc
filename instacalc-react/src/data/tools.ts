@@ -69,6 +69,7 @@ const EN_GROUPS: ToolGroup[] = [
       { path: "moretools/concretecalculator.html", label: "Concrete Calculator" },
       { path: "moretools/diagonalcalculator.html", label: "Diagonal Calculator" },
       { path: "moretools/trignometrycalculator.html", label: "Trigonometry Calculator" },
+      { path: "moretools/trianglecalculator.html", label: "Triangle Calculator" },
       { path: "gallontolitercalculator.html", label: "Gallon to Liter" },
     ],
   },
@@ -181,6 +182,7 @@ const JA_GROUPS: ToolGroup[] = [
       { path: "moretools/concretecalculator.html", label: "生コン・立米(m³)計算機" },
       { path: "moretools/diagonalcalculator.html", label: "対角線・斜辺・画面サイズ計算" },
       { path: "moretools/trignometrycalculator.html", label: "三角関数（sin・cos・tan）角度計算" },
+      { path: "moretools/trianglecalculator.html", label: "三角形計算機（直角・二等辺・不等辺・鈍角・SSS/SAS/ASA）" },
       { path: "gallontolitercalculator.html", label: "ガロンからリットル(L)単位換算" },
     ],
   },
@@ -265,6 +267,7 @@ const KO_GROUPS: ToolGroup[] = [
       { path: "moretools/concretecalculator.html", label: "콘크리트·레미콘 루베(m³) 및 시멘트 배합 계산기" },
       { path: "moretools/diagonalcalculator.html", label: "대각선 계산기 (TV 화면 인치·3-4-5 직각잡기)" },
       { path: "moretools/trignometrycalculator.html", label: "삼각형 및 삼각함수(sin·cos·tan) 각도 계산기" },
+      { path: "moretools/trianglecalculator.html", label: "삼각형 계산기 (직각·이등변·부등변·둔각·SSS/SAS/ASA)" },
     ],
   },
 ];
@@ -277,6 +280,7 @@ const RU_GROUPS: ToolGroup[] = [
       { path: "moretools/concretecalculator.html", label: "Калькулятор бетона (кубы м³, пропорции М200–М350, мешки 50 кг)" },
       { path: "moretools/diagonalcalculator.html", label: "Калькулятор диагонали (экран ТВ в дюймах и см, диагональ комнаты)" },
       { path: "moretools/trignometrycalculator.html", label: "Калькулятор треугольника и тригонометрии (sin, cos, tg)" },
+      { path: "moretools/trianglecalculator.html", label: "Калькулятор треугольника (прямоугольный, равнобедренный, разносторонний)" },
     ],
   },
   {
@@ -328,6 +332,54 @@ const RU_GROUPS: ToolGroup[] = [
  * Groups that end up with no tools are dropped entirely, so no empty section
  * headings are rendered.
  */
+const ES_GROUPS: ToolGroup[] = [
+  {
+    id: "es-finance",
+    name: "Finanzas, préstamos e inversión",
+    tools: [
+      { path: "compoundinterest.html", label: "Calculadora de interés compuesto" },
+      { path: "simpleinterestcalculator.html", label: "Calculadora de interés simple" },
+      { path: "emicalculator.html", label: "Calculadora de préstamos y cuota mensual" },
+      { path: "mortgage-calculator.html", label: "Calculadora de hipoteca y amortización" },
+      { path: "sipcalculator.html", label: "Calculadora de inversión periódica mensual" },
+      { path: "sipcalculatorlumpsump.html", label: "Calculadora de inversión de suma global" },
+      { path: "fdcalculator.html", label: "Calculadora de depósito a plazo fijo" },
+      { path: "rdcalculator.html", label: "Calculadora de ahorro programado" },
+      { path: "gstcalculator.html", label: "Calculadora de IVA (21%, 19%, 16%, 10%, 4%)" },
+      { path: "cagrcalculator.html", label: "Calculadora CAGR de crecimiento anual" },
+      { path: "retirementcalculator.html", label: "Calculadora de jubilación y pensión" },
+      { path: "fire-calculator.html", label: "Calculadora FIRE de independencia financiera" },
+      { path: "swpcalculator.html", label: "Calculadora de retiro sistemático (SWP)" },
+      { path: "mutualfundreturncalculator.html", label: "Calculadora de fondos de inversión y ETFs" },
+    ],
+  },
+  {
+    id: "es-time",
+    name: "Fecha, edad y tiempo",
+    tools: [
+      { path: "duration/agecalculator.html", label: "Calculadora de edad exacta" },
+      { path: "catagecalculator.html", label: "Calculadora de edad de gatos en años humanos" },
+      { path: "duration/birthdaycalculator.html", label: "Calculadora de cumpleaños y próximo aniversario" },
+      { path: "duration/dayscalculator.html", label: "Calculadora de días entre fechas y días hábiles" },
+      { path: "duration/weekcalculator.html", label: "Calculadora de semanas y número de semana ISO" },
+      { path: "duration/hourcalculator.html", label: "Calculadora de horas trabajadas y descansos" },
+      { path: "duration/minutes-hourscalculator.html", label: "Conversor de minutos a horas y horas decimales" },
+      { path: "duration/timezonecalculator.html", label: "Conversor de zona horaria mundial" },
+    ],
+  },
+  {
+    id: "es-geometry",
+    name: "Geometría, construcción y conversión",
+    tools: [
+      { path: "moretools/trianglecalculator.html", label: "Calculadora de triángulos (rectángulo, isósceles, LLL/LAL/ALA)" },
+      { path: "moretools/diagonalcalculator.html", label: "Calculadora de diagonal y tamaño de pantalla" },
+      { path: "moretools/trignometrycalculator.html", label: "Calculadora de trigonometría (sen, cos, tan)" },
+      { path: "moretools/concretecalculator.html", label: "Calculadora de hormigón / concreto en m³ y sacos" },
+      { path: "gallontolitercalculator.html", label: "Conversor de galones a litros" },
+    ],
+  },
+];
+
 export function toolGroups(locale: Locale): ToolGroup[] {
   const base =
     locale === "us"
@@ -338,6 +390,8 @@ export function toolGroups(locale: Locale): ToolGroup[] {
       ? KO_GROUPS
       : locale === "ru"
       ? RU_GROUPS
+      : locale === "es"
+      ? ES_GROUPS
       : EN_GROUPS;
 
   return base

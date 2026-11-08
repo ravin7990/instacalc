@@ -11,6 +11,7 @@ const CONFIG: Record<Locale, { locale: string; currency: string; symbol: string 
   ja: { locale: "ja-JP", currency: "JPY", symbol: "¥" },
   ru: { locale: "ru-RU", currency: "RUB", symbol: "₽" },
   ko: { locale: "ko-KR", currency: "KRW", symbol: "₩" },
+  es: { locale: "es-ES", currency: "EUR", symbol: "€" },
 };
 
 /** Pair of formatters, created once per locale. */
@@ -88,6 +89,11 @@ export function formatCompact(locale: Locale, value: number): string {
       if (abs >= 1e6) return `${sign}${(abs / 1e6).toFixed(1)} млн ₽`;
       if (abs >= 1e3) return `${sign}${Math.round(abs / 1e3)} тыс. ₽`;
       break;
+    case "es":
+      if (abs >= 1e9) return `${sign}${(abs / 1e9).toFixed(1)} mil M €`;
+      if (abs >= 1e6) return `${sign}${(abs / 1e6).toFixed(1)} M €`;
+      if (abs >= 1e3) return `${sign}${Math.round(abs / 1e3)} mil €`;
+      break;
     case "us":
       if (abs >= 1e9) return `${sign}${s}${(abs / 1e9).toFixed(1)}B`;
       if (abs >= 1e6) return `${sign}${s}${(abs / 1e6).toFixed(1)}M`;
@@ -123,6 +129,7 @@ export function formatWithUnits(locale: Locale, value: number): string {
       if (abs >= 1e3) return `${sign}${Math.round(abs / 1e3)} тыс. ₽`;
       break;
     case "us":
+    case "es":
       return `${sign}${formatCurrency(locale, abs)}`;
     default:
       if (abs >= 1e7) return `${sign}${s}${(abs / 1e7).toFixed(2)} Cr`;
@@ -217,5 +224,3 @@ export function formatKoreanWonText(value: number): string {
   }
   return `${sign}${Math.round(abs).toLocaleString("ko-KR")}원`;
 }
-
-

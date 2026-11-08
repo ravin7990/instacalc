@@ -23,6 +23,7 @@ describe("pageExists", () => {
     expect(pageExists("ja", "/ja/")).toBe(true);
     expect(pageExists("ru", "/ru/")).toBe(true);
     expect(pageExists("ko", "/ko/")).toBe(true);
+    expect(pageExists("es", "/es/")).toBe(true);
   });
 
   it("resolves a bare filename strictly within the locale", () => {
@@ -143,6 +144,18 @@ describe("buildNav", () => {
     ]);
   });
 
+  it("renders a full nav for /es/, pointing home to /es/", () => {
+    expect(buildNav("es").map((l) => l.href)).toEqual([
+      "/es/",
+      "/es/#es-finance",
+      "/es/#es-time",
+      "/es/#es-geometry",
+      "/es/aboutus.html",
+      "/es/contactus.html",
+      "/es/privacypolicy.html",
+    ]);
+  });
+
   it("has no duplicate hrefs (React key collisions)", () => {
     for (const locale of LOCALES) {
       const hrefs = buildNav(locale as Locale).map((l) => l.href);
@@ -158,6 +171,7 @@ describe("localeHome", () => {
     expect(localeHome("ja")).toBe("/ja/");
     expect(localeHome("ru")).toBe("/ru/");
     expect(localeHome("ko")).toBe("/ko/");
+    expect(localeHome("es")).toBe("/es/");
   });
 
   it("always resolves, for every locale", () => {
@@ -186,10 +200,11 @@ describe("toolGroups", () => {
 
   it("lists the full catalogue for /en/ but a subset elsewhere", () => {
     const count = (l: Locale) => toolGroups(l).reduce((n, g) => n + g.tools.length, 0);
-    expect(count("en")).toBe(30);
+    expect(count("en")).toBe(31);
     expect(count("us")).toBe(23);
     expect(count("ru")).toBeLessThan(count("en"));
-    // /ko/ now carries 38 localized calculators in its catalogue.
-    expect(count("ko")).toBe(38);
+    // /ko/ now carries 39 localized calculators in its catalogue.
+    expect(count("ko")).toBe(39);
+    expect(count("es")).toBe(27);
   });
 });

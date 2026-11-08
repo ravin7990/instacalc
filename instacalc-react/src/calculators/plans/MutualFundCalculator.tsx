@@ -13,6 +13,7 @@ import { formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@
 import { JaMutualFundArticle } from "@/components/articles/ja/JaMutualFundArticle";
 import { RuMutualFundArticle } from "@/components/articles/ru/RuMutualFundArticle";
 import { InSipArticle } from "@/components/articles/in/InSipArticle";
+import { EsMutualFundArticle } from "@/components/articles/es/EsFinanceArticles";
 import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 const SCENARIOS: RiskScenario[] = ["conservative", "base", "aggressive"];
@@ -27,11 +28,22 @@ export default function MutualFundCalculator({ seo }: { seo: SeoRecord }) {
   const money = (n: number) => moneyFormat(seo.locale, n);
 
   const isRu = seo.locale === "ru";
+  const isEs = seo.locale === "es";
   const [s, setS] = useState({
-    initial: 500_000, topup: 10_000, rate: 12, years: 15,
-    stepUp: 5, expense: 1, inflation: isRu ? 7 : 6, exitLoad: isRu ? 0 : 1,
-    ltcg: isRu ? 13 : 12.5, exemption: isRu ? 3_000_000 : 125_000, swpYear: 0, swp: 0,
-    target: 20_000_000, scenario: 1,
+    initial: isEs ? 15_000 : 500_000,
+    topup: isEs ? 300 : 10_000,
+    rate: isEs ? 8 : 12,
+    years: 15,
+    stepUp: isEs ? 3 : 5,
+    expense: isEs ? 0.3 : 1,
+    inflation: isRu ? 7 : isEs ? 3 : 6,
+    exitLoad: isRu || isEs ? 0 : 1,
+    ltcg: isRu ? 13 : isEs ? 19 : 12.5,
+    exemption: isRu ? 3_000_000 : isEs ? 0 : 125_000,
+    swpYear: 0,
+    swp: 0,
+    target: isEs ? 250_000 : 20_000_000,
+    scenario: 1,
   });
 
   const result = useMemo(
@@ -59,35 +71,61 @@ export default function MutualFundCalculator({ seo }: { seo: SeoRecord }) {
 
   const fields: FieldSpec[] = [
     {
-      key: "initial", label: c.initialInvestment, value: s.initial,
-      min: 0, max: 100_000_000, step: 10_000,
-      slider: { min: 0, max: 5_000_000, step: 50_000 },
+      key: "initial",
+      label: c.initialInvestment,
+      value: s.initial,
+      min: 0,
+      max: 100_000_000,
+      step: isEs ? 1_000 : 10_000,
+      slider: { min: 0, max: isEs ? 500_000 : 5_000_000, step: isEs ? 5_000 : 50_000 },
       prefix: p,
-      chips: [100_000, 250_000, 500_000, 1_000_000, 2_000_000].map((v) => ({
-        label: seo.locale === "ja"
-          ? `${v / 10_000}万円`
-          : isRu
-          ? (v >= 1_000_000 ? `${v / 1_000_000} млн ₽` : `${v / 1000} тыс. ₽`)
-          : `${p}${v / 100_000}L`,
-        value: v,
-      })),
+      chips: isEs
+        ? [5_000, 15_000, 30_000, 50_000, 100_000].map((v) => ({
+            label: `${v / 1000}K €`,
+            value: v,
+          }))
+        : [100_000, 250_000, 500_000, 1_000_000, 2_000_000].map((v) => ({
+            label:
+              seo.locale === "ja"
+                ? `${v / 10_000}万円`
+                : isRu
+                ? v >= 1_000_000
+                  ? `${v / 1_000_000} млн ₽`
+                  : `${v / 1000} тыс. ₽`
+                : `${p}${v / 100_000}L`,
+            value: v,
+          })),
     },
     {
-      key: "topup", label: c.monthlyTopup, value: s.topup,
-      min: 0, max: 1_000_000, step: 500,
-      slider: { min: 0, max: 100_000, step: 500 },
+      key: "topup",
+      label: c.monthlyTopup,
+      value: s.topup,
+      min: 0,
+      max: 1_000_000,
+      step: isEs ? 50 : 500,
+      slider: { min: 0, max: isEs ? 5_000 : 100_000, step: isEs ? 50 : 500 },
       prefix: p,
-      chips: [0, 5000, 10000, 25000, 50000].map((v) => ({
-        label: seo.locale === "ja"
-          ? (v >= 10_000 ? `${v / 10_000}万円` : `${v}円`)
-          : isRu
-          ? (v === 0 ? "0 ₽" : `${v / 1000} тыс. ₽`)
-          : `${p}${v}`,
-        value: v,
-      })),
+      chips: isEs
+        ? [0, 150, 300, 600, 1200].map((v) => ({
+            label: `${v} €`,
+            value: v,
+          }))
+        : [0, 5000, 10000, 25000, 50000].map((v) => ({
+            label:
+              seo.locale === "ja"
+                ? v >= 10_000
+                  ? `${v / 10_000}万円`
+                  : `${v}円`
+                : isRu
+                ? v === 0
+                  ? "0 ₽"
+                  : `${v / 1000} тыс. ₽`
+                : `${p}${v}`,
+            value: v,
+          })),
     },
     { key: "rate", label: c.returnRate, value: s.rate, min: 1, max: 25, step: 0.5, suffix: "%",
-      chips: [8, 10, 12, 14, 18].map((v) => ({ label: `${v}%`, value: v })) },
+      chips: [6, 8, 10, 12, 15].map((v) => ({ label: `${v}%`, value: v })) },
     { key: "years", label: c.years, value: s.years, min: 1, max: 40, step: 1,
       slider: { min: 3, max: 30, step: 1 },
       suffix: c.year,
@@ -96,19 +134,19 @@ export default function MutualFundCalculator({ seo }: { seo: SeoRecord }) {
 
   const advancedFields: FieldSpec[] = [
     { key: "stepUp", label: c.stepUp, value: s.stepUp, min: 0, max: 25, step: 1, suffix: "%",
-      chips: [0, 5, 10, 15].map((v) => ({ label: `${v}%`, value: v })) },
+      chips: [0, 3, 5, 10, 15].map((v) => ({ label: `${v}%`, value: v })) },
     { key: "expense", label: c.expenseRatio, value: s.expense, min: 0, max: 5, step: 0.05, suffix: "%",
-      chips: [0.5, 1, 1.5, 2].map((v) => ({ label: `${v}%`, value: v })) },
+      chips: [0.2, 0.5, 1, 1.5, 2].map((v) => ({ label: `${v}%`, value: v })) },
     { key: "inflation", label: c.inflation, value: s.inflation, min: 0, max: 15, step: 0.5, suffix: "%",
-      chips: [4, 5, 6, 8].map((v) => ({ label: `${v}%`, value: v })) },
+      chips: [2, 3, 4, 6, 8].map((v) => ({ label: `${v}%`, value: v })) },
     { key: "exitLoad", label: c.exitLoad, value: s.exitLoad, min: 0, max: 10, step: 0.25, suffix: "%",
       chips: [0, 0.5, 1, 2].map((v) => ({ label: `${v}%`, value: v })) },
     { key: "ltcg", label: c.ltcgRate, value: s.ltcg, min: 0, max: 40, step: 0.5, suffix: "%",
-      chips: [10, 12.5, 20].map((v) => ({ label: `${v}%`, value: v })) },
-    { key: "exemption", label: c.ltcgExemption, value: s.exemption, min: 0, max: 2_000_000, step: 25_000, prefix: p },
+      chips: (isEs ? [0, 19, 21, 23] : [10, 12.5, 20]).map((v) => ({ label: `${v}%`, value: v })) },
+    { key: "exemption", label: c.ltcgExemption, value: s.exemption, min: 0, max: 2_000_000, step: isEs ? 1_000 : 25_000, prefix: p },
     { key: "swpYear", label: c.swpStartYear, value: s.swpYear, min: 0, max: 40, step: 1,
       chips: [0, 5, 10, 15, 20].map((v) => ({ label: `${v}`, value: v })) },
-    { key: "swp", label: c.swpMonthly, value: s.swp, min: 0, max: 1_000_000, step: 5000, prefix: p },
+    { key: "swp", label: c.swpMonthly, value: s.swp, min: 0, max: 1_000_000, step: isEs ? 100 : 5000, prefix: p },
   ];
 
   const scenarioLabels = [c.conservative, c.base, c.aggressive];
@@ -167,7 +205,7 @@ export default function MutualFundCalculator({ seo }: { seo: SeoRecord }) {
               <Field
                 spec={{
                   key: "target", label: c.targetCorpus, value: s.target,
-                  min: 0, max: 500_000_000, step: 500_000,
+                  min: 0, max: 500_000_000, step: isEs ? 10_000 : 500_000,
                   prefix: p,
                 }}
                 onChange={set("target")}
@@ -197,9 +235,23 @@ export default function MutualFundCalculator({ seo }: { seo: SeoRecord }) {
           }
         >
           <TimelineGrowthChart
-            title={seo.locale === "ja" ? "投資信託資産推移グラフ" : "Mutual Fund Growth Trajectory"}
-            subtitle={seo.locale === "ja" ? "投資元本と運用資産の推移" : "Projected gross corpus vs invested amount over tenure"}
-            labels={result.rows.map((r) => `${seo.locale === "ja" ? "" : "Yr "}${r.year}${seo.locale === "ja" ? "年目" : ""}`)}
+            title={
+              seo.locale === "ja"
+                ? "投資信託資産推移グラフ"
+                : isEs
+                ? "Trayectoria de fondos de inversión y ETFs"
+                : "Mutual Fund Growth Trajectory"
+            }
+            subtitle={
+              seo.locale === "ja"
+                ? "投資元本と運用資産の推移"
+                : isEs
+                ? "Patrimonio bruto proyectado frente al capital aportado durante el plazo"
+                : "Projected gross corpus vs invested amount over tenure"
+            }
+            labels={result.rows.map((r) =>
+              isEs ? `Año ${r.year}` : `${seo.locale === "ja" ? "" : "Yr "}${r.year}${seo.locale === "ja" ? "年目" : ""}`,
+            )}
             datasets={[
               {
                 label: c.grossCorpus,
@@ -230,6 +282,7 @@ export default function MutualFundCalculator({ seo }: { seo: SeoRecord }) {
 
         {seo.locale === "ja" && <JaMutualFundArticle />}
         {seo.locale === "ru" && <RuMutualFundArticle />}
+        {seo.locale === "es" && <EsMutualFundArticle />}
         {seo.locale === "en" && <InSipArticle />}
 
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />

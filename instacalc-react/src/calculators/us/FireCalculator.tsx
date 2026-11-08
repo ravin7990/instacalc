@@ -10,6 +10,7 @@ import { calculateFire, type FireTier, type FireTiming } from "@/engines/us-reti
 import { usCopy } from "@/i18n/us-labels";
 import { formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
 import { UsFireArticle } from "@/components/articles/us/UsFireArticle";
+import { EsFireArticle } from "@/components/articles/es/EsFinanceArticles";
 import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 const TIERS: FireTier[] = ["lean", "standard", "fat"];
@@ -20,10 +21,16 @@ export default function FireCalculator({ seo }: { seo: SeoRecord }) {
   const c = usCopy(seo.locale);
   const p = symbol(seo.locale);
   const money = (n: number) => moneyFormat(seo.locale, n);
+  const isEs = seo.locale === "es";
 
   const [s, setS] = useState({
-    expenses: 60_000, netWorth: 150_000, savings: 30_000,
-    swr: 4, ret: 7, tier: 1, timing: 0,
+    expenses: isEs ? 24_000 : 60_000,
+    netWorth: isEs ? 60_000 : 150_000,
+    savings: isEs ? 12_000 : 30_000,
+    swr: 4,
+    ret: 7,
+    tier: 1,
+    timing: 0,
   });
 
   const result = useMemo(
@@ -46,18 +53,24 @@ export default function FireCalculator({ seo }: { seo: SeoRecord }) {
   const fields: FieldSpec[] = [
     {
       key: "expenses", label: c.annualExpenses, value: s.expenses,
-      min: 10_000, max: 1_000_000, step: 1_000,
-      slider: { min: 20_000, max: 300_000, step: 5_000 },
+      min: isEs ? 5_000 : 10_000, max: 1_000_000, step: 1_000,
+      slider: { min: isEs ? 10_000 : 20_000, max: isEs ? 150_000 : 300_000, step: isEs ? 2_000 : 5_000 },
       prefix: p,
-      chips: [30_000, 45_000, 60_000, 90_000, 120_000].map((v) => ({ label: `${p}${v / 1000}K`, value: v })),
+      chips: (isEs ? [18_000, 24_000, 36_000, 50_000, 75_000] : [30_000, 45_000, 60_000, 90_000, 120_000]).map((v) => ({
+        label: isEs ? `${v / 1000}K €` : `${p}${v / 1000}K`,
+        value: v,
+      })),
     },
-    { key: "netWorth", label: c.netWorth, value: s.netWorth, min: 0, max: 20_000_000, step: 5_000, prefix: p },
+    { key: "netWorth", label: c.netWorth, value: s.netWorth, min: 0, max: 20_000_000, step: isEs ? 2_500 : 5_000, prefix: p },
     {
       key: "savings", label: c.annualSavings, value: s.savings,
       min: 0, max: 1_000_000, step: 1_000,
-      slider: { min: 5_000, max: 200_000, step: 5_000 },
+      slider: { min: isEs ? 2_000 : 5_000, max: isEs ? 100_000 : 200_000, step: isEs ? 2_000 : 5_000 },
       prefix: p,
-      chips: [10_000, 20_000, 30_000, 50_000, 100_000].map((v) => ({ label: `${p}${v / 1000}K`, value: v })),
+      chips: (isEs ? [6_000, 12_000, 20_000, 30_000, 50_000] : [10_000, 20_000, 30_000, 50_000, 100_000]).map((v) => ({
+        label: isEs ? `${v / 1000}K €` : `${p}${v / 1000}K`,
+        value: v,
+      })),
     },
     { key: "swr", label: c.safeWithdrawalRate, value: s.swr, min: 1, max: 10, step: 0.5, suffix: "%",
       chips: [3, 3.5, 4, 4.5, 5].map((v) => ({ label: `${v}%`, value: v })) },
@@ -66,7 +79,14 @@ export default function FireCalculator({ seo }: { seo: SeoRecord }) {
   ];
 
   const pct = Math.round(result.progressPercent);
-  const years = result.yearsToFire === null ? "—" : result.yearsToFire === 0 ? "Reached" : `${result.yearsToFire} ${c.year}`;
+  const years =
+    result.yearsToFire === null
+      ? "—"
+      : result.yearsToFire === 0
+      ? isEs
+        ? "Alcanzado"
+        : "Reached"
+      : `${result.yearsToFire} ${c.year}`;
 
   const timelineData = useMemo(() => {
     const horizon = Math.min(35, Math.max(10, (result.yearsToFire ?? 20) + 5));
@@ -77,7 +97,7 @@ export default function FireCalculator({ seo }: { seo: SeoRecord }) {
 
     let balance = s.netWorth;
     for (let y = 0; y <= horizon; y++) {
-      labels.push(`Yr ${y}`);
+      labels.push(isEs ? `Año ${y}` : `Yr ${y}`);
       netWorthArr.push(Math.round(balance));
       targetArr.push(Math.round(result.target));
       if (y < horizon) {
@@ -98,7 +118,7 @@ export default function FireCalculator({ seo }: { seo: SeoRecord }) {
         { label: c.fireTarget, data: targetArr, color: "#f59e0b", dashed: true },
       ],
     };
-  }, [s, result.target, result.yearsToFire, c.netWorth, c.fireTarget]);
+  }, [s, result.target, result.yearsToFire, c.netWorth, c.fireTarget, isEs]);
 
   return (
     <>
@@ -150,7 +170,7 @@ export default function FireCalculator({ seo }: { seo: SeoRecord }) {
                 >
                   <span className="progress-fill" style={{ width: `${pct}%` }} />
                 </div>
-                <p className="field-result">{pct}% of {c.fireTarget}</p>
+                <p className="field-result">{isEs ? `${pct}% de ${c.fireTarget}` : `${pct}% of ${c.fireTarget}`}</p>
               </div>
             </>
           }
@@ -199,15 +219,19 @@ export default function FireCalculator({ seo }: { seo: SeoRecord }) {
           }
         >
           <TimelineGrowthChart
-            title="FIRE Net Worth Accumulation Trajectory"
-            subtitle="Projected portfolio growth toward financial independence target"
+            title={isEs ? "Trayectoria hacia el patrimonio FIRE" : "FIRE Net Worth Accumulation Trajectory"}
+            subtitle={
+              isEs
+                ? "Crecimiento proyectado de la cartera hacia el objetivo de independencia financiera"
+                : "Projected portfolio growth toward financial independence target"
+            }
             labels={timelineData.labels}
             datasets={timelineData.datasets}
             locale={seo.locale}
           />
         </CalculatorShell>
 
-        <UsFireArticle />
+        {isEs ? <EsFireArticle /> : <UsFireArticle />}
 
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />
       </Layout>

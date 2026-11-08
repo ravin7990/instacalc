@@ -23,6 +23,10 @@ const BY_PATH: Record<string, ContentPage> = {
   "/ru/contactus.html": pages["ru/contactus.html"],
   "/ru/privacypolicy.html": pages["ru/privacypolicy.html"],
   "/ko/privacypolicy.html": pages["ko/privacypolicy.html"],
+  "/es/aboutus.html": pages["es/aboutus.html"],
+  "/es/contactus.html": pages["es/contactus.html"],
+  "/es/privacypolicy.html": pages["es/privacypolicy.html"],
+  "/es/terms.html": pages["es/terms.html"],
 };
 
 /**

@@ -230,7 +230,53 @@ const ko: DateCopy = {
   days_: "일",
 };
 
-const ALL: Record<Locale, DateCopy> = { en, us, ja, ru, ko };
+const es: DateCopy = {
+  eyebrow: "Fecha y hora",
+  age: "Edad exacta",
+  years: "Años",
+  dob: "Fecha de nacimiento",
+  target: "Edad en la fecha",
+  today: "Hoy",
+  oneYearAgo: "Hace 1 año",
+  tenYearsAgo: "Hace 10 años",
+  twentyFiveYearsAgo: "Hace 25 años",
+  pickDate: "Selecciona una fecha para calcular.",
+  nextBirthday: "Próximo cumpleaños",
+  totalMonths: "Meses totales",
+  totalWeeks: "Semanas totales",
+  totalDays: "Días totales",
+  totalHours: "Horas totales",
+  totalMinutes: "Minutos totales",
+  bornOn: "Día de nacimiento",
+  zodiac: "Signo zodiacal",
+  birthstone: "Piedra natal",
+  leapYears: "Años bisiestos",
+  days: "días",
+  weeks: "semanas",
+  fromDate: "Fecha de inicio",
+  toDate: "Fecha final",
+  calendarDays: "Días naturales",
+  businessDays: "Días hábiles",
+  weeksBetween: "Semanas entre fechas",
+  isoWeek: "Número de semana ISO",
+  isoYear: "Año de semana ISO",
+  addWeeks: "Sumar / restar semanas",
+  resultDate: "Fecha resultante",
+  minutes: "Minutos",
+  hours: "Horas",
+  decimalHours: "Horas decimales",
+  timeHms: "Tiempo (HH:MM:SS)",
+  totalTime: "Tiempo total",
+  startTime: "Hora de entrada",
+  endTime: "Hora de salida",
+  breakTime: "Descanso (minutos)",
+  days_: "Días",
+  nextFallsOn: "Próximo cumpleaños cae en",
+  halfLifetime: "Mitad de vida actual",
+  nextBirthdayDate: "Fecha del próximo cumpleaños",
+};
+
+const ALL: Record<Locale, DateCopy> = { en, us, ja, ru, ko, es };
 
 export function ageCopy(locale: Locale): DateCopy {
   return ALL[locale] ?? en;

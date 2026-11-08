@@ -70,6 +70,12 @@ const BREAKDOWN_LABELS: Record<Locale, BreakdownLabels> = {
     centerBadge: "수익률",
     ariaLabel: "투자액 대비 예상 수익 도넛 차트",
   },
+  es: {
+    invested: "Total aportado",
+    returns: "Ganancias estimadas",
+    centerBadge: "Ganancias",
+    ariaLabel: "Gráfico circular de capital aportado frente a ganancias estimadas",
+  },
 };
 
 /**
@@ -232,6 +238,15 @@ const GROWTH_LABELS: Record<Locale, GrowthLabels> = {
     yearPrefix: "",
     yearSuffix: "년",
     ariaLabel: "연도별 총 투자액과 예상 자산 증가 차트",
+  },
+  es: {
+    title: "Evolución del patrimonio",
+    subtitle: "Capital proyectado frente al total aportado a lo largo del tiempo",
+    corpus: "Capital proyectado",
+    invested: "Total aportado",
+    yearPrefix: "Año ",
+    yearSuffix: "",
+    ariaLabel: "Gráfico de evolución anual del patrimonio y aportaciones acumuladas",
   },
 };
 

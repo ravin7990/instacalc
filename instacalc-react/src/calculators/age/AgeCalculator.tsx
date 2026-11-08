@@ -13,6 +13,7 @@ import { UsAgeArticle } from "@/components/articles/us/UsAgeArticle";
 import { JaAgeArticle } from "@/components/articles/ja/JaAgeArticle";
 import { RuAgeArticle } from "@/components/articles/ru/RuAgeArticle";
 import { InAgeArticle } from "@/components/articles/in/InAgeArticle";
+import { EsAgeArticle } from "@/components/articles/es/EsDateTimeArticles";
 
 function formatAgeSummary(locale: string, y: number, m: number, d: number): string {
   if (locale === "ja") {
@@ -31,6 +32,9 @@ function formatAgeSummary(locale: string, y: number, m: number, d: number): stri
       return `${num} ${five}`;
     };
     return `${plural(y, "год", "года", "лет")} ${plural(m, "месяц", "месяца", "месяцев")} ${plural(d, "день", "дня", "дней")}`;
+  }
+  if (locale === "es") {
+    return `${y} ${y === 1 ? "año" : "años"}, ${m} ${m === 1 ? "mes" : "meses"}, ${d} ${d === 1 ? "día" : "días"}`;
   }
   if (locale === "en") {
     return `${y} years, ${m} months, ${d} days`;
@@ -98,6 +102,36 @@ const JA_BIRTHSTONES: Record<string, string> = {
   Turquoise: "ターコイズ",
 };
 
+const ES_ZODIAC: Record<string, string> = {
+  Capricorn: "Capricornio",
+  Aquarius: "Acuario",
+  Pisces: " Piscis".trim(),
+  Aries: "Aries",
+  Taurus: "Tauro",
+  Gemini: "Géminis",
+  Cancer: "Cáncer",
+  Leo: "Leo",
+  Virgo: "Virgo",
+  Libra: "Libra",
+  Scorpio: "Escorpio",
+  Sagittarius: "Sagitario",
+};
+
+const ES_BIRTHSTONES: Record<string, string> = {
+  Garnet: "Granate",
+  Amethyst: "Amatista",
+  Aquamarine: "Aguamarina",
+  Diamond: "Diamante",
+  Emerald: "Esmeralda",
+  Pearl: "Perla",
+  Ruby: "Rubí",
+  Peridot: "Peridoto",
+  Sapphire: "Zafiro",
+  Opal: "Ópalo",
+  Topaz: "Topacio",
+  Turquoise: "Turquesa",
+};
+
 /**
  * Age calculator. Serves both /agecalculator.html and /duration/agecalculator.html
  * — the two legacy pages share one calculation, differing only in which results
@@ -126,6 +160,7 @@ export default function AgeCalculator({ seo }: { seo: SeoRecord }) {
     const isKo = seo.locale === "ko";
     const isRu = seo.locale === "ru";
     const isUs = seo.locale === "us";
+    const isEs = seo.locale === "es";
 
     if (isJa) {
       return [
@@ -149,6 +184,14 @@ export default function AgeCalculator({ seo }: { seo: SeoRecord }) {
         { label: "21 год", iso: toIsoDate(addToDate(new Date(), { years: -21 })) },
         { label: "25 лет", iso: toIsoDate(addToDate(new Date(), { years: -25 })) },
         { label: "60 лет", iso: toIsoDate(addToDate(new Date(), { years: -60 })) },
+      ];
+    }
+    if (isEs) {
+      return [
+        { label: "18 años", iso: toIsoDate(addToDate(new Date(), { years: -18 })) },
+        { label: "21 años", iso: toIsoDate(addToDate(new Date(), { years: -21 })) },
+        { label: "25 años", iso: toIsoDate(addToDate(new Date(), { years: -25 })) },
+        { label: "65 años", iso: toIsoDate(addToDate(new Date(), { years: -65 })) },
       ];
     }
     if (isUs) {
@@ -221,6 +264,15 @@ export default function AgeCalculator({ seo }: { seo: SeoRecord }) {
       ];
     }
 
+    if (seo.locale === "es") {
+      const eoy = new Date(now.getFullYear(), 11, 31);
+      return [
+        { label: c.today, iso: todayIso },
+        { label: "Fin de año", iso: toIsoDate(eoy) },
+        { label: "+1 año", iso: nextYearIso },
+      ];
+    }
+
     return [
       { label: c.today, iso: todayIso },
       { label: "+1 Year", iso: nextYearIso },
@@ -262,6 +314,8 @@ export default function AgeCalculator({ seo }: { seo: SeoRecord }) {
                         ? "Истекшие единицы времени"
                         : seo.locale === "ko"
                         ? "생애 총 경과 시간"
+                        : seo.locale === "es"
+                        ? "Unidades de tiempo vividas"
                         : "Lifetime Elapsed Units"}
                     </span>
                   </div>
@@ -324,6 +378,8 @@ export default function AgeCalculator({ seo }: { seo: SeoRecord }) {
                       ? RU_ZODIAC[result.zodiac] ?? result.zodiac
                       : seo.locale === "ja"
                       ? JA_ZODIAC[result.zodiac] ?? result.zodiac
+                      : seo.locale === "es"
+                      ? ES_ZODIAC[result.zodiac] ?? result.zodiac
                       : result.zodiac}
                   </span>
                 </li>
@@ -334,6 +390,8 @@ export default function AgeCalculator({ seo }: { seo: SeoRecord }) {
                       ? RU_BIRTHSTONES[result.birthstone] ?? result.birthstone
                       : seo.locale === "ja"
                       ? JA_BIRTHSTONES[result.birthstone] ?? result.birthstone
+                      : seo.locale === "es"
+                      ? ES_BIRTHSTONES[result.birthstone] ?? result.birthstone
                       : result.birthstone}
                   </span>
                 </li>
@@ -372,6 +430,7 @@ export default function AgeCalculator({ seo }: { seo: SeoRecord }) {
         {seo.locale === "us" && <UsAgeArticle />}
         {seo.locale === "ja" && <JaAgeArticle />}
         {seo.locale === "ru" && <RuAgeArticle />}
+        {seo.locale === "es" && <EsAgeArticle />}
         {seo.locale === "en" && <InAgeArticle />}
 
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />

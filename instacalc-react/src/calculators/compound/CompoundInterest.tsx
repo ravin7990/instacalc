@@ -7,6 +7,7 @@ import { UsCompoundInterestArticle } from "@/components/articles/us/UsCompoundIn
 import { JaCompoundInterestArticle } from "@/components/articles/ja/JaCompoundInterestArticle";
 import { RuCompoundArticle } from "@/components/articles/ru/RuCompoundArticle";
 import { InCompoundArticle } from "@/components/articles/in/InCompoundArticle";
+import { EsCompoundArticle } from "@/components/articles/es/EsFinanceArticles";
 
 const FREQUENCIES: Array<{ key: Frequency; label: string; steps: number }> = [
   { key: "yearly", label: "Yearly", steps: 1 },
@@ -17,6 +18,7 @@ const FREQUENCIES: Array<{ key: Frequency; label: string; steps: number }> = [
 ];
 
 const RU_FREQ = ["Раз в год", "Раз в квартал", "Ежемесячно", "Еженедельно", "Каждый день"];
+const ES_FREQ = ["Anual", "Trimestral", "Mensual", "Semanal", "Diaria"];
 
 export default createCalculatorPage((locale: Locale) => {
   const c = fieldCopy(locale);
@@ -24,26 +26,36 @@ export default createCalculatorPage((locale: Locale) => {
   const money = (v: number) => moneyFormat(locale, v);
   const idx = (v: number) => Math.max(0, FREQUENCIES.findIndex((f) => f.steps === v));
   const isRu = locale === "ru";
+  const isEs = locale === "es";
 
   return {
     appCategory: "FinanceApplication",
-    eyebrow: isRu ? "Сложные проценты и капитализация" : "Investment Planner",
+    eyebrow: isRu
+      ? "Сложные проценты и капитализация"
+      : isEs
+      ? "Interés compuesto y capitalización"
+      : "Investment Planner",
     points: [c.maturity, c.investedTotal, c.interest],
     anchor: "compound-calculator",
-    defaults: { principal: 200_000, rate: 10, years: 10, freq: 2, recurring: 0 },
+    defaults: { principal: isEs ? 20_000 : 200_000, rate: isEs ? 7 : 10, years: 10, freq: 2, recurring: 0 },
     fields: [
       {
         key: "principal",
         label: isRu ? "Начальный капитал (руб.)" : c.amount,
-        value: 200_000,
+        value: isEs ? 20_000 : 200_000,
         min: 100,
         max: 100_000_000,
         step: 100,
-        slider: { min: 1000, max: 10_000_000, step: 1000 },
+        slider: { min: 1000, max: isEs ? 500_000 : 10_000_000, step: 1000 },
         prefix: p,
         chips: locale === "us"
           ? [10_000, 25_000, 50_000, 100_000, 250_000].map((v) => ({
               label: `${p}${v / 1000}K`,
+              value: v,
+            }))
+          : isEs
+          ? [5_000, 10_000, 20_000, 50_000, 100_000].map((v) => ({
+              label: `${v / 1000}K €`,
               value: v,
             }))
           : isRu
@@ -59,12 +71,12 @@ export default createCalculatorPage((locale: Locale) => {
       {
         key: "rate",
         label: isRu ? "Годовая процентная ставка" : c.rate,
-        value: 10,
+        value: isEs ? 7 : 10,
         min: 0.1,
         max: 30,
         step: 0.1,
         suffix: c.percent,
-        chips: [5, 8, 10, 12, 15].map((v) => ({ label: `${v}%`, value: v })),
+        chips: [5, 7, 8, 10, 12].map((v) => ({ label: `${v}%`, value: v })),
       },
       {
         key: "years",
@@ -79,18 +91,29 @@ export default createCalculatorPage((locale: Locale) => {
       },
       {
         key: "freq",
-        label: isRu ? "Периодичность капитализации" : "Compounding Frequency",
+        label: isRu
+          ? "Периодичность капитализации"
+          : isEs
+          ? "Frecuencia de capitalización"
+          : "Compounding Frequency",
         value: 2,
         min: 0,
         max: FREQUENCIES.length - 1,
         step: 1,
-        chips: FREQUENCIES.map((f, i) => ({ label: isRu ? RU_FREQ[i] : f.label, value: i })),
+        chips: FREQUENCIES.map((f, i) => ({
+          label: isRu ? RU_FREQ[i] : isEs ? ES_FREQ[i] : f.label,
+          value: i,
+        })),
       },
     ],
     advancedFields: [
       {
         key: "recurring",
-        label: isRu ? "Регулярное пополнение (за каждый период)" : `Recurring Deposit (per ${FREQUENCIES[2].label.toLowerCase()})`,
+        label: isRu
+          ? "Регулярное пополнение (за каждый период)"
+          : isEs
+          ? "Aportación periódica (por periodo)"
+          : `Recurring Deposit (per ${FREQUENCIES[2].label.toLowerCase()})`,
         value: 0,
         min: 0,
         max: 1_000_000,
@@ -125,9 +148,21 @@ export default createCalculatorPage((locale: Locale) => {
       centerLabel: isRu ? "Доход" : c.interest,
     }),
     timeline: (r) => ({
-      title: isRu ? "Динамика сложного процента" : locale === "ja" ? "複利運用による資産推移" : "Compound Growth Trajectory",
-      subtitle: isRu ? "Рост баланса капитала по годам" : "Accumulated balance vs total invested over time",
-      labels: r.rows.map((row: any) => `${locale === "ja" ? "" : "Yr "}${row.year}${locale === "ja" ? "年目" : ""}`),
+      title: isRu
+        ? "Динамика сложного процента"
+        : locale === "ja"
+        ? "複利運用による資産推移"
+        : isEs
+        ? "Evolución del interés compuesto"
+        : "Compound Growth Trajectory",
+      subtitle: isRu
+        ? "Рост баланса капитала по годам"
+        : isEs
+        ? "Capital acumulado frente al total aportado a lo largo del tiempo"
+        : "Accumulated balance vs total invested over time",
+      labels: r.rows.map((row: any) =>
+        isEs ? `Año ${row.year}` : `${locale === "ja" ? "" : "Yr "}${row.year}${locale === "ja" ? "年目" : ""}`,
+      ),
       datasets: [
         {
           label: isRu ? "Итоговый капитал" : c.maturity,
@@ -163,9 +198,10 @@ export default createCalculatorPage((locale: Locale) => {
         <JaCompoundInterestArticle />
       ) : locale === "ru" ? (
         <RuCompoundArticle />
+      ) : locale === "es" ? (
+        <EsCompoundArticle />
       ) : (
         <InCompoundArticle />
       ),
   };
 });
-

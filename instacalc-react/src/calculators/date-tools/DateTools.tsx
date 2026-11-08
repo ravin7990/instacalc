@@ -19,6 +19,7 @@ import { formatNumber, formatDate } from "@/lib/currency";
 import { dateCopy } from "@/i18n/date-labels";
 import { UsDaysArticle } from "@/components/articles/us/UsDaysArticle";
 import { JaDateArticle } from "@/components/articles/ja/JaDateArticle";
+import { EsDateArticle } from "@/components/articles/es/EsDateTimeArticles";
 
 /**
  * Date arithmetic tool shared by the days and weeks calculators. The two legacy
@@ -26,6 +27,7 @@ import { JaDateArticle } from "@/components/articles/ja/JaDateArticle";
  */
 export default function DateTools({ seo }: { seo: SeoRecord }) {
   const c = dateCopy(seo.locale);
+  const isEs = seo.locale === "es";
   // dayscalculator / weekcalculator / the Japanese date tools all use this.
   const isWeeks = /week/.test(seo.path);
   const isJapanese = /daycounter/.test(seo.path);
@@ -57,7 +59,14 @@ export default function DateTools({ seo }: { seo: SeoRecord }) {
         // No "Calendar Days" row: the shell already shows it as the headline.
         { key: c.businessDays, value: `${n(Math.abs(result.businessDays))} ${c.days}` },
         { key: c.weeksBetween, value: `${n(Math.abs(result.weeks))} ${c.weeks}` },
-        { key: c.isoWeek, value: `Week ${n(result.week.week)}` },
+        {
+          key: c.isoWeek,
+          value: isEs
+            ? `Semana ${n(result.week.week)}`
+            : seo.locale === "ja"
+            ? `第${n(result.week.week)}週`
+            : `Week ${n(result.week.week)}`,
+        },
         { key: c.isoYear, value: String(result.week.year) },
         { key: c.resultDate, value: formatDate(seo.locale, result.shifted, "short") },
       ]
@@ -85,9 +94,9 @@ export default function DateTools({ seo }: { seo: SeoRecord }) {
               <DatePresets
                 presets={[
                   { label: c.today, iso: today },
-                  { label: "−7d", iso: toIsoDate(addToDate(new Date(), { days: -7 })) },
-                  { label: "−30d", iso: toIsoDate(addToDate(new Date(), { days: -30 })) },
-                  { label: "−1y", iso: toIsoDate(addToDate(new Date(), { years: -1 })) },
+                  { label: isEs ? "−7 días" : "−7d", iso: toIsoDate(addToDate(new Date(), { days: -7 })) },
+                  { label: isEs ? "−30 días" : "−30d", iso: toIsoDate(addToDate(new Date(), { days: -30 })) },
+                  { label: isEs ? "−1 año" : "−1y", iso: toIsoDate(addToDate(new Date(), { years: -1 })) },
                 ]}
                 onPick={setTo}
               />
@@ -132,6 +141,7 @@ export default function DateTools({ seo }: { seo: SeoRecord }) {
 
         {seo.locale === "us" && <UsDaysArticle />}
         {seo.locale === "ja" && <JaDateArticle />}
+        {seo.locale === "es" && <EsDateArticle seo={seo} />}
 
         <FaqAccordion locale={seo.locale} items={extractFaq(seo)} />
       </Layout>

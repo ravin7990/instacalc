@@ -100,7 +100,25 @@ const ko: VolCopy = {
   cubicFeet: "세제곱피트 (ft³)",
 };
 
-const ALL: Record<Locale, VolCopy> = { en, us, ja, ru, ko };
+const es: VolCopy = {
+  eyebrow: "Conversión de volumen",
+  amount: "Cantidad",
+  from: "Convertir de",
+  to: "Convertir a",
+  swap: "Intercambiar unidades",
+  result: "Resultado",
+  litres: "Litros (L)",
+  usGallons: "Galones estadounidenses (US gal)",
+  imperialGallons: "Galones imperiales (UK gal)",
+  quarts: "Cuartos (qt)",
+  pints: "Pintas (pt)",
+  cups: "Tazas (cup)",
+  fluidOunces: "Onzas líquidas (fl oz)",
+  millilitres: "Mililitros (mL)",
+  cubicFeet: "Pies cúbicos (ft³)",
+};
+
+const ALL: Record<Locale, VolCopy> = { en, us, ja, ru, ko, es };
 
 export function volCopy(locale: Locale): VolCopy {
   return ALL[locale] ?? en;
