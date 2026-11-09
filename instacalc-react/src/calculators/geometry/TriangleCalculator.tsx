@@ -83,6 +83,111 @@ function ShapeIcon({ shape }: { shape: TriangleSolverMode }) {
   );
 }
 
+interface TriangleInputFieldProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  unit: string;
+  min?: number;
+  max?: number;
+  step?: number | string;
+  sliderMin?: number;
+  sliderMax?: number;
+  sliderStep?: number;
+  clearLabel?: string;
+  readOnly?: boolean;
+}
+
+function TriangleInputField({
+  id,
+  label,
+  value,
+  onChange,
+  unit,
+  min = 0,
+  max = 10000,
+  step = "any",
+  sliderMin = 1,
+  sliderMax = 100,
+  sliderStep = 0.5,
+  clearLabel = "Clear",
+  readOnly = false,
+}: TriangleInputFieldProps) {
+  const numVal = parseFloat(value);
+  const hasVal = value.trim() !== "" && !isNaN(numVal);
+  const sliderVal = hasVal ? Math.min(sliderMax, Math.max(sliderMin, numVal)) : sliderMin;
+
+  return (
+    <div
+      className="field-card"
+      data-field-key={id}
+      data-field-label={label}
+      data-field-display={hasVal ? `${value} ${unit}` : ""}
+      data-field-raw={value}
+    >
+      <div className="field-head">
+        <label htmlFor={id}>{label}</label>
+        {hasVal ? (
+          <span className="field-preview-badge" aria-hidden="true">
+            {value} {unit}
+          </span>
+        ) : null}
+      </div>
+
+      <div className="range-row">
+        {!readOnly ? (
+          <input
+            type="range"
+            id={`${id}-range`}
+            min={sliderMin}
+            max={sliderMax}
+            step={sliderStep}
+            value={sliderVal}
+            onChange={(e) => onChange(e.target.value)}
+            aria-label={`${label} slider`}
+          />
+        ) : (
+          <input
+            type="range"
+            id={`${id}-range`}
+            disabled
+            min={0}
+            max={90}
+            value={90}
+            aria-label={`${label} slider`}
+          />
+        )}
+        <div className="input-with-adornment">
+          <input
+            id={id}
+            type="number"
+            step={step}
+            min={min}
+            max={max}
+            placeholder="0"
+            value={value}
+            readOnly={readOnly}
+            onChange={(e) => onChange(e.target.value)}
+            aria-label={label}
+          />
+          {hasVal && !readOnly ? (
+            <button
+              type="button"
+              className="btn-clear-field"
+              aria-label={`${clearLabel} ${label}`}
+              onClick={() => onChange("")}
+            >
+              ✕
+            </button>
+          ) : null}
+          <span className="input-suffix">{unit}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function TriangleCalculator({ seo }: { seo: SeoRecord }) {
   const t = triangleLabels(seo.locale);
   const [mode, setMode] = useState<TriangleSolverMode>("right");
@@ -725,501 +830,221 @@ export default function TriangleCalculator({ seo }: { seo: SeoRecord }) {
                 </div>
               </div>
 
-              {/* 3. Shape-Specific Inputs with Individual Clear Buttons */}
+              {/* 3. Shape-Specific Inputs with Individual Sliders and Clear Buttons */}
 
-              {/* MODE: Right Triangle (Sides vs Angles 2-Column Grid) */}
+              {/* MODE: Right Triangle */}
               {mode === "right" && (
-                <div className="age-dates-grid">
-                  <div className="age-date-group">
-                    <div className="field-card">
-                      <div className="field-head">
-                        <label htmlFor="rt-side-a">{t.fields.sideA}</label>
-                      </div>
-                      <div className="input-with-adornment">
-                        <input
-                          id="rt-side-a"
-                          type="number"
-                          step="any"
-                          min="0"
-                          placeholder={`${t.fields.sideA} (${unit})`}
-                          value={rightInputs.a}
-                          onChange={(e) => setRightInputs((s) => ({ ...s, a: e.target.value }))}
-                        />
-                        {rightInputs.a ? (
-                          <button
-                            type="button"
-                            className="btn btn-ghost btn-sm"
-                            aria-label={`${t.fields.clearField} ${t.fields.sideA}`}
-                            onClick={() => setRightInputs((s) => ({ ...s, a: "" }))}
-                          >
-                            ✕
-                          </button>
-                        ) : null}
-                        <span className="input-suffix">{unit}</span>
-                      </div>
-                    </div>
-
-                    <div className="field-card">
-                      <div className="field-head">
-                        <label htmlFor="rt-side-b">{t.fields.sideB}</label>
-                      </div>
-                      <div className="input-with-adornment">
-                        <input
-                          id="rt-side-b"
-                          type="number"
-                          step="any"
-                          min="0"
-                          placeholder={`${t.fields.sideB} (${unit})`}
-                          value={rightInputs.b}
-                          onChange={(e) => setRightInputs((s) => ({ ...s, b: e.target.value }))}
-                        />
-                        {rightInputs.b ? (
-                          <button
-                            type="button"
-                            className="btn btn-ghost btn-sm"
-                            aria-label={`${t.fields.clearField} ${t.fields.sideB}`}
-                            onClick={() => setRightInputs((s) => ({ ...s, b: "" }))}
-                          >
-                            ✕
-                          </button>
-                        ) : null}
-                        <span className="input-suffix">{unit}</span>
-                      </div>
-                    </div>
-
-                    <div className="field-card">
-                      <div className="field-head">
-                        <label htmlFor="rt-side-c">{t.fields.sideC}</label>
-                      </div>
-                      <div className="input-with-adornment">
-                        <input
-                          id="rt-side-c"
-                          type="number"
-                          step="any"
-                          min="0"
-                          placeholder={`${t.fields.sideC} (${unit})`}
-                          value={rightInputs.c}
-                          onChange={(e) => setRightInputs((s) => ({ ...s, c: e.target.value }))}
-                        />
-                        {rightInputs.c ? (
-                          <button
-                            type="button"
-                            className="btn btn-ghost btn-sm"
-                            aria-label={`${t.fields.clearField} ${t.fields.sideC}`}
-                            onClick={() => setRightInputs((s) => ({ ...s, c: "" }))}
-                          >
-                            ✕
-                          </button>
-                        ) : null}
-                        <span className="input-suffix">{unit}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="age-date-group">
-                    <div className="field-card">
-                      <div className="field-head">
-                        <label htmlFor="rt-angle-y">{t.fields.angleY}</label>
-                      </div>
-                      <div className="input-with-adornment">
-                        <input
-                          id="rt-angle-y"
-                          type="number"
-                          step="any"
-                          min="0.1"
-                          max="89.9"
-                          placeholder={t.fields.angleY}
-                          value={rightInputs.angleY}
-                          onChange={(e) => setRightInputs((s) => ({ ...s, angleY: e.target.value }))}
-                        />
-                        {rightInputs.angleY ? (
-                          <button
-                            type="button"
-                            className="btn btn-ghost btn-sm"
-                            aria-label={`${t.fields.clearField} ${t.fields.angleY}`}
-                            onClick={() => setRightInputs((s) => ({ ...s, angleY: "" }))}
-                          >
-                            ✕
-                          </button>
-                        ) : null}
-                        <span className="input-suffix">°</span>
-                      </div>
-                    </div>
-
-                    <div className="field-card">
-                      <div className="field-head">
-                        <label htmlFor="rt-angle-z">{t.fields.angleZ}</label>
-                      </div>
-                      <div className="input-with-adornment">
-                        <input
-                          id="rt-angle-z"
-                          type="number"
-                          step="any"
-                          min="0.1"
-                          max="89.9"
-                          placeholder={t.fields.angleZ}
-                          value={rightInputs.angleZ}
-                          onChange={(e) => setRightInputs((s) => ({ ...s, angleZ: e.target.value }))}
-                        />
-                        {rightInputs.angleZ ? (
-                          <button
-                            type="button"
-                            className="btn btn-ghost btn-sm"
-                            aria-label={`${t.fields.clearField} ${t.fields.angleZ}`}
-                            onClick={() => setRightInputs((s) => ({ ...s, angleZ: "" }))}
-                          >
-                            ✕
-                          </button>
-                        ) : null}
-                        <span className="input-suffix">°</span>
-                      </div>
-                    </div>
-
-                    <div className="field-card">
-                      <div className="field-head">
-                        <label htmlFor="rt-angle-x">{t.fields.angleX}</label>
-                      </div>
-                      <div className="input-with-adornment">
-                        <input
-                          id="rt-angle-x"
-                          type="text"
-                          readOnly
-                          value="90.0"
-                          aria-label={t.fields.angleX}
-                        />
-                        <span className="input-suffix">° (90°)</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* MODE: Isosceles Triangle (Flexible 2-Value Solver) */}
-              {mode === "isosceles" && (
-                <div className="age-dates-grid">
-                  <div className="age-date-group">
-                    <div className="field-card">
-                      <div className="field-head">
-                        <label htmlFor="iso-h">{t.fields.heightH}</label>
-                      </div>
-                      <div className="input-with-adornment">
-                        <input
-                          id="iso-h"
-                          type="number"
-                          step="any"
-                          min="0"
-                          placeholder={`${t.fields.heightH} (${unit})`}
-                          value={isoInputs.h}
-                          onChange={(e) => setIsoInputs((s) => ({ ...s, h: e.target.value }))}
-                        />
-                        {isoInputs.h ? (
-                          <button
-                            type="button"
-                            className="btn btn-ghost btn-sm"
-                            aria-label={`${t.fields.clearField} ${t.fields.heightH}`}
-                            onClick={() => setIsoInputs((s) => ({ ...s, h: "" }))}
-                          >
-                            ✕
-                          </button>
-                        ) : null}
-                        <span className="input-suffix">{unit}</span>
-                      </div>
-                    </div>
-
-                    <div className="field-card">
-                      <div className="field-head">
-                        <label htmlFor="iso-c">{t.fields.baseC}</label>
-                      </div>
-                      <div className="input-with-adornment">
-                        <input
-                          id="iso-c"
-                          type="number"
-                          step="any"
-                          min="0"
-                          placeholder={`${t.fields.baseC} (${unit})`}
-                          value={isoInputs.c}
-                          onChange={(e) => setIsoInputs((s) => ({ ...s, c: e.target.value }))}
-                        />
-                        {isoInputs.c ? (
-                          <button
-                            type="button"
-                            className="btn btn-ghost btn-sm"
-                            aria-label={`${t.fields.clearField} ${t.fields.baseC}`}
-                            onClick={() => setIsoInputs((s) => ({ ...s, c: "" }))}
-                          >
-                            ✕
-                          </button>
-                        ) : null}
-                        <span className="input-suffix">{unit}</span>
-                      </div>
-                    </div>
-
-                    <div className="field-card">
-                      <div className="field-head">
-                        <label htmlFor="iso-a">{t.fields.equalLegA}</label>
-                      </div>
-                      <div className="input-with-adornment">
-                        <input
-                          id="iso-a"
-                          type="number"
-                          step="any"
-                          min="0"
-                          placeholder={`${t.fields.equalLegA} (${unit})`}
-                          value={isoInputs.a}
-                          onChange={(e) => setIsoInputs((s) => ({ ...s, a: e.target.value }))}
-                        />
-                        {isoInputs.a ? (
-                          <button
-                            type="button"
-                            className="btn btn-ghost btn-sm"
-                            aria-label={`${t.fields.clearField} ${t.fields.equalLegA}`}
-                            onClick={() => setIsoInputs((s) => ({ ...s, a: "" }))}
-                          >
-                            ✕
-                          </button>
-                        ) : null}
-                        <span className="input-suffix">{unit}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="age-date-group">
-                    <div className="field-card">
-                      <div className="field-head">
-                        <label htmlFor="iso-ang-a">{t.fields.apexAngleA}</label>
-                      </div>
-                      <div className="input-with-adornment">
-                        <input
-                          id="iso-ang-a"
-                          type="number"
-                          step="any"
-                          min="0.1"
-                          max="179.9"
-                          placeholder={t.fields.apexAngleA}
-                          value={isoInputs.angleA}
-                          onChange={(e) => setIsoInputs((s) => ({ ...s, angleA: e.target.value }))}
-                        />
-                        {isoInputs.angleA ? (
-                          <button
-                            type="button"
-                            className="btn btn-ghost btn-sm"
-                            aria-label={`${t.fields.clearField} ${t.fields.apexAngleA}`}
-                            onClick={() => setIsoInputs((s) => ({ ...s, angleA: "" }))}
-                          >
-                            ✕
-                          </button>
-                        ) : null}
-                        <span className="input-suffix">°</span>
-                      </div>
-                    </div>
-
-                    <div className="field-card">
-                      <div className="field-head">
-                        <label htmlFor="iso-ang-b">{t.fields.baseAngleB}</label>
-                      </div>
-                      <div className="input-with-adornment">
-                        <input
-                          id="iso-ang-b"
-                          type="number"
-                          step="any"
-                          min="0.1"
-                          max="89.9"
-                          placeholder={t.fields.baseAngleB}
-                          value={isoInputs.angleB}
-                          onChange={(e) => setIsoInputs((s) => ({ ...s, angleB: e.target.value }))}
-                        />
-                        {isoInputs.angleB ? (
-                          <button
-                            type="button"
-                            className="btn btn-ghost btn-sm"
-                            aria-label={`${t.fields.clearField} ${t.fields.baseAngleB}`}
-                            onClick={() => setIsoInputs((s) => ({ ...s, angleB: "" }))}
-                          >
-                            ✕
-                          </button>
-                        ) : null}
-                        <span className="input-suffix">°</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* MODE: Obtuse Triangle (H, C, W) */}
-              {mode === "obtuse" && (
                 <>
-                  <div className="field-card">
-                    <div className="field-head">
-                      <label htmlFor="obt-h">{t.fields.heightH}</label>
-                    </div>
-                    <div className="input-with-adornment">
-                      <input
-                        id="obt-h"
-                        type="number"
-                        step="any"
-                        min="0.1"
-                        placeholder={`${t.fields.heightH} (${unit})`}
-                        value={obtuseInputs.h}
-                        onChange={(e) => setObtuseInputs((s) => ({ ...s, h: e.target.value }))}
-                      />
-                      {obtuseInputs.h ? (
-                        <button
-                          type="button"
-                          className="btn btn-ghost btn-sm"
-                          aria-label={`${t.fields.clearField} ${t.fields.heightH}`}
-                          onClick={() => setObtuseInputs((s) => ({ ...s, h: "" }))}
-                        >
-                          ✕
-                        </button>
-                      ) : null}
-                      <span className="input-suffix">{unit}</span>
-                    </div>
-                  </div>
-
-                  <div className="field-card">
-                    <div className="field-head">
-                      <label htmlFor="obt-c">{t.fields.baseC}</label>
-                    </div>
-                    <div className="input-with-adornment">
-                      <input
-                        id="obt-c"
-                        type="number"
-                        step="any"
-                        min="0.1"
-                        placeholder={`${t.fields.baseC} (${unit})`}
-                        value={obtuseInputs.c}
-                        onChange={(e) => setObtuseInputs((s) => ({ ...s, c: e.target.value }))}
-                      />
-                      {obtuseInputs.c ? (
-                        <button
-                          type="button"
-                          className="btn btn-ghost btn-sm"
-                          aria-label={`${t.fields.clearField} ${t.fields.baseC}`}
-                          onClick={() => setObtuseInputs((s) => ({ ...s, c: "" }))}
-                        >
-                          ✕
-                        </button>
-                      ) : null}
-                      <span className="input-suffix">{unit}</span>
-                    </div>
-                  </div>
-
-                  <div className="field-card">
-                    <div className="field-head">
-                      <label htmlFor="obt-w">{t.fields.offsetW}</label>
-                    </div>
-                    <div className="input-with-adornment">
-                      <input
-                        id="obt-w"
-                        type="number"
-                        step="any"
-                        min="0"
-                        placeholder={`${t.fields.offsetW} (${unit})`}
-                        value={obtuseInputs.w}
-                        onChange={(e) => setObtuseInputs((s) => ({ ...s, w: e.target.value }))}
-                      />
-                      {obtuseInputs.w ? (
-                        <button
-                          type="button"
-                          className="btn btn-ghost btn-sm"
-                          aria-label={`${t.fields.clearField} ${t.fields.offsetW}`}
-                          onClick={() => setObtuseInputs((s) => ({ ...s, w: "" }))}
-                        >
-                          ✕
-                        </button>
-                      ) : null}
-                      <span className="input-suffix">{unit}</span>
-                    </div>
-                  </div>
+                  <TriangleInputField
+                    id="rt-side-a"
+                    label={t.fields.sideA}
+                    value={rightInputs.a}
+                    onChange={(val) => setRightInputs((s) => ({ ...s, a: val }))}
+                    unit={unit}
+                    sliderMin={1}
+                    sliderMax={100}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                  <TriangleInputField
+                    id="rt-side-b"
+                    label={t.fields.sideB}
+                    value={rightInputs.b}
+                    onChange={(val) => setRightInputs((s) => ({ ...s, b: val }))}
+                    unit={unit}
+                    sliderMin={1}
+                    sliderMax={100}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                  <TriangleInputField
+                    id="rt-side-c"
+                    label={t.fields.sideC}
+                    value={rightInputs.c}
+                    onChange={(val) => setRightInputs((s) => ({ ...s, c: val }))}
+                    unit={unit}
+                    sliderMin={1}
+                    sliderMax={150}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                  <TriangleInputField
+                    id="rt-angle-y"
+                    label={t.fields.angleY}
+                    value={rightInputs.angleY}
+                    onChange={(val) => setRightInputs((s) => ({ ...s, angleY: val }))}
+                    unit="°"
+                    min={0.1}
+                    max={89.9}
+                    sliderMin={1}
+                    sliderMax={89}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                  <TriangleInputField
+                    id="rt-angle-z"
+                    label={t.fields.angleZ}
+                    value={rightInputs.angleZ}
+                    onChange={(val) => setRightInputs((s) => ({ ...s, angleZ: val }))}
+                    unit="°"
+                    min={0.1}
+                    max={89.9}
+                    sliderMin={1}
+                    sliderMax={89}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                  <TriangleInputField
+                    id="rt-angle-x"
+                    label={t.fields.angleX}
+                    value="90.0"
+                    onChange={() => {}}
+                    unit="° (90°)"
+                    readOnly={true}
+                  />
                 </>
               )}
 
-              {/* MODE: Scalene Triangle (H, C, W) */}
+              {/* MODE: Isosceles Triangle */}
+              {mode === "isosceles" && (
+                <>
+                  <TriangleInputField
+                    id="iso-h"
+                    label={t.fields.heightH}
+                    value={isoInputs.h}
+                    onChange={(val) => setIsoInputs((s) => ({ ...s, h: val }))}
+                    unit={unit}
+                    sliderMin={1}
+                    sliderMax={100}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                  <TriangleInputField
+                    id="iso-c"
+                    label={t.fields.baseC}
+                    value={isoInputs.c}
+                    onChange={(val) => setIsoInputs((s) => ({ ...s, c: val }))}
+                    unit={unit}
+                    sliderMin={1}
+                    sliderMax={150}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                  <TriangleInputField
+                    id="iso-a"
+                    label={t.fields.equalLegA}
+                    value={isoInputs.a}
+                    onChange={(val) => setIsoInputs((s) => ({ ...s, a: val }))}
+                    unit={unit}
+                    sliderMin={1}
+                    sliderMax={150}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                  <TriangleInputField
+                    id="iso-ang-a"
+                    label={t.fields.apexAngleA}
+                    value={isoInputs.angleA}
+                    onChange={(val) => setIsoInputs((s) => ({ ...s, angleA: val }))}
+                    unit="°"
+                    min={0.1}
+                    max={179.9}
+                    sliderMin={1}
+                    sliderMax={179}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                  <TriangleInputField
+                    id="iso-ang-b"
+                    label={t.fields.baseAngleB}
+                    value={isoInputs.angleB}
+                    onChange={(val) => setIsoInputs((s) => ({ ...s, angleB: val }))}
+                    unit="°"
+                    min={0.1}
+                    max={89.9}
+                    sliderMin={1}
+                    sliderMax={89}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                </>
+              )}
+
+              {/* MODE: Obtuse Triangle */}
+              {mode === "obtuse" && (
+                <>
+                  <TriangleInputField
+                    id="obt-h"
+                    label={t.fields.heightH}
+                    value={obtuseInputs.h}
+                    onChange={(val) => setObtuseInputs((s) => ({ ...s, h: val }))}
+                    unit={unit}
+                    sliderMin={1}
+                    sliderMax={100}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                  <TriangleInputField
+                    id="obt-c"
+                    label={t.fields.baseC}
+                    value={obtuseInputs.c}
+                    onChange={(val) => setObtuseInputs((s) => ({ ...s, c: val }))}
+                    unit={unit}
+                    sliderMin={1}
+                    sliderMax={150}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                  <TriangleInputField
+                    id="obt-w"
+                    label={t.fields.offsetW}
+                    value={obtuseInputs.w}
+                    onChange={(val) => setObtuseInputs((s) => ({ ...s, w: val }))}
+                    unit={unit}
+                    sliderMin={0.5}
+                    sliderMax={100}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                </>
+              )}
+
+              {/* MODE: Scalene Triangle */}
               {mode === "scalene" && (
                 <>
-                  <div className="field-card">
-                    <div className="field-head">
-                      <label htmlFor="scl-h">{t.fields.heightH}</label>
-                    </div>
-                    <div className="input-with-adornment">
-                      <input
-                        id="scl-h"
-                        type="number"
-                        step="any"
-                        min="0.1"
-                        placeholder={`${t.fields.heightH} (${unit})`}
-                        value={scaleneInputs.h}
-                        onChange={(e) => setScaleneInputs((s) => ({ ...s, h: e.target.value }))}
-                      />
-                      {scaleneInputs.h ? (
-                        <button
-                          type="button"
-                          className="btn btn-ghost btn-sm"
-                          aria-label={`${t.fields.clearField} ${t.fields.heightH}`}
-                          onClick={() => setScaleneInputs((s) => ({ ...s, h: "" }))}
-                        >
-                          ✕
-                        </button>
-                      ) : null}
-                      <span className="input-suffix">{unit}</span>
-                    </div>
-                  </div>
-
-                  <div className="field-card">
-                    <div className="field-head">
-                      <label htmlFor="scl-c">{t.fields.baseC}</label>
-                    </div>
-                    <div className="input-with-adornment">
-                      <input
-                        id="scl-c"
-                        type="number"
-                        step="any"
-                        min="0.1"
-                        placeholder={`${t.fields.baseC} (${unit})`}
-                        value={scaleneInputs.c}
-                        onChange={(e) => setScaleneInputs((s) => ({ ...s, c: e.target.value }))}
-                      />
-                      {scaleneInputs.c ? (
-                        <button
-                          type="button"
-                          className="btn btn-ghost btn-sm"
-                          aria-label={`${t.fields.clearField} ${t.fields.baseC}`}
-                          onClick={() => setScaleneInputs((s) => ({ ...s, c: "" }))}
-                        >
-                          ✕
-                        </button>
-                      ) : null}
-                      <span className="input-suffix">{unit}</span>
-                    </div>
-                  </div>
-
-                  <div className="field-card">
-                    <div className="field-head">
-                      <label htmlFor="scl-w">{t.fields.offsetW}</label>
-                    </div>
-                    <div className="input-with-adornment">
-                      <input
-                        id="scl-w"
-                        type="number"
-                        step="any"
-                        min="0"
-                        placeholder={`${t.fields.offsetW} (${unit})`}
-                        value={scaleneInputs.w}
-                        onChange={(e) => setScaleneInputs((s) => ({ ...s, w: e.target.value }))}
-                      />
-                      {scaleneInputs.w ? (
-                        <button
-                          type="button"
-                          className="btn btn-ghost btn-sm"
-                          aria-label={`${t.fields.clearField} ${t.fields.offsetW}`}
-                          onClick={() => setScaleneInputs((s) => ({ ...s, w: "" }))}
-                        >
-                          ✕
-                        </button>
-                      ) : null}
-                      <span className="input-suffix">{unit}</span>
-                    </div>
-                  </div>
+                  <TriangleInputField
+                    id="scl-h"
+                    label={t.fields.heightH}
+                    value={scaleneInputs.h}
+                    onChange={(val) => setScaleneInputs((s) => ({ ...s, h: val }))}
+                    unit={unit}
+                    sliderMin={1}
+                    sliderMax={100}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                  <TriangleInputField
+                    id="scl-c"
+                    label={t.fields.baseC}
+                    value={scaleneInputs.c}
+                    onChange={(val) => setScaleneInputs((s) => ({ ...s, c: val }))}
+                    unit={unit}
+                    sliderMin={1}
+                    sliderMax={150}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                  <TriangleInputField
+                    id="scl-w"
+                    label={t.fields.offsetW}
+                    value={scaleneInputs.w}
+                    onChange={(val) => setScaleneInputs((s) => ({ ...s, w: val }))}
+                    unit={unit}
+                    sliderMin={0}
+                    sliderMax={150}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
                 </>
               )}
 
@@ -1244,305 +1069,143 @@ export default function TriangleCalculator({ seo }: { seo: SeoRecord }) {
                     </div>
                   </div>
 
-                  <div className="field-card">
-                    <div className="field-head">
-                      <label htmlFor="any-a">{t.fields.sideSmallA}</label>
-                    </div>
-                    <div className="input-with-adornment">
-                      <input
-                        id="any-a"
-                        type="number"
-                        step="any"
-                        min="0.1"
-                        placeholder={`${t.fields.sideSmallA} (${unit})`}
-                        value={any3Inputs.a}
-                        onChange={(e) => setAny3Inputs((s) => ({ ...s, a: e.target.value }))}
-                      />
-                      {any3Inputs.a ? (
-                        <button
-                          type="button"
-                          className="btn btn-ghost btn-sm"
-                          aria-label={`${t.fields.clearField} ${t.fields.sideSmallA}`}
-                          onClick={() => setAny3Inputs((s) => ({ ...s, a: "" }))}
-                        >
-                          ✕
-                        </button>
-                      ) : null}
-                      <span className="input-suffix">{unit}</span>
-                    </div>
-                  </div>
+                  <TriangleInputField
+                    id="any-a"
+                    label={t.fields.sideSmallA}
+                    value={any3Inputs.a}
+                    onChange={(val) => setAny3Inputs((s) => ({ ...s, a: val }))}
+                    unit={unit}
+                    sliderMin={1}
+                    sliderMax={100}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
 
                   {any3Method === "sss" && (
                     <>
-                      <div className="field-card">
-                        <div className="field-head">
-                          <label htmlFor="any-b">{t.fields.sideSmallB}</label>
-                        </div>
-                        <div className="input-with-adornment">
-                          <input
-                            id="any-b"
-                            type="number"
-                            step="any"
-                            min="0.1"
-                            placeholder={`${t.fields.sideSmallB} (${unit})`}
-                            value={any3Inputs.b}
-                            onChange={(e) => setAny3Inputs((s) => ({ ...s, b: e.target.value }))}
-                          />
-                          {any3Inputs.b ? (
-                            <button
-                              type="button"
-                              className="btn btn-ghost btn-sm"
-                              aria-label={`${t.fields.clearField} ${t.fields.sideSmallB}`}
-                              onClick={() => setAny3Inputs((s) => ({ ...s, b: "" }))}
-                            >
-                              ✕
-                            </button>
-                          ) : null}
-                          <span className="input-suffix">{unit}</span>
-                        </div>
-                      </div>
-
-                      <div className="field-card">
-                        <div className="field-head">
-                          <label htmlFor="any-c">{t.fields.sideSmallC}</label>
-                        </div>
-                        <div className="input-with-adornment">
-                          <input
-                            id="any-c"
-                            type="number"
-                            step="any"
-                            min="0.1"
-                            placeholder={`${t.fields.sideSmallC} (${unit})`}
-                            value={any3Inputs.c}
-                            onChange={(e) => setAny3Inputs((s) => ({ ...s, c: e.target.value }))}
-                          />
-                          {any3Inputs.c ? (
-                            <button
-                              type="button"
-                              className="btn btn-ghost btn-sm"
-                              aria-label={`${t.fields.clearField} ${t.fields.sideSmallC}`}
-                              onClick={() => setAny3Inputs((s) => ({ ...s, c: "" }))}
-                            >
-                              ✕
-                            </button>
-                          ) : null}
-                          <span className="input-suffix">{unit}</span>
-                        </div>
-                      </div>
+                      <TriangleInputField
+                        id="any-b"
+                        label={t.fields.sideSmallB}
+                        value={any3Inputs.b}
+                        onChange={(val) => setAny3Inputs((s) => ({ ...s, b: val }))}
+                        unit={unit}
+                        sliderMin={1}
+                        sliderMax={100}
+                        sliderStep={0.5}
+                        clearLabel={t.fields.clearField}
+                      />
+                      <TriangleInputField
+                        id="any-c"
+                        label={t.fields.sideSmallC}
+                        value={any3Inputs.c}
+                        onChange={(val) => setAny3Inputs((s) => ({ ...s, c: val }))}
+                        unit={unit}
+                        sliderMin={1}
+                        sliderMax={100}
+                        sliderStep={0.5}
+                        clearLabel={t.fields.clearField}
+                      />
                     </>
                   )}
 
                   {any3Method === "sas" && (
                     <>
-                      <div className="field-card">
-                        <div className="field-head">
-                          <label htmlFor="any-b">{t.fields.sideSmallB}</label>
-                        </div>
-                        <div className="input-with-adornment">
-                          <input
-                            id="any-b"
-                            type="number"
-                            step="any"
-                            min="0.1"
-                            placeholder={`${t.fields.sideSmallB} (${unit})`}
-                            value={any3Inputs.b}
-                            onChange={(e) => setAny3Inputs((s) => ({ ...s, b: e.target.value }))}
-                          />
-                          {any3Inputs.b ? (
-                            <button
-                              type="button"
-                              className="btn btn-ghost btn-sm"
-                              aria-label={`${t.fields.clearField} ${t.fields.sideSmallB}`}
-                              onClick={() => setAny3Inputs((s) => ({ ...s, b: "" }))}
-                            >
-                              ✕
-                            </button>
-                          ) : null}
-                          <span className="input-suffix">{unit}</span>
-                        </div>
-                      </div>
-
-                      <div className="field-card">
-                        <div className="field-head">
-                          <label htmlFor="any-ang-c">{t.fields.angleC}</label>
-                        </div>
-                        <div className="input-with-adornment">
-                          <input
-                            id="any-ang-c"
-                            type="number"
-                            step="any"
-                            min="0.1"
-                            max="179.9"
-                            placeholder={t.fields.angleC}
-                            value={any3Inputs.angleC}
-                            onChange={(e) => setAny3Inputs((s) => ({ ...s, angleC: e.target.value }))}
-                          />
-                          {any3Inputs.angleC ? (
-                            <button
-                              type="button"
-                              className="btn btn-ghost btn-sm"
-                              aria-label={`${t.fields.clearField} ${t.fields.angleC}`}
-                              onClick={() => setAny3Inputs((s) => ({ ...s, angleC: "" }))}
-                            >
-                              ✕
-                            </button>
-                          ) : null}
-                          <span className="input-suffix">°</span>
-                        </div>
-                      </div>
+                      <TriangleInputField
+                        id="any-b"
+                        label={t.fields.sideSmallB}
+                        value={any3Inputs.b}
+                        onChange={(val) => setAny3Inputs((s) => ({ ...s, b: val }))}
+                        unit={unit}
+                        sliderMin={1}
+                        sliderMax={100}
+                        sliderStep={0.5}
+                        clearLabel={t.fields.clearField}
+                      />
+                      <TriangleInputField
+                        id="any-ang-c"
+                        label={t.fields.angleC}
+                        value={any3Inputs.angleC}
+                        onChange={(val) => setAny3Inputs((s) => ({ ...s, angleC: val }))}
+                        unit="°"
+                        min={0.1}
+                        max={179.9}
+                        sliderMin={1}
+                        sliderMax={179}
+                        sliderStep={0.5}
+                        clearLabel={t.fields.clearField}
+                      />
                     </>
                   )}
 
                   {any3Method === "asa" && (
                     <>
-                      <div className="field-card">
-                        <div className="field-head">
-                          <label htmlFor="any-ang-b">{t.fields.angleB}</label>
-                        </div>
-                        <div className="input-with-adornment">
-                          <input
-                            id="any-ang-b"
-                            type="number"
-                            step="any"
-                            min="0.1"
-                            max="178.9"
-                            placeholder={t.fields.angleB}
-                            value={any3Inputs.angleB}
-                            onChange={(e) => setAny3Inputs((s) => ({ ...s, angleB: e.target.value }))}
-                          />
-                          {any3Inputs.angleB ? (
-                            <button
-                              type="button"
-                              className="btn btn-ghost btn-sm"
-                              aria-label={`${t.fields.clearField} ${t.fields.angleB}`}
-                              onClick={() => setAny3Inputs((s) => ({ ...s, angleB: "" }))}
-                            >
-                              ✕
-                            </button>
-                          ) : null}
-                          <span className="input-suffix">°</span>
-                        </div>
-                      </div>
-
-                      <div className="field-card">
-                        <div className="field-head">
-                          <label htmlFor="any-ang-c">{t.fields.angleC}</label>
-                        </div>
-                        <div className="input-with-adornment">
-                          <input
-                            id="any-ang-c"
-                            type="number"
-                            step="any"
-                            min="0.1"
-                            max="178.9"
-                            placeholder={t.fields.angleC}
-                            value={any3Inputs.angleC}
-                            onChange={(e) => setAny3Inputs((s) => ({ ...s, angleC: e.target.value }))}
-                          />
-                          {any3Inputs.angleC ? (
-                            <button
-                              type="button"
-                              className="btn btn-ghost btn-sm"
-                              aria-label={`${t.fields.clearField} ${t.fields.angleC}`}
-                              onClick={() => setAny3Inputs((s) => ({ ...s, angleC: "" }))}
-                            >
-                              ✕
-                            </button>
-                          ) : null}
-                          <span className="input-suffix">°</span>
-                        </div>
-                      </div>
+                      <TriangleInputField
+                        id="any-ang-b"
+                        label={t.fields.angleB}
+                        value={any3Inputs.angleB}
+                        onChange={(val) => setAny3Inputs((s) => ({ ...s, angleB: val }))}
+                        unit="°"
+                        min={0.1}
+                        max={178.9}
+                        sliderMin={1}
+                        sliderMax={178}
+                        sliderStep={0.5}
+                        clearLabel={t.fields.clearField}
+                      />
+                      <TriangleInputField
+                        id="any-ang-c"
+                        label={t.fields.angleC}
+                        value={any3Inputs.angleC}
+                        onChange={(val) => setAny3Inputs((s) => ({ ...s, angleC: val }))}
+                        unit="°"
+                        min={0.1}
+                        max={178.9}
+                        sliderMin={1}
+                        sliderMax={178}
+                        sliderStep={0.5}
+                        clearLabel={t.fields.clearField}
+                      />
                     </>
                   )}
                 </>
               )}
 
-              {/* MODE: Right Trapezoid (H, W, C) */}
+              {/* MODE: Right Trapezoid */}
               {mode === "trapezoid" && (
                 <>
-                  <div className="field-card">
-                    <div className="field-head">
-                      <label htmlFor="trp-h">{t.fields.heightH}</label>
-                    </div>
-                    <div className="input-with-adornment">
-                      <input
-                        id="trp-h"
-                        type="number"
-                        step="any"
-                        min="0.1"
-                        placeholder={`${t.fields.heightH} (${unit})`}
-                        value={trapInputs.h}
-                        onChange={(e) => setTrapInputs((s) => ({ ...s, h: e.target.value }))}
-                      />
-                      {trapInputs.h ? (
-                        <button
-                          type="button"
-                          className="btn btn-ghost btn-sm"
-                          aria-label={`${t.fields.clearField} ${t.fields.heightH}`}
-                          onClick={() => setTrapInputs((s) => ({ ...s, h: "" }))}
-                        >
-                          ✕
-                        </button>
-                      ) : null}
-                      <span className="input-suffix">{unit}</span>
-                    </div>
-                  </div>
-
-                  <div className="field-card">
-                    <div className="field-head">
-                      <label htmlFor="trp-w">{t.fields.topBaseW}</label>
-                    </div>
-                    <div className="input-with-adornment">
-                      <input
-                        id="trp-w"
-                        type="number"
-                        step="any"
-                        min="0.1"
-                        placeholder={`${t.fields.topBaseW} (${unit})`}
-                        value={trapInputs.w}
-                        onChange={(e) => setTrapInputs((s) => ({ ...s, w: e.target.value }))}
-                      />
-                      {trapInputs.w ? (
-                        <button
-                          type="button"
-                          className="btn btn-ghost btn-sm"
-                          aria-label={`${t.fields.clearField} ${t.fields.topBaseW}`}
-                          onClick={() => setTrapInputs((s) => ({ ...s, w: "" }))}
-                        >
-                          ✕
-                        </button>
-                      ) : null}
-                      <span className="input-suffix">{unit}</span>
-                    </div>
-                  </div>
-
-                  <div className="field-card">
-                    <div className="field-head">
-                      <label htmlFor="trp-c">{t.fields.botBaseC}</label>
-                    </div>
-                    <div className="input-with-adornment">
-                      <input
-                        id="trp-c"
-                        type="number"
-                        step="any"
-                        min="0.1"
-                        placeholder={`${t.fields.botBaseC} (${unit})`}
-                        value={trapInputs.c}
-                        onChange={(e) => setTrapInputs((s) => ({ ...s, c: e.target.value }))}
-                      />
-                      {trapInputs.c ? (
-                        <button
-                          type="button"
-                          className="btn btn-ghost btn-sm"
-                          aria-label={`${t.fields.clearField} ${t.fields.botBaseC}`}
-                          onClick={() => setTrapInputs((s) => ({ ...s, c: "" }))}
-                        >
-                          ✕
-                        </button>
-                      ) : null}
-                      <span className="input-suffix">{unit}</span>
-                    </div>
-                  </div>
+                  <TriangleInputField
+                    id="trp-h"
+                    label={t.fields.heightH}
+                    value={trapInputs.h}
+                    onChange={(val) => setTrapInputs((s) => ({ ...s, h: val }))}
+                    unit={unit}
+                    sliderMin={1}
+                    sliderMax={100}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                  <TriangleInputField
+                    id="trp-w"
+                    label={t.fields.topBaseW}
+                    value={trapInputs.w}
+                    onChange={(val) => setTrapInputs((s) => ({ ...s, w: val }))}
+                    unit={unit}
+                    sliderMin={1}
+                    sliderMax={100}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
+                  <TriangleInputField
+                    id="trp-c"
+                    label={t.fields.botBaseC}
+                    value={trapInputs.c}
+                    onChange={(val) => setTrapInputs((s) => ({ ...s, c: val }))}
+                    unit={unit}
+                    sliderMin={1}
+                    sliderMax={150}
+                    sliderStep={0.5}
+                    clearLabel={t.fields.clearField}
+                  />
                 </>
               )}
 
