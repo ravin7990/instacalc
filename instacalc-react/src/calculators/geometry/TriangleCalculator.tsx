@@ -279,8 +279,8 @@ export default function TriangleCalculator({ seo }: { seo: SeoRecord }) {
     }
   };
 
-  // Unified diagram data passed to ObtuseTriangleDiagram
-  const diagramData: TriangleDiagramData | null = useMemo(() => {
+  // Unified diagram data passed to ObtuseTriangleDiagram (always guaranteed to produce stable diagram)
+  const diagramData: TriangleDiagramData = useMemo(() => {
     if (mode === "right") {
       const r = rightSolved && rightSolved.valid ? rightSolved : null;
       return {
@@ -315,58 +315,122 @@ export default function TriangleCalculator({ seo }: { seo: SeoRecord }) {
         classification: r ? r.classification : "Isosceles Triangle",
       };
     }
-    if (mode === "obtuse" && obtuseSolved && obtuseSolved.valid) {
+    if (mode === "obtuse") {
+      const h = parseFloat(obtuseInputs.h) || 10;
+      const c = parseFloat(obtuseInputs.c) || 15;
+      const w = parseFloat(obtuseInputs.w) || 6;
+      if (obtuseSolved && obtuseSolved.valid) {
+        return {
+          mode: "obtuse",
+          h: obtuseSolved.h,
+          c: obtuseSolved.c,
+          w: obtuseSolved.w,
+          sideA: obtuseSolved.sideA,
+          sideB: obtuseSolved.sideB,
+          sideC: obtuseSolved.sideC,
+          angleA: obtuseSolved.angleA,
+          angleB: obtuseSolved.angleB,
+          angleC: obtuseSolved.angleC,
+          area: obtuseSolved.area,
+          perimeter: obtuseSolved.perimeter,
+          unit,
+          classification: obtuseSolved.classification,
+        };
+      }
       return {
         mode: "obtuse",
-        h: obtuseSolved.h,
-        c: obtuseSolved.c,
-        w: obtuseSolved.w,
-        sideA: obtuseSolved.sideA,
-        sideB: obtuseSolved.sideB,
-        sideC: obtuseSolved.sideC,
-        angleA: obtuseSolved.angleA,
-        angleB: obtuseSolved.angleB,
-        angleC: obtuseSolved.angleC,
-        area: obtuseSolved.area,
-        perimeter: obtuseSolved.perimeter,
+        h,
+        c,
+        w,
+        sideA: Math.hypot(h, w),
+        sideB: Math.hypot(h, c + w),
+        sideC: c,
+        angleA: 30,
+        angleB: 25,
+        angleC: 125,
+        area: (c * h) / 2,
+        perimeter: c + Math.hypot(h, w) + Math.hypot(h, c + w),
         unit,
-        classification: obtuseSolved.classification,
+        classification: t.classifications.obtuse,
       };
     }
-    if (mode === "scalene" && scaleneSolved && scaleneSolved.valid) {
+    if (mode === "scalene") {
+      const h = parseFloat(scaleneInputs.h) || 12;
+      const c = parseFloat(scaleneInputs.c) || 20;
+      const w = parseFloat(scaleneInputs.w) || 7;
+      if (scaleneSolved && scaleneSolved.valid) {
+        return {
+          mode: "scalene",
+          h: scaleneSolved.h,
+          c: scaleneSolved.c,
+          w: scaleneSolved.w,
+          sideA: scaleneSolved.sideA,
+          sideB: scaleneSolved.sideB,
+          sideC: scaleneSolved.sideC,
+          angleA: scaleneSolved.angleA,
+          angleB: scaleneSolved.angleB,
+          angleC: scaleneSolved.angleC,
+          area: scaleneSolved.area,
+          perimeter: scaleneSolved.perimeter,
+          unit,
+          classification: scaleneSolved.classification,
+        };
+      }
       return {
         mode: "scalene",
-        h: scaleneSolved.h,
-        c: scaleneSolved.c,
-        w: scaleneSolved.w,
-        sideA: scaleneSolved.sideA,
-        sideB: scaleneSolved.sideB,
-        sideC: scaleneSolved.sideC,
-        angleA: scaleneSolved.angleA,
-        angleB: scaleneSolved.angleB,
-        angleC: scaleneSolved.angleC,
-        area: scaleneSolved.area,
-        perimeter: scaleneSolved.perimeter,
+        h,
+        c,
+        w,
+        sideA: Math.hypot(h, w),
+        sideB: Math.hypot(h, Math.abs(c - w)),
+        sideC: c,
+        angleA: 60,
+        angleB: 50,
+        angleC: 70,
+        area: (c * h) / 2,
+        perimeter: c + Math.hypot(h, w) + Math.hypot(h, Math.abs(c - w)),
         unit,
-        classification: scaleneSolved.classification,
+        classification: t.classifications.scalene,
       };
     }
-    if (mode === "any3" && any3Solved) {
+    if (mode === "any3") {
+      const a = parseFloat(any3Inputs.a) || 12;
+      const b = parseFloat(any3Inputs.b) || 15;
+      const c = parseFloat(any3Inputs.c) || 20;
+      if (any3Solved && any3Solved.valid) {
+        return {
+          mode: "any3",
+          sideA: any3Solved.a,
+          sideB: any3Solved.b,
+          sideC: any3Solved.c,
+          angleA: any3Solved.angleA,
+          angleB: any3Solved.angleB,
+          angleC: any3Solved.angleC,
+          area: any3Solved.area,
+          perimeter: any3Solved.perimeter,
+          unit,
+          classification: any3Solved.classification,
+        };
+      }
       return {
         mode: "any3",
-        sideA: any3Solved.a,
-        sideB: any3Solved.b,
-        sideC: any3Solved.c,
-        angleA: any3Solved.angleA,
-        angleB: any3Solved.angleB,
-        angleC: any3Solved.angleC,
-        area: any3Solved.area,
-        perimeter: any3Solved.perimeter,
+        sideA: a,
+        sideB: b,
+        sideC: c,
+        angleA: any3Solved?.angleA || 36.8,
+        angleB: any3Solved?.angleB || 48.2,
+        angleC: any3Solved?.angleC || 95.0,
+        area: any3Solved?.area || 0,
+        perimeter: any3Solved?.perimeter || (a + b + c),
         unit,
-        classification: any3Solved.classification,
+        classification: any3Solved?.classification || (seo.locale === "es" ? "Triángulo (3 datos)" : "Triangle (3 values)"),
       };
     }
-    if (mode === "trapezoid" && trapSolved && trapSolved.valid) {
+    // trapezoid
+    const h = parseFloat(trapInputs.h) || 10;
+    const w = parseFloat(trapInputs.w) || 8;
+    const c = parseFloat(trapInputs.c) || 16;
+    if (trapSolved && trapSolved.valid) {
       return {
         mode: "trapezoid",
         h: trapSolved.h,
@@ -380,8 +444,20 @@ export default function TriangleCalculator({ seo }: { seo: SeoRecord }) {
         classification: "Right Trapezoid",
       };
     }
-    return null;
-  }, [mode, rightSolved, rightInputs, isoSolved, isoInputs, obtuseSolved, scaleneSolved, any3Solved, trapSolved, unit]);
+    const slant = Math.hypot(h, Math.abs(c - w));
+    return {
+      mode: "trapezoid",
+      h,
+      w,
+      c,
+      slant,
+      taperAngle: Math.atan2(Math.abs(c - w), h) * (180 / Math.PI),
+      area: ((w + c) / 2) * h,
+      perimeter: h + w + c + slant,
+      unit,
+      classification: "Right Trapezoid",
+    };
+  }, [mode, rightSolved, rightInputs, isoSolved, isoInputs, obtuseSolved, obtuseInputs, scaleneSolved, scaleneInputs, any3Solved, any3Inputs, trapSolved, trapInputs, unit, t, seo.locale]);
 
   // Mode selection definitions matching the mobile app
   const modeButtons: Array<[TriangleSolverMode, string]> = [
@@ -399,113 +475,149 @@ export default function TriangleCalculator({ seo }: { seo: SeoRecord }) {
     ["asa", t.any3Methods.asa],
   ];
 
-  // Key-value results table
+  // Key-value results table with fixed row stability across all input states
   const rows = useMemo(() => {
     const uStr = ` ${unit}`;
     const sqStr = ` ${unit}²`;
 
     if (mode === "right") {
-      if (rightSolved && rightSolved.valid) {
-        return [
-          { key: t.results.sideA, value: `${rightSolved.a.toFixed(3)}${uStr}` },
-          { key: t.results.sideB, value: `${rightSolved.b.toFixed(3)}${uStr}` },
-          { key: t.results.hypotenuse, value: `${rightSolved.c.toFixed(3)}${uStr}` },
-          { key: t.results.angleX, value: "90.00°" },
-          { key: t.results.angleY, value: `${rightSolved.angleY.toFixed(2)}°` },
-          { key: t.results.angleZ, value: `${rightSolved.angleZ.toFixed(2)}°` },
-          { key: t.results.area, value: `${rightSolved.area.toFixed(3)}${sqStr}` },
-          { key: t.results.perimeter, value: `${rightSolved.perimeter.toFixed(3)}${uStr}` },
-          { key: `${t.results.trigRatios} (Y)`, value: `sin=${rightSolved.sinY.toFixed(3)} cos=${rightSolved.cosY.toFixed(3)} tan=${rightSolved.tanY.toFixed(3)}` },
-          { key: `${t.results.trigRatios} (Z)`, value: `sin=${rightSolved.sinZ.toFixed(3)} cos=${rightSolved.cosZ.toFixed(3)} tan=${rightSolved.tanZ.toFixed(3)}` },
-          { key: t.results.classification, value: t.classifications.right },
-          { key: t.results.solvedFrom, value: translateMethod(rightSolved.solvedFrom, seo.locale) },
-        ];
-      }
-      return [{ key: t.results.calcStatus, value: translateError(rightSolved?.error, seo.locale) || t.results.enter2Values }];
+      const isValid = rightSolved && rightSolved.valid;
+      return [
+        { key: t.results.sideA, value: isValid ? `${rightSolved.a.toFixed(3)}${uStr}` : (rightInputs.a ? `${rightInputs.a}${uStr}` : "—") },
+        { key: t.results.sideB, value: isValid ? `${rightSolved.b.toFixed(3)}${uStr}` : (rightInputs.b ? `${rightInputs.b}${uStr}` : "—") },
+        { key: t.results.hypotenuse, value: isValid ? `${rightSolved.c.toFixed(3)}${uStr}` : (rightInputs.c ? `${rightInputs.c}${uStr}` : "—") },
+        { key: t.results.angleX, value: "90.00°" },
+        { key: t.results.angleY, value: isValid ? `${rightSolved.angleY.toFixed(2)}°` : (rightInputs.angleY ? `${rightInputs.angleY}°` : "—") },
+        { key: t.results.angleZ, value: isValid ? `${rightSolved.angleZ.toFixed(2)}°` : (rightInputs.angleZ ? `${rightInputs.angleZ}°` : "—") },
+        { key: t.results.area, value: isValid ? `${rightSolved.area.toFixed(3)}${sqStr}` : "—" },
+        { key: t.results.perimeter, value: isValid ? `${rightSolved.perimeter.toFixed(3)}${uStr}` : "—" },
+        {
+          key: `${t.results.trigRatios} (Y)`,
+          value: isValid ? `sin=${rightSolved.sinY.toFixed(3)} cos=${rightSolved.cosY.toFixed(3)} tan=${rightSolved.tanY.toFixed(3)}` : "—",
+        },
+        {
+          key: `${t.results.trigRatios} (Z)`,
+          value: isValid ? `sin=${rightSolved.sinZ.toFixed(3)} cos=${rightSolved.cosZ.toFixed(3)} tan=${rightSolved.tanZ.toFixed(3)}` : "—",
+        },
+        {
+          key: t.results.classification,
+          value: isValid ? t.classifications.right : (translateError(rightSolved?.error, seo.locale) || t.results.enter2Values),
+        },
+        { key: t.results.solvedFrom, value: isValid ? translateMethod(rightSolved.solvedFrom, seo.locale) : "—" },
+      ];
     }
 
     if (mode === "isosceles") {
-      if (isoSolved && isoSolved.valid) {
-        return [
-          { key: t.results.centralHeight, value: `${isoSolved.h.toFixed(3)}${uStr}` },
-          { key: t.results.baseLength, value: `${isoSolved.c.toFixed(3)}${uStr}` },
-          { key: t.results.equalLegs, value: `${isoSolved.sideA.toFixed(3)}${uStr}` },
-          { key: t.results.angleA, value: `${isoSolved.angleA.toFixed(2)}°` },
-          { key: t.results.baseAngles, value: `${isoSolved.angleB.toFixed(2)}°` },
-          { key: t.results.area, value: `${isoSolved.area.toFixed(3)}${sqStr}` },
-          { key: t.results.perimeter, value: `${isoSolved.perimeter.toFixed(3)}${uStr}` },
-          { key: t.results.altitudeBaseRatio, value: (isoSolved.h / isoSolved.c).toFixed(3) },
-          { key: t.results.classification, value: t.classifications.isosceles },
-          { key: t.results.solvedFrom, value: translateMethod(isoSolved.solvedFrom, seo.locale) },
-        ];
-      }
-      return [{ key: t.results.calcStatus, value: translateError(isoSolved?.error, seo.locale) || t.results.enter2Values }];
-    }
-
-    if (mode === "obtuse" && obtuseSolved && obtuseSolved.valid) {
+      const isValid = isoSolved && isoSolved.valid;
       return [
-        { key: t.results.angleC, value: `${obtuseSolved.angleC.toFixed(2)}°` },
-        { key: t.results.angleA, value: `${obtuseSolved.angleA.toFixed(2)}°` },
-        { key: t.results.angleB, value: `${obtuseSolved.angleB.toFixed(2)}°` },
-        { key: `${t.results.sideA} (a)`, value: `${obtuseSolved.sideA.toFixed(3)}${uStr}` },
-        { key: `${t.results.sideB} (b)`, value: `${obtuseSolved.sideB.toFixed(3)}${uStr}` },
-        { key: `${t.results.sideC} (c)`, value: `${obtuseSolved.sideC.toFixed(3)}${uStr}` },
-        { key: t.results.area, value: `${obtuseSolved.area.toFixed(3)}${sqStr}` },
-        { key: t.results.perimeter, value: `${obtuseSolved.perimeter.toFixed(3)}${uStr}` },
-        { key: t.results.semiPerimeter, value: `${obtuseSolved.semiPerimeter.toFixed(3)}${uStr}` },
-        { key: t.results.inradius, value: `${obtuseSolved.inradius.toFixed(3)}${uStr}` },
-        { key: t.results.circumradius, value: `${obtuseSolved.circumradius.toFixed(3)}${uStr}` },
-        { key: t.results.classification, value: t.classifications.obtuse },
+        { key: t.results.centralHeight, value: isValid ? `${isoSolved.h.toFixed(3)}${uStr}` : (isoInputs.h ? `${isoInputs.h}${uStr}` : "—") },
+        { key: t.results.baseLength, value: isValid ? `${isoSolved.c.toFixed(3)}${uStr}` : (isoInputs.c ? `${isoInputs.c}${uStr}` : "—") },
+        { key: t.results.equalLegs, value: isValid ? `${isoSolved.sideA.toFixed(3)}${uStr}` : (isoInputs.a ? `${isoInputs.a}${uStr}` : "—") },
+        { key: t.results.angleA, value: isValid ? `${isoSolved.angleA.toFixed(2)}°` : (isoInputs.angleA ? `${isoInputs.angleA}°` : "—") },
+        { key: t.results.baseAngles, value: isValid ? `${isoSolved.angleB.toFixed(2)}°` : (isoInputs.angleB ? `${isoInputs.angleB}°` : "—") },
+        { key: t.results.area, value: isValid ? `${isoSolved.area.toFixed(3)}${sqStr}` : "—" },
+        { key: t.results.perimeter, value: isValid ? `${isoSolved.perimeter.toFixed(3)}${uStr}` : "—" },
+        { key: t.results.altitudeBaseRatio, value: isValid ? (isoSolved.h / isoSolved.c).toFixed(3) : "—" },
+        {
+          key: t.results.classification,
+          value: isValid ? t.classifications.isosceles : (translateError(isoSolved?.error, seo.locale) || t.results.enter2Values),
+        },
+        { key: t.results.solvedFrom, value: isValid ? translateMethod(isoSolved.solvedFrom, seo.locale) : "—" },
       ];
     }
 
-    if (mode === "scalene" && scaleneSolved && scaleneSolved.valid) {
+    if (mode === "obtuse") {
+      const isValid = obtuseSolved && obtuseSolved.valid;
       return [
-        { key: t.results.angleA, value: `${scaleneSolved.angleA.toFixed(2)}°` },
-        { key: `${t.results.angleB} (b°)`, value: `${scaleneSolved.angleB.toFixed(2)}°` },
-        { key: `${t.results.angleC} (c°)`, value: `${scaleneSolved.angleC.toFixed(2)}°` },
-        { key: `${t.results.sideA} (a)`, value: `${scaleneSolved.sideA.toFixed(3)}${uStr}` },
-        { key: `${t.results.sideB} (b)`, value: `${scaleneSolved.sideB.toFixed(3)}${uStr}` },
-        { key: `${t.results.sideC} (c)`, value: `${scaleneSolved.sideC.toFixed(3)}${uStr}` },
-        { key: t.results.area, value: `${scaleneSolved.area.toFixed(3)}${sqStr}` },
-        { key: t.results.perimeter, value: `${scaleneSolved.perimeter.toFixed(3)}${uStr}` },
-        { key: t.results.semiPerimeter, value: `${scaleneSolved.semiPerimeter.toFixed(3)}${uStr}` },
-        { key: t.results.inradius, value: `${scaleneSolved.inradius.toFixed(3)}${uStr}` },
-        { key: t.results.circumradius, value: `${scaleneSolved.circumradius.toFixed(3)}${uStr}` },
-        { key: t.results.classification, value: t.classifications.scalene },
+        { key: t.results.angleC, value: isValid ? `${obtuseSolved.angleC.toFixed(2)}°` : "—" },
+        { key: t.results.angleA, value: isValid ? `${obtuseSolved.angleA.toFixed(2)}°` : "—" },
+        { key: t.results.angleB, value: isValid ? `${obtuseSolved.angleB.toFixed(2)}°` : "—" },
+        { key: `${t.results.sideA} (a)`, value: isValid ? `${obtuseSolved.sideA.toFixed(3)}${uStr}` : "—" },
+        { key: `${t.results.sideB} (b)`, value: isValid ? `${obtuseSolved.sideB.toFixed(3)}${uStr}` : "—" },
+        { key: `${t.results.sideC} (c)`, value: isValid ? `${obtuseSolved.sideC.toFixed(3)}${uStr}` : (obtuseInputs.c ? `${obtuseInputs.c}${uStr}` : "—") },
+        { key: t.results.area, value: isValid ? `${obtuseSolved.area.toFixed(3)}${sqStr}` : "—" },
+        { key: t.results.perimeter, value: isValid ? `${obtuseSolved.perimeter.toFixed(3)}${uStr}` : "—" },
+        { key: t.results.semiPerimeter, value: isValid ? `${obtuseSolved.semiPerimeter.toFixed(3)}${uStr}` : "—" },
+        { key: t.results.inradius, value: isValid ? `${obtuseSolved.inradius.toFixed(3)}${uStr}` : "—" },
+        { key: t.results.circumradius, value: isValid ? `${obtuseSolved.circumradius.toFixed(3)}${uStr}` : "—" },
+        {
+          key: t.results.classification,
+          value: isValid
+            ? t.classifications.obtuse
+            : (seo.locale === "es" ? "Introduce H, C y W para calcular" : "Enter H, C and W to calculate"),
+        },
       ];
     }
 
-    if (mode === "any3" && any3Solved) {
+    if (mode === "scalene") {
+      const isValid = scaleneSolved && scaleneSolved.valid;
       return [
-        { key: t.results.sideA, value: `${any3Solved.a.toFixed(3)}${uStr}` },
-        { key: t.results.sideB, value: `${any3Solved.b.toFixed(3)}${uStr}` },
-        { key: t.results.sideC, value: `${any3Solved.c.toFixed(3)}${uStr}` },
-        { key: t.results.angleA, value: `${any3Solved.angleA.toFixed(2)}°` },
-        { key: t.results.angleB, value: `${any3Solved.angleB.toFixed(2)}°` },
-        { key: t.results.angleC, value: `${any3Solved.angleC.toFixed(2)}°` },
-        { key: t.results.area, value: `${any3Solved.area.toFixed(3)}${sqStr}` },
-        { key: t.results.perimeter, value: `${any3Solved.perimeter.toFixed(3)}${uStr}` },
-        { key: t.results.classification, value: translateClassification(any3Solved.classification, t) },
+        { key: t.results.angleA, value: isValid ? `${scaleneSolved.angleA.toFixed(2)}°` : "—" },
+        { key: `${t.results.angleB} (b°)`, value: isValid ? `${scaleneSolved.angleB.toFixed(2)}°` : "—" },
+        { key: `${t.results.angleC} (c°)`, value: isValid ? `${scaleneSolved.angleC.toFixed(2)}°` : "—" },
+        { key: `${t.results.sideA} (a)`, value: isValid ? `${scaleneSolved.sideA.toFixed(3)}${uStr}` : "—" },
+        { key: `${t.results.sideB} (b)`, value: isValid ? `${scaleneSolved.sideB.toFixed(3)}${uStr}` : "—" },
+        { key: `${t.results.sideC} (c)`, value: isValid ? `${scaleneSolved.sideC.toFixed(3)}${uStr}` : (scaleneInputs.c ? `${scaleneInputs.c}${uStr}` : "—") },
+        { key: t.results.area, value: isValid ? `${scaleneSolved.area.toFixed(3)}${sqStr}` : "—" },
+        { key: t.results.perimeter, value: isValid ? `${scaleneSolved.perimeter.toFixed(3)}${uStr}` : "—" },
+        { key: t.results.semiPerimeter, value: isValid ? `${scaleneSolved.semiPerimeter.toFixed(3)}${uStr}` : "—" },
+        { key: t.results.inradius, value: isValid ? `${scaleneSolved.inradius.toFixed(3)}${uStr}` : "—" },
+        { key: t.results.circumradius, value: isValid ? `${scaleneSolved.circumradius.toFixed(3)}${uStr}` : "—" },
+        {
+          key: t.results.classification,
+          value: isValid
+            ? t.classifications.scalene
+            : (seo.locale === "es" ? "Introduce H, C y W (0 ≤ W ≤ C)" : "Enter H, C and W (0 ≤ W ≤ C)"),
+        },
       ];
     }
 
-    if (mode === "trapezoid" && trapSolved && trapSolved.valid) {
+    if (mode === "any3") {
+      const isValid = any3Solved && any3Solved.valid;
       return [
-        { key: t.results.slantEdge, value: `${trapSolved.slant.toFixed(3)}${uStr}` },
-        { key: t.results.taperAngle, value: `${trapSolved.taperAngle.toFixed(2)}°` },
-        { key: t.results.centralHeight, value: `${trapSolved.h.toFixed(3)}${uStr}` },
-        { key: t.results.topBase, value: `${trapSolved.cTop.toFixed(3)}${uStr}` },
-        { key: t.results.botBase, value: `${trapSolved.cBot.toFixed(3)}${uStr}` },
-        { key: t.results.baseDiff, value: `${Math.abs(trapSolved.cBot - trapSolved.cTop).toFixed(3)}${uStr}` },
-        { key: t.results.area, value: `${trapSolved.area.toFixed(3)}${sqStr}` },
-        { key: t.results.perimeter, value: `${trapSolved.perimeter.toFixed(3)}${uStr}` },
-        { key: t.results.classification, value: t.classifications.trapezoid },
+        { key: t.results.sideA, value: isValid ? `${any3Solved.a.toFixed(3)}${uStr}` : (any3Inputs.a ? `${any3Inputs.a}${uStr}` : "—") },
+        { key: t.results.sideB, value: isValid ? `${any3Solved.b.toFixed(3)}${uStr}` : (any3Inputs.b ? `${any3Inputs.b}${uStr}` : "—") },
+        { key: t.results.sideC, value: isValid ? `${any3Solved.c.toFixed(3)}${uStr}` : (any3Inputs.c ? `${any3Inputs.c}${uStr}` : "—") },
+        { key: t.results.angleA, value: isValid ? `${any3Solved.angleA.toFixed(2)}°` : "—" },
+        { key: t.results.angleB, value: isValid ? `${any3Solved.angleB.toFixed(2)}°` : "—" },
+        { key: t.results.angleC, value: isValid ? `${any3Solved.angleC.toFixed(2)}°` : (any3Inputs.angleC ? `${any3Inputs.angleC}°` : "—") },
+        { key: t.results.area, value: isValid ? `${any3Solved.area.toFixed(3)}${sqStr}` : "—" },
+        { key: t.results.perimeter, value: isValid ? `${any3Solved.perimeter.toFixed(3)}${uStr}` : "—" },
+        {
+          key: t.results.classification,
+          value: isValid
+            ? translateClassification(any3Solved.classification, t)
+            : any3Solved && !any3Solved.valid
+            ? (seo.locale === "es"
+                ? "Valores no forman un triángulo válido"
+                : "Invalid triangle (sides do not form a triangle)")
+            : (seo.locale === "es" ? "Introduce 3 valores válidos" : "Enter 3 valid values"),
+        },
+      ];
+    }
+
+    if (mode === "trapezoid") {
+      const isValid = trapSolved && trapSolved.valid;
+      return [
+        { key: t.results.slantEdge, value: isValid ? `${trapSolved.slant.toFixed(3)}${uStr}` : "—" },
+        { key: t.results.taperAngle, value: isValid ? `${trapSolved.taperAngle.toFixed(2)}°` : "—" },
+        { key: t.results.centralHeight, value: isValid ? `${trapSolved.h.toFixed(3)}${uStr}` : (trapInputs.h ? `${trapInputs.h}${uStr}` : "—") },
+        { key: t.results.topBase, value: isValid ? `${trapSolved.cTop.toFixed(3)}${uStr}` : (trapInputs.w ? `${trapInputs.w}${uStr}` : "—") },
+        { key: t.results.botBase, value: isValid ? `${trapSolved.cBot.toFixed(3)}${uStr}` : (trapInputs.c ? `${trapInputs.c}${uStr}` : "—") },
+        { key: t.results.baseDiff, value: isValid ? `${Math.abs(trapSolved.cBot - trapSolved.cTop).toFixed(3)}${uStr}` : "—" },
+        { key: t.results.area, value: isValid ? `${trapSolved.area.toFixed(3)}${sqStr}` : "—" },
+        { key: t.results.perimeter, value: isValid ? `${trapSolved.perimeter.toFixed(3)}${uStr}` : "—" },
+        {
+          key: t.results.classification,
+          value: isValid
+            ? t.classifications.trapezoid
+            : (seo.locale === "es" ? "Introduce altura y bases válidas" : "Enter valid height and bases"),
+        },
       ];
     }
 
     return [];
-  }, [mode, rightSolved, isoSolved, obtuseSolved, scaleneSolved, any3Solved, trapSolved, unit]);
+  }, [mode, rightSolved, rightInputs, isoSolved, isoInputs, obtuseSolved, obtuseInputs, scaleneSolved, scaleneInputs, any3Solved, any3Inputs, trapSolved, trapInputs, unit, t, seo.locale]);
 
   // Primary summary highlight badge
   const summary = useMemo(() => {
@@ -533,10 +645,16 @@ export default function TriangleCalculator({ seo }: { seo: SeoRecord }) {
         value: `${scaleneSolved.area.toFixed(2)} ${unit}²  •  a=${scaleneSolved.angleA.toFixed(1)}°`,
       };
     }
-    if (mode === "any3" && any3Solved) {
+    if (mode === "any3") {
+      if (any3Solved && any3Solved.valid) {
+        return {
+          label: `${t.summaries.any3} (${unit})`,
+          value: `${any3Solved.area.toFixed(2)} ${unit}²  •  P=${any3Solved.perimeter.toFixed(2)} ${unit}`,
+        };
+      }
       return {
         label: `${t.summaries.any3} (${unit})`,
-        value: `${any3Solved.area.toFixed(2)} ${unit}²  •  P=${any3Solved.perimeter.toFixed(2)} ${unit}`,
+        value: seo.locale === "es" ? "Completar 3 valores" : "Enter 3 values",
       };
     }
     if (mode === "trapezoid" && trapSolved && trapSolved.valid) {
@@ -546,7 +664,7 @@ export default function TriangleCalculator({ seo }: { seo: SeoRecord }) {
       };
     }
     return { label: t.summaries.result, value: "0" };
-  }, [mode, rightSolved, isoSolved, obtuseSolved, scaleneSolved, any3Solved, trapSolved, unit]);
+  }, [mode, rightSolved, isoSolved, obtuseSolved, scaleneSolved, any3Solved, trapSolved, unit, t, seo.locale]);
 
   return (
     <>
@@ -1492,25 +1610,23 @@ export default function TriangleCalculator({ seo }: { seo: SeoRecord }) {
           }
           results={
             <>
-              {diagramData && (
-                <ObtuseTriangleDiagram
-                  data={diagramData}
-                  locale={seo.locale}
-                  title={
-                    mode === "obtuse"
-                      ? t.diagramTitles.obtuse
-                      : mode === "scalene"
-                      ? t.diagramTitles.scalene
-                      : mode === "isosceles"
-                      ? t.diagramTitles.isosceles
-                      : mode === "any3"
-                      ? t.diagramTitles.any3
-                      : mode === "right"
-                      ? t.diagramTitles.right
-                      : t.diagramTitles.trapezoid
-                  }
-                />
-              )}
+              <ObtuseTriangleDiagram
+                data={diagramData}
+                locale={seo.locale}
+                title={
+                  mode === "obtuse"
+                    ? t.diagramTitles.obtuse
+                    : mode === "scalene"
+                    ? t.diagramTitles.scalene
+                    : mode === "isosceles"
+                    ? t.diagramTitles.isosceles
+                    : mode === "any3"
+                    ? t.diagramTitles.any3
+                    : mode === "right"
+                    ? t.diagramTitles.right
+                    : t.diagramTitles.trapezoid
+                }
+              />
 
               <ul className="kv-list">
                 {rows.map((r) => (
