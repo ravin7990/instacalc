@@ -89,7 +89,7 @@ function buildHead(page, css, entry, body, opts = {}) {
   // JSON-LD with WebApplication and BreadcrumbList rich schemas
   const allJsonLd = [...(page.jsonLd ?? [])];
   const hasApp = allJsonLd.some((j) => j && (j["@type"] === "WebApplication" || j["@type"] === "SoftwareApplication"));
-  if (!hasApp && /calculator|tax|interest|pay|dsr|isa|pension|benefit/.test(page.path)) {
+  if (!hasApp && /calculator|calculadora|conversor|tax|interest|pay|dsr|isa|pension|benefit/.test(page.path)) {
     allJsonLd.push({
       "@context": "https://schema.org",
       "@type": "WebApplication",

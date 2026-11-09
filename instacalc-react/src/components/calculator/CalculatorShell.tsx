@@ -67,6 +67,7 @@ export function CalculatorShell({
   onReset,
   children,
   path,
+  hasDiagram,
 }: {
   locale: Locale;
   id?: string;
@@ -84,6 +85,8 @@ export function CalculatorShell({
   /** Restores every input to its default. Omitted hides the reset control. */
   onReset?: () => void;
   children?: ReactNode;
+  /** When true, allocates a wider, balanced results rail for visual diagrams. */
+  hasDiagram?: boolean;
 }) {
   const t = ui(locale);
   const { currencyCode, setCurrency } = useCurrency();
@@ -714,6 +717,7 @@ export function CalculatorShell({
           className="calculator-shell"
           data-advanced={advanced ? "on" : "off"}
           data-print-mode={printBatchMode ? "history-batch" : undefined}
+          data-has-diagram={hasDiagram ? "true" : undefined}
         >
           {/* A4 Print Document Header */}
           <div className="print-report-header" aria-hidden="true">

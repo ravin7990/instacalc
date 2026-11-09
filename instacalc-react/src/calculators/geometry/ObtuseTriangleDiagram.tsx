@@ -653,6 +653,9 @@ export function ObtuseTriangleDiagram({ data, title, locale = "en" }: ObtuseTria
               <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.35" />
               <stop offset="100%" stopColor="#ede9fe" stopOpacity="0.6" />
             </linearGradient>
+            <filter id="tri-badge-shadow" x="-15%" y="-20%" width="130%" height="150%">
+              <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" floodColor="#0f172a" floodOpacity="0.12" />
+            </filter>
           </defs>
 
           {content}
@@ -683,9 +686,9 @@ function SvgBadge({
   text: string;
   color?: string;
 }) {
-  const charWidth = 6.8;
-  const w = Math.max(46, text.length * charWidth + 12);
-  const h = 20;
+  const charWidth = 7.6;
+  const w = Math.max(52, text.length * charWidth + 16);
+  const h = 24;
   const rectX = x - w / 2;
   const rectY = y - h / 2;
 
@@ -696,16 +699,18 @@ function SvgBadge({
         y={rectY}
         width={w}
         height={h}
-        rx={4}
+        rx={5}
         fill="#ffffff"
         stroke={color}
-        strokeWidth={1.5}
+        strokeWidth={1.75}
+        filter="url(#tri-badge-shadow)"
       />
       <text
         x={x}
-        y={y + 4}
+        y={y}
         textAnchor="middle"
-        fontSize={10.5}
+        dominantBaseline="central"
+        fontSize={12.5}
         fontWeight={700}
         fill="#0f172a"
         fontFamily="var(--ic-font-sans), system-ui, sans-serif"

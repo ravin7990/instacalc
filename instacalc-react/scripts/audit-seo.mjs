@@ -19,7 +19,7 @@ const DIST = join(ROOT, "dist");
 const ORIGIN = "https://instacalc.in";
 
 /** `/us/` and `/ja/` serve English and Japanese respectively. */
-const LANG_OF = { en: "en", us: "en", ja: "ja", ru: "ru", ko: "ko" };
+const LANG_OF = { en: "en", us: "en", ja: "ja", ru: "ru", ko: "ko", es: "es" };
 
 /** Recursively collect every .html file under dist. */
 function htmlFiles(dir) {
@@ -92,6 +92,8 @@ for (const file of files) {
   const page = rel === "index.html" ? "/" : `/${rel}`;
   if (page === "/404.html") continue;
   const html = readFileSync(file, "utf8");
+  // Redirect stubs (refresh meta + noindex) are not indexable content pages.
+  if (/<meta\s+http-equiv="refresh"/i.test(html)) continue;
   const headEnd = html.indexOf("</head>");
   const head = headEnd < 0 ? html : html.slice(0, headEnd + 7);
   const body = headEnd < 0 ? "" : html.slice(headEnd);
@@ -197,6 +199,11 @@ for (const file of files) {
   }
 
   const firstH2 = body.search(/<h2\b/i);
+  const firstH3 = body.search(/<h3\b/i);
+  if (firstH3 >= 0 && (firstH2 < 0 || firstH3 < firstH2)) {
+    warn("headings", "<h3> appears before any <h2>");
+  }
+}
 
 // ---------------------------------------------------------------- report ----
 console.log(`\n[audit-seo] ${files.length} pages scanned against ${ORIGIN}\n`);
@@ -215,9 +222,3 @@ console.log(
 );
 
 process.exit(fails.length ? 1 : 0);
-
-  const firstH3 = body.search(/<h3\b/i);
-  if (firstH3 >= 0 && (firstH2 < 0 || firstH3 < firstH2)) {
-    warn("headings", "<h3> appears before any <h2>");
-  }
-}

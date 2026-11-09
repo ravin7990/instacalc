@@ -562,6 +562,7 @@ export default function TriangleCalculator({ seo }: { seo: SeoRecord }) {
           locale={seo.locale}
           id="triangle-calculator"
           title={t.title}
+          hasDiagram={true}
           summary={summary}
           inputs={
             <>

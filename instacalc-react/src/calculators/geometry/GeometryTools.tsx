@@ -168,6 +168,7 @@ export default function GeometryTools({ seo }: { seo: SeoRecord }) {
           locale={seo.locale}
           id={isTriangle ? "triangle-calculator" : "diagonal-calculator"}
           title={c.diagonal}
+          hasDiagram={true}
           summary={{ label: c.diagonal, value: `${result.diagonal.toFixed(3)} ${c.units}` }}
           inputs={
             <>

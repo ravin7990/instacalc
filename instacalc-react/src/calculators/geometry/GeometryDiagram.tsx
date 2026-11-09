@@ -26,8 +26,8 @@ const formatNum = (n: number | undefined): string => {
 
 export function GeometryDiagram({ shape, values, result, right, labels, locale }: GeometryDiagramProps) {
   const isEs = locale === "es";
-  const vbW = 460;
-  const vbH = 280;
+  const vbW = 500;
+  const vbH = 300;
 
   // Primary palette tokens
   const colA = "#0284c7"; // Side A (Blue)
@@ -37,10 +37,10 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
   const colShape = "#3b82f6";
 
   const content = useMemo(() => {
-    const originX = 65;
-    const originY = 35;
-    const availW = 320;
-    const availH = 180;
+    const originX = 72;
+    const originY = 30;
+    const availW = 330;
+    const availH = 195;
 
     if (shape === "right") {
       const aVal = values.a ?? 3; // vertical leg
@@ -70,16 +70,16 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
       const xBR = xBL + w;
       const yBR = yBL;
 
-      const sq = Math.min(18, Math.min(w, h) * 0.22);
-      const arcARad = Math.min(34, w * 0.35);
-      const arcBRad = Math.min(34, h * 0.35);
+      const sq = Math.min(20, Math.min(w, h) * 0.22);
+      const arcARad = Math.min(36, w * 0.35);
+      const arcBRad = Math.min(36, h * 0.35);
 
       // Hypotenuse normal for label placement
       const hypLen = Math.hypot(w, h);
       const nx = -h / hypLen;
       const ny = -w / hypLen;
-      const midHypX = (xTL + xBR) / 2 - nx * 18;
-      const midHypY = (yTL + yBR) / 2 + ny * 18;
+      const midHypX = (xTL + xBR) / 2 - nx * 20;
+      const midHypY = (yTL + yBR) / 2 + ny * 20;
 
       return (
         <>
@@ -88,7 +88,7 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
             points={`${xTL},${yTL} ${xBR},${yBR} ${xBL},${yBL}`}
             fill="url(#triangle-grad)"
             stroke={colShape}
-            strokeWidth="2.5"
+            strokeWidth="2.75"
             strokeLinejoin="round"
           />
 
@@ -102,10 +102,11 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
           <text
             x={xBL + sq + 14}
             y={yBL - 6}
-            fontSize="10"
+            fontSize="12"
             fontWeight="700"
             fill={colAngle}
             textAnchor="middle"
+            fontFamily="var(--ic-font-sans), system-ui, sans-serif"
           >
             90°
           </text>
@@ -120,8 +121,8 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
             strokeWidth="2"
           />
           <SvgBadge
-            x={Math.max(xBL + 75, xBR - arcARad - 28)}
-            y={yBR - 14}
+            x={Math.max(xBL + 85, xBR - arcARad - 32)}
+            y={yBR - 16}
             text={`∠A: ${angleA.toFixed(1)}°`}
             color={colAngle}
           />
@@ -136,26 +137,26 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
             strokeWidth="2"
           />
           <SvgBadge
-            x={xTL + arcBRad + 32}
-            y={Math.min(yBL - 20, yTL + arcBRad + 12)}
+            x={xTL + arcBRad + 38}
+            y={Math.min(yBL - 24, yTL + arcBRad + 14)}
             text={`∠B: ${angleB.toFixed(1)}°`}
             color={colAngle}
           />
 
           {/* Side A (Vertical, Left) */}
-          <line x1={xTL} y1={yTL} x2={xBL} y2={yBL} stroke={colA} strokeWidth="3" />
+          <line x1={xTL} y1={yTL} x2={xBL} y2={yBL} stroke={colA} strokeWidth="3.25" />
           <SvgBadge
-            x={xBL - 44}
+            x={xBL - 48}
             y={yBL - h / 2}
             text={`Side A = ${formatNum(aVal)}`}
             color={colA}
           />
 
           {/* Side B (Horizontal, Bottom) */}
-          <line x1={xBL} y1={yBL} x2={xBR} y2={yBR} stroke={colB} strokeWidth="3" />
+          <line x1={xBL} y1={yBL} x2={xBR} y2={yBR} stroke={colB} strokeWidth="3.25" />
           <SvgBadge
             x={xBL + w / 2}
-            y={yBL + 24}
+            y={yBL + 26}
             text={`Side B = ${formatNum(bVal)}`}
             color={colB}
           />
@@ -168,7 +169,7 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
             y2={yBR}
             stroke={colC}
             strokeWidth="3.5"
-            strokeDasharray="6 3"
+            strokeDasharray="7 4"
           />
           <SvgBadge
             x={midHypX}
@@ -178,9 +179,9 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
           />
 
           {/* Vertex Dots */}
-          <circle cx={xTL} cy={yTL} r="4.5" fill={colC} />
-          <circle cx={xBR} cy={yBR} r="4.5" fill={colC} />
-          <circle cx={xBL} cy={yBL} r="4.5" fill={colShape} />
+          <circle cx={xTL} cy={yTL} r="5" fill={colC} />
+          <circle cx={xBR} cy={yBR} r="5" fill={colC} />
+          <circle cx={xBL} cy={yBL} r="5" fill={colShape} />
         </>
       );
     }
@@ -216,8 +217,8 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
       const xTL = x0;
       const yTL = y0;
 
-      const sq = Math.min(16, Math.min(w, h) * 0.2);
-      const arcR = Math.min(28, Math.min(w, h) * 0.35);
+      const sq = Math.min(18, Math.min(w, h) * 0.2);
+      const arcR = Math.min(32, Math.min(w, h) * 0.35);
       const hypLen = Math.hypot(w, h);
 
       return (
@@ -230,7 +231,7 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
             height={h}
             fill="url(#rect-grad)"
             stroke={colShape}
-            strokeWidth="2.5"
+            strokeWidth="2.75"
             rx="4"
           />
 
@@ -239,15 +240,22 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
             d={`M ${xBL} ${yBL - sq} L ${xBL + sq} ${yBL - sq} L ${xBL + sq} ${yBL}`}
             fill="none"
             stroke={colAngle}
-            strokeWidth="1.75"
+            strokeWidth="2"
           />
           <path
             d={`M ${xTR - sq} ${yTR} L ${xTR - sq} ${yTR + sq} L ${xTR} ${yTR + sq}`}
             fill="none"
             stroke={colAngle}
-            strokeWidth="1.75"
+            strokeWidth="2"
           />
-          <text x={xBL + sq + 12} y={yBL - 5} fontSize="9" fontWeight="700" fill={colAngle}>
+          <text
+            x={xBL + sq + 14}
+            y={yBL - 6}
+            fontSize="12"
+            fontWeight="700"
+            fill={colAngle}
+            fontFamily="var(--ic-font-sans), system-ui, sans-serif"
+          >
             90°
           </text>
 
@@ -258,8 +266,8 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
             x2={xTR}
             y2={yTR}
             stroke={colC}
-            strokeWidth="3"
-            strokeDasharray="6 3"
+            strokeWidth="3.25"
+            strokeDasharray="7 4"
           />
 
           {/* Diagonal Angle Arc at BL */}
@@ -272,25 +280,25 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
             strokeWidth="2"
           />
           <SvgBadge
-            x={Math.min(xBR - 40, xBL + arcR + 32)}
-            y={yBL - 16}
+            x={Math.min(xBR - 50, xBL + arcR + 36)}
+            y={yBL - 18}
             text={`θ: ${theta1.toFixed(1)}°`}
             color={colAngle}
           />
 
           {/* Side A (Bottom / Length) */}
-          <line x1={xBL} y1={yBL} x2={xBR} y2={yBR} stroke={colA} strokeWidth="3" />
+          <line x1={xBL} y1={yBL} x2={xBR} y2={yBR} stroke={colA} strokeWidth="3.25" />
           <SvgBadge
             x={x0 + w / 2}
-            y={yBL + 24}
+            y={yBL + 26}
             text={`Side A = ${formatNum(aVal)}`}
             color={colA}
           />
 
           {/* Side B (Right / Width) */}
-          <line x1={xBR} y1={yTR} x2={xBR} y2={yBR} stroke={colB} strokeWidth="3" />
+          <line x1={xBR} y1={yTR} x2={xBR} y2={yBR} stroke={colB} strokeWidth="3.25" />
           <SvgBadge
-            x={xBR + 46}
+            x={xBR + 52}
             y={y0 + h / 2}
             text={`Side B = ${formatNum(bVal)}`}
             color={colB}
@@ -298,17 +306,17 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
 
           {/* Diagonal Callout along the line */}
           <SvgBadge
-            x={x0 + w / 2 - 12}
+            x={x0 + w / 2 - 10}
             y={y0 + h / 2 - 20}
             text={`Diagonal C = ${formatNum(diagVal)}`}
             color={colC}
           />
 
           {/* Vertex Dots */}
-          <circle cx={xBL} cy={yBL} r="4" fill={colC} />
-          <circle cx={xTR} cy={yTR} r="4" fill={colC} />
-          <circle cx={xBR} cy={yBR} r="3.5" fill={colShape} />
-          <circle cx={xTL} cy={yTL} r="3.5" fill={colShape} />
+          <circle cx={xBL} cy={yBL} r="5" fill={colC} />
+          <circle cx={xTR} cy={yTR} r="5" fill={colC} />
+          <circle cx={xBR} cy={yBR} r="4.5" fill={colShape} />
+          <circle cx={xTL} cy={yTL} r="4.5" fill={colShape} />
         </>
       );
     }
@@ -323,9 +331,9 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
       const elevAngle = (Math.atan(cVal / Math.max(0.001, dFace)) * 180) / Math.PI;
 
       const maxDim = Math.max(aVal, bVal, cVal, 0.001);
-      const wFront = Math.max(65, Math.min(180, (aVal / maxDim) * 180));
-      const hFront = Math.max(55, Math.min(130, (cVal / maxDim) * 130));
-      const depthP = Math.max(45, Math.min(105, (bVal / maxDim) * 105));
+      const wFront = Math.max(75, Math.min(190, (aVal / maxDim) * 190));
+      const hFront = Math.max(65, Math.min(140, (cVal / maxDim) * 140));
+      const depthP = Math.max(50, Math.min(110, (bVal / maxDim) * 110));
 
       const dx = depthP * 0.82;
       const dy = depthP * 0.48;
@@ -408,7 +416,7 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
             points={`${fBL.x},${fBL.y} ${fBR.x},${fBR.y} ${fTR.x},${fTR.y} ${fTL.x},${fTL.y}`}
             fill="url(#rect-grad)"
             stroke={colShape}
-            strokeWidth="2.5"
+            strokeWidth="2.75"
           />
 
           {/* 3D Space Diagonal (B_BL to F_TR) */}
@@ -419,31 +427,31 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
             y2={fTR.y}
             stroke={colC}
             strokeWidth="3.5"
-            strokeDasharray="6 3"
+            strokeDasharray="7 4"
           />
 
           {/* Dimension Side A (Length, Front Horizontal) */}
-          <line x1={fBL.x} y1={fBL.y} x2={fBR.x} y2={fBR.y} stroke={colA} strokeWidth="3" />
+          <line x1={fBL.x} y1={fBL.y} x2={fBR.x} y2={fBR.y} stroke={colA} strokeWidth="3.25" />
           <SvgBadge
             x={fBL.x + wFront / 2}
-            y={fBL.y + 24}
+            y={fBL.y + 26}
             text={`Side A = ${formatNum(aVal)}`}
             color={colA}
           />
 
           {/* Dimension Side B (Width / Depth, Angled Top/Right) */}
-          <line x1={fTR.x} y1={fTR.y} x2={bTR.x} y2={bTR.y} stroke={colB} strokeWidth="3" />
+          <line x1={fTR.x} y1={fTR.y} x2={bTR.x} y2={bTR.y} stroke={colB} strokeWidth="3.25" />
           <SvgBadge
-            x={fTR.x + dx / 2 + 34}
+            x={fTR.x + dx / 2 + 38}
             y={fTR.y - dy / 2 - 12}
             text={`Side B = ${formatNum(bVal)}`}
             color={colB}
           />
 
           {/* Dimension Side C (Height, Front Vertical) */}
-          <line x1={fBL.x} y1={fBL.y} x2={fTL.x} y2={fTL.y} stroke={colShape} strokeWidth="3" />
+          <line x1={fBL.x} y1={fBL.y} x2={fTL.x} y2={fTL.y} stroke={colShape} strokeWidth="3.25" />
           <SvgBadge
-            x={fBL.x - 44}
+            x={fBL.x - 48}
             y={fBL.y - hFront / 2}
             text={`Side C = ${formatNum(cVal)}`}
             color={colShape}
@@ -452,15 +460,15 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
           {/* Space Diagonal Callout */}
           <SvgBadge
             x={(bBL.x + fTR.x) / 2}
-            y={(bBL.y + fTR.y) / 2 - 20}
+            y={(bBL.y + fTR.y) / 2 - 22}
             text={`Space Diag = ${formatNum(dSpace)}`}
             subText={`(θ: ${elevAngle.toFixed(1)}°)`}
             color={colC}
           />
 
           {/* Vertex Highlights */}
-          <circle cx={bBL.x} cy={bBL.y} r="4.5" fill={colC} />
-          <circle cx={fTR.x} cy={fTR.y} r="4.5" fill={colC} />
+          <circle cx={bBL.x} cy={bBL.y} r="5" fill={colC} />
+          <circle cx={fTR.x} cy={fTR.y} r="5" fill={colC} />
         </>
       );
     }
@@ -501,7 +509,7 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
           points={pointsStr}
           fill="url(#triangle-grad)"
           stroke={colShape}
-          strokeWidth="2.5"
+          strokeWidth="2.75"
           strokeLinejoin="round"
         />
 
@@ -512,8 +520,8 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
           x2={pEnd.x}
           y2={pEnd.y}
           stroke={colC}
-          strokeWidth="3"
-          strokeDasharray="6 3"
+          strokeWidth="3.25"
+          strokeDasharray="7 4"
         />
 
         {/* Highlighted Bottom Edge (Side Length) */}
@@ -527,7 +535,7 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
         />
         <SvgBadge
           x={(pStart.x + pNext.x) / 2}
-          y={Math.max(pStart.y, pNext.y) + 24}
+          y={Math.max(pStart.y, pNext.y) + 26}
           text={`Side = ${formatNum(sideLen)}`}
           color={colA}
         />
@@ -535,15 +543,15 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
         {/* Diagonal Badge */}
         <SvgBadge
           x={(pStart.x + pEnd.x) / 2}
-          y={(pStart.y + pEnd.y) / 2 - 16}
+          y={(pStart.y + pEnd.y) / 2 - 18}
           text={`Diag = ${formatNum(diag)}`}
           color={colC}
         />
 
         {/* Interior Angle Callout */}
         <SvgBadge
-          x={pStart.x - 38}
-          y={pStart.y - 14}
+          x={pStart.x - 44}
+          y={pStart.y - 16}
           text={`θ: ${intAngle.toFixed(1)}°`}
           color={colAngle}
         />
@@ -551,11 +559,13 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
         {/* Center Side Count Badge */}
         <text
           x={cx}
-          y={cy + 4}
-          fontSize="11"
+          y={cy}
+          fontSize="13"
           fontWeight="700"
           fill="#475569"
           textAnchor="middle"
+          dominantBaseline="central"
+          fontFamily="var(--ic-font-sans), system-ui, sans-serif"
         >
           {n} Sides
         </text>
@@ -566,7 +576,7 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
             key={i}
             cx={p.x}
             cy={p.y}
-            r={i === 0 || i === targetIdx ? "4.5" : "3"}
+            r={i === 0 || i === targetIdx ? "5" : "3.5"}
             fill={i === 0 || i === targetIdx ? colC : colShape}
           />
         ))}
@@ -616,7 +626,6 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
       const bVal = values.b ?? 3;
       const cVal = values.c ?? 6;
       const dSpace = Math.hypot(aVal, bVal, cVal);
-      const dFace = Math.hypot(aVal, bVal);
       return [
         { label: isEs ? "Largo (A)" : "Length (A)", val: formatNum(aVal), color: colA },
         { label: isEs ? "Ancho (B)" : "Width (B)", val: formatNum(bVal), color: colB },
@@ -684,6 +693,9 @@ export function GeometryDiagram({ shape, values, result, right, labels, locale }
               <stop offset="0%" stopColor="#f0f9ff" stopOpacity="0.9" />
               <stop offset="100%" stopColor="#e0f2fe" stopOpacity="0.5" />
             </linearGradient>
+            <filter id="badge-shadow" x="-15%" y="-20%" width="130%" height="150%">
+              <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" floodColor="#0f172a" floodOpacity="0.12" />
+            </filter>
           </defs>
 
           {content}
@@ -717,9 +729,9 @@ function SvgBadge({
   color?: string;
 }) {
   const fullText = subText ? `${text} ${subText}` : text;
-  const charWidth = 6.8;
-  const w = Math.max(54, fullText.length * charWidth + 14);
-  const h = 20;
+  const charWidth = 7.6;
+  const w = Math.max(62, fullText.length * charWidth + 16);
+  const h = 24;
   const rectX = x - w / 2;
   const rectY = y - h / 2;
 
@@ -730,24 +742,25 @@ function SvgBadge({
         y={rectY}
         width={w}
         height={h}
-        rx={4}
+        rx={5}
         fill="#ffffff"
         stroke={color}
-        strokeWidth={1.5}
+        strokeWidth={1.75}
+        filter="url(#badge-shadow)"
       />
       <text
         x={x}
-        y={y + 4}
+        y={y}
         textAnchor="middle"
-        fontSize={10.5}
+        dominantBaseline="central"
+        fontSize={12.5}
         fontWeight={700}
         fill="#0f172a"
         fontFamily="var(--ic-font-sans), system-ui, sans-serif"
       >
         {text}
         {subText && (
-          <tspan fill="#64748b" fontWeight={500}>
-            {" "}
+          <tspan dx="4" fill="#64748b" fontWeight={600} fontSize={11}>
             {subText}
           </tspan>
         )}
