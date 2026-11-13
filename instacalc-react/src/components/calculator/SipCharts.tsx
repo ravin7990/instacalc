@@ -394,6 +394,9 @@ export function SipGrowthChart({
               font: { family: "Public Sans, sans-serif", size: 11 },
               callback: (value) => formatCompact(locale, Number(value)),
             },
+            afterFit: (axis) => {
+              axis.width = Math.max(axis.width, 58);
+            },
           },
         },
       },

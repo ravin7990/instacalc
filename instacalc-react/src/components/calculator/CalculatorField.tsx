@@ -309,6 +309,22 @@ function getBoundsLabels(): { min: string; max: string } {
 
 function formatWithUnit(value: number, prefix?: string, suffix?: string): string {
   const n = Number.isFinite(value) ? value : 0;
-  const formatted = Math.abs(n) >= 1000 ? n.toLocaleString("en-US") : String(n);
+  let formatted = String(n);
+  if (typeof document !== "undefined") {
+    const lang = document.documentElement.lang?.toLowerCase() || "";
+    const path = typeof window !== "undefined" ? window.location.pathname.toLowerCase() : "";
+    const locale = (lang.startsWith("es") || path.startsWith("/es/"))
+      ? "es-ES"
+      : (lang.startsWith("ja") || path.startsWith("/ja/"))
+      ? "ja-JP"
+      : (lang.startsWith("ko") || path.startsWith("/ko/"))
+      ? "ko-KR"
+      : (lang.startsWith("ru") || path.startsWith("/ru/"))
+      ? "ru-RU"
+      : "en-US";
+    formatted = Math.abs(n) >= 1000 ? n.toLocaleString(locale) : String(n);
+  } else {
+    formatted = Math.abs(n) >= 1000 ? n.toLocaleString("en-US") : String(n);
+  }
   return `${prefix ?? ""}${formatted}${suffix ?? ""}`;
 }

@@ -684,6 +684,10 @@ select {
 .field-head label {
   font-weight: 600;
   font-size: var(--ic-fs-sm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 .field-preview-badge {
   font-family: var(--ic-font-mono);
@@ -692,6 +696,9 @@ select {
   background: var(--ic-primary-light);
   padding: 0.1rem 0.4rem;
   border-radius: var(--ic-radius-sm);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .range-row {
@@ -947,6 +954,7 @@ input[type="range"] {
   line-height: 1.15;
   font-weight: 700;
   color: var(--ic-primary-dark);
+  font-variant-numeric: tabular-nums;
   /* Long currency values must not blow out the 340px rail. */
   overflow-wrap: anywhere;
 }
@@ -982,6 +990,7 @@ input[type="range"] {
   font-size: var(--ic-fs-base);
   font-weight: 600;
   color: var(--ic-text);
+  font-variant-numeric: tabular-nums;
   overflow-wrap: anywhere;
 }
 
@@ -1004,6 +1013,7 @@ input[type="range"] {
 .result-value {
   font-family: var(--ic-font-mono);
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
 /* The projection table is a child of .calculator-shell, so it needs its own
@@ -1021,6 +1031,7 @@ input[type="range"] {
 }
 .projection-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   font-size: var(--ic-fs-sm);
   font-variant-numeric: tabular-nums;
@@ -1030,6 +1041,8 @@ input[type="range"] {
   padding: 0.6rem 0.85rem;
   text-align: right;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   border-bottom: 1px solid var(--ic-border);
 }
 .projection-table thead th {
@@ -1041,6 +1054,8 @@ input[type="range"] {
 }
 .projection-table th:first-child,
 .projection-table td:first-child {
+  width: 15%;
+  min-width: 44px;
   text-align: left;
 }
 .projection-table tbody tr:last-child th,

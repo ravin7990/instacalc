@@ -125,11 +125,10 @@ export default createCalculatorPage((locale: Locale) => {
       const perYear = FREQUENCIES[idx(s.freq)].steps;
       // The recurring amount is entered per compounding period.
       const recurringPerPeriod = s.recurring / perYear;
-      const years = s.years / perYear;
       return calculateCompound({
         principal: s.principal,
         ratePercent: s.rate,
-        years,
+        years: s.years,
         frequency: FREQUENCIES[idx(s.freq)].key,
         recurring: recurringPerPeriod,
       });
