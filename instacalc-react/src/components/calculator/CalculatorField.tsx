@@ -1,6 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { trackCalculatorInput, trackCalculatorSlider, trackCalculatorChip } from "@/lib/analytics";
-import { readSingleUrlParam, syncSingleUrlParam } from "@/lib/urlState";
 
 /**
  * Config-driven input primitives.
@@ -8,6 +7,11 @@ import { readSingleUrlParam, syncSingleUrlParam } from "@/lib/urlState";
  * Every calculator is described declaratively (see `FieldSpec`) so the same
  * markup serves all locales — labels come from props, not from hardcoded HTML.
  */
+
+export interface FieldOption {
+  label: string;
+  value: number;
+}
 
 export interface FieldSpec {
   key: string;
@@ -17,6 +21,9 @@ export interface FieldSpec {
   min: number;
   max: number;
   step: number;
+  /** When type is "select" or options is provided, renders a clean dropdown select or segmented buttons */
+  type?: "number" | "select" | "segmented";
+  options?: FieldOption[];
   /** Optional slider bounds; defaults to the number input bounds. */
   slider?: { min: number; max: number; step: number };
   /** Quick-pick buttons under the field. */
@@ -38,30 +45,10 @@ export function Field({
   const id = useId();
   const sliderId = `${id}-range`;
   const slider = spec.slider ?? { min: spec.min, max: spec.max, step: spec.step };
-  const initialDefaultRef = useRef(spec.value);
-  const isFirstRender = useRef(true);
 
   // Local text buffer decoupled from keystroke clamping so users can backspace and type freely
   const [inputText, setInputText] = useState(String(spec.value));
   const [isFocused, setIsFocused] = useState(false);
-  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (debounceTimerRef.current) {
-        clearTimeout(debounceTimerRef.current);
-      }
-    };
-  }, []);
-
-  // On client mount, hydrate from URL parameter if present
-  useEffect(() => {
-    const fromUrl = readSingleUrlParam(spec.key, spec.min, spec.max);
-    if (fromUrl !== null && fromUrl !== spec.value) {
-      onChange(fromUrl);
-      setInputText(String(fromUrl));
-    }
-  }, [spec.key, spec.min, spec.max]);
 
   // Sync external changes (chips, URL, history load, reset) to local text buffer when not actively editing
   useEffect(() => {
@@ -69,15 +56,6 @@ export function Field({
       setInputText(String(spec.value));
     }
   }, [spec.value, isFocused]);
-
-  // Sync field value to URL query state only after user modifications
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    syncSingleUrlParam(spec.key, spec.value, initialDefaultRef.current);
-  }, [spec.key, spec.value]);
 
   // Listen for History Load events to restore saved input values directly into state
   useEffect(() => {
@@ -98,36 +76,89 @@ export function Field({
     return () => window.removeEventListener("instacalc:load-history", handleLoadHistory);
   }, [spec.key, spec.min, spec.max, onChange]);
 
+  // Handle discrete option / select fields (e.g. Compounding Frequency)
+  if (spec.type === "select" || (spec.options && !spec.slider)) {
+    const selectedOption = spec.options?.find((o) => o.value === spec.value);
+    const displayBadge = selectedOption ? selectedOption.label : String(spec.value);
+
+    return (
+      <div
+        className="field-card"
+        data-field-key={spec.key}
+        data-field-label={spec.label}
+        data-field-display={displayBadge}
+        data-field-raw={String(spec.value)}
+      >
+        <div className="field-head">
+          <label htmlFor={id}>{spec.label}</label>
+          <span className="field-preview-badge" aria-hidden="true">
+            {displayBadge}
+          </span>
+        </div>
+
+        <div className="field-select-wrap">
+          <select
+            id={id}
+            data-field={spec.key}
+            value={spec.value}
+            onChange={(e) => {
+              const val = Number(e.target.value);
+              onChange(val);
+              const calcId = typeof window !== "undefined" ? window.location.pathname : "calc";
+              trackCalculatorInput(calcId, spec.label, val);
+            }}
+            className="field-select"
+          >
+            {spec.options?.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {spec.chips?.length ? (
+          <div className="chips-wrap">
+            {spec.chips.map((c) => (
+              <button
+                key={c.value}
+                type="button"
+                className={`chip${spec.value === c.value ? " active" : ""}`}
+                onClick={() => {
+                  onChange(c.value);
+                  const calcId = typeof window !== "undefined" ? window.location.pathname : "calc";
+                  trackCalculatorChip(calcId, spec.label, c.label, c.value);
+                }}
+                aria-pressed={spec.value === c.value}
+              >
+                {c.label}
+              </button>
+            ))}
+          </div>
+        ) : null}
+
+        {spec.hint ? <p className="field-hint">{spec.hint}</p> : null}
+      </div>
+    );
+  }
+
   // Real-time typing handler: allows user to type freely without mid-typing clamping
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value;
     setInputText(raw);
 
-    if (debounceTimerRef.current) {
-      clearTimeout(debounceTimerRef.current);
-      debounceTimerRef.current = null;
-    }
-
     if (raw.trim() === "" || raw === "-") return;
     const n = Number(raw);
     if (!Number.isFinite(n)) return;
 
-    // If within bounds, debounce update slightly (120ms) so typing digits does not thrash graphs/tables
+    // Immediately update in lockstep if within valid bounds, matching the Indian version
     if (n >= spec.min && n <= spec.max) {
-      debounceTimerRef.current = setTimeout(() => {
-        onChange(n);
-        const calcId = typeof window !== "undefined" ? window.location.pathname : "calc";
-        trackCalculatorInput(calcId, spec.label, n, spec.suffix);
-      }, 120);
+      onChange(n);
     }
   };
 
   // Blur handler: strictly enforces bounds on blur, clamping out-of-range values and resetting empty fields
   const handleInputBlur = () => {
-    if (debounceTimerRef.current) {
-      clearTimeout(debounceTimerRef.current);
-      debounceTimerRef.current = null;
-    }
     setIsFocused(false);
     const raw = inputText.trim();
     const n = Number(raw);
@@ -162,10 +193,6 @@ export function Field({
   };
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (debounceTimerRef.current) {
-      clearTimeout(debounceTimerRef.current);
-      debounceTimerRef.current = null;
-    }
     const n = Number(e.target.value);
     if (!Number.isFinite(n)) return;
     const clamped = Math.min(slider.max, Math.max(slider.min, n));
@@ -183,9 +210,6 @@ export function Field({
   const hasBoundsWarning = isTooLow || isTooHigh;
 
   const displayBadge = formatWithUnit(spec.value, spec.prefix, spec.suffix);
-  const minFormatted = formatWithUnit(spec.min, spec.prefix, spec.suffix);
-  const maxFormatted = formatWithUnit(spec.max, spec.prefix, spec.suffix);
-  const boundsLabels = getBoundsLabels();
 
   return (
     <div
@@ -239,24 +263,6 @@ export function Field({
         </div>
       </div>
 
-      <div className="field-bounds-warning-slot" aria-live="polite">
-        <div
-          className={`field-bounds-warning${hasBoundsWarning ? " is-visible" : ""}`}
-          role={hasBoundsWarning ? "alert" : undefined}
-        >
-          {hasBoundsWarning ? (
-            <>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" y1="8" x2="12" y2="12" />
-                <line x1="12" y1="16" x2="12.01" y2="16" />
-              </svg>
-              <span>{isTooLow ? `${boundsLabels.min}: ${minFormatted}` : `${boundsLabels.max}: ${maxFormatted}`}</span>
-            </>
-          ) : null}
-        </div>
-      </div>
-
       {spec.chips?.length ? (
         <div className="chips-wrap">
           {spec.chips.map((c) => (
@@ -265,10 +271,6 @@ export function Field({
               type="button"
               className={`chip${spec.value === c.value ? " active" : ""}`}
               onClick={() => {
-                if (debounceTimerRef.current) {
-                  clearTimeout(debounceTimerRef.current);
-                  debounceTimerRef.current = null;
-                }
                 setInputText(String(c.value));
                 onChange(c.value);
                 const calcId = typeof window !== "undefined" ? window.location.pathname : "calc";
@@ -285,26 +287,6 @@ export function Field({
       {spec.hint ? <p className="field-hint">{spec.hint}</p> : null}
     </div>
   );
-}
-
-function getBoundsLabels(): { min: string; max: string } {
-  if (typeof document !== "undefined") {
-    const lang = document.documentElement.lang?.toLowerCase() || "";
-    const path = typeof window !== "undefined" ? window.location.pathname.toLowerCase() : "";
-    if (lang.startsWith("es") || path.startsWith("/es/")) {
-      return { min: "Mínimo", max: "Máximo" };
-    }
-    if (lang.startsWith("ja") || path.startsWith("/ja/")) {
-      return { min: "最小", max: "最大" };
-    }
-    if (lang.startsWith("ru") || path.startsWith("/ru/")) {
-      return { min: "Минимум", max: "Максимум" };
-    }
-    if (lang.startsWith("ko") || path.startsWith("/ko/")) {
-      return { min: "최소", max: "최대" };
-    }
-  }
-  return { min: "Minimum", max: "Maximum" };
 }
 
 function formatWithUnit(value: number, prefix?: string, suffix?: string): string {
@@ -326,5 +308,11 @@ function formatWithUnit(value: number, prefix?: string, suffix?: string): string
   } else {
     formatted = Math.abs(n) >= 1000 ? n.toLocaleString("en-US") : String(n);
   }
-  return `${prefix ?? ""}${formatted}${suffix ?? ""}`;
+  let suf = "";
+  if (suffix) {
+    suf = (suffix.startsWith("%") || suffix.startsWith("°") || suffix.startsWith(" ") || suffix.startsWith("/"))
+      ? suffix
+      : ` ${suffix}`;
+  }
+  return `${prefix ?? ""}${formatted}${suf}`;
 }

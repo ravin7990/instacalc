@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { SeoRecord } from "@/data/seo";
 import type { Locale } from "@/config/site";
 import { Layout } from "@/components/layout/Layout";
@@ -76,7 +76,8 @@ export interface CalculatorSpec {
 export function createCalculatorPage(specFor: (locale: Locale) => CalculatorSpec) {
   return function CalculatorPage({ seo }: { seo: SeoRecord }) {
     const locale = seo.locale;
-    const spec = specFor(locale);
+    const spec = useMemo(() => specFor(locale), [locale]);
+    const initialHydrated = useRef(false);
     const { symbol: activeSym } = useCurrency();
     const prefix = spec.currencySymbol ?? activeSym;
 
@@ -84,6 +85,8 @@ export function createCalculatorPage(specFor: (locale: Locale) => CalculatorSpec
     const [advanced, setAdvanced] = useState(false);
 
     useEffect(() => {
+      if (initialHydrated.current) return;
+      initialHydrated.current = true;
       const fromUrl = readUrlParams(spec.defaults);
       if (fromUrl !== spec.defaults) {
         setState(fromUrl);
@@ -91,7 +94,11 @@ export function createCalculatorPage(specFor: (locale: Locale) => CalculatorSpec
     }, [spec.defaults]);
 
     useEffect(() => {
-      syncUrlState(state, spec.defaults);
+      if (!initialHydrated.current) return;
+      const timer = setTimeout(() => {
+        syncUrlState(state, spec.defaults);
+      }, 200);
+      return () => clearTimeout(timer);
     }, [state, spec.defaults]);
 
     const result = useMemo(() => spec.engine(state), [spec, state]);

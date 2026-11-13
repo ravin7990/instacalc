@@ -18,7 +18,7 @@ const FREQUENCIES: Array<{ key: Frequency; label: string; steps: number }> = [
 ];
 
 const RU_FREQ = ["Раз в год", "Раз в квартал", "Ежемесячно", "Еженедельно", "Каждый день"];
-const ES_FREQ = ["Anual", "Trimestral", "Mensual", "Semanal", "Diaria"];
+const ES_FREQ = ["Anual (1 al año)", "Trimestral (4 al año)", "Mensual (12 al año)", "Semanal (52 al año)", "Diaria (365 al año)"];
 
 export default createCalculatorPage((locale: Locale) => {
   const c = fieldCopy(locale);
@@ -100,8 +100,13 @@ export default createCalculatorPage((locale: Locale) => {
         min: 0,
         max: FREQUENCIES.length - 1,
         step: 1,
-        chips: FREQUENCIES.map((f, i) => ({
+        type: "select",
+        options: FREQUENCIES.map((f, i) => ({
           label: isRu ? RU_FREQ[i] : isEs ? ES_FREQ[i] : f.label,
+          value: i,
+        })),
+        chips: FREQUENCIES.map((f, i) => ({
+          label: isRu ? RU_FREQ[i] : isEs ? (i === 0 ? "Anual" : i === 1 ? "Trimestral" : i === 2 ? "Mensual" : i === 3 ? "Semanal" : "Diaria") : f.label,
           value: i,
         })),
       },
@@ -122,14 +127,16 @@ export default createCalculatorPage((locale: Locale) => {
       },
     ],
     engine: (s) => {
-      const perYear = FREQUENCIES[idx(s.freq)].steps;
+      const fIndex = typeof s.freq === "number" && s.freq >= 0 && s.freq < FREQUENCIES.length ? s.freq : 2;
+      const freqObj = FREQUENCIES[fIndex] ?? FREQUENCIES[2];
+      const perYear = freqObj.steps;
       // The recurring amount is entered per compounding period.
       const recurringPerPeriod = s.recurring / perYear;
       return calculateCompound({
         principal: s.principal,
         ratePercent: s.rate,
         years: s.years,
-        frequency: FREQUENCIES[idx(s.freq)].key,
+        frequency: freqObj.key,
         recurring: recurringPerPeriod,
       });
     },

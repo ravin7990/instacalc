@@ -1,5 +1,9 @@
 /* InstaCalc application styles — mobile-first, container-query driven. */
 
+html {
+  scrollbar-gutter: stable;
+}
+
 *,
 *::before,
 *::after {
@@ -707,9 +711,31 @@ select {
 }
 @media (min-width: 520px) {
   .range-row {
-    grid-template-columns: 1fr minmax(0, 180px);
+    grid-template-columns: minmax(0, 1fr) 170px;
     align-items: center;
   }
+}
+
+.field-select-wrap {
+  width: 100%;
+}
+.field-select {
+  width: 100%;
+  height: 44px;
+  padding: 0.5rem 0.75rem;
+  font-size: var(--ic-fs-sm);
+  font-weight: 600;
+  color: var(--ic-text);
+  background: var(--ic-card-bg);
+  border: 1px solid var(--ic-border);
+  border-radius: var(--ic-radius-sm);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.field-select:focus {
+  border-color: var(--ic-primary);
+  box-shadow: 0 0 0 3px var(--ic-primary-light);
 }
 
 input[type="range"] {
@@ -758,29 +784,6 @@ input[type="range"] {
 }
 .input-out-of-bounds {
   color: #b91c1c !important;
-}
-.field-bounds-warning-slot {
-  min-height: 1.25rem;
-  margin-top: 0.25rem;
-}
-.field-bounds-warning {
-  font-size: var(--ic-fs-xs);
-  color: #dc2626;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  min-height: 1.25rem;
-  line-height: 1.25rem;
-}
-.field-bounds-warning-slot .field-bounds-warning {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.15s ease, visibility 0.15s ease;
-}
-.field-bounds-warning-slot .field-bounds-warning.is-visible {
-  opacity: 1;
-  visibility: visible;
 }
 .input-prefix,
 .input-suffix {

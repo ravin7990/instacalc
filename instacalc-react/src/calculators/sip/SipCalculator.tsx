@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { SeoRecord } from "@/data/seo";
 import { Layout } from "@/components/layout/Layout";
 import { CalculatorHero } from "@/components/layout/CalculatorHero";
@@ -37,7 +37,11 @@ export default function SipCalculator({ seo }: { seo: SeoRecord }) {
     [isEs],
   );
 
+  const initialHydrated = useRef(false);
+
   useEffect(() => {
+    if (initialHydrated.current) return;
+    initialHydrated.current = true;
     const p = readUrlParams(defaults);
     if (p.monthly !== undefined) setMonthly(p.monthly);
     if (p.rate !== undefined) setRate(p.rate);
@@ -47,9 +51,10 @@ export default function SipCalculator({ seo }: { seo: SeoRecord }) {
   }, [defaults]);
 
   useEffect(() => {
+    if (!initialHydrated.current) return;
     const timer = setTimeout(() => {
       syncUrlState({ monthly, rate, years, stepUp, inflation }, defaults);
-    }, 150);
+    }, 200);
     return () => clearTimeout(timer);
   }, [monthly, rate, years, stepUp, inflation, defaults]);
 
