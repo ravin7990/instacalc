@@ -103,9 +103,13 @@ export function SipBreakdownChart({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    const dataValues = [Math.max(invested, 0), Math.max(returns, 0)];
+
     if (chartRef.current) {
-      chartRef.current.destroy();
-      chartRef.current = null;
+      chartRef.current.data.labels = [t.invested, t.returns];
+      chartRef.current.data.datasets[0].data = dataValues;
+      chartRef.current.update("none");
+      return;
     }
 
     const ctx = canvas.getContext("2d");
@@ -117,7 +121,7 @@ export function SipBreakdownChart({
         labels: [t.invested, t.returns],
         datasets: [
           {
-            data: [Math.max(invested, 0), Math.max(returns, 0)],
+            data: dataValues,
             backgroundColor: ["#0284c7", "#10b981"],
             borderColor: "#ffffff",
             borderWidth: 2,
@@ -128,6 +132,7 @@ export function SipBreakdownChart({
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        animation: { duration: 0 },
         cutout: "70%",
         plugins: {
           legend: { display: false },
@@ -147,14 +152,16 @@ export function SipBreakdownChart({
         },
       },
     });
+  }, [invested, returns, locale, t.invested, t.returns]);
 
+  useEffect(() => {
     return () => {
       if (chartRef.current) {
         chartRef.current.destroy();
         chartRef.current = null;
       }
     };
-  }, [invested, returns, locale, t.invested, t.returns]);
+  }, []);
 
   return (
     <div className="chart-breakdown-card">
@@ -267,11 +274,23 @@ export function SipGrowthChart({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !rows.length) return;
+
+    const labels = rows.map((r) => `${t.yearPrefix}${r.year}${t.yearSuffix}`);
+    const corpusData = rows.map((r) => r.balance);
+    const investedData = rows.map((r) => r.contributed);
 
     if (chartRef.current) {
-      chartRef.current.destroy();
-      chartRef.current = null;
+      chartRef.current.data.labels = labels;
+      if (chartRef.current.data.datasets[0]) {
+        chartRef.current.data.datasets[0].data = corpusData;
+        chartRef.current.data.datasets[0].pointRadius = rows.length > 20 ? 0 : 2;
+      }
+      if (chartRef.current.data.datasets[1]) {
+        chartRef.current.data.datasets[1].data = investedData;
+      }
+      chartRef.current.update("none");
+      return;
     }
 
     const ctx = canvas.getContext("2d");
@@ -281,10 +300,6 @@ export function SipGrowthChart({
     const gradient = ctx.createLinearGradient(0, 0, 0, 260);
     gradient.addColorStop(0, "rgba(2, 132, 199, 0.28)");
     gradient.addColorStop(1, "rgba(2, 132, 199, 0.01)");
-
-    const labels = rows.map((r) => `${t.yearPrefix}${r.year}${t.yearSuffix}`);
-    const corpusData = rows.map((r) => r.balance);
-    const investedData = rows.map((r) => r.contributed);
 
     chartRef.current = new ChartJS(ctx, {
       type: "line",
@@ -324,6 +339,7 @@ export function SipGrowthChart({
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        animation: { duration: 0 },
         interaction: {
           mode: "index",
           intersect: false,
@@ -382,16 +398,16 @@ export function SipGrowthChart({
         },
       },
     });
+  }, [rows, locale, t.corpus, t.invested, t.yearPrefix, t.yearSuffix]);
 
+  useEffect(() => {
     return () => {
       if (chartRef.current) {
         chartRef.current.destroy();
         chartRef.current = null;
       }
     };
-  }, [rows, locale, t.corpus, t.invested, t.yearPrefix, t.yearSuffix]);
-
-  if (!rows.length) return null;
+  }, []);
 
   return (
     <div className="growth-timeline-card">
@@ -402,7 +418,7 @@ export function SipGrowthChart({
         </div>
       </div>
       <div className="chart-wrap-timeline">
-        <canvas ref={canvasRef} aria-label={t.ariaLabel} role="img" />
+        <canvas ref={canvasRef} aria-label={t.ariaLabel} role="img" style={{ display: rows.length ? "block" : "none" }} />
       </div>
     </div>
   );

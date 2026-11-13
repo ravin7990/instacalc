@@ -752,14 +752,28 @@ input[type="range"] {
 .input-out-of-bounds {
   color: #b91c1c !important;
 }
+.field-bounds-warning-slot {
+  min-height: 1.25rem;
+  margin-top: 0.25rem;
+}
 .field-bounds-warning {
-  margin-top: 0.35rem;
   font-size: var(--ic-fs-xs);
   color: #dc2626;
   font-weight: 600;
   display: flex;
   align-items: center;
   gap: 0.3rem;
+  min-height: 1.25rem;
+  line-height: 1.25rem;
+}
+.field-bounds-warning-slot .field-bounds-warning {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+}
+.field-bounds-warning-slot .field-bounds-warning.is-visible {
+  opacity: 1;
+  visibility: visible;
 }
 .input-prefix,
 .input-suffix {
@@ -1000,6 +1014,7 @@ input[type="range"] {
 }
 .table-scroll {
   overflow: auto;
+  min-height: 180px;
   border: 1px solid var(--ic-border);
   border-radius: var(--ic-radius-md);
   background: var(--ic-card-bg);

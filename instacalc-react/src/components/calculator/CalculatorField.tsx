@@ -44,6 +44,15 @@ export function Field({
   // Local text buffer decoupled from keystroke clamping so users can backspace and type freely
   const [inputText, setInputText] = useState(String(spec.value));
   const [isFocused, setIsFocused] = useState(false);
+  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
+  }, []);
 
   // On client mount, hydrate from URL parameter if present
   useEffect(() => {
@@ -94,20 +103,31 @@ export function Field({
     const raw = e.target.value;
     setInputText(raw);
 
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+      debounceTimerRef.current = null;
+    }
+
     if (raw.trim() === "" || raw === "-") return;
     const n = Number(raw);
     if (!Number.isFinite(n)) return;
 
-    // If within bounds, update calculation in real-time
+    // If within bounds, debounce update slightly (120ms) so typing digits does not thrash graphs/tables
     if (n >= spec.min && n <= spec.max) {
-      onChange(n);
-      const calcId = typeof window !== "undefined" ? window.location.pathname : "calc";
-      trackCalculatorInput(calcId, spec.label, n, spec.suffix);
+      debounceTimerRef.current = setTimeout(() => {
+        onChange(n);
+        const calcId = typeof window !== "undefined" ? window.location.pathname : "calc";
+        trackCalculatorInput(calcId, spec.label, n, spec.suffix);
+      }, 120);
     }
   };
 
   // Blur handler: strictly enforces bounds on blur, clamping out-of-range values and resetting empty fields
   const handleInputBlur = () => {
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+      debounceTimerRef.current = null;
+    }
     setIsFocused(false);
     const raw = inputText.trim();
     const n = Number(raw);
@@ -142,6 +162,10 @@ export function Field({
   };
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current);
+      debounceTimerRef.current = null;
+    }
     const n = Number(e.target.value);
     if (!Number.isFinite(n)) return;
     const clamped = Math.min(slider.max, Math.max(slider.min, n));
@@ -161,6 +185,7 @@ export function Field({
   const displayBadge = formatWithUnit(spec.value, spec.prefix, spec.suffix);
   const minFormatted = formatWithUnit(spec.min, spec.prefix, spec.suffix);
   const maxFormatted = formatWithUnit(spec.max, spec.prefix, spec.suffix);
+  const boundsLabels = getBoundsLabels();
 
   return (
     <div
@@ -214,13 +239,23 @@ export function Field({
         </div>
       </div>
 
-      {hasBoundsWarning && (
-        <div className="field-bounds-warning" role="alert" aria-live="polite">
-          {isTooLow
-            ? `Minimum: ${minFormatted}`
-            : `Maximum: ${maxFormatted}`}
+      <div className="field-bounds-warning-slot" aria-live="polite">
+        <div
+          className={`field-bounds-warning${hasBoundsWarning ? " is-visible" : ""}`}
+          role={hasBoundsWarning ? "alert" : undefined}
+        >
+          {hasBoundsWarning ? (
+            <>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+              <span>{isTooLow ? `${boundsLabels.min}: ${minFormatted}` : `${boundsLabels.max}: ${maxFormatted}`}</span>
+            </>
+          ) : null}
         </div>
-      )}
+      </div>
 
       {spec.chips?.length ? (
         <div className="chips-wrap">
@@ -230,6 +265,10 @@ export function Field({
               type="button"
               className={`chip${spec.value === c.value ? " active" : ""}`}
               onClick={() => {
+                if (debounceTimerRef.current) {
+                  clearTimeout(debounceTimerRef.current);
+                  debounceTimerRef.current = null;
+                }
                 setInputText(String(c.value));
                 onChange(c.value);
                 const calcId = typeof window !== "undefined" ? window.location.pathname : "calc";
@@ -246,6 +285,26 @@ export function Field({
       {spec.hint ? <p className="field-hint">{spec.hint}</p> : null}
     </div>
   );
+}
+
+function getBoundsLabels(): { min: string; max: string } {
+  if (typeof document !== "undefined") {
+    const lang = document.documentElement.lang?.toLowerCase() || "";
+    const path = typeof window !== "undefined" ? window.location.pathname.toLowerCase() : "";
+    if (lang.startsWith("es") || path.startsWith("/es/")) {
+      return { min: "Mínimo", max: "Máximo" };
+    }
+    if (lang.startsWith("ja") || path.startsWith("/ja/")) {
+      return { min: "最小", max: "最大" };
+    }
+    if (lang.startsWith("ru") || path.startsWith("/ru/")) {
+      return { min: "Минимум", max: "Максимум" };
+    }
+    if (lang.startsWith("ko") || path.startsWith("/ko/")) {
+      return { min: "최소", max: "최대" };
+    }
+  }
+  return { min: "Minimum", max: "Maximum" };
 }
 
 function formatWithUnit(value: number, prefix?: string, suffix?: string): string {

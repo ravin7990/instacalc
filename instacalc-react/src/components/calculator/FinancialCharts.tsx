@@ -84,11 +84,16 @@ export function BreakdownDonutChart({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !items.length || total <= 0) return;
 
     if (chartRef.current) {
-      chartRef.current.destroy();
-      chartRef.current = null;
+      chartRef.current.data.labels = decoratedItems.map((i) => i.label);
+      if (chartRef.current.data.datasets[0]) {
+        chartRef.current.data.datasets[0].data = decoratedItems.map((i) => i.val);
+        chartRef.current.data.datasets[0].backgroundColor = decoratedItems.map((i) => i.color);
+      }
+      chartRef.current.update("none");
+      return;
     }
 
     const ctx = canvas.getContext("2d");
@@ -111,6 +116,7 @@ export function BreakdownDonutChart({
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        animation: { duration: 0 },
         cutout: "70%",
         plugins: {
           legend: { display: false },
@@ -130,14 +136,16 @@ export function BreakdownDonutChart({
         },
       },
     });
+  }, [items, locale]);
 
+  useEffect(() => {
     return () => {
       if (chartRef.current) {
         chartRef.current.destroy();
         chartRef.current = null;
       }
     };
-  }, [items, locale]);
+  }, []);
 
   if (!items.length || total <= 0) return null;
 
@@ -199,11 +207,19 @@ export function TimelineGrowthChart({
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !labels.length || !datasets.length) return;
 
     if (chartRef.current) {
-      chartRef.current.destroy();
-      chartRef.current = null;
+      chartRef.current.data.labels = labels;
+      datasets.forEach((ds, idx) => {
+        if (chartRef.current!.data.datasets[idx]) {
+          chartRef.current!.data.datasets[idx].data = ds.data;
+          chartRef.current!.data.datasets[idx].label = ds.label;
+          (chartRef.current!.data.datasets[idx] as any).pointRadius = labels.length > 25 ? 0 : 2;
+        }
+      });
+      chartRef.current.update("none");
+      return;
     }
 
     const ctx = canvas.getContext("2d");
@@ -247,6 +263,7 @@ export function TimelineGrowthChart({
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        animation: { duration: 0 },
         interaction: {
           mode: "index",
           intersect: false,
@@ -305,16 +322,16 @@ export function TimelineGrowthChart({
         },
       },
     });
+  }, [labels, datasets, locale]);
 
+  useEffect(() => {
     return () => {
       if (chartRef.current) {
         chartRef.current.destroy();
         chartRef.current = null;
       }
     };
-  }, [labels, datasets, locale]);
-
-  if (!labels.length || !datasets.length) return null;
+  }, []);
 
   return (
     <div className="growth-timeline-card">
@@ -325,7 +342,7 @@ export function TimelineGrowthChart({
         </div>
       </div>
       <div className="chart-wrap-timeline">
-        <canvas ref={canvasRef} aria-label={resolvedAriaLabel} role="img" />
+        <canvas ref={canvasRef} aria-label={resolvedAriaLabel} role="img" style={{ display: labels.length && datasets.length ? "block" : "none" }} />
       </div>
     </div>
   );

@@ -477,7 +477,20 @@ export function getEffectiveCurrency(locale: Locale, explicitCode?: string): Cur
   if (code && code !== "AUTO" && CURRENCY_MAP.has(code)) {
     return CURRENCY_MAP.get(code)!;
   }
-  // When AUTO is active in browser, resolve currency based on auto-detected location:
+  // For regional language sections (es, ja, ko, ru, us), preserve their native currency by default under AUTO
+  if (locale && locale !== "en") {
+    const regional = CONFIG[locale];
+    if (regional) {
+      return {
+        code: regional.currency,
+        symbol: regional.symbol,
+        name: regional.currency,
+        formatLocale: regional.locale,
+      };
+    }
+  }
+
+  // When AUTO is active on default English root in browser, resolve currency based on auto-detected location:
   if (typeof window !== "undefined") {
     const autoCode = getAutoDetectedCurrencyCode();
     if (autoCode && CURRENCY_MAP.has(autoCode)) {
