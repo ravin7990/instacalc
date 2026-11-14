@@ -284,7 +284,7 @@ export function SipGrowthChart({
       chartRef.current.data.labels = labels;
       if (chartRef.current.data.datasets[0]) {
         chartRef.current.data.datasets[0].data = corpusData;
-        chartRef.current.data.datasets[0].pointRadius = rows.length > 20 ? 0 : 2;
+        (chartRef.current.data.datasets[0] as unknown as { pointRadius?: number }).pointRadius = rows.length > 20 ? 0 : 2;
       }
       if (chartRef.current.data.datasets[1]) {
         chartRef.current.data.datasets[1].data = investedData;

@@ -10,13 +10,15 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculate401k } from "@/engines/us-retirement";
 import { usCopy } from "@/i18n/us-labels";
 import { formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
+import { useCurrency } from "@/app/CurrencyContext";
 import { Us401kArticle } from "@/components/articles/us/Us401kArticle";
 import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 /** 401(k) projection with employer match and the indexed IRS deferral limit. */
 export default function FourOhOneKCalculator({ seo }: { seo: SeoRecord }) {
+  const { symbol: activeSym } = useCurrency();
   const c = usCopy(seo.locale);
-  const p = symbol(seo.locale);
+  const p = activeSym;
   const money = (n: number) => moneyFormat(seo.locale, n);
 
   const [s, setS] = useState({

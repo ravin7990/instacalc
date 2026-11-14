@@ -9,6 +9,7 @@ import { ProjectionTable } from "@/components/calculator/ProjectionTable";
 import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateSip, requiredMonthlySip } from "@/engines/sip";
 import { formatCompact, formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
+import { useCurrency } from "@/app/CurrencyContext";
 import { sipCopy } from "@/i18n/calculator-copy";
 import { JaSipArticle } from "@/components/articles/ja/JaSipArticle";
 import { RuCompoundArticle } from "@/components/articles/ru/RuCompoundArticle";
@@ -19,8 +20,9 @@ import { readUrlParams, syncUrlState } from "@/lib/urlState";
 
 
 export default function SipCalculator({ seo }: { seo: SeoRecord }) {
+  const { symbol: activeSym } = useCurrency();
   const c = sipCopy(seo.locale);
-  const prefix = symbol(seo.locale);
+  const prefix = activeSym;
   const isEs = seo.locale === "es";
 
   const [monthly, setMonthly] = useState(isEs ? 300 : 25000);

@@ -1,5 +1,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { trackCalculatorInput, trackCalculatorSlider, trackCalculatorChip } from "@/lib/analytics";
+import { useCurrency } from "@/app/CurrencyContext";
+import { isCurrencySymbol, hasCurrencySymbol, replaceCurrencySymbol } from "@/lib/currency";
 
 /**
  * Config-driven input primitives.
@@ -45,6 +47,20 @@ export function Field({
   const id = useId();
   const sliderId = `${id}-range`;
   const slider = spec.slider ?? { min: spec.min, max: spec.max, step: spec.step };
+
+  const { symbol: activeSym } = useCurrency();
+  const isCur = Boolean(spec.prefix && isCurrencySymbol(spec.prefix));
+  const effectivePrefix = isCur ? activeSym : (spec.prefix === "\u0000" ? activeSym : spec.prefix);
+
+  const displayChips = spec.chips?.map((c) => {
+    if (c.label === "\u0000") {
+      return { ...c, label: `${activeSym}${c.value / 1000}K` };
+    }
+    if (c.label && (hasCurrencySymbol(c.label) || isCur)) {
+      return { ...c, label: replaceCurrencySymbol(c.label, activeSym) };
+    }
+    return c;
+  });
 
   // Local text buffer decoupled from keystroke clamping so users can backspace and type freely
   const [inputText, setInputText] = useState(String(spec.value));
@@ -209,7 +225,7 @@ export function Field({
   const isTooHigh = isFocused && inputText.trim() !== "" && Number.isFinite(currentNum) && currentNum > spec.max;
   const hasBoundsWarning = isTooLow || isTooHigh;
 
-  const displayBadge = formatWithUnit(spec.value, spec.prefix, spec.suffix);
+  const displayBadge = formatWithUnit(spec.value, effectivePrefix, spec.suffix);
 
   return (
     <div
@@ -238,9 +254,9 @@ export function Field({
           aria-label={`${spec.label} slider`}
         />
         <div className={`input-with-adornment${hasBoundsWarning ? " has-warning" : ""}`}>
-          {spec.prefix ? (
+          {effectivePrefix ? (
             <span className="input-prefix" aria-hidden="true">
-              {spec.prefix}
+              {effectivePrefix}
             </span>
           ) : null}
           <input
@@ -256,16 +272,16 @@ export function Field({
             onChange={handleInputChange}
             onBlur={handleInputBlur}
             onKeyDown={handleKeyDown}
-            className={`${spec.prefix ? "has-prefix" : ""}${hasBoundsWarning ? " input-out-of-bounds" : ""}`.trim() || undefined}
+            className={`${effectivePrefix ? "has-prefix" : ""}${hasBoundsWarning ? " input-out-of-bounds" : ""}`.trim() || undefined}
             aria-invalid={hasBoundsWarning ? "true" : undefined}
           />
           {spec.suffix ? <span className="input-suffix">{spec.suffix}</span> : null}
         </div>
       </div>
 
-      {spec.chips?.length ? (
+      {displayChips?.length ? (
         <div className="chips-wrap">
-          {spec.chips.map((c) => (
+          {displayChips.map((c) => (
             <button
               key={c.value}
               type="button"

@@ -10,6 +10,7 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateMutualFund, type RiskScenario } from "@/engines/mutual-fund";
 import { fundCopy } from "@/i18n/fund-labels";
 import { formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
+import { useCurrency } from "@/app/CurrencyContext";
 import { JaMutualFundArticle } from "@/components/articles/ja/JaMutualFundArticle";
 import { RuMutualFundArticle } from "@/components/articles/ru/RuMutualFundArticle";
 import { InSipArticle } from "@/components/articles/in/InSipArticle";
@@ -23,8 +24,9 @@ const SCENARIOS: RiskScenario[] = ["conservative", "base", "aggressive"];
  * ratio, exit load, LTCG and an optional withdrawal phase.
  */
 export default function MutualFundCalculator({ seo }: { seo: SeoRecord }) {
+  const { symbol: activeSym } = useCurrency();
   const c = fundCopy(seo.locale);
-  const p = symbol(seo.locale);
+  const p = activeSym;
   const money = (n: number) => moneyFormat(seo.locale, n);
 
   const isRu = seo.locale === "ru";

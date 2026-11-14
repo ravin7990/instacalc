@@ -8,7 +8,7 @@ import { Field, type FieldSpec } from "@/components/calculator/CalculatorField";
 import { FaqAccordion } from "@/components/calculator/FaqAccordion";
 import { ProjectionTable } from "@/components/calculator/ProjectionTable";
 import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
-import { symbol, isCurrencySymbol, replaceCurrencySymbol } from "@/lib/currency";
+import { symbol, isCurrencySymbol, hasCurrencySymbol, replaceCurrencySymbol } from "@/lib/currency";
 import { useCurrency } from "@/app/CurrencyContext";
 import { readUrlParams, syncUrlState } from "@/lib/urlState";
 import {
@@ -128,7 +128,7 @@ export function createCalculatorPage(specFor: (locale: Locale) => CalculatorSpec
       chips: f.chips?.map((c) =>
         c.label === "\u0000"
           ? { ...c, label: `${activeSym}${c.value / 1000}K` }
-          : c.label && isCurrencySymbol(c.label.charAt(0))
+          : c.label && (hasCurrencySymbol(c.label) || isCur)
           ? { ...c, label: replaceCurrencySymbol(c.label, activeSym) }
           : c,
       ),

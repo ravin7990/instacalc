@@ -9,14 +9,16 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateGratuity } from "@/engines/retirement-plans";
 import { planCopy } from "@/i18n/retirement-labels";
 import { formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
+import { useCurrency } from "@/app/CurrencyContext";
 import { RuGratuityArticle } from "@/components/articles/ru/RuGratuityArticle";
 import { InGratuityArticle } from "@/components/articles/in/InGratuityArticle";
 import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 /** Gratuity under the Payment of Gratuity Act, or the uncovered rate. */
 export default function GratuityCalculator({ seo }: { seo: SeoRecord }) {
+  const { symbol: activeSym } = useCurrency();
   const c = planCopy(seo.locale);
-  const p = symbol(seo.locale);
+  const p = activeSym;
   const money = (n: number) => moneyFormat(seo.locale, n);
 
   const [salary, setSalary] = useState(50_000);

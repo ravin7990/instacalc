@@ -10,6 +10,7 @@ import {
   formatWithUnits,
   money,
   isCurrencySymbol,
+  hasCurrencySymbol,
   replaceCurrencySymbol,
   getCurrencyForCountry,
   detectCountryFromTimezone,
@@ -229,7 +230,7 @@ describe("Global Currency Selection & Formatting", () => {
     });
   });
 
-  describe("isCurrencySymbol and replaceCurrencySymbol", () => {
+  describe("isCurrencySymbol, hasCurrencySymbol and replaceCurrencySymbol", () => {
     it("recognises currency symbols", () => {
       expect(isCurrencySymbol("₹")).toBe(true);
       expect(isCurrencySymbol("$")).toBe(true);
@@ -242,11 +243,30 @@ describe("Global Currency Selection & Formatting", () => {
       expect(isCurrencySymbol("%")).toBe(false);
     });
 
-    it("replaces currency symbol on chip labels", () => {
+    it("detects whether a string contains a currency symbol", () => {
+      expect(hasCurrencySymbol("₹50K")).toBe(true);
+      expect(hasCurrencySymbol("$10K")).toBe(true);
+      expect(hasCurrencySymbol("10K €")).toBe(true);
+      expect(hasCurrencySymbol("5K €")).toBe(true);
+      expect(hasCurrencySymbol("50 тыс. ₽")).toBe(true);
+      expect(hasCurrencySymbol("1000万円")).toBe(true);
+      expect(hasCurrencySymbol("5%")).toBe(false);
+      expect(hasCurrencySymbol("10")).toBe(false);
+      expect(hasCurrencySymbol("years")).toBe(false);
+    });
+
+    it("replaces currency symbol on chip labels (prefix, suffix, or multi-char)", () => {
       expect(replaceCurrencySymbol("₹50K", "$")).toBe("$50K");
       expect(replaceCurrencySymbol("₹5L", "€")).toBe("€5L");
       expect(replaceCurrencySymbol("$10K", "£")).toBe("£10K");
       expect(replaceCurrencySymbol("10%", "$")).toBe("10%");
+      expect(replaceCurrencySymbol("10K €", "₹")).toBe("₹10K");
+      expect(replaceCurrencySymbol("5K €", "₹")).toBe("₹5K");
+      expect(replaceCurrencySymbol("50K €", "₹")).toBe("₹50K");
+      expect(replaceCurrencySymbol("100 €", "₹")).toBe("₹100");
+      expect(replaceCurrencySymbol("50 тыс. ₽", "₹")).toBe("₹50 тыс.");
+      expect(replaceCurrencySymbol("1000万円", "₹")).toBe("₹1000万");
+      expect(replaceCurrencySymbol("10K €", "AED")).toBe("AED 10K");
     });
   });
 });

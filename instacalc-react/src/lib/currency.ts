@@ -626,24 +626,59 @@ export function formatWithUnits(locale: Locale, value: number, explicitCode?: st
 }
 
 export const KNOWN_CURRENCY_SYMBOLS = new Set([
-  "₹", "$", "€", "£", "¥", "₩", "₽", "C$", "A$", "S$", "Fr.", "Mex$", "R$", "฿", "Rp", "₺", "AED", "SAR", "CHF", "NZ$"
+  "₹", "$", "€", "£", "¥", "₩", "₽", "C$", "A$", "S$", "Fr.", "Mex$", "R$", "฿", "Rp", "₺", "AED", "SAR", "CHF", "NZ$", "円", "원"
 ]);
 
 export function isCurrencySymbol(s?: string): boolean {
   if (!s) return false;
   const trimmed = s.trim();
   if (KNOWN_CURRENCY_SYMBOLS.has(trimmed)) return true;
-  return /^[₹$€£¥₩₽฿₺]|^(C\$|A\$|S\$|Mex\$|R\$|NZ\$|AED|SAR|CHF|Fr\.|Rp)/.test(trimmed);
+  return /^[₹$€£¥₩₽฿₺円원]|^(C\$|A\$|S\$|Mex\$|R\$|NZ\$|AED|SAR|CHF|Fr\.|Rp)/.test(trimmed);
+}
+
+export function hasCurrencySymbol(text?: string): boolean {
+  if (!text) return false;
+  for (const sym of KNOWN_CURRENCY_SYMBOLS) {
+    if (text.includes(sym)) return true;
+  }
+  return /[₹$€£¥₩₽฿₺円원]/.test(text);
 }
 
 export function replaceCurrencySymbol(text: string, newSymbol: string): string {
   if (!text) return text;
-  for (const sym of KNOWN_CURRENCY_SYMBOLS) {
+  // Sort symbols by length descending to match multi-char symbols before single-char (e.g. 'Mex$' before '$')
+  const symbols = Array.from(KNOWN_CURRENCY_SYMBOLS).sort((a, b) => b.length - a.length);
+
+  for (const sym of symbols) {
     if (text.startsWith(sym)) {
-      return newSymbol + text.slice(sym.length);
+      const rest = text.slice(sym.length).trimStart();
+      const needsSpace = newSymbol.length > 1;
+      return `${newSymbol}${needsSpace ? " " : ""}${rest}`;
+    }
+    if (text.endsWith(sym)) {
+      const rest = text.slice(0, -sym.length).trimEnd();
+      const needsSpace = newSymbol.length > 1;
+      return `${newSymbol}${needsSpace ? " " : ""}${rest}`;
+    }
+    if (text.includes(sym)) {
+      const rest = text.replace(sym, "").trim();
+      const needsSpace = newSymbol.length > 1;
+      return `${newSymbol}${needsSpace ? " " : ""}${rest}`;
     }
   }
-  return text.replace(/^[₹$€£¥₩₽฿₺]/, newSymbol);
+
+  if (/^[₹$€£¥₩₽฿₺円원]/.test(text)) {
+    const rest = text.slice(1).trimStart();
+    const needsSpace = newSymbol.length > 1;
+    return `${newSymbol}${needsSpace ? " " : ""}${rest}`;
+  }
+  if (/[₹$€£¥₩₽฿₺円원]$/.test(text)) {
+    const rest = text.slice(0, -1).trimEnd();
+    const needsSpace = newSymbol.length > 1;
+    return `${newSymbol}${needsSpace ? " " : ""}${rest}`;
+  }
+
+  return text;
 }
 
 /** Returns the Japanese Imperial Era (和暦), e.g. 令和8年. */

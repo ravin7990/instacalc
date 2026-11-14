@@ -10,6 +10,7 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { planRetirement } from "@/engines/retirement";
 import { usCopy } from "@/i18n/us-labels";
 import { formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
+import { useCurrency } from "@/app/CurrencyContext";
 import { UsRetirementArticle } from "@/components/articles/us/UsRetirementArticle";
 import { JaRetirementArticle } from "@/components/articles/ja/JaRetirementArticle";
 import { RuRetirementArticle } from "@/components/articles/ru/RuRetirementArticle";
@@ -23,8 +24,9 @@ import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculato
  * the maths is currency-agnostic, only the labels differ.
  */
 export default function RetirementCalculator({ seo }: { seo: SeoRecord }) {
+  const { symbol: activeSym } = useCurrency();
   const c = usCopy(seo.locale);
-  const p = symbol(seo.locale);
+  const p = activeSym;
   const money = (n: number) => moneyFormat(seo.locale, n);
   const isRu = seo.locale === "ru";
   const isJa = seo.locale === "ja";

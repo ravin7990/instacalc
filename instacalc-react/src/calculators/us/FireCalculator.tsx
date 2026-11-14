@@ -9,6 +9,7 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateFire, type FireTier, type FireTiming } from "@/engines/us-retirement";
 import { usCopy } from "@/i18n/us-labels";
 import { formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
+import { useCurrency } from "@/app/CurrencyContext";
 import { UsFireArticle } from "@/components/articles/us/UsFireArticle";
 import { EsFireArticle } from "@/components/articles/es/EsFinanceArticles";
 import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
@@ -18,8 +19,9 @@ const TIMINGS: FireTiming[] = ["monthly", "start", "end"];
 
 /** FIRE number: annual expenses divided by the safe withdrawal rate. */
 export default function FireCalculator({ seo }: { seo: SeoRecord }) {
+  const { symbol: activeSym } = useCurrency();
   const c = usCopy(seo.locale);
-  const p = symbol(seo.locale);
+  const p = activeSym;
   const money = (n: number) => moneyFormat(seo.locale, n);
   const isEs = seo.locale === "es";
 

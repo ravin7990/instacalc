@@ -9,11 +9,13 @@ import { FaqAccordion } from "@/components/calculator/FaqAccordion";
 import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateIncomeTax } from "@/engines/income-tax";
 import { symbol, money as moneyFormat } from "@/lib/currency";
+import { useCurrency } from "@/app/CurrencyContext";
 import { InIncomeTaxArticle } from "@/components/articles/in/InIncomeTaxArticle";
 import { BreakdownDonutChart } from "@/components/calculator/FinancialCharts";
 
 export default function IncomeTaxCalculator({ seo }: { seo: SeoRecord }) {
-  const p = symbol(seo.locale);
+  const { symbol: activeSym } = useCurrency();
+  const p = activeSym;
   const money = (v: number) => moneyFormat(seo.locale, v);
 
   const [income, setIncome] = useState(1200000);

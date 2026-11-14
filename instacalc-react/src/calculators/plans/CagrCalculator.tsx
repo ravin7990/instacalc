@@ -9,6 +9,7 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateCagr, futureValue } from "@/engines/retirement-plans";
 import { planCopy } from "@/i18n/retirement-labels";
 import { formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
+import { useCurrency } from "@/app/CurrencyContext";
 import { JaCagrArticle } from "@/components/articles/ja/JaCagrArticle";
 import { RuCagrArticle } from "@/components/articles/ru/RuCagrArticle";
 import { InCagrArticle } from "@/components/articles/in/InCagrArticle";
@@ -21,8 +22,9 @@ import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculato
  * both "what rate did I get?" and "what will this become?".
  */
 export default function CagrCalculator({ seo }: { seo: SeoRecord }) {
+  const { symbol: activeSym } = useCurrency();
   const c = planCopy(seo.locale);
-  const p = symbol(seo.locale);
+  const p = activeSym;
   const money = (n: number) => moneyFormat(seo.locale, n);
   const isEs = seo.locale === "es";
 

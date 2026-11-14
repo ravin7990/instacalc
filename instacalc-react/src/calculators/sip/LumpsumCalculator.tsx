@@ -10,6 +10,7 @@ import { FaqAccordion } from "@/components/calculator/FaqAccordion";
 import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateCompound } from "@/engines/interest";
 import { formatCompact, formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
+import { useCurrency } from "@/app/CurrencyContext";
 import { sipCopy } from "@/i18n/calculator-copy";
 import { JaLumpsumArticle } from "@/components/articles/ja/JaLumpsumArticle";
 import { InLumpsumArticle } from "@/components/articles/in/InLumpsumArticle";
@@ -19,8 +20,9 @@ import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculato
 
 /** One-time lumpsum investment, mirroring the SIP page's structure and styling. */
 export default function LumpsumCalculator({ seo }: { seo: SeoRecord }) {
+  const { symbol: activeSym } = useCurrency();
   const c = sipCopy(seo.locale);
-  const p = symbol(seo.locale);
+  const p = activeSym;
   const isEs = seo.locale === "es";
 
   const [amount, setAmount] = useState(isEs ? 25_000 : 500_000);

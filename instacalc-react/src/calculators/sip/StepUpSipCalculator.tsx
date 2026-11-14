@@ -9,11 +9,13 @@ import { FaqAccordion } from "@/components/calculator/FaqAccordion";
 import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateSip } from "@/engines/sip";
 import { symbol, money as moneyFormat } from "@/lib/currency";
+import { useCurrency } from "@/app/CurrencyContext";
 import { InStepUpSipArticle } from "@/components/articles/in/InStepUpSipArticle";
 import { TimelineGrowthChart, BreakdownDonutChart } from "@/components/calculator/FinancialCharts";
 
 export default function StepUpSipCalculator({ seo }: { seo: SeoRecord }) {
-  const p = symbol(seo.locale);
+  const { symbol: activeSym } = useCurrency();
+  const p = activeSym;
   const money = (v: number) => moneyFormat(seo.locale, v);
 
   const [monthly, setMonthly] = useState(10000);

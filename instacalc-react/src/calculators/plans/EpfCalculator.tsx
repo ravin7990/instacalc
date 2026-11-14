@@ -10,14 +10,16 @@ import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { calculateEpf } from "@/engines/retirement-plans";
 import { planCopy } from "@/i18n/retirement-labels";
 import { formatCurrency, formatWithUnits, symbol, money as moneyFormat } from "@/lib/currency";
+import { useCurrency } from "@/app/CurrencyContext";
 import { RuEpfArticle } from "@/components/articles/ru/RuEpfArticle";
 import { InEpfArticle } from "@/components/articles/in/InEpfArticle";
 import { BreakdownDonutChart, TimelineGrowthChart } from "@/components/calculator/FinancialCharts";
 
 /** EPF, EPS and VPF projection. */
 export default function EpfCalculator({ seo }: { seo: SeoRecord }) {
+  const { symbol: activeSym } = useCurrency();
   const c = planCopy(seo.locale);
-  const p = symbol(seo.locale);
+  const p = activeSym;
   const money = (n: number) => moneyFormat(seo.locale, n);
 
   const [s, setS] = useState({
