@@ -19,9 +19,10 @@ export default function ContactPage({ seo }: { seo: SeoRecord }) {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       setError(
@@ -38,7 +39,56 @@ export default function ContactPage({ seo }: { seo: SeoRecord }) {
       return;
     }
     setError("");
-    setSubmitted(true);
+    setSubmitting(true);
+
+    try {
+      const response = await fetch("https://formspree.io/f/xppdpdbg", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          email: form.email.trim(),
+          category: form.category,
+          message: form.message.trim(),
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        const data = await response.json().catch(() => ({}));
+        const fieldError = data?.errors?.[0]?.message;
+        setError(
+          fieldError ||
+          (isJa
+            ? "送信中にエラーが発生しました。もう一度お試しいただくか、メールで直接ご連絡ください。"
+            : isRu
+            ? "Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз или напишите нам по электронной почте."
+            : isKo
+            ? "전송 중 오류가 발생했습니다. 다시 시도하시거나 이메일로 직접 문의해주세요."
+            : isEs
+            ? "Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo o contáctanos por correo."
+            : "An error occurred while sending your message. Please try again or email us directly.")
+        );
+      }
+    } catch {
+      setError(
+        isJa
+          ? "通信エラーが発生しました。インターネット接続を確認して再度お試しください。"
+          : isRu
+          ? "Ошибка сети. Проверьте соединение с интернетом и повторите попытку."
+          : isKo
+          ? "네트워크 오류가 발생했습니다. 인터넷 연결을 확인하고 다시 시도해주세요."
+          : isEs
+          ? "Error de conexión. Comprueba tu conexión a internet e inténtalo de nuevo."
+          : "Network error. Please check your connection and try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -85,8 +135,8 @@ export default function ContactPage({ seo }: { seo: SeoRecord }) {
                     ? "Ver todas las calculadoras"
                     : "Browse calculators"}
                 </a>
-                <a className="btn btn-ghost" href="mailto:support@instacalc.in">
-                  support@instacalc.in
+                <a className="btn btn-ghost" href="mailto:developerravin@gmail.com">
+                  developerravin@gmail.com
                 </a>
               </div>
             </div>
@@ -124,8 +174,8 @@ export default function ContactPage({ seo }: { seo: SeoRecord }) {
                       : "Official Support Email"}
                   </h3>
                   <p>
-                    <a href="mailto:support@instacalc.in" className="contact-link">
-                      support@instacalc.in
+                    <a href="mailto:developerravin@gmail.com" className="contact-link">
+                      developerravin@gmail.com
                     </a>
                   </p>
                   <small>
@@ -274,7 +324,13 @@ export default function ContactPage({ seo }: { seo: SeoRecord }) {
                   </button>
                 </div>
               ) : (
-                <form className="contact-form" onSubmit={handleSubmit} noValidate>
+                <form
+                  className="contact-form"
+                  action="https://formspree.io/f/xppdpdbg"
+                  method="POST"
+                  onSubmit={handleSubmit}
+                  noValidate
+                >
                   {error ? (
                     <div className="form-error" role="alert">
                       {error}
@@ -296,6 +352,7 @@ export default function ContactPage({ seo }: { seo: SeoRecord }) {
                     </label>
                     <input
                       id="contactName"
+                      name="name"
                       type="text"
                       className="form-control"
                       placeholder={
@@ -330,6 +387,7 @@ export default function ContactPage({ seo }: { seo: SeoRecord }) {
                     </label>
                     <input
                       id="contactEmail"
+                      name="email"
                       type="email"
                       className="form-control"
                       placeholder="nombre@ejemplo.com"
@@ -353,6 +411,7 @@ export default function ContactPage({ seo }: { seo: SeoRecord }) {
                     </label>
                     <select
                       id="contactCategory"
+                      name="category"
                       className="form-control"
                       value={form.category}
                       onChange={(e) => setForm({ ...form, category: e.target.value })}
@@ -419,6 +478,7 @@ export default function ContactPage({ seo }: { seo: SeoRecord }) {
                     </label>
                     <textarea
                       id="contactMessage"
+                      name="message"
                       rows={5}
                       className="form-control"
                       placeholder={
@@ -439,19 +499,29 @@ export default function ContactPage({ seo }: { seo: SeoRecord }) {
                   </div>
 
                   <div className="form-actions">
-                    <button type="submit" className="btn btn-primary">
-                      {isJa
-                        ? "送信する"
-                        : isRu
-                        ? "Отправить сообщение"
-                        : isKo
-                        ? "문의 보내기"
-                        : isEs
-                        ? "Enviar mensaje"
-                        : "Send Message"}
+                    <button type="submit" className="btn btn-primary" disabled={submitting}>
+                      {submitting
+                        ? (isJa
+                            ? "送信中..."
+                            : isRu
+                            ? "Отправка..."
+                            : isKo
+                            ? "전송 중..."
+                            : isEs
+                            ? "Enviando..."
+                            : "Sending...")
+                        : (isJa
+                            ? "送信する"
+                            : isRu
+                            ? "Отправить сообщение"
+                            : isKo
+                            ? "문의 보내기"
+                            : isEs
+                            ? "Enviar mensaje"
+                            : "Send Message")}
                     </button>
                     <a
-                      href={`mailto:support@instacalc.in?subject=${encodeURIComponent(
+                      href={`mailto:developerravin@gmail.com?subject=${encodeURIComponent(
                         `[InstaCalc Inquiry] ${form.category}`
                       )}&body=${encodeURIComponent(form.message)}`}
                       className="btn btn-ghost"

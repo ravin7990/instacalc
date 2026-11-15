@@ -127,7 +127,7 @@ export default function DisclaimerPage({ seo }: { seo: SeoRecord }) {
 
             <p>
               <small>
-                <em>Document last reviewed and updated: October 2026. For questions regarding our legal disclosures, contact <a href="mailto:support@instacalc.in">support@instacalc.in</a>.</em>
+                <em>Document last reviewed and updated: October 2026. For questions regarding our legal disclosures, contact <a href="mailto:developerravin@gmail.com">developerravin@gmail.com</a>.</em>
               </small>
             </p>
           </div>
