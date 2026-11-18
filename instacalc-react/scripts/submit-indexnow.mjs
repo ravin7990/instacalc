@@ -28,9 +28,10 @@ if (process.env.INDEXNOW_KEY) {
   apiKey = process.env.INDEXNOW_KEY.trim();
 }
 
-// 2. Collect URLs from dist/sitemap.xml or src/data/seo.generated.json
+// 2. Collect URLs from dist/sitemap.xml, dist/sitemap-index.xml or src/data/seo.generated.json
 let urlList = [];
 const sitemapPath = join(ROOT, "dist", "sitemap.xml");
+const sitemapIndexPath = join(ROOT, "dist", "sitemap-index.xml");
 
 if (existsSync(sitemapPath)) {
   const xml = readFileSync(sitemapPath, "utf8");
@@ -39,6 +40,20 @@ if (existsSync(sitemapPath)) {
     if (u.startsWith(ORIGIN) && !urlList.includes(u)) {
       urlList.push(u);
     }
+  }
+}
+
+if (existsSync(sitemapIndexPath)) {
+  const idxXml = readFileSync(sitemapIndexPath, "utf8");
+  for (const m of idxXml.matchAll(/<loc>([^<]+)<\/loc>/g)) {
+    const u = m[1].trim();
+    if (u.startsWith(ORIGIN) && !urlList.includes(u)) {
+      urlList.push(u);
+    }
+  }
+  const sitemapIndexUrl = `${ORIGIN}/sitemap-index.xml`;
+  if (!urlList.includes(sitemapIndexUrl)) {
+    urlList.push(sitemapIndexUrl);
   }
 }
 
