@@ -1,172 +1,52 @@
 <!DOCTYPE html>
-<html lang="ja">
 
+<html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <script>
+<meta charset="utf-8"/>
+<script>
     (function () {
       localStorage.setItem('user_lang', 'ja');
     })();
   </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>積立シミュレーション | 新NISA・つみたて投資の複利計算機【無料・非課税比較】 - InstaCalc</title>
-  <meta name="description"
-    content="新NISA（つみたて投資枠・成長投資枠）や投資信託の積立投資シミュレーター。毎月の積立額・利回り・期間から将来の資産額と複利運用益を無料計算。課税口座（20.315%）との非課税メリット比較や目標金額からの逆算、年次推移グラフ・CSV出力に対応。">
-  <meta name="keywords"
-    content="積立シミュレーション, 新NISA シミュレーション, つみたてNISA 計算, 積立投資 複利計算, オルカン 複利, S&P500 積立 利回り, ドルコスト平均法, 非課税メリット, 老後資金 計算">
-  <meta name="author" content="InstaCalc">
-  <meta name="robots" content="index,follow">
-  <!-- Verify site ownership & paste the actual codes from each platform: Google Search Console (Domain property meta tag), Bing Webmaster Tools, and Yahoo! Japan Site Explorer -->
-  <meta name="theme-color" content="#005f73">
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<title>積立シミュレーション【新NISA対応】毎月積立の将来資産 | InstaCalc</title>
+<meta content="積立シミュレーション。毎月の積立額・想定利回り・期間から将来の資産額と運用益を自動計算。新NISAつみたて投資枠の試算、S&P500・全世界株式の利回り目安も解説。無料。" name="description"/>
+<meta content="積立シミュレーション, 投資 積立シミュレーション, 新NISA 積立, S&P500 積立 シミュレーション, 積立 シミュレーション, つみたてNISA シミュレーション, 新NISA 積立計算, 毎月積立 複利, オルカン 利回り, 資産形成 計算" name="keywords"/>
+<meta content="InstaCalc" name="author"/>
+<meta content="index,follow" name="robots"/>
+<!-- Verify site ownership & paste the actual codes from each platform: Google Search Console (Domain property meta tag), Bing Webmaster Tools, and Yahoo! Japan Site Explorer -->
+<meta content="#005f73" name="theme-color"/>
+<link href="../favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="canonical" href="https://instacalc.in/ja/sipcalculator.html"/>
+<link href="https://instacalc.in/sipcalculator.html" hreflang="en-IN" rel="alternate"/>
+<link href="https://instacalc.in/ja/sipcalculator.html" hreflang="ja-JP" rel="alternate"/>
+<link href="https://instacalc.in/ru/sipcalculator.html" hreflang="ru" rel="alternate"/>
+<link href="https://instacalc.in/sipcalculator.html" hreflang="x-default" rel="alternate"/>
+<meta content="積立シミュレーション【新NISA対応】毎月積立の将来資産" property="og:title"/>
+<meta content="積立シミュレーション。毎月の積立額・想定利回り・期間から将来の資産額と運用益を自動計算。新NISAつみたて投資枠の試算、S&P500・全世界株式の利回り目安も解説。無料。" property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://instacalc.in/ja/sipcalculator.html" property="og:url"/>
+<meta content="https://instacalc.in/instatheme.webp" property="og:image"/>
+<meta content="InstaCalc" property="og:site_name"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="積立シミュレーション【新NISA対応】毎月積立の将来資産" name="twitter:title"/>
+<meta content="積立シミュレーション。毎月の積立額・想定利回り・期間から将来の資産額と運用益を自動計算。新NISAつみたて投資枠の試算、S&P500・全世界株式の利回り目安も解説。無料。" name="twitter:description"/>
+<meta content="https://instacalc.in/instatheme.webp" name="twitter:image"/>
 
-  <link rel="icon" type="image/x-icon" href="../favicon.ico">
-  <link rel="canonical" href="https://instacalc.in/ja/sipcalculator.html">
-  <link rel="alternate" hreflang="en-IN" href="https://instacalc.in/sipcalculator.html">
-  <link rel="alternate" hreflang="ja-JP" href="https://instacalc.in/ja/sipcalculator.html">
-  <link rel="alternate" hreflang="ru" href="https://instacalc.in/ru/sipcalculator.html">
-  <link rel="alternate" hreflang="x-default" href="https://instacalc.in/sipcalculator.html">
 
-  <meta property="og:title" content="積立シミュレーション | 新NISA・つみたて投資の複利計算機【無料・非課税比較】">
-  <meta property="og:description"
-    content="新NISA対応の積立投資シミュレーター。毎月の積立額と想定利回りから将来の資産総額・複利利益・新NISAの非課税節税メリットを瞬時に計算します。">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://instacalc.in/ja/sipcalculator.html">
-  <meta property="og:image" content="https://instacalc.in/instatheme.webp">
-  <meta property="og:site_name" content="InstaCalc">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="積立シミュレーション | 新NISA・つみたて投資の複利計算機【無料・非課税比較】">
-  <meta name="twitter:description"
-    content="新NISA（つみたて投資枠・成長投資枠）対応！毎月の積立額から将来の資産形成額と非課税メリットを簡単シミュレーション。">
-  <meta name="twitter:image" content="https://instacalc.in/instatheme.webp">
-
-    <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "新NISA・積立投資シミュレーター (複利運用計算機)",
-    "url": "https://instacalc.in/ja/sipcalculator.html",
-    "description": "新NISA（つみたて投資枠）の積立シミュレーション。毎月の積立額・利回り・期間から将来の受取資産額、複利効果、非課税メリット（20.315%節税額）、生涯投資枠1,800万円の進捗を瞬時に試算。",
-    "inLanguage": "ja-JP",
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "InstaCalc",
-      "url": "https://instacalc.in/"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "InstaCalc",
-      "url": "https://instacalc.in"
-    }
-  }
-  </script>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "新NISA（つみたて投資枠・成長投資枠）の非課税メリットとは何ですか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "通常の課税口座（特定口座や一般口座）では、株式や投資信託の運用益（売却益や分配金）に対して20.315%（所得税15%＋復興特別所得税0.315%＋住民税5%）の税金が差し引かれます。新NISA制度を利用すると、年間360万円（生涯1,800万円まで）の投資から得られる運用益が無期限で100%非課税（税金0円）となるため、手取り資産を大幅に増やすことができます。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "積立投資の利回りは何パーセントで計算するのが現実的ですか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "投資対象によって異なりますが、代表的な全世界株式インデックスファンド（オルカン）では年利4%〜6%程度、S&P500や全米株式では年利5%〜8%程度が長期投資における過去の平均的な目安とされています。国内債券やバランスファンドを中心に安定運用を目指す場合は2%〜4%程度での試算が推奨されます。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "複利効果とは何ですか？単利との違いは？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "単利は当初の元本のみに利息がつく計算方法ですが、複利は「元本＋得られた運用益」を再び投資に回すことで、利益がさらに利益を生み出します。運用期間が10年、20年、30年と長くなるほど、複利効果によって資産が二次関数的に急成長します。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "毎月の積立額はいくらから始めるのが良いですか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "多くの主要ネット証券（SBI証券や楽天証券など）では100円や1,000円から積立投資が可能です。まずは無理のない金額（例：毎月1万円〜3万円）からスタートし、クレジットカード積立の上限（月5万円〜10万円）や新NISAのつみたて投資枠（月10万円）などを目安に段階的に増額していくのが効果的です。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "ステップアップ積立（毎年の増額）とは何ですか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "給与アップや生活水準の変化に合わせて、毎年の積立額を一定割合（例：毎年5%ずつ増額）で引き上げていく投資手法です。若年期など初期の資金に余裕がない時期でも、後半にかけて積立額が増えるため、目標資産額（老後2,000万円など）への到達を大きく早めることができます。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "積立投資（つみたて投資）とはどのような投資手法ですか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "毎月などの決まったタイミングで一定額の投資信託等を定期的に買い付ける手法です。価格が高い時は少なく、安い時は多く買い付ける「ドルコスト平均法」が自動的に働き、高値掴みのリスクを抑えながら長期的な資産形成が行えます。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "新NISAの生涯非課税限度額（1,800万円）はどのように管理されますか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "新NISAでは、1人あたり買付金額（簿価残高）ベースで最大1,800万円（うち成長投資枠は1,200万円まで）の非課税枠が設定されています。保有商品を売却した場合は、その商品の買付金額分の枠が翌年に復活するため、再利用が可能です。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "毎月5万円を年利5%で20年間運用すると資産はいくらになりますか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "元本合計1,200万円に対して、運用収益は約855万円となり、将来の資産総額は約2,055万円に達します。新NISA口座であれば、通常差し引かれる約173万円の税金が非課税となります。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "目標資産（老後2,000万円）を達成するには毎月いくらの積立が必要ですか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "年利5%で運用する場合、期間20年であれば毎月約4.8万円、期間30年であれば毎月約2.4万円の積立で2,000万円の資産達成が見込めます。運用期間が長いほど必要な毎月積立額は少なくなります。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "iDeCoと新NISAのどちらを優先して始めるべきですか？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "iDeCoは掛金が全額所得控除され毎年の節税効果が高い反面、60歳まで引き出せない制約があります。住宅資金や教育資金など流動性を確保したい場合はいつでも解約できる新NISAを優先し、老後資金専用であれば両者の併用が最適です。"
-          }
-        }
-      ]
-    }
-  </script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload"
-    href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap"
-    as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap">
-  </noscript>
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style"
-    onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">
-  </noscript>
-
-  <link rel="stylesheet" href="../instacalc-core.css">
-  <style>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://cdn.jsdelivr.net" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/>
+<noscript>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+</noscript>
+<link as="style" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/>
+<noscript>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" rel="stylesheet"/>
+</noscript>
+<link href="../instacalc-core.css" rel="stylesheet"/>
+<style>
     /* Japanese Localization & Shin NISA Styling */
     .japanese-hero-banner {
       background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
@@ -391,528 +271,593 @@
       color: #0284c7;
     }
   </style>
-</head>
-
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "新NISA積立シミュレーション",
+  "url": "https://instacalc.in/ja/sipcalculator.html",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "All",
+  "inLanguage": "ja-JP",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "JPY"
+  },
+  "description": "毎月の積立額と想定年利から新NISAでの将来資産総額と運用益を自動計算する無料シミュレーター。"
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "ホーム",
+      "item": "https://instacalc.in/ja/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "新NISA積立シミュレーション",
+      "item": "https://instacalc.in/ja/sipcalculator.html"
+    }
+  ]
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "新NISAの「つみたて投資枠」とは何ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "金融庁の厳格な基準（低コスト・長期分散投資向き）を満たした公募株式投資信託に限定して、年間120万円（月最大10万円）まで非課税で積立投資ができる国の非課税制度です。運用益は無期限で非課税となります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "毎月いくらから新NISAの積立投資を始められますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ネット証券（SBI証券、楽天証券、マネックス証券等）を利用すれば、最低「100円」から毎月（または毎日）積立投資を設定できます。クレカ積立（クレジットカード決済）なら毎月ポイントを獲得しながら積立が可能です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "毎月3万円を20年間積立投資するといくらになりますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "年利5%で運用できた場合、投資元本720万円に対して利益が約513万円上乗せされ、資産総額は約「1,233万円」に達します。年利7%なら総額約「1,563万円」（利益約843万円）となります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "オルカン（全世界株式）やS&P500の想定利回りは何%で計算すべきですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "過去数十年の歴史的データでは、全世界株式（MSCI ACWI）は年平均約7%〜8%、米国S&P500は年平均約9%〜10%のリターンを記録しています。ただし将来の保守的なシミュレーションでは「年利4%〜6%程度」を想定して計画を立てるのが堅実です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ドルコスト平均法（定期定額購入）のメリットは何ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "価格が高い時期には購入口数が少なく、価格が暴落した時期には多くの口数を自動的に買い増すことができるため、平均取得単価を自然に引き下げることができます。相場の高値掴みリスクを回避し、感情に左右されずに投資を継続できるのが最大の強みです。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "新NISAの生涯投資枠1,800万円を使い切ったらどうなりますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1,800万円の枠を使い切った後も、それまでに購入した資産はずっと非課税のまま無期限で運用を継続できます。また、保有商品を売却した場合は「購入時の簿価（元本ベース）」分の非課税枠が翌年以降に再利用枠として復活します。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "積立途中で相場が暴落したときはどう対処すべきですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "絶対に「狼狽売り（途中で売却してやめる）」をしないことが鉄則です。ドルコスト平均法の強みは暴落時に安値で多くの口数を仕込める点にあります。過去のITバブル崩壊やリーマンショックでも、積立を継続した投資家はその後の回復局面で最大の利益を享受しました。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "新NISAで得た利益は確定申告が必要ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "原則として確定申告は一切不要です。新NISA口座内での売却益や分配金は全額非課税となるため、税務署への申告義務はなく、住民税の申告も必要ありません。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "「成長投資枠」と「つみたて投資枠」は併用できますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "併用可能です。年間つみたて投資枠120万円と成長投資枠240万円を合わせて年間最大360万円まで非課税投資が可能です。つみたて投資枠でインデックス投信を積み立てつつ、成長投資枠で個別株や高配当ETFを一括購入するハイブリッド戦略も取れます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "積立金額は途中で増額や減額、一時停止できますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "いつでも自由に変更可能です。証券会社のウェブサイトから1円単位・100円単位で積立設定金額を変更でき、家計が厳しい時期には一時休止し、余裕ができたときに再開することもノーコストで行えます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "預金（金利0.1%）と新NISA（想定5%）の20年後の差は？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "毎月5万円（元本1,200万円）を20年間預金した場合、手取り利息はわずか約10万円程度で約1,210万円です。一方、新NISAで年利5%複利運用できた場合は総額約「2,055万円」となり、約845万円もの資産差が生まれます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "積立投資で最もやってはいけない失敗は何ですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "①「高コストなぼったくりファンド（信託報酬1%超や購入時手数料あり）を選ぶこと」、②「毎月分配型の投資信託を選び複利効果を壊すこと」、③「相場の短期的な下落で怖くなって途中で積立を停止・解約すること」の3点です。"
+      }
+    }
+  ]
+}</script></head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="brand" aria-label="InstaCalc ホーム">
-        <img src="../logo.png" alt="InstaCalc ロゴ">
-        <span>InstaCalc.in</span>
-      </a>
-
-      <button class="menu-toggle" id="menuToggle" type="button" aria-label="メニュー開閉" aria-expanded="false"
-        aria-controls="mainNav">
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <nav class="site-nav" id="mainNav">
-        <a href="index.html">ホーム</a>
-        <a href="sipcalculator.html" class="active">積立シミュレーション</a>
-        <a href="emicalculator.html">住宅ローン計算</a>
-        <a href="aboutus.html">運営者情報</a>
-        <a href="contactus.html">お問い合わせ</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <span class="eyebrow">
-            <i class="fas fa-chart-line"></i>
+<header class="site-header">
+<div class="container header-inner">
+<a aria-label="InstaCalc ホーム" class="brand" href="index.html">
+<img alt="InstaCalc ロゴ" src="../logo.png"/>
+<span>InstaCalc.in</span>
+</a>
+<button aria-controls="mainNav" aria-expanded="false" aria-label="メニュー開閉" class="menu-toggle" id="menuToggle" type="button">
+<i class="fas fa-bars"></i>
+</button>
+<nav class="site-nav" id="mainNav">
+<a href="index.html">ホーム</a>
+<a class="active" href="sipcalculator.html">積立シミュレーション</a>
+<a href="emicalculator.html">住宅ローン計算</a>
+<a href="aboutus.html">運営者情報</a>
+<a href="contactus.html">お問い合わせ</a>
+</nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container hero-grid">
+<div class="hero-copy">
+<span class="eyebrow">
+<i class="fas fa-chart-line"></i>
             新NISA・つみたて投資シミュレーター
           </span>
-          <h1>積立シミュレーション — 新NISA・複利運用の資産形成計算機</h1>
-          <p>毎月の積立額、期待利回り、投資期間を入力するだけで、将来の資産総額や複利運用益をリアルタイム計算。新NISAの非課税節税メリット（20.315%軽減）や、目標金額（老後2,000万円・5,000万円など）達成に必要な毎月積立額の逆算にも完全対応しています。</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#sip-planner">
-              <i class="fas fa-calculator"></i>
+<h1>積立シミュレーション【新NISA対応】毎月積立・複利運用の将来資産計算機</h1>
+<p>毎月の積立額、期待利回り、投資期間を入力するだけで、将来の資産総額や複利運用益をリアルタイム計算。新NISAの非課税節税メリット（20.315%軽減）や、目標金額（老後2,000万円・5,000万円など）達成に必要な毎月積立額の逆算にも完全対応しています。</p>
+<div class="hero-actions">
+<a class="btn btn-primary" href="#sip-planner">
+<i class="fas fa-calculator"></i>
               シミュレーションを開始
             </a>
-            <a class="btn btn-ghost" href="sipcalculatorlumpsump.html">
-              <i class="fas fa-arrow-right-arrow-left"></i>
+<a class="btn btn-ghost" href="sipcalculatorlumpsump.html">
+<i class="fas fa-arrow-right-arrow-left"></i>
               一括投資（元本複利）計算
             </a>
-          </div>
-        </div>
-
-        <aside class="hero-panel">
-          <h2><i class="fas fa-gem" style="color: #38bdf8;"></i> 日本市場特化の高度な機能</h2>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>新NISA非課税メリット（税金20.315%節税額）</strong>を自動計算</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>日本の通貨単位（万円・億円）</strong>で分かりやすく表示</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>オルカン・S&P500</strong>の想定利回りワンタップ設定</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>毎年の増額（ステップアップ積立）</strong>＆インフレ調整対応</div>
-          <div class="hero-point"><i class="fas fa-circle-check"></i> <strong>年次推移グラフ＆詳細データテーブル（CSV保存可）</strong></div>
-        </aside>
-      </div>
-    </section>
-
-    <section id="sip-planner" class="section">
-      <div class="container calc-layout">
-        <div class="calculator-shell">
-          <div class="calculator-header-row">
-            <div class="mode-switch" aria-label="計算モード">
-              <a href="sipcalculator.html" class="active"><i class="fas fa-calendar-days"></i> 毎月積立 (新NISA/つみたて)</a>
-              <a href="sipcalculatorlumpsump.html"><i class="fas fa-sack-dollar"></i> 一括投資 (成長投資枠)</a>
-            </div>
-            <button id="toggleViewBtn" class="btn btn-ghost btn-sm" type="button">
-              <i class="fas fa-sliders"></i>
-              <span>詳細設定モード: オフ</span>
+</div>
+</div>
+<aside class="hero-panel">
+<h2><i class="fas fa-gem" style="color: #38bdf8;"></i> 日本市場特化の高度な機能</h2>
+<div class="hero-point"><i class="fas fa-circle-check"></i> <strong>新NISA非課税メリット（税金20.315%節税額）</strong>を自動計算</div>
+<div class="hero-point"><i class="fas fa-circle-check"></i> <strong>日本の通貨単位（万円・億円）</strong>で分かりやすく表示</div>
+<div class="hero-point"><i class="fas fa-circle-check"></i> <strong>オルカン・S&amp;P500</strong>の想定利回りワンタップ設定</div>
+<div class="hero-point"><i class="fas fa-circle-check"></i> <strong>毎年の増額（ステップアップ積立）</strong>＆インフレ調整対応</div>
+<div class="hero-point"><i class="fas fa-circle-check"></i> <strong>年次推移グラフ＆詳細データテーブル（CSV保存可）</strong></div>
+</aside>
+</div>
+</section>
+<section class="section" id="sip-planner">
+<div class="container calc-layout">
+<div class="calculator-shell">
+<div class="calculator-header-row">
+<div aria-label="計算モード" class="mode-switch">
+<a class="active" href="sipcalculator.html"><i class="fas fa-calendar-days"></i> 毎月積立 (新NISA/つみたて)</a>
+<a href="sipcalculatorlumpsump.html"><i class="fas fa-sack-dollar"></i> 一括投資 (成長投資枠)</a>
+</div>
+<button class="btn btn-ghost btn-sm" id="toggleViewBtn" type="button">
+<i class="fas fa-sliders"></i>
+<span>詳細設定モード: オフ</span>
+</button>
+</div>
+<!-- Japanese Hero Result Banner (With Man-Yen formatting) -->
+<div class="japanese-hero-banner">
+<div class="banner-text">
+<span class="banner-tag"><i class="fas fa-piggy-bank"></i> 新NISA 想定最終資産額（非課税）</span>
+<div class="main-amount" id="corpusHeroValue">- 万円</div>
+<div class="main-amount-sub" id="corpusHeroDesc">投資元本: - 万円 | 運用収益: - 万円</div>
+</div>
+<button class="btn btn-primary btn-sm" id="copyHeroBtn" title="結果サマリーをコピー" type="button">
+<i class="fas fa-copy"></i> 結果をコピー
             </button>
-          </div>
-
-          <!-- Japanese Hero Result Banner (With Man-Yen formatting) -->
-          <div class="japanese-hero-banner">
-            <div class="banner-text">
-              <span class="banner-tag"><i class="fas fa-piggy-bank"></i> 新NISA 想定最終資産額（非課税）</span>
-              <div class="main-amount" id="corpusHeroValue">- 万円</div>
-              <div class="main-amount-sub" id="corpusHeroDesc">投資元本: - 万円 | 運用収益: - 万円</div>
-            </div>
-            <button type="button" class="btn btn-primary btn-sm" id="copyHeroBtn" title="結果サマリーをコピー">
-              <i class="fas fa-copy"></i> 結果をコピー
+</div>
+<!-- Input Controls Grid -->
+<div class="input-grid">
+<!-- Monthly Investment Amount -->
+<div class="field-card">
+<div class="field-head">
+<label for="sipAmount">毎月の積立金額</label>
+<span id="sipAmountPreview" style="font-weight: 800; color: var(--ic-primary-dark);">30,000 円 (3万円)</span>
+</div>
+<div class="range-row">
+<input id="sipAmountRange" max="500000" min="1000" step="1000" type="range" value="30000"/>
+<input id="sipAmount" max="1000000" min="1000" step="1000" type="number" value="30000"/>
+</div>
+<div class="chips-group">
+<button class="chip-btn" data-val="10000" type="button">1万円</button>
+<button class="chip-btn active" data-val="30000" type="button">3万円</button>
+<button class="chip-btn" data-val="50000" type="button">5万円 (クレカ上限)</button>
+<button class="chip-btn" data-val="100000" type="button">10万円 (つみたて枠上限)</button>
+<button class="chip-btn" data-val="300000" type="button">30万円 (新NISA年間上限)</button>
+</div>
+</div>
+<!-- Expected Return Rate -->
+<div class="field-card">
+<div class="field-head">
+<label for="returnRate">想定利回り（年利％）</label>
+<span id="returnRatePreview" style="font-weight: 800; color: var(--ic-primary-dark);">5.0% (オルカン目安)</span>
+</div>
+<div class="range-row">
+<input id="returnRateRange" max="25" min="0.5" step="0.1" type="range" value="5.0"/>
+<input id="returnRate" max="30" min="0.5" step="0.1" type="number" value="5.0"/>
+</div>
+<div class="chips-group">
+<button class="chip-btn" data-val="3.0" type="button">3% (安定・債券)</button>
+<button class="chip-btn active" data-val="5.0" type="button">5% (オルカン全世界)</button>
+<button class="chip-btn" data-val="7.0" type="button">7% (S&amp;P500米国株)</button>
+<button class="chip-btn" data-val="10.0" type="button">10% (積極・NASDAQ)</button>
+</div>
+</div>
+<!-- Investment Period -->
+<div class="field-card">
+<div class="field-head">
+<label for="years">積立期間（年数）</label>
+<span id="yearsPreview" style="font-weight: 800; color: var(--ic-primary-dark);">20 年</span>
+</div>
+<div class="range-row">
+<input id="yearsRange" max="50" min="1" step="1" type="range" value="20"/>
+<input id="years" max="50" min="1" step="1" type="number" value="20"/>
+</div>
+<div class="chips-group">
+<button class="chip-btn" data-val="5" type="button">5年</button>
+<button class="chip-btn" data-val="10" type="button">10年</button>
+<button class="chip-btn active" data-val="20" type="button">20年 (推奨)</button>
+<button class="chip-btn" data-val="30" type="button">30年 (長期)</button>
+</div>
+</div>
+</div>
+<!-- Advanced Options (Step-up, Inflation, Timing) -->
+<div class="advanced-only-section">
+<div class="field-card">
+<div class="field-head">
+<label for="stepUp">毎年の積立増額率（ステップアップ％）</label>
+<span id="stepUpPreview">0.0%</span>
+</div>
+<div class="range-row">
+<input id="stepUpRange" max="30" min="0" step="0.5" type="range" value="0"/>
+<input id="stepUp" max="30" min="0" step="0.5" type="number" value="0"/>
+</div>
+<small style="color: var(--ic-text-muted); display: block; margin-top: 0.35rem;">給与アップに合わせて毎年積立額を引き上げる割合（例：毎年3%増）</small>
+</div>
+<div class="field-card">
+<div class="field-head">
+<label for="inflation">想定インフレ率（物価上昇率％）</label>
+<span id="inflationPreview">2.0%</span>
+</div>
+<div class="range-row">
+<input id="inflationRange" max="10" min="0" step="0.1" type="range" value="2.0"/>
+<input id="inflation" max="10" min="0" step="0.1" type="number" value="2.0"/>
+</div>
+<small style="color: var(--ic-text-muted); display: block; margin-top: 0.35rem;">日銀の物価安定目標（年2%）を考慮した実質購買力を計算</small>
+</div>
+<div class="field-card">
+<div class="field-head">
+<label for="sipTiming">積立タイミング</label>
+</div>
+<select id="sipTiming">
+<option selected="" value="start">月初（期首払い・標準）</option>
+<option value="end">月末（期末払い）</option>
+</select>
+</div>
+</div>
+<!-- Target Corpus Reverse Planner -->
+<div class="field-card" style="margin-top: 1rem;">
+<div class="field-head">
+<label for="targetCorpus"><i class="fas fa-bullseye" style="color: var(--ic-primary);"></i> 目標金額（必要積立額の逆算用）</label>
+<span id="targetCorpusPreview" style="font-weight: 700; color: #0f172a;">2,000 万円</span>
+</div>
+<div class="range-row">
+<input id="targetCorpusRange" max="100000000" min="1000000" step="1000000" type="range" value="20000000"/>
+<input id="targetCorpus" max="500000000" min="100000" step="500000" type="number" value="20000000"/>
+</div>
+<div class="chips-group">
+<button class="chip-btn" data-target-val="10000000" type="button">1,000万円</button>
+<button class="chip-btn active" data-target-val="20000000" type="button">2,000万円 (老後2000万問題)</button>
+<button class="chip-btn" data-target-val="30000000" type="button">3,000万円 (アッパーマス層)</button>
+<button class="chip-btn" data-target-val="50000000" type="button">5,000万円 (準富裕層)</button>
+<button class="chip-btn" data-target-val="100000000" type="button">1億円 (富裕層/FIRE)</button>
+</div>
+</div>
+<!-- Buttons -->
+<div class="calculator-actions">
+<button class="btn btn-primary" id="recalculateBtn" type="button"><i class="fas fa-arrows-rotate"></i> 再計算する</button>
+<button class="btn btn-ghost" id="resetBtn" type="button"><i class="fas fa-rotate-left"></i> 初期設定に戻す</button>
+</div>
+<!-- Special Japanese Feature: Shin NISA Tax-Free Benefit Box -->
+<div class="nisa-tax-card">
+<div class="nisa-tax-header">
+<div class="nisa-tax-title">
+<i class="fas fa-shield-halved"></i>
+<span>新NISA 非課税メリット比較</span>
+</div>
+<span class="nisa-badge">税金 20.315% 完全非課税</span>
+</div>
+<div class="nisa-comparison-grid">
+<div class="nisa-box">
+<span class="nisa-box-label">課税口座の場合の税金 (20.315%)</span>
+<span class="nisa-box-val" id="taxDeductedVal" style="color: #dc2626;">- 円</span>
+</div>
+<div class="nisa-box">
+<span class="nisa-box-label">課税口座の手取り資産額</span>
+<span class="nisa-box-val" id="taxableNetVal">- 円</span>
+</div>
+<div class="nisa-box highlight">
+<span class="nisa-box-label">新NISAによる節税メリット</span>
+<span class="nisa-box-val" id="nisaSavingsVal">+ - 円 おトク！</span>
+</div>
+</div>
+<!-- Lifetime allowance usage -->
+<div class="nisa-limit-progress-wrap">
+<div class="nisa-limit-header">
+<span>新NISA 生涯投資枠（1,800万円）の利用進捗</span>
+<span id="nisaAllowanceStatus">元本 0万円 / 1,800万円 (0%)</span>
+</div>
+<div class="nisa-progress-track">
+<div class="nisa-progress-fill" id="nisaAllowanceBar" style="width: 0%;"></div>
+</div>
+</div>
+</div>
+<!-- Core Results Grid -->
+<div class="result-grid">
+<div class="result-card">
+<h3>総投資額（元本合計）</h3>
+<div class="result-value" id="investedValue">-</div>
+</div>
+<div class="result-card">
+<h3>運用収益（複利効果）</h3>
+<div class="result-value" id="returnsValue">-</div>
+</div>
+<div class="result-card positive">
+<h3>想定資産総額（非課税）</h3>
+<div class="result-value" id="corpusValue">-</div>
+</div>
+<div class="result-card advanced-only">
+<h3>インフレ調整後実質価値</h3>
+<div class="result-value" id="inflationAdjustedValue">-</div>
+</div>
+<div class="result-card">
+<h3>目標達成に必要な毎月積立額</h3>
+<div class="result-value" id="requiredSipValue">-</div>
+</div>
+<div class="result-card">
+<h3>目標達成見込み</h3>
+<div class="result-value" id="maturityLabel">-</div>
+</div>
+</div>
+<!-- Target Goal Progress Bar -->
+<div class="goal-status">
+<div class="goal-meta">
+<span id="goalStatusText">目標金額までの達成状況</span>
+<span id="goalPercentText">0%</span>
+</div>
+<div class="goal-progress">
+<div class="goal-progress-bar" id="goalProgressBar"></div>
+</div>
+</div>
+<!-- Charts -->
+<div class="chart-grid">
+<div class="chart-card">
+<h3><i class="fas fa-chart-area" style="color: var(--ic-primary);"></i> 資産推移シミュレーショングラフ</h3>
+<div class="chart-wrap">
+<canvas id="growthChart"></canvas>
+</div>
+</div>
+<div class="chart-card">
+<h3><i class="fas fa-chart-pie" style="color: var(--ic-primary);"></i> 資産構成の内訳（元本 vs 利益）</h3>
+<div class="chart-wrap small">
+<canvas id="splitChart"></canvas>
+</div>
+</div>
+</div>
+<!-- Year-by-Year Projection Table -->
+<div class="table-tools">
+<h3><i class="fas fa-table-list" style="color: var(--ic-primary);"></i> 年次別の資産推移詳細</h3>
+<button class="btn btn-ghost btn-sm" id="downloadCsvBtn" type="button">
+<i class="fas fa-file-csv"></i> CSVファイルを保存
             </button>
-          </div>
-
-          <!-- Input Controls Grid -->
-          <div class="input-grid">
-            <!-- Monthly Investment Amount -->
-            <div class="field-card">
-              <div class="field-head">
-                <label for="sipAmount">毎月の積立金額</label>
-                <span id="sipAmountPreview" style="font-weight: 800; color: var(--ic-primary-dark);">30,000 円 (3万円)</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="sipAmountRange" min="1000" max="500000" step="1000" value="30000">
-                <input type="number" id="sipAmount" min="1000" max="1000000" step="1000" value="30000">
-              </div>
-              <div class="chips-group">
-                <button type="button" class="chip-btn" data-val="10000">1万円</button>
-                <button type="button" class="chip-btn active" data-val="30000">3万円</button>
-                <button type="button" class="chip-btn" data-val="50000">5万円 (クレカ上限)</button>
-                <button type="button" class="chip-btn" data-val="100000">10万円 (つみたて枠上限)</button>
-                <button type="button" class="chip-btn" data-val="300000">30万円 (新NISA年間上限)</button>
-              </div>
-            </div>
-
-            <!-- Expected Return Rate -->
-            <div class="field-card">
-              <div class="field-head">
-                <label for="returnRate">想定利回り（年利％）</label>
-                <span id="returnRatePreview" style="font-weight: 800; color: var(--ic-primary-dark);">5.0% (オルカン目安)</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="returnRateRange" min="0.5" max="25" step="0.1" value="5.0">
-                <input type="number" id="returnRate" min="0.5" max="30" step="0.1" value="5.0">
-              </div>
-              <div class="chips-group">
-                <button type="button" class="chip-btn" data-val="3.0">3% (安定・債券)</button>
-                <button type="button" class="chip-btn active" data-val="5.0">5% (オルカン全世界)</button>
-                <button type="button" class="chip-btn" data-val="7.0">7% (S&P500米国株)</button>
-                <button type="button" class="chip-btn" data-val="10.0">10% (積極・NASDAQ)</button>
-              </div>
-            </div>
-
-            <!-- Investment Period -->
-            <div class="field-card">
-              <div class="field-head">
-                <label for="years">積立期間（年数）</label>
-                <span id="yearsPreview" style="font-weight: 800; color: var(--ic-primary-dark);">20 年</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="yearsRange" min="1" max="50" step="1" value="20">
-                <input type="number" id="years" min="1" max="50" step="1" value="20">
-              </div>
-              <div class="chips-group">
-                <button type="button" class="chip-btn" data-val="5">5年</button>
-                <button type="button" class="chip-btn" data-val="10">10年</button>
-                <button type="button" class="chip-btn active" data-val="20">20年 (推奨)</button>
-                <button type="button" class="chip-btn" data-val="30">30年 (長期)</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Advanced Options (Step-up, Inflation, Timing) -->
-          <div class="advanced-only-section">
-            <div class="field-card">
-              <div class="field-head">
-                <label for="stepUp">毎年の積立増額率（ステップアップ％）</label>
-                <span id="stepUpPreview">0.0%</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="stepUpRange" min="0" max="30" step="0.5" value="0">
-                <input type="number" id="stepUp" min="0" max="30" step="0.5" value="0">
-              </div>
-              <small style="color: var(--ic-text-muted); display: block; margin-top: 0.35rem;">給与アップに合わせて毎年積立額を引き上げる割合（例：毎年3%増）</small>
-            </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="inflation">想定インフレ率（物価上昇率％）</label>
-                <span id="inflationPreview">2.0%</span>
-              </div>
-              <div class="range-row">
-                <input type="range" id="inflationRange" min="0" max="10" step="0.1" value="2.0">
-                <input type="number" id="inflation" min="0" max="10" step="0.1" value="2.0">
-              </div>
-              <small style="color: var(--ic-text-muted); display: block; margin-top: 0.35rem;">日銀の物価安定目標（年2%）を考慮した実質購買力を計算</small>
-            </div>
-
-            <div class="field-card">
-              <div class="field-head">
-                <label for="sipTiming">積立タイミング</label>
-              </div>
-              <select id="sipTiming">
-                <option value="start" selected>月初（期首払い・標準）</option>
-                <option value="end">月末（期末払い）</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Target Corpus Reverse Planner -->
-          <div class="field-card" style="margin-top: 1rem;">
-            <div class="field-head">
-              <label for="targetCorpus"><i class="fas fa-bullseye" style="color: var(--ic-primary);"></i> 目標金額（必要積立額の逆算用）</label>
-              <span id="targetCorpusPreview" style="font-weight: 700; color: #0f172a;">2,000 万円</span>
-            </div>
-            <div class="range-row">
-              <input type="range" id="targetCorpusRange" min="1000000" max="100000000" step="1000000" value="20000000">
-              <input type="number" id="targetCorpus" min="100000" max="500000000" step="500000" value="20000000">
-            </div>
-            <div class="chips-group">
-              <button type="button" class="chip-btn" data-target-val="10000000">1,000万円</button>
-              <button type="button" class="chip-btn active" data-target-val="20000000">2,000万円 (老後2000万問題)</button>
-              <button type="button" class="chip-btn" data-target-val="30000000">3,000万円 (アッパーマス層)</button>
-              <button type="button" class="chip-btn" data-target-val="50000000">5,000万円 (準富裕層)</button>
-              <button type="button" class="chip-btn" data-target-val="100000000">1億円 (富裕層/FIRE)</button>
-            </div>
-          </div>
-
-          <!-- Buttons -->
-          <div class="calculator-actions">
-            <button id="recalculateBtn" class="btn btn-primary" type="button"><i class="fas fa-arrows-rotate"></i> 再計算する</button>
-            <button id="resetBtn" class="btn btn-ghost" type="button"><i class="fas fa-rotate-left"></i> 初期設定に戻す</button>
-          </div>
-
-          <!-- Special Japanese Feature: Shin NISA Tax-Free Benefit Box -->
-          <div class="nisa-tax-card">
-            <div class="nisa-tax-header">
-              <div class="nisa-tax-title">
-                <i class="fas fa-shield-halved"></i>
-                <span>新NISA 非課税メリット比較</span>
-              </div>
-              <span class="nisa-badge">税金 20.315% 完全非課税</span>
-            </div>
-
-            <div class="nisa-comparison-grid">
-              <div class="nisa-box">
-                <span class="nisa-box-label">課税口座の場合の税金 (20.315%)</span>
-                <span class="nisa-box-val" id="taxDeductedVal" style="color: #dc2626;">- 円</span>
-              </div>
-              <div class="nisa-box">
-                <span class="nisa-box-label">課税口座の手取り資産額</span>
-                <span class="nisa-box-val" id="taxableNetVal">- 円</span>
-              </div>
-              <div class="nisa-box highlight">
-                <span class="nisa-box-label">新NISAによる節税メリット</span>
-                <span class="nisa-box-val" id="nisaSavingsVal">+ - 円 おトク！</span>
-              </div>
-            </div>
-
-            <!-- Lifetime allowance usage -->
-            <div class="nisa-limit-progress-wrap">
-              <div class="nisa-limit-header">
-                <span>新NISA 生涯投資枠（1,800万円）の利用進捗</span>
-                <span id="nisaAllowanceStatus">元本 0万円 / 1,800万円 (0%)</span>
-              </div>
-              <div class="nisa-progress-track">
-                <div class="nisa-progress-fill" id="nisaAllowanceBar" style="width: 0%;"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Core Results Grid -->
-          <div class="result-grid">
-            <div class="result-card">
-              <h3>総投資額（元本合計）</h3>
-              <div id="investedValue" class="result-value">-</div>
-            </div>
-            <div class="result-card">
-              <h3>運用収益（複利効果）</h3>
-              <div id="returnsValue" class="result-value">-</div>
-            </div>
-            <div class="result-card positive">
-              <h3>想定資産総額（非課税）</h3>
-              <div id="corpusValue" class="result-value">-</div>
-            </div>
-            <div class="result-card advanced-only">
-              <h3>インフレ調整後実質価値</h3>
-              <div id="inflationAdjustedValue" class="result-value">-</div>
-            </div>
-            <div class="result-card">
-              <h3>目標達成に必要な毎月積立額</h3>
-              <div id="requiredSipValue" class="result-value">-</div>
-            </div>
-            <div class="result-card">
-              <h3>目標達成見込み</h3>
-              <div id="maturityLabel" class="result-value">-</div>
-            </div>
-          </div>
-
-          <!-- Target Goal Progress Bar -->
-          <div class="goal-status">
-            <div class="goal-meta">
-              <span id="goalStatusText">目標金額までの達成状況</span>
-              <span id="goalPercentText">0%</span>
-            </div>
-            <div class="goal-progress">
-              <div id="goalProgressBar" class="goal-progress-bar"></div>
-            </div>
-          </div>
-
-          <!-- Charts -->
-          <div class="chart-grid">
-            <div class="chart-card">
-              <h3><i class="fas fa-chart-area" style="color: var(--ic-primary);"></i> 資産推移シミュレーショングラフ</h3>
-              <div class="chart-wrap">
-                <canvas id="growthChart"></canvas>
-              </div>
-            </div>
-            <div class="chart-card">
-              <h3><i class="fas fa-chart-pie" style="color: var(--ic-primary);"></i> 資産構成の内訳（元本 vs 利益）</h3>
-              <div class="chart-wrap small">
-                <canvas id="splitChart"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <!-- Year-by-Year Projection Table -->
-          <div class="table-tools">
-            <h3><i class="fas fa-table-list" style="color: var(--ic-primary);"></i> 年次別の資産推移詳細</h3>
-            <button id="downloadCsvBtn" class="btn btn-ghost btn-sm" type="button">
-              <i class="fas fa-file-csv"></i> CSVファイルを保存
+</div>
+<div class="table-shell">
+<table class="projection-table">
+<thead>
+<tr>
+<th>経過年数</th>
+<th>毎月積立額</th>
+<th>投資累計額（元本）</th>
+<th>運用益の累計</th>
+<th>新NISA資産総額</th>
+<th>課税口座手取り額</th>
+</tr>
+</thead>
+<tbody id="projectionTableBody"></tbody>
+</table>
+</div>
+<div class="calculator-actions" style="margin-top: 1rem;">
+<button class="btn btn-ghost" id="copySummaryBtn" type="button">
+<i class="fas fa-copy"></i> シミュレーション結果をコピー
             </button>
-          </div>
-
-          <div class="table-shell">
-            <table class="projection-table">
-              <thead>
-                <tr>
-                  <th>経過年数</th>
-                  <th>毎月積立額</th>
-                  <th>投資累計額（元本）</th>
-                  <th>運用益の累計</th>
-                  <th>新NISA資産総額</th>
-                  <th>課税口座手取り額</th>
-                </tr>
-              </thead>
-              <tbody id="projectionTableBody"></tbody>
-            </table>
-          </div>
-
-          <div class="calculator-actions" style="margin-top: 1rem;">
-            <button id="copySummaryBtn" class="btn btn-ghost" type="button">
-              <i class="fas fa-copy"></i> シミュレーション結果をコピー
-            </button>
-          </div>
-        </div>
-
-        <!-- Sidebar Components -->
-        <aside class="sidebar">
-          <div class="sidebar-card">
-            <h3><i class="fas fa-calculator" style="color: var(--ic-primary);"></i> 関連する金融計算ツール</h3>
-            <div class="link-list">
-              <a href="sipcalculatorlumpsump.html"><i class="fas fa-arrow-right"></i> 一括投資（複利運用）計算</a>
-              <a href="mutualfundreturncalculator.html"><i class="fas fa-arrow-right"></i> 投資信託XIRR利回り計算</a>
-              <a href="cagrcalculator.html"><i class="fas fa-arrow-right"></i> 年平均成長率（CAGR）計算</a>
-              <a href="compoundinterest.html"><i class="fas fa-arrow-right"></i> 複利計算シミュレーター</a>
-              <a href="simpleinterestcalculator.html"><i class="fas fa-arrow-right"></i> 単利計算ツール</a>
-              <a href="emicalculator.html"><i class="fas fa-arrow-right"></i> 住宅ローン返済シミュレーション</a>
-              <a href="retirementcalculator.html"><i class="fas fa-arrow-right"></i> 老後資金シミュレーター</a>
-            </div>
-          </div>
-
-          <div class="sidebar-card" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-color: #bae6fd;">
-            <h3><i class="fas fa-lightbulb" style="color: #0284c7;"></i> 新NISAの豆知識</h3>
-            <p style="font-size: 0.88rem; line-height: 1.55; color: #334155; margin: 0;">
+</div>
+</div>
+<!-- Sidebar Components -->
+<aside class="sidebar">
+<div class="sidebar-card">
+<h3><i class="fas fa-calculator" style="color: var(--ic-primary);"></i> 関連する金融計算ツール</h3>
+<div class="link-list">
+<a href="sipcalculatorlumpsump.html"><i class="fas fa-arrow-right"></i> 一括投資（複利運用）計算</a>
+<a href="mutualfundreturncalculator.html"><i class="fas fa-arrow-right"></i> 投資信託XIRR利回り計算</a>
+<a href="cagrcalculator.html"><i class="fas fa-arrow-right"></i> 年平均成長率（CAGR）計算</a>
+<a href="compoundinterest.html"><i class="fas fa-arrow-right"></i> 複利計算シミュレーター</a>
+<a href="simpleinterestcalculator.html"><i class="fas fa-arrow-right"></i> 単利計算ツール</a>
+<a href="emicalculator.html"><i class="fas fa-arrow-right"></i> 住宅ローン返済シミュレーション</a>
+<a href="retirementcalculator.html"><i class="fas fa-arrow-right"></i> 老後資金シミュレーター</a>
+</div>
+</div>
+<div class="sidebar-card" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-color: #bae6fd;">
+<h3><i class="fas fa-lightbulb" style="color: #0284c7;"></i> 新NISAの豆知識</h3>
+<p style="font-size: 0.88rem; line-height: 1.55; color: #334155; margin: 0;">
               2024年に開始された新NISAでは、<strong>つみたて投資枠（年120万円）</strong>と<strong>成長投資枠（年240万円）</strong>の併用が可能になり、生涯で最大<strong>1,800万円</strong>まで非課税で運用できます。売却すると翌年に枠が復活するのも大きな特徴です。
             </p>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- Comprehensive Japanese Educational & SEO Article -->
-    <section class="section">
-      <div class="container">
-        <article class="content-card">
-          <h2>新NISA・積立投資シミュレーションを活用するメリットと基礎知識</h2>
-          <p>
+</div>
+</aside>
+</div>
+</section>
+<!-- Comprehensive Japanese Educational & SEO Article -->
+<section class="section">
+<div class="container">
+<article class="content-card">
+<h2>新NISA・積立投資シミュレーションを活用するメリットと基礎知識</h2>
+<p>
             将来に向けた資産形成において、<strong>「毎月いくら積み立てれば、将来どのくらいの資産になるのか」</strong>を正確に把握することは最初の最も重要なステップです。
             特に2024年にスタートした新NISA（少額投資非課税制度）やiDeCo（個人型確定拠出年金）の普及により、日本国内でもインデックスファンド（投資信託）を活用した長期積立投資がスタンダードとなりました。
           </p>
-
-          <h3>1. 複利効果がもたらす長期投資の驚異的なパワー</h3>
-          <p>
+<h3>1. 複利効果がもたらす長期投資の驚異的なパワー</h3>
+<p>
             アインシュタインが「人類最大の数学的発見」と称したのが<strong>「複利効果」</strong>です。単利が当初の元本のみに利息がつくのに対し、複利は「元本＋運用益」に対してさらに利益が発生します。
             例えば、毎月3万円を年利5%で積立投資した場合：
           </p>
-          <ul style="line-height: 1.8; margin-left: 1.2rem; color: var(--ic-text);">
-            <li><strong>10年後：</strong> 元本360万円 ＋ 運用益約106万円 ＝ <strong>約466万円</strong></li>
-            <li><strong>20年後：</strong> 元本720万円 ＋ 運用益約513万円 ＝ <strong>約1,233万円</strong></li>
-            <li><strong>30年後：</strong> 元本1,080万円 ＋ 運用益約1,417万円 ＝ <strong>約2,497万円（元本の2.3倍以上！）</strong></li>
-          </ul>
-          <p>
+<ul style="line-height: 1.8; margin-left: 1.2rem; color: var(--ic-text);">
+<li><strong>10年後：</strong> 元本360万円 ＋ 運用益約106万円 ＝ <strong>約466万円</strong></li>
+<li><strong>20年後：</strong> 元本720万円 ＋ 運用益約513万円 ＝ <strong>約1,233万円</strong></li>
+<li><strong>30年後：</strong> 元本1,080万円 ＋ 運用益約1,417万円 ＝ <strong>約2,497万円（元本の2.3倍以上！）</strong></li>
+</ul>
+<p>
             このように、期間が20年・30年と長くなるにつれて、運用益が元本を大きく上回る急カーブを描きます。
           </p>
-
-          <h3>2. 新NISA（非課税制度）の強力な節税メリット</h3>
-          <p>
+<h3>2. 新NISA（非課税制度）の強力な節税メリット</h3>
+<p>
             通常の特定口座や一般口座では、投資で得た利益に対して<strong>20.315%（所得税15%＋復興特別所得税0.315%＋住民税5%）</strong>が源泉徴収されます。
             もし運用益が1,000万円出た場合、課税口座では約203万円が税金として引かれ、手取りは約797万円に減少してしまいます。
             しかし、<strong>新NISA口座であれば税金が0円（100%非課税）</strong>となるため、1,000万円の利益を丸ごと受け取ることができます。当シミュレーターの「非課税メリット比較」で、その差額をぜひご確認ください。
           </p>
-
-          <h3>3. 代表的なインデックス投資の想定利回り目安</h3>
-          <p>
+<h3>3. 代表的なインデックス投資の想定利回り目安</h3>
+<p>
             シミュレーションを行う際、何パーセントの利回りを設定すべきか迷う方も多いでしょう。過去の長期データに基づく主なアセットクラスの期待リターン目安は以下の通りです：
           </p>
-          <table class="projection-table" style="margin: 1rem 0;">
-            <thead>
-              <tr>
-                <th>投資対象ファンド</th>
-                <th>代表例</th>
-                <th>長期想定利回り（目安）</th>
-                <th>特徴</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>全世界株式（オルカン）</strong></td>
-                <td>eMAXIS Slim 全世界株式 (オール・カントリー)</td>
-                <td><strong>4.0% 〜 6.0%</strong></td>
-                <td>世界47カ国の株式に自動分散。最も王道の長期投資先。</td>
-              </tr>
-              <tr>
-                <td><strong>米国株式（S&P500）</strong></td>
-                <td>eMAXIS Slim 米国株式 (S&P500) / SBI・V・S&P500</td>
-                <td><strong>5.0% 〜 8.0%</strong></td>
-                <td>米国の主要500社に投資。高い成長力と実績。</td>
-              </tr>
-              <tr>
-                <td><strong>バランス型ファンド</strong></td>
-                <td>eMAXIS Slim バランス (8資産均等型)</td>
-                <td><strong>3.0% 〜 4.5%</strong></td>
-                <td>株・債券・REITに均等分散。値動きが比較的緩やか。</td>
-              </tr>
-              <tr>
-                <td><strong>米国ハイテク株（NASDAQ100）</strong></td>
-                <td>ニッセイNASDAQ100 / iFreeNEXT NASDAQ100</td>
-                <td><strong>8.0% 〜 12.0%</strong></td>
-                <td>高成長ハイテク株中心。値動きは大きいが高いリターン期待。</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h3>4. ドルコスト平均法によるリスク低減</h3>
-          <p>
+<table class="projection-table" style="margin: 1rem 0;">
+<thead>
+<tr>
+<th>投資対象ファンド</th>
+<th>代表例</th>
+<th>長期想定利回り（目安）</th>
+<th>特徴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>全世界株式（オルカン）</strong></td>
+<td>eMAXIS Slim 全世界株式 (オール・カントリー)</td>
+<td><strong>4.0% 〜 6.0%</strong></td>
+<td>世界47カ国の株式に自動分散。最も王道の長期投資先。</td>
+</tr>
+<tr>
+<td><strong>米国株式（S&amp;P500）</strong></td>
+<td>eMAXIS Slim 米国株式 (S&amp;P500) / SBI・V・S&amp;P500</td>
+<td><strong>5.0% 〜 8.0%</strong></td>
+<td>米国の主要500社に投資。高い成長力と実績。</td>
+</tr>
+<tr>
+<td><strong>バランス型ファンド</strong></td>
+<td>eMAXIS Slim バランス (8資産均等型)</td>
+<td><strong>3.0% 〜 4.5%</strong></td>
+<td>株・債券・REITに均等分散。値動きが比較的緩やか。</td>
+</tr>
+<tr>
+<td><strong>米国ハイテク株（NASDAQ100）</strong></td>
+<td>ニッセイNASDAQ100 / iFreeNEXT NASDAQ100</td>
+<td><strong>8.0% 〜 12.0%</strong></td>
+<td>高成長ハイテク株中心。値動きは大きいが高いリターン期待。</td>
+</tr>
+</tbody>
+</table>
+<h3>4. ドルコスト平均法によるリスク低減</h3>
+<p>
             毎月一定金額で購入を続ける「積立投資」は、自動的に<strong>ドルコスト平均法</strong>を実践することになります。
             相場が暴落して価格が安いときには多くの口数を購入でき、価格が高いときには少なく購入するため、平均購入単価を自然に平準化し、相場の急激な下落時でも狼狽売りを防ぐことができます。
           </p>
-
-          <h3>5. 目標金額（老後2000万円・FIRE）に向けた計画づくり</h3>
-          <p>
+<h3>5. 目標金額（老後2000万円・FIRE）に向けた計画づくり</h3>
+<p>
             「老後2,000万円問題」や「資産5,000万円でのFIRE（早期リタイア）」を目指す場合、当ツールの「目標金額からの逆算」機能を活用してください。
             例えば、20年後に2,000万円を達成したい場合、年利5%であれば<strong>毎月約4.8万円</strong>の積立で達成可能であることが瞬時に分かります。
           </p>
-        </article>
-      </div>
-    </section>
-  
-        <section class="section" id="faq" style="margin-top:2rem">
-          <div class="prose">
-            <h2>よくある質問</h2>
-                    <details class="faq card">
-            <summary>新NISA（つみたて投資枠・成長投資枠）の非課税メリットとは何ですか？</summary>
-            <p>通常の課税口座（特定口座や一般口座）では、株式や投資信託の運用益（売却益や分配金）に対して20.315%（所得税15%＋復興特別所得税0.315%＋住民税5%）の税金が差し引かれます。新NISA制度を利用すると、年間360万円（生涯1,800万円まで）の投資から得られる運用益が無期限で100%非課税（税金0円）となるため、手取り資産を大幅に増やすことができます。</p>
-          </details>
-          <details class="faq card">
-            <summary>積立投資の利回りは何パーセントで計算するのが現実的ですか？</summary>
-            <p>投資対象によって異なりますが、代表的な全世界株式インデックスファンド（オルカン）では年利4%〜6%程度、S&P500や全米株式では年利5%〜8%程度が長期投資における過去の平均的な目安とされています。国内債券やバランスファンドを中心に安定運用を目指す場合は2%〜4%程度での試算が推奨されます。</p>
-          </details>
-          <details class="faq card">
-            <summary>複利効果とは何ですか？単利との違いは？</summary>
-            <p>単利は当初の元本のみに利息がつく計算方法ですが、複利は「元本＋得られた運用益」を再び投資に回すことで、利益がさらに利益を生み出します。運用期間が10年、20年、30年と長くなるほど、複利効果によって資産が二次関数的に急成長します。</p>
-          </details>
-          <details class="faq card">
-            <summary>毎月の積立額はいくらから始めるのが良いですか？</summary>
-            <p>多くの主要ネット証券（SBI証券や楽天証券など）では100円や1,000円から積立投資が可能です。まずは無理のない金額（例：毎月1万円〜3万円）からスタートし、クレジットカード積立の上限（月5万円〜10万円）や新NISAのつみたて投資枠（月10万円）などを目安に段階的に増額していくのが効果的です。</p>
-          </details>
-          <details class="faq card">
-            <summary>ステップアップ積立（毎年の増額）とは何ですか？</summary>
-            <p>給与アップや生活水準の変化に合わせて、毎年の積立額を一定割合（例：毎年5%ずつ増額）で引き上げていく投資手法です。若年期など初期の資金に余裕がない時期でも、後半にかけて積立額が増えるため、目標資産額（老後2,000万円など）への到達を大きく早めることができます。</p>
-          </details>
-          <details class="faq card">
-            <summary>積立投資（つみたて投資）とはどのような投資手法ですか？</summary>
-            <p>毎月などの決まったタイミングで一定額の投資信託等を定期的に買い付ける手法です。価格が高い時は少なく、安い時は多く買い付ける「ドルコスト平均法」が自動的に働き、高値掴みのリスクを抑えながら長期的な資産形成が行えます。</p>
-          </details>
-          <details class="faq card">
-            <summary>新NISAの生涯非課税限度額（1,800万円）はどのように管理されますか？</summary>
-            <p>新NISAでは、1人あたり買付金額（簿価残高）ベースで最大1,800万円（うち成長投資枠は1,200万円まで）の非課税枠が設定されています。保有商品を売却した場合は、その商品の買付金額分の枠が翌年に復活するため、再利用が可能です。</p>
-          </details>
-          <details class="faq card">
-            <summary>毎月5万円を年利5%で20年間運用すると資産はいくらになりますか？</summary>
-            <p>元本合計1,200万円に対して、運用収益は約855万円となり、将来の資産総額は約2,055万円に達します。新NISA口座であれば、通常差し引かれる約173万円の税金が非課税となります。</p>
-          </details>
-          <details class="faq card">
-            <summary>目標資産（老後2,000万円）を達成するには毎月いくらの積立が必要ですか？</summary>
-            <p>年利5%で運用する場合、期間20年であれば毎月約4.8万円、期間30年であれば毎月約2.4万円の積立で2,000万円の資産達成が見込めます。運用期間が長いほど必要な毎月積立額は少なくなります。</p>
-          </details>
-          <details class="faq card">
-            <summary>iDeCoと新NISAのどちらを優先して始めるべきですか？</summary>
-            <p>iDeCoは掛金が全額所得控除され毎年の節税効果が高い反面、60歳まで引き出せない制約があります。住宅資金や教育資金など流動性を確保したい場合はいつでも解約できる新NISAを優先し、老後資金専用であれば両者の併用が最適です。</p>
-          </details></div>
-        </section>
-
-        <section class="section" style="margin-top:2rem"><div class="prose">
-        <h2>使い方</h2>
-        <ol><li>毎月の積立額を入力します。</li><li>投資期間（年）を入力します。</li><li>期待年利を入力します。</li><li>Calculate — 期末資産額と投資元本が表示されます。</li></ol>
-        <h2>計算式と計算方法</h2>
-        <p>積立の複利 Annuitize Future Value = PMT × [((1+r)^n − 1) ÷ r] を基本式として使用します。</p>
-        <h2>計算の実例</h2>
-        <p>毎月3万円、年利6%、20年継続：元本720万円、評価額は約1,400万円に達します。</p>
-        <h2>適用される主な制度・税制</h2>
-        <ul><li>新NISA：つみたて投資枠（年間120万円）と成長投資枠（年間240万円）を併用可能。生涯投資枠1,800万円まで無期限非課税。</li><li>iDeCo企業型は月2.3万円まで拠出可能。</li><li>運用利回りは保証がありません。</li></ul>
-        <h2>主な活用シーンとポイント</h2>
-        <p>老後資金、教育資金、住宅頭金など、10年以上の長期目標に適しています。コツコツと積立続けることが最重要です。</p>
-        <h2>よくある誤り・注意点</h2>
-        <ul><li>高リターンを保証された商品と思い込む。</li><li>分配金を再投資せず受け取る。</li><li>市場の下落で積立を停止する。</li></ul>
-        <h2>免責事項</h2>
-        <p>これは教育目的（for educational purposes）であり、金融アドバイス（not financial advice）ではありません。投資の最終決定にあたっては、各金融機関の目論見書をご確認のうえ、自己責任にてご判断ください。</p>
-        </div></section>
+<section class="prose" data-kwblock="1"><h2>積立シミュレーションで将来資産を試算するコツ</h2><p>積立シミュレーションでは、毎月の積立額・想定利回り・運用年数を入力して将来の資産額を確認できます。新NISAのつみたて投資枠で、S&P500や全世界株式などに投資する場合の目安づくりにも便利です。投資の積立シミュレーションは、利回りを低めに見積もって複数パターン試すのがおすすめです。</p></section>
+</article>
+</div>
+</section>
+<section class="section" id="faq" style="margin-top:2rem"><div class="prose"><h2>よくある質問</h2>
+<details class="faq card"><summary>新NISAの「つみたて投資枠」とは何ですか？</summary><p>金融庁の厳格な基準（低コスト・長期分散投資向き）を満たした公募株式投資信託に限定して、年間120万円（月最大10万円）まで非課税で積立投資ができる国の非課税制度です。運用益は無期限で非課税となります。</p></details>
+<details class="faq card"><summary>毎月いくらから新NISAの積立投資を始められますか？</summary><p>ネット証券（SBI証券、楽天証券、マネックス証券等）を利用すれば、最低「100円」から毎月（または毎日）積立投資を設定できます。クレカ積立（クレジットカード決済）なら毎月ポイントを獲得しながら積立が可能です。</p></details>
+<details class="faq card"><summary>毎月3万円を20年間積立投資するといくらになりますか？</summary><p>年利5%で運用できた場合、投資元本720万円に対して利益が約513万円上乗せされ、資産総額は約「1,233万円」に達します。年利7%なら総額約「1,563万円」（利益約843万円）となります。</p></details>
+<details class="faq card"><summary>オルカン（全世界株式）やS&amp;P500の想定利回りは何%で計算すべきですか？</summary><p>過去数十年の歴史的データでは、全世界株式（MSCI ACWI）は年平均約7%〜8%、米国S&amp;P500は年平均約9%〜10%のリターンを記録しています。ただし将来の保守的なシミュレーションでは「年利4%〜6%程度」を想定して計画を立てるのが堅実です。</p></details>
+<details class="faq card"><summary>ドルコスト平均法（定期定額購入）のメリットは何ですか？</summary><p>価格が高い時期には購入口数が少なく、価格が暴落した時期には多くの口数を自動的に買い増すことができるため、平均取得単価を自然に引き下げることができます。相場の高値掴みリスクを回避し、感情に左右されずに投資を継続できるのが最大の強みです。</p></details>
+<details class="faq card"><summary>新NISAの生涯投資枠1,800万円を使い切ったらどうなりますか？</summary><p>1,800万円の枠を使い切った後も、それまでに購入した資産はずっと非課税のまま無期限で運用を継続できます。また、保有商品を売却した場合は「購入時の簿価（元本ベース）」分の非課税枠が翌年以降に再利用枠として復活します。</p></details>
+<details class="faq card"><summary>積立途中で相場が暴落したときはどう対処すべきですか？</summary><p>絶対に「狼狽売り（途中で売却してやめる）」をしないことが鉄則です。ドルコスト平均法の強みは暴落時に安値で多くの口数を仕込める点にあります。過去のITバブル崩壊やリーマンショックでも、積立を継続した投資家はその後の回復局面で最大の利益を享受しました。</p></details>
+<details class="faq card"><summary>新NISAで得た利益は確定申告が必要ですか？</summary><p>原則として確定申告は一切不要です。新NISA口座内での売却益や分配金は全額非課税となるため、税務署への申告義務はなく、住民税の申告も必要ありません。</p></details>
+<details class="faq card"><summary>「成長投資枠」と「つみたて投資枠」は併用できますか？</summary><p>併用可能です。年間つみたて投資枠120万円と成長投資枠240万円を合わせて年間最大360万円まで非課税投資が可能です。つみたて投資枠でインデックス投信を積み立てつつ、成長投資枠で個別株や高配当ETFを一括購入するハイブリッド戦略も取れます。</p></details>
+<details class="faq card"><summary>積立金額は途中で増額や減額、一時停止できますか？</summary><p>いつでも自由に変更可能です。証券会社のウェブサイトから1円単位・100円単位で積立設定金額を変更でき、家計が厳しい時期には一時休止し、余裕ができたときに再開することもノーコストで行えます。</p></details>
+<details class="faq card"><summary>預金（金利0.1%）と新NISA（想定5%）の20年後の差は？</summary><p>毎月5万円（元本1,200万円）を20年間預金した場合、手取り利息はわずか約10万円程度で約1,210万円です。一方、新NISAで年利5%複利運用できた場合は総額約「2,055万円」となり、約845万円もの資産差が生まれます。</p></details>
+<details class="faq card"><summary>積立投資で最もやってはいけない失敗は何ですか？</summary><p>①「高コストなぼったくりファンド（信託報酬1%超や購入時手数料あり）を選ぶこと」、②「毎月分配型の投資信託を選び複利効果を壊すこと」、③「相場の短期的な下落で怖くなって途中で積立を停止・解約すること」の3点です。</p></details>
+</div></section>
+<section class="section" style="margin-top:2rem"><div class="prose">
+<h2>使い方</h2>
+<ol><li>毎月の積立額を入力します。</li><li>投資期間（年）を入力します。</li><li>期待年利を入力します。</li><li>Calculate — 期末資産額と投資元本が表示されます。</li></ol>
+<h2>計算式と計算方法</h2>
+<p>積立の複利 Annuitize Future Value = PMT × [((1+r)^n − 1) ÷ r] を基本式として使用します。</p>
+<h2>計算の実例</h2>
+<p>毎月3万円、年利6%、20年継続：元本720万円、評価額は約1,400万円に達します。</p>
+<h2>適用される主な制度・税制</h2>
+<ul><li>新NISA：つみたて投資枠（年間120万円）と成長投資枠（年間240万円）を併用可能。生涯投資枠1,800万円まで無期限非課税。</li><li>iDeCo企業型は月2.3万円まで拠出可能。</li><li>運用利回りは保証がありません。</li></ul>
+<h2>主な活用シーンとポイント</h2>
+<p>老後資金、教育資金、住宅頭金など、10年以上の長期目標に適しています。コツコツと積立続けることが最重要です。</p>
+<h2>よくある誤り・注意点</h2>
+<ul><li>高リターンを保証された商品と思い込む。</li><li>分配金を再投資せず受け取る。</li><li>市場の下落で積立を停止する。</li></ul>
+<h2>免責事項</h2>
+<p>これは教育目的（for educational purposes）であり、金融アドバイス（not financial advice）ではありません。投資の最終決定にあたっては、各金融機関の目論見書をご確認のうえ、自己責任にてご判断ください。</p>
+</div></section>
 </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>InstaCalc.in - 日常のあらゆる計算を速く、正確に、シンプルにする無料計算ツール群</p>
-      <div class="footer-links">
-        <a href="index.html">ホーム</a>
-        <a href="aboutus.html">運営者情報</a>
-        <a href="contactus.html">お問い合わせ</a>
-        <a href="privacypolicy.html">プライバシーポリシー</a>
-        <a href="terms.html">利用規約</a>
-        <a href="delete-account.html">アカウント削除</a>
-      </div>
-    </div>
-  </footer>
-
-  <button id="backToTopBtn" class="back-to-top" type="button" aria-label="上に戻る">
-    <i class="fas fa-arrow-up"></i>
-  </button>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-  <script>
+<footer class="site-footer">
+<div class="container footer-inner">
+<p>InstaCalc.in - 日常のあらゆる計算を速く、正確に、シンプルにする無料計算ツール群</p>
+<div class="footer-links">
+<a href="index.html">ホーム</a>
+<a href="aboutus.html">運営者情報</a>
+<a href="contactus.html">お問い合わせ</a>
+<a href="privacypolicy.html">プライバシーポリシー</a>
+<a href="terms.html">利用規約</a>
+<a href="delete-account.html">アカウント削除</a>
+</div>
+</div>
+</footer>
+<button aria-label="上に戻る" class="back-to-top" id="backToTopBtn" type="button">
+<i class="fas fa-arrow-up"></i>
+</button>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script>
     (function () {
       const defaults = {
         sipAmount: 50000,
@@ -1460,9 +1405,7 @@
       calculateAndRender();
     })();
   </script>
-  <script defer src="../fullscreen-mode.js"></script>
-  <script src="../language-dialog.js" defer></script>
+<script defer="" src="../fullscreen-mode.js"></script>
+<script defer="" src="../language-dialog.js"></script>
 </body>
-
 </html>
-
