@@ -104,12 +104,12 @@ export default function Home({ seo }: { seo: SeoRecord }) {
         ]
       : isEs
       ? [
-          { path: "compoundinterest.html", label: "Calculadora de interés compuesto" },
-          { path: "mortgage-calculator.html", label: "Calculadora de hipoteca y cuota" },
-          { path: "gstcalculator.html", label: "Calculadora de IVA (21%, 16%, 10%)" },
-          { path: "duration/agecalculator.html", label: "Calculadora de edad exacta" },
-          { path: "moretools/trianglecalculator.html", label: "Calculadora de triángulos" },
-          { path: "moretools/concretecalculator.html", label: "Calculadora de hormigón (m³)" },
+          { path: "calculadora-interes-compuesto.html", label: "Calculadora de interés compuesto" },
+          { path: "calculadora-hipoteca.html", label: "Calculadora de hipoteca y amortización" },
+          { path: "calculadora-iva.html", label: "Calculadora de IVA (21%, 19%, 16%)" },
+          { path: "calculadora-edad.html", label: "Calculadora de edad exacta" },
+          { path: "calculadora-triangulos.html", label: "Calculadora de triángulos" },
+          { path: "calculadora-hormigon-concreto.html", label: "Calculadora de hormigón (m³)" },
         ]
       : groups[0]?.tools.slice(0, 6) ?? [];
 

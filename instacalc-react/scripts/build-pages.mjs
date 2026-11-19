@@ -413,3 +413,31 @@ for (const [oldRel, newPath, title] of SPANISH_REDIRECTS) {
   wf(target, html, "utf8");
 }
 console.log(`[build-pages] emitted ${SPANISH_REDIRECTS.length} legacy Spanish redirect stubs`);
+
+const ENGLISH_REDIRECTS = [
+  ["duration/datecalculator.html", "/duration/dayscalculator.html", "Days Calculator"],
+  ["duration/daycountercalculator.html", "/duration/dayscalculator.html", "Days Calculator"],
+  ["duration/timecountercalculator.html", "/duration/hourcalculator.html", "Hours Calculator"],
+  ["salarycalculator.html", "/incometaxcalculator.html", "Income Tax Calculator"],
+];
+
+for (const [oldRel, newPath, title] of ENGLISH_REDIRECTS) {
+  const target = join(DIST, oldRel);
+  mkdirSync(dirname(target), { recursive: true });
+  const html = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting to ${title}...</title>
+  <meta http-equiv="refresh" content="0; url=${newPath}">
+  <link rel="canonical" href="https://instacalc.in${newPath}">
+  <meta name="robots" content="noindex, follow">
+  <script>window.location.replace("${newPath}");</script>
+</head>
+<body>
+  <p>Redirecting to <a href="${newPath}">${title}</a>...</p>
+</body>
+</html>`;
+  wf(target, html, "utf8");
+}
+console.log(`[build-pages] emitted ${ENGLISH_REDIRECTS.length} legacy English redirect stubs`);
