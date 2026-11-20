@@ -185,7 +185,9 @@
             color: var(--text);
         }
 
-        input,
+        input[type="text"],
+        input[type="email"],
+        select,
         textarea {
             width: 100%;
             padding: 0.85rem;
@@ -198,7 +200,9 @@
             transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        input:focus,
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus,
         textarea:focus {
             border-color: var(--accent);
             box-shadow: 0 0 0 3px rgba(0, 127, 139, 0.12);
@@ -275,19 +279,19 @@
             <span class="subheading">Life Hack Developer – instacalc.in</span>
 
             <p>
-                Users who have signed in to our applications (such as our <strong>Age Calculator</strong>) via Google
+                Users who have signed in to our applications (such as our <strong>Age Calculator</strong>, <strong>LaborBook Pro</strong>, or <strong>Expense Manager</strong>) via Google
                 Sign-In (OAuth) or a direct account can request the permanent deletion of their profile and all
                 associated data at any time.
             </p>
 
             <section>
                 <h2><i class="fas fa-database"></i> What data we collect</h2>
-                <p>To provide personalized features and tools, we may collect and securely store the following
+                <p>To provide personalized features, saved entries, and calculator tools, we may collect and securely store the following
                     information:</p>
                 <ul>
                     <li>Google profile name and email (used exclusively for authentication)</li>
                     <li>Basic profile details: Name, Email, and Password (for direct accounts)</li>
-                    <li>App-specific data: Saved dates, events, or other entries</li>
+                    <li>App-specific data: Saved dates/events (Age Calculator), labor & attendance entries (LaborBook Pro), income/expense records (Expense Manager)</li>
                     <li>User preferences and personalized app settings</li>
                     <li>Historical calculation logs saved to your profile</li>
                 </ul>
@@ -297,9 +301,9 @@
                 <h2><i class="fas fa-user-minus"></i> How to request deletion</h2>
                 <p>Follow these simple steps to ensure your request is processed quickly:</p>
                 <ul>
-                    <li>Fill out the secure contact form below.</li>
-                    <li>Include <strong>"Account Deletion Request"</strong> in your message.</li>
-                    <li>Provide the <strong>registered email address</strong> and the <strong>app name</strong>.</li>
+                    <li>Select the target application from the dropdown menu in the form below.</li>
+                    <li>Provide your registered email address (associated with your Google Sign-In or app profile).</li>
+                    <li>Choose your desired deletion scope and confirm your request.</li>
                 </ul>
             </section>
 
@@ -322,22 +326,58 @@
         </div>
 
         <div class="content-card" id="contact-form">
-            <h2><i class="fas fa-paper-plane"></i> Submit Your Request</h2>
-            <form action="https://formspree.io/f/mjgppjjz" method="POST">
+            <h2><i class="fas fa-paper-plane"></i> Submit Deletion Request</h2>
+            <p style="color: var(--text-soft); margin-bottom: 1.25rem;">Please select your app and provide your registered details below.</p>
+            
+            <div id="formSuccess" style="display: none; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 1.75rem; text-align: center; margin-bottom: 1.5rem;">
+                <div style="width: 48px; height: 48px; border-radius: 50%; background: #16a34a; color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin-bottom: 0.75rem;">✓</div>
+                <h3 style="color: #166534; font-size: 1.2rem; margin-bottom: 0.5rem;">Deletion Request Submitted</h3>
+                <p id="successDetails" style="color: #14532d; font-size: 0.95rem; margin-bottom: 1rem;"></p>
+                <button type="button" id="resetBtn" class="btn-submit" style="width: auto; padding: 0.6rem 1.5rem; font-size: 0.9rem;">Submit Another Request</button>
+            </div>
+
+            <form id="deleteForm" action="https://formspree.io/f/mjgppjjz" method="POST">
                 <div class="form-group">
-                    <label for="name">Your Full Name</label>
+                    <label for="app_name">Select Application <span style="color: #dc2626;">*</span></label>
+                    <select id="app_name" name="app_name" required>
+                        <option value="" disabled selected>-- Choose your App --</option>
+                        <option value="Age Calculator">Age Calculator App</option>
+                        <option value="LaborBook Pro">LaborBook Pro</option>
+                        <option value="Expense Manager">Expense Manager App</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="name">Your Full Name <span style="color: #dc2626;">*</span></label>
                     <input type="text" id="name" name="name" placeholder="John Doe" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Registered Email Address</label>
+                    <label for="email">Registered Email Address <span style="color: #dc2626;">*</span></label>
                     <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                    <small style="color: var(--text-soft); font-size: 0.8rem; display: block; margin-top: 0.25rem;">
+                        The email address associated with your Google Sign-In or app profile.
+                    </small>
                 </div>
                 <div class="form-group">
-                    <label for="message">Message Details</label>
-                    <textarea id="message" name="message" rows="4"
-                        required>Account Deletion Request – [App Name]</textarea>
+                    <label for="request_type">Deletion Scope</label>
+                    <select id="request_type" name="request_type">
+                        <option value="Full Account & All Data Deletion">Delete Entire Account & All Associated Data (Permanent)</option>
+                        <option value="App Records Only">Delete Stored Records & History Only</option>
+                        <option value="Revoke Google Access">Revoke Google OAuth Profile Association</option>
+                    </select>
                 </div>
-                <button type="submit" class="btn-submit">Submit Delete Request</button>
+                <div class="form-group">
+                    <label for="message">Additional Details / Notes (Optional)</label>
+                    <textarea id="message" name="message" rows="3"
+                        placeholder="Any additional information, user ID, or reasons to help us identify your records faster..."></textarea>
+                </div>
+                <div class="form-group" style="display: flex; align-items: flex-start; gap: 0.6rem; margin: 1rem 0;">
+                    <input type="checkbox" id="confirm_deletion" name="confirm_deletion" value="confirmed" required style="width: 18px; height: 18px; margin-top: 0.2rem; cursor: pointer; flex-shrink: 0; accent-color: var(--accent);">
+                    <label for="confirm_deletion" style="font-size: 0.85rem; font-weight: 500; cursor: pointer; line-height: 1.45; color: var(--text);">
+                        I confirm that I want to permanently delete my account and associated data for the selected app. I understand that this action cannot be undone. <span style="color: #dc2626;">*</span>
+                    </label>
+                </div>
+                <div id="formError" style="display: none; background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 0.75rem 1rem; border-radius: 10px; margin-bottom: 1rem; font-size: 0.88rem;"></div>
+                <button type="submit" id="submitBtn" class="btn-submit">Submit Delete Request</button>
             </form>
         </div>
     </main>
@@ -353,6 +393,66 @@
         </div>
     </footer>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const deleteForm = document.getElementById("deleteForm");
+      const submitBtn = document.getElementById("submitBtn");
+      const formSuccess = document.getElementById("formSuccess");
+      const successDetails = document.getElementById("successDetails");
+      const formError = document.getElementById("formError");
+      const resetBtn = document.getElementById("resetBtn");
+
+      if (deleteForm) {
+        deleteForm.addEventListener("submit", async function (e) {
+          e.preventDefault();
+          formError.style.display = "none";
+
+          if (!deleteForm.checkValidity()) {
+            deleteForm.reportValidity();
+            return;
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting request...';
+
+          try {
+            const formData = new FormData(deleteForm);
+            const response = await fetch(deleteForm.action, {
+              method: "POST",
+              headers: { "Accept": "application/json" },
+              body: formData,
+            });
+
+            if (response.ok) {
+              const appName = document.getElementById("app_name").value;
+              const email = document.getElementById("email").value;
+              successDetails.textContent = 'Your request to delete data for "' + appName + '" (' + email + ') has been recorded and will be permanently processed within 7 business days.';
+              deleteForm.style.display = "none";
+              formSuccess.style.display = "block";
+            } else {
+              const resData = await response.json().catch(() => ({}));
+              throw new Error(resData?.errors?.[0]?.message || "Failed to submit request.");
+            }
+          } catch (err) {
+            formError.textContent = err.message || "An error occurred. Please try again or email developerravin@gmail.com directly.";
+            formError.style.display = "block";
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Submit Delete Request';
+          }
+        });
+      }
+
+      if (resetBtn) {
+        resetBtn.addEventListener("click", function () {
+          deleteForm.reset();
+          deleteForm.style.display = "block";
+          formSuccess.style.display = "none";
+          formError.style.display = "none";
+        });
+      }
+    });
+  </script>
   <script src="language-dialog.js" defer></script>
 </body>
 
