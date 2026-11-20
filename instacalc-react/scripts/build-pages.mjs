@@ -200,6 +200,7 @@ function buildHead(page, css, entry, body, opts = {}) {
     opts.marker === "404" ||
     opts.noindex ||
     page.path === "/404.html" ||
+    /privacypolicy|terms|disclaimer|contactus|delete-account|aboutus/.test(page.path) ||
     DUPLICATE_SOURCES.has(page.source);
   const adsenseTag = isNoAdPage
     ? ""
