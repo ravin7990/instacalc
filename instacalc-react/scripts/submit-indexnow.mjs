@@ -57,6 +57,24 @@ if (existsSync(sitemapIndexPath)) {
   }
 }
 
+// Ensure all regional sitemaps and RSS discovery feeds are explicitly included
+const extraFeedsAndSitemaps = [
+  `${ORIGIN}/sitemap-index.xml`,
+  `${ORIGIN}/sitemap.xml`,
+  `${ORIGIN}/us/sitemap.xml`,
+  `${ORIGIN}/ja/sitemap.xml`,
+  `${ORIGIN}/ko/sitemap.xml`,
+  `${ORIGIN}/ru/sitemap.xml`,
+  `${ORIGIN}/es/sitemap.xml`,
+  `${ORIGIN}/rss.xml`,
+  `${ORIGIN}/ko/rss.xml`,
+];
+for (const item of extraFeedsAndSitemaps) {
+  if (!urlList.includes(item)) {
+    urlList.push(item);
+  }
+}
+
 if (!urlList.length) {
   // Fallback to seo.generated.json
   const seoPath = join(ROOT, "src", "data", "seo.generated.json");
