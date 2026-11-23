@@ -1,0 +1,289 @@
+/**
+ * InstaCalc RTL (Right-to-Left) Stylesheet
+ * Custom designed for Arabic & Middle Eastern Locales (/ar/)
+ * Seamlessly integrates with InstaCalc Core Design System v2.0
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap');
+
+html[dir="rtl"],
+body[dir="rtl"],
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+  --ic-font-sans: 'Cairo', 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ic-font-heading: 'Cairo', 'Tajawal', var(--ic-font-sans);
+  font-family: var(--ic-font-sans);
+}
+
+/* Headings in Arabic */
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  font-family: var(--ic-font-heading);
+  letter-spacing: 0;
+  line-height: 1.45;
+}
+
+/* Header & Navigation */
+[dir="rtl"] .site-header {
+  direction: rtl;
+}
+
+[dir="rtl"] .nav-actions {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Breadcrumbs in RTL */
+[dir="rtl"] .breadcrumb-list {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+[dir="rtl"] .breadcrumb-separator {
+  transform: rotate(180deg);
+  display: inline-block;
+}
+
+/* Studio Layout in RTL */
+[dir="rtl"] .fin-studio-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  [dir="rtl"] .fin-studio-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Input Fields & Prefix/Suffix adornments */
+[dir="rtl"] .input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+[dir="rtl"] .input-prefix {
+  position: absolute;
+  right: 1rem;
+  left: auto;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 700;
+  color: var(--ic-text-muted);
+  pointer-events: none;
+}
+
+[dir="rtl"] .input-suffix {
+  position: absolute;
+  left: 1rem;
+  right: auto;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 700;
+  color: var(--ic-text-muted);
+  pointer-events: none;
+}
+
+[dir="rtl"] .has-prefix input {
+  padding-right: 3.25rem !important;
+  padding-left: 1rem !important;
+}
+
+[dir="rtl"] .has-suffix input {
+  padding-left: 3.25rem !important;
+  padding-right: 1rem !important;
+}
+
+[dir="rtl"] .has-both input {
+  padding-right: 3.25rem !important;
+  padding-left: 3.25rem !important;
+}
+
+/* Form Controls & Range Sliders */
+[dir="rtl"] input[type="range"] {
+  direction: ltr; /* Sliders are kept ltr for intuitive min-to-max drag */
+}
+
+/* Badges & Tags */
+[dir="rtl"] .badge-icon {
+  margin-left: 0.35rem;
+  margin-right: 0;
+}
+
+[dir="rtl"] .field-preview-badge {
+  font-family: 'Cairo', sans-serif;
+  font-weight: 700;
+}
+
+/* Stat Cards & Legends */
+[dir="rtl"] .legend-stat {
+  text-align: right;
+}
+
+[dir="rtl"] .legend-label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+[dir="rtl"] .legend-val {
+  font-family: 'Cairo', sans-serif;
+  font-weight: 800;
+  direction: ltr;
+  text-align: right;
+}
+
+/* Tafqeet Display Banner */
+[dir="rtl"] .tafqeet-box {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.08) 0%, rgba(13, 148, 136, 0.08) 100%);
+  border: 1px solid rgba(2, 132, 199, 0.2);
+  border-radius: var(--ic-radius-md);
+  padding: 0.85rem 1.15rem;
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--ic-primary-dark);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+[dir="rtl"] .tafqeet-icon {
+  font-size: 1.25rem;
+  color: var(--ic-primary);
+  flex-shrink: 0;
+}
+
+/* FAQ Accordion in RTL */
+[dir="rtl"] .faq-item summary {
+  text-align: right;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 1rem 1.25rem;
+  font-weight: 700;
+  color: var(--ic-text);
+  font-family: var(--ic-font-heading);
+}
+
+[dir="rtl"] .faq-item summary::after {
+  content: '\f078';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  font-size: 0.85rem;
+  transition: transform 0.2s ease;
+  margin-right: 0.75rem;
+}
+
+[dir="rtl"] .faq-item[open] summary::after {
+  transform: rotate(180deg);
+}
+
+[dir="rtl"] .faq-item p {
+  padding: 0 1.25rem 1.25rem;
+  color: var(--ic-text-muted);
+  line-height: 1.75;
+}
+
+/* Prose & SEO Content Sections */
+[dir="rtl"] .prose h2,
+[dir="rtl"] .prose h3 {
+  position: relative;
+  padding-right: 0.85rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+[dir="rtl"] .prose h2::before,
+[dir="rtl"] .prose h3::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 15%;
+  bottom: 15%;
+  width: 4px;
+  background: var(--ic-primary);
+  border-radius: 2px;
+}
+
+[dir="rtl"] .prose p,
+[dir="rtl"] .prose li {
+  line-height: 1.8;
+  color: var(--ic-text-muted);
+}
+
+/* Tool search box in RTL */
+[dir="rtl"] .tool-search i {
+  right: 1.15rem;
+  left: auto;
+}
+
+[dir="rtl"] .tool-search input {
+  padding: 0.6rem 2.85rem 0.6rem 1rem;
+}
+
+/* Category navigation pills in RTL */
+[dir="rtl"] .cat-nav-inner {
+  direction: rtl;
+}
+
+/* Hero section layout in RTL */
+[dir="rtl"] .hero-grid {
+  direction: rtl;
+}
+
+[dir="rtl"] .hero-point i {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+/* Section bar in RTL */
+[dir="rtl"] .section-bar {
+  direction: rtl;
+}
+
+[dir="rtl"] .section-bar h2 {
+  gap: 0.65rem;
+}
+
+/* Hub tool cards in RTL */
+[dir="rtl"] .hub-card {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .hub-card .hub-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-right: auto;
+  margin-left: 0;
+  transition: gap 0.18s ease;
+}
+
+[dir="rtl"] .hub-card:hover .hub-card-link {
+  gap: 0.65rem;
+}
+
+/* Site header & footer */
+[dir="rtl"] .site-header .header-inner,
+[dir="rtl"] .site-footer .footer-inner {
+  direction: rtl;
+}
+
+[dir="rtl"] .footer-links {
+  direction: rtl;
+}
+

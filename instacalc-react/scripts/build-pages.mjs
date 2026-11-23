@@ -325,6 +325,47 @@ if (existsSync(join(LEGACY, "images"))) {
   }
 }
 
+// --- Arabic edition -------------------------------------------------------
+// The Arabic pages are a standalone static edition, not part of the React SEO
+// dataset. Copy the whole folder and the root assets it loads into dist so
+// GitHub Pages serves /ar/ instead of its 404 document.
+function copyDirRecursive(src, dest) {
+  mkdirSync(dest, { recursive: true });
+  for (const entry of readdirSync(src)) {
+    const from = join(src, entry);
+    const to = join(dest, entry);
+    if (statSync(from).isDirectory()) copyDirRecursive(from, to);
+    else copyFileSync(from, to);
+  }
+}
+
+const AR_DIR = join(LEGACY, "ar");
+if (!existsSync(AR_DIR)) {
+  console.error("[build-pages] ERROR: ../ar is missing. The Arabic edition must be tracked in git so the Pages build can include it.");
+  process.exit(1);
+}
+copyDirRecursive(AR_DIR, join(DIST, "ar"));
+console.log("[build-pages] copied Arabic edition -> dist/ar");
+
+const ARABIC_ROOT_ASSETS = [
+  "ar-engines.js",
+  "ar-tafqeet.js",
+  "instacalc-core.css",
+  "instacalc-rtl.css",
+  "currency-manager.js",
+  "language-dialog.js",
+  "fullscreen-mode.js",
+];
+const missingArabicAssets = ARABIC_ROOT_ASSETS.filter((f) => !existsSync(join(LEGACY, f)));
+if (missingArabicAssets.length > 0) {
+  console.error(`[build-pages] ERROR: missing Arabic assets: ${missingArabicAssets.join(", ")}`);
+  process.exit(1);
+}
+for (const f of ARABIC_ROOT_ASSETS) {
+  copyFileSync(join(LEGACY, f), join(DIST, f));
+}
+console.log(`[build-pages] copied ${ARABIC_ROOT_ASSETS.length} Arabic root assets`);
+
 // 404 for GitHub Pages.
 //
 // This used to be a byte-for-byte copy of index.html, which shipped the

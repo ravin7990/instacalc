@@ -18,7 +18,7 @@ interface DeletionFormData {
  * Conforms to Google Play Developer Account & Data Deletion policy requirements:
  * Provides clear information on data collected, steps to request deletion,
  * what data is purged vs retained, and a secure form to request deletion with
- * an application selector dropdown (Age Calculator, LaborBook Pro, Expense Manager).
+ * an application selector dropdown (Age Calculator, LaborBook Pro, Expense Manager, Drawing Viewer (Self Drive)).
  *
  * Connected service: Formspree (endpoint: https://formspree.io/f/mjgppjjz)
  */
@@ -134,8 +134,8 @@ export default function DeleteAccountPage({ seo }: { seo: SeoRecord }) {
               </h1>
               <p>
                 {isJa
-                  ? "Life Hack Developerが提供するモバイルアプリ（Age Calculator、LaborBook Pro、Expense Manager）をご利用のユーザー様は、本フォームからアカウントおよび保存データの完全削除をいつでも申請できます。"
-                  : "Users who have signed in to our mobile applications (such as Age Calculator, LaborBook Pro, or Expense Manager) via Google Sign-In (OAuth) or direct accounts can request permanent deletion of their profile and associated data at any time."}
+                  ? "Life Hack Developerが提供するモバイルアプリ（Age Calculator、LaborBook Pro、Expense Manager、Drawing Viewer (Self Drive)）をご利用のユーザー様は、本フォームからアカウントおよび保存データの完全削除をいつでも申請できます。"
+                  : "Users who have signed in to our mobile applications (such as Age Calculator, LaborBook Pro, Expense Manager, or Drawing Viewer (Self Drive)) via Google Sign-In (OAuth) or direct accounts can request permanent deletion of their profile and associated data at any time."}
               </p>
               <div className="hero-actions">
                 <a className="btn btn-primary" href={localeHome(seo.locale)}>
@@ -220,8 +220,8 @@ export default function DeleteAccountPage({ seo }: { seo: SeoRecord }) {
             <ul>
               <li>
                 {isJa
-                  ? "下記の申請フォームで、データ削除を希望するアプリ（Age Calculator、LaborBook Pro、Expense Manager）を選択してください。"
-                  : "Select the specific app you want data deleted from (Age Calculator, LaborBook Pro, or Expense Manager) in the dropdown below."}
+                  ? "下記の申請フォームで、データ削除を希望するアプリ（Age Calculator、LaborBook Pro、Expense Manager、Drawing Viewer (Self Drive)）を選択してください。"
+                  : "Select the specific app you want data deleted from (Age Calculator, LaborBook Pro, Expense Manager, or Drawing Viewer (Self Drive)) in the dropdown below."}
               </li>
               <li>
                 {isJa
@@ -365,6 +365,9 @@ export default function DeleteAccountPage({ seo }: { seo: SeoRecord }) {
                       </option>
                       <option value="Expense Manager">
                         {isJa ? "家計簿・支出管理 (Expense Manager App)" : "Expense Manager App"}
+                      </option>
+                      <option value="Drawing Viewer (Self Drive)">
+                        Drawing Viewer (Self Drive)
                       </option>
                     </select>
                     <small style={{ color: "var(--ic-text-muted)", fontSize: "0.8rem", marginTop: "0.2rem" }}>

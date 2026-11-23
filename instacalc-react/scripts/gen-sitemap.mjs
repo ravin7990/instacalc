@@ -110,6 +110,8 @@ for (const loc of locales) {
 const indexSitemaps = [
   `${ORIGIN}/sitemap.xml`,
   ...locales.map((l) => `${ORIGIN}/${l}/sitemap.xml`),
+  // The Arabic edition ships its own sitemap, copied by build-pages.mjs.
+  ...(existsSync(join(DIST, "ar", "sitemap.xml")) ? [`${ORIGIN}/ar/sitemap.xml`] : []),
 ];
 const sitemapIndexXml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

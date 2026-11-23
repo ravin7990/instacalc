@@ -10,7 +10,7 @@
   function getRootPrefix() {
     var path = window.location.pathname.replace(/\\/g, '/');
     if (path.indexOf('/ko/moretools/') !== -1) return '../../';
-    if (path.indexOf('/ja/') !== -1 || path.indexOf('/ru/') !== -1 || path.indexOf('/us/') !== -1 ||
+    if (path.indexOf('/ja/') !== -1 || path.indexOf('/ru/') !== -1 || path.indexOf('/us/') !== -1 || path.indexOf('/ar/') !== -1 ||
         path.indexOf('/duration/') !== -1 || path.indexOf('/moretools/') !== -1 || path.indexOf('/ko/') !== -1) {
       return '../';
     }
@@ -26,9 +26,10 @@
     if (path.indexOf('/ru/') !== -1) return 'ru';
     if (path.indexOf('/us/') !== -1) return 'us';
     if (path.indexOf('/ko/') !== -1) return 'ko';
+    if (path.indexOf('/ar/') !== -1) return 'ar';
     
     var saved = localStorage.getItem('user_lang');
-    if (saved === 'ja' || saved === 'ru' || saved === 'us' || saved === 'ko') return saved;
+    if (saved === 'ja' || saved === 'ru' || saved === 'us' || saved === 'ko' || saved === 'ar') return saved;
     return 'in';
   }
 
@@ -95,6 +96,18 @@
       desc: '만 나이, 삼각법, 콘크리트, 대각선 및 날짜 시간 유틸리티 계산기',
       folder: 'ko/moretools/',
       homeFile: 'ko/moretools/trignometrycalculator.html'
+    },
+    {
+      code: 'ar',
+      storageCode: 'ar',
+      flag: '🇸🇦',
+      shortLabel: 'العربية',
+      name: 'العربية (Arabic)',
+      nativeName: 'العربية · الخليج والشرق الأوسط (ر.س SAR)',
+      badge: 'النسخة العربية',
+      desc: 'حاسبات مكافأة نهاية الخدمة، الرواتب والتأمينات، التمويل الإسلامي، الزكاة، الضريبة، والعمر بالهجري',
+      folder: 'ar/',
+      homeFile: 'ar/index.html'
     }
   ];
 
@@ -181,6 +194,31 @@
         return rootPrefix + 'ko/moretools/' + currentFilename;
       }
       return rootPrefix + 'ko/moretools/trignometrycalculator.html';
+    }
+
+    if (target.code === 'ar') {
+      var rootToArMap = {
+        'index.html': 'index.html',
+        'gratuitycalculator.html': 'end-of-service-calculator.html',
+        'emicalculator.html': 'mortgage-calculator.html',
+        'mortgage-calculator.html': 'mortgage-calculator.html',
+        'gstcalculator.html': 'vat-calculator.html',
+        'sales-tax-calculator.html': 'vat-calculator.html',
+        'agecalculator.html': 'hijri-age-calculator.html',
+        'age-calculator.html': 'hijri-age-calculator.html',
+        'compoundinterest.html': 'compound-profit-calculator.html',
+        'compound-interest-calculator.html': 'compound-profit-calculator.html',
+        'concretecalculator.html': 'concrete-calculator.html',
+        'concrete-calculator.html': 'concrete-calculator.html',
+        'diagonalcalculator.html': 'diagonal-calculator.html',
+        'diagonal-calculator.html': 'diagonal-calculator.html',
+        'trignometrycalculator.html': 'triangle-calculator.html',
+        'triangle-calculator.html': 'triangle-calculator.html'
+      };
+      if (rootToArMap[currentFilename]) {
+        return rootPrefix + 'ar/' + rootToArMap[currentFilename];
+      }
+      return rootPrefix + 'ar/index.html';
     }
 
     return rootPrefix + target.homeFile;

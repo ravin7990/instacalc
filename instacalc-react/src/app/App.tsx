@@ -41,7 +41,7 @@ export default function App({ path }: { path: string }) {
   useEffect(() => {
     if (seo.description === "" || seo.jsonLd.length === 0 || !getSeo(path)) {
       import("@/data/seo.generated.json").then((mod) => {
-        const pages = mod.default.pages as Record<string, SeoRecord>;
+        const pages = mod.default.pages as unknown as Record<string, SeoRecord>;
         const cleanPath = path.endsWith("/index.html") ? path.slice(0, -"index.html".length) : path;
         for (const p of Object.values(pages)) {
           if (p.path === cleanPath || p.path === path) {

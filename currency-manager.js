@@ -3,15 +3,17 @@
   
   const CURRENCY_SYMBOLS = {
     INR: '₹', USD: '$', EUR: '€', GBP: '£', JPY: '¥', CAD: 'C$', AUD: 'A$',
-    AED: 'AED', SGD: 'S$', CHF: 'CHF', CNY: '¥', KRW: '₩', RUB: '₽',
-    BRL: 'R$', SAR: 'SAR', MXN: 'Mex$', NZD: 'NZ$', THB: '฿', IDR: 'Rp', TRY: '₺'
+    AED: 'د.إ', SGD: 'S$', CHF: 'CHF', CNY: '¥', KRW: '₩', RUB: '₽',
+    BRL: 'R$', SAR: 'ر.س', MXN: 'Mex$', NZD: 'NZ$', THB: '฿', IDR: 'Rp', TRY: '₺',
+    KWD: 'د.ك', QAR: 'ر.ق', BHD: 'د.ب', OMR: 'ر.ع', EGP: 'ج.م'
   };
 
   const CURRENCY_LOCALES = {
     INR: 'en-IN', USD: 'en-US', EUR: 'de-DE', GBP: 'en-GB', JPY: 'ja-JP',
-    CAD: 'en-CA', AUD: 'en-AU', AED: 'en-AE', SGD: 'en-SG', CHF: 'de-CH',
-    CNY: 'zh-CN', KRW: 'ko-KR', RUB: 'ru-RU', BRL: 'pt-BR', SAR: 'en-SA',
-    MXN: 'es-MX', NZD: 'en-NZ', THB: 'th-TH', IDR: 'id-ID', TRY: 'tr-TR'
+    CAD: 'en-CA', AUD: 'en-AU', AED: 'ar-AE', SGD: 'en-SG', CHF: 'de-CH',
+    CNY: 'zh-CN', KRW: 'ko-KR', RUB: 'ru-RU', BRL: 'pt-BR', SAR: 'ar-SA',
+    MXN: 'es-MX', NZD: 'en-NZ', THB: 'th-TH', IDR: 'id-ID', TRY: 'tr-TR',
+    KWD: 'ar-KW', QAR: 'ar-QA', BHD: 'ar-BH', OMR: 'ar-OM', EGP: 'ar-EG'
   };
 
   const COUNTRY_TO_CURRENCY = {
@@ -20,6 +22,7 @@
     SG: 'SGD', CH: 'CHF', LI: 'CHF', CN: 'CNY', KR: 'KRW',
     RU: 'RUB', BY: 'RUB', BR: 'BRL', SA: 'SAR', MX: 'MXN',
     NZ: 'NZD', TH: 'THB', ID: 'IDR', TR: 'TRY',
+    KW: 'KWD', QA: 'QAR', BH: 'BHD', OM: 'OMR', EG: 'EGP',
     ES: 'EUR', DE: 'EUR', FR: 'EUR', IT: 'EUR', NL: 'EUR',
     BE: 'EUR', AT: 'EUR', IE: 'EUR', PT: 'EUR', FI: 'EUR',
     GR: 'EUR', CY: 'EUR', EE: 'EUR', LV: 'EUR', LT: 'EUR',
@@ -55,8 +58,13 @@
         if (/Madrid|Canary|Berlin|Paris|Rome|Amsterdam|Brussels|Vienna|Dublin|Lisbon|Helsinki|Athens/i.test(tz)) return 'EUR';
         if (/Toronto|Vancouver|Montreal|Edmonton/i.test(tz)) return 'CAD';
         if (/Sydney|Melbourne|Brisbane|Perth|Adelaide/i.test(tz)) return 'AUD';
-        if (/Dubai/i.test(tz)) return 'AED';
-        if (/Riyadh/i.test(tz)) return 'SAR';
+        if (/Dubai|Abu_Dhabi/i.test(tz)) return 'AED';
+        if (/Riyadh|Jeddah/i.test(tz)) return 'SAR';
+        if (/Kuwait/i.test(tz)) return 'KWD';
+        if (/Qatar/i.test(tz)) return 'QAR';
+        if (/Bahrain/i.test(tz)) return 'BHD';
+        if (/Muscat/i.test(tz)) return 'OMR';
+        if (/Cairo/i.test(tz)) return 'EGP';
         if (/Singapore/i.test(tz)) return 'SGD';
         if (/Zurich/i.test(tz)) return 'CHF';
         if (/Shanghai|Urumqi|Beijing/i.test(tz)) return 'CNY';
@@ -105,6 +113,10 @@
     defaultLocale = 'ru-RU';
     defaultCurrency = 'RUB';
     defaultSymbol = '₽';
+  } else if (path.includes('/ar/')) {
+    defaultLocale = 'ar-SA';
+    defaultCurrency = 'SAR';
+    defaultSymbol = 'ر.س';
   } else if (path.includes('/es/')) {
     defaultLocale = 'es-ES';
     defaultCurrency = 'EUR';
@@ -204,6 +216,11 @@
         if (abs >= 1000000000) return sign + (abs / 1000000000).toFixed(1) + " млрд ₽";
         if (abs >= 1000000) return sign + (abs / 1000000).toFixed(1) + " млн ₽";
         if (abs >= 1000) return sign + (abs / 1000).toFixed(0) + " тыс. ₽";
+      } else if (currency === 'SAR' || currency === 'AED' || currency === 'QAR' || currency === 'EGP') {
+        const curName = currency === 'SAR' ? 'ر.س' : currency === 'AED' ? 'د.إ' : currency === 'QAR' ? 'ر.ق' : 'ج.م';
+        if (abs >= 1000000000) return sign + (abs / 1000000000).toFixed(1) + " مليار " + curName;
+        if (abs >= 1000000) return sign + (abs / 1000000).toFixed(1) + " مليون " + curName;
+        if (abs >= 1000) return sign + (abs / 1000).toFixed(0) + " ألف " + curName;
       }
       return sign + this.formatCurrency(abs);
     },
@@ -225,6 +242,11 @@
         if (abs >= 1000000000) return sign + (abs / 1000000000).toFixed(1) + " млрд ₽";
         if (abs >= 1000000) return sign + (abs / 1000000).toFixed(1) + " млн ₽";
         if (abs >= 1000) return sign + (abs / 1000).toFixed(0) + " тыс. ₽";
+      } else if (currency === 'SAR' || currency === 'AED' || currency === 'QAR' || currency === 'EGP') {
+        const curName = currency === 'SAR' ? 'ر.س' : currency === 'AED' ? 'د.إ' : currency === 'QAR' ? 'ر.ق' : 'ج.م';
+        if (abs >= 1000000000) return sign + (abs / 1000000000).toFixed(1) + " مليار " + curName;
+        if (abs >= 1000000) return sign + (abs / 1000000).toFixed(1) + " مليون " + curName;
+        if (abs >= 1000) return sign + (abs / 1000).toFixed(0) + " ألف " + curName;
       } else {
         if (abs >= 1e9) return sign + symbol + (abs / 1e9).toFixed(1) + "B";
         if (abs >= 1e6) return sign + symbol + (abs / 1e6).toFixed(1) + "M";
