@@ -431,10 +431,10 @@ export default function DeleteAccountPage({ seo }: { seo: SeoRecord }) {
                         {isJa ? "今日のみことば (Bible Verse of the Day)" : "Bible Verse of the Day"}
                       </option>
                     </select>
-                    <small style={{ color: "var(--ic-text-muted)", fontSize: "0.8rem", marginTop: "0.2rem" }}>
+                    <small style={{ color: "var(--ic-text-muted)", fontSize: "0.8rem", marginTop: "0.2rem", display: "block" }}>
                       {isJa
-                        ? "データを削除したい対象のアプリを選択してください。"
-                        : "Select which application contains the account or records you wish to purge."}
+                        ? "データを削除したい対象のアプリを選択してください。（今日のみことばアプリ専用の削除ページは delete-account-verse.html をご利用いただけます）"
+                        : "Select which application contains the account or records you wish to purge. (A dedicated portal is also available at delete-account-verse.html)"}
                     </small>
                   </div>
 

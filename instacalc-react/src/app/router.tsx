@@ -198,7 +198,7 @@ export const ROUTES: RouteDef[] = [
   { path: "/coumpoundinterest.html", locale: "en", load: () => import("@/pages/DuplicateRedirect"), implemented: true },
   { path: "/moretools/coumpoundinterest.html", locale: "en", load: () => import("@/pages/DuplicateRedirect"), implemented: true },
   { path: "/cargcalculator.html", locale: "en", load: () => import("@/pages/DuplicateRedirect"), implemented: true },
-  { path: "/delete-account-verse.html", locale: "en", load: () => import("@/pages/DuplicateRedirect"), implemented: true },
+  { path: "/delete-account-verse.html", locale: "en", load: () => import("@/pages/BibleVerseDeletePage"), implemented: true },
   { path: "/deleteaccountverse.html", locale: "en", load: () => import("@/pages/DuplicateRedirect"), implemented: true },
 
   // The 404 document. GitHub Pages serves this file for any unmatched URL, so

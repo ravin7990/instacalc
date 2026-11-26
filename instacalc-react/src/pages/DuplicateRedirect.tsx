@@ -70,6 +70,5 @@ const DUPLICATE_TARGETS: Record<string, string> = {
   "/coumpoundinterest.html": "compoundinterest.html",
   "/moretools/coumpoundinterest.html": "compoundinterest.html",
   "/cargcalculator.html": "cagrcalculator.html",
-  "/delete-account-verse.html": "delete-account.html",
-  "/deleteaccountverse.html": "delete-account.html",
+  "/deleteaccountverse.html": "delete-account-verse.html",
 };

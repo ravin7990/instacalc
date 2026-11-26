@@ -172,7 +172,6 @@ function buildHead(page, css, entry, body, opts = {}) {
     "coumpoundinterest.html",
     "moretools/coumpoundinterest.html",
     "cargcalculator.html",
-    "delete-account-verse.html",
     "deleteaccountverse.html",
   ]);
   const robots = opts.noindex

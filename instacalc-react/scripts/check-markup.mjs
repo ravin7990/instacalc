@@ -53,7 +53,7 @@ const IMPLEMENTED = new Set([
 
   // Prose pages
   "/aboutus.html", "/contactus.html", "/privacypolicy.html", "/terms.html",
-  "/delete-account.html",
+  "/delete-account.html", "/delete-account-verse.html",
   "/ja/aboutus.html", "/ja/contactus.html", "/ja/privacypolicy.html",
   "/ru/aboutus.html", "/ru/contactus.html", "/ru/privacypolicy.html",
 
@@ -126,7 +126,7 @@ const IMPLEMENTED = new Set([
 
   // Duplicate URLs that serve a redirect notice rather than a tool
   "/coumpoundinterest.html", "/moretools/coumpoundinterest.html",
-  "/cargcalculator.html", "/delete-account-verse.html", "/deleteaccountverse.html",
+  "/cargcalculator.html", "/deleteaccountverse.html",
 ]);
 
 /** Prose pages render a document outline rather than a calculator. */
@@ -184,7 +184,7 @@ for (const page of Object.values(seo.pages)) {
   const isHome = page.path === "/" || /^\/[a-z]{2}\/$/.test(page.path);
   const isProse = PROSE_PAGES.test(page.path);
   // Near-duplicate URLs render a redirect notice, not a calculator.
-  const isDuplicate = /coumpoundinterest|cargcalculator|delete-account-verse|deleteaccountverse/.test(
+  const isDuplicate = /coumpoundinterest|cargcalculator|deleteaccountverse/.test(
     page.path,
   );
 
