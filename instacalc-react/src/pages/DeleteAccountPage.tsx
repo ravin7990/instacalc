@@ -157,10 +157,24 @@ export default function DeleteAccountPage({ seo }: { seo: SeoRecord }) {
                   ? "アカウントおよびデータの削除リクエスト"
                   : "Account & Data Deletion Request"}
               </h1>
+              <div
+                style={{
+                  color: "var(--ic-primary-dark)",
+                  fontWeight: 700,
+                  fontSize: "0.95rem",
+                  marginBottom: "0.75rem",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.04em",
+                }}
+              >
+                {isJa
+                  ? "開発者: Life Hack Developer（Google Playストア）"
+                  : "Developer: Life Hack Developer (Google Play Store)"}
+              </div>
               <p>
                 {isJa
                   ? "Life Hack Developerが提供するモバイルアプリ（Age Calculator、LaborBook Pro、Expense Manager、Drawing Viewer (Self Drive)、今日のみことば / Bible Verse of the Day）をご利用のユーザー様は、本フォームからアカウントおよび保存データの完全削除をいつでも申請できます。"
-                  : "Users who have signed in to our mobile applications (such as Age Calculator, LaborBook Pro, Expense Manager, Drawing Viewer (Self Drive), or Bible Verse of the Day) via Google Sign-In (OAuth) or direct accounts can request permanent deletion of their profile and associated data at any time."}
+                  : "Users who have signed in to mobile applications published by Life Hack Developer (such as Age Calculator, LaborBook Pro, Expense Manager, Drawing Viewer (Self Drive), or Bible Verse of the Day) via Google Sign-In (OAuth) or direct accounts can request permanent deletion of their profile and associated data at any time."}
               </p>
               <div className="hero-actions">
                 <a className="btn btn-primary" href={localeHome(seo.locale)}>
@@ -179,8 +193,8 @@ export default function DeleteAccountPage({ seo }: { seo: SeoRecord }) {
           <div className="container prose">
             <p className="lead">
               {isJa
-                ? "当社はGoogle Playデベロッパーポリシーおよび各国のデータ保護法を遵守し、ユーザーの皆様が自らの個人情報とアプリデータを完全に管理できる権利を保障しています。"
-                : "In accordance with Google Play Developer Policies and data protection regulations, we provide our users with complete control and transparency over their personal information and stored application records."}
+                ? "Life Hack DeveloperはGoogle Playデベロッパーポリシーおよび各国のデータ保護法を遵守し、ユーザーの皆様が自らの個人情報とアプリデータを完全に管理できる権利を保障しています。"
+                : "In accordance with Google Play Developer Policies and data protection regulations, Life Hack Developer provides users with complete control and transparency over their personal information and stored application records."}
             </p>
 
             <h2>{isJa ? "収集するデータについて" : "What data we collect"}</h2>
@@ -320,10 +334,29 @@ export default function DeleteAccountPage({ seo }: { seo: SeoRecord }) {
               <h2>
                 {isJa ? "削除申請フォーム" : "Submit Deletion Request"}
               </h2>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.6rem",
+                  padding: "0.75rem 1rem",
+                  background: "var(--ic-primary-light)",
+                  borderRadius: "var(--ic-radius-sm)",
+                  marginBottom: "1.25rem",
+                  border: "1px solid rgba(2, 132, 199, 0.25)",
+                }}
+              >
+                <div style={{ fontSize: "0.9rem", color: "var(--ic-primary-dark)", lineHeight: 1.45 }}>
+                  <strong>{isJa ? "対象開発者: " : "Developer: "}</strong>
+                  <span style={{ fontWeight: 700 }}>Life Hack Developer</span>
+                  <span style={{ margin: "0 0.5rem", opacity: 0.6 }}>•</span>
+                  <span>{isJa ? "Google Play 公認デベロッパー" : "Google Play Store Developer"}</span>
+                </div>
+              </div>
               <p style={{ color: "var(--ic-text-muted)", marginBottom: "1.5rem" }}>
                 {isJa
-                  ? "以下の項目に入力し、送信ボタンを押してください。当社の担当者が迅速に処理いたします。"
-                  : "Please complete the form below to initiate the permanent deletion of your app account and associated records."}
+                  ? "以下の項目に入力し、送信ボタンを押してください。Life Hack Developerの担当チームが迅速に処理いたします。"
+                  : "Please complete the form below to initiate the permanent deletion of your app account and associated records by Life Hack Developer."}
               </p>
 
               {submitted ? (
