@@ -279,7 +279,7 @@
             <span class="subheading">Life Hack Developer – instacalc.in</span>
 
             <p>
-                Users who have signed in to our applications (such as our <strong>Age Calculator</strong>, <strong>LaborBook Pro</strong>, <strong>Expense Manager</strong>, or <strong>Drawing Viewer (Self Drive)</strong>) via Google
+                Users who have signed in to our applications (such as our <strong>Age Calculator</strong>, <strong>LaborBook Pro</strong>, <strong>Expense Manager</strong>, <strong>Drawing Viewer (Self Drive)</strong>, or <strong>Bible Verse of the Day</strong>) via Google
                 Sign-In (OAuth) or a direct account can request the permanent deletion of their profile and all
                 associated data at any time.
             </p>
@@ -345,6 +345,7 @@
                         <option value="LaborBook Pro">LaborBook Pro</option>
                         <option value="Expense Manager">Expense Manager App</option>
                         <option value="Drawing Viewer (Self Drive)">Drawing Viewer (Self Drive)</option>
+                        <option value="Bible Verse of the Day">Bible Verse of the Day</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -402,6 +403,20 @@
       const successDetails = document.getElementById("successDetails");
       const formError = document.getElementById("formError");
       const resetBtn = document.getElementById("resetBtn");
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const appParam = urlParams.get("app");
+      if (appParam) {
+        const appSelect = document.getElementById("app_name");
+        if (appSelect) {
+          for (let i = 0; i < appSelect.options.length; i++) {
+            if (appSelect.options[i].value.toLowerCase().includes(appParam.toLowerCase()) || appParam.toLowerCase().includes(appSelect.options[i].value.toLowerCase())) {
+              appSelect.selectedIndex = i;
+              break;
+            }
+          }
+        }
+      }
 
       if (deleteForm) {
         deleteForm.addEventListener("submit", async function (e) {

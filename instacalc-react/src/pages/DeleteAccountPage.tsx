@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { SeoRecord } from "@/data/seo-types";
 import { Layout, localeHome } from "@/components/layout/Layout";
 import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
@@ -18,7 +18,8 @@ interface DeletionFormData {
  * Conforms to Google Play Developer Account & Data Deletion policy requirements:
  * Provides clear information on data collected, steps to request deletion,
  * what data is purged vs retained, and a secure form to request deletion with
- * an application selector dropdown (Age Calculator, LaborBook Pro, Expense Manager, Drawing Viewer (Self Drive)).
+ * an application selector dropdown (Age Calculator, LaborBook Pro, Expense Manager,
+ * Drawing Viewer (Self Drive), Bible Verse of the Day).
  *
  * Connected service: Formspree (endpoint: https://formspree.io/f/mjgppjjz)
  */
@@ -34,6 +35,30 @@ export default function DeleteAccountPage({ seo }: { seo: SeoRecord }) {
     message: "",
     confirm: false,
   });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const appParam = params.get("app");
+      if (appParam) {
+        const apps = [
+          "Age Calculator",
+          "LaborBook Pro",
+          "Expense Manager",
+          "Drawing Viewer (Self Drive)",
+          "Bible Verse of the Day",
+        ];
+        const match = apps.find(
+          (a) =>
+            a.toLowerCase().includes(appParam.toLowerCase()) ||
+            appParam.toLowerCase().includes(a.toLowerCase())
+        );
+        if (match) {
+          setForm((prev) => ({ ...prev, appName: match }));
+        }
+      }
+    }
+  }, []);
 
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -134,8 +159,8 @@ export default function DeleteAccountPage({ seo }: { seo: SeoRecord }) {
               </h1>
               <p>
                 {isJa
-                  ? "Life Hack Developerが提供するモバイルアプリ（Age Calculator、LaborBook Pro、Expense Manager、Drawing Viewer (Self Drive)）をご利用のユーザー様は、本フォームからアカウントおよび保存データの完全削除をいつでも申請できます。"
-                  : "Users who have signed in to our mobile applications (such as Age Calculator, LaborBook Pro, Expense Manager, or Drawing Viewer (Self Drive)) via Google Sign-In (OAuth) or direct accounts can request permanent deletion of their profile and associated data at any time."}
+                  ? "Life Hack Developerが提供するモバイルアプリ（Age Calculator、LaborBook Pro、Expense Manager、Drawing Viewer (Self Drive)、今日のみことば / Bible Verse of the Day）をご利用のユーザー様は、本フォームからアカウントおよび保存データの完全削除をいつでも申請できます。"
+                  : "Users who have signed in to our mobile applications (such as Age Calculator, LaborBook Pro, Expense Manager, Drawing Viewer (Self Drive), or Bible Verse of the Day) via Google Sign-In (OAuth) or direct accounts can request permanent deletion of their profile and associated data at any time."}
               </p>
               <div className="hero-actions">
                 <a className="btn btn-primary" href={localeHome(seo.locale)}>
@@ -190,8 +215,8 @@ export default function DeleteAccountPage({ seo }: { seo: SeoRecord }) {
                     : "App-Specific Stored Data: "}
                 </strong>
                 {isJa
-                  ? "Age Calculator の保存日付・イベント、LaborBook Pro の出勤・労務記録、Expense Manager の収支・取引記録など。"
-                  : "Saved birthdates & celebration reminders (Age Calculator), labor records & attendance logs (LaborBook Pro), income/expense ledger transactions (Expense Manager)."}
+                  ? "Age Calculator の保存日付・イベント、LaborBook Pro の出勤・労務記録、Expense Manager の収支・取引記録、Bible Verse of the Day のお気に入り・祈りリマインダーなど。"
+                  : "Saved birthdates & celebration reminders (Age Calculator), labor records & attendance logs (LaborBook Pro), income/expense ledger transactions (Expense Manager), favorite verses & prayer notification preferences (Bible Verse of the Day)."}
               </li>
               <li>
                 <strong>
@@ -220,8 +245,8 @@ export default function DeleteAccountPage({ seo }: { seo: SeoRecord }) {
             <ul>
               <li>
                 {isJa
-                  ? "下記の申請フォームで、データ削除を希望するアプリ（Age Calculator、LaborBook Pro、Expense Manager、Drawing Viewer (Self Drive)）を選択してください。"
-                  : "Select the specific app you want data deleted from (Age Calculator, LaborBook Pro, Expense Manager, or Drawing Viewer (Self Drive)) in the dropdown below."}
+                  ? "下記の申請フォームで、データ削除を希望するアプリ（Age Calculator、LaborBook Pro、Expense Manager、Drawing Viewer (Self Drive)、今日のみことば / Bible Verse of the Day）を選択してください。"
+                  : "Select the specific app you want data deleted from (Age Calculator, LaborBook Pro, Expense Manager, Drawing Viewer (Self Drive), or Bible Verse of the Day) in the dropdown below."}
               </li>
               <li>
                 {isJa
@@ -368,6 +393,9 @@ export default function DeleteAccountPage({ seo }: { seo: SeoRecord }) {
                       </option>
                       <option value="Drawing Viewer (Self Drive)">
                         Drawing Viewer (Self Drive)
+                      </option>
+                      <option value="Bible Verse of the Day">
+                        {isJa ? "今日のみことば (Bible Verse of the Day)" : "Bible Verse of the Day"}
                       </option>
                     </select>
                     <small style={{ color: "var(--ic-text-muted)", fontSize: "0.8rem", marginTop: "0.2rem" }}>
