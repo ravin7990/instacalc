@@ -50,6 +50,7 @@ export function SiteFooter({ locale, nav }: SiteFooterProps) {
           <a href="/ko/" hrefLang="ko-KR" onClick={() => trackNavClick("footer_region", "대한민국 (한국어)", "/ko/")}>🇰🇷 대한민국 (한국어)</a>
           <a href="/ru/" hrefLang="ru-RU" onClick={() => trackNavClick("footer_region", "Россия (Русский)", "/ru/")}>🇷🇺 Россия (Русский)</a>
           <a href="/es/" hrefLang="es" onClick={() => trackNavClick("footer_region", "Español", "/es/")}>🇪🇸 Español</a>
+          <a href="/ar/" hrefLang="ar" onClick={() => trackNavClick("footer_region", "العربية", "/ar/")}>🇸🇦 العربية</a>
         </div>
       </div>
       <div className="container footer-bottom">

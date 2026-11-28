@@ -94,7 +94,18 @@ export function SiteHeader({ locale, nav, homeHref, badge }: SiteHeaderProps) {
               id="langSelect"
               value={locale}
               onChange={(e) => {
-                const next = e.target.value as Locale;
+                const raw = e.target.value;
+                if (raw === "ar") {
+                  trackLanguageSwitch(locale, "ar");
+                  try {
+                    window.localStorage.setItem(LANG_STORAGE_KEY, "ar");
+                  } catch {
+                    /* private mode — navigation still works */
+                  }
+                  window.location.href = "/ar/";
+                  return;
+                }
+                const next = raw as Locale;
                 trackLanguageSwitch(locale, next);
                 try {
                   window.localStorage.setItem(LANG_STORAGE_KEY, next);
@@ -109,6 +120,7 @@ export function SiteHeader({ locale, nav, homeHref, badge }: SiteHeaderProps) {
                   {SWITCHER_LABEL[l]} · {LOCALE_META[l].label}
                 </option>
               ))}
+              <option value="ar">AR (AR) · العربية</option>
             </select>
             <Icon name="globe" size={16} />
           </div>

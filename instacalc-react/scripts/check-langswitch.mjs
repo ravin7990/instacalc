@@ -42,9 +42,9 @@ for (const [rel, base] of PAGES) {
     (m) => `${m[1]}=${m[2].trim()}`,
   );
   console.log(`   options (${options.length}): ${options.join(" | ")}`);
-  if (options.length !== 6) {
+  if (options.length !== 7) {
     failed = true;
-    console.error(`   ! expected 6 locale options, got ${options.length}`);
+    console.error(`   ! expected 7 locale options, got ${options.length}`);
   }
 
   // Every option must carry a globe-adjacent label, and the select needs a
