@@ -30,8 +30,17 @@ export default function ContentPage({ seo }: { seo: SeoRecord }) {
   }, [seo.path, page.blocks.length]);
 
   const activePage = contentPage.blocks.length > 0 ? contentPage : page;
-  // The hero H1 is already rendered by the hero block, so drop it from the body.
-  const blocks = activePage.blocks.filter((b) => !(b.type === "h" && b.level === 1));
+  // The hero H1 and lead paragraph are already rendered by the hero block, so drop them from the body.
+  const leadText = activePage.hero.lead?.trim() ?? "";
+  let droppedLead = false;
+  const blocks = activePage.blocks.filter((b) => {
+    if (b.type === "h" && b.level === 1) return false;
+    if (!droppedLead && leadText && b.type === "p" && b.text?.trim() === leadText) {
+      droppedLead = true;
+      return false;
+    }
+    return true;
+  });
 
   return (
     <>
@@ -65,6 +74,7 @@ export default function ContentPage({ seo }: { seo: SeoRecord }) {
             {blocks.map((block, i) => (
               <Block key={i} block={block} />
             ))}
+            {seo.path === "/aboutus.html" ? <AboutEditorialTrust /> : null}
           </div>
         </article>
 
@@ -95,4 +105,67 @@ function Block({ block }: { block: ContentBlock }) {
   }
 
   return <p>{block.text}</p>;
+}
+
+function AboutEditorialTrust() {
+  return (
+    <>
+      <h2>Editorial Methodology & Formula Verification</h2>
+      <p>
+        Financial, tax, and retirement calculators directly impact real-world decisions. Every
+        calculation engine on InstaCalc.in is built and unit-tested against published regulatory
+        standards and official banking formulas before release:
+      </p>
+      <ul>
+        <li>
+          <strong>Indian Tax & Statutory Schemes:</strong> Income Tax (Section 115BAC New & Old
+          Regimes), PPF, EPF, NPS, and Gratuity rules are cross-checked against notifications from
+          the{" "}
+          <a href="https://www.incometax.gov.in/" rel="noopener noreferrer" target="_blank">
+            Income Tax Department of India
+          </a>
+          ,{" "}
+          <a href="https://www.epfindia.gov.in/" rel="noopener noreferrer" target="_blank">
+            EPFO
+          </a>
+          , and{" "}
+          <a href="https://www.npscra.nsdl.co.in/" rel="noopener noreferrer" target="_blank">
+            PFRDA / NPS Trust
+          </a>
+          .
+        </li>
+        <li>
+          <strong>Banking, Loans & Mutual Funds:</strong> EMI reducing-balance amortization, FD/RD
+          quarterly compounding, and SIP future-value equations follow standard{" "}
+          <a href="https://www.rbi.org.in/" rel="noopener noreferrer" target="_blank">
+            Reserve Bank of India (RBI)
+          </a>{" "}
+          and{" "}
+          <a href="https://www.amfiindia.com/" rel="noopener noreferrer" target="_blank">
+            AMFI
+          </a>{" "}
+          conventions.
+        </li>
+        <li>
+          <strong>US, Japan, Korea, Spain & Arabic Editions:</strong> Regional calculators are
+          independently calibrated to local tax brackets, compounding norms, and statutory limits.
+        </li>
+      </ul>
+
+      <h2>Publisher & Editorial Independence</h2>
+      <p>
+        InstaCalc.in is independently developed and maintained by <strong>Ravin Kumar</strong> (Life
+        Hack Developer). We are not affiliated with any bank, mutual fund house, or lending
+        institution, and we never sell user leads or store personal financial inputs. All
+        computations execute locally in your browser.
+      </p>
+      <p>
+        We audit our tax slabs, interest rates, and statutory thresholds every fiscal year and
+        whenever central budgets announce policy changes. If you spot a formula discrepancy or want
+        to suggest an improvement, reach us directly via our{" "}
+        <a href="/contactus.html">Contact Us</a> page or email{" "}
+        <a href="mailto:developerravin@gmail.com">developerravin@gmail.com</a>.
+      </p>
+    </>
+  );
 }

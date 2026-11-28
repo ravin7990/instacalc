@@ -134,7 +134,7 @@ export default function BibleVerseDeletePage({ seo }: { seo: SeoRecord }) {
               <span className="eyebrow">
                 Google Play Store • Data Removal Request
               </span>
-              <h1>Bible Verse of the Day – Account &amp; Data Deletion Request</h1>
+              <h1>Bible Verse of the Day – Account & Data Deletion Request</h1>
               <div
                 style={{
                   display: "inline-flex",
@@ -182,25 +182,25 @@ export default function BibleVerseDeletePage({ seo }: { seo: SeoRecord }) {
               <strong>Bible Verse of the Day</strong> is developed and maintained by <strong>Life Hack Developer</strong>. We are committed to transparency and respecting your personal privacy. Whether you signed in using Google Sign-In (OAuth) or used local features, you have full ownership and control over your records. You can request irrevocable deletion of your profile, cloud sync data, and saved preferences at any time.
             </p>
 
-            <h2>What data we collect &amp; store</h2>
+            <h2>What data we collect & store</h2>
             <p>
               To provide daily scripture notifications, scripture bookmarks, and cross-device synchronization, Bible Verse of the Day may process and securely store the following data:
             </p>
             <ul>
               <li>
-                <strong>Google Profile Details (Name &amp; Email): </strong>
+                <strong>Google Profile Details (Name & Email): </strong>
                 Used strictly for user authentication when signing in through Google Sign-In (OAuth) to safely store and sync your devotional bookmarks across devices.
               </li>
               <li>
-                <strong>Saved Verses, Favorites &amp; Prayer Bookmarks: </strong>
+                <strong>Saved Verses, Favorites & Prayer Bookmarks: </strong>
                 Verses you have bookmarked, personal prayer notes, custom scripture reflections, and favorite collections.
               </li>
               <li>
-                <strong>Reading Progress &amp; Streaks: </strong>
+                <strong>Reading Progress & Streaks: </strong>
                 Daily scripture reading history, streak trackers, and scheduled daily notification preferences.
               </li>
               <li>
-                <strong>App Preferences &amp; Settings: </strong>
+                <strong>App Preferences & Settings: </strong>
                 Preferred Bible translation (such as KJV, NIV, ESV), typography choices, and dark/light display settings.
               </li>
               <li>
@@ -209,7 +209,7 @@ export default function BibleVerseDeletePage({ seo }: { seo: SeoRecord }) {
               </li>
             </ul>
 
-            <h2>How to request account &amp; data deletion</h2>
+            <h2>How to request account & data deletion</h2>
             <p>
               We provide multiple quick and secure ways to request data deletion:
             </p>
@@ -220,11 +220,11 @@ export default function BibleVerseDeletePage({ seo }: { seo: SeoRecord }) {
               </li>
               <li>
                 <strong>Direct Email to Developer: </strong>
-                Send an email from your registered account to <a href="mailto:developerravin@gmail.com">developerravin@gmail.com</a> with the subject line <em>&ldquo;Data Deletion Request - Bible Verse of the Day&rdquo;</em>.
+                Send an email from your registered account to <a href="mailto:developerravin@gmail.com">developerravin@gmail.com</a> with the subject line <em>“Data Deletion Request - Bible Verse of the Day”</em>.
               </li>
               <li>
                 <strong>In-App Deletion: </strong>
-                Open Bible Verse of the Day &gt; Settings &gt; Account &gt; tap &ldquo;Delete Account &amp; Data&rdquo;.
+                Open Bible Verse of the Day {' > '} Settings {' > '} Account {' > '} tap “Delete Account & Data”.
               </li>
             </ol>
 
@@ -243,7 +243,7 @@ export default function BibleVerseDeletePage({ seo }: { seo: SeoRecord }) {
               </li>
             </ul>
 
-            <h2>Processing Timeline &amp; SLA</h2>
+            <h2>Processing Timeline & SLA</h2>
             <p>
               All deletion requests for Bible Verse of the Day submitted through this page are prioritized by our engineering team:
             </p>
@@ -258,7 +258,7 @@ export default function BibleVerseDeletePage({ seo }: { seo: SeoRecord }) {
               </li>
               <li>
                 <strong>Clearing Local Data: </strong>
-                Uninstalling the app or tapping &ldquo;Clear App Data&rdquo; in your Android Device Settings immediately erases all locally cached offline verses and preferences from your device.
+                Uninstalling the app or tapping “Clear App Data” in your Android Device Settings immediately erases all locally cached offline verses and preferences from your device.
               </li>
             </ul>
           </div>
@@ -403,13 +403,13 @@ export default function BibleVerseDeletePage({ seo }: { seo: SeoRecord }) {
                       onChange={(e) => setForm({ ...form, requestType: e.target.value })}
                     >
                       <option value="Full Account & All Bible Verse Data (Permanent Purge)">
-                        Full Account &amp; All Associated Data (Permanent Purge)
+                        Full Account & All Associated Data (Permanent Purge)
                       </option>
                       <option value="Saved Verses, Notes & Highlights Only">
-                        Saved Verses, Notes &amp; Highlights Only (Keep Account Active)
+                        Saved Verses, Notes & Highlights Only (Keep Account Active)
                       </option>
                       <option value="Revoke Google Sign-in Access & Purge Profile">
-                        Revoke Google Sign-In Access &amp; Purge Profile
+                        Revoke Google Sign-In Access & Purge Profile
                       </option>
                     </select>
                   </div>

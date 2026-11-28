@@ -45,6 +45,10 @@ const DUPLICATE_SOURCES = new Set([
   "moretools/coumpoundinterest.html",
   "cargcalculator.html",
   "deleteaccountverse.html",
+  "delete-account.html",
+  "delete-account-verse.html",
+  "ja/delete-account.html",
+  "agecalculator.html",
   "404.html",
 ]);
 

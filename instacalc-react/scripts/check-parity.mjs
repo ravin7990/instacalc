@@ -107,9 +107,16 @@ const newXml = readFileSync(join(DIST, "sitemap.xml"), "utf8");
 const newLocs = new Set([...newXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]));
 
 // `/foo/index.html` and `/foo/` are the same URL.
+// Off-topic app deletion portals and duplicate agecalculator.html are intentionally noindexed.
+const INTENTIONALLY_EXCLUDED = new Set([
+  "delete-account.html",
+  "delete-account-verse.html",
+  "ja/delete-account.html",
+  "agecalculator.html",
+]);
 const norm = (u) => u.replace("https://instacalc.in/", "").replace(/index\.html$/, "");
 const newNorm = new Set([...newLocs].map(norm));
-const missing = legacyLocs.filter((l) => !newNorm.has(norm(l)));
+const missing = legacyLocs.filter((l) => !INTENTIONALLY_EXCLUDED.has(norm(l)) && !newNorm.has(norm(l)));
 
 console.log(`[check-parity] sitemap: ${legacyLocs.length} legacy URLs, ${newLocs.size} emitted`);
 if (missing.length) {

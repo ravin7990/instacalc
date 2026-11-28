@@ -12,6 +12,18 @@ import type { JsonLd as JsonLdType } from "@/seo/types";
  * The <head> tags themselves are emitted by the prerenderer template so they
  * exist before any JavaScript runs — this component does not duplicate them.
  */
+const NOINDEX_PATHS = new Set([
+  "/coumpoundinterest.html",
+  "/moretools/coumpoundinterest.html",
+  "/cargcalculator.html",
+  "/deleteaccountverse.html",
+  "/delete-account.html",
+  "/delete-account-verse.html",
+  "/ja/delete-account.html",
+  "/agecalculator.html",
+  "/404.html",
+]);
+
 export function SeoHead({
   seo,
   appCategory,
@@ -30,6 +42,7 @@ export function SeoHead({
     ogTitle: seo.ogTitle,
     themeColor: seo.themeColor,
     alternates: seo.alternates,
+    indexable: !NOINDEX_PATHS.has(seo.path),
   });
 
   // JSON-LD is static per build, so it is written once.

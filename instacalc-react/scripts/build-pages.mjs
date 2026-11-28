@@ -30,7 +30,7 @@ const pages = seo.pages;
 const content = JSON.parse(readFileSync(join(ROOT, "src", "data", "content.generated.json"), "utf8"));
 
 // Optional site verification codes for search engines (Bing, Google, Yandex, Naver)
-let verifications = { bing: "", google: "", yandex: "", naver: "instacalc-naver-verification" };
+let verifications = { bing: "", google: "", yandex: "", naver: "" };
 const verifFile = join(ROOT, "src", "data", "site-verification.json");
 if (existsSync(verifFile)) {
   try {
@@ -173,6 +173,10 @@ function buildHead(page, css, entry, body, opts = {}) {
     "moretools/coumpoundinterest.html",
     "cargcalculator.html",
     "deleteaccountverse.html",
+    "delete-account.html",
+    "delete-account-verse.html",
+    "ja/delete-account.html",
+    "agecalculator.html",
   ]);
   const robots = opts.noindex
     ? "noindex,follow"
@@ -208,7 +212,7 @@ function buildHead(page, css, entry, body, opts = {}) {
   const bingCode = process.env.BING_SITE_VERIFICATION || process.env.MSVALIDATE_01 || verifications.bing;
   const googleCode = process.env.GOOGLE_SITE_VERIFICATION || verifications.google;
   const yandexCode = process.env.YANDEX_SITE_VERIFICATION || verifications.yandex;
-  const naverCode = process.env.NAVER_SITE_VERIFICATION || verifications.naver || "instacalc-naver-verification";
+  const naverCode = process.env.NAVER_SITE_VERIFICATION || verifications.naver;
 
   const verificationTags = [
     bingCode ? `<meta name="msvalidate.01" content="${esc(bingCode)}">` : "",
