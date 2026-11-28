@@ -94,6 +94,9 @@ export function localeHome(locale: Locale): string {
 }
 
 import { CookieBanner } from "@/components/layout/CookieBanner";
+import { AdBanner, GlobalAdScripts } from "@/components/ads/AdUnits";
+import { usePageContext } from "@/app/PageContext";
+import { isAdAllowedPath } from "@/config/ads";
 
 export function Layout({
   locale,
@@ -106,6 +109,8 @@ export function Layout({
 }) {
   const t = ui(locale);
   const links = nav ?? buildNav(locale);
+  const pageCtx = usePageContext();
+  const showAds = isAdAllowedPath(pageCtx?.path);
   return (
     <>
       <a href="#main-content" className="skip-link">
@@ -117,10 +122,20 @@ export function Layout({
         homeHref={localeHome(locale)}
         badge={t.regionBadge[locale]}
       />
-      <main id="main-content">{children}</main>
+      <div className={showAds ? "page-ad-shell" : undefined}>
+        <main id="main-content" className={showAds ? "page-ad-main" : undefined}>
+          {children}
+        </main>
+        {showAds && (
+          <aside className="ad-rail-desktop" aria-label="Advertisement">
+            <AdBanner unit="banner160x600" minWidth={1200} />
+          </aside>
+        )}
+      </div>
       <SiteFooter locale={locale} nav={links} />
       <BackToTop label={t.backToTop} />
       <CookieBanner locale={locale} />
+      <GlobalAdScripts />
     </>
   );
 }

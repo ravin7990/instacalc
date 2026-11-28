@@ -26,6 +26,7 @@ import {
   type HistoryInputItem,
 } from "@/lib/calcHistory";
 import { RelatedCalculators } from "@/components/calculator/RelatedCalculators";
+import { AdBanner, NativeAdBanner, SmartLinkBanner } from "@/components/ads/AdUnits";
 import { useCurrency } from "@/app/CurrencyContext";
 import { SUPPORTED_CURRENCIES, getEffectiveCurrency } from "@/lib/currency";
 
@@ -1307,7 +1308,14 @@ export function CalculatorShell({
         </div>
 
         {!printBatchMode && (
-          <RelatedCalculators locale={locale} currentPath={path} />
+          <>
+            <div className="ad-stack">
+              <AdBanner unit="banner468x60" minWidth={768} className="ad-slot-banner-468" />
+              <NativeAdBanner className="ad-slot-native" />
+              <SmartLinkBanner className="ad-slot-smartlink" />
+            </div>
+            <RelatedCalculators locale={locale} currentPath={path} />
+          </>
         )}
       </div>
 

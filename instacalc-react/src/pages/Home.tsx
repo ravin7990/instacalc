@@ -4,6 +4,7 @@ import { Layout } from "@/components/layout/Layout";
 import { UnitConverter } from "@/components/home/UnitConverter";
 import { SeoHead, extractFaq } from "@/components/seo/SeoHead";
 import { FaqAccordion } from "@/components/calculator/FaqAccordion";
+import { AdBanner, NativeAdBanner, SmartLinkBanner } from "@/components/ads/AdUnits";
 import { toolGroups, prefix } from "@/data/tools";
 import { Icon } from "@/components/layout/SiteHeader";
 import { UsHomeArticle } from "@/components/articles/us/UsHomeArticle";
@@ -445,6 +446,14 @@ export default function Home({ seo }: { seo: SeoRecord }) {
                 )}
               </p>
             )}
+          </div>
+        </section>
+
+        <section className="section ad-home-section">
+          <div className="container ad-stack">
+            <AdBanner unit="banner468x60" minWidth={768} className="ad-slot-banner-468" />
+            <NativeAdBanner className="ad-slot-native" />
+            <SmartLinkBanner className="ad-slot-smartlink" />
           </div>
         </section>
 

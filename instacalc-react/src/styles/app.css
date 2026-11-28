@@ -3793,5 +3793,119 @@ img[width][height] {
   }
 }
 
+/* ------------------------------------------------------------------ Responsive Ad Units */
+.page-ad-shell {
+  width: 100%;
+}
+
+.page-ad-main {
+  min-width: 0;
+}
+
+.ad-rail-desktop {
+  display: none;
+}
+
+.ad-container {
+  margin-block: var(--ic-gap-md, 1rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.ad-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-block: 1.25rem;
+}
+
+.ad-slot-banner-468 {
+  display: none;
+}
+
+.ad-banner-frame {
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ad-native-slot {
+  display: block;
+}
+
+.ad-native-inner {
+  width: 100%;
+  min-height: 90px;
+}
+
+.ad-smartlink-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 1.1rem;
+  border-radius: var(--ic-radius-md, 12px);
+  border: 1px solid var(--ic-border, #e2e8f0);
+  background: var(--ic-card-bg, #ffffff);
+  color: var(--ic-text, #0f172a);
+  font-size: var(--ic-fs-sm, 0.875rem);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--ic-shadow-sm);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.ad-smartlink-card:hover,
+.ad-smartlink-card:focus-visible {
+  border-color: var(--ic-primary, #0284c7);
+  transform: translateY(-1px);
+}
+
+.ad-smartlink-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--ic-radius-full, 9999px);
+  background: var(--ic-primary-light, #e0f2fe);
+  color: var(--ic-primary-dark, #0369a1);
+}
+
+.ad-smartlink-arrow {
+  color: var(--ic-primary, #0284c7);
+}
+
+/* Tablet & Desktop: show 468x60 horizontal banner */
+@media (min-width: 768px) {
+  .ad-slot-banner-468 {
+    display: flex;
+  }
+}
+
+/* Wide Desktop: show sticky 160x600 right rail */
+@media (min-width: 1200px) {
+  .page-ad-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 176px;
+    align-items: start;
+    gap: 1rem;
+    max-width: 1440px;
+    margin-inline: auto;
+  }
+
+  .ad-rail-desktop {
+    display: block;
+    position: sticky;
+    top: 84px;
+    padding-top: 1.5rem;
+    padding-right: 0.75rem;
+  }
+}
+
+
 
 

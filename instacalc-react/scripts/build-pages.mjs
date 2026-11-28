@@ -199,15 +199,8 @@ function buildHead(page, css, entry, body, opts = {}) {
       ? "es"
       : "en";
 
-  const isNoAdPage =
-    opts.marker === "404" ||
-    opts.noindex ||
-    page.path === "/404.html" ||
-    /privacypolicy|terms|disclaimer|contactus|delete-account|aboutus/.test(page.path) ||
-    DUPLICATE_SOURCES.has(page.source);
-  const adsenseTag = isNoAdPage
-    ? ""
-    : '\n  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4943063856769784" crossorigin="anonymous"></script>';
+  // AdSense is disabled; monetization is handled by in-app ad units on non-excluded pages.
+  const adsenseTag = "";
 
   const bingCode = process.env.BING_SITE_VERIFICATION || process.env.MSVALIDATE_01 || verifications.bing;
   const googleCode = process.env.GOOGLE_SITE_VERIFICATION || verifications.google;
